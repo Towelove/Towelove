@@ -3,20 +3,14 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>towelove</artifactId>
+        <artifactId>towelove-common</artifactId>
         <groupId>com.twowaylove</groupId>
         <version>1.0</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>towelove-common</artifactId>
-    <packaging>pom</packaging>
-    <modules>
-        <module>towelove-common-security</module>
-        <module>towelove-common-core</module>
-        <module>towelove-common-swagger</module>
-        <module>towelove-common-log</module>
-    </modules>
+    <artifactId>towelove-common-log</artifactId>
+
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>

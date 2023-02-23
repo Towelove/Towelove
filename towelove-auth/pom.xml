@@ -9,23 +9,13 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>towelove-gateway</artifactId>
+    <artifactId>towelove-auth</artifactId>
 
-    <properties>
-        <maven.compiler.source>8</maven.compiler.source>
-        <maven.compiler.target>8</maven.compiler.target>
-    </properties>
     <description>
-        towelove-gateway网关模块
+        towelove-auth认证授权中心
     </description>
 
     <dependencies>
-
-        <!-- SpringCloud Gateway -->
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-gateway</artifactId>
-        </dependency>
 
         <!-- SpringCloud Alibaba Nacos -->
         <dependency>
@@ -45,16 +35,10 @@
             <artifactId>spring-cloud-starter-alibaba-sentinel</artifactId>
         </dependency>
 
-        <!-- SpringCloud Alibaba Sentinel Gateway -->
+        <!-- SpringBoot Web -->
         <dependency>
-            <groupId>com.alibaba.cloud</groupId>
-            <artifactId>spring-cloud-alibaba-sentinel-gateway</artifactId>
-        </dependency>
-
-        <!-- Sentinel Datasource Nacos -->
-        <dependency>
-            <groupId>com.alibaba.csp</groupId>
-            <artifactId>sentinel-datasource-nacos</artifactId>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
         <!-- SpringBoot Actuator -->
@@ -63,36 +47,11 @@
             <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
 
-        <!-- SpringCloud Loadbalancer -->
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-loadbalancer</artifactId>
-        </dependency>
-
-        <!--验证码 -->
-        <dependency>
-            <groupId>pro.fessional</groupId>
-            <artifactId>kaptcha</artifactId>
-        </dependency>
-
-        <!-- towelove Common Redis-->
-
+        <!-- towelove Common Security-->
 <!--        <dependency>-->
 <!--            <groupId>com.towelove</groupId>-->
-<!--            <artifactId>towelove-common-redis</artifactId>-->
+<!--            <artifactId>towelove-common-security</artifactId>-->
 <!--        </dependency>-->
-
-        <!-- Swagger -->
-        <dependency>
-            <groupId>io.springfox</groupId>
-            <artifactId>springfox-swagger-ui</artifactId>
-            <version>${swagger.fox.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>io.springfox</groupId>
-            <artifactId>springfox-swagger2</artifactId>
-            <version>${swagger.fox.version}</version>
-        </dependency>
 
     </dependencies>
 
@@ -112,4 +71,5 @@
             </plugin>
         </plugins>
     </build>
+
 </project>

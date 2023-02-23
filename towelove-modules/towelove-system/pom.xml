@@ -3,29 +3,19 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>towelove</artifactId>
+        <artifactId>towelove-modules</artifactId>
         <groupId>com.twowaylove</groupId>
         <version>1.0</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>towelove-gateway</artifactId>
+    <artifactId>towelove-modules-system</artifactId>
 
-    <properties>
-        <maven.compiler.source>8</maven.compiler.source>
-        <maven.compiler.target>8</maven.compiler.target>
-    </properties>
     <description>
-        towelove-gateway网关模块
+        towelove-modules-system系统模块
     </description>
 
     <dependencies>
-
-        <!-- SpringCloud Gateway -->
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-gateway</artifactId>
-        </dependency>
 
         <!-- SpringCloud Alibaba Nacos -->
         <dependency>
@@ -45,53 +35,37 @@
             <artifactId>spring-cloud-starter-alibaba-sentinel</artifactId>
         </dependency>
 
-        <!-- SpringCloud Alibaba Sentinel Gateway -->
-        <dependency>
-            <groupId>com.alibaba.cloud</groupId>
-            <artifactId>spring-cloud-alibaba-sentinel-gateway</artifactId>
-        </dependency>
-
-        <!-- Sentinel Datasource Nacos -->
-        <dependency>
-            <groupId>com.alibaba.csp</groupId>
-            <artifactId>sentinel-datasource-nacos</artifactId>
-        </dependency>
-
         <!-- SpringBoot Actuator -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
 
-        <!-- SpringCloud Loadbalancer -->
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-loadbalancer</artifactId>
-        </dependency>
-
-        <!--验证码 -->
-        <dependency>
-            <groupId>pro.fessional</groupId>
-            <artifactId>kaptcha</artifactId>
-        </dependency>
-
-        <!-- towelove Common Redis-->
-
-<!--        <dependency>-->
-<!--            <groupId>com.towelove</groupId>-->
-<!--            <artifactId>towelove-common-redis</artifactId>-->
-<!--        </dependency>-->
-
-        <!-- Swagger -->
+        <!-- Swagger UI -->
         <dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger-ui</artifactId>
             <version>${swagger.fox.version}</version>
         </dependency>
+
+        <!-- Mysql Connector -->
         <dependency>
-            <groupId>io.springfox</groupId>
-            <artifactId>springfox-swagger2</artifactId>
-            <version>${swagger.fox.version}</version>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+        </dependency>
+
+        <!-- towelove Common Log -->
+        <dependency>
+            <groupId>com.twowaylove</groupId>
+            <artifactId>towelove-common-log</artifactId>
+            <version>1.0</version>
+        </dependency>
+
+        <!-- towelove Common Swagger -->
+        <dependency>
+            <groupId>com.twowaylove</groupId>
+            <artifactId>towelove-common-swagger</artifactId>
+            <version>1.0</version>
         </dependency>
 
     </dependencies>

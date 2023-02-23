@@ -1,0 +1,3 @@
+com.towelove.system.api.factory.RemoteUserFallbackFactory
+com.towelove.system.api.factory.RemoteLogFallbackFactory
+com.towelove.system.api.factory.RemoteFileFallbackFactory

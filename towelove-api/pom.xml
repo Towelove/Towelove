@@ -10,10 +10,17 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>towelove-api</artifactId>
+    <packaging>pom</packaging>
+    <modules>
+        <module>towelove-api-user</module>
+    </modules>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
     </properties>
 
+    <description>
+        towelove-api系统接口
+    </description>
 </project>
