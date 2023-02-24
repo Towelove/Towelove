@@ -2,6 +2,7 @@ package com.towelove.system;
 
 import com.towelove.common.security.annotation.EnableCustomConfig;
 import com.towelove.common.swagger.annotation.EnableCustomSwagger2;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.openfeign.EnableFeignClients;
@@ -16,7 +17,10 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 @EnableCustomSwagger2
 @SpringBootApplication
 public class ToweloveSystemApplication {
+
+
     public static void main(String[] args) {
+        SpringApplication.run(ToweloveSystemApplication.class,args);
         System.out.println("（づ￣3￣）づ╭❤～ Towelove系统模块启动成功  (o>ε(o>ｕ(≧∩≦)");
         System.out.println(
                 "   _____                 _                      \n" +
@@ -27,7 +31,6 @@ public class ToweloveSystemApplication {
                 " |_____/   \\__, | |___/  \\__|  \\___| |_| |_| |_|\n" +
                 "            __/ |                               \n" +
                 "           |___/                                \n");
-        SpringApplication.run(ToweloveSystemApplication.class,args);
 
     }
 }

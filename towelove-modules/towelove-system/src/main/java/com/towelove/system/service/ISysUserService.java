@@ -12,4 +12,10 @@ import java.util.List;
  */
 public interface ISysUserService extends IService<SysUser> {
     List<SysUser> selectUserList(SysUser user);
+
+    SysUser selectUserByUserName(String username);
+
+    Boolean registerUser(SysUser sysUser);
+
+    SysUser selectUserById(Long userId);
 }

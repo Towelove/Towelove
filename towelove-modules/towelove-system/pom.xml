@@ -44,7 +44,11 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
-
+        <!--springboot mail-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-mail</artifactId>
+        </dependency>
         <!-- Swagger UI -->
         <dependency>
             <groupId>io.springfox</groupId>
@@ -59,13 +63,13 @@
         </dependency>
 
 
-        <!-- RuoYi Common Log -->
+        <!-- towelove Common Log -->
         <dependency>
             <groupId>com.twowaylove</groupId>
             <artifactId>towelove-common-log</artifactId>
         </dependency>
 
-        <!-- RuoYi Common Swagger -->
+        <!-- towelove Common Swagger -->
         <dependency>
             <groupId>com.twowaylove</groupId>
             <artifactId>towelove-common-swagger</artifactId>

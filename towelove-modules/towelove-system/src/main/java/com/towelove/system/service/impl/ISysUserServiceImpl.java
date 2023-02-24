@@ -27,4 +27,19 @@ public class ISysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser>
         List<SysUser> users = baseMapper.selectList(lqw);
         return users;
     }
+
+    @Override
+    public SysUser selectUserByUserName(String username) {
+        return null;
+    }
+
+    @Override
+    public Boolean registerUser(SysUser sysUser) {
+        return null;
+    }
+
+    @Override
+    public SysUser selectUserById(Long userId) {
+        return null;
+    }
 }
