@@ -28,7 +28,7 @@
         <!-- towelove Api System -->
         <dependency>
             <groupId>com.twowaylove</groupId>
-            <artifactId>towelove-api-user</artifactId>
+            <artifactId>towelove-api-system</artifactId>
             <version>1.0</version>
         </dependency>
 

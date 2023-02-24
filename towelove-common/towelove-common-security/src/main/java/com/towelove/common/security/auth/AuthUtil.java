@@ -2,12 +2,14 @@ package com.towelove.common.security.auth;
 
 import com.towelove.common.security.annotation.RequiresPermissions;
 import com.towelove.common.security.annotation.RequiresRoles;
-import com.towelove.user.api.model.LoginUser;
+import com.towelove.system.api.model.LoginUser;
 
 /**
  * Token 权限验证工具类
  * 
- * @author towelove
+ * @author: 张锦标
+ * @date: 2023/2/23 18:36
+ * Description:
  */
 public class AuthUtil
 {

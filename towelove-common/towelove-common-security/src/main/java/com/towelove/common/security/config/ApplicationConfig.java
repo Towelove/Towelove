@@ -8,7 +8,9 @@ import java.util.TimeZone;
 /**
  * 系统配置
  *
- * @author towelove
+ * @author: 张锦标
+ * @date: 2023/2/23 18:36
+ * Description:
  */
 public class ApplicationConfig
 {

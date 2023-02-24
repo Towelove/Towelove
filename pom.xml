@@ -14,8 +14,6 @@
         <module>towelove-modules</module>
         <module>towelove-api</module>
         <module>towelove-common</module>
-        <module>towelove-common/towelove-common-log</module>
-        <module>towelove-common/towelove-common-redis</module>
     </modules>
 
     <name>towelove</name>
@@ -54,68 +52,68 @@
     <dependencyManagement>
         <dependencies>
 
-            <!--            &lt;!&ndash; 核心模块 &ndash;&gt;-->
-            <!--            <dependency>-->
-            <!--                <groupId>com.towelove</groupId>-->
-            <!--                <artifactId>towelove-common-core</artifactId>-->
-            <!--                <version>${towelove.version}</version>-->
-            <!--            </dependency>-->
+            <!-- 核心模块 -->
+            <dependency>
+                <groupId>com.twowaylove</groupId>
+                <artifactId>towelove-common-core</artifactId>
+                <version>${towelove.version}</version>
+            </dependency>
 
-            <!--            &lt;!&ndash; 接口模块 &ndash;&gt;-->
-            <!--            <dependency>-->
-            <!--                <groupId>com.towelove</groupId>-->
-            <!--                <artifactId>towelove-common-swagger</artifactId>-->
-            <!--                <version>${towelove.version}</version>-->
-            <!--            </dependency>-->
+            <!-- 接口模块 -->
+            <dependency>
+                <groupId>com.twowaylove</groupId>
+                <artifactId>towelove-common-swagger</artifactId>
+                <version>${towelove.version}</version>
+            </dependency>
 
-            <!--            &lt;!&ndash; 安全模块 &ndash;&gt;-->
-            <!--            <dependency>-->
-            <!--                <groupId>com.towelove</groupId>-->
-            <!--                <artifactId>towelove-common-security</artifactId>-->
-            <!--                <version>${towelove.version}</version>-->
-            <!--            </dependency>-->
+            <!-- 安全模块 -->
+            <dependency>
+                <groupId>com.twowaylove</groupId>
+                <artifactId>towelove-common-security</artifactId>
+                <version>${towelove.version}</version>
+            </dependency>
 
-            <!--            &lt;!&ndash; 权限范围 &ndash;&gt;-->
-            <!--            <dependency>-->
-            <!--                <groupId>com.towelove</groupId>-->
-            <!--                <artifactId>towelove-common-datascope</artifactId>-->
-            <!--                <version>${towelove.version}</version>-->
-            <!--            </dependency>-->
+            <!-- 权限范围 -->
+<!--            <dependency>-->
+<!--                <groupId>com.twowaylove</groupId>-->
+<!--                <artifactId>towelove-common-datascope</artifactId>-->
+<!--                <version>${towelove.version}</version>-->
+<!--            </dependency>-->
 
-            <!--            &lt;!&ndash; 多数据源 &ndash;&gt;-->
-            <!--            <dependency>-->
-            <!--                <groupId>com.towelove</groupId>-->
-            <!--                <artifactId>towelove-common-datasource</artifactId>-->
-            <!--                <version>${towelove.version}</version>-->
-            <!--            </dependency>-->
+            <!-- 多数据源 -->
+<!--            <dependency>-->
+<!--                <groupId>com.twowaylove</groupId>-->
+<!--                <artifactId>towelove-common-datasource</artifactId>-->
+<!--                <version>${towelove.version}</version>-->
+<!--            </dependency>-->
 
-            <!--            &lt;!&ndash; 分布式事务 &ndash;&gt;-->
-            <!--            <dependency>-->
-            <!--                <groupId>com.towelove</groupId>-->
-            <!--                <artifactId>towelove-common-seata</artifactId>-->
-            <!--                <version>${towelove.version}</version>-->
-            <!--            </dependency>-->
+            <!-- 分布式事务 -->
+<!--            <dependency>-->
+<!--                <groupId>com.twowaylove</groupId>-->
+<!--                <artifactId>towelove-common-seata</artifactId>-->
+<!--                <version>${towelove.version}</version>-->
+<!--            </dependency>-->
 
-            <!--            &lt;!&ndash; 日志记录 &ndash;&gt;-->
-            <!--            <dependency>-->
-            <!--                <groupId>com.towelove</groupId>-->
-            <!--                <artifactId>towelove-common-log</artifactId>-->
-            <!--                <version>${towelove.version}</version>-->
-            <!--            </dependency>-->
+            <!-- 日志记录 -->
+            <dependency>
+                <groupId>com.twowaylove</groupId>
+                <artifactId>towelove-common-log</artifactId>
+                <version>${towelove.version}</version>
+            </dependency>
 
-            <!--            &lt;!&ndash; 缓存服务 &ndash;&gt;-->
-            <!--            <dependency>-->
-            <!--                <groupId>com.towelove</groupId>-->
-            <!--                <artifactId>towelove-common-redis</artifactId>-->
-            <!--                <version>${towelove.version}</version>-->
-            <!--            </dependency>-->
+            <!-- 缓存服务 -->
+            <dependency>
+                <groupId>com.twowaylove</groupId>
+                <artifactId>towelove-common-redis</artifactId>
+                <version>${towelove.version}</version>
+            </dependency>
 
-            <!--            &lt;!&ndash; 系统接口 &ndash;&gt;-->
-            <!--            <dependency>-->
-            <!--                <groupId>com.towelove</groupId>-->
-            <!--                <artifactId>towelove-api-system</artifactId>-->
-            <!--                <version>${towelove.version}</version>-->
-            <!--            </dependency>-->
+            <!-- 系统接口 -->
+            <dependency>
+                <groupId>com.twowaylove</groupId>
+                <artifactId>towelove-api-system</artifactId>
+                <version>1.0</version>
+            </dependency>
 
             <!-- SpringCloud 微服务 -->
             <dependency>
@@ -181,11 +179,11 @@
             </dependency>
 
             <!-- pagehelper 分页插件 -->
-            <!--            <dependency>-->
-            <!--                <groupId>com.github.pagehelper</groupId>-->
-            <!--                <artifactId>pagehelper-spring-boot-starter</artifactId>-->
-            <!--                <version>${pagehelper.boot.version}</version>-->
-            <!--            </dependency>-->
+            <dependency>
+                <groupId>com.github.pagehelper</groupId>
+                <artifactId>pagehelper-spring-boot-starter</artifactId>
+                <version>${pagehelper.boot.version}</version>
+            </dependency>
 
             <!-- io常用工具类 -->
             <dependency>

@@ -9,7 +9,9 @@ import com.towelove.common.core.utils.StringUtils;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
- * @author towelove 序列生成类
+ * @author: 张锦标
+ * @date: 2023/2/23 18:36
+ * Description: 序列生成类
  */
 public class Seq
 {

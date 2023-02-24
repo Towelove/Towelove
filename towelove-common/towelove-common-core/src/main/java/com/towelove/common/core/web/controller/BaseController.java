@@ -20,7 +20,9 @@ import com.towelove.common.core.web.page.TableDataInfo;
 /**
  * web层通用数据处理
  * 
- * @author towelove
+ * @author: 张锦标
+ * @date: 2023/2/23 18:36
+ * Description:
  */
 public class BaseController
 {

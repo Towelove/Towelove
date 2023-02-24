@@ -11,7 +11,9 @@ import java.util.Date;
 /**
  * 时间工具类
  *
- * @author towelove
+ * @author: 张锦标
+ * @date: 2023/2/23 18:36
+ * Description:
  */
 public class DateUtils extends org.apache.commons.lang3.time.DateUtils
 {

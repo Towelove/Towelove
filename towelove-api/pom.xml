@@ -12,7 +12,7 @@
     <artifactId>towelove-api</artifactId>
     <packaging>pom</packaging>
     <modules>
-        <module>towelove-api-user</module>
+        <module>towelove-api-system</module>
     </modules>
 
     <properties>

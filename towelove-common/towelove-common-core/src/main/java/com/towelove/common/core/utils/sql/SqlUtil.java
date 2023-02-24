@@ -7,7 +7,9 @@ import com.towelove.common.core.utils.StringUtils;
 /**
  * sql操作工具类
  * 
- * @author towelove
+ * @author: 张锦标
+ * @date: 2023/2/23 18:36
+ * Description:
  */
 public class SqlUtil
 {

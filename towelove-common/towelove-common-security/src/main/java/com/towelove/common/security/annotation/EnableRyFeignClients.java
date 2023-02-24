@@ -8,7 +8,9 @@ import java.lang.annotation.*;
  * 自定义feign注解
  * 添加basePackages路径
  * 
- * @author towelove
+ * @author: 张锦标
+ * @date: 2023/2/23 18:36
+ * Description:
  */
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)

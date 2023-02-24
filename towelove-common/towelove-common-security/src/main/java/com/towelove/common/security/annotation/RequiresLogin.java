@@ -8,7 +8,9 @@ import java.lang.annotation.Target;
 /**
  * 登录认证：只有登录之后才能进入该方法
  * 
- * @author towelove
+ * @author: 张锦标
+ * @date: 2023/2/23 18:36
+ * Description:
  *
  */
 @Retention(RetentionPolicy.RUNTIME)

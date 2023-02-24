@@ -13,7 +13,9 @@ import java.util.concurrent.ThreadLocalRandom;
 /**
  * 提供通用唯一识别码（universally unique identifier）（UUID）实现
  *
- * @author towelove
+ * @author: 张锦标
+ * @date: 2023/2/23 18:36
+ * Description:
  */
 public final class UUID implements java.io.Serializable, Comparable<UUID>
 {

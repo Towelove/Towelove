@@ -11,9 +11,18 @@
 
     <artifactId>towelove-common-log</artifactId>
 
-    <properties>
-        <maven.compiler.source>8</maven.compiler.source>
-        <maven.compiler.target>8</maven.compiler.target>
-    </properties>
+    <description>
+        towelove-common-log日志记录
+    </description>
+
+    <dependencies>
+
+        <!-- RuoYi Common Security -->
+        <dependency>
+            <groupId>com.twowaylove</groupId>
+            <artifactId>towelove-common-security</artifactId>
+        </dependency>
+
+    </dependencies>
 
 </project>

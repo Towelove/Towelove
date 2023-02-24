@@ -11,11 +11,19 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
  * Description:
  */
 @EnableFeignClients
-@SpringBootApplication(exclude = {DataSourceAutoConfiguration.class })
+@SpringBootApplication(exclude = {DataSourceAutoConfiguration.class})
 public class ToweloveAuthApplication {
     public static void main(String[] args) {
-        SpringApplication.run(ToweloveAuthApplication.class,args);
-        System.out.println("-------Towelove权限校验模块启动成功--------");
+        SpringApplication.run(ToweloveAuthApplication.class, args);
+        System.out.println("（づ￣3￣）づ╭❤～ Towelove权限校验模块启动成功  (o>ε(o>ｕ(≧∩≦)");
+        System.out.println(
+                "                     _     _     \n" +
+                "     /\\             | |   | |    \n" +
+                "    /  \\     _   _  | |_  | |__  \n" +
+                "   / /\\ \\   | | | | | __| | '_ \\ \n" +
+                "  / ____ \\  | |_| | | |_  | | | |\n" +
+                " /_/    \\_\\  \\__,_|  \\__| |_| |_|\n" +
+                "                                 \n" +
+                "                                 \n");
     }
-
 }

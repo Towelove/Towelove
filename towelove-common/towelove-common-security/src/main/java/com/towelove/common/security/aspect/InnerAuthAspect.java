@@ -14,7 +14,9 @@ import org.springframework.stereotype.Component;
 /**
  * 内部服务调用验证处理
  * 
- * @author towelove
+ * @author: 张锦标
+ * @date: 2023/2/23 18:36
+ * Description:
  */
 @Aspect
 @Component

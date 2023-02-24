@@ -9,9 +9,9 @@ import com.towelove.common.core.utils.ip.IpUtils;
 import com.towelove.common.core.utils.uuid.IdUtils;
 import com.towelove.common.redis.service.RedisService;
 import com.towelove.common.security.utils.SecurityUtils;
-import com.towelove.user.api.model.LoginUser;
+import com.towelove.system.api.model.LoginUser;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.boot.autoconfigure.AutoConfiguration;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
@@ -21,9 +21,12 @@ import java.util.concurrent.TimeUnit;
 /**
  * token验证处理
  * 
- * @author towelove
+ * @author: 张锦标
+ * @date: 2023/2/23 18:36
+ * Description:
  */
-@Component
+@AutoConfiguration
+//@Component
 public class TokenService
 {
     @Autowired

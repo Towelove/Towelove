@@ -34,7 +34,11 @@
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-sentinel</artifactId>
         </dependency>
-
+        <!-- mybatis-plus-->
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-boot-starter</artifactId>
+        </dependency>
         <!-- SpringBoot Actuator -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -54,18 +58,17 @@
             <artifactId>mysql-connector-java</artifactId>
         </dependency>
 
-        <!-- towelove Common Log -->
+
+        <!-- RuoYi Common Log -->
         <dependency>
             <groupId>com.twowaylove</groupId>
             <artifactId>towelove-common-log</artifactId>
-            <version>1.0</version>
         </dependency>
 
-        <!-- towelove Common Swagger -->
+        <!-- RuoYi Common Swagger -->
         <dependency>
             <groupId>com.twowaylove</groupId>
             <artifactId>towelove-common-swagger</artifactId>
-            <version>1.0</version>
         </dependency>
 
     </dependencies>
@@ -86,4 +89,5 @@
             </plugin>
         </plugins>
     </build>
+
 </project>

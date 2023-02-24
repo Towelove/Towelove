@@ -1,7 +1,6 @@
 package com.towelove.auth.service;
 
 
-import com.towelove.common.core.constant.Constants;
 import com.towelove.common.core.constant.SecurityConstants;
 import com.towelove.common.core.constant.UserConstants;
 import com.towelove.common.core.domain.R;
@@ -9,16 +8,18 @@ import com.towelove.common.core.enums.UserStatus;
 import com.towelove.common.core.exception.ServiceException;
 import com.towelove.common.core.utils.StringUtils;
 import com.towelove.common.security.utils.SecurityUtils;
-import com.towelove.user.api.RemoteUserService;
-import com.towelove.user.api.domain.SysUser;
-import com.towelove.user.api.model.LoginUser;
+import com.towelove.system.api.RemoteUserService;
+import com.towelove.system.api.domain.SysUser;
+import com.towelove.system.api.model.LoginUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
  * 登录校验方法
  * 
- * @author towelove
+ * @author: 张锦标
+ * @date: 2023/2/23 18:36
+ * Description:
  */
 @Component
 public class SysLoginService

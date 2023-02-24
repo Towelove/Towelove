@@ -8,7 +8,9 @@ import com.towelove.common.core.web.page.TableSupport;
 /**
  * 分页工具类
  * 
- * @author towelove
+ * @author: 张锦标
+ * @date: 2023/2/23 18:36
+ * Description:
  */
 public class PageUtils extends PageHelper
 {

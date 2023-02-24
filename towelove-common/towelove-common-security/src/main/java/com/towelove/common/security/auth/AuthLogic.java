@@ -13,7 +13,7 @@ import com.towelove.common.security.annotation.RequiresPermissions;
 import com.towelove.common.security.annotation.RequiresRoles;
 import com.towelove.common.security.service.TokenService;
 import com.towelove.common.security.utils.SecurityUtils;
-import com.towelove.user.api.model.LoginUser;
+import com.towelove.system.api.model.LoginUser;
 import org.springframework.util.PatternMatchUtils;
 
 import java.util.Collection;
@@ -23,7 +23,9 @@ import java.util.Set;
 /**
  * Token 权限验证，逻辑实现类
  * 
- * @author towelove
+ * @author: 张锦标
+ * @date: 2023/2/23 18:36
+ * Description:
  */
 public class AuthLogic
 {

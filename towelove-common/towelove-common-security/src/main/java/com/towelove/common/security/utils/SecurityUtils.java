@@ -5,7 +5,7 @@ import com.towelove.common.core.constant.TokenConstants;
 import com.towelove.common.core.context.SecurityContextHolder;
 import com.towelove.common.core.utils.ServletUtils;
 import com.towelove.common.core.utils.StringUtils;
-import com.towelove.user.api.model.LoginUser;
+import com.towelove.system.api.model.LoginUser;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,7 +13,9 @@ import javax.servlet.http.HttpServletRequest;
 /**
  * 权限获取工具类
  * 
- * @author towelove
+ * @author: 张锦标
+ * @date: 2023/2/23 18:36
+ * Description:
  */
 public class SecurityUtils
 {

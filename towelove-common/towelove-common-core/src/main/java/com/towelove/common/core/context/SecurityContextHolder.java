@@ -13,7 +13,9 @@ import java.util.concurrent.ConcurrentHashMap;
  * 获取当前线程变量中的 用户id、用户名称、Token等信息 
  * 注意： 必须在网关通过请求头的方法传入，同时在HeaderInterceptor拦截器设置值。 否则这里无法获取
  *
- * @author towelove
+ * @author: 张锦标
+ * @date: 2023/2/23 18:36
+ * Description:
  */
 public class SecurityContextHolder
 {

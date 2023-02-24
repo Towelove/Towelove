@@ -21,6 +21,7 @@
         <module>towelove-common-swagger</module>
         <module>towelove-common-log</module>
         <module>towelove-common-redis</module>
+        <module>towelove-common-rocketmq</module>
     </modules>
     <properties>
         <maven.compiler.source>8</maven.compiler.source>

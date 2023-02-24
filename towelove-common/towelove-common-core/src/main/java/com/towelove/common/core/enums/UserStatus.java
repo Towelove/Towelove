@@ -3,7 +3,9 @@ package com.towelove.common.core.enums;
 /**
  * 用户状态
  * 
- * @author towelove
+ * @author: 张锦标
+ * @date: 2023/2/23 18:36
+ * Description:
  */
 public enum UserStatus
 {
