@@ -15,6 +15,7 @@
         <module>towelove-api</module>
         <module>towelove-common</module>
         <module>towelove-common/towelove-common-log</module>
+        <module>towelove-common/towelove-common-redis</module>
     </modules>
 
     <name>towelove</name>

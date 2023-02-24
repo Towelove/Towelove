@@ -19,9 +19,25 @@
         <maven.compiler.target>8</maven.compiler.target>
     </properties>
     <dependencies>
+        <!-- Spring Web -->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-webmvc</artifactId>
         </dependency>
+
+        <!-- towelove Api System -->
+        <dependency>
+            <groupId>com.twowaylove</groupId>
+            <artifactId>towelove-api-user</artifactId>
+            <version>1.0</version>
+        </dependency>
+
+        <!-- towelove Common Redis-->
+        <dependency>
+            <groupId>com.twowaylove</groupId>
+            <artifactId>towelove-common-redis</artifactId>
+            <version>1.0</version>
+        </dependency>
+
     </dependencies>
 </project>

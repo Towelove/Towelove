@@ -48,10 +48,11 @@
         </dependency>
 
         <!-- towelove Common Security-->
-<!--        <dependency>-->
-<!--            <groupId>com.towelove</groupId>-->
-<!--            <artifactId>towelove-common-security</artifactId>-->
-<!--        </dependency>-->
+        <dependency>
+            <groupId>com.twowaylove</groupId>
+            <artifactId>towelove-common-security</artifactId>
+            <version>1.0</version>
+        </dependency>
 
     </dependencies>
 

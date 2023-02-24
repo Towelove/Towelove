@@ -11,11 +11,16 @@
 
     <artifactId>towelove-common</artifactId>
     <packaging>pom</packaging>
+    <description>
+        towelove-common通用模块
+        用于为其他模块提供公共功能
+    </description>
     <modules>
         <module>towelove-common-security</module>
         <module>towelove-common-core</module>
         <module>towelove-common-swagger</module>
         <module>towelove-common-log</module>
+        <module>towelove-common-redis</module>
     </modules>
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
