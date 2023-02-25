@@ -18,4 +18,14 @@ public interface ISysUserService extends IService<SysUser> {
     Boolean registerUser(SysUser sysUser);
 
     SysUser selectUserById(Long userId);
+
+    String checkUserNameUnique(SysUser sysUser);
+
+    int insertUser(SysUser user);
+
+    String checkEmailUnique(SysUser user);
+
+    String checkPhoneUnique(SysUser user);
+
+    void checkUserDataScope(Long userId);
 }
