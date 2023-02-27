@@ -17,8 +17,6 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 @EnableCustomSwagger2
 @SpringBootApplication
 public class ToweloveSystemApplication {
-
-
     public static void main(String[] args) {
         SpringApplication.run(ToweloveSystemApplication.class,args);
         System.out.println("（づ￣3￣）づ╭❤～ Towelove系统模块启动成功  (o>ε(o>ｕ(≧∩≦)");

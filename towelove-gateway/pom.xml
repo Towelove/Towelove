@@ -76,11 +76,10 @@
         </dependency>
 
         <!-- towelove Common Redis-->
-
-<!--        <dependency>-->
-<!--            <groupId>com.towelove</groupId>-->
-<!--            <artifactId>towelove-common-redis</artifactId>-->
-<!--        </dependency>-->
+        <dependency>
+            <groupId>com.twowaylove</groupId>
+            <artifactId>towelove-common-redis</artifactId>
+        </dependency>
 
         <!-- Swagger -->
         <dependency>
