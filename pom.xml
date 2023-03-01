@@ -14,6 +14,7 @@
         <module>towelove-modules</module>
         <module>towelove-api</module>
         <module>towelove-common</module>
+        <module>towelove-modules/towelove-job</module>
     </modules>
 
     <name>towelove</name>
