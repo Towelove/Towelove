@@ -13,6 +13,8 @@
     <packaging>pom</packaging>
     <modules>
         <module>towelove-system</module>
+        <module>towelove-job</module>
+        <module>towelove-rocket</module>
     </modules>
 
     <description>
