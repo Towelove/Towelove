@@ -1,0 +1,4 @@
+18:36:25.029 [background-preinit] INFO  o.h.v.i.util.Version - [<clinit>,21] - HV000001: Hibernate Validator 6.2.5.Final
+18:36:25.815 [main] INFO  c.t.r.t.p.MyProducerTest - [logStartupProfileInfo,637] - The following 1 profile is active: "dev"
+18:36:29.036 [main] INFO  c.t.r.t.p.MyProducerTest - [logStarted,61] - Started MyProducerTest in 4.686 seconds (JVM running for 6.169)
+18:36:29.636 [NettyClientSelector_1] INFO  RocketmqRemoting - [info,95] - closeChannel: close the connection to remote address[192.168.146.116:10911] result: true

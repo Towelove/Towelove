@@ -1,0 +1,36 @@
+18:36:25.029 [background-preinit] INFO  o.h.v.i.util.Version - [<clinit>,21] - HV000001: Hibernate Validator 6.2.5.Final
+18:36:25.815 [main] INFO  c.t.r.t.p.MyProducerTest - [logStartupProfileInfo,637] - The following 1 profile is active: "dev"
+18:36:29.036 [main] INFO  c.t.r.t.p.MyProducerTest - [logStarted,61] - Started MyProducerTest in 4.686 seconds (JVM running for 6.169)
+18:36:29.636 [NettyClientSelector_1] INFO  RocketmqRemoting - [info,95] - closeChannel: close the connection to remote address[192.168.146.116:10911] result: true
+19:45:26.618 [background-preinit] INFO  o.h.v.i.util.Version - [<clinit>,21] - HV000001: Hibernate Validator 6.2.5.Final
+19:45:27.340 [main] INFO  c.t.r.t.p.MyProducerTest - [logStartupProfileInfo,637] - The following 1 profile is active: "dev"
+19:45:30.525 [main] INFO  c.t.r.t.p.MyProducerTest - [logStarted,61] - Started MyProducerTest in 4.586 seconds (JVM running for 5.802)
+19:45:33.815 [NettyClientSelector_1] INFO  RocketmqRemoting - [info,95] - closeChannel: close the connection to remote address[192.168.146.115:10911] result: true
+19:45:33.884 [NettyClientSelector_1] INFO  RocketmqRemoting - [info,95] - closeChannel: close the connection to remote address[192.168.146.115:10911] result: true
+19:45:33.886 [NettyClientSelector_1] INFO  RocketmqRemoting - [info,95] - closeChannel: close the connection to remote address[192.168.146.116:10911] result: true
+19:45:33.886 [NettyClientSelector_1] INFO  RocketmqRemoting - [info,95] - closeChannel: close the connection to remote address[192.168.146.115:11011] result: true
+19:45:33.886 [NettyClientSelector_1] INFO  RocketmqRemoting - [info,95] - closeChannel: close the connection to remote address[192.168.146.115:9876] result: true
+19:45:33.887 [NettyClientSelector_1] INFO  RocketmqRemoting - [info,95] - closeChannel: close the connection to remote address[192.168.146.116:11011] result: true
+19:45:45.154 [background-preinit] INFO  o.h.v.i.util.Version - [<clinit>,21] - HV000001: Hibernate Validator 6.2.5.Final
+19:45:45.861 [main] INFO  c.t.r.t.p.MyProducerTest - [logStartupProfileInfo,637] - The following 1 profile is active: "dev"
+19:45:49.176 [main] INFO  c.t.r.t.p.MyProducerTest - [logStarted,61] - Started MyProducerTest in 4.624 seconds (JVM running for 5.732)
+20:01:06.587 [background-preinit] INFO  o.h.v.i.util.Version - [<clinit>,21] - HV000001: Hibernate Validator 6.2.5.Final
+20:01:07.291 [main] INFO  c.t.r.t.p.MyProducerTest - [logStartupProfileInfo,637] - The following 1 profile is active: "dev"
+20:01:10.512 [main] INFO  c.t.r.t.p.MyProducerTest - [logStarted,61] - Started MyProducerTest in 4.579 seconds (JVM running for 5.879)
+20:10:09.314 [background-preinit] INFO  o.h.v.i.util.Version - [<clinit>,21] - HV000001: Hibernate Validator 6.2.5.Final
+20:10:10.076 [main] INFO  c.t.r.t.p.MyProducerTest - [logStartupProfileInfo,637] - The following 1 profile is active: "dev"
+20:10:13.438 [NettyClientSelector_1] INFO  RocketmqRemoting - [info,95] - closeChannel: close the connection to remote address[192.168.146.115:10911] result: true
+20:10:13.441 [NettyClientSelector_1] INFO  RocketmqRemoting - [info,95] - closeChannel: close the connection to remote address[192.168.146.116:10911] result: true
+20:10:13.441 [NettyClientSelector_1] INFO  RocketmqRemoting - [info,95] - closeChannel: close the connection to remote address[192.168.146.115:9876] result: true
+20:10:13.442 [NettyClientSelector_1] INFO  RocketmqRemoting - [info,95] - closeChannel: close the connection to remote address[192.168.146.115:11011] result: true
+20:10:13.442 [NettyClientSelector_1] INFO  RocketmqRemoting - [info,95] - closeChannel: close the connection to remote address[192.168.146.116:11011] result: true
+20:11:01.645 [background-preinit] INFO  o.h.v.i.util.Version - [<clinit>,21] - HV000001: Hibernate Validator 6.2.5.Final
+20:11:02.400 [main] INFO  c.t.r.t.p.MyProducerTest - [logStartupProfileInfo,637] - The following 1 profile is active: "dev"
+20:11:05.572 [NettyClientSelector_1] INFO  RocketmqRemoting - [info,95] - closeChannel: close the connection to remote address[192.168.146.116:10911] result: true
+20:11:05.576 [NettyClientSelector_1] INFO  RocketmqRemoting - [info,95] - closeChannel: close the connection to remote address[192.168.146.115:10911] result: true
+20:11:05.578 [NettyClientSelector_1] INFO  RocketmqRemoting - [info,95] - closeChannel: close the connection to remote address[192.168.146.115:11011] result: true
+20:11:05.579 [NettyClientSelector_1] INFO  RocketmqRemoting - [info,95] - closeChannel: close the connection to remote address[192.168.146.115:9876] result: true
+20:11:05.580 [NettyClientSelector_1] INFO  RocketmqRemoting - [info,95] - closeChannel: close the connection to remote address[192.168.146.116:11011] result: true
+20:12:48.054 [background-preinit] INFO  o.h.v.i.util.Version - [<clinit>,21] - HV000001: Hibernate Validator 6.2.5.Final
+20:12:48.771 [main] INFO  c.t.r.t.p.MyProducerTest - [logStartupProfileInfo,637] - The following 1 profile is active: "dev"
+20:12:52.129 [main] INFO  c.t.r.t.p.MyProducerTest - [logStarted,61] - Started MyProducerTest in 4.721 seconds (JVM running for 5.876)
