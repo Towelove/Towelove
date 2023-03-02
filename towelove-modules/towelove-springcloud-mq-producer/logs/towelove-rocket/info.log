@@ -1,0 +1,18 @@
+22:30:25.595 [background-preinit] INFO  o.h.v.i.util.Version - [<clinit>,21] - HV000001: Hibernate Validator 6.2.5.Final
+22:30:26.299 [main] INFO  c.t.s.m.p.ProducerTest - [logStartupProfileInfo,637] - The following 1 profile is active: "dev"
+22:30:29.511 [main] INFO  c.t.s.m.p.ProducerTest - [logStarted,61] - Started ProducerTest in 4.574 seconds (JVM running for 5.763)
+22:32:16.066 [background-preinit] INFO  o.h.v.i.util.Version - [<clinit>,21] - HV000001: Hibernate Validator 6.2.5.Final
+22:32:16.741 [main] INFO  c.t.s.m.p.ProducerTest - [logStartupProfileInfo,637] - The following 1 profile is active: "dev"
+22:32:19.975 [main] INFO  c.t.s.m.p.ProducerTest - [logStarted,61] - Started ProducerTest in 4.552 seconds (JVM running for 5.869)
+22:33:24.818 [background-preinit] INFO  o.h.v.i.util.Version - [<clinit>,21] - HV000001: Hibernate Validator 6.2.5.Final
+22:33:25.515 [main] INFO  c.t.s.m.ProducerTest - [logStartupProfileInfo,637] - The following 1 profile is active: "dev"
+22:33:28.850 [main] INFO  c.t.s.m.ProducerTest - [logStarted,61] - Started ProducerTest in 4.697 seconds (JVM running for 5.946)
+22:42:34.586 [background-preinit] INFO  o.h.v.i.util.Version - [<clinit>,21] - HV000001: Hibernate Validator 6.2.5.Final
+22:42:35.289 [main] INFO  c.t.s.m.ProducerTest - [logStartupProfileInfo,637] - The following 1 profile is active: "dev"
+22:42:38.540 [main] INFO  c.t.s.m.ProducerTest - [logStarted,61] - Started ProducerTest in 4.602 seconds (JVM running for 5.797)
+22:47:21.058 [background-preinit] INFO  o.h.v.i.util.Version - [<clinit>,21] - HV000001: Hibernate Validator 6.2.5.Final
+22:47:22.165 [main] INFO  c.t.s.m.ProducerTest - [logStartupProfileInfo,631] - No active profile set, falling back to 1 default profile: "default"
+22:47:25.796 [main] INFO  c.t.s.m.ProducerTest - [logStarted,61] - Started ProducerTest in 5.426 seconds (JVM running for 7.12)
+22:58:53.236 [background-preinit] INFO  o.h.v.i.util.Version - [<clinit>,21] - HV000001: Hibernate Validator 6.2.5.Final
+22:58:53.972 [main] INFO  c.t.s.m.ProducerTest - [logStartupProfileInfo,637] - The following 1 profile is active: "dev"
+22:58:57.359 [main] INFO  c.t.s.m.ProducerTest - [logStarted,61] - Started ProducerTest in 4.772 seconds (JVM running for 5.911)

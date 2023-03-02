@@ -1,6 +1,6 @@
-package com.towelove.rocketp.template.producer;
+package com.towelove.rocketmq.consumer.template.producer;
 
-import com.towelove.rocketmq.producer.producer.MyProducer;
+import com.towelove.rocketc.producer.MyProducer;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -12,18 +12,11 @@ import org.springframework.boot.test.context.SpringBootTest;
  */
 @SpringBootTest
 public class MyProducerTest {
-    public static final String TOPIC = "towelove-topic";
     @Autowired
     private MyProducer myProducer;
     @Test
     public void myProducer(){
-        myProducer.sendMessage("towelove-topic",
+        myProducer.sendMessage("TopicTest",
                 "hello this is test");
-    }
-    @Test
-    public void transaction(){
-        myProducer.sendMessageInTransaction(TOPIC,
-                "this is a transaction message");
-        System.out.println("发送成功");
     }
 }

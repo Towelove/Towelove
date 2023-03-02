@@ -14,7 +14,8 @@
     <modules>
         <module>towelove-system</module>
         <module>towelove-job</module>
-        <module>towelove-rocket</module>
+        <module>towelove-rocket-consumer</module>
+        <module>towelove-rocket-producer</module>
     </modules>
 
     <description>
