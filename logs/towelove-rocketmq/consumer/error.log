@@ -1,0 +1,137 @@
+16:13:16.973 [main] ERROR o.s.b.d.LoggingFailureAnalysisReporter - [report,40] - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+A component required a bean of type 'org.apache.rocketmq.spring.core.RocketMQTemplate' that could not be found.
+
+
+Action:
+
+Consider defining a bean of type 'org.apache.rocketmq.spring.core.RocketMQTemplate' in your configuration.
+
+16:14:57.537 [main] ERROR o.s.b.d.LoggingFailureAnalysisReporter - [report,40] - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+A component required a bean of type 'org.apache.rocketmq.spring.core.RocketMQTemplate' that could not be found.
+
+
+Action:
+
+Consider defining a bean of type 'org.apache.rocketmq.spring.core.RocketMQTemplate' in your configuration.
+
+16:15:31.125 [main] ERROR o.s.b.d.LoggingFailureAnalysisReporter - [report,40] - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Field rocketMQTemplate in com.towelove.rocketmq.consumer.ToweloveRocketConsumerApplication required a bean of type 'org.apache.rocketmq.spring.core.RocketMQTemplate' that could not be found.
+
+The injection point has the following annotations:
+	- @org.springframework.beans.factory.annotation.Autowired(required=true)
+
+
+Action:
+
+Consider defining a bean of type 'org.apache.rocketmq.spring.core.RocketMQTemplate' in your configuration.
+
+16:15:48.644 [main] ERROR o.s.b.SpringApplication - [reportFailure,821] - Application run failed
+java.lang.IllegalStateException: Failed to execute CommandLineRunner
+	at org.springframework.boot.SpringApplication.callRunner(SpringApplication.java:771)
+	at org.springframework.boot.SpringApplication.callRunners(SpringApplication.java:752)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:314)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1303)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1292)
+	at com.towelove.rocketmq.consumer.ToweloveRocketConsumerApplication.main(ToweloveRocketConsumerApplication.java:22)
+Caused by: java.lang.NullPointerException: null
+	at com.towelove.rocketmq.consumer.ToweloveRocketConsumerApplication.run(ToweloveRocketConsumerApplication.java:28)
+	at org.springframework.boot.SpringApplication.callRunner(SpringApplication.java:768)
+	... 5 common frames omitted
+16:18:25.477 [main] ERROR o.s.b.SpringApplication - [reportFailure,821] - Application run failed
+java.lang.IllegalStateException: Failed to execute CommandLineRunner
+	at org.springframework.boot.SpringApplication.callRunner(SpringApplication.java:771)
+	at org.springframework.boot.SpringApplication.callRunners(SpringApplication.java:752)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:314)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1303)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1292)
+	at com.towelove.rocketmq.consumer.ToweloveRocketConsumerApplication.main(ToweloveRocketConsumerApplication.java:22)
+Caused by: java.lang.NullPointerException: null
+	at org.apache.rocketmq.spring.core.RocketMQTemplate.receive(RocketMQTemplate.java:1109)
+	at com.towelove.rocketmq.consumer.ToweloveRocketConsumerApplication.run(ToweloveRocketConsumerApplication.java:28)
+	at org.springframework.boot.SpringApplication.callRunner(SpringApplication.java:768)
+	... 5 common frames omitted
+16:20:10.027 [main] ERROR o.s.b.d.LoggingFailureAnalysisReporter - [report,40] - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+The dependencies of some of the beans in the application context form a cycle:
+
+┌──->──┐
+|  toweloveRocketConsumerApplication (field private org.apache.rocketmq.spring.core.RocketMQTemplate com.towelove.rocketmq.consumer.ToweloveRocketConsumerApplication.rocketMQTemplate)
+└──<-──┘
+
+
+Action:
+
+Relying upon circular references is discouraged and they are prohibited by default. Update your application to remove the dependency cycle between beans. As a last resort, it may be possible to break the cycle automatically by setting spring.main.allow-circular-references to true.
+
+16:21:26.185 [main] ERROR o.s.b.SpringApplication - [reportFailure,821] - Application run failed
+java.lang.IllegalStateException: Failed to execute CommandLineRunner
+	at org.springframework.boot.SpringApplication.callRunner(SpringApplication.java:771)
+	at org.springframework.boot.SpringApplication.callRunners(SpringApplication.java:752)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:314)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1303)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1292)
+	at com.towelove.rocketmq.consumer.ToweloveRocketConsumerApplication.main(ToweloveRocketConsumerApplication.java:29)
+Caused by: java.lang.NullPointerException: null
+	at org.apache.rocketmq.spring.core.RocketMQTemplate.receive(RocketMQTemplate.java:1109)
+	at org.apache.rocketmq.spring.core.RocketMQTemplate$$FastClassBySpringCGLIB$$27da8a60.invoke(<generated>)
+	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
+	at org.springframework.aop.framework.CglibAopProxy.invokeMethod(CglibAopProxy.java:386)
+	at org.springframework.aop.framework.CglibAopProxy.access$000(CglibAopProxy.java:85)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:704)
+	at org.apache.rocketmq.spring.core.RocketMQTemplate$$EnhancerBySpringCGLIB$$6638d0d1.receive(<generated>)
+	at com.towelove.rocketmq.consumer.ToweloveRocketConsumerApplication.run(ToweloveRocketConsumerApplication.java:35)
+	at org.springframework.boot.SpringApplication.callRunner(SpringApplication.java:768)
+	... 5 common frames omitted
+16:22:58.328 [main] ERROR o.s.b.SpringApplication - [reportFailure,821] - Application run failed
+java.lang.IllegalStateException: Failed to execute CommandLineRunner
+	at org.springframework.boot.SpringApplication.callRunner(SpringApplication.java:771)
+	at org.springframework.boot.SpringApplication.callRunners(SpringApplication.java:752)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:314)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1303)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1292)
+	at com.towelove.rocketmq.consumer.ToweloveRocketConsumerApplication.main(ToweloveRocketConsumerApplication.java:27)
+Caused by: java.lang.NullPointerException: null
+	at org.apache.rocketmq.spring.core.RocketMQTemplate.receive(RocketMQTemplate.java:1109)
+	at com.towelove.rocketmq.consumer.ToweloveRocketConsumerApplication.run(ToweloveRocketConsumerApplication.java:33)
+	at org.springframework.boot.SpringApplication.callRunner(SpringApplication.java:768)
+	... 5 common frames omitted
+16:30:11.680 [main] ERROR o.s.b.SpringApplication - [reportFailure,821] - Application run failed
+java.lang.IllegalStateException: Failed to execute CommandLineRunner
+	at org.springframework.boot.SpringApplication.callRunner(SpringApplication.java:771)
+	at org.springframework.boot.SpringApplication.callRunners(SpringApplication.java:752)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:314)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1303)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1292)
+	at com.towelove.rocketmq.consumer.ToweloveRocketConsumerApplication.main(ToweloveRocketConsumerApplication.java:27)
+Caused by: java.lang.NullPointerException: null
+	at org.apache.rocketmq.spring.core.RocketMQTemplate.receive(RocketMQTemplate.java:1109)
+	at com.towelove.rocketmq.consumer.ToweloveRocketConsumerApplication.run(ToweloveRocketConsumerApplication.java:33)
+	at org.springframework.boot.SpringApplication.callRunner(SpringApplication.java:768)
+	... 5 common frames omitted

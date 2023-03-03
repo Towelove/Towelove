@@ -15,3 +15,10 @@ rocketmq:
   # 生产者组
   producer:
     group: towelove-producer-group
+
+
+#自定义配置
+towelove:
+  rocketmq:
+    transTopic: Trans-Towelove-Rocketmq
+    topic: Towelove-Topic

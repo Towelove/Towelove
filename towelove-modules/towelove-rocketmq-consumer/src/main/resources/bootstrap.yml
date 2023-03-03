@@ -12,3 +12,10 @@ spring:
 #Rocketmq
 rocketmq:
   name-server: 192.168.146.115:9876
+  consumer:
+    group: towelove-consumer-group
+    topic: Towelove-Topic
+#自定义配置
+towelove:
+  rocketmq:
+    transTopic: Trans-Towelove-Rocketmq

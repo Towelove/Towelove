@@ -1,0 +1,176 @@
+16:13:15.466 [background-preinit] INFO  o.h.v.i.util.Version - [<clinit>,21] - HV000001: Hibernate Validator 6.2.5.Final
+16:13:16.087 [main] INFO  c.t.r.c.ToweloveRocketConsumerApplication - [logStartupProfileInfo,637] - The following 1 profile is active: "dev"
+16:13:16.751 [main] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Initializing ProtocolHandler ["http-nio-6789"]
+16:13:16.751 [main] INFO  o.a.c.c.StandardService - [log,173] - Starting service [Tomcat]
+16:13:16.752 [main] INFO  o.a.c.c.StandardEngine - [log,173] - Starting Servlet engine: [Apache Tomcat/9.0.70]
+16:13:16.888 [main] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring embedded WebApplicationContext
+16:13:16.938 [main] INFO  o.a.c.c.StandardService - [log,173] - Stopping service [Tomcat]
+16:14:56.167 [background-preinit] INFO  o.h.v.i.util.Version - [<clinit>,21] - HV000001: Hibernate Validator 6.2.5.Final
+16:14:56.825 [main] INFO  c.t.r.c.ToweloveRocketConsumerApplication - [logStartupProfileInfo,637] - The following 1 profile is active: "dev"
+16:14:57.374 [main] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Initializing ProtocolHandler ["http-nio-6789"]
+16:14:57.374 [main] INFO  o.a.c.c.StandardService - [log,173] - Starting service [Tomcat]
+16:14:57.375 [main] INFO  o.a.c.c.StandardEngine - [log,173] - Starting Servlet engine: [Apache Tomcat/9.0.70]
+16:14:57.469 [main] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring embedded WebApplicationContext
+16:14:57.506 [main] INFO  o.a.c.c.StandardService - [log,173] - Stopping service [Tomcat]
+16:15:29.817 [background-preinit] INFO  o.h.v.i.util.Version - [<clinit>,21] - HV000001: Hibernate Validator 6.2.5.Final
+16:15:30.384 [main] INFO  c.t.r.c.ToweloveRocketConsumerApplication - [logStartupProfileInfo,637] - The following 1 profile is active: "dev"
+16:15:30.938 [main] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Initializing ProtocolHandler ["http-nio-6789"]
+16:15:30.939 [main] INFO  o.a.c.c.StandardService - [log,173] - Starting service [Tomcat]
+16:15:30.939 [main] INFO  o.a.c.c.StandardEngine - [log,173] - Starting Servlet engine: [Apache Tomcat/9.0.70]
+16:15:31.043 [main] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring embedded WebApplicationContext
+16:15:31.091 [main] INFO  o.a.c.c.StandardService - [log,173] - Stopping service [Tomcat]
+16:15:43.407 [background-preinit] INFO  o.h.v.i.util.Version - [<clinit>,21] - HV000001: Hibernate Validator 6.2.5.Final
+16:15:43.967 [main] INFO  c.t.r.c.ToweloveRocketConsumerApplication - [logStartupProfileInfo,637] - The following 1 profile is active: "dev"
+16:15:44.648 [main] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Initializing ProtocolHandler ["http-nio-6789"]
+16:15:44.649 [main] INFO  o.a.c.c.StandardService - [log,173] - Starting service [Tomcat]
+16:15:44.649 [main] INFO  o.a.c.c.StandardEngine - [log,173] - Starting Servlet engine: [Apache Tomcat/9.0.70]
+16:15:44.770 [main] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring embedded WebApplicationContext
+16:15:46.799 [main] INFO  o.a.r.s.s.DefaultRocketMQListenerContainer - [start,338] - running container: DefaultRocketMQListenerContainer{consumerGroup='towelove-consumer', namespace='', nameServer='192.168.146.115:9876', topic='towelove-topic', consumeMode=ORDERLY, selectorType=TAG, selectorExpression='*', messageModel=CLUSTERING', tlsEnable=false}
+16:15:46.801 [main] INFO  o.a.r.s.a.ListenerContainerConfiguration - [registerContainer,127] - Register the listener to container, listenerBeanName:myConsumer, containerBeanName:org.apache.rocketmq.spring.support.DefaultRocketMQListenerContainer_1
+16:15:47.389 [main] INFO  o.a.r.s.s.DefaultRocketMQListenerContainer - [start,338] - running container: DefaultRocketMQListenerContainer{consumerGroup='group_define_in_cloud_MQ', namespace='', nameServer='192.168.146.115:9876', topic='Towelove-Rocketmq', consumeMode=CONCURRENTLY, selectorType=TAG, selectorExpression='*', messageModel=CLUSTERING', tlsEnable=false}
+16:15:47.389 [main] INFO  o.a.r.s.a.ListenerContainerConfiguration - [registerContainer,127] - Register the listener to container, listenerBeanName:ACLStringTransactionalConsumer, containerBeanName:org.apache.rocketmq.spring.support.DefaultRocketMQListenerContainer_2
+16:15:47.911 [main] INFO  o.a.r.s.s.DefaultRocketMQListenerContainer - [start,338] - running container: DefaultRocketMQListenerContainer{consumerGroup='group_define_in_cloud_MQ', namespace='', nameServer='192.168.146.115:9876', topic='normal_topic_define_in_cloud_MQ', consumeMode=CONCURRENTLY, selectorType=TAG, selectorExpression='*', messageModel=CLUSTERING', tlsEnable=false}
+16:15:47.911 [main] INFO  o.a.r.s.a.ListenerContainerConfiguration - [registerContainer,127] - Register the listener to container, listenerBeanName:ACLStringConsumer, containerBeanName:org.apache.rocketmq.spring.support.DefaultRocketMQListenerContainer_3
+16:15:47.947 [main] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Starting ProtocolHandler ["http-nio-6789"]
+16:15:48.224 [main] INFO  c.t.r.c.ToweloveRocketConsumerApplication - [logStarted,61] - Started ToweloveRocketConsumerApplication in 5.555 seconds (JVM running for 6.426)
+16:15:48.623 [main] INFO  o.a.r.s.s.DefaultRocketMQListenerContainer - [destroy,311] - container destroyed, DefaultRocketMQListenerContainer{consumerGroup='group_define_in_cloud_MQ', namespace='', nameServer='192.168.146.115:9876', topic='normal_topic_define_in_cloud_MQ', consumeMode=CONCURRENTLY, selectorType=TAG, selectorExpression='*', messageModel=CLUSTERING', tlsEnable=false}
+16:15:48.623 [main] INFO  o.a.r.s.s.DefaultRocketMQListenerContainer - [destroy,311] - container destroyed, DefaultRocketMQListenerContainer{consumerGroup='group_define_in_cloud_MQ', namespace='', nameServer='192.168.146.115:9876', topic='Towelove-Rocketmq', consumeMode=CONCURRENTLY, selectorType=TAG, selectorExpression='*', messageModel=CLUSTERING', tlsEnable=false}
+16:15:48.624 [main] INFO  o.a.r.s.s.DefaultRocketMQListenerContainer - [destroy,311] - container destroyed, DefaultRocketMQListenerContainer{consumerGroup='towelove-consumer', namespace='', nameServer='192.168.146.115:9876', topic='towelove-topic', consumeMode=ORDERLY, selectorType=TAG, selectorExpression='*', messageModel=CLUSTERING', tlsEnable=false}
+16:18:19.565 [background-preinit] INFO  o.h.v.i.util.Version - [<clinit>,21] - HV000001: Hibernate Validator 6.2.5.Final
+16:18:20.302 [main] INFO  c.t.r.c.ToweloveRocketConsumerApplication - [logStartupProfileInfo,637] - The following 1 profile is active: "dev"
+16:18:21.387 [main] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Initializing ProtocolHandler ["http-nio-6789"]
+16:18:21.388 [main] INFO  o.a.c.c.StandardService - [log,173] - Starting service [Tomcat]
+16:18:21.388 [main] INFO  o.a.c.c.StandardEngine - [log,173] - Starting Servlet engine: [Apache Tomcat/9.0.70]
+16:18:21.535 [main] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring embedded WebApplicationContext
+16:18:23.752 [main] INFO  o.a.r.s.s.DefaultRocketMQListenerContainer - [start,338] - running container: DefaultRocketMQListenerContainer{consumerGroup='towelove-consumer', namespace='', nameServer='192.168.146.115:9876', topic='towelove-topic', consumeMode=ORDERLY, selectorType=TAG, selectorExpression='*', messageModel=CLUSTERING', tlsEnable=false}
+16:18:23.753 [main] INFO  o.a.r.s.a.ListenerContainerConfiguration - [registerContainer,127] - Register the listener to container, listenerBeanName:myConsumer, containerBeanName:org.apache.rocketmq.spring.support.DefaultRocketMQListenerContainer_1
+16:18:24.317 [main] INFO  o.a.r.s.s.DefaultRocketMQListenerContainer - [start,338] - running container: DefaultRocketMQListenerContainer{consumerGroup='group_define_in_cloud_MQ', namespace='', nameServer='192.168.146.115:9876', topic='Towelove-Rocketmq', consumeMode=CONCURRENTLY, selectorType=TAG, selectorExpression='*', messageModel=CLUSTERING', tlsEnable=false}
+16:18:24.318 [main] INFO  o.a.r.s.a.ListenerContainerConfiguration - [registerContainer,127] - Register the listener to container, listenerBeanName:ACLStringTransactionalConsumer, containerBeanName:org.apache.rocketmq.spring.support.DefaultRocketMQListenerContainer_2
+16:18:24.838 [main] INFO  o.a.r.s.s.DefaultRocketMQListenerContainer - [start,338] - running container: DefaultRocketMQListenerContainer{consumerGroup='group_define_in_cloud_MQ', namespace='', nameServer='192.168.146.115:9876', topic='normal_topic_define_in_cloud_MQ', consumeMode=CONCURRENTLY, selectorType=TAG, selectorExpression='*', messageModel=CLUSTERING', tlsEnable=false}
+16:18:24.838 [main] INFO  o.a.r.s.a.ListenerContainerConfiguration - [registerContainer,127] - Register the listener to container, listenerBeanName:ACLStringConsumer, containerBeanName:org.apache.rocketmq.spring.support.DefaultRocketMQListenerContainer_3
+16:18:24.847 [main] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Starting ProtocolHandler ["http-nio-6789"]
+16:18:25.133 [main] INFO  c.t.r.c.ToweloveRocketConsumerApplication - [logStarted,61] - Started ToweloveRocketConsumerApplication in 6.676 seconds (JVM running for 7.41)
+16:18:25.457 [main] INFO  o.a.r.s.s.DefaultRocketMQListenerContainer - [destroy,311] - container destroyed, DefaultRocketMQListenerContainer{consumerGroup='group_define_in_cloud_MQ', namespace='', nameServer='192.168.146.115:9876', topic='normal_topic_define_in_cloud_MQ', consumeMode=CONCURRENTLY, selectorType=TAG, selectorExpression='*', messageModel=CLUSTERING', tlsEnable=false}
+16:18:25.457 [main] INFO  o.a.r.s.s.DefaultRocketMQListenerContainer - [destroy,311] - container destroyed, DefaultRocketMQListenerContainer{consumerGroup='group_define_in_cloud_MQ', namespace='', nameServer='192.168.146.115:9876', topic='Towelove-Rocketmq', consumeMode=CONCURRENTLY, selectorType=TAG, selectorExpression='*', messageModel=CLUSTERING', tlsEnable=false}
+16:18:25.458 [main] INFO  o.a.r.s.s.DefaultRocketMQListenerContainer - [destroy,311] - container destroyed, DefaultRocketMQListenerContainer{consumerGroup='towelove-consumer', namespace='', nameServer='192.168.146.115:9876', topic='towelove-topic', consumeMode=ORDERLY, selectorType=TAG, selectorExpression='*', messageModel=CLUSTERING', tlsEnable=false}
+16:20:07.625 [background-preinit] INFO  o.h.v.i.util.Version - [<clinit>,21] - HV000001: Hibernate Validator 6.2.5.Final
+16:20:08.403 [main] INFO  c.t.r.c.ToweloveRocketConsumerApplication - [logStartupProfileInfo,637] - The following 1 profile is active: "dev"
+16:20:09.622 [main] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Initializing ProtocolHandler ["http-nio-6789"]
+16:20:09.623 [main] INFO  o.a.c.c.StandardService - [log,173] - Starting service [Tomcat]
+16:20:09.624 [main] INFO  o.a.c.c.StandardEngine - [log,173] - Starting Servlet engine: [Apache Tomcat/9.0.70]
+16:20:09.810 [main] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring embedded WebApplicationContext
+16:20:09.979 [main] INFO  o.a.c.c.StandardService - [log,173] - Stopping service [Tomcat]
+16:21:20.938 [background-preinit] INFO  o.h.v.i.util.Version - [<clinit>,21] - HV000001: Hibernate Validator 6.2.5.Final
+16:21:21.571 [main] INFO  c.t.r.c.ToweloveRocketConsumerApplication - [logStartupProfileInfo,637] - The following 1 profile is active: "dev"
+16:21:22.230 [main] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Initializing ProtocolHandler ["http-nio-6789"]
+16:21:22.230 [main] INFO  o.a.c.c.StandardService - [log,173] - Starting service [Tomcat]
+16:21:22.231 [main] INFO  o.a.c.c.StandardEngine - [log,173] - Starting Servlet engine: [Apache Tomcat/9.0.70]
+16:21:22.327 [main] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring embedded WebApplicationContext
+16:21:24.450 [main] INFO  o.a.r.s.s.DefaultRocketMQListenerContainer - [start,338] - running container: DefaultRocketMQListenerContainer{consumerGroup='towelove-consumer', namespace='', nameServer='192.168.146.115:9876', topic='towelove-topic', consumeMode=ORDERLY, selectorType=TAG, selectorExpression='*', messageModel=CLUSTERING', tlsEnable=false}
+16:21:24.451 [main] INFO  o.a.r.s.a.ListenerContainerConfiguration - [registerContainer,127] - Register the listener to container, listenerBeanName:myConsumer, containerBeanName:org.apache.rocketmq.spring.support.DefaultRocketMQListenerContainer_1
+16:21:24.995 [main] INFO  o.a.r.s.s.DefaultRocketMQListenerContainer - [start,338] - running container: DefaultRocketMQListenerContainer{consumerGroup='group_define_in_cloud_MQ', namespace='', nameServer='192.168.146.115:9876', topic='Towelove-Rocketmq', consumeMode=CONCURRENTLY, selectorType=TAG, selectorExpression='*', messageModel=CLUSTERING', tlsEnable=false}
+16:21:24.995 [main] INFO  o.a.r.s.a.ListenerContainerConfiguration - [registerContainer,127] - Register the listener to container, listenerBeanName:ACLStringTransactionalConsumer, containerBeanName:org.apache.rocketmq.spring.support.DefaultRocketMQListenerContainer_2
+16:21:25.533 [main] INFO  o.a.r.s.s.DefaultRocketMQListenerContainer - [start,338] - running container: DefaultRocketMQListenerContainer{consumerGroup='group_define_in_cloud_MQ', namespace='', nameServer='192.168.146.115:9876', topic='normal_topic_define_in_cloud_MQ', consumeMode=CONCURRENTLY, selectorType=TAG, selectorExpression='*', messageModel=CLUSTERING', tlsEnable=false}
+16:21:25.533 [main] INFO  o.a.r.s.a.ListenerContainerConfiguration - [registerContainer,127] - Register the listener to container, listenerBeanName:ACLStringConsumer, containerBeanName:org.apache.rocketmq.spring.support.DefaultRocketMQListenerContainer_3
+16:21:25.575 [main] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Starting ProtocolHandler ["http-nio-6789"]
+16:21:25.846 [main] INFO  c.t.r.c.ToweloveRocketConsumerApplication - [logStarted,61] - Started ToweloveRocketConsumerApplication in 5.738 seconds (JVM running for 6.895)
+16:21:26.162 [main] INFO  o.a.r.s.s.DefaultRocketMQListenerContainer - [destroy,311] - container destroyed, DefaultRocketMQListenerContainer{consumerGroup='group_define_in_cloud_MQ', namespace='', nameServer='192.168.146.115:9876', topic='normal_topic_define_in_cloud_MQ', consumeMode=CONCURRENTLY, selectorType=TAG, selectorExpression='*', messageModel=CLUSTERING', tlsEnable=false}
+16:21:26.162 [main] INFO  o.a.r.s.s.DefaultRocketMQListenerContainer - [destroy,311] - container destroyed, DefaultRocketMQListenerContainer{consumerGroup='group_define_in_cloud_MQ', namespace='', nameServer='192.168.146.115:9876', topic='Towelove-Rocketmq', consumeMode=CONCURRENTLY, selectorType=TAG, selectorExpression='*', messageModel=CLUSTERING', tlsEnable=false}
+16:21:26.162 [main] INFO  o.a.r.s.s.DefaultRocketMQListenerContainer - [destroy,311] - container destroyed, DefaultRocketMQListenerContainer{consumerGroup='towelove-consumer', namespace='', nameServer='192.168.146.115:9876', topic='towelove-topic', consumeMode=ORDERLY, selectorType=TAG, selectorExpression='*', messageModel=CLUSTERING', tlsEnable=false}
+16:22:53.151 [background-preinit] INFO  o.h.v.i.util.Version - [<clinit>,21] - HV000001: Hibernate Validator 6.2.5.Final
+16:22:53.900 [main] INFO  c.t.r.c.ToweloveRocketConsumerApplication - [logStartupProfileInfo,637] - The following 1 profile is active: "dev"
+16:22:54.594 [main] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Initializing ProtocolHandler ["http-nio-6789"]
+16:22:54.595 [main] INFO  o.a.c.c.StandardService - [log,173] - Starting service [Tomcat]
+16:22:54.595 [main] INFO  o.a.c.c.StandardEngine - [log,173] - Starting Servlet engine: [Apache Tomcat/9.0.70]
+16:22:54.699 [main] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring embedded WebApplicationContext
+16:22:56.622 [main] INFO  o.a.r.s.s.DefaultRocketMQListenerContainer - [start,338] - running container: DefaultRocketMQListenerContainer{consumerGroup='towelove-consumer', namespace='', nameServer='192.168.146.115:9876', topic='towelove-topic', consumeMode=ORDERLY, selectorType=TAG, selectorExpression='*', messageModel=CLUSTERING', tlsEnable=false}
+16:22:56.623 [main] INFO  o.a.r.s.a.ListenerContainerConfiguration - [registerContainer,127] - Register the listener to container, listenerBeanName:myConsumer, containerBeanName:org.apache.rocketmq.spring.support.DefaultRocketMQListenerContainer_1
+16:22:57.150 [main] INFO  o.a.r.s.s.DefaultRocketMQListenerContainer - [start,338] - running container: DefaultRocketMQListenerContainer{consumerGroup='group_define_in_cloud_MQ', namespace='', nameServer='192.168.146.115:9876', topic='Towelove-Rocketmq', consumeMode=CONCURRENTLY, selectorType=TAG, selectorExpression='*', messageModel=CLUSTERING', tlsEnable=false}
+16:22:57.150 [main] INFO  o.a.r.s.a.ListenerContainerConfiguration - [registerContainer,127] - Register the listener to container, listenerBeanName:ACLStringTransactionalConsumer, containerBeanName:org.apache.rocketmq.spring.support.DefaultRocketMQListenerContainer_2
+16:22:57.680 [main] INFO  o.a.r.s.s.DefaultRocketMQListenerContainer - [start,338] - running container: DefaultRocketMQListenerContainer{consumerGroup='group_define_in_cloud_MQ', namespace='', nameServer='192.168.146.115:9876', topic='normal_topic_define_in_cloud_MQ', consumeMode=CONCURRENTLY, selectorType=TAG, selectorExpression='*', messageModel=CLUSTERING', tlsEnable=false}
+16:22:57.680 [main] INFO  o.a.r.s.a.ListenerContainerConfiguration - [registerContainer,127] - Register the listener to container, listenerBeanName:ACLStringConsumer, containerBeanName:org.apache.rocketmq.spring.support.DefaultRocketMQListenerContainer_3
+16:22:57.717 [main] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Starting ProtocolHandler ["http-nio-6789"]
+16:22:57.995 [main] INFO  c.t.r.c.ToweloveRocketConsumerApplication - [logStarted,61] - Started ToweloveRocketConsumerApplication in 5.638 seconds (JVM running for 6.791)
+16:22:58.303 [main] INFO  o.a.r.s.s.DefaultRocketMQListenerContainer - [destroy,311] - container destroyed, DefaultRocketMQListenerContainer{consumerGroup='group_define_in_cloud_MQ', namespace='', nameServer='192.168.146.115:9876', topic='normal_topic_define_in_cloud_MQ', consumeMode=CONCURRENTLY, selectorType=TAG, selectorExpression='*', messageModel=CLUSTERING', tlsEnable=false}
+16:22:58.304 [main] INFO  o.a.r.s.s.DefaultRocketMQListenerContainer - [destroy,311] - container destroyed, DefaultRocketMQListenerContainer{consumerGroup='group_define_in_cloud_MQ', namespace='', nameServer='192.168.146.115:9876', topic='Towelove-Rocketmq', consumeMode=CONCURRENTLY, selectorType=TAG, selectorExpression='*', messageModel=CLUSTERING', tlsEnable=false}
+16:22:58.304 [main] INFO  o.a.r.s.s.DefaultRocketMQListenerContainer - [destroy,311] - container destroyed, DefaultRocketMQListenerContainer{consumerGroup='towelove-consumer', namespace='', nameServer='192.168.146.115:9876', topic='towelove-topic', consumeMode=ORDERLY, selectorType=TAG, selectorExpression='*', messageModel=CLUSTERING', tlsEnable=false}
+16:30:06.546 [background-preinit] INFO  o.h.v.i.util.Version - [<clinit>,21] - HV000001: Hibernate Validator 6.2.5.Final
+16:30:07.101 [main] INFO  c.t.r.c.ToweloveRocketConsumerApplication - [logStartupProfileInfo,637] - The following 1 profile is active: "dev"
+16:30:07.695 [main] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Initializing ProtocolHandler ["http-nio-6789"]
+16:30:07.696 [main] INFO  o.a.c.c.StandardService - [log,173] - Starting service [Tomcat]
+16:30:07.696 [main] INFO  o.a.c.c.StandardEngine - [log,173] - Starting Servlet engine: [Apache Tomcat/9.0.70]
+16:30:07.792 [main] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring embedded WebApplicationContext
+16:30:09.864 [main] INFO  o.a.r.s.s.DefaultRocketMQListenerContainer - [start,338] - running container: DefaultRocketMQListenerContainer{consumerGroup='group_define_in_cloud_MQ', namespace='', nameServer='192.168.146.115:9876', topic='Trans-Towelove-Rocketmq', consumeMode=CONCURRENTLY, selectorType=TAG, selectorExpression='*', messageModel=CLUSTERING', tlsEnable=false}
+16:30:09.866 [main] INFO  o.a.r.s.a.ListenerContainerConfiguration - [registerContainer,127] - Register the listener to container, listenerBeanName:ACLStringTransactionalConsumerListener, containerBeanName:org.apache.rocketmq.spring.support.DefaultRocketMQListenerContainer_1
+16:30:10.430 [main] INFO  o.a.r.s.s.DefaultRocketMQListenerContainer - [start,338] - running container: DefaultRocketMQListenerContainer{consumerGroup='towelove-consumer', namespace='', nameServer='192.168.146.115:9876', topic='towelove-topic', consumeMode=ORDERLY, selectorType=TAG, selectorExpression='*', messageModel=CLUSTERING', tlsEnable=false}
+16:30:10.431 [main] INFO  o.a.r.s.a.ListenerContainerConfiguration - [registerContainer,127] - Register the listener to container, listenerBeanName:myConsumerListener, containerBeanName:org.apache.rocketmq.spring.support.DefaultRocketMQListenerContainer_2
+16:30:10.483 [main] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Starting ProtocolHandler ["http-nio-6789"]
+16:30:10.775 [main] INFO  c.t.r.c.ToweloveRocketConsumerApplication - [logStarted,61] - Started ToweloveRocketConsumerApplication in 5.042 seconds (JVM running for 6.083)
+16:30:10.810 [NettyClientSelector_1] INFO  RocketmqRemoting - [info,95] - closeChannel: close the connection to remote address[192.168.146.115:10911] result: true
+16:30:10.811 [NettyClientSelector_1] INFO  RocketmqRemoting - [info,95] - closeChannel: close the connection to remote address[192.168.146.116:10911] result: true
+16:30:10.811 [NettyClientSelector_1] INFO  RocketmqRemoting - [info,95] - closeChannel: close the connection to remote address[192.168.146.115:9876] result: true
+16:30:10.811 [NettyClientSelector_1] INFO  RocketmqRemoting - [info,95] - closeChannel: close the connection to remote address[192.168.146.115:11011] result: true
+16:30:10.811 [NettyClientSelector_1] INFO  RocketmqRemoting - [info,95] - closeChannel: close the connection to remote address[192.168.146.116:11011] result: true
+16:30:11.027 [NettyClientSelector_1] INFO  RocketmqRemoting - [info,95] - closeChannel: close the connection to remote address[192.168.146.115:10911] result: true
+16:30:11.028 [NettyClientSelector_1] INFO  RocketmqRemoting - [info,95] - closeChannel: close the connection to remote address[] result: true
+16:30:11.480 [NettyClientSelector_1] INFO  RocketmqRemoting - [info,95] - closeChannel: close the connection to remote address[192.168.146.115:9876] result: true
+16:30:11.480 [NettyClientSelector_1] INFO  RocketmqRemoting - [info,95] - closeChannel: close the connection to remote address[192.168.146.116:10911] result: true
+16:30:11.480 [NettyClientSelector_1] INFO  RocketmqRemoting - [info,95] - closeChannel: close the connection to remote address[192.168.146.115:10911] result: true
+16:30:11.481 [NettyClientSelector_1] INFO  RocketmqRemoting - [info,95] - closeChannel: close the connection to remote address[192.168.146.115:11011] result: true
+16:30:11.481 [NettyClientSelector_1] INFO  RocketmqRemoting - [info,95] - closeChannel: close the connection to remote address[192.168.146.116:11011] result: true
+16:30:11.658 [main] INFO  o.a.r.s.s.DefaultRocketMQListenerContainer - [destroy,311] - container destroyed, DefaultRocketMQListenerContainer{consumerGroup='towelove-consumer', namespace='', nameServer='192.168.146.115:9876', topic='towelove-topic', consumeMode=ORDERLY, selectorType=TAG, selectorExpression='*', messageModel=CLUSTERING', tlsEnable=false}
+16:30:11.658 [main] INFO  o.a.r.s.s.DefaultRocketMQListenerContainer - [destroy,311] - container destroyed, DefaultRocketMQListenerContainer{consumerGroup='group_define_in_cloud_MQ', namespace='', nameServer='192.168.146.115:9876', topic='Trans-Towelove-Rocketmq', consumeMode=CONCURRENTLY, selectorType=TAG, selectorExpression='*', messageModel=CLUSTERING', tlsEnable=false}
+16:31:31.748 [background-preinit] INFO  o.h.v.i.util.Version - [<clinit>,21] - HV000001: Hibernate Validator 6.2.5.Final
+16:31:32.344 [main] INFO  c.t.r.c.ToweloveRocketConsumerApplication - [logStartupProfileInfo,637] - The following 1 profile is active: "dev"
+16:31:32.894 [main] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Initializing ProtocolHandler ["http-nio-6789"]
+16:31:32.895 [main] INFO  o.a.c.c.StandardService - [log,173] - Starting service [Tomcat]
+16:31:32.895 [main] INFO  o.a.c.c.StandardEngine - [log,173] - Starting Servlet engine: [Apache Tomcat/9.0.70]
+16:31:32.988 [main] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring embedded WebApplicationContext
+16:31:35.096 [main] INFO  o.a.r.s.s.DefaultRocketMQListenerContainer - [start,338] - running container: DefaultRocketMQListenerContainer{consumerGroup='group_define_in_cloud_MQ', namespace='', nameServer='192.168.146.115:9876', topic='Trans-Towelove-Rocketmq', consumeMode=CONCURRENTLY, selectorType=TAG, selectorExpression='*', messageModel=CLUSTERING', tlsEnable=false}
+16:31:35.097 [main] INFO  o.a.r.s.a.ListenerContainerConfiguration - [registerContainer,127] - Register the listener to container, listenerBeanName:ACLStringTransactionalConsumerListener, containerBeanName:org.apache.rocketmq.spring.support.DefaultRocketMQListenerContainer_1
+16:31:35.666 [main] INFO  o.a.r.s.s.DefaultRocketMQListenerContainer - [start,338] - running container: DefaultRocketMQListenerContainer{consumerGroup='towelove-consumer', namespace='', nameServer='192.168.146.115:9876', topic='${Towelove-Topic}', consumeMode=ORDERLY, selectorType=TAG, selectorExpression='*', messageModel=CLUSTERING', tlsEnable=false}
+16:31:35.667 [main] INFO  o.a.r.s.a.ListenerContainerConfiguration - [registerContainer,127] - Register the listener to container, listenerBeanName:myConsumerListener, containerBeanName:org.apache.rocketmq.spring.support.DefaultRocketMQListenerContainer_2
+16:31:35.704 [main] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Starting ProtocolHandler ["http-nio-6789"]
+16:31:35.983 [main] INFO  c.t.r.c.ToweloveRocketConsumerApplication - [logStarted,61] - Started ToweloveRocketConsumerApplication in 4.994 seconds (JVM running for 5.968)
+16:40:53.270 [NettyClientSelector_1] INFO  RocketmqRemoting - [info,95] - closeChannel: close the connection to remote address[192.168.146.116:10911] result: true
+16:40:53.272 [NettyClientSelector_1] INFO  RocketmqRemoting - [info,95] - closeChannel: close the connection to remote address[192.168.146.115:9876] result: true
+16:40:53.273 [NettyClientSelector_1] INFO  RocketmqRemoting - [info,95] - closeChannel: close the connection to remote address[192.168.146.115:11011] result: true
+16:40:53.273 [NettyClientSelector_1] INFO  RocketmqRemoting - [info,95] - closeChannel: close the connection to remote address[192.168.146.115:10911] result: true
+16:40:53.273 [NettyClientSelector_1] INFO  RocketmqRemoting - [info,95] - closeChannel: close the connection to remote address[192.168.146.116:11011] result: true
+16:40:53.297 [NettyClientSelector_1] INFO  RocketmqRemoting - [info,95] - closeChannel: close the connection to remote address[192.168.146.115:10911] result: true
+16:40:53.298 [NettyClientSelector_1] INFO  RocketmqRemoting - [info,95] - closeChannel: close the connection to remote address[192.168.146.116:10911] result: true
+16:40:53.298 [NettyClientSelector_1] INFO  RocketmqRemoting - [info,95] - closeChannel: close the connection to remote address[192.168.146.115:11011] result: true
+16:40:53.298 [NettyClientSelector_1] INFO  RocketmqRemoting - [info,95] - closeChannel: close the connection to remote address[192.168.146.115:9876] result: true
+16:40:53.298 [NettyClientSelector_1] INFO  RocketmqRemoting - [info,95] - closeChannel: close the connection to remote address[192.168.146.116:11011] result: true
+16:40:53.510 [SpringApplicationShutdownHook] INFO  o.a.r.s.s.DefaultRocketMQListenerContainer - [destroy,311] - container destroyed, DefaultRocketMQListenerContainer{consumerGroup='towelove-consumer', namespace='', nameServer='192.168.146.115:9876', topic='${Towelove-Topic}', consumeMode=ORDERLY, selectorType=TAG, selectorExpression='*', messageModel=CLUSTERING', tlsEnable=false}
+16:40:53.510 [SpringApplicationShutdownHook] INFO  o.a.r.s.s.DefaultRocketMQListenerContainer - [destroy,311] - container destroyed, DefaultRocketMQListenerContainer{consumerGroup='group_define_in_cloud_MQ', namespace='', nameServer='192.168.146.115:9876', topic='Trans-Towelove-Rocketmq', consumeMode=CONCURRENTLY, selectorType=TAG, selectorExpression='*', messageModel=CLUSTERING', tlsEnable=false}
+16:41:00.240 [background-preinit] INFO  o.h.v.i.util.Version - [<clinit>,21] - HV000001: Hibernate Validator 6.2.5.Final
+16:41:00.846 [main] INFO  c.t.r.c.ToweloveRocketConsumerApplication - [logStartupProfileInfo,637] - The following 1 profile is active: "dev"
+16:41:01.546 [main] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Initializing ProtocolHandler ["http-nio-6789"]
+16:41:01.547 [main] INFO  o.a.c.c.StandardService - [log,173] - Starting service [Tomcat]
+16:41:01.547 [main] INFO  o.a.c.c.StandardEngine - [log,173] - Starting Servlet engine: [Apache Tomcat/9.0.70]
+16:41:01.651 [main] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring embedded WebApplicationContext
+16:41:04.379 [main] INFO  o.a.r.s.s.DefaultRocketMQListenerContainer - [start,338] - running container: DefaultRocketMQListenerContainer{consumerGroup='group_define_in_cloud_MQ', namespace='', nameServer='192.168.146.115:9876', topic='Trans-Towelove-Rocketmq', consumeMode=CONCURRENTLY, selectorType=TAG, selectorExpression='*', messageModel=CLUSTERING', tlsEnable=false}
+16:41:04.380 [main] INFO  o.a.r.s.a.ListenerContainerConfiguration - [registerContainer,127] - Register the listener to container, listenerBeanName:ACLStringTransactionalConsumerListener, containerBeanName:org.apache.rocketmq.spring.support.DefaultRocketMQListenerContainer_1
+16:41:04.946 [main] INFO  o.a.r.s.s.DefaultRocketMQListenerContainer - [start,338] - running container: DefaultRocketMQListenerContainer{consumerGroup='towelove-consumer', namespace='', nameServer='192.168.146.115:9876', topic='${Towelove-Topic}', consumeMode=ORDERLY, selectorType=TAG, selectorExpression='*', messageModel=CLUSTERING', tlsEnable=false}
+16:41:04.947 [main] INFO  o.a.r.s.a.ListenerContainerConfiguration - [registerContainer,127] - Register the listener to container, listenerBeanName:myConsumerListener, containerBeanName:org.apache.rocketmq.spring.support.DefaultRocketMQListenerContainer_2
+16:41:04.992 [main] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Starting ProtocolHandler ["http-nio-6789"]
+16:41:05.277 [main] INFO  c.t.r.c.ToweloveRocketConsumerApplication - [logStarted,61] - Started ToweloveRocketConsumerApplication in 5.755 seconds (JVM running for 6.681)
+16:41:06.796 [NettyClientSelector_1] INFO  RocketmqRemoting - [info,95] - closeChannel: close the connection to remote address[192.168.146.115:10911] result: true
+16:41:06.798 [NettyClientSelector_1] INFO  RocketmqRemoting - [info,95] - closeChannel: close the connection to remote address[192.168.146.115:10911] result: true
+16:41:06.798 [NettyClientSelector_1] INFO  RocketmqRemoting - [info,95] - closeChannel: close the connection to remote address[192.168.146.115:10911] result: true
+16:41:06.798 [NettyClientSelector_1] INFO  RocketmqRemoting - [info,95] - closeChannel: close the connection to remote address[192.168.146.115:10911] result: true
+16:41:06.798 [NettyClientSelector_1] INFO  RocketmqRemoting - [info,95] - closeChannel: close the connection to remote address[192.168.146.115:10911] result: true
+16:41:11.062 [NettyClientSelector_1] INFO  RocketmqRemoting - [info,95] - closeChannel: close the connection to remote address[192.168.146.116:10911] result: true
+16:41:11.064 [NettyClientSelector_1] INFO  RocketmqRemoting - [info,95] - closeChannel: close the connection to remote address[192.168.146.115:10911] result: true
+16:41:11.065 [NettyClientSelector_1] INFO  RocketmqRemoting - [info,95] - closeChannel: close the connection to remote address[192.168.146.115:11011] result: true
+16:41:11.066 [NettyClientSelector_1] INFO  RocketmqRemoting - [info,95] - closeChannel: close the connection to remote address[192.168.146.115:9876] result: true
+16:41:11.066 [NettyClientSelector_1] INFO  RocketmqRemoting - [info,95] - closeChannel: close the connection to remote address[192.168.146.116:11011] result: true
+16:41:11.102 [NettyClientSelector_1] INFO  RocketmqRemoting - [info,95] - closeChannel: close the connection to remote address[192.168.146.116:10911] result: true
+16:41:11.103 [NettyClientSelector_1] INFO  RocketmqRemoting - [info,95] - closeChannel: close the connection to remote address[192.168.146.115:10911] result: true
+16:41:11.103 [NettyClientSelector_1] INFO  RocketmqRemoting - [info,95] - closeChannel: close the connection to remote address[192.168.146.115:11011] result: true
+16:41:11.103 [NettyClientSelector_1] INFO  RocketmqRemoting - [info,95] - closeChannel: close the connection to remote address[192.168.146.115:9876] result: true
+16:41:11.103 [NettyClientSelector_1] INFO  RocketmqRemoting - [info,95] - closeChannel: close the connection to remote address[192.168.146.116:11011] result: true
+16:41:11.342 [SpringApplicationShutdownHook] INFO  o.a.r.s.s.DefaultRocketMQListenerContainer - [destroy,311] - container destroyed, DefaultRocketMQListenerContainer{consumerGroup='towelove-consumer', namespace='', nameServer='192.168.146.115:9876', topic='${Towelove-Topic}', consumeMode=ORDERLY, selectorType=TAG, selectorExpression='*', messageModel=CLUSTERING', tlsEnable=false}
+16:41:11.342 [SpringApplicationShutdownHook] INFO  o.a.r.s.s.DefaultRocketMQListenerContainer - [destroy,311] - container destroyed, DefaultRocketMQListenerContainer{consumerGroup='group_define_in_cloud_MQ', namespace='', nameServer='192.168.146.115:9876', topic='Trans-Towelove-Rocketmq', consumeMode=CONCURRENTLY, selectorType=TAG, selectorExpression='*', messageModel=CLUSTERING', tlsEnable=false}
+16:41:11.376 [NettyClientSelector_1] INFO  RocketmqRemoting - [info,95] - closeChannel: close the connection to remote address[192.168.146.115:11011] result: true

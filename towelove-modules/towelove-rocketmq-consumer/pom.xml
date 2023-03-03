@@ -9,18 +9,18 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>towelove-modules-rocket-comsumer</artifactId>
+    <artifactId>towelove-modules-rocketmq-consumer</artifactId>
 
     <description>
-        towelove-modules-rocket-consumer消息消费者模块
+        towelove-modules-rocketmq-consumer消息消费者模块
     </description>
 
     <dependencies>
-<!--        <dependency>-->
-<!--            <groupId>org.apache.rocketmq</groupId>-->
-<!--            <artifactId>rocketmq-client</artifactId>-->
-<!--            <version>4.9.4</version>-->
-<!--        </dependency>-->
+        <dependency>
+            <groupId>org.apache.rocketmq</groupId>
+            <artifactId>rocketmq-client</artifactId>
+            <version>4.9.4</version>
+        </dependency>
         <!--rocketmq-springboot-->
         <dependency>
             <groupId>org.apache.rocketmq</groupId>

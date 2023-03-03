@@ -1,4 +1,4 @@
-package com.towelove.rocketmq.consumer.consumer;
+package com.towelove.rocketmq.consumer.listener;
 
 import org.apache.rocketmq.spring.annotation.ConsumeMode;
 import org.apache.rocketmq.spring.annotation.RocketMQMessageListener;
@@ -13,10 +13,10 @@ import org.springframework.stereotype.Component;
 @Component
 @RocketMQMessageListener(
         consumerGroup = "towelove-consumer",
-        topic = "towelove-topic",
+        topic = "${Towelove-Topic}",
         consumeMode = ConsumeMode.ORDERLY
 )
-public class MyConsumer implements RocketMQListener<String>{
+public class MyConsumerListener implements RocketMQListener<String>{
     @Override
     public void onMessage(String message) {
         System.out.println("收到消息："+message);
