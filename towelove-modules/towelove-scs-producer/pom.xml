@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>towelove-modules-springcloud-mq-producer</artifactId>
+    <artifactId>towelove-modules-scs-producer</artifactId>
 
     <description>
         towelove-modules-springcloud-stream整合rocketmq生产者模块
@@ -21,6 +21,10 @@
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
