@@ -18,6 +18,7 @@ public interface ISysUserService extends IService<SysUser> {
     Boolean registerUser(SysUser sysUser);
 
     SysUser selectUserById(Long userId);
+     int updateUser(SysUser user);
 
     String checkUserNameUnique(SysUser sysUser);
 
@@ -28,4 +29,12 @@ public interface ISysUserService extends IService<SysUser> {
     String checkPhoneUnique(SysUser user);
 
     void checkUserDataScope(Long userId);
+
+    int deleteUserByIds(Long[] userIds);
+
+    int resetPwd(SysUser user);
+
+    int updateUserStatus(SysUser user);
+
+    int authRole(Long userId);
 }

@@ -11,7 +11,8 @@ import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * 获取当前线程变量中的 用户id、用户名称、Token等信息 
- * 注意： 必须在网关通过请求头的方法传入，同时在HeaderInterceptor拦截器设置值。 否则这里无法获取
+ * 注意： 必须在网关通过请求头的方法传入，同时在HeaderInterceptor拦截器设置值。
+ * 否则这里无法获取
  *
  * @author: 张锦标
  * @date: 2023/2/23 18:36
@@ -19,11 +20,16 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class SecurityContextHolder
 {
-    private static final TransmittableThreadLocal<Map<String, Object>> THREAD_LOCAL = new TransmittableThreadLocal<>();
+    //TransmittableThreadLocal用于解决父子线程
+    //或者不同线程之间需要通用一些变量的时候
+    private static final TransmittableThreadLocal<Map<String, Object>>
+            THREAD_LOCAL = new TransmittableThreadLocal<>();
 
     public static void set(String key, Object value)
     {
         Map<String, Object> map = getLocalMap();
+        //如果放入的value对象为空
+        //则直接放入一个空字符串
         map.put(key, value == null ? StringUtils.EMPTY : value);
     }
 

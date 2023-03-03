@@ -11,11 +11,10 @@ import com.towelove.system.api.domain.SysUser;
 import com.towelove.system.mapper.SysUserMapper;
 import com.towelove.system.service.ISysUserService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * @author: 张锦标
@@ -132,6 +131,33 @@ public class ISysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser>
         }
     }
 
+    @Override
+    public int deleteUserByIds(Long[] userIds) {
+        List<Long> ids = Arrays.stream(userIds).collect(Collectors.toList());
+        int i = baseMapper.deleteBatchIds(ids);
+        return i==userIds.length?1:0;
+    }
+
+    @Override
+    public int resetPwd(SysUser user) {
+       return  baseMapper.updateById(user);
+    }
+
+    @Override
+    public int updateUserStatus(SysUser user) {
+        user.setStatus("1");
+        return baseMapper.updateById(user);
+    }
+
+    @Override
+    public int authRole(Long userId) {
+        SysUser sysUser = baseMapper.selectById(userId);
+        sysUser.setRoleId(1L);
+        return baseMapper.updateById(
+                sysUser
+        );
+    }
+
     /**
      * 根据表单传递来的用户信息注册用户
      *
@@ -158,5 +184,17 @@ public class ISysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser>
             throw new RuntimeException("没用查找到当前用户，用户ID不存在");
         }
         return sysUser;
+    }
+    /**
+     * 修改保存用户信息
+     *
+     * @param user 用户信息
+     * @return 结果
+     */
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public int updateUser(SysUser user)
+    {
+        return baseMapper.updateById(user);
     }
 }

@@ -68,7 +68,8 @@ public class AuthLogic
 
     /**
      * 获取当前用户缓存信息, 如果未登录，则抛出异常
-     * 
+     * 用户的请求的token将会通过RequestContextHolder
+     * 这个对象来获取
      * @return 用户缓存信息
      */
     public LoginUser getLoginUser()
@@ -78,10 +79,12 @@ public class AuthLogic
         {
             throw new NotLoginException("未提供token");
         }
+        //拥有token代表用户已经登录
+        //继续下面的业务逻辑
         LoginUser loginUser = SecurityUtils.getLoginUser();
         if (loginUser == null)
         {
-            throw new NotLoginException("无效的token");
+            throw new NotLoginException("无效的token，登录用户为空");
         }
         return loginUser;
     }
@@ -139,7 +142,8 @@ public class AuthLogic
      */
     public void checkPermi(RequiresPermissions requiresPermissions)
     {
-        SecurityContextHolder.setPermission(StringUtils.join(requiresPermissions.value(), ","));
+        SecurityContextHolder.setPermission(StringUtils.join(
+                requiresPermissions.value(), ","));
         if (requiresPermissions.logical() == Logical.AND)
         {
             checkPermiAnd(requiresPermissions.value());
@@ -153,7 +157,7 @@ public class AuthLogic
     /**
      * 验证用户是否含有指定权限，必须全部拥有
      *
-     * @param permissions 权限列表
+     * @param permissions 当前请求需要的权限列表
      */
     public void checkPermiAnd(String... permissions)
     {
@@ -352,14 +356,15 @@ public class AuthLogic
     /**
      * 判断是否包含权限
      * 
-     * @param authorities 权限列表
+     * @param authorities 当前用户拥有的权限列表
      * @param permission 权限字符串
      * @return 用户是否具备某权限
      */
     public boolean hasPermi(Collection<String> authorities, String permission)
     {
         return authorities.stream().filter(StringUtils::hasText)
-                .anyMatch(x -> ALL_PERMISSION.contains(x) || PatternMatchUtils.simpleMatch(x, permission));
+                .anyMatch(x -> ALL_PERMISSION.contains(x)
+                        || PatternMatchUtils.simpleMatch(x, permission));
     }
 
     /**

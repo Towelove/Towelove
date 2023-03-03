@@ -19,7 +19,11 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpServletRequest;
 
 /**
-
+ * @author: 张锦标
+ * @date: 2023/2/24 9:49
+ * Description:
+ * 用户的登录，注册，页面信息刷新
+ * 都由当前控制器层来完成
  */
 @RestController
 public class TokenController {
@@ -50,7 +54,6 @@ public class TokenController {
             // 记录用户退出日志
             sysLoginService.logout(username);
         }
-        //123123
         return R.ok();
     }
 

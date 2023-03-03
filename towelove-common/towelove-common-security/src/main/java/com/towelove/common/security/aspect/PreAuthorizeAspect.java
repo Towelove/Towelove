@@ -15,8 +15,11 @@ import java.lang.reflect.Method;
 
 /**
  * 基于 Spring Aop 的注解鉴权
- * 
- * @author kong
+ * 内部服务调用验证处理
+ *
+ * @author: 张锦标
+ * @date: 2023/2/23 18:36
+ * Description:
  */
 @Aspect
 @Component
@@ -32,7 +35,8 @@ public class PreAuthorizeAspect
     /**
      * 定义AOP签名 (切入所有使用鉴权注解的方法)
      */
-    public static final String POINTCUT_SIGN = " @annotation(com.towelove.common.security.annotation.RequiresLogin) || "
+    public static final String POINTCUT_SIGN = " " +
+            "@annotation(com.towelove.common.security.annotation.RequiresLogin) || "
             + "@annotation(com.towelove.common.security.annotation.RequiresPermissions) || "
             + "@annotation(com.towelove.common.security.annotation.RequiresRoles)";
 
@@ -47,7 +51,7 @@ public class PreAuthorizeAspect
     /**
      * 环绕切入
      * 
-     * @param joinPoint 切面对象
+     * @param joinPoint 切面对象，用来获取代理类和被代理类的信息。
      * @return 底层方法执行后的返回值
      * @throws Throwable 底层方法抛出的异常
      */
@@ -55,8 +59,10 @@ public class PreAuthorizeAspect
     public Object around(ProceedingJoinPoint joinPoint) throws Throwable
     {
         // 注解鉴权
+        //MethodSignature代表的即是被切入的方法
         MethodSignature signature = (MethodSignature) joinPoint.getSignature();
         checkMethodAnnotation(signature.getMethod());
+        System.out.println("当前被切入的方法为："+signature.getMethod().getName().toString());
         try
         {
             // 执行原有逻辑
@@ -89,7 +95,8 @@ public class PreAuthorizeAspect
         }
 
         // 校验 @RequiresPermissions 注解
-        RequiresPermissions requiresPermissions = method.getAnnotation(RequiresPermissions.class);
+        RequiresPermissions requiresPermissions =
+                method.getAnnotation(RequiresPermissions.class);
         if (requiresPermissions != null)
         {
             AuthUtil.checkPermi(requiresPermissions);
