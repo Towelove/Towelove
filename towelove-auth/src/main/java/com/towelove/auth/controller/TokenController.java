@@ -37,6 +37,7 @@ public class TokenController {
     {
         // 用户登录
         LoginUser userInfo = sysLoginService.login(form.getUsername(), form.getPassword());
+        //上面的代码只为LoginUser提供了SysUser对象，下面的createToken为其其他属性添加属性
         // 获取登录token
         //将token放入到请求头中
         return R.ok(tokenService.createToken(userInfo));

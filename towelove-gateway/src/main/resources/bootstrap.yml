@@ -32,10 +32,15 @@ spring:
         # 配置中心地址
         server-addr: 127.0.0.1:8848
         # 配置文件格式
-        file-extension: yml
+        file-extension: yaml
         # 共享配置
-        shared-configs:
-          - application-${spring.profiles.active}.${spring.cloud.nacos.config.file-extension}
+        shared-configs[0]:
+          data-id: towelove-base-dev.yaml
+          refresh: true
+        shared-configs[1]:
+          data-id: towelove-redis-dev.yaml
+          refresh: true
+        prefix: application-${spring.profiles.active}.${spring.cloud.nacos.config.file-extension}
     sentinel:
       # 取消控制台懒加载
       eager: true
@@ -51,3 +56,11 @@ spring:
             groupId: SENTINEL_GROUP # nacos中存储规则的groupId
             rule-type: flow #所有的规则类型可查看枚举类：org.springframework.cloud.alibaba.sentinel.datasource.RuleType
 #            data-type: json
+
+#security:
+#  ignore:
+#    whites:
+#      - /auth/login
+#      - /auth/register
+#      - /auth/logout
+#      - /auth/refresh

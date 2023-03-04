@@ -24,6 +24,7 @@ public final class SpringUtils implements BeanFactoryPostProcessor
     public void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory) throws BeansException
     {
         SpringUtils.beanFactory = beanFactory;
+        System.out.println(SpringUtils.beanFactory);
     }
 
     /**

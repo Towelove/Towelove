@@ -18,6 +18,9 @@ public class AuthUtil
      */
     public static AuthLogic authLogic = new AuthLogic();
 
+    public AuthUtil() {
+    }
+
     /**
      * 会话注销
      */
@@ -49,6 +52,7 @@ public class AuthUtil
      */
     public static LoginUser getLoginUser(String token)
     {
+        //System.out.println(authLogic);
         return authLogic.getLoginUser(token);
     }
 

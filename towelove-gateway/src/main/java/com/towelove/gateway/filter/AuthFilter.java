@@ -38,7 +38,11 @@ public class AuthFilter implements GlobalFilter, Ordered
     @Autowired
     private RedisService redisService;
 
-
+    //来自auth的请求会先通过当前接口
+    //并且来自/auth的请求直接进行放行
+    //当前过滤器要求再用户登录成功之后
+    //其访问其他路径的请求的时候需要进行拦截
+    //判断其请求头中是否有对应的用户信息
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain)
     {
@@ -46,7 +50,7 @@ public class AuthFilter implements GlobalFilter, Ordered
         ServerHttpRequest.Builder mutate = request.mutate();
 
         String url = request.getURI().getPath();
-        // 跳过不需要验证的路径
+        // TODO 跳过不需要验证的路径 路径来自于nacos
         if (StringUtils.matches(url, ignoreWhite.getWhites()))
         {
             return chain.filter(exchange);
@@ -74,7 +78,9 @@ public class AuthFilter implements GlobalFilter, Ordered
             return unauthorizedResponse(exchange, "令牌验证失败");
         }
 
-        // 设置用户信息到请求
+        // 设置用户信息到请求头
+        //USER_KEY对应token
+        //USER_ID能方便之后进行用户查询
         addHeader(mutate, SecurityConstants.USER_KEY, userkey);
         addHeader(mutate, SecurityConstants.DETAILS_USER_ID, userid);
         addHeader(mutate, SecurityConstants.DETAILS_USERNAME, username);

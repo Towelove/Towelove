@@ -12,6 +12,7 @@ import com.towelove.common.security.utils.SecurityUtils;
 import com.towelove.system.api.model.LoginUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
+import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
@@ -25,8 +26,8 @@ import java.util.concurrent.TimeUnit;
  * @date: 2023/2/23 18:36
  * Description:
  */
-@AutoConfiguration
-//@Component
+//@AutoConfiguration
+@Component
 public class TokenService
 {
     @Autowired

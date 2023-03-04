@@ -688,3 +688,75 @@ org.springframework.http.converter.HttpMessageNotReadableException: Required req
 	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
 	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
 	at java.lang.Thread.run(Thread.java:750)
+20:37:32.605 [http-nio-9200-exec-1] ERROR c.t.c.s.h.GlobalExceptionHandler - [handleException,96] - 请求地址'/error',发生系统异常.
+org.springframework.web.util.NestedServletException: Handler dispatch failed; nested exception is java.lang.ExceptionInInitializerError
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1086)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:964)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006)
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:898)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:670)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:779)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:227)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:102)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:102)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.apache.catalina.core.ApplicationDispatcher.invoke(ApplicationDispatcher.java:711)
+	at org.apache.catalina.core.ApplicationDispatcher.processRequest(ApplicationDispatcher.java:461)
+	at org.apache.catalina.core.ApplicationDispatcher.doForward(ApplicationDispatcher.java:385)
+	at org.apache.catalina.core.ApplicationDispatcher.forward(ApplicationDispatcher.java:313)
+	at org.apache.catalina.core.StandardHostValve.custom(StandardHostValve.java:388)
+	at org.apache.catalina.core.StandardHostValve.status(StandardHostValve.java:244)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:171)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:78)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:360)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:399)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:891)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1784)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.lang.Thread.run(Thread.java:750)
+Caused by: java.lang.ExceptionInInitializerError: null
+	at com.towelove.common.security.interceptor.HeaderInterceptor.preHandle(HeaderInterceptor.java:50)
+	at org.springframework.web.servlet.HandlerExecutionChain.applyPreHandle(HandlerExecutionChain.java:148)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1066)
+	... 37 common frames omitted
+Caused by: java.lang.NullPointerException: null
+	at com.towelove.common.core.utils.SpringUtils.getBean(SpringUtils.java:53)
+	at com.towelove.common.security.auth.AuthLogic.<init>(AuthLogic.java:38)
+	at com.towelove.common.security.auth.AuthUtil.<clinit>(AuthUtil.java:19)
+	... 40 common frames omitted
+22:48:55.803 [nacos-grpc-client-executor-164] ERROR c.a.n.c.r.c.g.GrpcClient - [printIfErrorEnabled,99] - [1677940443820_127.0.0.1_63276]Request stream onCompleted, switch server
+22:48:55.803 [nacos-grpc-client-executor-167] ERROR c.a.n.c.r.c.g.GrpcClient - [printIfErrorEnabled,99] - [1677940428409_127.0.0.1_63150]Request stream onCompleted, switch server
+22:48:55.807 [com.alibaba.nacos.client.naming.updater.0] ERROR c.a.n.c.r.client - [printIfErrorEnabled,99] - Send request fail, request = ServiceQueryRequest{headers={}, requestId='null'}, retryTimes = 0, errorMessage = java.util.concurrent.ExecutionException: com.alibaba.nacos.shaded.io.grpc.StatusRuntimeException: UNAVAILABLE: HTTP/2 error code: NO_ERROR
+Received Goaway
+app_requested
+22:48:55.807 [com.alibaba.nacos.client.Worker] ERROR c.a.n.c.r.client - [printIfErrorEnabled,99] - Send request fail, request = ConfigBatchListenRequest{headers={}, requestId='null'}, retryTimes = 0, errorMessage = java.util.concurrent.ExecutionException: com.alibaba.nacos.shaded.io.grpc.StatusRuntimeException: UNAVAILABLE: HTTP/2 error code: NO_ERROR
+Received Goaway
+app_requested
+22:48:55.807 [com.alibaba.nacos.client.naming.updater.1] ERROR c.a.n.c.r.client - [printIfErrorEnabled,99] - Send request fail, request = ServiceQueryRequest{headers={}, requestId='null'}, retryTimes = 0, errorMessage = java.util.concurrent.ExecutionException: com.alibaba.nacos.shaded.io.grpc.StatusRuntimeException: UNAVAILABLE: HTTP/2 error code: NO_ERROR
+Received Goaway
+app_requested
+22:48:55.907 [com.alibaba.nacos.client.Worker] ERROR c.a.n.c.r.client - [printIfErrorEnabled,99] - Send request fail, request = ConfigBatchListenRequest{headers={}, requestId='null'}, retryTimes = 1, errorMessage = Client not connected, current status:UNHEALTHY
+22:48:55.907 [com.alibaba.nacos.client.naming.updater.0] ERROR c.a.n.c.r.client - [printIfErrorEnabled,99] - Send request fail, request = ServiceQueryRequest{headers={}, requestId='null'}, retryTimes = 1, errorMessage = Client not connected, current status:UNHEALTHY
+22:48:55.907 [com.alibaba.nacos.client.naming.updater.1] ERROR c.a.n.c.r.client - [printIfErrorEnabled,99] - Send request fail, request = ServiceQueryRequest{headers={}, requestId='null'}, retryTimes = 1, errorMessage = Client not connected, current status:UNHEALTHY
+22:48:56.014 [com.alibaba.nacos.client.Worker] ERROR c.a.n.c.r.client - [printIfErrorEnabled,99] - Send request fail, request = ConfigBatchListenRequest{headers={}, requestId='null'}, retryTimes = 2, errorMessage = Client not connected, current status:UNHEALTHY
+22:48:56.014 [com.alibaba.nacos.client.naming.updater.0] ERROR c.a.n.c.r.client - [printIfErrorEnabled,99] - Send request fail, request = ServiceQueryRequest{headers={}, requestId='null'}, retryTimes = 2, errorMessage = Client not connected, current status:UNHEALTHY
+22:48:56.014 [com.alibaba.nacos.client.naming.updater.1] ERROR c.a.n.c.r.client - [printIfErrorEnabled,99] - Send request fail, request = ServiceQueryRequest{headers={}, requestId='null'}, retryTimes = 2, errorMessage = Client not connected, current status:UNHEALTHY
+22:51:24.209 [com.alibaba.nacos.client.naming.updater.2] ERROR c.a.n.c.r.client - [printIfErrorEnabled,99] - Send request fail, request = ServiceQueryRequest{headers={}, requestId='null'}, retryTimes = 0, errorMessage = java.util.concurrent.ExecutionException: com.alibaba.nacos.shaded.io.grpc.StatusRuntimeException: UNAVAILABLE: HTTP/2 error code: NO_ERROR
+Received Goaway
+app_requested
+22:51:24.315 [com.alibaba.nacos.client.naming.updater.2] ERROR c.a.n.c.r.client - [printIfErrorEnabled,99] - Send request fail, request = ServiceQueryRequest{headers={}, requestId='null'}, retryTimes = 1, errorMessage = Client not connected, current status:UNHEALTHY
+22:51:24.424 [com.alibaba.nacos.client.naming.updater.2] ERROR c.a.n.c.r.client - [printIfErrorEnabled,99] - Send request fail, request = ServiceQueryRequest{headers={}, requestId='null'}, retryTimes = 2, errorMessage = Client not connected, current status:UNHEALTHY

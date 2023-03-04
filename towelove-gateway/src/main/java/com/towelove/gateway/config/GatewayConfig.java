@@ -14,6 +14,7 @@ import org.springframework.core.annotation.Order;
 @Configuration
 public class GatewayConfig
 {
+    //设定熔断优先级为最高
     @Bean
     @Order(Ordered.HIGHEST_PRECEDENCE)
     public SentinelFallbackHandler sentinelGatewayExceptionHandler()
