@@ -2,3 +2,22 @@
 12:13:24.256 [reactor-http-nio-2] ERROR c.t.g.h.GatewayExceptionHandler - [handle,52] - [网关异常处理]请求路径:/favicon.ico,异常信息:404 NOT_FOUND
 12:16:26.181 [reactor-http-nio-2] ERROR c.t.g.h.GatewayExceptionHandler - [handle,52] - [网关异常处理]请求路径:/favicon.ico,异常信息:404 NOT_FOUND
 12:18:46.329 [reactor-http-nio-2] ERROR c.t.g.h.GatewayExceptionHandler - [handle,52] - [网关异常处理]请求路径:/favicon.ico,异常信息:404 NOT_FOUND
+15:59:55.160 [main] ERROR o.s.b.d.LoggingFailureAnalysisReporter - [report,40] - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Binding to target org.springframework.boot.context.properties.bind.BindException: Failed to bind properties under 'spring.cloud.sentinel' to com.alibaba.cloud.sentinel.SentinelProperties failed:
+
+    Property: spring.cloud.sentinel.datasource.ds1.nacos.ruleType
+    Value: "null"
+    Reason: 不能为null
+
+
+Action:
+
+Update your application's configuration
+

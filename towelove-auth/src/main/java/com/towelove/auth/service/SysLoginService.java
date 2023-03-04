@@ -8,10 +8,11 @@ import com.towelove.common.core.enums.UserStatus;
 import com.towelove.common.core.exception.ServiceException;
 import com.towelove.common.core.utils.StringUtils;
 import com.towelove.common.security.utils.SecurityUtils;
-import com.towelove.system.api.RemoteUserService;
+import com.towelove.system.api.SysUserService;
 import com.towelove.system.api.domain.SysUser;
 import com.towelove.system.api.model.LoginUser;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import java.util.Objects;
@@ -27,7 +28,7 @@ import java.util.Objects;
 public class SysLoginService
 {
     @Autowired
-    private RemoteUserService remoteUserService;
+    private SysUserService sysUserService;
 
     @Autowired
     private SysPasswordService passwordService;
@@ -61,7 +62,7 @@ public class SysLoginService
             throw new ServiceException("用户名不在指定范围");
         }
         // 查询用户信息
-        R<LoginUser> userResult = remoteUserService.getUserInfo(username, SecurityConstants.INNER);
+        R<LoginUser> userResult = sysUserService.getUserInfo(username, SecurityConstants.INNER);
 
         if (Objects.isNull(userResult) || Objects.isNull(userResult.getData()))
         {
@@ -122,7 +123,7 @@ public class SysLoginService
         sysUser.setUserName(username);
         sysUser.setNickName(username);
         sysUser.setPassword(SecurityUtils.encryptPassword(password));
-        R<?> registerResult = remoteUserService.registerUserInfo(sysUser, SecurityConstants.INNER);
+        R<?> registerResult = sysUserService.registerUserInfo(sysUser, SecurityConstants.INNER);
 
         if (R.FAIL == registerResult.getCode())
         {

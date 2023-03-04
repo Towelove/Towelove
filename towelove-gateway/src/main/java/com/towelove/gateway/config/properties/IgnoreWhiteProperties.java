@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * 放行白名单配置
  * 
- * @author towelove
+ * @author: 张锦标
  */
 @Configuration
 @RefreshScope

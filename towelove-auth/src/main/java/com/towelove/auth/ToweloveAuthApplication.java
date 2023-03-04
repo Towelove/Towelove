@@ -1,5 +1,6 @@
 package com.towelove.auth;
 
+import com.towelove.common.security.annotation.EnableToweloveFeignClients;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
@@ -10,7 +11,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
  * @date: 2023/2/24 9:49
  * Description:
  */
-@EnableFeignClients
+@EnableToweloveFeignClients
 @SpringBootApplication(exclude = {DataSourceAutoConfiguration.class})
 public class ToweloveAuthApplication {
     public static void main(String[] args) {

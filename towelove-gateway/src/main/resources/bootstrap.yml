@@ -19,7 +19,11 @@ spring:
         - id: towelove-system
           uri: lb://towelove-system
           predicates:
-            - Path=/sys/user/list
+            - Path=/sys/user/**
+        - id: towelove-auth
+          uri: lb://towelove-auth
+          predicates:
+            - Path=/**
     nacos:
       discovery:
         # 服务注册地址
@@ -44,6 +48,6 @@ spring:
           nacos:
             server-addr: 127.0.0.1:8848
             dataId: ${spring.application.name}-flow-rules # nacos中存储规则的dataId
-            groupId: DEFAULT_GROUP # nacos中存储规则的groupId
-            rule-type: gw-flow #所有的规则类型可查看枚举类：org.springframework.cloud.alibaba.sentinel.datasource.RuleType
-            data-type: json
+            groupId: SENTINEL_GROUP # nacos中存储规则的groupId
+            rule-type: flow #所有的规则类型可查看枚举类：org.springframework.cloud.alibaba.sentinel.datasource.RuleType
+#            data-type: json

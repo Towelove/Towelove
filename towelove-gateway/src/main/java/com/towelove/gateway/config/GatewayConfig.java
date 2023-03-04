@@ -9,7 +9,7 @@ import org.springframework.core.annotation.Order;
 /**
  * 网关限流配置
  * 
- * @author towelove
+ * @author: 张锦标
  */
 @Configuration
 public class GatewayConfig

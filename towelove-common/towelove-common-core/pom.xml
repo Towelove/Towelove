@@ -119,6 +119,12 @@
             <groupId>io.swagger</groupId>
             <artifactId>swagger-annotations</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-annotation</artifactId>
+            <version>3.5.3.1</version>
+            <scope>compile</scope>
+        </dependency>
 
     </dependencies>
 

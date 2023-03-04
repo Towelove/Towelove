@@ -1,5 +1,6 @@
 package com.towelove.system.api.domain;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.towelove.common.core.web.domain.BaseEntity;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
@@ -90,15 +91,18 @@ public class SysUser extends BaseEntity {
     /**
      * 最后登录时间
      */
+    @TableField(exist = false)
     private Date loginDate;
 
     /**
      * 角色对象
      */
+    @TableField(exist = false)
     private List<SysRole> roles;
     /**
      * 角色组
      */
+    @TableField(exist = false)
     private Long[] roleIds;
 
 

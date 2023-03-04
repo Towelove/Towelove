@@ -1,9 +1,8 @@
 package com.towelove.system.api;
 
 import com.towelove.common.core.constant.SecurityConstants;
-import com.towelove.common.core.constant.ServiceNameConstants;
 import com.towelove.common.core.domain.R;
-import com.towelove.system.api.factory.RemoteUserFallbackFactory;
+import com.towelove.system.api.factory.SysUserFallbackFactory;
 import com.towelove.system.api.domain.SysUser;
 import com.towelove.system.api.model.LoginUser;
 import org.springframework.cloud.openfeign.FeignClient;
@@ -14,10 +13,12 @@ import org.springframework.web.bind.annotation.*;
  * @date: 2023/2/23 18:51
  * Description:
  */
-@FeignClient(contextId = "remoteUserService",
-        value = ServiceNameConstants.SYSTEM_SERVICE,
-        fallbackFactory = RemoteUserFallbackFactory.class)
-public interface RemoteUserService
+@FeignClient(
+        //contextId = "sysUserService",
+        //value = ServiceNameConstants.SYSTEM_SERVICE,
+        value = "towelove-system",
+        fallbackFactory = SysUserFallbackFactory.class)
+public interface SysUserService
 {
     /**
      * 通过用户名查询用户信息

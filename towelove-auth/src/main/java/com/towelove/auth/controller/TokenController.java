@@ -24,6 +24,7 @@ import javax.servlet.http.HttpServletRequest;
  * Description:
  * 用户的登录，注册，页面信息刷新
  * 都由当前控制器层来完成
+ * 当前控制器的请求都不会被网关拦截
  */
 @RestController
 public class TokenController {
@@ -69,7 +70,7 @@ public class TokenController {
         }
         return R.ok();
     }
-
+    //TODO 注册可以直接写完整一点
     @PostMapping("register")
     public R<?> register(@RequestBody RegisterBody registerBody)
     {
