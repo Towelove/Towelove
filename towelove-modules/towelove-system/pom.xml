@@ -63,10 +63,14 @@
         </dependency>
 
 
-        <!-- towelove Common Log -->
+<!--        &lt;!&ndash; towelove Common Log &ndash;&gt;-->
+<!--        <dependency>-->
+<!--            <groupId>com.twowaylove</groupId>-->
+<!--            <artifactId>towelove-common-log</artifactId>-->
+<!--        </dependency>-->
         <dependency>
             <groupId>com.twowaylove</groupId>
-            <artifactId>towelove-common-log</artifactId>
+            <artifactId>towelove-common-security</artifactId>
         </dependency>
 
         <!-- towelove Common Swagger -->

@@ -1,6 +1,6 @@
 package com.towelove.rocketmq.consumer.template.producer;
 
-import com.towelove.rocketc.producer.MyProducer;
+import com.towelove.rocketmq.producer.producer.MyProducer;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

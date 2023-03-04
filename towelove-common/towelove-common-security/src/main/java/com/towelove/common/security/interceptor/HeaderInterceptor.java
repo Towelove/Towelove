@@ -12,6 +12,7 @@ import org.springframework.web.servlet.AsyncHandlerInterceptor;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Objects;
 
 /**
  * 自定义请求头拦截器，将Header数据封装到线程变量中方便获取
@@ -23,6 +24,14 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class HeaderInterceptor implements AsyncHandlerInterceptor
 {
+    /**
+     *
+     * @param request 当前请求对象
+     * @param response 请求响应对象
+     * @param handler 当前请求的方法
+     * @return
+     * @throws Exception
+     */
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception
     {
@@ -39,7 +48,7 @@ public class HeaderInterceptor implements AsyncHandlerInterceptor
         if (StringUtils.isNotEmpty(token))
         {
             LoginUser loginUser = AuthUtil.getLoginUser(token);
-            if (StringUtils.isNotNull(loginUser))
+            if (Objects.nonNull(loginUser))
             {
                 AuthUtil.verifyLoginUserExpire(loginUser);
                 SecurityContextHolder.set(SecurityConstants.LOGIN_USER, loginUser);

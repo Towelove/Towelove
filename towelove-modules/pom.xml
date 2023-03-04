@@ -14,8 +14,10 @@
     <modules>
         <module>towelove-system</module>
         <module>towelove-job</module>
-        <module>towelove-rocket-consumer</module>
-        <module>towelove-rocket-producer</module>
+        <module>towelove-rocketmq-consumer</module>
+        <module>towelove-rocketmq-producer</module>
+        <module>towelove-scs-consumer</module>
+        <module>towelove-scs-producer</module>
     </modules>
 
     <description>

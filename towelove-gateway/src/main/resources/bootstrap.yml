@@ -11,6 +11,15 @@ spring:
     # 环境配置
     active: dev
   cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+      routes:
+        - id: towelove-system
+          uri: lb://towelove-system
+          predicates:
+            - Path=/sys/user/list
     nacos:
       discovery:
         # 服务注册地址
@@ -23,18 +32,18 @@ spring:
         # 共享配置
         shared-configs:
           - application-${spring.profiles.active}.${spring.cloud.nacos.config.file-extension}
-#    sentinel:
-#      # 取消控制台懒加载
-#      eager: true
-#      transport:
-#        # 控制台地址
-#        dashboard: 127.0.0.1:8718
-#      # nacos配置持久化
-#      datasource:
-#        ds1:
-#          nacos:
-#            server-addr: 127.0.0.1:8848
-#            dataId: sentinel-towelove-gateway
-#            groupId: DEFAULT_GROUP
-#            data-type: json
-#            rule-type: gw-flow
+    sentinel:
+      # 取消控制台懒加载
+      eager: true
+      transport:
+        # 控制台地址
+        dashboard: 127.0.0.1:8718 # sentinel dashboard的访问地址 代表dashboard路径
+      # nacos配置持久化
+      datasource:
+        ds1:
+          nacos:
+            server-addr: 127.0.0.1:8848
+            dataId: ${spring.application.name}-flow-rules # nacos中存储规则的dataId
+            groupId: DEFAULT_GROUP # nacos中存储规则的groupId
+            rule-type: gw-flow #所有的规则类型可查看枚举类：org.springframework.cloud.alibaba.sentinel.datasource.RuleType
+            data-type: json

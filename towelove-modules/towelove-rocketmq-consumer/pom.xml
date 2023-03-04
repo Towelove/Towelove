@@ -37,6 +37,12 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.twowaylove</groupId>
+            <artifactId>towelove-modules-rocketmq-producer</artifactId>
+            <version>1.0</version>
+            <scope>test</scope>
+        </dependency>
 
     </dependencies>
 

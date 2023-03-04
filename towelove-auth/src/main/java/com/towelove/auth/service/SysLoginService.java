@@ -14,6 +14,8 @@ import com.towelove.system.api.model.LoginUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.Objects;
+
 /**
  * 登录校验方法
  * 
@@ -61,7 +63,7 @@ public class SysLoginService
         // 查询用户信息
         R<LoginUser> userResult = remoteUserService.getUserInfo(username, SecurityConstants.INNER);
 
-        if (StringUtils.isNull(userResult) || StringUtils.isNull(userResult.getData()))
+        if (Objects.isNull(userResult) || Objects.isNull(userResult.getData()))
         {
             //recordLogService.recordLogininfor(username, Constants.LOGIN_FAIL, "登录用户不存在");
             throw new ServiceException("登录用户：" + username + " 不存在");

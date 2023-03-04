@@ -6,8 +6,6 @@ import com.towelove.common.core.exception.auth.NotLoginException;
 import com.towelove.common.core.utils.StringUtils;
 import com.towelove.common.core.web.domain.AjaxResult;
 import com.towelove.common.core.web.page.TableDataInfo;
-import com.towelove.common.log.annotation.Log;
-import com.towelove.common.log.enums.BusinessType;
 import com.towelove.common.security.annotation.InnerAuth;
 import com.towelove.common.security.annotation.RequiresPermissions;
 import com.towelove.common.security.utils.SecurityUtils;
@@ -53,7 +51,7 @@ public class SysUserController extends BaseController{
      */
     //@RequiresPermissions("system:user:list")
     @GetMapping("/list")
-    public TableDataInfo list(SysUser user)
+    public TableDataInfo list(@RequestBody SysUser user)
     {
         //下一次的查询将被分页
         startPage();
@@ -64,7 +62,7 @@ public class SysUserController extends BaseController{
      * 获取当前用户信息
      */
     //@InnerAuth
-    @GetMapping("/admin/info/{username}")
+    @GetMapping("/info/{username}")
     public R<LoginUser> info(@PathVariable("username") String username)
     {
         SysUser sysUser = userService.selectUserByUserName(username);
