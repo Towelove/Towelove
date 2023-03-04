@@ -21,3 +21,13 @@ Action:
 
 Update your application's configuration
 
+20:05:23.169 [reactor-http-nio-3] ERROR c.t.g.f.AuthFilter - [unauthorizedResponse,104] - [鉴权异常处理]请求路径:/sys/user/list
+20:05:35.149 [reactor-http-nio-3] ERROR c.t.g.f.AuthFilter - [unauthorizedResponse,104] - [鉴权异常处理]请求路径:/sys/user/list
+20:11:36.075 [reactor-http-nio-3] ERROR c.t.g.f.AuthFilter - [unauthorizedResponse,104] - [鉴权异常处理]请求路径:/login
+20:11:50.973 [reactor-http-nio-3] ERROR c.t.g.f.AuthFilter - [unauthorizedResponse,104] - [鉴权异常处理]请求路径:/login
+20:11:51.999 [reactor-http-nio-3] ERROR c.t.g.f.AuthFilter - [unauthorizedResponse,104] - [鉴权异常处理]请求路径:/login
+20:22:46.645 [reactor-http-nio-3] ERROR c.t.g.h.GatewayExceptionHandler - [handle,52] - [网关异常处理]请求路径:/authlogin,异常信息:404 NOT_FOUND
+20:22:53.823 [reactor-http-nio-3] ERROR c.t.g.f.AuthFilter - [unauthorizedResponse,104] - [鉴权异常处理]请求路径:/auth/login
+20:23:22.408 [reactor-http-nio-3] ERROR c.t.g.f.AuthFilter - [unauthorizedResponse,104] - [鉴权异常处理]请求路径:/auth/login
+20:24:09.758 [reactor-http-nio-3] ERROR c.t.g.f.AuthFilter - [unauthorizedResponse,104] - [鉴权异常处理]请求路径:/sys/user/list
+20:27:00.770 [boundedElastic-7] ERROR c.t.g.h.GatewayExceptionHandler - [handle,52] - [网关异常处理]请求路径:/sys/user/list,异常信息:503 SERVICE_UNAVAILABLE "Unable to find instance for towelove-system"

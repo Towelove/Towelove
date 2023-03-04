@@ -11,10 +11,7 @@ import com.towelove.common.security.service.TokenService;
 import com.towelove.common.security.utils.SecurityUtils;
 import com.towelove.system.api.model.LoginUser;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -26,6 +23,7 @@ import javax.servlet.http.HttpServletRequest;
  * 都由当前控制器层来完成
  * 当前控制器的请求都不会被网关拦截
  */
+@RequestMapping("/auth")
 @RestController
 public class TokenController {
     @Autowired
@@ -40,6 +38,7 @@ public class TokenController {
         // 用户登录
         LoginUser userInfo = sysLoginService.login(form.getUsername(), form.getPassword());
         // 获取登录token
+        //将token放入到请求头中
         return R.ok(tokenService.createToken(userInfo));
     }
 

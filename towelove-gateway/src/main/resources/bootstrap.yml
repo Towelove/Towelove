@@ -23,7 +23,7 @@ spring:
         - id: towelove-auth
           uri: lb://towelove-auth
           predicates:
-            - Path=/**
+            - Path=/auth/**
     nacos:
       discovery:
         # 服务注册地址

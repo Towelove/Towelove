@@ -14,7 +14,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class WebMvcConfig implements WebMvcConfigurer
 {
     /** 不需要拦截地址 */
-    public static final String[] excludeUrls = { "/login", "/logout", "/refresh","/register" };
+    public static final String[] excludeUrls = { "/auth/login",
+            "/auth/logout", "/auth/refresh","/auth/register" };
 
     @Override
     public void addInterceptors(InterceptorRegistry registry)

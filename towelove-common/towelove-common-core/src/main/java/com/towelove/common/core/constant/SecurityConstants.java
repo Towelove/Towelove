@@ -35,7 +35,7 @@ public class SecurityConstants
     public static final String INNER = "inner";
 
     /**
-     * 用户标识
+     * 用户标识 对应token
      */
     public static final String USER_KEY = "user_key";
 

@@ -47,6 +47,7 @@ public class TokenService
      */
     public Map<String, Object> createToken(LoginUser loginUser)
     {
+        //生成一个UUID作为token
         String token = IdUtils.fastUUID();
         Long userId = loginUser.getSysUser().getUserId();
         String userName = loginUser.getSysUser().getUserName();
@@ -54,6 +55,7 @@ public class TokenService
         loginUser.setUserid(userId);
         loginUser.setUsername(userName);
         loginUser.setIpaddr(IpUtils.getIpAddr(ServletUtils.getRequest()));
+        //刷新token的持续时间
         refreshToken(loginUser);
 
         // Jwt存储信息
@@ -103,6 +105,7 @@ public class TokenService
         {
             if (StringUtils.isNotEmpty(token))
             {
+                //获得用户的token
                 String userkey = JwtUtils.getUserKey(token);
                 user = redisService.getCacheObject(getTokenKey(userkey));
                 return user;
