@@ -1,9 +1,13 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/towelove?characterEncoding=utf8&connectTimeout=1000&socketTimeout=3000&autoReconnect=true&useUnicode=true&useSSL=false&serverTimezone=UTC
+    url: jdbc:mysql://123.249.97.220:3306/towelove?characterEncoding=utf8&connectTimeout=1000&socketTimeout=3000&autoReconnect=true&useUnicode=true&useSSL=false&serverTimezone=UTC
     username: root
-    password: root
+    password: LiHongyan03
+  redis:
+    host: 123.249.97.220
+    port: 6379
+    password: LiHongyan03
 
 mybatis-plus:
   configuration:

@@ -13,7 +13,6 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
  * @date: 2023/2/23 20:10
  * Description:
  */
-@MapperScan("com.towelove.system.mapper")
 @EnableCustomConfig
 @EnableFeignClients
 @EnableCustomSwagger2
