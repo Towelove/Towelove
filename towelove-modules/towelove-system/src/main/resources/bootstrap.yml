@@ -30,4 +30,5 @@ spring:
         shared-configs[2]:
           data-id: towelove-redis-dev.yaml
           refresh: true
-
+mybatis-plus:
+  mapper-locations: classpath*:/mapper/**/*.xml

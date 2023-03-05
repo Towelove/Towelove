@@ -1,12 +1,14 @@
 package com.towelove.auth.service;
 
 
+import com.towelove.auth.form.LoginBody;
 import com.towelove.common.core.constant.SecurityConstants;
 import com.towelove.common.core.constant.UserConstants;
 import com.towelove.common.core.domain.R;
 import com.towelove.common.core.enums.UserStatus;
 import com.towelove.common.core.exception.ServiceException;
 import com.towelove.common.core.utils.StringUtils;
+import com.towelove.common.core.web.domain.AjaxResult;
 import com.towelove.common.security.utils.SecurityUtils;
 import com.towelove.system.api.SysUserService;
 import com.towelove.system.api.domain.SysUser;
@@ -63,7 +65,8 @@ public class SysLoginService
             throw new ServiceException("用户名不在指定范围");
         }
         // 查询用户信息
-        R<LoginUser> userResult = sysUserService.getUserInfo(username, SecurityConstants.INNER);
+        R<LoginUser> userResult = sysUserService.getUserInfo(username,
+                SecurityConstants.INNER);
 
         if (Objects.isNull(userResult) || Objects.isNull(userResult.getData()))
         {
@@ -101,8 +104,10 @@ public class SysLoginService
     /**
      * 注册
      */
-    public void register(String username, String password)
+    public void register(SysUser sysUser)
     {
+        String username = sysUser.getUserName();
+        String password = sysUser.getPassword();
         // 用户名或密码为空 错误
         if (StringUtils.isAnyBlank(username, password))
         {
@@ -120,16 +125,51 @@ public class SysLoginService
         }
 
         // 注册用户信息
-        SysUser sysUser = new SysUser();
-        sysUser.setUserName(username);
         sysUser.setNickName(username);
+        //对注册的密码进行加盐
         sysUser.setPassword(SecurityUtils.encryptPassword(password));
-        R<?> registerResult = sysUserService.registerUserInfo(sysUser, SecurityConstants.INNER);
+        //远程调用system模块进行用户注册
+        R<?> registerResult = sysUserService
+                .registerUserInfo(sysUser, SecurityConstants.INNER);
 
         if (R.FAIL == registerResult.getCode())
         {
             throw new ServiceException(registerResult.getMsg());
         }
+        //日志记录
         //recordLogService.recordLogininfor(username, Constants.REGISTER, "注册成功");
+    }
+
+    public void resetPwd(LoginBody form) {
+        String username = form.getUsername();
+        String password = form.getPassword();
+        // 用户名或密码为空 错误
+        if (StringUtils.isAnyBlank(username, password))
+        {
+            throw new ServiceException("用户/密码必须填写");
+        }
+        if (username.length() < UserConstants.USERNAME_MIN_LENGTH
+                || username.length() > UserConstants.USERNAME_MAX_LENGTH)
+        {
+            throw new ServiceException("账户长度必须在2到20个字符之间");
+        }
+        if (password.length() < UserConstants.PASSWORD_MIN_LENGTH
+                || password.length() > UserConstants.PASSWORD_MAX_LENGTH)
+        {
+            throw new ServiceException("密码长度必须在5到20个字符之间");
+        }
+        R<LoginUser> userInfo = sysUserService.getUserInfo(username, SecurityConstants.INNER);
+        SysUser sysUser = userInfo.getData().getSysUser();
+        //对修改的的密码进行加盐
+        sysUser.setPassword(SecurityUtils.encryptPassword(password));
+        //远程调用system模块进行用户注册
+        AjaxResult registerResult = sysUserService
+                .resetPwd(sysUser, SecurityConstants.INNER);
+
+        if (R.FAIL == (Integer) registerResult.get("code"))
+        {
+            throw new ServiceException((String) registerResult.get("msg"));
+        }
+        //日志记录
     }
 }

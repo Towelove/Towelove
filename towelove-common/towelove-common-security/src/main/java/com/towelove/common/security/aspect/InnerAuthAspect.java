@@ -25,7 +25,8 @@ public class InnerAuthAspect implements Ordered
     @Around("@annotation(innerAuth)")
     public Object innerAround(ProceedingJoinPoint point, InnerAuth innerAuth) throws Throwable
     {
-        String source = ServletUtils.getRequest().getHeader(SecurityConstants.FROM_SOURCE);
+        String source = ServletUtils.getRequest()
+                .getHeader(SecurityConstants.FROM_SOURCE);
         // 内部请求验证
         if (!StringUtils.equals(SecurityConstants.INNER, source))
         {
@@ -35,7 +36,8 @@ public class InnerAuthAspect implements Ordered
         String userid = ServletUtils.getRequest().getHeader(SecurityConstants.DETAILS_USER_ID);
         String username = ServletUtils.getRequest().getHeader(SecurityConstants.DETAILS_USERNAME);
         // 用户信息验证
-        if (innerAuth.isUser() && (StringUtils.isEmpty(userid) || StringUtils.isEmpty(username)))
+        if (innerAuth.isUser() && (StringUtils.isEmpty(userid)
+                || StringUtils.isEmpty(username)))
         {
             throw new InnerAuthException("没有设置用户信息，不允许访问 ");
         }

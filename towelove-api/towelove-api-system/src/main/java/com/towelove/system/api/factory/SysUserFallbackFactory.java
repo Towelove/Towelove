@@ -1,6 +1,7 @@
 package com.towelove.system.api.factory;
 
 import com.towelove.common.core.domain.R;
+import com.towelove.common.core.web.domain.AjaxResult;
 import com.towelove.system.api.SysUserService;
 import com.towelove.system.api.domain.SysUser;
 import com.towelove.system.api.model.LoginUser;
@@ -34,6 +35,11 @@ public class SysUserFallbackFactory implements FallbackFactory<SysUserService> {
             @Override
             public R<Boolean> registerUserInfo(SysUser sysUser, String source) {
                 return R.fail("注册用户失败:" + throwable.getMessage());
+            }
+
+            @Override
+            public AjaxResult resetPwd(SysUser sysUser, String inner) {
+                return AjaxResult.error("修改密码失败:" + throwable.getMessage());
             }
         };
     }

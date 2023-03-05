@@ -1,51 +1,59 @@
-12:13:23.916 [reactor-http-nio-2] ERROR c.t.g.f.AuthFilter - [unauthorizedResponse,104] - [鉴权异常处理]请求路径:/sys/user/list
-12:13:24.256 [reactor-http-nio-2] ERROR c.t.g.h.GatewayExceptionHandler - [handle,52] - [网关异常处理]请求路径:/favicon.ico,异常信息:404 NOT_FOUND
-12:16:26.181 [reactor-http-nio-2] ERROR c.t.g.h.GatewayExceptionHandler - [handle,52] - [网关异常处理]请求路径:/favicon.ico,异常信息:404 NOT_FOUND
-12:18:46.329 [reactor-http-nio-2] ERROR c.t.g.h.GatewayExceptionHandler - [handle,52] - [网关异常处理]请求路径:/favicon.ico,异常信息:404 NOT_FOUND
-15:59:55.160 [main] ERROR o.s.b.d.LoggingFailureAnalysisReporter - [report,40] - 
-
-***************************
-APPLICATION FAILED TO START
-***************************
-
-Description:
-
-Binding to target org.springframework.boot.context.properties.bind.BindException: Failed to bind properties under 'spring.cloud.sentinel' to com.alibaba.cloud.sentinel.SentinelProperties failed:
-
-    Property: spring.cloud.sentinel.datasource.ds1.nacos.ruleType
-    Value: "null"
-    Reason: 不能为null
-
-
-Action:
-
-Update your application's configuration
-
-20:05:23.169 [reactor-http-nio-3] ERROR c.t.g.f.AuthFilter - [unauthorizedResponse,104] - [鉴权异常处理]请求路径:/sys/user/list
-20:05:35.149 [reactor-http-nio-3] ERROR c.t.g.f.AuthFilter - [unauthorizedResponse,104] - [鉴权异常处理]请求路径:/sys/user/list
-20:11:36.075 [reactor-http-nio-3] ERROR c.t.g.f.AuthFilter - [unauthorizedResponse,104] - [鉴权异常处理]请求路径:/login
-20:11:50.973 [reactor-http-nio-3] ERROR c.t.g.f.AuthFilter - [unauthorizedResponse,104] - [鉴权异常处理]请求路径:/login
-20:11:51.999 [reactor-http-nio-3] ERROR c.t.g.f.AuthFilter - [unauthorizedResponse,104] - [鉴权异常处理]请求路径:/login
-20:22:46.645 [reactor-http-nio-3] ERROR c.t.g.h.GatewayExceptionHandler - [handle,52] - [网关异常处理]请求路径:/authlogin,异常信息:404 NOT_FOUND
-20:22:53.823 [reactor-http-nio-3] ERROR c.t.g.f.AuthFilter - [unauthorizedResponse,104] - [鉴权异常处理]请求路径:/auth/login
-20:23:22.408 [reactor-http-nio-3] ERROR c.t.g.f.AuthFilter - [unauthorizedResponse,104] - [鉴权异常处理]请求路径:/auth/login
-20:24:09.758 [reactor-http-nio-3] ERROR c.t.g.f.AuthFilter - [unauthorizedResponse,104] - [鉴权异常处理]请求路径:/sys/user/list
-20:27:00.770 [boundedElastic-7] ERROR c.t.g.h.GatewayExceptionHandler - [handle,52] - [网关异常处理]请求路径:/sys/user/list,异常信息:503 SERVICE_UNAVAILABLE "Unable to find instance for towelove-system"
-20:48:43.439 [reactor-http-nio-3] ERROR c.t.g.f.AuthFilter - [unauthorizedResponse,104] - [鉴权异常处理]请求路径:/auth/login
-21:00:34.216 [reactor-http-nio-3] ERROR c.t.g.f.AuthFilter - [unauthorizedResponse,104] - [鉴权异常处理]请求路径:/auth/login
-22:09:13.607 [reactor-http-nio-2] ERROR c.t.g.h.GatewayExceptionHandler - [handle,52] - [网关异常处理]请求路径:/,异常信息:404 NOT_FOUND
-22:09:13.902 [reactor-http-nio-2] ERROR c.t.g.h.GatewayExceptionHandler - [handle,52] - [网关异常处理]请求路径:/favicon.ico,异常信息:404 NOT_FOUND
-22:09:31.714 [reactor-http-nio-2] ERROR c.t.g.h.GatewayExceptionHandler - [handle,52] - [网关异常处理]请求路径:/nacos,异常信息:404 NOT_FOUND
-22:09:31.785 [reactor-http-nio-2] ERROR c.t.g.h.GatewayExceptionHandler - [handle,52] - [网关异常处理]请求路径:/favicon.ico,异常信息:404 NOT_FOUND
-22:28:53.268 [nacos-grpc-client-executor-290] ERROR c.a.n.c.r.c.g.GrpcClient - [printIfErrorEnabled,99] - [1677934924791_127.0.0.1_54291]Request stream onCompleted, switch server
-22:28:59.636 [reactor-http-nio-5] ERROR c.t.g.f.AuthFilter - [unauthorizedResponse,104] - [鉴权异常处理]请求路径:/auth/login
-22:28:59.644 [com.alibaba.nacos.client.naming.updater.0] ERROR c.a.n.c.r.client - [printIfErrorEnabled,99] - Send request fail, request = ServiceQueryRequest{headers={}, requestId='null'}, retryTimes = 0, errorMessage = java.util.concurrent.TimeoutException: Waited 3000 milliseconds (plus 437 milliseconds, 450000 nanoseconds delay) but future completed as timeout expired
-22:28:59.644 [com.alibaba.nacos.client.naming.updater.2] ERROR c.a.n.c.r.client - [printIfErrorEnabled,99] - Send request fail, request = ServiceQueryRequest{headers={}, requestId='null'}, retryTimes = 0, errorMessage = java.util.concurrent.TimeoutException: Waited 3000 milliseconds (plus 434 milliseconds, 39300 nanoseconds delay) for com.alibaba.nacos.shaded.io.grpc.stub.ClientCalls$GrpcFuture@262427d4[status=PENDING, info=[GrpcFuture{clientCall={delegate={delegate=ClientCallImpl{method=MethodDescriptor{fullMethodName=Request/request, type=UNARY, idempotent=false, safe=false, sampledToLocalTracing=true, requestMarshaller=com.alibaba.nacos.shaded.io.grpc.protobuf.lite.ProtoLiteUtils$MessageMarshaller@768cb3ba, responseMarshaller=com.alibaba.nacos.shaded.io.grpc.protobuf.lite.ProtoLiteUtils$MessageMarshaller@301a1a71, schemaDescriptor=com.alibaba.nacos.api.grpc.auto.RequestGrpc$RequestMethodDescriptorSupplier@3eea546c}}}}}]]
-22:28:59.644 [boundedElastic-16] ERROR c.a.n.c.r.client - [printIfErrorEnabled,99] - Send request fail, request = ServiceListRequest{headers={}, requestId='null'}, retryTimes = 0, errorMessage = java.util.concurrent.TimeoutException: Waited 3000 milliseconds (plus 427 milliseconds, 453300 nanoseconds delay) for com.alibaba.nacos.shaded.io.grpc.stub.ClientCalls$GrpcFuture@2bb6122[status=PENDING, info=[GrpcFuture{clientCall={delegate={delegate=ClientCallImpl{method=MethodDescriptor{fullMethodName=Request/request, type=UNARY, idempotent=false, safe=false, sampledToLocalTracing=true, requestMarshaller=com.alibaba.nacos.shaded.io.grpc.protobuf.lite.ProtoLiteUtils$MessageMarshaller@768cb3ba, responseMarshaller=com.alibaba.nacos.shaded.io.grpc.protobuf.lite.ProtoLiteUtils$MessageMarshaller@301a1a71, schemaDescriptor=com.alibaba.nacos.api.grpc.auto.RequestGrpc$RequestMethodDescriptorSupplier@3eea546c}}}}}]]
-22:28:59.644 [com.alibaba.nacos.client.naming.updater.5] ERROR c.a.n.c.r.client - [printIfErrorEnabled,99] - Send request fail, request = ServiceQueryRequest{headers={}, requestId='null'}, retryTimes = 0, errorMessage = java.util.concurrent.TimeoutException: Waited 3000 milliseconds (plus 434 milliseconds, 61800 nanoseconds delay) for com.alibaba.nacos.shaded.io.grpc.stub.ClientCalls$GrpcFuture@6a5c43e6[status=PENDING, info=[GrpcFuture{clientCall={delegate={delegate=ClientCallImpl{method=MethodDescriptor{fullMethodName=Request/request, type=UNARY, idempotent=false, safe=false, sampledToLocalTracing=true, requestMarshaller=com.alibaba.nacos.shaded.io.grpc.protobuf.lite.ProtoLiteUtils$MessageMarshaller@768cb3ba, responseMarshaller=com.alibaba.nacos.shaded.io.grpc.protobuf.lite.ProtoLiteUtils$MessageMarshaller@301a1a71, schemaDescriptor=com.alibaba.nacos.api.grpc.auto.RequestGrpc$RequestMethodDescriptorSupplier@3eea546c}}}}}]]
-22:28:59.644 [com.alibaba.nacos.client.naming.updater.7] ERROR c.a.n.c.r.client - [printIfErrorEnabled,99] - Send request fail, request = ServiceQueryRequest{headers={}, requestId='null'}, retryTimes = 0, errorMessage = java.util.concurrent.TimeoutException: Waited 3000 milliseconds (plus 433 milliseconds, 509700 nanoseconds delay) for com.alibaba.nacos.shaded.io.grpc.stub.ClientCalls$GrpcFuture@16c75003[status=PENDING, info=[GrpcFuture{clientCall={delegate={delegate=ClientCallImpl{method=MethodDescriptor{fullMethodName=Request/request, type=UNARY, idempotent=false, safe=false, sampledToLocalTracing=true, requestMarshaller=com.alibaba.nacos.shaded.io.grpc.protobuf.lite.ProtoLiteUtils$MessageMarshaller@768cb3ba, responseMarshaller=com.alibaba.nacos.shaded.io.grpc.protobuf.lite.ProtoLiteUtils$MessageMarshaller@301a1a71, schemaDescriptor=com.alibaba.nacos.api.grpc.auto.RequestGrpc$RequestMethodDescriptorSupplier@3eea546c}}}}}]]
-22:28:59.644 [boundedElastic-12] ERROR c.a.n.c.r.client - [printIfErrorEnabled,99] - Send request fail, request = ServiceListRequest{headers={}, requestId='null'}, retryTimes = 0, errorMessage = java.util.concurrent.TimeoutException: Waited 3000 milliseconds (plus 415 milliseconds, 866800 nanoseconds delay) but future completed as timeout expired
-22:28:59.656 [boundedElastic-12] ERROR c.a.c.n.d.r.NacosReactiveDiscoveryClient - [lambda$getServices$3,94] - get services from nacos server fail,
+11:17:04.085 [reactor-http-nio-3] ERROR c.t.g.f.AuthFilter - [unauthorizedResponse,110] - [鉴权异常处理]请求路径:/auth/resetPwd
+11:22:19.085 [reactor-http-nio-3] ERROR c.t.g.f.AuthFilter - [unauthorizedResponse,110] - [鉴权异常处理]请求路径:/auth/resetPwd
+11:22:42.904 [reactor-http-nio-3] ERROR c.t.g.h.GatewayExceptionHandler - [handle,52] - [网关异常处理]请求路径:/auth/resetPwd,异常信息:Unable to read JSON value: i����G�{"alg":"HS512"}
+11:23:07.170 [reactor-http-nio-3] ERROR c.t.g.h.GatewayExceptionHandler - [handle,52] - [网关异常处理]请求路径:/auth/resetPwd,异常信息:Unable to read JSON value: i����G�{"alg":"HS512"}
+11:23:51.716 [reactor-http-nio-3] ERROR c.t.g.h.GatewayExceptionHandler - [handle,52] - [网关异常处理]请求路径:/auth/resetPwd,异常信息:Unable to read JSON value: i����G�{"alg":"HS512"}
+11:24:30.946 [reactor-http-nio-3] ERROR c.t.g.h.GatewayExceptionHandler - [handle,52] - [网关异常处理]请求路径:/auth/resetPwd,异常信息:Unable to read JSON value: i����G�{"alg":"HS512"}
+11:24:33.295 [reactor-http-nio-3] ERROR c.t.g.h.GatewayExceptionHandler - [handle,52] - [网关异常处理]请求路径:/auth/resetPwd,异常信息:Unable to read JSON value: i����G�{"alg":"HS512"}
+11:24:56.626 [reactor-http-nio-3] ERROR c.t.g.h.GatewayExceptionHandler - [handle,52] - [网关异常处理]请求路径:/auth/resetPwd,异常信息:Unable to read JSON value: i����G�{"alg":"HS512"}
+11:25:08.238 [reactor-http-nio-3] ERROR c.t.g.h.GatewayExceptionHandler - [handle,52] - [网关异常处理]请求路径:/auth/resetPwd,异常信息:Unable to read JSON value: i����G�{"alg":"HS512"}
+11:25:29.468 [reactor-http-nio-3] ERROR c.t.g.h.GatewayExceptionHandler - [handle,52] - [网关异常处理]请求路径:/auth/resetPwd,异常信息:Unable to read JSON value: i����G�{"alg":"HS512"}
+11:28:37.478 [reactor-http-nio-3] ERROR c.t.g.f.AuthFilter - [unauthorizedResponse,110] - [鉴权异常处理]请求路径:/sys/user/list
+11:28:42.091 [reactor-http-nio-3] ERROR c.t.g.f.AuthFilter - [unauthorizedResponse,110] - [鉴权异常处理]请求路径:/sys/user/list
+11:28:44.346 [reactor-http-nio-3] ERROR c.t.g.f.AuthFilter - [unauthorizedResponse,110] - [鉴权异常处理]请求路径:/sys/user/list
+12:33:28.410 [reactor-http-nio-3] ERROR c.t.g.f.AuthFilter - [unauthorizedResponse,110] - [鉴权异常处理]请求路径:/sys/user/list
+12:35:59.633 [reactor-http-nio-3] ERROR c.t.g.f.AuthFilter - [unauthorizedResponse,110] - [鉴权异常处理]请求路径:/sys/user/register
+12:39:48.021 [reactor-http-nio-3] ERROR c.t.g.f.AuthFilter - [unauthorizedResponse,110] - [鉴权异常处理]请求路径:/sys/user/register
+12:39:48.027 [nacos-grpc-client-executor-155] ERROR c.a.n.c.r.c.g.GrpcClient - [printIfErrorEnabled,99] - [1677990530014_127.0.0.1_64445]Request stream onCompleted, switch server
+12:39:48.027 [nacos-grpc-client-executor-109] ERROR c.a.n.c.r.c.g.GrpcClient - [printIfErrorEnabled,99] - [1677990524007_127.0.0.1_64331]Request stream onCompleted, switch server
+12:39:48.027 [nacos-grpc-client-executor-101] ERROR c.a.n.c.r.c.g.GrpcClient - [printIfErrorEnabled,99] - [1677990529811_127.0.0.1_64444]Request stream onCompleted, switch server
+12:39:48.027 [reactor-http-nio-10] ERROR c.t.g.f.AuthFilter - [unauthorizedResponse,110] - [鉴权异常处理]请求路径:/sys/user/getInfo/%E5%BC%A0%E9%94%A6%E6%A0%87
+12:39:48.030 [boundedElastic-1] ERROR c.a.n.c.r.client - [printIfErrorEnabled,99] - Send request fail, request = ServiceListRequest{headers={}, requestId='null'}, retryTimes = 0, errorMessage = java.util.concurrent.ExecutionException: com.alibaba.nacos.shaded.io.grpc.StatusRuntimeException: UNAVAILABLE: HTTP/2 error code: NO_ERROR
+Received Goaway
+app_requested
+12:39:48.030 [com.alibaba.nacos.client.Worker] ERROR c.a.n.c.r.client - [printIfErrorEnabled,99] - Send request fail, request = ConfigBatchListenRequest{headers={}, requestId='null'}, retryTimes = 0, errorMessage = java.util.concurrent.ExecutionException: com.alibaba.nacos.shaded.io.grpc.StatusRuntimeException: UNAVAILABLE: HTTP/2 error code: NO_ERROR
+Received Goaway
+app_requested
+12:39:48.030 [com.alibaba.nacos.client.Worker] ERROR c.a.n.c.r.client - [printIfErrorEnabled,99] - Send request fail, request = ConfigBatchListenRequest{headers={}, requestId='null'}, retryTimes = 0, errorMessage = java.util.concurrent.ExecutionException: com.alibaba.nacos.shaded.io.grpc.StatusRuntimeException: UNAVAILABLE: HTTP/2 error code: NO_ERROR
+Received Goaway
+app_requested
+12:39:48.030 [com.alibaba.nacos.client.naming.updater.0] ERROR c.a.n.c.r.client - [printIfErrorEnabled,99] - Send request fail, request = ServiceQueryRequest{headers={}, requestId='null'}, retryTimes = 0, errorMessage = java.util.concurrent.ExecutionException: com.alibaba.nacos.shaded.io.grpc.StatusRuntimeException: UNAVAILABLE: HTTP/2 error code: NO_ERROR
+Received Goaway
+app_requested
+12:39:48.030 [com.alibaba.nacos.client.naming.updater.3] ERROR c.a.n.c.r.client - [printIfErrorEnabled,99] - Send request fail, request = ServiceQueryRequest{headers={}, requestId='null'}, retryTimes = 0, errorMessage = java.util.concurrent.ExecutionException: com.alibaba.nacos.shaded.io.grpc.StatusRuntimeException: UNAVAILABLE: HTTP/2 error code: NO_ERROR
+Received Goaway
+app_requested
+12:39:48.030 [boundedElastic-5] ERROR c.a.n.c.r.client - [printIfErrorEnabled,99] - Send request fail, request = ServiceListRequest{headers={}, requestId='null'}, retryTimes = 0, errorMessage = java.util.concurrent.ExecutionException: com.alibaba.nacos.shaded.io.grpc.StatusRuntimeException: UNAVAILABLE: HTTP/2 error code: NO_ERROR
+Received Goaway
+app_requested
+12:39:48.030 [com.alibaba.nacos.client.naming.updater.6] ERROR c.a.n.c.r.client - [printIfErrorEnabled,99] - Send request fail, request = ServiceQueryRequest{headers={}, requestId='null'}, retryTimes = 0, errorMessage = java.util.concurrent.ExecutionException: com.alibaba.nacos.shaded.io.grpc.StatusRuntimeException: UNAVAILABLE: HTTP/2 error code: NO_ERROR
+Received Goaway
+app_requested
+12:39:48.142 [boundedElastic-5] ERROR c.a.n.c.r.client - [printIfErrorEnabled,99] - Send request fail, request = ServiceListRequest{headers={}, requestId='null'}, retryTimes = 1, errorMessage = Client not connected, current status:UNHEALTHY
+12:39:48.142 [com.alibaba.nacos.client.naming.updater.6] ERROR c.a.n.c.r.client - [printIfErrorEnabled,99] - Send request fail, request = ServiceQueryRequest{headers={}, requestId='null'}, retryTimes = 1, errorMessage = Client not connected, current status:UNHEALTHY
+12:39:48.142 [com.alibaba.nacos.client.naming.updater.0] ERROR c.a.n.c.r.client - [printIfErrorEnabled,99] - Send request fail, request = ServiceQueryRequest{headers={}, requestId='null'}, retryTimes = 1, errorMessage = Client not connected, current status:UNHEALTHY
+12:39:48.142 [com.alibaba.nacos.client.Worker] ERROR c.a.n.c.r.client - [printIfErrorEnabled,99] - Send request fail, request = ConfigBatchListenRequest{headers={}, requestId='null'}, retryTimes = 1, errorMessage = Client not connected, current status:UNHEALTHY
+12:39:48.142 [com.alibaba.nacos.client.Worker] ERROR c.a.n.c.r.client - [printIfErrorEnabled,99] - Send request fail, request = ConfigBatchListenRequest{headers={}, requestId='null'}, retryTimes = 1, errorMessage = Client not connected, current status:UNHEALTHY
+12:39:48.142 [boundedElastic-1] ERROR c.a.n.c.r.client - [printIfErrorEnabled,99] - Send request fail, request = ServiceListRequest{headers={}, requestId='null'}, retryTimes = 1, errorMessage = Client not connected, current status:UNHEALTHY
+12:39:48.142 [com.alibaba.nacos.client.naming.updater.3] ERROR c.a.n.c.r.client - [printIfErrorEnabled,99] - Send request fail, request = ServiceQueryRequest{headers={}, requestId='null'}, retryTimes = 1, errorMessage = Client not connected, current status:UNHEALTHY
+12:39:48.251 [boundedElastic-5] ERROR c.a.n.c.r.client - [printIfErrorEnabled,99] - Send request fail, request = ServiceListRequest{headers={}, requestId='null'}, retryTimes = 2, errorMessage = Client not connected, current status:UNHEALTHY
+12:39:48.251 [com.alibaba.nacos.client.Worker] ERROR c.a.n.c.r.client - [printIfErrorEnabled,99] - Send request fail, request = ConfigBatchListenRequest{headers={}, requestId='null'}, retryTimes = 2, errorMessage = Client not connected, current status:UNHEALTHY
+12:39:48.251 [com.alibaba.nacos.client.Worker] ERROR c.a.n.c.r.client - [printIfErrorEnabled,99] - Send request fail, request = ConfigBatchListenRequest{headers={}, requestId='null'}, retryTimes = 2, errorMessage = Client not connected, current status:UNHEALTHY
+12:39:48.251 [com.alibaba.nacos.client.naming.updater.6] ERROR c.a.n.c.r.client - [printIfErrorEnabled,99] - Send request fail, request = ServiceQueryRequest{headers={}, requestId='null'}, retryTimes = 2, errorMessage = Client not connected, current status:UNHEALTHY
+12:39:48.251 [boundedElastic-1] ERROR c.a.n.c.r.client - [printIfErrorEnabled,99] - Send request fail, request = ServiceListRequest{headers={}, requestId='null'}, retryTimes = 2, errorMessage = Client not connected, current status:UNHEALTHY
+12:39:48.251 [com.alibaba.nacos.client.naming.updater.3] ERROR c.a.n.c.r.client - [printIfErrorEnabled,99] - Send request fail, request = ServiceQueryRequest{headers={}, requestId='null'}, retryTimes = 2, errorMessage = Client not connected, current status:UNHEALTHY
+12:39:48.251 [com.alibaba.nacos.client.naming.updater.0] ERROR c.a.n.c.r.client - [printIfErrorEnabled,99] - Send request fail, request = ServiceQueryRequest{headers={}, requestId='null'}, retryTimes = 2, errorMessage = Client not connected, current status:UNHEALTHY
+12:39:48.253 [boundedElastic-5] ERROR c.a.c.n.d.r.NacosReactiveDiscoveryClient - [lambda$getServices$3,94] - get services from nacos server fail,
 com.alibaba.nacos.api.exception.NacosException: Request nacos server failed: 
 	at com.alibaba.nacos.client.naming.remote.gprc.NamingGrpcClientProxy.requestToServer(NamingGrpcClientProxy.java:290)
 	at com.alibaba.nacos.client.naming.remote.gprc.NamingGrpcClientProxy.getServiceList(NamingGrpcClientProxy.java:202)
@@ -64,270 +72,13 @@ com.alibaba.nacos.api.exception.NacosException: Request nacos server failed:
 	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:293)
 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
-	at java.lang.Thread.run(Thread.java:750)
-Caused by: com.alibaba.nacos.api.exception.NacosException: java.util.concurrent.TimeoutException: Waited 3000 milliseconds (plus 415 milliseconds, 866800 nanoseconds delay) but future completed as timeout expired
-	at com.alibaba.nacos.common.remote.client.grpc.GrpcConnection.request(GrpcConnection.java:78)
-	at com.alibaba.nacos.common.remote.client.RpcClient.request(RpcClient.java:652)
-	at com.alibaba.nacos.common.remote.client.RpcClient.request(RpcClient.java:630)
-	at com.alibaba.nacos.client.naming.remote.gprc.NamingGrpcClientProxy.requestToServer(NamingGrpcClientProxy.java:280)
-	... 17 common frames omitted
-Caused by: java.util.concurrent.TimeoutException: Waited 3000 milliseconds (plus 415 milliseconds, 866800 nanoseconds delay) but future completed as timeout expired
-	at com.alibaba.nacos.shaded.com.google.common.util.concurrent.AbstractFuture.get(AbstractFuture.java:506)
-	at com.alibaba.nacos.common.remote.client.grpc.GrpcConnection.request(GrpcConnection.java:76)
-	... 20 common frames omitted
-22:28:59.656 [boundedElastic-16] ERROR c.a.c.n.d.r.NacosReactiveDiscoveryClient - [lambda$getServices$3,94] - get services from nacos server fail,
-com.alibaba.nacos.api.exception.NacosException: Request nacos server failed: 
-	at com.alibaba.nacos.client.naming.remote.gprc.NamingGrpcClientProxy.requestToServer(NamingGrpcClientProxy.java:290)
-	at com.alibaba.nacos.client.naming.remote.gprc.NamingGrpcClientProxy.getServiceList(NamingGrpcClientProxy.java:202)
-	at com.alibaba.nacos.client.naming.remote.NamingClientProxyDelegate.getServiceList(NamingClientProxyDelegate.java:136)
-	at com.alibaba.nacos.client.naming.NacosNamingService.getServicesOfServer(NacosNamingService.java:440)
-	at com.alibaba.nacos.client.naming.NacosNamingService.getServicesOfServer(NacosNamingService.java:428)
-	at com.alibaba.cloud.nacos.discovery.NacosServiceDiscovery.getServices(NacosServiceDiscovery.java:70)
-	at com.alibaba.cloud.nacos.discovery.reactive.NacosReactiveDiscoveryClient.lambda$getServices$3(NacosReactiveDiscoveryClient.java:87)
-	at reactor.core.publisher.FluxDefer.subscribe(FluxDefer.java:46)
-	at reactor.core.publisher.FluxSubscribeOn$SubscribeOnSubscriber.run(FluxSubscribeOn.java:194)
-	at reactor.core.scheduler.WorkerTask.call(WorkerTask.java:84)
-	at reactor.core.scheduler.WorkerTask.call(WorkerTask.java:37)
-	at java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:266)
-	at java.util.concurrent.FutureTask.run(FutureTask.java)
-	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$201(ScheduledThreadPoolExecutor.java:180)
-	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:293)
-	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
-	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
-	at java.lang.Thread.run(Thread.java:750)
-Caused by: com.alibaba.nacos.api.exception.NacosException: java.util.concurrent.TimeoutException: Waited 3000 milliseconds (plus 427 milliseconds, 453300 nanoseconds delay) for com.alibaba.nacos.shaded.io.grpc.stub.ClientCalls$GrpcFuture@2bb6122[status=PENDING, info=[GrpcFuture{clientCall={delegate={delegate=ClientCallImpl{method=MethodDescriptor{fullMethodName=Request/request, type=UNARY, idempotent=false, safe=false, sampledToLocalTracing=true, requestMarshaller=com.alibaba.nacos.shaded.io.grpc.protobuf.lite.ProtoLiteUtils$MessageMarshaller@768cb3ba, responseMarshaller=com.alibaba.nacos.shaded.io.grpc.protobuf.lite.ProtoLiteUtils$MessageMarshaller@301a1a71, schemaDescriptor=com.alibaba.nacos.api.grpc.auto.RequestGrpc$RequestMethodDescriptorSupplier@3eea546c}}}}}]]
-	at com.alibaba.nacos.common.remote.client.grpc.GrpcConnection.request(GrpcConnection.java:78)
-	at com.alibaba.nacos.common.remote.client.RpcClient.request(RpcClient.java:652)
-	at com.alibaba.nacos.common.remote.client.RpcClient.request(RpcClient.java:630)
-	at com.alibaba.nacos.client.naming.remote.gprc.NamingGrpcClientProxy.requestToServer(NamingGrpcClientProxy.java:280)
-	... 17 common frames omitted
-Caused by: java.util.concurrent.TimeoutException: Waited 3000 milliseconds (plus 427 milliseconds, 453300 nanoseconds delay) for com.alibaba.nacos.shaded.io.grpc.stub.ClientCalls$GrpcFuture@2bb6122[status=PENDING, info=[GrpcFuture{clientCall={delegate={delegate=ClientCallImpl{method=MethodDescriptor{fullMethodName=Request/request, type=UNARY, idempotent=false, safe=false, sampledToLocalTracing=true, requestMarshaller=com.alibaba.nacos.shaded.io.grpc.protobuf.lite.ProtoLiteUtils$MessageMarshaller@768cb3ba, responseMarshaller=com.alibaba.nacos.shaded.io.grpc.protobuf.lite.ProtoLiteUtils$MessageMarshaller@301a1a71, schemaDescriptor=com.alibaba.nacos.api.grpc.auto.RequestGrpc$RequestMethodDescriptorSupplier@3eea546c}}}}}]]
-	at com.alibaba.nacos.shaded.com.google.common.util.concurrent.AbstractFuture.get(AbstractFuture.java:508)
-	at com.alibaba.nacos.common.remote.client.grpc.GrpcConnection.request(GrpcConnection.java:76)
-	... 20 common frames omitted
-22:30:04.888 [reactor-http-nio-3] ERROR c.t.g.f.AuthFilter - [unauthorizedResponse,104] - [鉴权异常处理]请求路径:/auth/login
-22:30:18.673 [reactor-http-nio-3] ERROR c.t.g.f.AuthFilter - [unauthorizedResponse,104] - [鉴权异常处理]请求路径:/auth/login
-22:31:53.635 [reactor-http-nio-3] ERROR c.t.g.f.AuthFilter - [unauthorizedResponse,104] - [鉴权异常处理]请求路径:/auth/login
-22:33:46.221 [reactor-http-nio-3] ERROR c.t.g.f.AuthFilter - [unauthorizedResponse,104] - [鉴权异常处理]请求路径:/auth/login
-22:33:46.228 [nacos-grpc-client-executor-8] ERROR c.a.n.c.r.c.g.GrpcClient - [printIfErrorEnabled,99] - [1677940381934_127.0.0.1_53817]Request stream onCompleted, switch server
-22:33:46.228 [nacos-grpc-client-executor-17] ERROR c.a.n.c.r.c.g.GrpcClient - [printIfErrorEnabled,99] - [1677940374722_127.0.0.1_53809]Request stream onCompleted, switch server
-22:33:46.228 [nacos-grpc-client-executor-39] ERROR c.a.n.c.r.c.g.GrpcClient - [printIfErrorEnabled,99] - [1677940382125_127.0.0.1_53818]Request stream onCompleted, switch server
-22:33:46.231 [boundedElastic-4] ERROR c.a.n.c.r.client - [printIfErrorEnabled,99] - Send request fail, request = ServiceListRequest{headers={}, requestId='null'}, retryTimes = 0, errorMessage = java.util.concurrent.ExecutionException: com.alibaba.nacos.shaded.io.grpc.StatusRuntimeException: UNAVAILABLE: HTTP/2 error code: NO_ERROR
-Received Goaway
-app_requested
-22:33:46.231 [boundedElastic-3] ERROR c.a.n.c.r.client - [printIfErrorEnabled,99] - Send request fail, request = ServiceListRequest{headers={}, requestId='null'}, retryTimes = 0, errorMessage = java.util.concurrent.ExecutionException: com.alibaba.nacos.shaded.io.grpc.StatusRuntimeException: UNAVAILABLE: HTTP/2 error code: NO_ERROR
-Received Goaway
-app_requested
-22:33:46.345 [boundedElastic-3] ERROR c.a.n.c.r.client - [printIfErrorEnabled,99] - Send request fail, request = ServiceListRequest{headers={}, requestId='null'}, retryTimes = 1, errorMessage = Client not connected, current status:UNHEALTHY
-22:33:46.345 [boundedElastic-4] ERROR c.a.n.c.r.client - [printIfErrorEnabled,99] - Send request fail, request = ServiceListRequest{headers={}, requestId='null'}, retryTimes = 1, errorMessage = Client not connected, current status:UNHEALTHY
-22:34:05.529 [boundedElastic-5] ERROR o.s.c.g.r.CachingRouteLocator - [handleRefreshError,94] - Refresh routes error !!!
-org.springframework.beans.factory.BeanCreationNotAllowedException: Error creating bean with name 'refreshEventListener': Singleton bean creation not allowed while singletons of this factory are in destruction (Do not request a bean from a BeanFactory in a destroy method implementation!)
-	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:220)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:333)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:213)
-	at org.springframework.context.event.AbstractApplicationEventMulticaster.retrieveApplicationListeners(AbstractApplicationEventMulticaster.java:264)
-	at org.springframework.context.event.AbstractApplicationEventMulticaster.getApplicationListeners(AbstractApplicationEventMulticaster.java:221)
-	at org.springframework.context.event.SimpleApplicationEventMulticaster.multicastEvent(SimpleApplicationEventMulticaster.java:138)
-	at org.springframework.context.support.AbstractApplicationContext.publishEvent(AbstractApplicationContext.java:421)
-	at org.springframework.context.support.AbstractApplicationContext.publishEvent(AbstractApplicationContext.java:378)
-	at org.springframework.cloud.gateway.support.ConfigurationService$AbstractBuilder.bind(ConfigurationService.java:248)
-	at org.springframework.cloud.gateway.route.RouteDefinitionRouteLocator.lookup(RouteDefinitionRouteLocator.java:216)
-	at org.springframework.cloud.gateway.route.RouteDefinitionRouteLocator.combinePredicates(RouteDefinitionRouteLocator.java:189)
-	at org.springframework.cloud.gateway.route.RouteDefinitionRouteLocator.convertToRoute(RouteDefinitionRouteLocator.java:116)
-	at reactor.core.publisher.FluxMap$MapSubscriber.onNext(FluxMap.java:106)
-	at reactor.core.publisher.FluxFlatMap$FlatMapMain.tryEmitScalar(FluxFlatMap.java:488)
-	at reactor.core.publisher.FluxFlatMap$FlatMapMain.onNext(FluxFlatMap.java:421)
-	at reactor.core.publisher.FluxMergeSequential$MergeSequentialMain.drain(FluxMergeSequential.java:432)
-	at reactor.core.publisher.FluxMergeSequential$MergeSequentialMain.innerComplete(FluxMergeSequential.java:328)
-	at reactor.core.publisher.FluxMergeSequential$MergeSequentialInner.onComplete(FluxMergeSequential.java:584)
-	at reactor.core.publisher.FluxMap$MapSubscriber.onComplete(FluxMap.java:144)
-	at reactor.core.publisher.MonoFlatMapMany$FlatMapManyInner.onComplete(MonoFlatMapMany.java:260)
-	at reactor.core.publisher.FluxIterable$IterableSubscription.slowPath(FluxIterable.java:357)
-	at reactor.core.publisher.FluxIterable$IterableSubscription.request(FluxIterable.java:294)
-	at reactor.core.publisher.MonoFlatMapMany$FlatMapManyMain.onSubscribeInner(MonoFlatMapMany.java:150)
-	at reactor.core.publisher.MonoFlatMapMany$FlatMapManyInner.onSubscribe(MonoFlatMapMany.java:245)
-	at reactor.core.publisher.FluxIterable.subscribe(FluxIterable.java:201)
-	at reactor.core.publisher.FluxIterable.subscribe(FluxIterable.java:83)
-	at reactor.core.publisher.Flux.subscribe(Flux.java:8642)
-	at reactor.core.publisher.MonoFlatMapMany$FlatMapManyMain.onNext(MonoFlatMapMany.java:195)
-	at reactor.core.publisher.Operators$MonoSubscriber.complete(Operators.java:1839)
-	at reactor.core.publisher.MonoCollect$CollectSubscriber.onComplete(MonoCollect.java:160)
-	at reactor.core.publisher.FluxFilter$FilterSubscriber.onComplete(FluxFilter.java:166)
-	at reactor.core.publisher.FluxFlatMap$FlatMapMain.checkTerminated(FluxFlatMap.java:846)
-	at reactor.core.publisher.FluxFlatMap$FlatMapMain.drainLoop(FluxFlatMap.java:608)
-	at reactor.core.publisher.FluxFlatMap$FlatMapMain.drain(FluxFlatMap.java:588)
-	at reactor.core.publisher.FluxFlatMap$FlatMapMain.onComplete(FluxFlatMap.java:465)
-	at reactor.core.publisher.FluxFilter$FilterSubscriber.onComplete(FluxFilter.java:166)
-	at reactor.core.publisher.FluxFlatMap$FlatMapMain.checkTerminated(FluxFlatMap.java:846)
-	at reactor.core.publisher.FluxFlatMap$FlatMapMain.drainLoop(FluxFlatMap.java:608)
-	at reactor.core.publisher.FluxFlatMap$FlatMapMain.innerComplete(FluxFlatMap.java:894)
-	at reactor.core.publisher.FluxFlatMap$FlatMapInner.onComplete(FluxFlatMap.java:997)
-	at reactor.core.publisher.Operators$MonoSubscriber.complete(Operators.java:1840)
-	at reactor.core.publisher.MonoCollectList$MonoCollectListSubscriber.onComplete(MonoCollectList.java:129)
-	at org.springframework.cloud.commons.publisher.FluxFirstNonEmptyEmitting$FirstNonEmptyEmittingSubscriber.onComplete(FluxFirstNonEmptyEmitting.java:325)
-	at reactor.core.publisher.FluxSubscribeOn$SubscribeOnSubscriber.onComplete(FluxSubscribeOn.java:166)
-	at reactor.core.publisher.FluxIterable$IterableSubscription.fastPath(FluxIterable.java:424)
-	at reactor.core.publisher.FluxIterable$IterableSubscription.request(FluxIterable.java:291)
-	at reactor.core.publisher.FluxSubscribeOn$SubscribeOnSubscriber.requestUpstream(FluxSubscribeOn.java:131)
-	at reactor.core.publisher.FluxSubscribeOn$SubscribeOnSubscriber.onSubscribe(FluxSubscribeOn.java:124)
-	at reactor.core.publisher.FluxIterable.subscribe(FluxIterable.java:201)
-	at reactor.core.publisher.FluxIterable.subscribe(FluxIterable.java:83)
-	at reactor.core.publisher.Flux.subscribe(Flux.java:8642)
-	at reactor.core.publisher.FluxFlatMap.trySubscribeScalarMap(FluxFlatMap.java:200)
-	at reactor.core.publisher.MonoFlatMapMany.subscribeOrReturn(MonoFlatMapMany.java:49)
-	at reactor.core.publisher.Flux.subscribe(Flux.java:8628)
-	at reactor.core.publisher.FluxFlatMap.trySubscribeScalarMap(FluxFlatMap.java:200)
-	at reactor.core.publisher.MonoFlatMapMany.subscribeOrReturn(MonoFlatMapMany.java:49)
-	at reactor.core.publisher.FluxFromMonoOperator.subscribe(FluxFromMonoOperator.java:76)
-	at reactor.core.publisher.FluxSubscribeOn$SubscribeOnSubscriber.run(FluxSubscribeOn.java:194)
-	at reactor.core.scheduler.WorkerTask.call(WorkerTask.java:84)
-	at reactor.core.scheduler.WorkerTask.call(WorkerTask.java:37)
-	at java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:266)
-	at java.util.concurrent.FutureTask.run(FutureTask.java)
-	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$201(ScheduledThreadPoolExecutor.java:180)
-	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:293)
-	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
-	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
-	at java.lang.Thread.run(Thread.java:750)
-22:34:08.769 [main] ERROR o.s.b.SpringApplication - [reportFailure,821] - Application run failed
-org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'scopedTarget.ignoreWhiteProperties': Injection of autowired dependencies failed; nested exception is java.lang.IllegalArgumentException: Could not resolve placeholder 'security.ignore.whites' in value "${security.ignore.whites}"
-	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessProperties(AutowiredAnnotationBeanPostProcessor.java:405)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1431)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:619)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:542)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$1(AbstractBeanFactory.java:374)
-	at org.springframework.cloud.context.scope.GenericScope$BeanLifecycleWrapper.getBean(GenericScope.java:376)
-	at org.springframework.cloud.context.scope.GenericScope.get(GenericScope.java:179)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:371)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:208)
-	at org.springframework.context.support.AbstractApplicationContext.getBean(AbstractApplicationContext.java:1154)
-	at org.springframework.cloud.context.scope.refresh.RefreshScope.eagerlyInitialize(RefreshScope.java:126)
-	at org.springframework.cloud.context.scope.refresh.RefreshScope.start(RefreshScope.java:118)
-	at org.springframework.cloud.context.scope.refresh.RefreshScope.onApplicationEvent(RefreshScope.java:113)
-	at org.springframework.cloud.context.scope.refresh.RefreshScope.onApplicationEvent(RefreshScope.java:68)
-	at org.springframework.context.event.SimpleApplicationEventMulticaster.doInvokeListener(SimpleApplicationEventMulticaster.java:176)
-	at org.springframework.context.event.SimpleApplicationEventMulticaster.invokeListener(SimpleApplicationEventMulticaster.java:169)
-	at org.springframework.context.event.SimpleApplicationEventMulticaster.multicastEvent(SimpleApplicationEventMulticaster.java:143)
-	at org.springframework.context.support.AbstractApplicationContext.publishEvent(AbstractApplicationContext.java:421)
-	at org.springframework.context.support.AbstractApplicationContext.publishEvent(AbstractApplicationContext.java:378)
-	at org.springframework.context.support.AbstractApplicationContext.finishRefresh(AbstractApplicationContext.java:938)
-	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:586)
-	at org.springframework.boot.web.reactive.context.ReactiveWebServerApplicationContext.refresh(ReactiveWebServerApplicationContext.java:66)
-	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:731)
-	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:408)
-	at org.springframework.boot.SpringApplication.run(SpringApplication.java:307)
-	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1303)
-	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1292)
-	at com.towelove.gateway.ToweloveGatewayApplication.main(ToweloveGatewayApplication.java:15)
-Caused by: java.lang.IllegalArgumentException: Could not resolve placeholder 'security.ignore.whites' in value "${security.ignore.whites}"
-	at org.springframework.util.PropertyPlaceholderHelper.parseStringValue(PropertyPlaceholderHelper.java:180)
-	at org.springframework.util.PropertyPlaceholderHelper.replacePlaceholders(PropertyPlaceholderHelper.java:126)
-	at org.springframework.core.env.AbstractPropertyResolver.doResolvePlaceholders(AbstractPropertyResolver.java:239)
-	at org.springframework.core.env.AbstractPropertyResolver.resolveRequiredPlaceholders(AbstractPropertyResolver.java:210)
-	at org.springframework.context.support.PropertySourcesPlaceholderConfigurer.lambda$processProperties$0(PropertySourcesPlaceholderConfigurer.java:191)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.resolveEmbeddedValue(AbstractBeanFactory.java:936)
-	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1332)
-	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1311)
-	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.resolveFieldValue(AutowiredAnnotationBeanPostProcessor.java:657)
-	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:640)
-	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:119)
-	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessProperties(AutowiredAnnotationBeanPostProcessor.java:399)
-	... 27 common frames omitted
-22:35:43.293 [main] ERROR o.s.b.SpringApplication - [reportFailure,821] - Application run failed
-org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'scopedTarget.ignoreWhiteProperties': Injection of autowired dependencies failed; nested exception is java.lang.IllegalArgumentException: Could not resolve placeholder 'security.ignore.whites' in value "${security.ignore.whites}"
-	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessProperties(AutowiredAnnotationBeanPostProcessor.java:405)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1431)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:619)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:542)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$1(AbstractBeanFactory.java:374)
-	at org.springframework.cloud.context.scope.GenericScope$BeanLifecycleWrapper.getBean(GenericScope.java:376)
-	at org.springframework.cloud.context.scope.GenericScope.get(GenericScope.java:179)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:371)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:208)
-	at org.springframework.context.support.AbstractApplicationContext.getBean(AbstractApplicationContext.java:1154)
-	at org.springframework.cloud.context.scope.refresh.RefreshScope.eagerlyInitialize(RefreshScope.java:126)
-	at org.springframework.cloud.context.scope.refresh.RefreshScope.start(RefreshScope.java:118)
-	at org.springframework.cloud.context.scope.refresh.RefreshScope.onApplicationEvent(RefreshScope.java:113)
-	at org.springframework.cloud.context.scope.refresh.RefreshScope.onApplicationEvent(RefreshScope.java:68)
-	at org.springframework.context.event.SimpleApplicationEventMulticaster.doInvokeListener(SimpleApplicationEventMulticaster.java:176)
-	at org.springframework.context.event.SimpleApplicationEventMulticaster.invokeListener(SimpleApplicationEventMulticaster.java:169)
-	at org.springframework.context.event.SimpleApplicationEventMulticaster.multicastEvent(SimpleApplicationEventMulticaster.java:143)
-	at org.springframework.context.support.AbstractApplicationContext.publishEvent(AbstractApplicationContext.java:421)
-	at org.springframework.context.support.AbstractApplicationContext.publishEvent(AbstractApplicationContext.java:378)
-	at org.springframework.context.support.AbstractApplicationContext.finishRefresh(AbstractApplicationContext.java:938)
-	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:586)
-	at org.springframework.boot.web.reactive.context.ReactiveWebServerApplicationContext.refresh(ReactiveWebServerApplicationContext.java:66)
-	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:731)
-	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:408)
-	at org.springframework.boot.SpringApplication.run(SpringApplication.java:307)
-	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1303)
-	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1292)
-	at com.towelove.gateway.ToweloveGatewayApplication.main(ToweloveGatewayApplication.java:15)
-Caused by: java.lang.IllegalArgumentException: Could not resolve placeholder 'security.ignore.whites' in value "${security.ignore.whites}"
-	at org.springframework.util.PropertyPlaceholderHelper.parseStringValue(PropertyPlaceholderHelper.java:180)
-	at org.springframework.util.PropertyPlaceholderHelper.replacePlaceholders(PropertyPlaceholderHelper.java:126)
-	at org.springframework.core.env.AbstractPropertyResolver.doResolvePlaceholders(AbstractPropertyResolver.java:239)
-	at org.springframework.core.env.AbstractPropertyResolver.resolveRequiredPlaceholders(AbstractPropertyResolver.java:210)
-	at org.springframework.context.support.PropertySourcesPlaceholderConfigurer.lambda$processProperties$0(PropertySourcesPlaceholderConfigurer.java:191)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.resolveEmbeddedValue(AbstractBeanFactory.java:936)
-	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1332)
-	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1311)
-	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.resolveFieldValue(AutowiredAnnotationBeanPostProcessor.java:657)
-	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:640)
-	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:119)
-	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessProperties(AutowiredAnnotationBeanPostProcessor.java:399)
-	... 27 common frames omitted
-22:38:55.766 [reactor-http-nio-3] ERROR c.t.g.f.AuthFilter - [unauthorizedResponse,104] - [鉴权异常处理]请求路径:/auth/login
-22:38:55.772 [nacos-grpc-client-executor-36] ERROR c.a.n.c.r.c.g.GrpcClient - [printIfErrorEnabled,99] - [1677940674428_127.0.0.1_63751]Request stream onCompleted, switch server
-22:38:55.772 [nacos-grpc-client-executor-11] ERROR c.a.n.c.r.c.g.GrpcClient - [printIfErrorEnabled,99] - [1677940674239_127.0.0.1_63750]Request stream onCompleted, switch server
-22:38:55.772 [reactor-http-nio-5] ERROR c.t.g.f.AuthFilter - [unauthorizedResponse,104] - [鉴权异常处理]请求路径:/auth/login
-22:38:55.777 [com.alibaba.nacos.client.naming.updater.3] ERROR c.a.n.c.r.client - [printIfErrorEnabled,99] - Send request fail, request = ServiceQueryRequest{headers={}, requestId='null'}, retryTimes = 0, errorMessage = java.util.concurrent.ExecutionException: com.alibaba.nacos.shaded.io.grpc.StatusRuntimeException: UNAVAILABLE: HTTP/2 error code: NO_ERROR
-Received Goaway
-app_requested
-22:38:55.777 [com.alibaba.nacos.client.naming.updater.1] ERROR c.a.n.c.r.client - [printIfErrorEnabled,99] - Send request fail, request = ServiceQueryRequest{headers={}, requestId='null'}, retryTimes = 0, errorMessage = java.util.concurrent.ExecutionException: com.alibaba.nacos.shaded.io.grpc.StatusRuntimeException: UNAVAILABLE: HTTP/2 error code: NO_ERROR
-Received Goaway
-app_requested
-22:38:55.777 [boundedElastic-6] ERROR c.a.n.c.r.client - [printIfErrorEnabled,99] - Send request fail, request = ServiceListRequest{headers={}, requestId='null'}, retryTimes = 0, errorMessage = java.util.concurrent.ExecutionException: com.alibaba.nacos.shaded.io.grpc.StatusRuntimeException: UNAVAILABLE: HTTP/2 error code: NO_ERROR
-Received Goaway
-app_requested
-22:38:55.777 [boundedElastic-1] ERROR c.a.n.c.r.client - [printIfErrorEnabled,99] - Send request fail, request = ServiceListRequest{headers={}, requestId='null'}, retryTimes = 0, errorMessage = java.util.concurrent.ExecutionException: com.alibaba.nacos.shaded.io.grpc.StatusRuntimeException: UNAVAILABLE: HTTP/2 error code: NO_ERROR
-Received Goaway
-app_requested
-22:38:55.885 [boundedElastic-1] ERROR c.a.n.c.r.client - [printIfErrorEnabled,99] - Send request fail, request = ServiceListRequest{headers={}, requestId='null'}, retryTimes = 1, errorMessage = Client not connected, current status:UNHEALTHY
-22:38:55.885 [com.alibaba.nacos.client.naming.updater.3] ERROR c.a.n.c.r.client - [printIfErrorEnabled,99] - Send request fail, request = ServiceQueryRequest{headers={}, requestId='null'}, retryTimes = 1, errorMessage = Client not connected, current status:UNHEALTHY
-22:38:55.885 [com.alibaba.nacos.client.naming.updater.1] ERROR c.a.n.c.r.client - [printIfErrorEnabled,99] - Send request fail, request = ServiceQueryRequest{headers={}, requestId='null'}, retryTimes = 1, errorMessage = Client not connected, current status:UNHEALTHY
-22:38:55.885 [boundedElastic-6] ERROR c.a.n.c.r.client - [printIfErrorEnabled,99] - Send request fail, request = ServiceListRequest{headers={}, requestId='null'}, retryTimes = 1, errorMessage = Client not connected, current status:UNHEALTHY
-22:38:55.901 [com.alibaba.nacos.client.Worker] ERROR c.a.n.c.r.client - [printIfErrorEnabled,99] - Send request fail, request = ConfigBatchListenRequest{headers={}, requestId='null'}, retryTimes = 0, errorMessage = Connection is unregistered.
-22:38:55.995 [boundedElastic-1] ERROR c.a.n.c.r.client - [printIfErrorEnabled,99] - Send request fail, request = ServiceListRequest{headers={}, requestId='null'}, retryTimes = 2, errorMessage = Client not connected, current status:UNHEALTHY
-22:38:55.995 [com.alibaba.nacos.client.naming.updater.3] ERROR c.a.n.c.r.client - [printIfErrorEnabled,99] - Send request fail, request = ServiceQueryRequest{headers={}, requestId='null'}, retryTimes = 2, errorMessage = Client not connected, current status:UNHEALTHY
-22:38:55.995 [boundedElastic-6] ERROR c.a.n.c.r.client - [printIfErrorEnabled,99] - Send request fail, request = ServiceListRequest{headers={}, requestId='null'}, retryTimes = 2, errorMessage = Client not connected, current status:UNHEALTHY
-22:38:55.995 [com.alibaba.nacos.client.naming.updater.1] ERROR c.a.n.c.r.client - [printIfErrorEnabled,99] - Send request fail, request = ServiceQueryRequest{headers={}, requestId='null'}, retryTimes = 2, errorMessage = Client not connected, current status:UNHEALTHY
-22:38:55.999 [boundedElastic-6] ERROR c.a.c.n.d.r.NacosReactiveDiscoveryClient - [lambda$getServices$3,94] - get services from nacos server fail,
-com.alibaba.nacos.api.exception.NacosException: Request nacos server failed: 
-	at com.alibaba.nacos.client.naming.remote.gprc.NamingGrpcClientProxy.requestToServer(NamingGrpcClientProxy.java:290)
-	at com.alibaba.nacos.client.naming.remote.gprc.NamingGrpcClientProxy.getServiceList(NamingGrpcClientProxy.java:202)
-	at com.alibaba.nacos.client.naming.remote.NamingClientProxyDelegate.getServiceList(NamingClientProxyDelegate.java:136)
-	at com.alibaba.nacos.client.naming.NacosNamingService.getServicesOfServer(NacosNamingService.java:440)
-	at com.alibaba.nacos.client.naming.NacosNamingService.getServicesOfServer(NacosNamingService.java:428)
-	at com.alibaba.cloud.nacos.discovery.NacosServiceDiscovery.getServices(NacosServiceDiscovery.java:70)
-	at com.alibaba.cloud.nacos.discovery.reactive.NacosReactiveDiscoveryClient.lambda$getServices$3(NacosReactiveDiscoveryClient.java:87)
-	at reactor.core.publisher.FluxDefer.subscribe(FluxDefer.java:46)
-	at reactor.core.publisher.FluxSubscribeOn$SubscribeOnSubscriber.run(FluxSubscribeOn.java:194)
-	at reactor.core.scheduler.WorkerTask.call(WorkerTask.java:84)
-	at reactor.core.scheduler.WorkerTask.call(WorkerTask.java:37)
-	at java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:266)
-	at java.util.concurrent.FutureTask.run(FutureTask.java)
-	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$201(ScheduledThreadPoolExecutor.java:180)
-	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:293)
-	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
-	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
-	at java.lang.Thread.run(Thread.java:750)
+	at java.lang.Thread.run(Thread.java:748)
 Caused by: com.alibaba.nacos.api.exception.NacosException: Client not connected, current status:UNHEALTHY
 	at com.alibaba.nacos.common.remote.client.RpcClient.request(RpcClient.java:650)
 	at com.alibaba.nacos.common.remote.client.RpcClient.request(RpcClient.java:630)
 	at com.alibaba.nacos.client.naming.remote.gprc.NamingGrpcClientProxy.requestToServer(NamingGrpcClientProxy.java:280)
 	... 17 common frames omitted
-22:38:55.999 [boundedElastic-1] ERROR c.a.c.n.d.r.NacosReactiveDiscoveryClient - [lambda$getServices$3,94] - get services from nacos server fail,
+12:39:48.253 [boundedElastic-1] ERROR c.a.c.n.d.r.NacosReactiveDiscoveryClient - [lambda$getServices$3,94] - get services from nacos server fail,
 com.alibaba.nacos.api.exception.NacosException: Request nacos server failed: 
 	at com.alibaba.nacos.client.naming.remote.gprc.NamingGrpcClientProxy.requestToServer(NamingGrpcClientProxy.java:290)
 	at com.alibaba.nacos.client.naming.remote.gprc.NamingGrpcClientProxy.getServiceList(NamingGrpcClientProxy.java:202)
@@ -346,96 +97,11 @@ com.alibaba.nacos.api.exception.NacosException: Request nacos server failed:
 	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:293)
 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
-	at java.lang.Thread.run(Thread.java:750)
+	at java.lang.Thread.run(Thread.java:748)
 Caused by: com.alibaba.nacos.api.exception.NacosException: Client not connected, current status:UNHEALTHY
 	at com.alibaba.nacos.common.remote.client.RpcClient.request(RpcClient.java:650)
 	at com.alibaba.nacos.common.remote.client.RpcClient.request(RpcClient.java:630)
 	at com.alibaba.nacos.client.naming.remote.gprc.NamingGrpcClientProxy.requestToServer(NamingGrpcClientProxy.java:280)
 	... 17 common frames omitted
-22:38:56.011 [com.alibaba.nacos.client.Worker] ERROR c.a.n.c.r.client - [printIfErrorEnabled,99] - Send request fail, request = ConfigBatchListenRequest{headers={}, requestId='null'}, retryTimes = 1, errorMessage = Client not connected, current status:UNHEALTHY
-22:39:51.250 [nacos-grpc-client-executor-39] ERROR c.a.n.c.r.c.g.GrpcClient - [printIfErrorEnabled,99] - [1677940735789_127.0.0.1_64488]Request stream onCompleted, switch server
-22:39:51.252 [boundedElastic-1] ERROR c.a.n.c.r.client - [printIfErrorEnabled,99] - Send request fail, request = ServiceListRequest{headers={}, requestId='null'}, retryTimes = 0, errorMessage = java.util.concurrent.ExecutionException: com.alibaba.nacos.shaded.io.grpc.StatusRuntimeException: UNAVAILABLE: HTTP/2 error code: NO_ERROR
-Received Goaway
-app_requested
-22:39:51.269 [reactor-http-nio-5] ERROR c.t.g.h.GatewayExceptionHandler - [handle,52] - [网关异常处理]请求路径:/auth/login,异常信息:Error creating bean with name 'scopedTarget.ignoreWhiteProperties': Injection of autowired dependencies failed; nested exception is java.lang.IllegalArgumentException: Could not resolve placeholder 'security.ignore.whites' in value "${security.ignore.whites}"
-22:39:51.377 [boundedElastic-1] ERROR c.a.n.c.r.client - [printIfErrorEnabled,99] - Send request fail, request = ServiceListRequest{headers={}, requestId='null'}, retryTimes = 1, errorMessage = Connection is unregistered.
-22:39:51.377 [boundedElastic-3] ERROR c.a.n.c.r.client - [printIfErrorEnabled,99] - Send request fail, request = ServiceListRequest{headers={}, requestId='null'}, retryTimes = 0, errorMessage = Connection is unregistered.
-22:39:51.392 [SpringApplicationShutdownHook] ERROR c.a.n.c.r.client - [printIfErrorEnabled,99] - Send request fail, request = SubscribeServiceRequest{headers={app=unknown}, requestId='null'}, retryTimes = 0, errorMessage = Client not connected, current status:UNHEALTHY
-22:40:13.298 [main] ERROR o.s.b.SpringApplication - [reportFailure,821] - Application run failed
-org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'scopedTarget.ignoreWhiteProperties': Injection of autowired dependencies failed; nested exception is java.lang.IllegalArgumentException: Could not resolve placeholder 'security.ignore.whites' in value "${security.ignore.whites}"
-	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessProperties(AutowiredAnnotationBeanPostProcessor.java:405)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1431)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:619)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:542)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$1(AbstractBeanFactory.java:374)
-	at org.springframework.cloud.context.scope.GenericScope$BeanLifecycleWrapper.getBean(GenericScope.java:376)
-	at org.springframework.cloud.context.scope.GenericScope.get(GenericScope.java:179)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:371)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:208)
-	at org.springframework.context.support.AbstractApplicationContext.getBean(AbstractApplicationContext.java:1154)
-	at org.springframework.cloud.context.scope.refresh.RefreshScope.eagerlyInitialize(RefreshScope.java:126)
-	at org.springframework.cloud.context.scope.refresh.RefreshScope.start(RefreshScope.java:118)
-	at org.springframework.cloud.context.scope.refresh.RefreshScope.onApplicationEvent(RefreshScope.java:113)
-	at org.springframework.cloud.context.scope.refresh.RefreshScope.onApplicationEvent(RefreshScope.java:68)
-	at org.springframework.context.event.SimpleApplicationEventMulticaster.doInvokeListener(SimpleApplicationEventMulticaster.java:176)
-	at org.springframework.context.event.SimpleApplicationEventMulticaster.invokeListener(SimpleApplicationEventMulticaster.java:169)
-	at org.springframework.context.event.SimpleApplicationEventMulticaster.multicastEvent(SimpleApplicationEventMulticaster.java:143)
-	at org.springframework.context.support.AbstractApplicationContext.publishEvent(AbstractApplicationContext.java:421)
-	at org.springframework.context.support.AbstractApplicationContext.publishEvent(AbstractApplicationContext.java:378)
-	at org.springframework.context.support.AbstractApplicationContext.finishRefresh(AbstractApplicationContext.java:938)
-	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:586)
-	at org.springframework.boot.web.reactive.context.ReactiveWebServerApplicationContext.refresh(ReactiveWebServerApplicationContext.java:66)
-	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:731)
-	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:408)
-	at org.springframework.boot.SpringApplication.run(SpringApplication.java:307)
-	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1303)
-	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1292)
-	at com.towelove.gateway.ToweloveGatewayApplication.main(ToweloveGatewayApplication.java:15)
-Caused by: java.lang.IllegalArgumentException: Could not resolve placeholder 'security.ignore.whites' in value "${security.ignore.whites}"
-	at org.springframework.util.PropertyPlaceholderHelper.parseStringValue(PropertyPlaceholderHelper.java:180)
-	at org.springframework.util.PropertyPlaceholderHelper.replacePlaceholders(PropertyPlaceholderHelper.java:126)
-	at org.springframework.core.env.AbstractPropertyResolver.doResolvePlaceholders(AbstractPropertyResolver.java:239)
-	at org.springframework.core.env.AbstractPropertyResolver.resolveRequiredPlaceholders(AbstractPropertyResolver.java:210)
-	at org.springframework.context.support.PropertySourcesPlaceholderConfigurer.lambda$processProperties$0(PropertySourcesPlaceholderConfigurer.java:191)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.resolveEmbeddedValue(AbstractBeanFactory.java:936)
-	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1332)
-	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1311)
-	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.resolveFieldValue(AutowiredAnnotationBeanPostProcessor.java:657)
-	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:640)
-	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:119)
-	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessProperties(AutowiredAnnotationBeanPostProcessor.java:399)
-	... 27 common frames omitted
-22:42:14.925 [nacos-grpc-client-executor-24] ERROR c.a.n.c.r.c.g.GrpcClient - [sendResponse,243] - [1677940878437_127.0.0.1_64969]Error to send ack response, ackId->252
-22:42:15.119 [nacos-grpc-client-executor-26] ERROR c.a.n.c.r.c.g.GrpcClient - [printIfErrorEnabled,99] - [1677940912003_127.0.0.1_63392]Request stream onCompleted, switch server
-22:44:58.298 [nacos-grpc-client-executor-19] ERROR c.a.n.c.r.c.g.GrpcClient - [printIfErrorEnabled,99] - [1677941007568_127.0.0.1_63549]Request stream onCompleted, switch server
-22:44:58.298 [nacos-grpc-client-executor-10] ERROR c.a.n.c.r.c.g.GrpcClient - [printIfErrorEnabled,99] - [1677941014642_127.0.0.1_63560]Request stream onCompleted, switch server
-22:44:58.298 [nacos-grpc-client-executor-44] ERROR c.a.n.c.r.c.g.GrpcClient - [printIfErrorEnabled,99] - [1677941014824_127.0.0.1_63561]Request stream onCompleted, switch server
-22:44:58.303 [com.alibaba.nacos.client.naming.updater.6] ERROR c.a.n.c.r.client - [printIfErrorEnabled,99] - Send request fail, request = ServiceQueryRequest{headers={}, requestId='null'}, retryTimes = 0, errorMessage = java.util.concurrent.ExecutionException: com.alibaba.nacos.shaded.io.grpc.StatusRuntimeException: UNAVAILABLE: HTTP/2 error code: NO_ERROR
-Received Goaway
-app_requested
-22:44:58.303 [com.alibaba.nacos.client.naming.updater.1] ERROR c.a.n.c.r.client - [printIfErrorEnabled,99] - Send request fail, request = ServiceQueryRequest{headers={}, requestId='null'}, retryTimes = 0, errorMessage = java.util.concurrent.ExecutionException: com.alibaba.nacos.shaded.io.grpc.StatusRuntimeException: UNAVAILABLE: HTTP/2 error code: NO_ERROR
-Received Goaway
-app_requested
-22:44:58.303 [com.alibaba.nacos.client.naming.updater.7] ERROR c.a.n.c.r.client - [printIfErrorEnabled,99] - Send request fail, request = ServiceQueryRequest{headers={}, requestId='null'}, retryTimes = 0, errorMessage = java.util.concurrent.ExecutionException: com.alibaba.nacos.shaded.io.grpc.StatusRuntimeException: UNAVAILABLE: HTTP/2 error code: NO_ERROR
-Received Goaway
-app_requested
-22:44:58.303 [boundedElastic-9] ERROR c.a.n.c.r.client - [printIfErrorEnabled,99] - Send request fail, request = ServiceListRequest{headers={}, requestId='null'}, retryTimes = 0, errorMessage = java.util.concurrent.ExecutionException: com.alibaba.nacos.shaded.io.grpc.StatusRuntimeException: UNAVAILABLE: HTTP/2 error code: NO_ERROR
-Received Goaway
-app_requested
-22:44:58.303 [com.alibaba.nacos.client.naming.updater.5] ERROR c.a.n.c.r.client - [printIfErrorEnabled,99] - Send request fail, request = ServiceQueryRequest{headers={}, requestId='null'}, retryTimes = 0, errorMessage = java.util.concurrent.ExecutionException: com.alibaba.nacos.shaded.io.grpc.StatusRuntimeException: UNAVAILABLE: HTTP/2 error code: NO_ERROR
-Received Goaway
-app_requested
-22:44:58.303 [boundedElastic-8] ERROR c.a.n.c.r.client - [printIfErrorEnabled,99] - Send request fail, request = ServiceListRequest{headers={}, requestId='null'}, retryTimes = 0, errorMessage = java.util.concurrent.ExecutionException: com.alibaba.nacos.shaded.io.grpc.StatusRuntimeException: UNAVAILABLE: HTTP/2 error code: NO_ERROR
-Received Goaway
-app_requested
-22:44:58.411 [com.alibaba.nacos.client.naming.updater.5] ERROR c.a.n.c.r.client - [printIfErrorEnabled,99] - Send request fail, request = ServiceQueryRequest{headers={}, requestId='null'}, retryTimes = 1, errorMessage = Client not connected, current status:UNHEALTHY
-22:44:58.411 [boundedElastic-9] ERROR c.a.n.c.r.client - [printIfErrorEnabled,99] - Send request fail, request = ServiceListRequest{headers={}, requestId='null'}, retryTimes = 1, errorMessage = Client not connected, current status:UNHEALTHY
-22:44:58.411 [com.alibaba.nacos.client.naming.updater.7] ERROR c.a.n.c.r.client - [printIfErrorEnabled,99] - Send request fail, request = ServiceQueryRequest{headers={}, requestId='null'}, retryTimes = 1, errorMessage = Client not connected, current status:UNHEALTHY
-22:44:58.411 [boundedElastic-8] ERROR c.a.n.c.r.client - [printIfErrorEnabled,99] - Send request fail, request = ServiceListRequest{headers={}, requestId='null'}, retryTimes = 1, errorMessage = Client not connected, current status:UNHEALTHY
-22:44:58.411 [com.alibaba.nacos.client.naming.updater.6] ERROR c.a.n.c.r.client - [printIfErrorEnabled,99] - Send request fail, request = ServiceQueryRequest{headers={}, requestId='null'}, retryTimes = 1, errorMessage = Client not connected, current status:UNHEALTHY
-22:44:58.411 [com.alibaba.nacos.client.naming.updater.1] ERROR c.a.n.c.r.client - [printIfErrorEnabled,99] - Send request fail, request = ServiceQueryRequest{headers={}, requestId='null'}, retryTimes = 1, errorMessage = Client not connected, current status:UNHEALTHY
-22:48:57.995 [boundedElastic-4] ERROR c.t.g.h.GatewayExceptionHandler - [handle,52] - [网关异常处理]请求路径:/auth/login,异常信息:503 SERVICE_UNAVAILABLE "Unable to find instance for towelove-auth"
-22:51:17.255 [boundedElastic-9] ERROR c.t.g.h.GatewayExceptionHandler - [handle,52] - [网关异常处理]请求路径:/auth/login,异常信息:503 SERVICE_UNAVAILABLE "Unable to find instance for towelove-auth"
-22:51:19.308 [boundedElastic-9] ERROR c.t.g.h.GatewayExceptionHandler - [handle,52] - [网关异常处理]请求路径:/auth/login,异常信息:503 SERVICE_UNAVAILABLE "Unable to find instance for towelove-auth"
-22:56:23.345 [reactor-http-nio-7] ERROR c.t.g.f.AuthFilter - [unauthorizedResponse,104] - [鉴权异常处理]请求路径:/sys/user/info/username
-22:58:36.322 [reactor-http-nio-7] ERROR c.t.g.f.AuthFilter - [unauthorizedResponse,104] - [鉴权异常处理]请求路径:/sys/user/register
+12:42:34.719 [reactor-http-nio-10] ERROR c.t.g.f.AuthFilter - [unauthorizedResponse,110] - [鉴权异常处理]请求路径:/sys/user/add
+12:47:42.601 [reactor-http-nio-10] ERROR c.t.g.f.AuthFilter - [unauthorizedResponse,110] - [鉴权异常处理]请求路径:/sys/user/edit

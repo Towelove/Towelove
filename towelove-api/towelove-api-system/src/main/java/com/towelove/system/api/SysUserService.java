@@ -2,6 +2,7 @@ package com.towelove.system.api;
 
 import com.towelove.common.core.constant.SecurityConstants;
 import com.towelove.common.core.domain.R;
+import com.towelove.common.core.web.domain.AjaxResult;
 import com.towelove.system.api.factory.SysUserFallbackFactory;
 import com.towelove.system.api.domain.SysUser;
 import com.towelove.system.api.model.LoginUser;
@@ -18,13 +19,12 @@ import org.springframework.web.bind.annotation.*;
         //value = ServiceNameConstants.SYSTEM_SERVICE,
         value = "towelove-system",
         fallbackFactory = SysUserFallbackFactory.class)
-public interface SysUserService
-{
+public interface SysUserService {
     /**
      * 通过用户名查询用户信息
      *
      * @param username 用户名
-     * @param source 请求来源
+     * @param source   请求来源
      * @return 结果
      */
     @GetMapping("/sys/user/info/{username}")
@@ -35,10 +35,16 @@ public interface SysUserService
      * 注册用户信息
      *
      * @param sysUser 用户信息
-     * @param source 请求来源
+     * @param source  请求来源
      * @return 结果
      */
     @PostMapping("/sys/user/register")
     public R<Boolean> registerUserInfo(@RequestBody SysUser sysUser,
-                                       @RequestHeader(SecurityConstants.FROM_SOURCE) String source);
+                                       @RequestHeader(SecurityConstants.FROM_SOURCE)
+                                       String source);
+
+    @PutMapping("/sys/user/resetPwd")
+    public AjaxResult resetPwd(@RequestBody SysUser sysUser,
+                               @RequestHeader(SecurityConstants.FROM_SOURCE)
+                         String inner);
 }

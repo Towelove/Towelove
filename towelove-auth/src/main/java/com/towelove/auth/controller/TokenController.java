@@ -9,6 +9,7 @@ import com.towelove.common.core.utils.StringUtils;
 import com.towelove.common.security.auth.AuthUtil;
 import com.towelove.common.security.service.TokenService;
 import com.towelove.common.security.utils.SecurityUtils;
+import com.towelove.system.api.domain.SysUser;
 import com.towelove.system.api.model.LoginUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -32,9 +33,14 @@ public class TokenController {
     @Autowired
     private SysLoginService sysLoginService;
 
+    /**
+     * 登录操作用于获取token
+     *
+     * @param form 用户名和密码
+     * @return 返回登录token
+     */
     @PostMapping("login")
-    public R<?> login(@RequestBody LoginBody form)
-    {
+    public R<?> login(@RequestBody LoginBody form) {
         // 用户登录
         LoginUser userInfo = sysLoginService.login(form.getUsername(), form.getPassword());
         //上面的代码只为LoginUser提供了SysUser对象，下面的createToken为其其他属性添加属性
@@ -43,12 +49,16 @@ public class TokenController {
         return R.ok(tokenService.createToken(userInfo));
     }
 
+    /**
+     * 退出登录操作 将会删除redis中的token
+     *
+     * @param request 当前退出登录请求
+     * @return
+     */
     @DeleteMapping("logout")
-    public R<?> logout(HttpServletRequest request)
-    {
+    public R<?> logout(HttpServletRequest request) {
         String token = SecurityUtils.getToken(request);
-        if (StringUtils.isNotEmpty(token))
-        {
+        if (StringUtils.isNotEmpty(token)) {
             String username = JwtUtils.getUserName(token);
             // 删除用户缓存记录
             AuthUtil.logoutByToken(token);
@@ -58,24 +68,44 @@ public class TokenController {
         return R.ok();
     }
 
+    /**
+     * 刷新有效期 只要用户有点击操作就可以执行这个方法
+     * 但是不要太频繁
+     *
+     * @param request
+     * @return
+     */
     @PostMapping("refresh")
-    public R<?> refresh(HttpServletRequest request)
-    {
+    public R<?> refresh(HttpServletRequest request) {
         LoginUser loginUser = tokenService.getLoginUser(request);
-        if (StringUtils.isNotNull(loginUser))
-        {
+        if (StringUtils.isNotNull(loginUser)) {
             // 刷新令牌有效期
             tokenService.refreshToken(loginUser);
             return R.ok();
         }
         return R.ok();
     }
-    //TODO 注册可以直接写完整一点
+
+    /**
+     * 用户注册操作
+     * @param sysUser 注册信息
+     * @return
+     */
     @PostMapping("register")
-    public R<?> register(@RequestBody RegisterBody registerBody)
-    {
+    public R<?> register(@RequestBody SysUser sysUser) {
         // 用户注册
-        sysLoginService.register(registerBody.getUsername(), registerBody.getPassword());
+        sysLoginService.register(sysUser);
+        return R.ok();
+    }
+
+    /**
+     * 用户重置密码操作
+     * @param form
+     * @return
+     */
+    @PutMapping("/resetPwd")
+    public R<?> resetPassword(@RequestBody LoginBody form) {
+        sysLoginService.resetPwd(form);
         return R.ok();
     }
 }

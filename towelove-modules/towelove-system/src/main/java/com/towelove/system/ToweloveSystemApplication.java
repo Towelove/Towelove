@@ -2,6 +2,7 @@ package com.towelove.system;
 
 import com.towelove.common.security.annotation.EnableCustomConfig;
 import com.towelove.common.swagger.annotation.EnableCustomSwagger2;
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -12,6 +13,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
  * @date: 2023/2/23 20:10
  * Description:
  */
+@MapperScan("com.towelove.system.mapper")
 @EnableCustomConfig
 @EnableFeignClients
 @EnableCustomSwagger2

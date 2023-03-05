@@ -60,8 +60,9 @@ public class SysUserController extends BaseController{
     }
     /**
      * 获取当前用户信息
+     * 当前方法用于提供远程调用服务
      */
-    //@InnerAuth
+    @InnerAuth
     @GetMapping("/info/{username}")
     public R<LoginUser> info(@PathVariable("username") String username)
     {
@@ -112,6 +113,7 @@ public class SysUserController extends BaseController{
         //Set<String> roles = permissionService.getRolePermission(user);
         // 权限集合
         //Set<String> permissions = permissionService.getMenuPermission(user);
+        //user.setPassword("密码不可见哦");
         AjaxResult ajax = AjaxResult.success();
         ajax.put("user", user);
         //ajax.put("roles", roles);
@@ -219,11 +221,11 @@ public class SysUserController extends BaseController{
      */
     //@RequiresPermissions("system:user:edit")
     //@Log(title = "用户管理", businessType = BusinessType.UPDATE)
+    @InnerAuth
     @PutMapping("/resetPwd")
     public AjaxResult resetPwd(@RequestBody SysUser user)
     {
         //密码的合法性检查由前端进行即可
-        user.setPassword(SecurityUtils.encryptPassword(user.getPassword()));
         user.setUpdateBy(SecurityUtils.getUsername());
         return toAjax(userService.resetPwd(user));
     }
