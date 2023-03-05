@@ -5,10 +5,8 @@ spring:
     username: root
     password: LiHongyan03
   redis:
-    host: 123.249.97.220
     port: 6379
-    password: LiHongyan03
-
+    host: 127.0.0.1
 mybatis-plus:
   configuration:
     #开启mp的下划线映射为驼峰模式

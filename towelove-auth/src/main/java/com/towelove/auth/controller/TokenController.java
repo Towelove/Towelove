@@ -40,7 +40,12 @@ public class TokenController {
      * @return 返回登录token
      */
     @PostMapping("login")
-    public R<?> login(@RequestBody LoginBody form) {
+    public R<?> login(@RequestBody LoginBody form,HttpServletRequest request) {
+        // 校验是否携带了token又进行登入
+        String token = SecurityUtils.getToken(request);
+        if (StringUtils.isNotBlank(token)){
+           return R.fail("用户已经登入,请勿重复登入");
+        }
         // 用户登录
         LoginUser userInfo = sysLoginService.login(form.getUsername(), form.getPassword());
         //上面的代码只为LoginUser提供了SysUser对象，下面的createToken为其其他属性添加属性
