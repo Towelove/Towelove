@@ -778,3 +778,13 @@
 23:08:29.784 [main] INFO  c.a.c.n.r.NacosContextRefresher - [registerNacosListener,129] - [Nacos Config] Listening config: dataId=towelove-auth.yml, group=DEFAULT_GROUP
 23:08:29.784 [main] INFO  c.a.c.n.r.NacosContextRefresher - [registerNacosListener,129] - [Nacos Config] Listening config: dataId=towelove-auth-dev.yml, group=DEFAULT_GROUP
 23:08:30.655 [RMI TCP Connection(5)-192.168.254.1] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+23:08:59.797 [nacos-grpc-client-executor-14] INFO  c.a.n.c.r.client - [printIfInfoEnabled,60] - [0b907f4f-024d-450d-90ea-b3c46ed0b0d3] Receive server push request, request = NotifySubscriberRequest, requestId = 116
+23:08:59.797 [nacos-grpc-client-executor-14] INFO  c.a.n.c.r.client - [printIfInfoEnabled,60] - [0b907f4f-024d-450d-90ea-b3c46ed0b0d3] Ack server push request, request = NotifySubscriberRequest, requestId = 116
+23:09:20.513 [com.alibaba.nacos.client.remote.worker] INFO  c.a.n.c.r.client - [printIfInfoEnabled,60] - [058b78a9-f603-43f0-a948-202094df63a1_config-0] Server healthy check fail, currentConnection = 1678028897728_127.0.0.1_64866
+23:09:20.514 [com.alibaba.nacos.client.remote.worker] INFO  c.a.n.c.r.client - [printIfInfoEnabled,60] - [058b78a9-f603-43f0-a948-202094df63a1_config-0] Try to reconnect to a new server, server is  not appointed, will choose a random server.
+23:09:20.639 [com.alibaba.nacos.client.remote.worker] INFO  c.a.n.c.r.client - [printIfInfoEnabled,60] - [058b78a9-f603-43f0-a948-202094df63a1_config-0] Success to connect a server [127.0.0.1:8848], connectionId = 1678028960522_127.0.0.1_58111
+23:09:20.639 [com.alibaba.nacos.client.remote.worker] INFO  c.a.n.c.r.client - [printIfInfoEnabled,60] - [058b78a9-f603-43f0-a948-202094df63a1_config-0] Abandon prev connection, server is 127.0.0.1:8848, connectionId is 1678028897728_127.0.0.1_64866
+23:09:20.641 [com.alibaba.nacos.client.remote.worker] INFO  c.a.n.c.r.client - [closeConnection,591] - Close current connection 1678028897728_127.0.0.1_64866
+23:09:20.643 [nacos-grpc-client-executor-26] INFO  c.a.n.c.r.c.g.GrpcClient - [printIfInfoEnabled,60] - [1678028897728_127.0.0.1_64866]Ignore complete event,isRunning:false,isAbandon=true
+23:09:20.647 [com.alibaba.nacos.client.remote.worker] INFO  c.a.n.c.r.client - [printIfInfoEnabled,60] - [058b78a9-f603-43f0-a948-202094df63a1_config-0] Notify disconnected event to listeners
+23:09:20.649 [com.alibaba.nacos.client.remote.worker] INFO  c.a.n.c.r.client - [printIfInfoEnabled,60] - [058b78a9-f603-43f0-a948-202094df63a1_config-0] Notify connected event to listeners.
