@@ -7,7 +7,7 @@ import org.springframework.cloud.bus.event.RemoteApplicationEvent;
 /**
  * 邮箱模板的数据刷新 Message
  *
- * @author wangjingyi
+ * @author: 张锦标
  */
 @Data
 @EqualsAndHashCode(callSuper = true)

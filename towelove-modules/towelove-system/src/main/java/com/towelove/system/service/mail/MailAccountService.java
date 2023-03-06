@@ -1,8 +1,11 @@
 package com.towelove.system.service.mail;
 
 
-import com.towelove.system.domain.PageResult;
-import com.towelove.system.domain.mail.MailAccountDO;
+import com.baomidou.mybatisplus.extension.service.IService;
+import com.towelove.common.core.domain.PageResult;
+import com.towelove.common.core.web.page.TableDataInfo;
+
+import com.towelove.system.domain.mail.MailAccount;
 import com.towelove.system.domain.mail.vo.MailAccountCreateReqVO;
 import com.towelove.system.domain.mail.vo.MailAccountPageReqVO;
 import com.towelove.system.domain.mail.vo.MailAccountUpdateReqVO;
@@ -13,7 +16,7 @@ import java.util.List;
 /**
  * 邮箱账号 Service 接口
  *
- * @author wangjingyi
+ * @author: 张锦标
  * @since 2022-03-21
  */
 public interface MailAccountService {
@@ -29,22 +32,22 @@ public interface MailAccountService {
      * @param id 编号
      * @return 邮箱账号
      */
-    MailAccountDO getMailAccountFromCache(Long id);
+    MailAccount getMailAccountFromCache(Long id);
 
     /**
      * 创建邮箱账号
      *
-     * @param createReqVO 邮箱账号信息
+     * @param account 邮箱账号信息
      * @return 编号
      */
-    Long createMailAccount(@Valid MailAccountCreateReqVO createReqVO);
+    Long createMailAccount(@Valid MailAccount account);
 
     /**
      * 修改邮箱账号
      *
-     * @param updateReqVO 邮箱账号信息
+     * @param account 邮箱账号信息
      */
-    void updateMailAccount(@Valid MailAccountUpdateReqVO updateReqVO);
+    void updateMailAccount(@Valid MailAccount account);
 
     /**
      * 删除邮箱账号
@@ -59,7 +62,7 @@ public interface MailAccountService {
      * @param id 编号
      * @return 邮箱账号信息
      */
-    MailAccountDO getMailAccount(Long id);
+    MailAccount getMailAccount(Long id);
 
     /**
      * 获取邮箱账号分页信息
@@ -67,13 +70,13 @@ public interface MailAccountService {
      * @param pageReqVO 邮箱账号分页参数
      * @return 邮箱账号分页信息
      */
-    PageResult<MailAccountDO> getMailAccountPage(MailAccountPageReqVO pageReqVO);
+    PageResult<MailAccount> getMailAccountPage(MailAccountPageReqVO pageReqVO);
 
     /**
      * 获取邮箱数组信息
      *
      * @return 邮箱账号信息数组
      */
-    List<MailAccountDO> getMailAccountList();
+    List<MailAccount> getMailAccountList();
 
 }

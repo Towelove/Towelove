@@ -1,25 +1,21 @@
 package com.towelove.system.domain.mail;
 
 
-import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler;
 import com.towelove.common.core.web.domain.BaseEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import java.util.List;
-
 /**
  * 邮件模版 DO
  *
- * @author wangjingyi
+ * @author: 张锦标
  * @since 2022-03-21
  */
-@TableName(value = "system_mail_template", autoResultMap = true)
+@TableName(value = "sys_mail_template", autoResultMap = true)
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class MailTemplateDO extends BaseEntity {
+public class MailTemplate extends BaseEntity {
 
     /**
      * 主键
@@ -36,7 +32,7 @@ public class MailTemplateDO extends BaseEntity {
     /**
      * 发送的邮箱账号编号
      *
-     * 关联 {@link MailAccountDO#getId()}
+     * 关联 {@link MailAccount#getId()}
      */
     private Long accountId;
 

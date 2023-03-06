@@ -12,7 +12,7 @@ import javax.annotation.Resource;
 /**
  * 针对 MailTemplateRefreshMessage 的消费者
  *
- * @author wangjingyi
+ * @author: 张锦标
  */
 @Component
 @Slf4j

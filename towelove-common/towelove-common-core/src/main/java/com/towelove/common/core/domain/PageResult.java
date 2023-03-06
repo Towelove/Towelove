@@ -1,4 +1,4 @@
-package com.towelove.system.domain;
+package com.towelove.common.core.domain;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;

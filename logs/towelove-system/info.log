@@ -2116,3 +2116,11 @@
 12:01:00.350 [RMI TCP Connection(7)-192.168.0.102] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring DispatcherServlet 'dispatcherServlet'
 12:01:00.366 [RMI TCP Connection(6)-192.168.0.102] INFO  c.z.h.HikariDataSource - [getConnection,110] - HikariPool-1 - Starting...
 12:01:00.804 [RMI TCP Connection(6)-192.168.0.102] INFO  c.z.h.HikariDataSource - [getConnection,123] - HikariPool-1 - Start completed.
+12:37:04.617 [SpringApplicationShutdownHook] INFO  c.a.c.n.r.NacosServiceRegistry - [deregister,94] - De-registering from Nacos Server now...
+12:37:04.650 [SpringApplicationShutdownHook] INFO  c.a.c.n.r.NacosServiceRegistry - [deregister,114] - De-registration finished.
+12:37:04.979 [SpringApplicationShutdownHook] INFO  c.a.n.c.r.client - [shutdown,454] - Shutdown rpc client, set status to shutdown
+12:37:04.979 [SpringApplicationShutdownHook] INFO  c.a.n.c.r.client - [shutdown,456] - Shutdown client event executor java.util.concurrent.ScheduledThreadPoolExecutor@4dea763c[Running, pool size = 2, active threads = 2, queued tasks = 0, completed tasks = 0]
+12:37:04.979 [SpringApplicationShutdownHook] INFO  c.a.n.c.r.client - [closeConnection,591] - Close current connection 1678075259131_175.172.207.175_50274
+12:37:04.983 [SpringApplicationShutdownHook] INFO  c.a.n.c.r.c.g.GrpcClient - [shutdown,85] - Shutdown grpc executor java.util.concurrent.ThreadPoolExecutor@1786e49f[Running, pool size = 5, active threads = 0, queued tasks = 0, completed tasks = 442]
+12:37:05.110 [SpringApplicationShutdownHook] INFO  c.z.h.HikariDataSource - [close,350] - HikariPool-1 - Shutdown initiated...
+12:37:05.113 [SpringApplicationShutdownHook] INFO  c.z.h.HikariDataSource - [close,352] - HikariPool-1 - Shutdown completed.

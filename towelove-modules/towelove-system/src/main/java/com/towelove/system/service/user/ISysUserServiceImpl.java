@@ -1,4 +1,4 @@
-package com.towelove.system.service.impl;
+package com.towelove.system.service.user;
 
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
@@ -9,7 +9,7 @@ import com.towelove.common.core.utils.StringUtils;
 import com.towelove.common.security.utils.SecurityUtils;
 import com.towelove.system.api.domain.SysUser;
 import com.towelove.system.mapper.SysUserMapper;
-import com.towelove.system.service.ISysUserService;
+import com.towelove.system.service.user.ISysUserService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

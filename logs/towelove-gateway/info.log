@@ -992,3 +992,13 @@
 10:06:05.008 [nacos-grpc-client-executor-32] INFO  c.a.n.c.r.client - [printIfInfoEnabled,60] - [731dbafc-9fb1-4682-bd66-7ad799776d82] Receive server push request, request = NotifySubscriberRequest, requestId = 10
 10:06:05.008 [nacos-grpc-client-executor-32] INFO  c.a.n.c.r.client - [printIfInfoEnabled,60] - [731dbafc-9fb1-4682-bd66-7ad799776d82] Ack server push request, request = NotifySubscriberRequest, requestId = 10
 10:06:05.062 [RMI TCP Connection(2)-192.168.0.102] INFO  c.a.c.s.d.c.SentinelConverter - [convert,79] - converter can not convert rules because source is empty
+12:00:44.412 [nacos-grpc-client-executor-2088] INFO  c.a.n.c.r.client - [printIfInfoEnabled,60] - [731dbafc-9fb1-4682-bd66-7ad799776d82] Receive server push request, request = NotifySubscriberRequest, requestId = 13
+12:00:44.433 [nacos-grpc-client-executor-2088] INFO  c.a.n.c.r.client - [printIfInfoEnabled,60] - [731dbafc-9fb1-4682-bd66-7ad799776d82] Ack server push request, request = NotifySubscriberRequest, requestId = 13
+12:01:00.225 [nacos-grpc-client-executor-2091] INFO  c.a.n.c.r.client - [printIfInfoEnabled,60] - [731dbafc-9fb1-4682-bd66-7ad799776d82] Receive server push request, request = NotifySubscriberRequest, requestId = 16
+12:01:00.227 [nacos-grpc-client-executor-2091] INFO  c.a.n.c.r.client - [printIfInfoEnabled,60] - [731dbafc-9fb1-4682-bd66-7ad799776d82] Ack server push request, request = NotifySubscriberRequest, requestId = 16
+12:37:04.586 [SpringApplicationShutdownHook] INFO  c.a.c.n.r.NacosServiceRegistry - [deregister,94] - De-registering from Nacos Server now...
+12:37:04.618 [SpringApplicationShutdownHook] INFO  c.a.c.n.r.NacosServiceRegistry - [deregister,114] - De-registration finished.
+12:37:04.950 [SpringApplicationShutdownHook] INFO  c.a.n.c.r.client - [shutdown,454] - Shutdown rpc client, set status to shutdown
+12:37:04.950 [SpringApplicationShutdownHook] INFO  c.a.n.c.r.client - [shutdown,456] - Shutdown client event executor java.util.concurrent.ScheduledThreadPoolExecutor@75566f4[Running, pool size = 2, active threads = 2, queued tasks = 0, completed tasks = 0]
+12:37:04.950 [SpringApplicationShutdownHook] INFO  c.a.n.c.r.client - [closeConnection,591] - Close current connection 1678068364207_175.172.207.175_51152
+12:37:04.952 [SpringApplicationShutdownHook] INFO  c.a.n.c.r.c.g.GrpcClient - [shutdown,85] - Shutdown grpc executor java.util.concurrent.ThreadPoolExecutor@61d527ac[Running, pool size = 4, active threads = 0, queued tasks = 0, completed tasks = 2705]

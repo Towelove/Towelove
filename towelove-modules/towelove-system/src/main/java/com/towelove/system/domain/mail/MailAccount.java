@@ -11,13 +11,13 @@ import lombok.EqualsAndHashCode;
  *
  * 用途：配置发送邮箱的账号
  *
- * @author wangjingyi
+ * @author: 张锦标
  * @since 2022-03-21
  */
-@TableName(value = "system_mail_account", autoResultMap = true)
+@TableName(value = "sys_mail_account", autoResultMap = true)
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class MailAccountDO extends BaseEntity {
+public class MailAccount extends BaseEntity {
 
     /**
      * 主键

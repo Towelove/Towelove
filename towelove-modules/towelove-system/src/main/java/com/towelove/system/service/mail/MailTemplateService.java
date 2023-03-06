@@ -2,19 +2,20 @@ package com.towelove.system.service.mail;
 
 
 
-import com.towelove.system.domain.PageResult;
-import com.towelove.system.domain.mail.MailTemplateDO;
+import com.towelove.system.domain.mail.MailTemplate;
 
-import javax.validation.Valid;
 import java.util.List;
 import java.util.Map;
 
 /**
  * 邮件模版 Service 接口
- *
- * @author wangjingyi
+ * 模板功能暂时不使用
+ * 邮件内容完全由用户自定义
+ * 只有后期发送官方模板文件之后使用这个功能
+ * @author: 张锦标
  * @since 2022-03-21
  */
+@Deprecated
 public interface MailTemplateService {
 
     /**
@@ -38,7 +39,7 @@ public interface MailTemplateService {
      * @param id 编号
      * @return 邮件模版
      */
-    MailTemplateDO getMailTemplate(Long id);
+    MailTemplate getMailTemplate(Long id);
 
 
 
@@ -48,7 +49,7 @@ public interface MailTemplateService {
      *
      * @return 模版数组
      */
-    List<MailTemplateDO> getMailTemplateList();
+    List<MailTemplate> getMailTemplateList();
 
     /**
      * 从缓存中获取邮件模版
@@ -56,7 +57,7 @@ public interface MailTemplateService {
      * @param code 模板编码
      * @return 邮件模板
      */
-    MailTemplateDO getMailTemplateByCodeFromCache(String code);
+    MailTemplate getMailTemplateByCodeFromCache(String code);
 
     /**
      * 邮件模版内容合成

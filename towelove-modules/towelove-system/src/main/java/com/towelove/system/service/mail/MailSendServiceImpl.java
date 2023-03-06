@@ -2,8 +2,8 @@ package com.towelove.system.service.mail;
 
 
 import com.google.common.annotations.VisibleForTesting;
-import com.towelove.system.domain.mail.MailAccountDO;
-import com.towelove.system.domain.mail.MailTemplateDO;
+import com.towelove.system.domain.mail.MailAccount;
+import com.towelove.system.domain.mail.MailTemplate;
 import com.towelove.system.mq.message.mail.MailSendMessage;
 import com.towelove.system.mq.producer.mail.MailProducer;
 import lombok.extern.slf4j.Slf4j;
@@ -16,15 +16,13 @@ import java.util.Map;
 /**
  * 邮箱发送 Service 实现类
  *
- * @author wangjingyi
+ * @author: 张锦标
  * @since 2022-03-21
  */
 @Service
 @Validated
 @Slf4j
 public class MailSendServiceImpl implements MailSendService {
-
-
 
     @Resource
     private MailAccountService mailAccountService;
@@ -53,9 +51,9 @@ public class MailSendServiceImpl implements MailSendService {
     public Long sendSingleMail(String mail, Long userId, Integer userType,
                                String templateCode, Map<String, Object> templateParams) {
         // 校验邮箱模版是否合法
-        MailTemplateDO template = validateMailTemplate(templateCode);
+        MailTemplate template = validateMailTemplate(templateCode);
         // 校验邮箱账号是否合法
-        MailAccountDO account = validateMailAccount(template.getAccountId());
+        MailAccount account = validateMailAccount(template.getAccountId());
 
         // 校验邮箱是否存在
         mail = validateMail(mail);
@@ -81,9 +79,9 @@ public class MailSendServiceImpl implements MailSendService {
     }
 
     @VisibleForTesting
-    MailTemplateDO validateMailTemplate(String templateCode) {
+    MailTemplate validateMailTemplate(String templateCode) {
         // 获得邮件模板。考虑到效率，从缓存中获取
-        MailTemplateDO template = mailTemplateService.getMailTemplateByCodeFromCache(templateCode);
+        MailTemplate template = mailTemplateService.getMailTemplateByCodeFromCache(templateCode);
         // 邮件模板不存在
         if (template == null) {
             //throw exception(MAIL_TEMPLATE_NOT_EXISTS);
@@ -92,9 +90,9 @@ public class MailSendServiceImpl implements MailSendService {
     }
 
     @VisibleForTesting
-    MailAccountDO validateMailAccount(Long accountId) {
+    MailAccount validateMailAccount(Long accountId) {
         // 获得邮箱账号。考虑到效率，从缓存中获取
-        MailAccountDO account = mailAccountService.getMailAccountFromCache(accountId);
+        MailAccount account = mailAccountService.getMailAccountFromCache(accountId);
         // 邮箱账号不存在
         if (account == null) {
             //throw exception(MAIL_ACCOUNT_NOT_EXISTS);
@@ -115,7 +113,7 @@ public class MailSendServiceImpl implements MailSendService {
      * @param templateParams 参数列表
      */
     @VisibleForTesting
-    void validateTemplateParams(MailTemplateDO template, Map<String, Object> templateParams) {
+    void validateTemplateParams(MailTemplate template, Map<String, Object> templateParams) {
 
     }
 

@@ -1,17 +1,16 @@
 package com.towelove.system.service.mail;
 
 
-import com.towelove.system.domain.PageResult;
-import com.towelove.system.domain.mail.MailAccountDO;
-import com.towelove.system.domain.mail.MailLogDO;
-import com.towelove.system.domain.mail.MailTemplateDO;
+import com.towelove.system.domain.mail.MailAccount;
+import com.towelove.system.domain.mail.MailLog;
+import com.towelove.system.domain.mail.MailTemplate;
 
 import java.util.Map;
 
 /**
  * 邮件日志 Service 接口
  *
- * @author wangjingyi
+ * @author: 张锦标
  * @since 2022-03-21
  */
 public interface MailLogService {
@@ -30,7 +29,7 @@ public interface MailLogService {
      * @param id 日志编号
      * @return 邮件日志
      */
-    MailLogDO getMailLog(Long id);
+    MailLog getMailLog(Long id);
 
     /**
      * 创建邮件日志
@@ -46,7 +45,7 @@ public interface MailLogService {
      * @return 日志编号
      */
     Long createMailLog(Long userId, Integer userType, String toMail,
-                       MailAccountDO account, MailTemplateDO template ,
+                       MailAccount account, MailTemplate template ,
                        String templateContent, Map<String, Object> templateParams, Boolean isSend);
 
     /**

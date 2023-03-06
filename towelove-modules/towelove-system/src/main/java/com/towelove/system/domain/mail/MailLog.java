@@ -15,17 +15,17 @@ import java.util.Map;
  * 邮箱日志 DO
  * 记录每一次邮件的发送
  *
- * @author wangjingyi
+ * @author: 张锦标
  * @since 2022-03-21
  */
-@TableName(value = "system_mail_log", autoResultMap = true)
+@TableName(value = "sys_mail_log", autoResultMap = true)
 @Data
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class MailLogDO extends BaseEntity implements Serializable {
+public class MailLog extends BaseEntity implements Serializable {
 
     /**
      * 日志编号，自增
@@ -50,13 +50,13 @@ public class MailLogDO extends BaseEntity implements Serializable {
     /**
      * 邮箱账号编号
      *
-     * 关联 {@link MailAccountDO#getId()}
+     * 关联 {@link MailAccount#getId()}
      */
     private Long accountId;
     /**
      * 发送邮箱地址
      *
-     * 冗余 {@link MailAccountDO#getMail()}
+     * 冗余 {@link MailAccount#getMail()}
      */
     private String fromMail;
 
@@ -64,19 +64,19 @@ public class MailLogDO extends BaseEntity implements Serializable {
     /**
      * 模版编号
      *
-     * 关联 {@link MailTemplateDO#getId()}
+     * 关联 {@link MailTemplate#getId()}
      */
     private Long templateId;
     /**
      * 模版编码
      *
-     * 冗余 {@link MailTemplateDO#getCode()}
+     * 冗余 {@link MailTemplate#getCode()}
      */
     private String templateCode;
     /**
      * 模版发送人名称
      *
-     * 冗余 {@link MailTemplateDO#getNickname()}
+     * 冗余 {@link MailTemplate#getNickname()}
      */
     private String templateNickname;
     /**
@@ -86,13 +86,13 @@ public class MailLogDO extends BaseEntity implements Serializable {
     /**
      * 模版内容
      *
-     * 基于 {@link MailTemplateDO#getContent()} 格式化后的内容
+     * 基于 {@link MailTemplate#getContent()} 格式化后的内容
      */
     private String templateContent;
     /**
      * 模版参数
      *
-     * 基于 {@link MailTemplateDO#getParams()} 输入后的参数
+     * 基于 {@link MailTemplate#getParams()} 输入后的参数
      */
     @TableField(typeHandler = JacksonTypeHandler.class)
     private Map<String, Object> templateParams;

@@ -2,27 +2,20 @@ package com.towelove.system.controller;
 
 import com.towelove.common.core.constant.UserConstants;
 import com.towelove.common.core.domain.R;
-import com.towelove.common.core.exception.auth.NotLoginException;
 import com.towelove.common.core.utils.StringUtils;
 import com.towelove.common.core.web.domain.AjaxResult;
 import com.towelove.common.core.web.page.TableDataInfo;
 import com.towelove.common.security.annotation.InnerAuth;
-import com.towelove.common.security.annotation.RequiresPermissions;
 import com.towelove.common.security.utils.SecurityUtils;
-import com.towelove.system.api.domain.SysRole;
 import com.towelove.system.api.domain.SysUser;
 import com.towelove.system.api.model.LoginUser;
-import com.towelove.system.service.ISysUserService;
-import org.apache.commons.lang3.ArrayUtils;
+import com.towelove.system.service.user.ISysUserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Objects;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 import com.towelove.common.core.web.controller.BaseController;
 /**
