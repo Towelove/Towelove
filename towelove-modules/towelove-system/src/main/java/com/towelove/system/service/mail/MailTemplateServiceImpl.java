@@ -1,7 +1,18 @@
 package com.towelove.system.service.mail;
 
 
+import cn.hutool.core.util.ObjUtil;
+import cn.hutool.core.util.ReUtil;
+import cn.hutool.core.util.StrUtil;
+import cn.hutool.extra.mail.MailException;
+import com.google.common.annotations.VisibleForTesting;
+import com.towelove.common.core.domain.PageResult;
+import com.towelove.system.convert.MailTemplateConvert;
 import com.towelove.system.domain.mail.MailTemplate;
+import com.towelove.system.domain.mail.vo.MailTemplateCreateReqVO;
+import com.towelove.system.domain.mail.vo.MailTemplatePageReqVO;
+import com.towelove.system.domain.mail.vo.MailTemplateUpdateReqVO;
+import com.towelove.system.mapper.MailTemplateMapper;
 import com.towelove.system.mq.producer.mail.MailProducer;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
@@ -10,9 +21,12 @@ import org.springframework.validation.annotation.Validated;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
+
+import static com.towelove.common.core.utils.CollectionUtils.convertMap;
 
 
 /**
@@ -24,7 +38,7 @@ import java.util.regex.Pattern;
 @Service
 @Validated
 @Slf4j
-@Deprecated
+
 public class MailTemplateServiceImpl implements MailTemplateService {
 
     /**
@@ -32,14 +46,15 @@ public class MailTemplateServiceImpl implements MailTemplateService {
      */
     private static final Pattern PATTERN_PARAMS = Pattern.compile("\\{(.*?)}");
 
-
+    @Resource
+    private MailTemplateMapper mailTemplateMapper;
 
     @Resource
     private MailProducer mailProducer;
 
     /**
      * 邮件模板缓存
-     * key：邮件模版标识 MailTemplate getCode
+     * key：邮件模版标识 {@link MailTemplate#getCode()}
      *
      * 这里声明 volatile 修饰的原因是，每次刷新时，直接修改指向
      */
@@ -49,37 +64,102 @@ public class MailTemplateServiceImpl implements MailTemplateService {
     @Override
     @PostConstruct
     public void initLocalCache() {
+        // 第一步：查询数据
+        List<MailTemplate> templates = mailTemplateMapper.selectList();
+        log.info("[initLocalCache][缓存邮件模版，数量:{}]", templates.size());
 
+        // 第二步：构建缓存
+        mailTemplateCache = convertMap(templates, MailTemplate::getCode);
+    }
+
+    @Override
+    public Long createMailTemplate(MailTemplateCreateReqVO createReqVO) {
+        // 校验 code 是否唯一
+        validateCodeUnique(null, createReqVO.getCode());
+
+        // 插入
+        MailTemplate template = MailTemplateConvert.INSTANCE.convert(createReqVO)
+                .setParams(parseTemplateContentParams(createReqVO.getContent()));
+        mailTemplateMapper.insert(template);
+        // 发送刷新消息
+        mailProducer.sendMailTemplateRefreshMessage();
+        return template.getId();
+    }
+
+    @Override
+    public void updateMailTemplate(@Valid MailTemplateUpdateReqVO updateReqVO) {
+        // 校验是否存在
+        validateMailTemplateExists(updateReqVO.getId());
+        // 校验 code 是否唯一
+        validateCodeUnique(updateReqVO.getId(),updateReqVO.getCode());
+
+        // 更新
+        MailTemplate updateObj = MailTemplateConvert.INSTANCE.convert(updateReqVO)
+                .setParams(parseTemplateContentParams(updateReqVO.getContent()));
+        mailTemplateMapper.updateById(updateObj);
+        // 发送刷新消息
+        mailProducer.sendMailTemplateRefreshMessage();
+    }
+
+    @VisibleForTesting
+    public void validateCodeUnique(Long id, String code) {
+        MailTemplate template = mailTemplateMapper.selectByCode(code);
+        if (template == null) {
+            return;
+        }
+        // 存在 template 记录的情况下
+        if (id == null // 新增时，说明重复
+                || ObjUtil.notEqual(id, template.getId())) { // 更新时，如果 id 不一致，说明重复
+            throw new MailException("邮件模板不存在");
+        }
     }
 
     @Override
     public void deleteMailTemplate(Long id) {
+        // 校验是否存在
+        validateMailTemplateExists(id);
 
+        // 删除
+        mailTemplateMapper.deleteById(id);
+        // 发送刷新消息
+        mailProducer.sendMailTemplateRefreshMessage();
+    }
+
+    private void validateMailTemplateExists(Long id) {
+        if (mailTemplateMapper.selectById(id) == null) {
+            throw new MailException("邮件模板不存在");
+        }
     }
 
     @Override
-    public MailTemplate getMailTemplate(Long id) {
-        return null;
+    public MailTemplate getMailTemplate(Long id) {return mailTemplateMapper.selectById(id);}
+
+    @Override
+    public PageResult<MailTemplate> getMailTemplatePage(MailTemplatePageReqVO pageReqVO) {
+        return mailTemplateMapper.selectPage(pageReqVO);
     }
 
     @Override
-    public List<MailTemplate> getMailTemplateList() {
-        return null;
-    }
+    public List<MailTemplate> getMailTemplateList() {return mailTemplateMapper.selectList();}
 
     @Override
     public MailTemplate getMailTemplateByCodeFromCache(String code) {
-        return null;
+        return mailTemplateCache.get(code);
     }
 
     @Override
     public String formatMailTemplateContent(String content, Map<String, Object> params) {
-        return null;
+        return StrUtil.format(content, params);
+    }
+
+    @VisibleForTesting
+    public List<String> parseTemplateContentParams(String content) {
+        return ReUtil.findAllGroup1(PATTERN_PARAMS, content);
     }
 
     @Override
     public long countByAccountId(Long accountId) {
-        return 0;
+        return mailTemplateMapper.selectCountByAccountId(accountId);
     }
 
 

@@ -1,9 +1,11 @@
 package com.towelove.system.service.mail;
 
 
+import com.towelove.common.core.domain.PageResult;
 import com.towelove.system.domain.mail.MailAccount;
 import com.towelove.system.domain.mail.MailLog;
 import com.towelove.system.domain.mail.MailTemplate;
+import com.towelove.system.domain.mail.vo.MailLogPageReqVO;
 
 import java.util.Map;
 
@@ -21,7 +23,7 @@ public interface MailLogService {
      * @param pageVO 分页参数
      * @return 分页结果
      */
-
+    PageResult<MailLog> getMailLogPage(MailLogPageReqVO pageVO);
 
     /**
      * 获得指定编号的邮件日志

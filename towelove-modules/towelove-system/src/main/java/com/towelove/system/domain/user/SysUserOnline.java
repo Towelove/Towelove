@@ -1,4 +1,4 @@
-package com.towelove.system.domain;
+package com.towelove.system.domain.user;
 
 /**
  * @author: 张锦标

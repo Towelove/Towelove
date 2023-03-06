@@ -2,8 +2,13 @@ package com.towelove.system.service.mail;
 
 
 
+import com.towelove.common.core.domain.PageResult;
 import com.towelove.system.domain.mail.MailTemplate;
+import com.towelove.system.domain.mail.vo.MailTemplateCreateReqVO;
+import com.towelove.system.domain.mail.vo.MailTemplatePageReqVO;
+import com.towelove.system.domain.mail.vo.MailTemplateUpdateReqVO;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Map;
 
@@ -18,13 +23,26 @@ import java.util.Map;
 @Deprecated
 public interface MailTemplateService {
 
+
     /**
      * 初始化邮件模版的本地缓存
      */
     void initLocalCache();
 
+    /**
+     * 邮件模版创建
+     *
+     * @param createReqVO 邮件信息
+     * @return 编号
+     */
+    Long createMailTemplate(@Valid MailTemplateCreateReqVO createReqVO);
 
-
+    /**
+     * 邮件模版修改
+     *
+     * @param updateReqVO 邮件信息
+     */
+    void updateMailTemplate(@Valid MailTemplateUpdateReqVO updateReqVO);
 
     /**
      * 邮件模版删除
@@ -41,8 +59,13 @@ public interface MailTemplateService {
      */
     MailTemplate getMailTemplate(Long id);
 
-
-
+    /**
+     * 获取邮件模版分页
+     *
+     * @param pageReqVO 模版信息
+     * @return 邮件模版分页信息
+     */
+    PageResult<MailTemplate> getMailTemplatePage(MailTemplatePageReqVO pageReqVO);
 
     /**
      * 获取邮件模板数组
