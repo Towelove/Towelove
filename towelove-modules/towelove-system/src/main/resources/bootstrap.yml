@@ -3,7 +3,7 @@ server:
   port: 9201
 
 # Spring
-spring: 
+spring:
   application:
     # 应用名称
     name: towelove-system
@@ -30,5 +30,34 @@ spring:
         shared-configs[2]:
           data-id: towelove-redis-dev.yaml
           refresh: true
-mybatis-plus:
-  mapper-locations: classpath*:/mapper/**/*.xml
+    # Spring Cloud Stream 配置项，对应 BindingServiceProperties 类
+    stream:
+      function:
+        definition: smsSendConsumer;mailSendConsumer;
+      # Binding 配置项，对应 BindingProperties Map
+      bindings:
+        smsSend-out-0:
+          destination: system_sms_send
+        smsSendConsumer-in-0:
+          destination: system_sms_send
+          group: system_sms_send_consumer_group
+        mailSend-out-0:
+          destination: system_mail_send
+        mailSendConsumer-in-0:
+          destination: system_mail_send
+          group: system_mail_send_consumer_group
+      # Spring Cloud Stream RocketMQ 配置项
+      rocketmq:
+        # RocketMQ Binder 配置项，对应 RocketMQBinderConfigurationProperties 类
+        binder:
+          name-server: 127.0.0.1:9876 # RocketMQ Namesrv 地址
+        default: # 默认 bindings 全局配置
+          producer: # RocketMQ Producer 配置项，对应 RocketMQProducerProperties 类
+            group: system_producer_group # 生产者分组
+            send-type: SYNC # 发送模式，SYNC 同步
+
+    # Spring Cloud Bus 配置项，对应 BusProperties 类
+    bus:
+      enabled: true # 是否开启，默认为 true
+      id: ${spring.application.name}:${server.port} # 编号，Spring Cloud Alibaba 建议使用“应用:端口”的格式
+      destination: springCloudBus # 目标消息队列，默认为 springCloudBus

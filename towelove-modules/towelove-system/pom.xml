@@ -63,11 +63,11 @@
         </dependency>
 
 
-<!--        &lt;!&ndash; towelove Common Log &ndash;&gt;-->
-<!--        <dependency>-->
-<!--            <groupId>com.twowaylove</groupId>-->
-<!--            <artifactId>towelove-common-log</artifactId>-->
-<!--        </dependency>-->
+        <!--        &lt;!&ndash; towelove Common Log &ndash;&gt;-->
+        <!--        <dependency>-->
+        <!--            <groupId>com.twowaylove</groupId>-->
+        <!--            <artifactId>towelove-common-log</artifactId>-->
+        <!--        </dependency>-->
         <dependency>
             <groupId>com.twowaylove</groupId>
             <artifactId>towelove-common-security</artifactId>
@@ -78,11 +78,52 @@
             <groupId>com.twowaylove</groupId>
             <artifactId>towelove-common-swagger</artifactId>
         </dependency>
+        <!-- lombok -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-stream-rocketmq</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.apache.rocketmq</groupId>
+                    <artifactId>rocketmq-client</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.apache.rocketmq</groupId>
+                    <artifactId>rocketmq-acl</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <!-- 引入基于 RocketMQ 的 Spring Cloud Bus 的实现的依赖，并实现对其的自动配置 -->
+            <artifactId>spring-cloud-starter-bus-rocketmq</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.rocketmq</groupId>
+            <artifactId>rocketmq-client</artifactId>
+            <version>4.9.4</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.rocketmq</groupId>
+            <artifactId>rocketmq-acl</artifactId>
+            <version>4.9.4</version>
+        </dependency>
+        <dependency>
+            <groupId>com.twowaylove</groupId>
+            <artifactId>towelove-common-mq</artifactId>
+            <version>1.0</version>
+            <scope>compile</scope>
+        </dependency>
 
     </dependencies>
 
     <build>
-<!--         如果不添加此节点mybatis的mapper.xml文件都会被漏掉。 -->
+        <!--         如果不添加此节点mybatis的mapper.xml文件都会被漏掉。 -->
         <resources>
             <resource>
                 <directory>src/main/java</directory>
@@ -116,7 +157,6 @@
             </plugin>
         </plugins>
     </build>
-
 
 
 </project>
