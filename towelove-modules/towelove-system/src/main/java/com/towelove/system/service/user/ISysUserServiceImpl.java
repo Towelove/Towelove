@@ -8,8 +8,7 @@ import com.towelove.common.core.utils.SpringUtils;
 import com.towelove.common.core.utils.StringUtils;
 import com.towelove.common.security.utils.SecurityUtils;
 import com.towelove.system.api.domain.SysUser;
-import com.towelove.system.mapper.SysUserMapper;
-import com.towelove.system.service.user.ISysUserService;
+import com.towelove.system.mapper.user.SysUserMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

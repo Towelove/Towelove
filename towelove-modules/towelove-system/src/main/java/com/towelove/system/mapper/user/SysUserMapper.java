@@ -1,4 +1,4 @@
-package com.towelove.system.mapper;
+package com.towelove.system.mapper.user;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;

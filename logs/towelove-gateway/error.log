@@ -1,107 +1,4 @@
-11:17:04.085 [reactor-http-nio-3] ERROR c.t.g.f.AuthFilter - [unauthorizedResponse,110] - [鉴权异常处理]请求路径:/auth/resetPwd
-11:22:19.085 [reactor-http-nio-3] ERROR c.t.g.f.AuthFilter - [unauthorizedResponse,110] - [鉴权异常处理]请求路径:/auth/resetPwd
-11:22:42.904 [reactor-http-nio-3] ERROR c.t.g.h.GatewayExceptionHandler - [handle,52] - [网关异常处理]请求路径:/auth/resetPwd,异常信息:Unable to read JSON value: i����G�{"alg":"HS512"}
-11:23:07.170 [reactor-http-nio-3] ERROR c.t.g.h.GatewayExceptionHandler - [handle,52] - [网关异常处理]请求路径:/auth/resetPwd,异常信息:Unable to read JSON value: i����G�{"alg":"HS512"}
-11:23:51.716 [reactor-http-nio-3] ERROR c.t.g.h.GatewayExceptionHandler - [handle,52] - [网关异常处理]请求路径:/auth/resetPwd,异常信息:Unable to read JSON value: i����G�{"alg":"HS512"}
-11:24:30.946 [reactor-http-nio-3] ERROR c.t.g.h.GatewayExceptionHandler - [handle,52] - [网关异常处理]请求路径:/auth/resetPwd,异常信息:Unable to read JSON value: i����G�{"alg":"HS512"}
-11:24:33.295 [reactor-http-nio-3] ERROR c.t.g.h.GatewayExceptionHandler - [handle,52] - [网关异常处理]请求路径:/auth/resetPwd,异常信息:Unable to read JSON value: i����G�{"alg":"HS512"}
-11:24:56.626 [reactor-http-nio-3] ERROR c.t.g.h.GatewayExceptionHandler - [handle,52] - [网关异常处理]请求路径:/auth/resetPwd,异常信息:Unable to read JSON value: i����G�{"alg":"HS512"}
-11:25:08.238 [reactor-http-nio-3] ERROR c.t.g.h.GatewayExceptionHandler - [handle,52] - [网关异常处理]请求路径:/auth/resetPwd,异常信息:Unable to read JSON value: i����G�{"alg":"HS512"}
-11:25:29.468 [reactor-http-nio-3] ERROR c.t.g.h.GatewayExceptionHandler - [handle,52] - [网关异常处理]请求路径:/auth/resetPwd,异常信息:Unable to read JSON value: i����G�{"alg":"HS512"}
-11:28:37.478 [reactor-http-nio-3] ERROR c.t.g.f.AuthFilter - [unauthorizedResponse,110] - [鉴权异常处理]请求路径:/sys/user/list
-11:28:42.091 [reactor-http-nio-3] ERROR c.t.g.f.AuthFilter - [unauthorizedResponse,110] - [鉴权异常处理]请求路径:/sys/user/list
-11:28:44.346 [reactor-http-nio-3] ERROR c.t.g.f.AuthFilter - [unauthorizedResponse,110] - [鉴权异常处理]请求路径:/sys/user/list
-12:33:28.410 [reactor-http-nio-3] ERROR c.t.g.f.AuthFilter - [unauthorizedResponse,110] - [鉴权异常处理]请求路径:/sys/user/list
-12:35:59.633 [reactor-http-nio-3] ERROR c.t.g.f.AuthFilter - [unauthorizedResponse,110] - [鉴权异常处理]请求路径:/sys/user/register
-12:39:48.021 [reactor-http-nio-3] ERROR c.t.g.f.AuthFilter - [unauthorizedResponse,110] - [鉴权异常处理]请求路径:/sys/user/register
-12:39:48.027 [nacos-grpc-client-executor-155] ERROR c.a.n.c.r.c.g.GrpcClient - [printIfErrorEnabled,99] - [1677990530014_127.0.0.1_64445]Request stream onCompleted, switch server
-12:39:48.027 [nacos-grpc-client-executor-109] ERROR c.a.n.c.r.c.g.GrpcClient - [printIfErrorEnabled,99] - [1677990524007_127.0.0.1_64331]Request stream onCompleted, switch server
-12:39:48.027 [nacos-grpc-client-executor-101] ERROR c.a.n.c.r.c.g.GrpcClient - [printIfErrorEnabled,99] - [1677990529811_127.0.0.1_64444]Request stream onCompleted, switch server
-12:39:48.027 [reactor-http-nio-10] ERROR c.t.g.f.AuthFilter - [unauthorizedResponse,110] - [鉴权异常处理]请求路径:/sys/user/getInfo/%E5%BC%A0%E9%94%A6%E6%A0%87
-12:39:48.030 [boundedElastic-1] ERROR c.a.n.c.r.client - [printIfErrorEnabled,99] - Send request fail, request = ServiceListRequest{headers={}, requestId='null'}, retryTimes = 0, errorMessage = java.util.concurrent.ExecutionException: com.alibaba.nacos.shaded.io.grpc.StatusRuntimeException: UNAVAILABLE: HTTP/2 error code: NO_ERROR
-Received Goaway
-app_requested
-12:39:48.030 [com.alibaba.nacos.client.Worker] ERROR c.a.n.c.r.client - [printIfErrorEnabled,99] - Send request fail, request = ConfigBatchListenRequest{headers={}, requestId='null'}, retryTimes = 0, errorMessage = java.util.concurrent.ExecutionException: com.alibaba.nacos.shaded.io.grpc.StatusRuntimeException: UNAVAILABLE: HTTP/2 error code: NO_ERROR
-Received Goaway
-app_requested
-12:39:48.030 [com.alibaba.nacos.client.Worker] ERROR c.a.n.c.r.client - [printIfErrorEnabled,99] - Send request fail, request = ConfigBatchListenRequest{headers={}, requestId='null'}, retryTimes = 0, errorMessage = java.util.concurrent.ExecutionException: com.alibaba.nacos.shaded.io.grpc.StatusRuntimeException: UNAVAILABLE: HTTP/2 error code: NO_ERROR
-Received Goaway
-app_requested
-12:39:48.030 [com.alibaba.nacos.client.naming.updater.0] ERROR c.a.n.c.r.client - [printIfErrorEnabled,99] - Send request fail, request = ServiceQueryRequest{headers={}, requestId='null'}, retryTimes = 0, errorMessage = java.util.concurrent.ExecutionException: com.alibaba.nacos.shaded.io.grpc.StatusRuntimeException: UNAVAILABLE: HTTP/2 error code: NO_ERROR
-Received Goaway
-app_requested
-12:39:48.030 [com.alibaba.nacos.client.naming.updater.3] ERROR c.a.n.c.r.client - [printIfErrorEnabled,99] - Send request fail, request = ServiceQueryRequest{headers={}, requestId='null'}, retryTimes = 0, errorMessage = java.util.concurrent.ExecutionException: com.alibaba.nacos.shaded.io.grpc.StatusRuntimeException: UNAVAILABLE: HTTP/2 error code: NO_ERROR
-Received Goaway
-app_requested
-12:39:48.030 [boundedElastic-5] ERROR c.a.n.c.r.client - [printIfErrorEnabled,99] - Send request fail, request = ServiceListRequest{headers={}, requestId='null'}, retryTimes = 0, errorMessage = java.util.concurrent.ExecutionException: com.alibaba.nacos.shaded.io.grpc.StatusRuntimeException: UNAVAILABLE: HTTP/2 error code: NO_ERROR
-Received Goaway
-app_requested
-12:39:48.030 [com.alibaba.nacos.client.naming.updater.6] ERROR c.a.n.c.r.client - [printIfErrorEnabled,99] - Send request fail, request = ServiceQueryRequest{headers={}, requestId='null'}, retryTimes = 0, errorMessage = java.util.concurrent.ExecutionException: com.alibaba.nacos.shaded.io.grpc.StatusRuntimeException: UNAVAILABLE: HTTP/2 error code: NO_ERROR
-Received Goaway
-app_requested
-12:39:48.142 [boundedElastic-5] ERROR c.a.n.c.r.client - [printIfErrorEnabled,99] - Send request fail, request = ServiceListRequest{headers={}, requestId='null'}, retryTimes = 1, errorMessage = Client not connected, current status:UNHEALTHY
-12:39:48.142 [com.alibaba.nacos.client.naming.updater.6] ERROR c.a.n.c.r.client - [printIfErrorEnabled,99] - Send request fail, request = ServiceQueryRequest{headers={}, requestId='null'}, retryTimes = 1, errorMessage = Client not connected, current status:UNHEALTHY
-12:39:48.142 [com.alibaba.nacos.client.naming.updater.0] ERROR c.a.n.c.r.client - [printIfErrorEnabled,99] - Send request fail, request = ServiceQueryRequest{headers={}, requestId='null'}, retryTimes = 1, errorMessage = Client not connected, current status:UNHEALTHY
-12:39:48.142 [com.alibaba.nacos.client.Worker] ERROR c.a.n.c.r.client - [printIfErrorEnabled,99] - Send request fail, request = ConfigBatchListenRequest{headers={}, requestId='null'}, retryTimes = 1, errorMessage = Client not connected, current status:UNHEALTHY
-12:39:48.142 [com.alibaba.nacos.client.Worker] ERROR c.a.n.c.r.client - [printIfErrorEnabled,99] - Send request fail, request = ConfigBatchListenRequest{headers={}, requestId='null'}, retryTimes = 1, errorMessage = Client not connected, current status:UNHEALTHY
-12:39:48.142 [boundedElastic-1] ERROR c.a.n.c.r.client - [printIfErrorEnabled,99] - Send request fail, request = ServiceListRequest{headers={}, requestId='null'}, retryTimes = 1, errorMessage = Client not connected, current status:UNHEALTHY
-12:39:48.142 [com.alibaba.nacos.client.naming.updater.3] ERROR c.a.n.c.r.client - [printIfErrorEnabled,99] - Send request fail, request = ServiceQueryRequest{headers={}, requestId='null'}, retryTimes = 1, errorMessage = Client not connected, current status:UNHEALTHY
-12:39:48.251 [boundedElastic-5] ERROR c.a.n.c.r.client - [printIfErrorEnabled,99] - Send request fail, request = ServiceListRequest{headers={}, requestId='null'}, retryTimes = 2, errorMessage = Client not connected, current status:UNHEALTHY
-12:39:48.251 [com.alibaba.nacos.client.Worker] ERROR c.a.n.c.r.client - [printIfErrorEnabled,99] - Send request fail, request = ConfigBatchListenRequest{headers={}, requestId='null'}, retryTimes = 2, errorMessage = Client not connected, current status:UNHEALTHY
-12:39:48.251 [com.alibaba.nacos.client.Worker] ERROR c.a.n.c.r.client - [printIfErrorEnabled,99] - Send request fail, request = ConfigBatchListenRequest{headers={}, requestId='null'}, retryTimes = 2, errorMessage = Client not connected, current status:UNHEALTHY
-12:39:48.251 [com.alibaba.nacos.client.naming.updater.6] ERROR c.a.n.c.r.client - [printIfErrorEnabled,99] - Send request fail, request = ServiceQueryRequest{headers={}, requestId='null'}, retryTimes = 2, errorMessage = Client not connected, current status:UNHEALTHY
-12:39:48.251 [boundedElastic-1] ERROR c.a.n.c.r.client - [printIfErrorEnabled,99] - Send request fail, request = ServiceListRequest{headers={}, requestId='null'}, retryTimes = 2, errorMessage = Client not connected, current status:UNHEALTHY
-12:39:48.251 [com.alibaba.nacos.client.naming.updater.3] ERROR c.a.n.c.r.client - [printIfErrorEnabled,99] - Send request fail, request = ServiceQueryRequest{headers={}, requestId='null'}, retryTimes = 2, errorMessage = Client not connected, current status:UNHEALTHY
-12:39:48.251 [com.alibaba.nacos.client.naming.updater.0] ERROR c.a.n.c.r.client - [printIfErrorEnabled,99] - Send request fail, request = ServiceQueryRequest{headers={}, requestId='null'}, retryTimes = 2, errorMessage = Client not connected, current status:UNHEALTHY
-12:39:48.253 [boundedElastic-5] ERROR c.a.c.n.d.r.NacosReactiveDiscoveryClient - [lambda$getServices$3,94] - get services from nacos server fail,
-com.alibaba.nacos.api.exception.NacosException: Request nacos server failed: 
-	at com.alibaba.nacos.client.naming.remote.gprc.NamingGrpcClientProxy.requestToServer(NamingGrpcClientProxy.java:290)
-	at com.alibaba.nacos.client.naming.remote.gprc.NamingGrpcClientProxy.getServiceList(NamingGrpcClientProxy.java:202)
-	at com.alibaba.nacos.client.naming.remote.NamingClientProxyDelegate.getServiceList(NamingClientProxyDelegate.java:136)
-	at com.alibaba.nacos.client.naming.NacosNamingService.getServicesOfServer(NacosNamingService.java:440)
-	at com.alibaba.nacos.client.naming.NacosNamingService.getServicesOfServer(NacosNamingService.java:428)
-	at com.alibaba.cloud.nacos.discovery.NacosServiceDiscovery.getServices(NacosServiceDiscovery.java:70)
-	at com.alibaba.cloud.nacos.discovery.reactive.NacosReactiveDiscoveryClient.lambda$getServices$3(NacosReactiveDiscoveryClient.java:87)
-	at reactor.core.publisher.FluxDefer.subscribe(FluxDefer.java:46)
-	at reactor.core.publisher.FluxSubscribeOn$SubscribeOnSubscriber.run(FluxSubscribeOn.java:194)
-	at reactor.core.scheduler.WorkerTask.call(WorkerTask.java:84)
-	at reactor.core.scheduler.WorkerTask.call(WorkerTask.java:37)
-	at java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:266)
-	at java.util.concurrent.FutureTask.run(FutureTask.java)
-	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$201(ScheduledThreadPoolExecutor.java:180)
-	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:293)
-	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
-	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
-	at java.lang.Thread.run(Thread.java:748)
-Caused by: com.alibaba.nacos.api.exception.NacosException: Client not connected, current status:UNHEALTHY
-	at com.alibaba.nacos.common.remote.client.RpcClient.request(RpcClient.java:650)
-	at com.alibaba.nacos.common.remote.client.RpcClient.request(RpcClient.java:630)
-	at com.alibaba.nacos.client.naming.remote.gprc.NamingGrpcClientProxy.requestToServer(NamingGrpcClientProxy.java:280)
-	... 17 common frames omitted
-12:39:48.253 [boundedElastic-1] ERROR c.a.c.n.d.r.NacosReactiveDiscoveryClient - [lambda$getServices$3,94] - get services from nacos server fail,
-com.alibaba.nacos.api.exception.NacosException: Request nacos server failed: 
-	at com.alibaba.nacos.client.naming.remote.gprc.NamingGrpcClientProxy.requestToServer(NamingGrpcClientProxy.java:290)
-	at com.alibaba.nacos.client.naming.remote.gprc.NamingGrpcClientProxy.getServiceList(NamingGrpcClientProxy.java:202)
-	at com.alibaba.nacos.client.naming.remote.NamingClientProxyDelegate.getServiceList(NamingClientProxyDelegate.java:136)
-	at com.alibaba.nacos.client.naming.NacosNamingService.getServicesOfServer(NacosNamingService.java:440)
-	at com.alibaba.nacos.client.naming.NacosNamingService.getServicesOfServer(NacosNamingService.java:428)
-	at com.alibaba.cloud.nacos.discovery.NacosServiceDiscovery.getServices(NacosServiceDiscovery.java:70)
-	at com.alibaba.cloud.nacos.discovery.reactive.NacosReactiveDiscoveryClient.lambda$getServices$3(NacosReactiveDiscoveryClient.java:87)
-	at reactor.core.publisher.FluxDefer.subscribe(FluxDefer.java:46)
-	at reactor.core.publisher.FluxSubscribeOn$SubscribeOnSubscriber.run(FluxSubscribeOn.java:194)
-	at reactor.core.scheduler.WorkerTask.call(WorkerTask.java:84)
-	at reactor.core.scheduler.WorkerTask.call(WorkerTask.java:37)
-	at java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:266)
-	at java.util.concurrent.FutureTask.run(FutureTask.java)
-	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$201(ScheduledThreadPoolExecutor.java:180)
-	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:293)
-	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
-	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
-	at java.lang.Thread.run(Thread.java:748)
-Caused by: com.alibaba.nacos.api.exception.NacosException: Client not connected, current status:UNHEALTHY
-	at com.alibaba.nacos.common.remote.client.RpcClient.request(RpcClient.java:650)
-	at com.alibaba.nacos.common.remote.client.RpcClient.request(RpcClient.java:630)
-	at com.alibaba.nacos.client.naming.remote.gprc.NamingGrpcClientProxy.requestToServer(NamingGrpcClientProxy.java:280)
-	... 17 common frames omitted
-12:42:34.719 [reactor-http-nio-10] ERROR c.t.g.f.AuthFilter - [unauthorizedResponse,110] - [鉴权异常处理]请求路径:/sys/user/add
-12:47:42.601 [reactor-http-nio-10] ERROR c.t.g.f.AuthFilter - [unauthorizedResponse,110] - [鉴权异常处理]请求路径:/sys/user/edit
+11:21:57.920 [reactor-http-nio-3] ERROR c.t.g.h.GatewayExceptionHandler - [handle,52] - [网关异常处理]请求路径:/sys/mail-log/get,异常信息:404 NOT_FOUND
+11:23:15.547 [reactor-http-nio-3] ERROR c.t.g.f.AuthFilter - [unauthorizedResponse,110] - [鉴权异常处理]请求路径:/sys/mail-log/get
+11:23:49.430 [reactor-http-nio-5] ERROR c.t.g.h.GatewayExceptionHandler - [handle,52] - [网关异常处理]请求路径:/auth/login,异常信息:Connection timed out: no further information: /172.27.222.111:9200
+11:24:59.495 [reactor-http-nio-8] ERROR c.t.g.h.GatewayExceptionHandler - [handle,52] - [网关异常处理]请求路径:/auth/login,异常信息:Connection timed out: no further information: /172.27.222.111:9200
