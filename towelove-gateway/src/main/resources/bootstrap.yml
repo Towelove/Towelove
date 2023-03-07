@@ -1,9 +1,4 @@
-# Tomcat
-server:
-  port: 8080
-
-# Spring
-spring: 
+spring:
   application:
     # 应用名称
     name: towelove-gateway
@@ -33,6 +28,10 @@ spring:
         server-addr: 123.249.97.220:8848
         # 配置文件格式
         file-extension: yaml
+        extension-configs:
+          dataId: towelove-gateway-router.yml
+          group: DEFAULT_GROUP
+          refresh: true
         # 共享配置
         shared-configs[0]:
           data-id: towelove-base-dev.yaml
@@ -42,21 +41,22 @@ spring:
 #          refresh: true
         prefix: application-${spring.profiles.active}.${spring.cloud.nacos.config.file-extension}
     sentinel:
-      # 取消控制台懒加载
-      eager: true
+      filter:
+        enabled: false
       transport:
-        # 控制台地址
-        dashboard: 127.0.0.1:8718 # sentinel dashboard的访问地址 代表dashboard路径
-      # nacos配置持久化
+        dashboard: 127.0.0.1:8081
+        port: 8719
+      eager: true
+#      对于网关的限流规则与普通服务的限流规则有所不同
+#      网关限流中有一个resourceMode属性，判断是rotuesID or API分组ID。默认是routesID
       datasource:
         ds1:
           nacos:
             server-addr: 123.249.97.220:8848
-            dataId: ${spring.application.name}-flow-rules # nacos中存储规则的dataId
-            groupId: SENTINEL_GROUP # nacos中存储规则的groupId
-            rule-type: flow #所有的规则类型可查看枚举类：org.springframework.cloud.alibaba.sentinel.datasource.RuleType
-#            data-type: json
-
+            data-id: towelove-gateway-sentinel.json
+            group-id: SENTINEL_GROUP
+            rule-type: flow
+            data-type: json
 #security:
 #  ignore:
 #    whites:
