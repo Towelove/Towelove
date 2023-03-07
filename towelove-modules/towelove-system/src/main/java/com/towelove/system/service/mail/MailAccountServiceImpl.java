@@ -75,7 +75,7 @@ public class MailAccountServiceImpl implements MailAccountService {
         mailAccountMapper.insert(account);
 
         // 发送刷新消息
-        mailProducer.sendMailAccountRefreshMessage();
+        //mailProducer.sendMailAccountRefreshMessage();
         return account.getId();
     }
 
@@ -88,7 +88,7 @@ public class MailAccountServiceImpl implements MailAccountService {
         MailAccountDO updateObj = MailAccountConvert.INSTANCE.convert(updateReqVO);
         mailAccountMapper.updateById(updateObj);
         // 发送刷新消息
-        mailProducer.sendMailAccountRefreshMessage();
+        //mailProducer.sendMailAccountRefreshMessage();
     }
 
     @Override
@@ -118,7 +118,7 @@ public class MailAccountServiceImpl implements MailAccountService {
         // 删除
         mailAccountMapper.deleteById(id);
         // 发送刷新消息
-        mailProducer.sendMailAccountRefreshMessage();
+        //mailProducer.sendMailAccountRefreshMessage();
     }
 
     private void validateMailAccountExists(Long id) {

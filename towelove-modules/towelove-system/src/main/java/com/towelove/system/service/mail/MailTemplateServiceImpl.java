@@ -82,7 +82,7 @@ public class MailTemplateServiceImpl implements MailTemplateService {
                 .setParams(parseTemplateContentParams(createReqVO.getContent()));
         mailTemplateMapper.insert(template);
         // 发送刷新消息
-        mailProducer.sendMailTemplateRefreshMessage();
+        //mailProducer.sendMailTemplateRefreshMessage();
         return template.getId();
     }
 
@@ -98,7 +98,7 @@ public class MailTemplateServiceImpl implements MailTemplateService {
                 .setParams(parseTemplateContentParams(updateReqVO.getContent()));
         mailTemplateMapper.updateById(updateObj);
         // 发送刷新消息
-        mailProducer.sendMailTemplateRefreshMessage();
+        //mailProducer.sendMailTemplateRefreshMessage();
     }
 
     @VisibleForTesting
@@ -109,8 +109,9 @@ public class MailTemplateServiceImpl implements MailTemplateService {
         }
         // 存在 template 记录的情况下
         if (id == null // 新增时，说明重复
-                || ObjUtil.notEqual(id, template.getId())) { // 更新时，如果 id 不一致，说明重复
-            throw new MailException("邮件模板不存在");
+                || ObjUtil.notEqual(id, template.getId())) {
+            // 更新时，如果 id 不一致，说明重复
+            throw new MailException("邮件模板已存在");
         }
     }
 
@@ -121,7 +122,7 @@ public class MailTemplateServiceImpl implements MailTemplateService {
         // 删除
         mailTemplateMapper.deleteById(id);
         // 发送刷新消息
-        mailProducer.sendMailTemplateRefreshMessage();
+        //mailProducer.sendMailTemplateRefreshMessage();
     }
 
     private void validateMailTemplateExists(Long id) {
@@ -131,7 +132,9 @@ public class MailTemplateServiceImpl implements MailTemplateService {
     }
 
     @Override
-    public MailTemplateDO getMailTemplate(Long id) {return mailTemplateMapper.selectById(id);}
+    public MailTemplateDO getMailTemplate(Long id) {
+        return mailTemplateMapper.selectById(id);
+    }
 
     @Override
     public PageResult<MailTemplateDO> getMailTemplatePage(MailTemplatePageReqVO pageReqVO) {

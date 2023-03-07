@@ -37,9 +37,9 @@ spring:
         shared-configs[0]:
           data-id: towelove-base-dev.yaml
           refresh: true
-        shared-configs[1]:
-          data-id: towelove-redis-dev.yaml
-          refresh: true
+#        shared-configs[1]:
+#          data-id: towelove-redis-dev.yaml
+#          refresh: true
         prefix: application-${spring.profiles.active}.${spring.cloud.nacos.config.file-extension}
     sentinel:
       # 取消控制台懒加载
