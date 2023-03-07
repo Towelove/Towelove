@@ -15,10 +15,12 @@ import com.towelove.system.api.domain.SysUser;
 import com.towelove.system.api.model.LoginUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.util.Objects;
+import java.util.concurrent.TimeUnit;
 
 /**
  * 登录校验方法
@@ -36,6 +38,9 @@ public class SysLoginService
     @Autowired
     private SysPasswordService passwordService;
 
+    @Autowired
+    private RedisTemplate redisTemplate;
+
     //@Autowired
     //private SysRecordLogService recordLogService;
 
@@ -44,6 +49,7 @@ public class SysLoginService
      */
     public LoginUser login(String username, String password)
     {
+
         // 用户名或密码为空 错误
         if (StringUtils.isAnyBlank(username, password))
         {
@@ -94,6 +100,13 @@ public class SysLoginService
         //做密码校验，以及是否输入密码次数过多被限制登入
         passwordService.validate(user, password);
         //recordLogService.recordLogininfor(username, Constants.LOGIN_SUCCESS, "登录成功");
+        //从redis中获得用户缓存信息，防止重复登入
+        Boolean hasKey = redisTemplate.hasKey("username:"+userInfo.getUserid()+":"+username);
+        if (hasKey){
+            throw new ServiceException("请勿重复登入");
+        }
+        //向redis做缓存设置过期时间位10分钟，作于校验重复登入，牺牲空间获得效率
+        redisTemplate.opsForValue().set("username:"+userInfo.getUserid()+":"+username, null, 10, TimeUnit.MINUTES);
         return userInfo;
     }
 

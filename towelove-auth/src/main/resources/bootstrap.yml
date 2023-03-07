@@ -24,3 +24,7 @@ spring:
         shared-configs[0]:
           data-id: towelove-base-dev.yaml
           refresh: true
+        shared-configs[1]:
+          data-id: towelove-redis-dev.yaml
+        shared-configs[2]:
+          data-id: towelove-mysql-dev.yaml
