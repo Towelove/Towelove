@@ -2,7 +2,7 @@ package com.towelove.system.controller.mail;
 
 import com.towelove.common.core.domain.PageResult;
 import com.towelove.common.core.domain.R;
-import com.towelove.system.convert.MailLogConvert;
+import com.towelove.system.convert.mail.MailLogConvert;
 import com.towelove.system.domain.mail.MailLogDO;
 import com.towelove.system.domain.mail.vo.log.MailLogPageReqVO;
 import com.towelove.system.domain.mail.vo.log.MailLogRespVO;

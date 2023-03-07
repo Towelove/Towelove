@@ -11,7 +11,7 @@ import javax.annotation.Resource;
 
 /**
  * 针对 MailAccountRefreshMessage 的消费者
- *
+ * 监听MailAccountRefreshMessage
  * @author: 张锦标
  */
 @Component

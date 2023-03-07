@@ -4,7 +4,7 @@ package com.towelove.system.service.mail;
 import cn.hutool.extra.mail.MailException;
 import com.towelove.common.core.domain.PageResult;
 
-import com.towelove.system.convert.MailAccountConvert;
+import com.towelove.system.convert.mail.MailAccountConvert;
 import com.towelove.system.domain.mail.MailAccountDO;
 import com.towelove.system.domain.mail.vo.account.MailAccountCreateReqVO;
 import com.towelove.system.domain.mail.vo.account.MailAccountPageReqVO;

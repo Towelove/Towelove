@@ -7,7 +7,7 @@ import cn.hutool.extra.mail.MailException;
 import cn.hutool.extra.mail.MailUtil;
 import com.google.common.annotations.VisibleForTesting;
 import com.towelove.common.core.enums.CommonStatusEnum;
-import com.towelove.system.convert.MailAccountConvert;
+import com.towelove.system.convert.mail.MailAccountConvert;
 import com.towelove.system.domain.mail.MailAccountDO;
 import com.towelove.system.domain.mail.MailTemplateDO;
 import com.towelove.system.mq.message.mail.MailSendMessage;
@@ -75,27 +75,34 @@ public class MailSendServiceImpl implements MailSendService {
                 account, template, content, templateParams, isSend);
         // 发送 MQ 消息，异步执行发送短信
         if (isSend) {
-            mailProducer.sendMailSendMessage(sendLogId, mail, account.getId(),
+            mailProducer.sendMailSendMessage
+                    (sendLogId, mail, account.getId(),
                     template.getNickname(), template.getTitle(), content);
         }
         return sendLogId;
     }
 
+    /**
+     * 该方法提供给MQ去发送
+     * @param message 邮件
+     */
     @Override
     public void doSendMail(MailSendMessage message) {
         // 1. 创建发送账号
         MailAccountDO account = validateMailAccount(message.getAccountId());
-        MailAccount MailAccountDO  =
+        MailAccount mailAccount  =
                 MailAccountConvert.INSTANCE.convert(account, message.getNickname());
-        // 2. 发送邮件
+        // 2. 使用hutool发送邮件
         try {
-            String messageId = MailUtil.send(MailAccountDO, message.getMail(),
-                    message.getTitle(), message.getContent(),true);
+            String messageId = MailUtil.send(mailAccount, message.getMail(),
+                    message.getTitle(), message.getContent(),false,null);
             // 3. 更新结果（成功）
-            mailLogService.updateMailSendResult(message.getLogId(), messageId, null);
+            mailLogService.updateMailSendResult(message.getLogId(),
+                    messageId, null);
         } catch (Exception e) {
             // 3. 更新结果（异常）
-            mailLogService.updateMailSendResult(message.getLogId(), null, e);
+            mailLogService.updateMailSendResult(message.getLogId(),
+                    null, e);
         }
 
     }

@@ -7,7 +7,7 @@ import cn.hutool.core.util.StrUtil;
 import cn.hutool.extra.mail.MailException;
 import com.google.common.annotations.VisibleForTesting;
 import com.towelove.common.core.domain.PageResult;
-import com.towelove.system.convert.MailTemplateConvert;
+import com.towelove.system.convert.mail.MailTemplateConvert;
 import com.towelove.system.domain.mail.MailTemplateDO;
 import com.towelove.system.domain.mail.vo.template.MailTemplateCreateReqVO;
 import com.towelove.system.domain.mail.vo.template.MailTemplatePageReqVO;

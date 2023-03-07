@@ -3,7 +3,7 @@ package com.towelove.system.controller.mail;
 
 import com.towelove.common.core.domain.PageResult;
 import com.towelove.common.core.domain.R;
-import com.towelove.system.convert.MailTemplateConvert;
+import com.towelove.system.convert.mail.MailTemplateConvert;
 import com.towelove.system.domain.mail.MailTemplateDO;
 import com.towelove.system.domain.mail.vo.template.*;
 import com.towelove.system.service.mail.MailSendService;
@@ -11,6 +11,7 @@ import com.towelove.system.service.mail.MailTemplateService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -105,7 +106,6 @@ public class MailTemplateController {
         List<MailTemplateDO> list = mailTempleService.getMailTemplateList();
         return R.ok(MailTemplateConvert.INSTANCE.convertList02(list));
     }
-
     /**
      * 管理员发送短信 暂未完成
      * @param sendReqVO

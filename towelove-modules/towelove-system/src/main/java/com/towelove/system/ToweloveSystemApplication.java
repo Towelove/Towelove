@@ -1,5 +1,6 @@
 package com.towelove.system;
 
+import cn.hutool.extra.mail.MailUtil;
 import com.towelove.common.security.annotation.EnableCustomConfig;
 import com.towelove.common.swagger.annotation.EnableCustomSwagger2;
 import org.mybatis.spring.annotation.MapperScan;

@@ -1,4 +1,4 @@
-package com.towelove.system.convert;
+package com.towelove.system.convert.mail;
 
 import com.towelove.common.core.domain.PageResult;
 import com.towelove.system.domain.mail.MailTemplateDO;

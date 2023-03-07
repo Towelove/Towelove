@@ -21,14 +21,17 @@ public class MailProducer extends AbstractBusProducer {
      * 发送  消息
      */
     public void sendMailTemplateRefreshMessage() {
-        publishEvent(new MailTemplateRefreshMessage(this, getBusId(), selfDestinationService()));
+        publishEvent(
+                new MailTemplateRefreshMessage(
+                        this, getBusId(), selfDestinationService()));
     }
 
     /**
      * 发送消息
      */
     public void sendMailAccountRefreshMessage() {
-        publishEvent(new MailAccountRefreshMessage(this, getBusId(), selfDestinationService()));
+        publishEvent(
+                new MailAccountRefreshMessage(this, getBusId(), selfDestinationService()));
     }
 
     /**

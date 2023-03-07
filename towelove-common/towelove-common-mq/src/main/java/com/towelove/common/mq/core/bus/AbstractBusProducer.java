@@ -10,7 +10,8 @@ import javax.annotation.Resource;
 /**
  * 基于 Spring Cloud Bus 实现的 Producer 抽象类
  *
- * @author zjb
+ * @author 张锦标
+ *
  */
 public abstract class AbstractBusProducer {
 

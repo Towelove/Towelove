@@ -1,4 +1,4 @@
-package com.towelove.system.convert;
+package com.towelove.system.convert.mail;
 
 import com.towelove.common.core.domain.PageResult;
 import com.towelove.system.domain.mail.MailLogDO;
@@ -6,7 +6,6 @@ import com.towelove.system.domain.mail.vo.log.MailLogRespVO;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
-import java.util.List;
 /**
  * @author: 张锦标
  * @date: 2023/3/7 12:58
