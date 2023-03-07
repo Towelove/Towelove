@@ -1,14 +1,12 @@
 package com.towelove.system.service.mail;
 
 
-import com.baomidou.mybatisplus.extension.service.IService;
 import com.towelove.common.core.domain.PageResult;
-import com.towelove.common.core.web.page.TableDataInfo;
 
-import com.towelove.system.domain.mail.MailAccount;
-import com.towelove.system.domain.mail.vo.MailAccountCreateReqVO;
-import com.towelove.system.domain.mail.vo.MailAccountPageReqVO;
-import com.towelove.system.domain.mail.vo.MailAccountUpdateReqVO;
+import com.towelove.system.domain.mail.MailAccountDO;
+import com.towelove.system.domain.mail.vo.account.MailAccountCreateReqVO;
+import com.towelove.system.domain.mail.vo.account.MailAccountPageReqVO;
+import com.towelove.system.domain.mail.vo.account.MailAccountUpdateReqVO;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -32,22 +30,21 @@ public interface MailAccountService {
      * @param id 编号
      * @return 邮箱账号
      */
-    MailAccount getMailAccountFromCache(Long id);
-
+    MailAccountDO getMailAccountFromCache(Long id);
     /**
      * 创建邮箱账号
      *
-     * @param account 邮箱账号信息
+     * @param createReqVO 邮箱账号信息
      * @return 编号
      */
-    Long createMailAccount(@Valid MailAccount account);
+    Long createMailAccount(@Valid MailAccountCreateReqVO createReqVO);
 
     /**
      * 修改邮箱账号
      *
-     * @param account 邮箱账号信息
+     * @param updateReqVO 邮箱账号信息
      */
-    void updateMailAccount(@Valid MailAccount account);
+    void updateMailAccount(@Valid MailAccountUpdateReqVO updateReqVO);
 
     /**
      * 删除邮箱账号
@@ -62,7 +59,7 @@ public interface MailAccountService {
      * @param id 编号
      * @return 邮箱账号信息
      */
-    MailAccount getMailAccount(Long id);
+    MailAccountDO getMailAccount(Long id);
 
     /**
      * 获取邮箱账号分页信息
@@ -70,13 +67,13 @@ public interface MailAccountService {
      * @param pageReqVO 邮箱账号分页参数
      * @return 邮箱账号分页信息
      */
-    PageResult<MailAccount> getMailAccountPage(MailAccountPageReqVO pageReqVO);
+    PageResult<MailAccountDO> getMailAccountPage(MailAccountPageReqVO pageReqVO);
 
     /**
      * 获取邮箱数组信息
      *
      * @return 邮箱账号信息数组
      */
-    List<MailAccount> getMailAccountList();
+    List<MailAccountDO> getMailAccountList();
 
 }

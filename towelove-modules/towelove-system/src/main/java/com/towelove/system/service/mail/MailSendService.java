@@ -22,7 +22,6 @@ public interface MailSendService {
      * @param templateParams 邮件模版参数
      * @return 发送日志编号
      */
-    @Deprecated
     Long sendSingleMailToAdmin(String mail, Long userId,
                                String templateCode, Map<String, Object> templateParams);
 
@@ -35,7 +34,6 @@ public interface MailSendService {
      * @param templateParams 邮件模版参数
      * @return 发送日志编号
      */
-    @Deprecated
     Long sendSingleMailToMember(String mail, Long userId,
                                 String templateCode, Map<String, Object> templateParams);
 

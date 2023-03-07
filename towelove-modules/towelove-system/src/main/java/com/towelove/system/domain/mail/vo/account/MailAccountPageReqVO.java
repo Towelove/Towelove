@@ -1,4 +1,4 @@
-package com.towelove.system.domain.mail.vo;
+package com.towelove.system.domain.mail.vo.account;
 
 
 import com.towelove.common.core.domain.PageParam;

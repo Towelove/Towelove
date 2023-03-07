@@ -1,5 +1,5 @@
 12:14:51.060 [http-nio-9201-exec-2] ERROR c.t.c.s.h.GlobalExceptionHandler - [handleRuntimeException,85] - 请求地址'/sys/user/list',发生未知异常.
-org.springframework.http.converter.HttpMessageNotReadableException: Required request body is missing: public com.towelove.common.core.web.page.TableDataInfo com.towelove.system.controller.SysUserController.list(com.towelove.system.api.domain.SysUser)
+org.springframework.http.converter.HttpMessageNotReadableException: Required request body is missing: public com.towelove.common.core.web.page.TableDataInfo com.towelove.system.controller.user.SysUserController.list(com.towelove.system.api.domain.SysUser)
 	at org.springframework.web.servlet.mvc.method.annotation.RequestResponseBodyMethodProcessor.readWithMessageConverters(RequestResponseBodyMethodProcessor.java:163)
 	at org.springframework.web.servlet.mvc.method.annotation.RequestResponseBodyMethodProcessor.resolveArgument(RequestResponseBodyMethodProcessor.java:133)
 	at org.springframework.web.method.support.HandlerMethodArgumentResolverComposite.resolveArgument(HandlerMethodArgumentResolverComposite.java:122)
@@ -54,7 +54,7 @@ org.springframework.http.converter.HttpMessageNotReadableException: Required req
 	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
 	at java.lang.Thread.run(Thread.java:750)
 12:15:09.450 [http-nio-9201-exec-3] ERROR c.t.c.s.h.GlobalExceptionHandler - [handleRuntimeException,85] - 请求地址'/sys/user/list',发生未知异常.
-org.springframework.http.converter.HttpMessageNotReadableException: Required request body is missing: public com.towelove.common.core.web.page.TableDataInfo com.towelove.system.controller.SysUserController.list(com.towelove.system.api.domain.SysUser)
+org.springframework.http.converter.HttpMessageNotReadableException: Required request body is missing: public com.towelove.common.core.web.page.TableDataInfo com.towelove.system.controller.user.SysUserController.list(com.towelove.system.api.domain.SysUser)
 	at org.springframework.web.servlet.mvc.method.annotation.RequestResponseBodyMethodProcessor.readWithMessageConverters(RequestResponseBodyMethodProcessor.java:163)
 	at org.springframework.web.servlet.mvc.method.annotation.RequestResponseBodyMethodProcessor.resolveArgument(RequestResponseBodyMethodProcessor.java:133)
 	at org.springframework.web.method.support.HandlerMethodArgumentResolverComposite.resolveArgument(HandlerMethodArgumentResolverComposite.java:122)
@@ -109,7 +109,7 @@ org.springframework.http.converter.HttpMessageNotReadableException: Required req
 	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
 	at java.lang.Thread.run(Thread.java:750)
 12:15:09.794 [http-nio-9201-exec-4] ERROR c.t.c.s.h.GlobalExceptionHandler - [handleRuntimeException,85] - 请求地址'/sys/user/list',发生未知异常.
-org.springframework.http.converter.HttpMessageNotReadableException: Required request body is missing: public com.towelove.common.core.web.page.TableDataInfo com.towelove.system.controller.SysUserController.list(com.towelove.system.api.domain.SysUser)
+org.springframework.http.converter.HttpMessageNotReadableException: Required request body is missing: public com.towelove.common.core.web.page.TableDataInfo com.towelove.system.controller.user.SysUserController.list(com.towelove.system.api.domain.SysUser)
 	at org.springframework.web.servlet.mvc.method.annotation.RequestResponseBodyMethodProcessor.readWithMessageConverters(RequestResponseBodyMethodProcessor.java:163)
 	at org.springframework.web.servlet.mvc.method.annotation.RequestResponseBodyMethodProcessor.resolveArgument(RequestResponseBodyMethodProcessor.java:133)
 	at org.springframework.web.method.support.HandlerMethodArgumentResolverComposite.resolveArgument(HandlerMethodArgumentResolverComposite.java:122)
@@ -164,7 +164,7 @@ org.springframework.http.converter.HttpMessageNotReadableException: Required req
 	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
 	at java.lang.Thread.run(Thread.java:750)
 12:15:10.108 [http-nio-9201-exec-5] ERROR c.t.c.s.h.GlobalExceptionHandler - [handleRuntimeException,85] - 请求地址'/sys/user/list',发生未知异常.
-org.springframework.http.converter.HttpMessageNotReadableException: Required request body is missing: public com.towelove.common.core.web.page.TableDataInfo com.towelove.system.controller.SysUserController.list(com.towelove.system.api.domain.SysUser)
+org.springframework.http.converter.HttpMessageNotReadableException: Required request body is missing: public com.towelove.common.core.web.page.TableDataInfo com.towelove.system.controller.user.SysUserController.list(com.towelove.system.api.domain.SysUser)
 	at org.springframework.web.servlet.mvc.method.annotation.RequestResponseBodyMethodProcessor.readWithMessageConverters(RequestResponseBodyMethodProcessor.java:163)
 	at org.springframework.web.servlet.mvc.method.annotation.RequestResponseBodyMethodProcessor.resolveArgument(RequestResponseBodyMethodProcessor.java:133)
 	at org.springframework.web.method.support.HandlerMethodArgumentResolverComposite.resolveArgument(HandlerMethodArgumentResolverComposite.java:122)
@@ -219,7 +219,7 @@ org.springframework.http.converter.HttpMessageNotReadableException: Required req
 	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
 	at java.lang.Thread.run(Thread.java:750)
 12:15:10.488 [http-nio-9201-exec-6] ERROR c.t.c.s.h.GlobalExceptionHandler - [handleRuntimeException,85] - 请求地址'/sys/user/list',发生未知异常.
-org.springframework.http.converter.HttpMessageNotReadableException: Required request body is missing: public com.towelove.common.core.web.page.TableDataInfo com.towelove.system.controller.SysUserController.list(com.towelove.system.api.domain.SysUser)
+org.springframework.http.converter.HttpMessageNotReadableException: Required request body is missing: public com.towelove.common.core.web.page.TableDataInfo com.towelove.system.controller.user.SysUserController.list(com.towelove.system.api.domain.SysUser)
 	at org.springframework.web.servlet.mvc.method.annotation.RequestResponseBodyMethodProcessor.readWithMessageConverters(RequestResponseBodyMethodProcessor.java:163)
 	at org.springframework.web.servlet.mvc.method.annotation.RequestResponseBodyMethodProcessor.resolveArgument(RequestResponseBodyMethodProcessor.java:133)
 	at org.springframework.web.method.support.HandlerMethodArgumentResolverComposite.resolveArgument(HandlerMethodArgumentResolverComposite.java:122)
@@ -274,7 +274,7 @@ org.springframework.http.converter.HttpMessageNotReadableException: Required req
 	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
 	at java.lang.Thread.run(Thread.java:750)
 12:15:11.013 [http-nio-9201-exec-7] ERROR c.t.c.s.h.GlobalExceptionHandler - [handleRuntimeException,85] - 请求地址'/sys/user/list',发生未知异常.
-org.springframework.http.converter.HttpMessageNotReadableException: Required request body is missing: public com.towelove.common.core.web.page.TableDataInfo com.towelove.system.controller.SysUserController.list(com.towelove.system.api.domain.SysUser)
+org.springframework.http.converter.HttpMessageNotReadableException: Required request body is missing: public com.towelove.common.core.web.page.TableDataInfo com.towelove.system.controller.user.SysUserController.list(com.towelove.system.api.domain.SysUser)
 	at org.springframework.web.servlet.mvc.method.annotation.RequestResponseBodyMethodProcessor.readWithMessageConverters(RequestResponseBodyMethodProcessor.java:163)
 	at org.springframework.web.servlet.mvc.method.annotation.RequestResponseBodyMethodProcessor.resolveArgument(RequestResponseBodyMethodProcessor.java:133)
 	at org.springframework.web.method.support.HandlerMethodArgumentResolverComposite.resolveArgument(HandlerMethodArgumentResolverComposite.java:122)
@@ -329,7 +329,7 @@ org.springframework.http.converter.HttpMessageNotReadableException: Required req
 	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
 	at java.lang.Thread.run(Thread.java:750)
 12:15:11.449 [http-nio-9201-exec-8] ERROR c.t.c.s.h.GlobalExceptionHandler - [handleRuntimeException,85] - 请求地址'/sys/user/list',发生未知异常.
-org.springframework.http.converter.HttpMessageNotReadableException: Required request body is missing: public com.towelove.common.core.web.page.TableDataInfo com.towelove.system.controller.SysUserController.list(com.towelove.system.api.domain.SysUser)
+org.springframework.http.converter.HttpMessageNotReadableException: Required request body is missing: public com.towelove.common.core.web.page.TableDataInfo com.towelove.system.controller.user.SysUserController.list(com.towelove.system.api.domain.SysUser)
 	at org.springframework.web.servlet.mvc.method.annotation.RequestResponseBodyMethodProcessor.readWithMessageConverters(RequestResponseBodyMethodProcessor.java:163)
 	at org.springframework.web.servlet.mvc.method.annotation.RequestResponseBodyMethodProcessor.resolveArgument(RequestResponseBodyMethodProcessor.java:133)
 	at org.springframework.web.method.support.HandlerMethodArgumentResolverComposite.resolveArgument(HandlerMethodArgumentResolverComposite.java:122)
@@ -384,7 +384,7 @@ org.springframework.http.converter.HttpMessageNotReadableException: Required req
 	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
 	at java.lang.Thread.run(Thread.java:750)
 12:15:11.899 [http-nio-9201-exec-9] ERROR c.t.c.s.h.GlobalExceptionHandler - [handleRuntimeException,85] - 请求地址'/sys/user/list',发生未知异常.
-org.springframework.http.converter.HttpMessageNotReadableException: Required request body is missing: public com.towelove.common.core.web.page.TableDataInfo com.towelove.system.controller.SysUserController.list(com.towelove.system.api.domain.SysUser)
+org.springframework.http.converter.HttpMessageNotReadableException: Required request body is missing: public com.towelove.common.core.web.page.TableDataInfo com.towelove.system.controller.user.SysUserController.list(com.towelove.system.api.domain.SysUser)
 	at org.springframework.web.servlet.mvc.method.annotation.RequestResponseBodyMethodProcessor.readWithMessageConverters(RequestResponseBodyMethodProcessor.java:163)
 	at org.springframework.web.servlet.mvc.method.annotation.RequestResponseBodyMethodProcessor.resolveArgument(RequestResponseBodyMethodProcessor.java:133)
 	at org.springframework.web.method.support.HandlerMethodArgumentResolverComposite.resolveArgument(HandlerMethodArgumentResolverComposite.java:122)
@@ -439,7 +439,7 @@ org.springframework.http.converter.HttpMessageNotReadableException: Required req
 	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
 	at java.lang.Thread.run(Thread.java:750)
 12:15:15.812 [http-nio-9201-exec-10] ERROR c.t.c.s.h.GlobalExceptionHandler - [handleRuntimeException,85] - 请求地址'/sys/user/list',发生未知异常.
-org.springframework.http.converter.HttpMessageNotReadableException: Required request body is missing: public com.towelove.common.core.web.page.TableDataInfo com.towelove.system.controller.SysUserController.list(com.towelove.system.api.domain.SysUser)
+org.springframework.http.converter.HttpMessageNotReadableException: Required request body is missing: public com.towelove.common.core.web.page.TableDataInfo com.towelove.system.controller.user.SysUserController.list(com.towelove.system.api.domain.SysUser)
 	at org.springframework.web.servlet.mvc.method.annotation.RequestResponseBodyMethodProcessor.readWithMessageConverters(RequestResponseBodyMethodProcessor.java:163)
 	at org.springframework.web.servlet.mvc.method.annotation.RequestResponseBodyMethodProcessor.resolveArgument(RequestResponseBodyMethodProcessor.java:133)
 	at org.springframework.web.method.support.HandlerMethodArgumentResolverComposite.resolveArgument(HandlerMethodArgumentResolverComposite.java:122)
@@ -494,7 +494,7 @@ org.springframework.http.converter.HttpMessageNotReadableException: Required req
 	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
 	at java.lang.Thread.run(Thread.java:750)
 12:15:16.091 [http-nio-9201-exec-1] ERROR c.t.c.s.h.GlobalExceptionHandler - [handleRuntimeException,85] - 请求地址'/sys/user/list',发生未知异常.
-org.springframework.http.converter.HttpMessageNotReadableException: Required request body is missing: public com.towelove.common.core.web.page.TableDataInfo com.towelove.system.controller.SysUserController.list(com.towelove.system.api.domain.SysUser)
+org.springframework.http.converter.HttpMessageNotReadableException: Required request body is missing: public com.towelove.common.core.web.page.TableDataInfo com.towelove.system.controller.user.SysUserController.list(com.towelove.system.api.domain.SysUser)
 	at org.springframework.web.servlet.mvc.method.annotation.RequestResponseBodyMethodProcessor.readWithMessageConverters(RequestResponseBodyMethodProcessor.java:163)
 	at org.springframework.web.servlet.mvc.method.annotation.RequestResponseBodyMethodProcessor.resolveArgument(RequestResponseBodyMethodProcessor.java:133)
 	at org.springframework.web.method.support.HandlerMethodArgumentResolverComposite.resolveArgument(HandlerMethodArgumentResolverComposite.java:122)
@@ -549,7 +549,7 @@ org.springframework.http.converter.HttpMessageNotReadableException: Required req
 	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
 	at java.lang.Thread.run(Thread.java:750)
 12:15:16.388 [http-nio-9201-exec-2] ERROR c.t.c.s.h.GlobalExceptionHandler - [handleRuntimeException,85] - 请求地址'/sys/user/list',发生未知异常.
-org.springframework.http.converter.HttpMessageNotReadableException: Required request body is missing: public com.towelove.common.core.web.page.TableDataInfo com.towelove.system.controller.SysUserController.list(com.towelove.system.api.domain.SysUser)
+org.springframework.http.converter.HttpMessageNotReadableException: Required request body is missing: public com.towelove.common.core.web.page.TableDataInfo com.towelove.system.controller.user.SysUserController.list(com.towelove.system.api.domain.SysUser)
 	at org.springframework.web.servlet.mvc.method.annotation.RequestResponseBodyMethodProcessor.readWithMessageConverters(RequestResponseBodyMethodProcessor.java:163)
 	at org.springframework.web.servlet.mvc.method.annotation.RequestResponseBodyMethodProcessor.resolveArgument(RequestResponseBodyMethodProcessor.java:133)
 	at org.springframework.web.method.support.HandlerMethodArgumentResolverComposite.resolveArgument(HandlerMethodArgumentResolverComposite.java:122)
@@ -604,7 +604,7 @@ org.springframework.http.converter.HttpMessageNotReadableException: Required req
 	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
 	at java.lang.Thread.run(Thread.java:750)
 12:15:16.700 [http-nio-9201-exec-3] ERROR c.t.c.s.h.GlobalExceptionHandler - [handleRuntimeException,85] - 请求地址'/sys/user/list',发生未知异常.
-org.springframework.http.converter.HttpMessageNotReadableException: Required request body is missing: public com.towelove.common.core.web.page.TableDataInfo com.towelove.system.controller.SysUserController.list(com.towelove.system.api.domain.SysUser)
+org.springframework.http.converter.HttpMessageNotReadableException: Required request body is missing: public com.towelove.common.core.web.page.TableDataInfo com.towelove.system.controller.user.SysUserController.list(com.towelove.system.api.domain.SysUser)
 	at org.springframework.web.servlet.mvc.method.annotation.RequestResponseBodyMethodProcessor.readWithMessageConverters(RequestResponseBodyMethodProcessor.java:163)
 	at org.springframework.web.servlet.mvc.method.annotation.RequestResponseBodyMethodProcessor.resolveArgument(RequestResponseBodyMethodProcessor.java:133)
 	at org.springframework.web.method.support.HandlerMethodArgumentResolverComposite.resolveArgument(HandlerMethodArgumentResolverComposite.java:122)
@@ -659,7 +659,7 @@ org.springframework.http.converter.HttpMessageNotReadableException: Required req
 	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
 	at java.lang.Thread.run(Thread.java:750)
 12:15:35.013 [http-nio-9201-exec-4] ERROR c.t.c.s.h.GlobalExceptionHandler - [handleRuntimeException,85] - 请求地址'/sys/user/list',发生未知异常.
-org.springframework.http.converter.HttpMessageNotReadableException: Required request body is missing: public com.towelove.common.core.web.page.TableDataInfo com.towelove.system.controller.SysUserController.list(com.towelove.system.api.domain.SysUser)
+org.springframework.http.converter.HttpMessageNotReadableException: Required request body is missing: public com.towelove.common.core.web.page.TableDataInfo com.towelove.system.controller.user.SysUserController.list(com.towelove.system.api.domain.SysUser)
 	at org.springframework.web.servlet.mvc.method.annotation.RequestResponseBodyMethodProcessor.readWithMessageConverters(RequestResponseBodyMethodProcessor.java:163)
 	at org.springframework.web.servlet.mvc.method.annotation.RequestResponseBodyMethodProcessor.resolveArgument(RequestResponseBodyMethodProcessor.java:133)
 	at org.springframework.web.method.support.HandlerMethodArgumentResolverComposite.resolveArgument(HandlerMethodArgumentResolverComposite.java:122)
@@ -714,7 +714,7 @@ org.springframework.http.converter.HttpMessageNotReadableException: Required req
 	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
 	at java.lang.Thread.run(Thread.java:750)
 12:15:35.389 [http-nio-9201-exec-5] ERROR c.t.c.s.h.GlobalExceptionHandler - [handleRuntimeException,85] - 请求地址'/sys/user/list',发生未知异常.
-org.springframework.http.converter.HttpMessageNotReadableException: Required request body is missing: public com.towelove.common.core.web.page.TableDataInfo com.towelove.system.controller.SysUserController.list(com.towelove.system.api.domain.SysUser)
+org.springframework.http.converter.HttpMessageNotReadableException: Required request body is missing: public com.towelove.common.core.web.page.TableDataInfo com.towelove.system.controller.user.SysUserController.list(com.towelove.system.api.domain.SysUser)
 	at org.springframework.web.servlet.mvc.method.annotation.RequestResponseBodyMethodProcessor.readWithMessageConverters(RequestResponseBodyMethodProcessor.java:163)
 	at org.springframework.web.servlet.mvc.method.annotation.RequestResponseBodyMethodProcessor.resolveArgument(RequestResponseBodyMethodProcessor.java:133)
 	at org.springframework.web.method.support.HandlerMethodArgumentResolverComposite.resolveArgument(HandlerMethodArgumentResolverComposite.java:122)
@@ -769,7 +769,7 @@ org.springframework.http.converter.HttpMessageNotReadableException: Required req
 	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
 	at java.lang.Thread.run(Thread.java:750)
 12:15:35.699 [http-nio-9201-exec-6] ERROR c.t.c.s.h.GlobalExceptionHandler - [handleRuntimeException,85] - 请求地址'/sys/user/list',发生未知异常.
-org.springframework.http.converter.HttpMessageNotReadableException: Required request body is missing: public com.towelove.common.core.web.page.TableDataInfo com.towelove.system.controller.SysUserController.list(com.towelove.system.api.domain.SysUser)
+org.springframework.http.converter.HttpMessageNotReadableException: Required request body is missing: public com.towelove.common.core.web.page.TableDataInfo com.towelove.system.controller.user.SysUserController.list(com.towelove.system.api.domain.SysUser)
 	at org.springframework.web.servlet.mvc.method.annotation.RequestResponseBodyMethodProcessor.readWithMessageConverters(RequestResponseBodyMethodProcessor.java:163)
 	at org.springframework.web.servlet.mvc.method.annotation.RequestResponseBodyMethodProcessor.resolveArgument(RequestResponseBodyMethodProcessor.java:133)
 	at org.springframework.web.method.support.HandlerMethodArgumentResolverComposite.resolveArgument(HandlerMethodArgumentResolverComposite.java:122)
@@ -824,7 +824,7 @@ org.springframework.http.converter.HttpMessageNotReadableException: Required req
 	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
 	at java.lang.Thread.run(Thread.java:750)
 12:15:36.132 [http-nio-9201-exec-7] ERROR c.t.c.s.h.GlobalExceptionHandler - [handleRuntimeException,85] - 请求地址'/sys/user/list',发生未知异常.
-org.springframework.http.converter.HttpMessageNotReadableException: Required request body is missing: public com.towelove.common.core.web.page.TableDataInfo com.towelove.system.controller.SysUserController.list(com.towelove.system.api.domain.SysUser)
+org.springframework.http.converter.HttpMessageNotReadableException: Required request body is missing: public com.towelove.common.core.web.page.TableDataInfo com.towelove.system.controller.user.SysUserController.list(com.towelove.system.api.domain.SysUser)
 	at org.springframework.web.servlet.mvc.method.annotation.RequestResponseBodyMethodProcessor.readWithMessageConverters(RequestResponseBodyMethodProcessor.java:163)
 	at org.springframework.web.servlet.mvc.method.annotation.RequestResponseBodyMethodProcessor.resolveArgument(RequestResponseBodyMethodProcessor.java:133)
 	at org.springframework.web.method.support.HandlerMethodArgumentResolverComposite.resolveArgument(HandlerMethodArgumentResolverComposite.java:122)
@@ -879,7 +879,7 @@ org.springframework.http.converter.HttpMessageNotReadableException: Required req
 	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
 	at java.lang.Thread.run(Thread.java:750)
 12:16:25.960 [http-nio-9201-exec-5] ERROR c.t.c.s.h.GlobalExceptionHandler - [handleRuntimeException,85] - 请求地址'/sys/user/list',发生未知异常.
-org.springframework.http.converter.HttpMessageNotReadableException: Required request body is missing: public com.towelove.common.core.web.page.TableDataInfo com.towelove.system.controller.SysUserController.list(com.towelove.system.api.domain.SysUser)
+org.springframework.http.converter.HttpMessageNotReadableException: Required request body is missing: public com.towelove.common.core.web.page.TableDataInfo com.towelove.system.controller.user.SysUserController.list(com.towelove.system.api.domain.SysUser)
 	at org.springframework.web.servlet.mvc.method.annotation.RequestResponseBodyMethodProcessor.readWithMessageConverters(RequestResponseBodyMethodProcessor.java:163)
 	at org.springframework.web.servlet.mvc.method.annotation.RequestResponseBodyMethodProcessor.resolveArgument(RequestResponseBodyMethodProcessor.java:133)
 	at org.springframework.web.method.support.HandlerMethodArgumentResolverComposite.resolveArgument(HandlerMethodArgumentResolverComposite.java:122)
@@ -934,7 +934,7 @@ org.springframework.http.converter.HttpMessageNotReadableException: Required req
 	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
 	at java.lang.Thread.run(Thread.java:750)
 12:18:46.249 [http-nio-9201-exec-3] ERROR c.t.c.s.h.GlobalExceptionHandler - [handleRuntimeException,85] - 请求地址'/sys/user/list',发生未知异常.
-org.springframework.http.converter.HttpMessageNotReadableException: Required request body is missing: public com.towelove.common.core.web.page.TableDataInfo com.towelove.system.controller.SysUserController.list(com.towelove.system.api.domain.SysUser)
+org.springframework.http.converter.HttpMessageNotReadableException: Required request body is missing: public com.towelove.common.core.web.page.TableDataInfo com.towelove.system.controller.user.SysUserController.list(com.towelove.system.api.domain.SysUser)
 	at org.springframework.web.servlet.mvc.method.annotation.RequestResponseBodyMethodProcessor.readWithMessageConverters(RequestResponseBodyMethodProcessor.java:163)
 	at org.springframework.web.servlet.mvc.method.annotation.RequestResponseBodyMethodProcessor.resolveArgument(RequestResponseBodyMethodProcessor.java:133)
 	at org.springframework.web.method.support.HandlerMethodArgumentResolverComposite.resolveArgument(HandlerMethodArgumentResolverComposite.java:122)
@@ -1015,7 +1015,7 @@ org.springframework.jdbc.BadSqlGrammarException:
 	at org.springframework.aop.framework.CglibAopProxy.access$000(CglibAopProxy.java:85)
 	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:704)
 	at com.towelove.system.service.user.ISysUserServiceImpl$$EnhancerBySpringCGLIB$$16bd79da.selectUserList(<generated>)
-	at com.towelove.system.controller.SysUserController.list(SysUserController.java:58)
+	at com.towelove.system.controller.user.SysUserController.list(SysUserController.java:58)
 	at sun.reflect.GeneratedMethodAccessor81.invoke(Unknown Source)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
 	at java.lang.reflect.Method.invoke(Method.java:498)
@@ -1134,7 +1134,7 @@ org.springframework.jdbc.BadSqlGrammarException:
 	at org.springframework.aop.framework.CglibAopProxy.access$000(CglibAopProxy.java:85)
 	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:704)
 	at com.towelove.system.service.user.ISysUserServiceImpl$$EnhancerBySpringCGLIB$$16bd79da.selectUserList(<generated>)
-	at com.towelove.system.controller.SysUserController.list(SysUserController.java:58)
+	at com.towelove.system.controller.user.SysUserController.list(SysUserController.java:58)
 	at sun.reflect.GeneratedMethodAccessor81.invoke(Unknown Source)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
 	at java.lang.reflect.Method.invoke(Method.java:498)
@@ -1253,7 +1253,7 @@ org.springframework.jdbc.BadSqlGrammarException:
 	at org.springframework.aop.framework.CglibAopProxy.access$000(CglibAopProxy.java:85)
 	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:704)
 	at com.towelove.system.service.user.ISysUserServiceImpl$$EnhancerBySpringCGLIB$$16bd79da.selectUserList(<generated>)
-	at com.towelove.system.controller.SysUserController.list(SysUserController.java:58)
+	at com.towelove.system.controller.user.SysUserController.list(SysUserController.java:58)
 	at sun.reflect.GeneratedMethodAccessor81.invoke(Unknown Source)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
 	at java.lang.reflect.Method.invoke(Method.java:498)
@@ -1372,7 +1372,7 @@ org.springframework.jdbc.BadSqlGrammarException:
 	at org.springframework.aop.framework.CglibAopProxy.access$000(CglibAopProxy.java:85)
 	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:704)
 	at com.towelove.system.service.user.ISysUserServiceImpl$$EnhancerBySpringCGLIB$$16bd79da.selectUserList(<generated>)
-	at com.towelove.system.controller.SysUserController.list(SysUserController.java:58)
+	at com.towelove.system.controller.user.SysUserController.list(SysUserController.java:58)
 	at sun.reflect.GeneratedMethodAccessor81.invoke(Unknown Source)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
 	at java.lang.reflect.Method.invoke(Method.java:498)
@@ -1491,7 +1491,7 @@ org.springframework.jdbc.BadSqlGrammarException:
 	at org.springframework.aop.framework.CglibAopProxy.access$000(CglibAopProxy.java:85)
 	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:704)
 	at com.towelove.system.service.user.ISysUserServiceImpl$$EnhancerBySpringCGLIB$$f658170b.selectUserList(<generated>)
-	at com.towelove.system.controller.SysUserController.list(SysUserController.java:58)
+	at com.towelove.system.controller.user.SysUserController.list(SysUserController.java:58)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -1614,7 +1614,7 @@ org.springframework.jdbc.BadSqlGrammarException:
 	at org.springframework.aop.framework.CglibAopProxy.access$000(CglibAopProxy.java:85)
 	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:704)
 	at com.towelove.system.service.user.ISysUserServiceImpl$$EnhancerBySpringCGLIB$$f658170b.selectUserList(<generated>)
-	at com.towelove.system.controller.SysUserController.list(SysUserController.java:58)
+	at com.towelove.system.controller.user.SysUserController.list(SysUserController.java:58)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)

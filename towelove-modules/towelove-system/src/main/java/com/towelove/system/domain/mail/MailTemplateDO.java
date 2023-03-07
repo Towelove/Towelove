@@ -22,7 +22,7 @@ import java.util.List;
  */
 @TableName(value = "sys_mail_template", autoResultMap = true)
 @Data
-public class MailTemplate implements Serializable {
+public class MailTemplateDO implements Serializable {
 
     /**
      * 主键
@@ -39,7 +39,7 @@ public class MailTemplate implements Serializable {
     /**
      * 发送的邮箱账号编号 对应到MailAccount的id字段
      *
-     * 关联 {@link MailAccount#getId()}
+     * 关联 {@link MailAccountDO#getId()}
      */
     private Long accountId;
 

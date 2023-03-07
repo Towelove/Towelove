@@ -14,7 +14,7 @@ spring:
         - id: towelove-system
           uri: lb://towelove-system
           predicates:
-            - Path=/sys/user/**
+            - Path=/sys/**
         - id: towelove-auth
           uri: lb://towelove-auth
           predicates:

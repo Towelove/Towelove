@@ -3,11 +3,11 @@ package com.towelove.system.service.mail;
 
 import com.towelove.common.core.domain.PageResult;
 import com.towelove.common.core.enums.MailSendStatusEnum;
-import com.towelove.system.domain.mail.MailAccount;
-import com.towelove.system.domain.mail.MailLog;
-import com.towelove.system.domain.mail.MailTemplate;
-import com.towelove.system.domain.mail.vo.MailLogPageReqVO;
-import com.towelove.system.mapper.MailLogMapper;
+import com.towelove.system.domain.mail.MailAccountDO;
+import com.towelove.system.domain.mail.MailLogDO;
+import com.towelove.system.domain.mail.MailTemplateDO;
+import com.towelove.system.domain.mail.vo.log.MailLogPageReqVO;
+import com.towelove.system.mapper.mail.MailLogMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
@@ -33,21 +33,21 @@ public class MailLogServiceImpl implements MailLogService {
     private MailLogMapper mailLogMapper;
 
     @Override
-    public PageResult<MailLog> getMailLogPage(MailLogPageReqVO pageVO) {
+    public PageResult<MailLogDO> getMailLogPage(MailLogPageReqVO pageVO) {
         return mailLogMapper.selectPage(pageVO);
     }
 
     @Override
-    public MailLog getMailLog(Long id) {
+    public MailLogDO getMailLog(Long id) {
         return mailLogMapper.selectById(id);
     }
 
     @Override
-    public Long createMailLog(Long userId, Integer userType, String toMail, MailAccount account,
-                              MailTemplate template, String templateContent, Map<String, Object> templateParams,
+    public Long createMailLog(Long userId, Integer userType, String toMail, MailAccountDO account,
+                              MailTemplateDO template, String templateContent, Map<String, Object> templateParams,
                               Boolean isSend) {
 
-        MailLog.MailLogBuilder logDOBuilder = MailLog.builder();
+        MailLogDO.MailLogDOBuilder logDOBuilder = MailLogDO.builder();
         // 根据是否要发送，设置状态
         logDOBuilder.sendStatus(Objects.equals(isSend, true) ? MailSendStatusEnum.INIT.getStatus()
                         : MailSendStatusEnum.IGNORE.getStatus())
@@ -59,7 +59,7 @@ public class MailLogServiceImpl implements MailLogService {
                 .templateTitle(template.getTitle()).templateContent(templateContent).templateParams(templateParams);
 
         // 插入数据库
-        MailLog logDO = logDOBuilder.build();
+        MailLogDO logDO = logDOBuilder.build();
         mailLogMapper.insert(logDO);
         return logDO.getId();
     }
@@ -70,13 +70,13 @@ public class MailLogServiceImpl implements MailLogService {
     public void updateMailSendResult(Long logId, String messageId, Exception exception) {
         // 1. 成功
         if (exception == null) {
-            mailLogMapper.updateById(new MailLog().setId(logId).setSendTime(new Date())
+            mailLogMapper.updateById(new MailLogDO().setId(logId).setSendTime(new Date())
                     .setSendStatus(MailSendStatusEnum.SUCCESS
                             .getStatus()).setSendMessageId(messageId));
             return;
         }
         // 2. 失败
-        mailLogMapper.updateById(new MailLog().setId(logId).setSendTime(new Date())
+        mailLogMapper.updateById(new MailLogDO().setId(logId).setSendTime(new Date())
                 .setSendStatus(MailSendStatusEnum.FAILURE.getStatus())
                 .setSendException(getRootCauseMessage(exception)));
 

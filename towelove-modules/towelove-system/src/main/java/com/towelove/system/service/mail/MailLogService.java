@@ -2,10 +2,10 @@ package com.towelove.system.service.mail;
 
 
 import com.towelove.common.core.domain.PageResult;
-import com.towelove.system.domain.mail.MailAccount;
-import com.towelove.system.domain.mail.MailLog;
-import com.towelove.system.domain.mail.MailTemplate;
-import com.towelove.system.domain.mail.vo.MailLogPageReqVO;
+import com.towelove.system.domain.mail.MailAccountDO;
+import com.towelove.system.domain.mail.MailLogDO;
+import com.towelove.system.domain.mail.MailTemplateDO;
+import com.towelove.system.domain.mail.vo.log.MailLogPageReqVO;
 
 import java.util.Map;
 
@@ -23,7 +23,7 @@ public interface MailLogService {
      * @param pageVO 分页参数
      * @return 分页结果
      */
-    PageResult<MailLog> getMailLogPage(MailLogPageReqVO pageVO);
+    PageResult<MailLogDO> getMailLogPage(MailLogPageReqVO pageVO);
 
     /**
      * 获得指定编号的邮件日志
@@ -31,7 +31,7 @@ public interface MailLogService {
      * @param id 日志编号
      * @return 邮件日志
      */
-    MailLog getMailLog(Long id);
+    MailLogDO getMailLog(Long id);
 
     /**
      * 创建邮件日志
@@ -47,7 +47,7 @@ public interface MailLogService {
      * @return 日志编号
      */
     Long createMailLog(Long userId, Integer userType, String toMail,
-                       MailAccount account, MailTemplate template ,
+                       MailAccountDO account, MailTemplateDO template ,
                        String templateContent, Map<String, Object> templateParams, Boolean isSend);
 
     /**

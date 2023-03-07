@@ -3,10 +3,10 @@ package com.towelove.system.service.mail;
 
 
 import com.towelove.common.core.domain.PageResult;
-import com.towelove.system.domain.mail.MailTemplate;
-import com.towelove.system.domain.mail.vo.MailTemplateCreateReqVO;
-import com.towelove.system.domain.mail.vo.MailTemplatePageReqVO;
-import com.towelove.system.domain.mail.vo.MailTemplateUpdateReqVO;
+import com.towelove.system.domain.mail.MailTemplateDO;
+import com.towelove.system.domain.mail.vo.template.MailTemplateCreateReqVO;
+import com.towelove.system.domain.mail.vo.template.MailTemplatePageReqVO;
+import com.towelove.system.domain.mail.vo.template.MailTemplateUpdateReqVO;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -20,7 +20,6 @@ import java.util.Map;
  * @author: 张锦标
  * @since 2022-03-21
  */
-@Deprecated
 public interface MailTemplateService {
 
 
@@ -57,7 +56,7 @@ public interface MailTemplateService {
      * @param id 编号
      * @return 邮件模版
      */
-    MailTemplate getMailTemplate(Long id);
+    MailTemplateDO getMailTemplate(Long id);
 
     /**
      * 获取邮件模版分页
@@ -65,14 +64,14 @@ public interface MailTemplateService {
      * @param pageReqVO 模版信息
      * @return 邮件模版分页信息
      */
-    PageResult<MailTemplate> getMailTemplatePage(MailTemplatePageReqVO pageReqVO);
+    PageResult<MailTemplateDO> getMailTemplatePage(MailTemplatePageReqVO pageReqVO);
 
     /**
      * 获取邮件模板数组
      *
      * @return 模版数组
      */
-    List<MailTemplate> getMailTemplateList();
+    List<MailTemplateDO> getMailTemplateList();
 
     /**
      * 从缓存中获取邮件模版
@@ -80,7 +79,7 @@ public interface MailTemplateService {
      * @param code 模板编码
      * @return 邮件模板
      */
-    MailTemplate getMailTemplateByCodeFromCache(String code);
+    MailTemplateDO getMailTemplateByCodeFromCache(String code);
 
     /**
      * 邮件模版内容合成

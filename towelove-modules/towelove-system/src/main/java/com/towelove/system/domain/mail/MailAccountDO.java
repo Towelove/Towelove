@@ -17,7 +17,7 @@ import lombok.EqualsAndHashCode;
 @TableName(value = "sys_mail_account", autoResultMap = true)
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class MailAccount extends BaseEntity {
+public class MailAccountDO extends BaseEntity {
 
     /**
      * 主键

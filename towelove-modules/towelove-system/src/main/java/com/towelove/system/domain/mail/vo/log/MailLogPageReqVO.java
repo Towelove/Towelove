@@ -1,4 +1,4 @@
-package com.towelove.system.domain.mail.vo;
+package com.towelove.system.domain.mail.vo.log;
 
 import com.towelove.common.core.domain.PageParam;
 import io.swagger.v3.oas.annotations.media.Schema;

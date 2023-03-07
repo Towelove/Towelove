@@ -8,11 +8,11 @@ import cn.hutool.extra.mail.MailException;
 import com.google.common.annotations.VisibleForTesting;
 import com.towelove.common.core.domain.PageResult;
 import com.towelove.system.convert.MailTemplateConvert;
-import com.towelove.system.domain.mail.MailTemplate;
-import com.towelove.system.domain.mail.vo.MailTemplateCreateReqVO;
-import com.towelove.system.domain.mail.vo.MailTemplatePageReqVO;
-import com.towelove.system.domain.mail.vo.MailTemplateUpdateReqVO;
-import com.towelove.system.mapper.MailTemplateMapper;
+import com.towelove.system.domain.mail.MailTemplateDO;
+import com.towelove.system.domain.mail.vo.template.MailTemplateCreateReqVO;
+import com.towelove.system.domain.mail.vo.template.MailTemplatePageReqVO;
+import com.towelove.system.domain.mail.vo.template.MailTemplateUpdateReqVO;
+import com.towelove.system.mapper.mail.MailTemplateMapper;
 import com.towelove.system.mq.producer.mail.MailProducer;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
@@ -54,22 +54,22 @@ public class MailTemplateServiceImpl implements MailTemplateService {
 
     /**
      * 邮件模板缓存
-     * key：邮件模版标识 {@link MailTemplate#getCode()}
+     * key：邮件模版标识 {@link MailTemplateDO#getCode()}
      *
      * 这里声明 volatile 修饰的原因是，每次刷新时，直接修改指向
      */
     @Getter
-    private volatile Map<String, MailTemplate> mailTemplateCache;
+    private volatile Map<String, MailTemplateDO> mailTemplateCache;
 
     @Override
     @PostConstruct
     public void initLocalCache() {
         // 第一步：查询数据
-        List<MailTemplate> templates = mailTemplateMapper.selectList();
+        List<MailTemplateDO> templates = mailTemplateMapper.selectList();
         log.info("[initLocalCache][缓存邮件模版，数量:{}]", templates.size());
 
         // 第二步：构建缓存
-        mailTemplateCache = convertMap(templates, MailTemplate::getCode);
+        mailTemplateCache = convertMap(templates, MailTemplateDO::getCode);
     }
 
     @Override
@@ -78,7 +78,7 @@ public class MailTemplateServiceImpl implements MailTemplateService {
         validateCodeUnique(null, createReqVO.getCode());
 
         // 插入
-        MailTemplate template = MailTemplateConvert.INSTANCE.convert(createReqVO)
+        MailTemplateDO template = MailTemplateConvert.INSTANCE.convert(createReqVO)
                 .setParams(parseTemplateContentParams(createReqVO.getContent()));
         mailTemplateMapper.insert(template);
         // 发送刷新消息
@@ -94,7 +94,7 @@ public class MailTemplateServiceImpl implements MailTemplateService {
         validateCodeUnique(updateReqVO.getId(),updateReqVO.getCode());
 
         // 更新
-        MailTemplate updateObj = MailTemplateConvert.INSTANCE.convert(updateReqVO)
+        MailTemplateDO updateObj = MailTemplateConvert.INSTANCE.convert(updateReqVO)
                 .setParams(parseTemplateContentParams(updateReqVO.getContent()));
         mailTemplateMapper.updateById(updateObj);
         // 发送刷新消息
@@ -103,7 +103,7 @@ public class MailTemplateServiceImpl implements MailTemplateService {
 
     @VisibleForTesting
     public void validateCodeUnique(Long id, String code) {
-        MailTemplate template = mailTemplateMapper.selectByCode(code);
+        MailTemplateDO template = mailTemplateMapper.selectByCode(code);
         if (template == null) {
             return;
         }
@@ -118,7 +118,6 @@ public class MailTemplateServiceImpl implements MailTemplateService {
     public void deleteMailTemplate(Long id) {
         // 校验是否存在
         validateMailTemplateExists(id);
-
         // 删除
         mailTemplateMapper.deleteById(id);
         // 发送刷新消息
@@ -132,18 +131,18 @@ public class MailTemplateServiceImpl implements MailTemplateService {
     }
 
     @Override
-    public MailTemplate getMailTemplate(Long id) {return mailTemplateMapper.selectById(id);}
+    public MailTemplateDO getMailTemplate(Long id) {return mailTemplateMapper.selectById(id);}
 
     @Override
-    public PageResult<MailTemplate> getMailTemplatePage(MailTemplatePageReqVO pageReqVO) {
+    public PageResult<MailTemplateDO> getMailTemplatePage(MailTemplatePageReqVO pageReqVO) {
         return mailTemplateMapper.selectPage(pageReqVO);
     }
 
     @Override
-    public List<MailTemplate> getMailTemplateList() {return mailTemplateMapper.selectList();}
+    public List<MailTemplateDO> getMailTemplateList() {return mailTemplateMapper.selectList();}
 
     @Override
-    public MailTemplate getMailTemplateByCodeFromCache(String code) {
+    public MailTemplateDO getMailTemplateByCodeFromCache(String code) {
         return mailTemplateCache.get(code);
     }
 

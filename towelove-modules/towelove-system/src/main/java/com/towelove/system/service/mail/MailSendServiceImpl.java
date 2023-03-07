@@ -2,13 +2,14 @@ package com.towelove.system.service.mail;
 
 
 import cn.hutool.core.util.StrUtil;
+import cn.hutool.extra.mail.MailAccount;
 import cn.hutool.extra.mail.MailException;
 import cn.hutool.extra.mail.MailUtil;
 import com.google.common.annotations.VisibleForTesting;
 import com.towelove.common.core.enums.CommonStatusEnum;
 import com.towelove.system.convert.MailAccountConvert;
-import com.towelove.system.domain.mail.MailAccount;
-import com.towelove.system.domain.mail.MailTemplate;
+import com.towelove.system.domain.mail.MailAccountDO;
+import com.towelove.system.domain.mail.MailTemplateDO;
 import com.towelove.system.mq.message.mail.MailSendMessage;
 import com.towelove.system.mq.producer.mail.MailProducer;
 import lombok.extern.slf4j.Slf4j;
@@ -41,12 +42,14 @@ public class MailSendServiceImpl implements MailSendService {
 
 
     @Override
+    @Deprecated
     public Long sendSingleMailToAdmin(String mail, Long userId, String templateCode,
                                       Map<String, Object> templateParams) {
         return null;
     }
 
     @Override
+    @Deprecated
     public Long sendSingleMailToMember(String mail, Long userId,
                                        String templateCode, Map<String, Object> templateParams) {
         return null;
@@ -56,9 +59,9 @@ public class MailSendServiceImpl implements MailSendService {
     public Long sendSingleMail(String mail, Long userId, Integer userType,
                                String templateCode, Map<String, Object> templateParams) {
         // 校验邮箱模版是否合法
-        MailTemplate template = validateMailTemplate(templateCode);
+        MailTemplateDO template = validateMailTemplate(templateCode);
         // 校验邮箱账号是否合法
-        MailAccount account = validateMailAccount(template.getAccountId());
+        MailAccountDO account = validateMailAccount(template.getAccountId());
         // 校验邮箱是否存在
         mail = validateMail(mail);
         //检查模板参数是否合法
@@ -81,12 +84,12 @@ public class MailSendServiceImpl implements MailSendService {
     @Override
     public void doSendMail(MailSendMessage message) {
         // 1. 创建发送账号
-        MailAccount account = validateMailAccount(message.getAccountId());
-        cn.hutool.extra.mail.MailAccount mailAccount  =
+        MailAccountDO account = validateMailAccount(message.getAccountId());
+        MailAccount MailAccountDO  =
                 MailAccountConvert.INSTANCE.convert(account, message.getNickname());
         // 2. 发送邮件
         try {
-            String messageId = MailUtil.send(mailAccount, message.getMail(),
+            String messageId = MailUtil.send(MailAccountDO, message.getMail(),
                     message.getTitle(), message.getContent(),true);
             // 3. 更新结果（成功）
             mailLogService.updateMailSendResult(message.getLogId(), messageId, null);
@@ -98,9 +101,9 @@ public class MailSendServiceImpl implements MailSendService {
     }
 
     @VisibleForTesting
-    MailTemplate validateMailTemplate(String templateCode) {
+    MailTemplateDO validateMailTemplate(String templateCode) {
         // 获得邮件模板。考虑到效率，从缓存中获取
-        MailTemplate template = mailTemplateService.getMailTemplateByCodeFromCache(templateCode);
+        MailTemplateDO template = mailTemplateService.getMailTemplateByCodeFromCache(templateCode);
         // 邮件模板不存在
         if (template == null) {
             throw new MailException("当前邮件模板不存在");
@@ -109,9 +112,9 @@ public class MailSendServiceImpl implements MailSendService {
     }
 
     @VisibleForTesting
-    MailAccount validateMailAccount(Long accountId) {
+    MailAccountDO validateMailAccount(Long accountId) {
         // 获得邮箱账号。考虑到效率，从缓存中获取
-        MailAccount account = mailAccountService.getMailAccountFromCache(accountId);
+        MailAccountDO account = mailAccountService.getMailAccountFromCache(accountId);
         // 邮箱账号不存在
         if (account == null) {
             throw new MailException("当前账户id:"+accountId+"不存在");
@@ -134,7 +137,7 @@ public class MailSendServiceImpl implements MailSendService {
      * @param templateParams 参数列表
      */
     @VisibleForTesting
-    void validateTemplateParams(MailTemplate template, Map<String, Object> templateParams) {
+    void validateTemplateParams(MailTemplateDO template, Map<String, Object> templateParams) {
         template.getParams().forEach((key) -> {
             Object value = templateParams.get(key);
             if (value == null) {

@@ -1,4 +1,4 @@
-package com.towelove.system.controller;
+package com.towelove.system.controller.user;
 
 import com.towelove.common.core.constant.UserConstants;
 import com.towelove.common.core.domain.R;
