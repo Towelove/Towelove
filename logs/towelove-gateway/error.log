@@ -1,107 +1,230 @@
-11:17:04.085 [reactor-http-nio-3] ERROR c.t.g.f.AuthFilter - [unauthorizedResponse,110] - [鉴权异常处理]请求路径:/auth/resetPwd
-11:22:19.085 [reactor-http-nio-3] ERROR c.t.g.f.AuthFilter - [unauthorizedResponse,110] - [鉴权异常处理]请求路径:/auth/resetPwd
-11:22:42.904 [reactor-http-nio-3] ERROR c.t.g.h.GatewayExceptionHandler - [handle,52] - [网关异常处理]请求路径:/auth/resetPwd,异常信息:Unable to read JSON value: i����G�{"alg":"HS512"}
-11:23:07.170 [reactor-http-nio-3] ERROR c.t.g.h.GatewayExceptionHandler - [handle,52] - [网关异常处理]请求路径:/auth/resetPwd,异常信息:Unable to read JSON value: i����G�{"alg":"HS512"}
-11:23:51.716 [reactor-http-nio-3] ERROR c.t.g.h.GatewayExceptionHandler - [handle,52] - [网关异常处理]请求路径:/auth/resetPwd,异常信息:Unable to read JSON value: i����G�{"alg":"HS512"}
-11:24:30.946 [reactor-http-nio-3] ERROR c.t.g.h.GatewayExceptionHandler - [handle,52] - [网关异常处理]请求路径:/auth/resetPwd,异常信息:Unable to read JSON value: i����G�{"alg":"HS512"}
-11:24:33.295 [reactor-http-nio-3] ERROR c.t.g.h.GatewayExceptionHandler - [handle,52] - [网关异常处理]请求路径:/auth/resetPwd,异常信息:Unable to read JSON value: i����G�{"alg":"HS512"}
-11:24:56.626 [reactor-http-nio-3] ERROR c.t.g.h.GatewayExceptionHandler - [handle,52] - [网关异常处理]请求路径:/auth/resetPwd,异常信息:Unable to read JSON value: i����G�{"alg":"HS512"}
-11:25:08.238 [reactor-http-nio-3] ERROR c.t.g.h.GatewayExceptionHandler - [handle,52] - [网关异常处理]请求路径:/auth/resetPwd,异常信息:Unable to read JSON value: i����G�{"alg":"HS512"}
-11:25:29.468 [reactor-http-nio-3] ERROR c.t.g.h.GatewayExceptionHandler - [handle,52] - [网关异常处理]请求路径:/auth/resetPwd,异常信息:Unable to read JSON value: i����G�{"alg":"HS512"}
-11:28:37.478 [reactor-http-nio-3] ERROR c.t.g.f.AuthFilter - [unauthorizedResponse,110] - [鉴权异常处理]请求路径:/sys/user/list
-11:28:42.091 [reactor-http-nio-3] ERROR c.t.g.f.AuthFilter - [unauthorizedResponse,110] - [鉴权异常处理]请求路径:/sys/user/list
-11:28:44.346 [reactor-http-nio-3] ERROR c.t.g.f.AuthFilter - [unauthorizedResponse,110] - [鉴权异常处理]请求路径:/sys/user/list
-12:33:28.410 [reactor-http-nio-3] ERROR c.t.g.f.AuthFilter - [unauthorizedResponse,110] - [鉴权异常处理]请求路径:/sys/user/list
-12:35:59.633 [reactor-http-nio-3] ERROR c.t.g.f.AuthFilter - [unauthorizedResponse,110] - [鉴权异常处理]请求路径:/sys/user/register
-12:39:48.021 [reactor-http-nio-3] ERROR c.t.g.f.AuthFilter - [unauthorizedResponse,110] - [鉴权异常处理]请求路径:/sys/user/register
-12:39:48.027 [nacos-grpc-client-executor-155] ERROR c.a.n.c.r.c.g.GrpcClient - [printIfErrorEnabled,99] - [1677990530014_127.0.0.1_64445]Request stream onCompleted, switch server
-12:39:48.027 [nacos-grpc-client-executor-109] ERROR c.a.n.c.r.c.g.GrpcClient - [printIfErrorEnabled,99] - [1677990524007_127.0.0.1_64331]Request stream onCompleted, switch server
-12:39:48.027 [nacos-grpc-client-executor-101] ERROR c.a.n.c.r.c.g.GrpcClient - [printIfErrorEnabled,99] - [1677990529811_127.0.0.1_64444]Request stream onCompleted, switch server
-12:39:48.027 [reactor-http-nio-10] ERROR c.t.g.f.AuthFilter - [unauthorizedResponse,110] - [鉴权异常处理]请求路径:/sys/user/getInfo/%E5%BC%A0%E9%94%A6%E6%A0%87
-12:39:48.030 [boundedElastic-1] ERROR c.a.n.c.r.client - [printIfErrorEnabled,99] - Send request fail, request = ServiceListRequest{headers={}, requestId='null'}, retryTimes = 0, errorMessage = java.util.concurrent.ExecutionException: com.alibaba.nacos.shaded.io.grpc.StatusRuntimeException: UNAVAILABLE: HTTP/2 error code: NO_ERROR
-Received Goaway
-app_requested
-12:39:48.030 [com.alibaba.nacos.client.Worker] ERROR c.a.n.c.r.client - [printIfErrorEnabled,99] - Send request fail, request = ConfigBatchListenRequest{headers={}, requestId='null'}, retryTimes = 0, errorMessage = java.util.concurrent.ExecutionException: com.alibaba.nacos.shaded.io.grpc.StatusRuntimeException: UNAVAILABLE: HTTP/2 error code: NO_ERROR
-Received Goaway
-app_requested
-12:39:48.030 [com.alibaba.nacos.client.Worker] ERROR c.a.n.c.r.client - [printIfErrorEnabled,99] - Send request fail, request = ConfigBatchListenRequest{headers={}, requestId='null'}, retryTimes = 0, errorMessage = java.util.concurrent.ExecutionException: com.alibaba.nacos.shaded.io.grpc.StatusRuntimeException: UNAVAILABLE: HTTP/2 error code: NO_ERROR
-Received Goaway
-app_requested
-12:39:48.030 [com.alibaba.nacos.client.naming.updater.0] ERROR c.a.n.c.r.client - [printIfErrorEnabled,99] - Send request fail, request = ServiceQueryRequest{headers={}, requestId='null'}, retryTimes = 0, errorMessage = java.util.concurrent.ExecutionException: com.alibaba.nacos.shaded.io.grpc.StatusRuntimeException: UNAVAILABLE: HTTP/2 error code: NO_ERROR
-Received Goaway
-app_requested
-12:39:48.030 [com.alibaba.nacos.client.naming.updater.3] ERROR c.a.n.c.r.client - [printIfErrorEnabled,99] - Send request fail, request = ServiceQueryRequest{headers={}, requestId='null'}, retryTimes = 0, errorMessage = java.util.concurrent.ExecutionException: com.alibaba.nacos.shaded.io.grpc.StatusRuntimeException: UNAVAILABLE: HTTP/2 error code: NO_ERROR
-Received Goaway
-app_requested
-12:39:48.030 [boundedElastic-5] ERROR c.a.n.c.r.client - [printIfErrorEnabled,99] - Send request fail, request = ServiceListRequest{headers={}, requestId='null'}, retryTimes = 0, errorMessage = java.util.concurrent.ExecutionException: com.alibaba.nacos.shaded.io.grpc.StatusRuntimeException: UNAVAILABLE: HTTP/2 error code: NO_ERROR
-Received Goaway
-app_requested
-12:39:48.030 [com.alibaba.nacos.client.naming.updater.6] ERROR c.a.n.c.r.client - [printIfErrorEnabled,99] - Send request fail, request = ServiceQueryRequest{headers={}, requestId='null'}, retryTimes = 0, errorMessage = java.util.concurrent.ExecutionException: com.alibaba.nacos.shaded.io.grpc.StatusRuntimeException: UNAVAILABLE: HTTP/2 error code: NO_ERROR
-Received Goaway
-app_requested
-12:39:48.142 [boundedElastic-5] ERROR c.a.n.c.r.client - [printIfErrorEnabled,99] - Send request fail, request = ServiceListRequest{headers={}, requestId='null'}, retryTimes = 1, errorMessage = Client not connected, current status:UNHEALTHY
-12:39:48.142 [com.alibaba.nacos.client.naming.updater.6] ERROR c.a.n.c.r.client - [printIfErrorEnabled,99] - Send request fail, request = ServiceQueryRequest{headers={}, requestId='null'}, retryTimes = 1, errorMessage = Client not connected, current status:UNHEALTHY
-12:39:48.142 [com.alibaba.nacos.client.naming.updater.0] ERROR c.a.n.c.r.client - [printIfErrorEnabled,99] - Send request fail, request = ServiceQueryRequest{headers={}, requestId='null'}, retryTimes = 1, errorMessage = Client not connected, current status:UNHEALTHY
-12:39:48.142 [com.alibaba.nacos.client.Worker] ERROR c.a.n.c.r.client - [printIfErrorEnabled,99] - Send request fail, request = ConfigBatchListenRequest{headers={}, requestId='null'}, retryTimes = 1, errorMessage = Client not connected, current status:UNHEALTHY
-12:39:48.142 [com.alibaba.nacos.client.Worker] ERROR c.a.n.c.r.client - [printIfErrorEnabled,99] - Send request fail, request = ConfigBatchListenRequest{headers={}, requestId='null'}, retryTimes = 1, errorMessage = Client not connected, current status:UNHEALTHY
-12:39:48.142 [boundedElastic-1] ERROR c.a.n.c.r.client - [printIfErrorEnabled,99] - Send request fail, request = ServiceListRequest{headers={}, requestId='null'}, retryTimes = 1, errorMessage = Client not connected, current status:UNHEALTHY
-12:39:48.142 [com.alibaba.nacos.client.naming.updater.3] ERROR c.a.n.c.r.client - [printIfErrorEnabled,99] - Send request fail, request = ServiceQueryRequest{headers={}, requestId='null'}, retryTimes = 1, errorMessage = Client not connected, current status:UNHEALTHY
-12:39:48.251 [boundedElastic-5] ERROR c.a.n.c.r.client - [printIfErrorEnabled,99] - Send request fail, request = ServiceListRequest{headers={}, requestId='null'}, retryTimes = 2, errorMessage = Client not connected, current status:UNHEALTHY
-12:39:48.251 [com.alibaba.nacos.client.Worker] ERROR c.a.n.c.r.client - [printIfErrorEnabled,99] - Send request fail, request = ConfigBatchListenRequest{headers={}, requestId='null'}, retryTimes = 2, errorMessage = Client not connected, current status:UNHEALTHY
-12:39:48.251 [com.alibaba.nacos.client.Worker] ERROR c.a.n.c.r.client - [printIfErrorEnabled,99] - Send request fail, request = ConfigBatchListenRequest{headers={}, requestId='null'}, retryTimes = 2, errorMessage = Client not connected, current status:UNHEALTHY
-12:39:48.251 [com.alibaba.nacos.client.naming.updater.6] ERROR c.a.n.c.r.client - [printIfErrorEnabled,99] - Send request fail, request = ServiceQueryRequest{headers={}, requestId='null'}, retryTimes = 2, errorMessage = Client not connected, current status:UNHEALTHY
-12:39:48.251 [boundedElastic-1] ERROR c.a.n.c.r.client - [printIfErrorEnabled,99] - Send request fail, request = ServiceListRequest{headers={}, requestId='null'}, retryTimes = 2, errorMessage = Client not connected, current status:UNHEALTHY
-12:39:48.251 [com.alibaba.nacos.client.naming.updater.3] ERROR c.a.n.c.r.client - [printIfErrorEnabled,99] - Send request fail, request = ServiceQueryRequest{headers={}, requestId='null'}, retryTimes = 2, errorMessage = Client not connected, current status:UNHEALTHY
-12:39:48.251 [com.alibaba.nacos.client.naming.updater.0] ERROR c.a.n.c.r.client - [printIfErrorEnabled,99] - Send request fail, request = ServiceQueryRequest{headers={}, requestId='null'}, retryTimes = 2, errorMessage = Client not connected, current status:UNHEALTHY
-12:39:48.253 [boundedElastic-5] ERROR c.a.c.n.d.r.NacosReactiveDiscoveryClient - [lambda$getServices$3,94] - get services from nacos server fail,
-com.alibaba.nacos.api.exception.NacosException: Request nacos server failed: 
-	at com.alibaba.nacos.client.naming.remote.gprc.NamingGrpcClientProxy.requestToServer(NamingGrpcClientProxy.java:290)
-	at com.alibaba.nacos.client.naming.remote.gprc.NamingGrpcClientProxy.getServiceList(NamingGrpcClientProxy.java:202)
-	at com.alibaba.nacos.client.naming.remote.NamingClientProxyDelegate.getServiceList(NamingClientProxyDelegate.java:136)
-	at com.alibaba.nacos.client.naming.NacosNamingService.getServicesOfServer(NacosNamingService.java:440)
-	at com.alibaba.nacos.client.naming.NacosNamingService.getServicesOfServer(NacosNamingService.java:428)
-	at com.alibaba.cloud.nacos.discovery.NacosServiceDiscovery.getServices(NacosServiceDiscovery.java:70)
-	at com.alibaba.cloud.nacos.discovery.reactive.NacosReactiveDiscoveryClient.lambda$getServices$3(NacosReactiveDiscoveryClient.java:87)
-	at reactor.core.publisher.FluxDefer.subscribe(FluxDefer.java:46)
-	at reactor.core.publisher.FluxSubscribeOn$SubscribeOnSubscriber.run(FluxSubscribeOn.java:194)
-	at reactor.core.scheduler.WorkerTask.call(WorkerTask.java:84)
-	at reactor.core.scheduler.WorkerTask.call(WorkerTask.java:37)
-	at java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:266)
-	at java.util.concurrent.FutureTask.run(FutureTask.java)
-	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$201(ScheduledThreadPoolExecutor.java:180)
-	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:293)
-	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
-	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
-	at java.lang.Thread.run(Thread.java:748)
-Caused by: com.alibaba.nacos.api.exception.NacosException: Client not connected, current status:UNHEALTHY
-	at com.alibaba.nacos.common.remote.client.RpcClient.request(RpcClient.java:650)
-	at com.alibaba.nacos.common.remote.client.RpcClient.request(RpcClient.java:630)
-	at com.alibaba.nacos.client.naming.remote.gprc.NamingGrpcClientProxy.requestToServer(NamingGrpcClientProxy.java:280)
-	... 17 common frames omitted
-12:39:48.253 [boundedElastic-1] ERROR c.a.c.n.d.r.NacosReactiveDiscoveryClient - [lambda$getServices$3,94] - get services from nacos server fail,
-com.alibaba.nacos.api.exception.NacosException: Request nacos server failed: 
-	at com.alibaba.nacos.client.naming.remote.gprc.NamingGrpcClientProxy.requestToServer(NamingGrpcClientProxy.java:290)
-	at com.alibaba.nacos.client.naming.remote.gprc.NamingGrpcClientProxy.getServiceList(NamingGrpcClientProxy.java:202)
-	at com.alibaba.nacos.client.naming.remote.NamingClientProxyDelegate.getServiceList(NamingClientProxyDelegate.java:136)
-	at com.alibaba.nacos.client.naming.NacosNamingService.getServicesOfServer(NacosNamingService.java:440)
-	at com.alibaba.nacos.client.naming.NacosNamingService.getServicesOfServer(NacosNamingService.java:428)
-	at com.alibaba.cloud.nacos.discovery.NacosServiceDiscovery.getServices(NacosServiceDiscovery.java:70)
-	at com.alibaba.cloud.nacos.discovery.reactive.NacosReactiveDiscoveryClient.lambda$getServices$3(NacosReactiveDiscoveryClient.java:87)
-	at reactor.core.publisher.FluxDefer.subscribe(FluxDefer.java:46)
-	at reactor.core.publisher.FluxSubscribeOn$SubscribeOnSubscriber.run(FluxSubscribeOn.java:194)
-	at reactor.core.scheduler.WorkerTask.call(WorkerTask.java:84)
-	at reactor.core.scheduler.WorkerTask.call(WorkerTask.java:37)
-	at java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:266)
-	at java.util.concurrent.FutureTask.run(FutureTask.java)
-	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$201(ScheduledThreadPoolExecutor.java:180)
-	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:293)
-	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
-	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
-	at java.lang.Thread.run(Thread.java:748)
-Caused by: com.alibaba.nacos.api.exception.NacosException: Client not connected, current status:UNHEALTHY
-	at com.alibaba.nacos.common.remote.client.RpcClient.request(RpcClient.java:650)
-	at com.alibaba.nacos.common.remote.client.RpcClient.request(RpcClient.java:630)
-	at com.alibaba.nacos.client.naming.remote.gprc.NamingGrpcClientProxy.requestToServer(NamingGrpcClientProxy.java:280)
-	... 17 common frames omitted
-12:42:34.719 [reactor-http-nio-10] ERROR c.t.g.f.AuthFilter - [unauthorizedResponse,110] - [鉴权异常处理]请求路径:/sys/user/add
-12:47:42.601 [reactor-http-nio-10] ERROR c.t.g.f.AuthFilter - [unauthorizedResponse,110] - [鉴权异常处理]请求路径:/sys/user/edit
+00:00:00.811 [reactor-http-nio-3] ERROR c.t.g.f.AuthFilter - [unauthorizedResponse,110] - [鉴权异常处理]请求路径:/sys/user/list
+00:00:01.216 [reactor-http-nio-3] ERROR c.t.g.f.AuthFilter - [unauthorizedResponse,110] - [鉴权异常处理]请求路径:/sys/user/list
+00:00:01.217 [reactor-http-nio-3] ERROR o.s.w.s.a.HttpWebHandlerAdapter - [handleUnresolvedError,293] - [2d184dfc-34] 500 Server Error for HTTP GET "/sys/user/list?userId=0&roleId=0&userName=&nickName=&email=&smtpCode=&phonenumber=&sex=&avatar=&password=&status=&delFlag=&loginIp=&userType=&loginDate=&roles[0].roleId=0&roles[0].roleName=&roles[0].roleKey=&roles[0].roleSort=0&roles[0].dataScope=&roles[0].menuCheckStrictly=false&roles[0].status=&roles[0].delFlag=&roles[0].flag=false&roles[0].menuIds[0]=0&roles[0].permissions[0]=&roles[0].createBy=&roles[0].createTime=&roles[0].updateBy=&roles[0].updateTime=&roles[0].remark=&roles[0].params.key.key=&roleIds[0]=0&createBy=&createTime=&updateBy=&updateTime=&remark=&params.key.key="
+com.alibaba.csp.sentinel.slots.block.flow.FlowException: null
+	Suppressed: reactor.core.publisher.FluxOnAssembly$OnAssemblyException: 
+Error has been observed at the following site(s):
+	*__checkpoint ⇢ org.springframework.cloud.gateway.filter.WeightCalculatorWebFilter [DefaultWebFilterChain]
+	*__checkpoint ⇢ org.springframework.boot.actuate.metrics.web.reactive.server.MetricsWebFilter [DefaultWebFilterChain]
+	*__checkpoint ⇢ HTTP GET "/sys/user/list?userId=0&roleId=0&userName=&nickName=&email=&smtpCode=&phonenumber=&sex=&avatar=&password=&status=&delFlag=&loginIp=&userType=&loginDate=&roles[0].roleId=0&roles[0].roleName=&roles[0].roleKey=&roles[0].roleSort=0&roles[0].dataScope=&roles[0].menuCheckStrictly=false&roles[0].status=&roles[0].delFlag=&roles[0].flag=false&roles[0].menuIds[0]=0&roles[0].permissions[0]=&roles[0].createBy=&roles[0].createTime=&roles[0].updateBy=&roles[0].updateTime=&roles[0].remark=&roles[0].params.key.key=&roleIds[0]=0&createBy=&createTime=&updateBy=&updateTime=&remark=&params.key.key=" [ExceptionHandlingWebHandler]
+Original Stack Trace:
+00:00:18.766 [reactor-http-nio-3] ERROR c.t.g.f.AuthFilter - [unauthorizedResponse,110] - [鉴权异常处理]请求路径:/sys/user/list
+00:00:19.812 [reactor-http-nio-3] ERROR c.t.g.f.AuthFilter - [unauthorizedResponse,110] - [鉴权异常处理]请求路径:/sys/user/list
+00:00:20.456 [reactor-http-nio-3] ERROR c.t.g.f.AuthFilter - [unauthorizedResponse,110] - [鉴权异常处理]请求路径:/sys/user/list
+00:00:20.458 [reactor-http-nio-3] ERROR o.s.w.s.a.HttpWebHandlerAdapter - [handleUnresolvedError,293] - [2d184dfc-37] 500 Server Error for HTTP GET "/sys/user/list?userId=0&roleId=0&userName=&nickName=&email=&smtpCode=&phonenumber=&sex=&avatar=&password=&status=&delFlag=&loginIp=&userType=&loginDate=&roles[0].roleId=0&roles[0].roleName=&roles[0].roleKey=&roles[0].roleSort=0&roles[0].dataScope=&roles[0].menuCheckStrictly=false&roles[0].status=&roles[0].delFlag=&roles[0].flag=false&roles[0].menuIds[0]=0&roles[0].permissions[0]=&roles[0].createBy=&roles[0].createTime=&roles[0].updateBy=&roles[0].updateTime=&roles[0].remark=&roles[0].params.key.key=&roleIds[0]=0&createBy=&createTime=&updateBy=&updateTime=&remark=&params.key.key="
+com.alibaba.csp.sentinel.slots.block.flow.FlowException: null
+	Suppressed: reactor.core.publisher.FluxOnAssembly$OnAssemblyException: 
+Error has been observed at the following site(s):
+	*__checkpoint ⇢ org.springframework.cloud.gateway.filter.WeightCalculatorWebFilter [DefaultWebFilterChain]
+	*__checkpoint ⇢ org.springframework.boot.actuate.metrics.web.reactive.server.MetricsWebFilter [DefaultWebFilterChain]
+	*__checkpoint ⇢ HTTP GET "/sys/user/list?userId=0&roleId=0&userName=&nickName=&email=&smtpCode=&phonenumber=&sex=&avatar=&password=&status=&delFlag=&loginIp=&userType=&loginDate=&roles[0].roleId=0&roles[0].roleName=&roles[0].roleKey=&roles[0].roleSort=0&roles[0].dataScope=&roles[0].menuCheckStrictly=false&roles[0].status=&roles[0].delFlag=&roles[0].flag=false&roles[0].menuIds[0]=0&roles[0].permissions[0]=&roles[0].createBy=&roles[0].createTime=&roles[0].updateBy=&roles[0].updateTime=&roles[0].remark=&roles[0].params.key.key=&roleIds[0]=0&createBy=&createTime=&updateBy=&updateTime=&remark=&params.key.key=" [ExceptionHandlingWebHandler]
+Original Stack Trace:
+00:00:20.858 [reactor-http-nio-3] ERROR c.t.g.f.AuthFilter - [unauthorizedResponse,110] - [鉴权异常处理]请求路径:/sys/user/list
+00:00:21.323 [reactor-http-nio-3] ERROR c.t.g.f.AuthFilter - [unauthorizedResponse,110] - [鉴权异常处理]请求路径:/sys/user/list
+00:00:21.324 [reactor-http-nio-3] ERROR o.s.w.s.a.HttpWebHandlerAdapter - [handleUnresolvedError,293] - [2d184dfc-39] 500 Server Error for HTTP GET "/sys/user/list?userId=0&roleId=0&userName=&nickName=&email=&smtpCode=&phonenumber=&sex=&avatar=&password=&status=&delFlag=&loginIp=&userType=&loginDate=&roles[0].roleId=0&roles[0].roleName=&roles[0].roleKey=&roles[0].roleSort=0&roles[0].dataScope=&roles[0].menuCheckStrictly=false&roles[0].status=&roles[0].delFlag=&roles[0].flag=false&roles[0].menuIds[0]=0&roles[0].permissions[0]=&roles[0].createBy=&roles[0].createTime=&roles[0].updateBy=&roles[0].updateTime=&roles[0].remark=&roles[0].params.key.key=&roleIds[0]=0&createBy=&createTime=&updateBy=&updateTime=&remark=&params.key.key="
+com.alibaba.csp.sentinel.slots.block.flow.FlowException: null
+	Suppressed: reactor.core.publisher.FluxOnAssembly$OnAssemblyException: 
+Error has been observed at the following site(s):
+	*__checkpoint ⇢ org.springframework.cloud.gateway.filter.WeightCalculatorWebFilter [DefaultWebFilterChain]
+	*__checkpoint ⇢ org.springframework.boot.actuate.metrics.web.reactive.server.MetricsWebFilter [DefaultWebFilterChain]
+	*__checkpoint ⇢ HTTP GET "/sys/user/list?userId=0&roleId=0&userName=&nickName=&email=&smtpCode=&phonenumber=&sex=&avatar=&password=&status=&delFlag=&loginIp=&userType=&loginDate=&roles[0].roleId=0&roles[0].roleName=&roles[0].roleKey=&roles[0].roleSort=0&roles[0].dataScope=&roles[0].menuCheckStrictly=false&roles[0].status=&roles[0].delFlag=&roles[0].flag=false&roles[0].menuIds[0]=0&roles[0].permissions[0]=&roles[0].createBy=&roles[0].createTime=&roles[0].updateBy=&roles[0].updateTime=&roles[0].remark=&roles[0].params.key.key=&roleIds[0]=0&createBy=&createTime=&updateBy=&updateTime=&remark=&params.key.key=" [ExceptionHandlingWebHandler]
+Original Stack Trace:
+00:00:21.807 [reactor-http-nio-3] ERROR c.t.g.f.AuthFilter - [unauthorizedResponse,110] - [鉴权异常处理]请求路径:/sys/user/list
+00:00:22.308 [reactor-http-nio-3] ERROR c.t.g.f.AuthFilter - [unauthorizedResponse,110] - [鉴权异常处理]请求路径:/sys/user/list
+00:00:22.309 [reactor-http-nio-3] ERROR o.s.w.s.a.HttpWebHandlerAdapter - [handleUnresolvedError,293] - [2d184dfc-41] 500 Server Error for HTTP GET "/sys/user/list?userId=0&roleId=0&userName=&nickName=&email=&smtpCode=&phonenumber=&sex=&avatar=&password=&status=&delFlag=&loginIp=&userType=&loginDate=&roles[0].roleId=0&roles[0].roleName=&roles[0].roleKey=&roles[0].roleSort=0&roles[0].dataScope=&roles[0].menuCheckStrictly=false&roles[0].status=&roles[0].delFlag=&roles[0].flag=false&roles[0].menuIds[0]=0&roles[0].permissions[0]=&roles[0].createBy=&roles[0].createTime=&roles[0].updateBy=&roles[0].updateTime=&roles[0].remark=&roles[0].params.key.key=&roleIds[0]=0&createBy=&createTime=&updateBy=&updateTime=&remark=&params.key.key="
+com.alibaba.csp.sentinel.slots.block.flow.FlowException: null
+	Suppressed: reactor.core.publisher.FluxOnAssembly$OnAssemblyException: 
+Error has been observed at the following site(s):
+	*__checkpoint ⇢ org.springframework.cloud.gateway.filter.WeightCalculatorWebFilter [DefaultWebFilterChain]
+	*__checkpoint ⇢ org.springframework.boot.actuate.metrics.web.reactive.server.MetricsWebFilter [DefaultWebFilterChain]
+	*__checkpoint ⇢ HTTP GET "/sys/user/list?userId=0&roleId=0&userName=&nickName=&email=&smtpCode=&phonenumber=&sex=&avatar=&password=&status=&delFlag=&loginIp=&userType=&loginDate=&roles[0].roleId=0&roles[0].roleName=&roles[0].roleKey=&roles[0].roleSort=0&roles[0].dataScope=&roles[0].menuCheckStrictly=false&roles[0].status=&roles[0].delFlag=&roles[0].flag=false&roles[0].menuIds[0]=0&roles[0].permissions[0]=&roles[0].createBy=&roles[0].createTime=&roles[0].updateBy=&roles[0].updateTime=&roles[0].remark=&roles[0].params.key.key=&roleIds[0]=0&createBy=&createTime=&updateBy=&updateTime=&remark=&params.key.key=" [ExceptionHandlingWebHandler]
+Original Stack Trace:
+10:12:05.389 [main] ERROR c.a.n.c.r.c.g.GrpcClient - [printIfErrorEnabled,99] - Server check fail, please check server 123.249.97.220 ,port 9848 is available , error ={}
+java.util.concurrent.TimeoutException: Waited 3000 milliseconds (plus 10 milliseconds, 546800 nanoseconds delay) for com.alibaba.nacos.shaded.io.grpc.stub.ClientCalls$GrpcFuture@2e09c51[status=PENDING, info=[GrpcFuture{clientCall={delegate={delegate=ClientCallImpl{method=MethodDescriptor{fullMethodName=Request/request, type=UNARY, idempotent=false, safe=false, sampledToLocalTracing=true, requestMarshaller=com.alibaba.nacos.shaded.io.grpc.protobuf.lite.ProtoLiteUtils$MessageMarshaller@6dd1f638, responseMarshaller=com.alibaba.nacos.shaded.io.grpc.protobuf.lite.ProtoLiteUtils$MessageMarshaller@414f13fc, schemaDescriptor=com.alibaba.nacos.api.grpc.auto.RequestGrpc$RequestMethodDescriptorSupplier@4b76aa5a}}}}}]]
+	at com.alibaba.nacos.shaded.com.google.common.util.concurrent.AbstractFuture.get(AbstractFuture.java:508)
+	at com.alibaba.nacos.common.remote.client.grpc.GrpcClient.serverCheck(GrpcClient.java:148)
+	at com.alibaba.nacos.common.remote.client.grpc.GrpcClient.connectToServer(GrpcClient.java:264)
+	at com.alibaba.nacos.common.remote.client.RpcClient.start(RpcClient.java:390)
+	at com.alibaba.nacos.client.config.impl.ClientWorker$ConfigRpcTransportClient.ensureRpcClient(ClientWorker.java:885)
+	at com.alibaba.nacos.client.config.impl.ClientWorker$ConfigRpcTransportClient.getOneRunningClient(ClientWorker.java:1044)
+	at com.alibaba.nacos.client.config.impl.ClientWorker$ConfigRpcTransportClient.queryConfig(ClientWorker.java:940)
+	at com.alibaba.nacos.client.config.impl.ClientWorker.getServerConfig(ClientWorker.java:397)
+	at com.alibaba.nacos.client.config.NacosConfigService.getConfigInner(NacosConfigService.java:166)
+	at com.alibaba.nacos.client.config.NacosConfigService.getConfig(NacosConfigService.java:94)
+	at com.alibaba.cloud.nacos.client.NacosPropertySourceBuilder.loadNacosData(NacosPropertySourceBuilder.java:85)
+	at com.alibaba.cloud.nacos.client.NacosPropertySourceBuilder.build(NacosPropertySourceBuilder.java:73)
+	at com.alibaba.cloud.nacos.client.NacosPropertySourceLocator.loadNacosPropertySource(NacosPropertySourceLocator.java:199)
+	at com.alibaba.cloud.nacos.client.NacosPropertySourceLocator.loadNacosDataIfPresent(NacosPropertySourceLocator.java:186)
+	at com.alibaba.cloud.nacos.client.NacosPropertySourceLocator.loadNacosConfiguration(NacosPropertySourceLocator.java:158)
+	at com.alibaba.cloud.nacos.client.NacosPropertySourceLocator.loadSharedConfiguration(NacosPropertySourceLocator.java:116)
+	at com.alibaba.cloud.nacos.client.NacosPropertySourceLocator.locate(NacosPropertySourceLocator.java:101)
+	at org.springframework.cloud.bootstrap.config.PropertySourceLocator.locateCollection(PropertySourceLocator.java:51)
+	at org.springframework.cloud.bootstrap.config.PropertySourceLocator.locateCollection(PropertySourceLocator.java:47)
+	at org.springframework.cloud.bootstrap.config.PropertySourceBootstrapConfiguration.initialize(PropertySourceBootstrapConfiguration.java:95)
+	at org.springframework.boot.SpringApplication.applyInitializers(SpringApplication.java:604)
+	at org.springframework.boot.SpringApplication.prepareContext(SpringApplication.java:373)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:306)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1303)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1292)
+	at com.towelove.gateway.ToweloveGatewayApplication.main(ToweloveGatewayApplication.java:15)
+10:15:30.381 [reactor-http-nio-3] ERROR c.t.g.f.AuthFilter - [unauthorizedResponse,110] - [鉴权异常处理]请求路径:/sys/user/list
+10:15:33.424 [reactor-http-nio-3] ERROR c.t.g.f.AuthFilter - [unauthorizedResponse,110] - [鉴权异常处理]请求路径:/sys/user/list
+10:15:34.601 [reactor-http-nio-3] ERROR c.t.g.f.AuthFilter - [unauthorizedResponse,110] - [鉴权异常处理]请求路径:/sys/user/list
+10:15:35.256 [reactor-http-nio-3] ERROR c.t.g.f.AuthFilter - [unauthorizedResponse,110] - [鉴权异常处理]请求路径:/sys/user/list
+10:15:35.261 [reactor-http-nio-3] ERROR o.s.w.s.a.HttpWebHandlerAdapter - [handleUnresolvedError,293] - [5bf3f799-7] 500 Server Error for HTTP GET "/sys/user/list?userId=0&roleId=0&userName=&nickName=&email=&smtpCode=&phonenumber=&sex=&avatar=&password=&status=&delFlag=&loginIp=&userType=&loginDate=&roles[0].roleId=0&roles[0].roleName=&roles[0].roleKey=&roles[0].roleSort=0&roles[0].dataScope=&roles[0].menuCheckStrictly=false&roles[0].status=&roles[0].delFlag=&roles[0].flag=false&roles[0].menuIds[0]=0&roles[0].permissions[0]=&roles[0].createBy=&roles[0].createTime=&roles[0].updateBy=&roles[0].updateTime=&roles[0].remark=&roles[0].params.key.key=&roleIds[0]=0&createBy=&createTime=&updateBy=&updateTime=&remark=&params.key.key="
+com.alibaba.csp.sentinel.slots.block.flow.FlowException: null
+	Suppressed: reactor.core.publisher.FluxOnAssembly$OnAssemblyException: 
+Error has been observed at the following site(s):
+	*__checkpoint ⇢ org.springframework.cloud.gateway.filter.WeightCalculatorWebFilter [DefaultWebFilterChain]
+	*__checkpoint ⇢ org.springframework.boot.actuate.metrics.web.reactive.server.MetricsWebFilter [DefaultWebFilterChain]
+	*__checkpoint ⇢ HTTP GET "/sys/user/list?userId=0&roleId=0&userName=&nickName=&email=&smtpCode=&phonenumber=&sex=&avatar=&password=&status=&delFlag=&loginIp=&userType=&loginDate=&roles[0].roleId=0&roles[0].roleName=&roles[0].roleKey=&roles[0].roleSort=0&roles[0].dataScope=&roles[0].menuCheckStrictly=false&roles[0].status=&roles[0].delFlag=&roles[0].flag=false&roles[0].menuIds[0]=0&roles[0].permissions[0]=&roles[0].createBy=&roles[0].createTime=&roles[0].updateBy=&roles[0].updateTime=&roles[0].remark=&roles[0].params.key.key=&roleIds[0]=0&createBy=&createTime=&updateBy=&updateTime=&remark=&params.key.key=" [ExceptionHandlingWebHandler]
+Original Stack Trace:
+10:15:35.961 [reactor-http-nio-3] ERROR c.t.g.f.AuthFilter - [unauthorizedResponse,110] - [鉴权异常处理]请求路径:/sys/user/list
+10:15:37.324 [reactor-http-nio-3] ERROR c.t.g.f.AuthFilter - [unauthorizedResponse,110] - [鉴权异常处理]请求路径:/sys/user/list
+10:15:38.343 [reactor-http-nio-3] ERROR c.t.g.f.AuthFilter - [unauthorizedResponse,110] - [鉴权异常处理]请求路径:/sys/user/list
+10:15:39.428 [reactor-http-nio-3] ERROR c.t.g.f.AuthFilter - [unauthorizedResponse,110] - [鉴权异常处理]请求路径:/sys/user/list
+10:15:42.294 [reactor-http-nio-3] ERROR c.t.g.f.AuthFilter - [unauthorizedResponse,110] - [鉴权异常处理]请求路径:/sys/user/list
+10:15:43.645 [reactor-http-nio-3] ERROR c.t.g.f.AuthFilter - [unauthorizedResponse,110] - [鉴权异常处理]请求路径:/sys/user/list
+10:15:44.454 [reactor-http-nio-3] ERROR c.t.g.f.AuthFilter - [unauthorizedResponse,110] - [鉴权异常处理]请求路径:/sys/user/list
+10:15:44.456 [reactor-http-nio-3] ERROR o.s.w.s.a.HttpWebHandlerAdapter - [handleUnresolvedError,293] - [5bf3f799-14] 500 Server Error for HTTP GET "/sys/user/list?userId=0&roleId=0&userName=&nickName=&email=&smtpCode=&phonenumber=&sex=&avatar=&password=&status=&delFlag=&loginIp=&userType=&loginDate=&roles[0].roleId=0&roles[0].roleName=&roles[0].roleKey=&roles[0].roleSort=0&roles[0].dataScope=&roles[0].menuCheckStrictly=false&roles[0].status=&roles[0].delFlag=&roles[0].flag=false&roles[0].menuIds[0]=0&roles[0].permissions[0]=&roles[0].createBy=&roles[0].createTime=&roles[0].updateBy=&roles[0].updateTime=&roles[0].remark=&roles[0].params.key.key=&roleIds[0]=0&createBy=&createTime=&updateBy=&updateTime=&remark=&params.key.key="
+com.alibaba.csp.sentinel.slots.block.flow.FlowException: null
+	Suppressed: reactor.core.publisher.FluxOnAssembly$OnAssemblyException: 
+Error has been observed at the following site(s):
+	*__checkpoint ⇢ org.springframework.cloud.gateway.filter.WeightCalculatorWebFilter [DefaultWebFilterChain]
+	*__checkpoint ⇢ org.springframework.boot.actuate.metrics.web.reactive.server.MetricsWebFilter [DefaultWebFilterChain]
+	*__checkpoint ⇢ HTTP GET "/sys/user/list?userId=0&roleId=0&userName=&nickName=&email=&smtpCode=&phonenumber=&sex=&avatar=&password=&status=&delFlag=&loginIp=&userType=&loginDate=&roles[0].roleId=0&roles[0].roleName=&roles[0].roleKey=&roles[0].roleSort=0&roles[0].dataScope=&roles[0].menuCheckStrictly=false&roles[0].status=&roles[0].delFlag=&roles[0].flag=false&roles[0].menuIds[0]=0&roles[0].permissions[0]=&roles[0].createBy=&roles[0].createTime=&roles[0].updateBy=&roles[0].updateTime=&roles[0].remark=&roles[0].params.key.key=&roleIds[0]=0&createBy=&createTime=&updateBy=&updateTime=&remark=&params.key.key=" [ExceptionHandlingWebHandler]
+Original Stack Trace:
+10:15:45.279 [reactor-http-nio-3] ERROR c.t.g.f.AuthFilter - [unauthorizedResponse,110] - [鉴权异常处理]请求路径:/sys/user/list
+10:15:46.827 [reactor-http-nio-3] ERROR c.t.g.f.AuthFilter - [unauthorizedResponse,110] - [鉴权异常处理]请求路径:/sys/user/list
+10:15:47.511 [reactor-http-nio-3] ERROR c.t.g.f.AuthFilter - [unauthorizedResponse,110] - [鉴权异常处理]请求路径:/sys/user/list
+10:15:48.055 [reactor-http-nio-3] ERROR c.t.g.f.AuthFilter - [unauthorizedResponse,110] - [鉴权异常处理]请求路径:/sys/user/list
+10:15:48.056 [reactor-http-nio-3] ERROR o.s.w.s.a.HttpWebHandlerAdapter - [handleUnresolvedError,293] - [5bf3f799-18] 500 Server Error for HTTP GET "/sys/user/list?userId=0&roleId=0&userName=&nickName=&email=&smtpCode=&phonenumber=&sex=&avatar=&password=&status=&delFlag=&loginIp=&userType=&loginDate=&roles[0].roleId=0&roles[0].roleName=&roles[0].roleKey=&roles[0].roleSort=0&roles[0].dataScope=&roles[0].menuCheckStrictly=false&roles[0].status=&roles[0].delFlag=&roles[0].flag=false&roles[0].menuIds[0]=0&roles[0].permissions[0]=&roles[0].createBy=&roles[0].createTime=&roles[0].updateBy=&roles[0].updateTime=&roles[0].remark=&roles[0].params.key.key=&roleIds[0]=0&createBy=&createTime=&updateBy=&updateTime=&remark=&params.key.key="
+com.alibaba.csp.sentinel.slots.block.flow.FlowException: null
+	Suppressed: reactor.core.publisher.FluxOnAssembly$OnAssemblyException: 
+Error has been observed at the following site(s):
+	*__checkpoint ⇢ org.springframework.cloud.gateway.filter.WeightCalculatorWebFilter [DefaultWebFilterChain]
+	*__checkpoint ⇢ org.springframework.boot.actuate.metrics.web.reactive.server.MetricsWebFilter [DefaultWebFilterChain]
+	*__checkpoint ⇢ HTTP GET "/sys/user/list?userId=0&roleId=0&userName=&nickName=&email=&smtpCode=&phonenumber=&sex=&avatar=&password=&status=&delFlag=&loginIp=&userType=&loginDate=&roles[0].roleId=0&roles[0].roleName=&roles[0].roleKey=&roles[0].roleSort=0&roles[0].dataScope=&roles[0].menuCheckStrictly=false&roles[0].status=&roles[0].delFlag=&roles[0].flag=false&roles[0].menuIds[0]=0&roles[0].permissions[0]=&roles[0].createBy=&roles[0].createTime=&roles[0].updateBy=&roles[0].updateTime=&roles[0].remark=&roles[0].params.key.key=&roleIds[0]=0&createBy=&createTime=&updateBy=&updateTime=&remark=&params.key.key=" [ExceptionHandlingWebHandler]
+Original Stack Trace:
+10:15:48.810 [reactor-http-nio-3] ERROR c.t.g.f.AuthFilter - [unauthorizedResponse,110] - [鉴权异常处理]请求路径:/sys/user/list
+10:15:49.578 [reactor-http-nio-3] ERROR c.t.g.f.AuthFilter - [unauthorizedResponse,110] - [鉴权异常处理]请求路径:/sys/user/list
+10:15:50.416 [reactor-http-nio-3] ERROR c.t.g.f.AuthFilter - [unauthorizedResponse,110] - [鉴权异常处理]请求路径:/sys/user/list
+10:15:50.417 [reactor-http-nio-3] ERROR o.s.w.s.a.HttpWebHandlerAdapter - [handleUnresolvedError,293] - [5bf3f799-21] 500 Server Error for HTTP GET "/sys/user/list?userId=0&roleId=0&userName=&nickName=&email=&smtpCode=&phonenumber=&sex=&avatar=&password=&status=&delFlag=&loginIp=&userType=&loginDate=&roles[0].roleId=0&roles[0].roleName=&roles[0].roleKey=&roles[0].roleSort=0&roles[0].dataScope=&roles[0].menuCheckStrictly=false&roles[0].status=&roles[0].delFlag=&roles[0].flag=false&roles[0].menuIds[0]=0&roles[0].permissions[0]=&roles[0].createBy=&roles[0].createTime=&roles[0].updateBy=&roles[0].updateTime=&roles[0].remark=&roles[0].params.key.key=&roleIds[0]=0&createBy=&createTime=&updateBy=&updateTime=&remark=&params.key.key="
+com.alibaba.csp.sentinel.slots.block.flow.FlowException: null
+	Suppressed: reactor.core.publisher.FluxOnAssembly$OnAssemblyException: 
+Error has been observed at the following site(s):
+	*__checkpoint ⇢ org.springframework.cloud.gateway.filter.WeightCalculatorWebFilter [DefaultWebFilterChain]
+	*__checkpoint ⇢ org.springframework.boot.actuate.metrics.web.reactive.server.MetricsWebFilter [DefaultWebFilterChain]
+	*__checkpoint ⇢ HTTP GET "/sys/user/list?userId=0&roleId=0&userName=&nickName=&email=&smtpCode=&phonenumber=&sex=&avatar=&password=&status=&delFlag=&loginIp=&userType=&loginDate=&roles[0].roleId=0&roles[0].roleName=&roles[0].roleKey=&roles[0].roleSort=0&roles[0].dataScope=&roles[0].menuCheckStrictly=false&roles[0].status=&roles[0].delFlag=&roles[0].flag=false&roles[0].menuIds[0]=0&roles[0].permissions[0]=&roles[0].createBy=&roles[0].createTime=&roles[0].updateBy=&roles[0].updateTime=&roles[0].remark=&roles[0].params.key.key=&roleIds[0]=0&createBy=&createTime=&updateBy=&updateTime=&remark=&params.key.key=" [ExceptionHandlingWebHandler]
+Original Stack Trace:
+10:15:51.163 [reactor-http-nio-3] ERROR c.t.g.f.AuthFilter - [unauthorizedResponse,110] - [鉴权异常处理]请求路径:/sys/user/list
+10:16:12.414 [reactor-http-nio-3] ERROR c.t.g.f.AuthFilter - [unauthorizedResponse,110] - [鉴权异常处理]请求路径:/sys/user/info/
+10:16:13.082 [reactor-http-nio-3] ERROR c.t.g.f.AuthFilter - [unauthorizedResponse,110] - [鉴权异常处理]请求路径:/sys/user/info/
+10:16:13.741 [reactor-http-nio-3] ERROR c.t.g.f.AuthFilter - [unauthorizedResponse,110] - [鉴权异常处理]请求路径:/sys/user/info/
+10:16:13.742 [reactor-http-nio-3] ERROR o.s.w.s.a.HttpWebHandlerAdapter - [handleUnresolvedError,293] - [5bf3f799-25] 500 Server Error for HTTP GET "/sys/user/info/"
+com.alibaba.csp.sentinel.slots.block.flow.FlowException: null
+	Suppressed: reactor.core.publisher.FluxOnAssembly$OnAssemblyException: 
+Error has been observed at the following site(s):
+	*__checkpoint ⇢ org.springframework.cloud.gateway.filter.WeightCalculatorWebFilter [DefaultWebFilterChain]
+	*__checkpoint ⇢ org.springframework.boot.actuate.metrics.web.reactive.server.MetricsWebFilter [DefaultWebFilterChain]
+	*__checkpoint ⇢ HTTP GET "/sys/user/info/" [ExceptionHandlingWebHandler]
+Original Stack Trace:
+10:16:14.308 [reactor-http-nio-3] ERROR c.t.g.f.AuthFilter - [unauthorizedResponse,110] - [鉴权异常处理]请求路径:/sys/user/info/
+10:16:16.296 [reactor-http-nio-3] ERROR c.t.g.f.AuthFilter - [unauthorizedResponse,110] - [鉴权异常处理]请求路径:/sys/user/info/
+10:16:17.839 [reactor-http-nio-3] ERROR c.t.g.f.AuthFilter - [unauthorizedResponse,110] - [鉴权异常处理]请求路径:/sys/user/info/
+10:16:19.234 [reactor-http-nio-3] ERROR c.t.g.f.AuthFilter - [unauthorizedResponse,110] - [鉴权异常处理]请求路径:/sys/user/info/
+10:16:20.614 [reactor-http-nio-3] ERROR c.t.g.f.AuthFilter - [unauthorizedResponse,110] - [鉴权异常处理]请求路径:/sys/user/info/
+10:16:21.582 [reactor-http-nio-3] ERROR c.t.g.f.AuthFilter - [unauthorizedResponse,110] - [鉴权异常处理]请求路径:/sys/user/info/
+10:16:23.083 [reactor-http-nio-3] ERROR c.t.g.f.AuthFilter - [unauthorizedResponse,110] - [鉴权异常处理]请求路径:/sys/user/info/
+10:16:23.963 [reactor-http-nio-3] ERROR c.t.g.f.AuthFilter - [unauthorizedResponse,110] - [鉴权异常处理]请求路径:/sys/user/info/
+10:16:23.965 [reactor-http-nio-3] ERROR o.s.w.s.a.HttpWebHandlerAdapter - [handleUnresolvedError,293] - [5bf3f799-33] 500 Server Error for HTTP GET "/sys/user/info/"
+com.alibaba.csp.sentinel.slots.block.flow.FlowException: null
+	Suppressed: reactor.core.publisher.FluxOnAssembly$OnAssemblyException: 
+Error has been observed at the following site(s):
+	*__checkpoint ⇢ org.springframework.cloud.gateway.filter.WeightCalculatorWebFilter [DefaultWebFilterChain]
+	*__checkpoint ⇢ org.springframework.boot.actuate.metrics.web.reactive.server.MetricsWebFilter [DefaultWebFilterChain]
+	*__checkpoint ⇢ HTTP GET "/sys/user/info/" [ExceptionHandlingWebHandler]
+Original Stack Trace:
+10:18:00.003 [reactor-http-nio-6] ERROR c.t.g.f.AuthFilter - [unauthorizedResponse,110] - [鉴权异常处理]请求路径:/sys/user/list
+10:18:00.092 [reactor-http-nio-6] ERROR c.t.g.h.GatewayExceptionHandler - [handle,52] - [网关异常处理]请求路径:/favicon.ico,异常信息:404 NOT_FOUND
+10:18:02.434 [reactor-http-nio-6] ERROR c.t.g.f.AuthFilter - [unauthorizedResponse,110] - [鉴权异常处理]请求路径:/sys/user/list
+10:18:02.509 [reactor-http-nio-6] ERROR c.t.g.h.GatewayExceptionHandler - [handle,52] - [网关异常处理]请求路径:/favicon.ico,异常信息:404 NOT_FOUND
+10:18:02.950 [reactor-http-nio-6] ERROR c.t.g.f.AuthFilter - [unauthorizedResponse,110] - [鉴权异常处理]请求路径:/sys/user/list
+10:18:02.955 [reactor-http-nio-6] ERROR o.s.w.s.a.HttpWebHandlerAdapter - [handleUnresolvedError,293] - [a933fc8a-38] 500 Server Error for HTTP GET "/sys/user/list"
+com.alibaba.csp.sentinel.slots.block.flow.FlowException: null
+	Suppressed: reactor.core.publisher.FluxOnAssembly$OnAssemblyException: 
+Error has been observed at the following site(s):
+	*__checkpoint ⇢ org.springframework.cloud.gateway.filter.WeightCalculatorWebFilter [DefaultWebFilterChain]
+	*__checkpoint ⇢ org.springframework.boot.actuate.metrics.web.reactive.server.MetricsWebFilter [DefaultWebFilterChain]
+	*__checkpoint ⇢ HTTP GET "/sys/user/list" [ExceptionHandlingWebHandler]
+Original Stack Trace:
+10:18:03.024 [reactor-http-nio-6] ERROR c.t.g.h.GatewayExceptionHandler - [handle,52] - [网关异常处理]请求路径:/favicon.ico,异常信息:404 NOT_FOUND
+10:18:03.101 [reactor-http-nio-6] ERROR c.t.g.f.AuthFilter - [unauthorizedResponse,110] - [鉴权异常处理]请求路径:/sys/user/list
+10:18:03.185 [reactor-http-nio-6] ERROR c.t.g.h.GatewayExceptionHandler - [handle,52] - [网关异常处理]请求路径:/favicon.ico,异常信息:404 NOT_FOUND
+10:18:03.251 [reactor-http-nio-6] ERROR c.t.g.f.AuthFilter - [unauthorizedResponse,110] - [鉴权异常处理]请求路径:/sys/user/list
+10:18:03.257 [reactor-http-nio-6] ERROR o.s.w.s.a.HttpWebHandlerAdapter - [handleUnresolvedError,293] - [a933fc8a-42] 500 Server Error for HTTP GET "/sys/user/list"
+com.alibaba.csp.sentinel.slots.block.flow.FlowException: null
+	Suppressed: reactor.core.publisher.FluxOnAssembly$OnAssemblyException: 
+Error has been observed at the following site(s):
+	*__checkpoint ⇢ org.springframework.cloud.gateway.filter.WeightCalculatorWebFilter [DefaultWebFilterChain]
+	*__checkpoint ⇢ org.springframework.boot.actuate.metrics.web.reactive.server.MetricsWebFilter [DefaultWebFilterChain]
+	*__checkpoint ⇢ HTTP GET "/sys/user/list" [ExceptionHandlingWebHandler]
+Original Stack Trace:
+10:18:03.340 [reactor-http-nio-6] ERROR c.t.g.h.GatewayExceptionHandler - [handle,52] - [网关异常处理]请求路径:/favicon.ico,异常信息:404 NOT_FOUND
+10:18:03.466 [reactor-http-nio-6] ERROR c.t.g.f.AuthFilter - [unauthorizedResponse,110] - [鉴权异常处理]请求路径:/sys/user/list
+10:18:03.470 [reactor-http-nio-6] ERROR o.s.w.s.a.HttpWebHandlerAdapter - [handleUnresolvedError,293] - [a933fc8a-44] 500 Server Error for HTTP GET "/sys/user/list"
+com.alibaba.csp.sentinel.slots.block.flow.FlowException: null
+	Suppressed: reactor.core.publisher.FluxOnAssembly$OnAssemblyException: 
+Error has been observed at the following site(s):
+	*__checkpoint ⇢ org.springframework.cloud.gateway.filter.WeightCalculatorWebFilter [DefaultWebFilterChain]
+	*__checkpoint ⇢ org.springframework.boot.actuate.metrics.web.reactive.server.MetricsWebFilter [DefaultWebFilterChain]
+	*__checkpoint ⇢ HTTP GET "/sys/user/list" [ExceptionHandlingWebHandler]
+Original Stack Trace:
+10:18:03.543 [reactor-http-nio-6] ERROR c.t.g.h.GatewayExceptionHandler - [handle,52] - [网关异常处理]请求路径:/favicon.ico,异常信息:404 NOT_FOUND
+10:19:50.393 [reactor-http-nio-3] ERROR c.t.g.f.AuthFilter - [unauthorizedResponse,110] - [鉴权异常处理]请求路径:/sys/user/list
+10:19:52.448 [reactor-http-nio-3] ERROR c.t.g.f.AuthFilter - [unauthorizedResponse,110] - [鉴权异常处理]请求路径:/sys/user/list
+10:19:53.317 [reactor-http-nio-3] ERROR c.t.g.f.AuthFilter - [unauthorizedResponse,110] - [鉴权异常处理]请求路径:/sys/user/list
+10:19:54.025 [reactor-http-nio-3] ERROR c.t.g.f.AuthFilter - [unauthorizedResponse,110] - [鉴权异常处理]请求路径:/sys/user/list
+10:19:54.558 [reactor-http-nio-3] ERROR c.t.g.f.AuthFilter - [unauthorizedResponse,110] - [鉴权异常处理]请求路径:/sys/user/list
+10:19:54.559 [reactor-http-nio-3] ERROR o.s.w.s.a.HttpWebHandlerAdapter - [handleUnresolvedError,293] - [5bf3f799-50] 500 Server Error for HTTP GET "/sys/user/list?userId=0&roleId=0&userName=&nickName=&email=&smtpCode=&phonenumber=&sex=&avatar=&password=&status=&delFlag=&loginIp=&userType=&loginDate=&roles[0].roleId=0&roles[0].roleName=&roles[0].roleKey=&roles[0].roleSort=0&roles[0].dataScope=&roles[0].menuCheckStrictly=false&roles[0].status=&roles[0].delFlag=&roles[0].flag=false&roles[0].menuIds[0]=0&roles[0].permissions[0]=&roles[0].createBy=&roles[0].createTime=&roles[0].updateBy=&roles[0].updateTime=&roles[0].remark=&roles[0].params.key.key=&roleIds[0]=0&createBy=&createTime=&updateBy=&updateTime=&remark=&params.key.key="
+com.alibaba.csp.sentinel.slots.block.flow.FlowException: null
+	Suppressed: reactor.core.publisher.FluxOnAssembly$OnAssemblyException: 
+Error has been observed at the following site(s):
+	*__checkpoint ⇢ org.springframework.cloud.gateway.filter.WeightCalculatorWebFilter [DefaultWebFilterChain]
+	*__checkpoint ⇢ org.springframework.boot.actuate.metrics.web.reactive.server.MetricsWebFilter [DefaultWebFilterChain]
+	*__checkpoint ⇢ HTTP GET "/sys/user/list?userId=0&roleId=0&userName=&nickName=&email=&smtpCode=&phonenumber=&sex=&avatar=&password=&status=&delFlag=&loginIp=&userType=&loginDate=&roles[0].roleId=0&roles[0].roleName=&roles[0].roleKey=&roles[0].roleSort=0&roles[0].dataScope=&roles[0].menuCheckStrictly=false&roles[0].status=&roles[0].delFlag=&roles[0].flag=false&roles[0].menuIds[0]=0&roles[0].permissions[0]=&roles[0].createBy=&roles[0].createTime=&roles[0].updateBy=&roles[0].updateTime=&roles[0].remark=&roles[0].params.key.key=&roleIds[0]=0&createBy=&createTime=&updateBy=&updateTime=&remark=&params.key.key=" [ExceptionHandlingWebHandler]
+Original Stack Trace:
+10:19:54.794 [reactor-http-nio-3] ERROR c.t.g.f.AuthFilter - [unauthorizedResponse,110] - [鉴权异常处理]请求路径:/sys/user/list
+10:19:54.795 [reactor-http-nio-3] ERROR o.s.w.s.a.HttpWebHandlerAdapter - [handleUnresolvedError,293] - [5bf3f799-51] 500 Server Error for HTTP GET "/sys/user/list?userId=0&roleId=0&userName=&nickName=&email=&smtpCode=&phonenumber=&sex=&avatar=&password=&status=&delFlag=&loginIp=&userType=&loginDate=&roles[0].roleId=0&roles[0].roleName=&roles[0].roleKey=&roles[0].roleSort=0&roles[0].dataScope=&roles[0].menuCheckStrictly=false&roles[0].status=&roles[0].delFlag=&roles[0].flag=false&roles[0].menuIds[0]=0&roles[0].permissions[0]=&roles[0].createBy=&roles[0].createTime=&roles[0].updateBy=&roles[0].updateTime=&roles[0].remark=&roles[0].params.key.key=&roleIds[0]=0&createBy=&createTime=&updateBy=&updateTime=&remark=&params.key.key="
+com.alibaba.csp.sentinel.slots.block.flow.FlowException: null
+	Suppressed: reactor.core.publisher.FluxOnAssembly$OnAssemblyException: 
+Error has been observed at the following site(s):
+	*__checkpoint ⇢ org.springframework.cloud.gateway.filter.WeightCalculatorWebFilter [DefaultWebFilterChain]
+	*__checkpoint ⇢ org.springframework.boot.actuate.metrics.web.reactive.server.MetricsWebFilter [DefaultWebFilterChain]
+	*__checkpoint ⇢ HTTP GET "/sys/user/list?userId=0&roleId=0&userName=&nickName=&email=&smtpCode=&phonenumber=&sex=&avatar=&password=&status=&delFlag=&loginIp=&userType=&loginDate=&roles[0].roleId=0&roles[0].roleName=&roles[0].roleKey=&roles[0].roleSort=0&roles[0].dataScope=&roles[0].menuCheckStrictly=false&roles[0].status=&roles[0].delFlag=&roles[0].flag=false&roles[0].menuIds[0]=0&roles[0].permissions[0]=&roles[0].createBy=&roles[0].createTime=&roles[0].updateBy=&roles[0].updateTime=&roles[0].remark=&roles[0].params.key.key=&roleIds[0]=0&createBy=&createTime=&updateBy=&updateTime=&remark=&params.key.key=" [ExceptionHandlingWebHandler]
+Original Stack Trace:
+10:19:55.297 [reactor-http-nio-3] ERROR c.t.g.f.AuthFilter - [unauthorizedResponse,110] - [鉴权异常处理]请求路径:/sys/user/list
+10:19:55.768 [reactor-http-nio-3] ERROR c.t.g.f.AuthFilter - [unauthorizedResponse,110] - [鉴权异常处理]请求路径:/sys/user/list
+10:19:55.769 [reactor-http-nio-3] ERROR o.s.w.s.a.HttpWebHandlerAdapter - [handleUnresolvedError,293] - [5bf3f799-53] 500 Server Error for HTTP GET "/sys/user/list?userId=0&roleId=0&userName=&nickName=&email=&smtpCode=&phonenumber=&sex=&avatar=&password=&status=&delFlag=&loginIp=&userType=&loginDate=&roles[0].roleId=0&roles[0].roleName=&roles[0].roleKey=&roles[0].roleSort=0&roles[0].dataScope=&roles[0].menuCheckStrictly=false&roles[0].status=&roles[0].delFlag=&roles[0].flag=false&roles[0].menuIds[0]=0&roles[0].permissions[0]=&roles[0].createBy=&roles[0].createTime=&roles[0].updateBy=&roles[0].updateTime=&roles[0].remark=&roles[0].params.key.key=&roleIds[0]=0&createBy=&createTime=&updateBy=&updateTime=&remark=&params.key.key="
+com.alibaba.csp.sentinel.slots.block.flow.FlowException: null
+	Suppressed: reactor.core.publisher.FluxOnAssembly$OnAssemblyException: 
+Error has been observed at the following site(s):
+	*__checkpoint ⇢ org.springframework.cloud.gateway.filter.WeightCalculatorWebFilter [DefaultWebFilterChain]
+	*__checkpoint ⇢ org.springframework.boot.actuate.metrics.web.reactive.server.MetricsWebFilter [DefaultWebFilterChain]
+	*__checkpoint ⇢ HTTP GET "/sys/user/list?userId=0&roleId=0&userName=&nickName=&email=&smtpCode=&phonenumber=&sex=&avatar=&password=&status=&delFlag=&loginIp=&userType=&loginDate=&roles[0].roleId=0&roles[0].roleName=&roles[0].roleKey=&roles[0].roleSort=0&roles[0].dataScope=&roles[0].menuCheckStrictly=false&roles[0].status=&roles[0].delFlag=&roles[0].flag=false&roles[0].menuIds[0]=0&roles[0].permissions[0]=&roles[0].createBy=&roles[0].createTime=&roles[0].updateBy=&roles[0].updateTime=&roles[0].remark=&roles[0].params.key.key=&roleIds[0]=0&createBy=&createTime=&updateBy=&updateTime=&remark=&params.key.key=" [ExceptionHandlingWebHandler]
+Original Stack Trace:
+10:20:07.083 [reactor-http-nio-6] ERROR c.t.g.h.GatewayExceptionHandler - [handle,52] - [网关异常处理]请求路径:/favicon.ico,异常信息:404 NOT_FOUND
+10:20:09.720 [reactor-http-nio-6] ERROR c.t.g.h.GatewayExceptionHandler - [handle,52] - [网关异常处理]请求路径:/favicon.ico,异常信息:404 NOT_FOUND
+10:20:10.420 [reactor-http-nio-6] ERROR c.t.g.h.GatewayExceptionHandler - [handle,52] - [网关异常处理]请求路径:/favicon.ico,异常信息:404 NOT_FOUND
+10:20:10.602 [reactor-http-nio-6] ERROR c.t.g.h.GatewayExceptionHandler - [handle,52] - [网关异常处理]请求路径:/favicon.ico,异常信息:404 NOT_FOUND
+10:20:10.692 [reactor-http-nio-6] ERROR c.t.g.h.GatewayExceptionHandler - [handle,52] - [网关异常处理]请求路径:/favicon.ico,异常信息:404 NOT_FOUND
+10:20:10.891 [reactor-http-nio-6] ERROR c.t.g.h.GatewayExceptionHandler - [handle,52] - [网关异常处理]请求路径:/favicon.ico,异常信息:404 NOT_FOUND
+10:20:11.071 [reactor-http-nio-6] ERROR c.t.g.h.GatewayExceptionHandler - [handle,52] - [网关异常处理]请求路径:/favicon.ico,异常信息:404 NOT_FOUND
+10:20:12.512 [reactor-http-nio-6] ERROR c.t.g.h.GatewayExceptionHandler - [handle,52] - [网关异常处理]请求路径:/favicon.ico,异常信息:404 NOT_FOUND
+10:20:14.243 [reactor-http-nio-6] ERROR c.t.g.h.GatewayExceptionHandler - [handle,52] - [网关异常处理]请求路径:/favicon.ico,异常信息:404 NOT_FOUND
+10:20:14.424 [reactor-http-nio-6] ERROR c.t.g.h.GatewayExceptionHandler - [handle,52] - [网关异常处理]请求路径:/favicon.ico,异常信息:404 NOT_FOUND
+10:20:14.497 [reactor-http-nio-6] ERROR c.t.g.h.GatewayExceptionHandler - [handle,52] - [网关异常处理]请求路径:/favicon.ico,异常信息:404 NOT_FOUND
+10:20:14.776 [reactor-http-nio-6] ERROR c.t.g.h.GatewayExceptionHandler - [handle,52] - [网关异常处理]请求路径:/favicon.ico,异常信息:404 NOT_FOUND
+10:20:15.808 [reactor-http-nio-6] ERROR c.t.g.h.GatewayExceptionHandler - [handle,52] - [网关异常处理]请求路径:/favicon.ico,异常信息:404 NOT_FOUND
+10:20:15.943 [reactor-http-nio-6] ERROR c.t.g.h.GatewayExceptionHandler - [handle,52] - [网关异常处理]请求路径:/favicon.ico,异常信息:404 NOT_FOUND
+10:20:16.095 [reactor-http-nio-6] ERROR c.t.g.h.GatewayExceptionHandler - [handle,52] - [网关异常处理]请求路径:/favicon.ico,异常信息:404 NOT_FOUND
