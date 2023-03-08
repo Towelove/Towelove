@@ -18,6 +18,10 @@ public class SmsProducer extends AbstractBusProducer {
     @Autowired
     private StreamBridge streamBridge;
 
+    public void sendSms(SmsSendMessage message) {
+        log.info("要发送的短信内容为: {}", message);
+        streamBridge.send("sendSms-out-0", message);
+    }
     public void sendSmsToAdmin(SmsSendMessage message) {
         log.info("要发送的短信内容为: {}", message);
         streamBridge.send("sendSmsToAdmin-out-0", message);

@@ -17,12 +17,13 @@ import java.util.stream.Collectors;
  */
 @Component
 @Slf4j
-public class SmsSendConsumer //implements Consumer<SmsSendMessage>
+public class SmsSendConsumer implements Consumer<SmsSendMessage>
 {
-    //@Override
-    //public void accept(SmsSendMessage message) {
-    //    System.out.println(message);
-    //}
+    @Override
+    public void accept(SmsSendMessage message) {
+        System.out.println(message);
+    }
+
     @Bean
     public Consumer<String> sendSmsToAdmin() {
         return reqest -> {
