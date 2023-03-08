@@ -1,0 +1,24 @@
+21:31:32.913 [background-preinit] INFO  o.h.v.i.util.Version - [<clinit>,21] - HV000001: Hibernate Validator 6.2.5.Final
+21:31:32.912 [background-preinit] INFO  o.h.v.i.util.Version - [<clinit>,21] - HV000001: Hibernate Validator 6.2.5.Final
+21:31:35.899 [main] INFO  c.t.s.c.m.SpringCloudRocketmqProducerApplication - [logStartupProfileInfo,631] - No active profile set, falling back to 1 default profile: "default"
+21:31:35.920 [main] INFO  c.t.s.c.m.SpringCloudRocketmqConsumerApplication - [logStartupProfileInfo,631] - No active profile set, falling back to 1 default profile: "default"
+21:31:38.827 [main] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Initializing ProtocolHandler ["http-nio-10004"]
+21:31:38.827 [main] INFO  o.a.c.c.StandardService - [log,173] - Starting service [Tomcat]
+21:31:38.827 [main] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Initializing ProtocolHandler ["http-nio-10005"]
+21:31:38.843 [main] INFO  o.a.c.c.StandardEngine - [log,173] - Starting Servlet engine: [Apache Tomcat/9.0.70]
+21:31:38.844 [main] INFO  o.a.c.c.StandardService - [log,173] - Starting service [Tomcat]
+21:31:38.844 [main] INFO  o.a.c.c.StandardEngine - [log,173] - Starting Servlet engine: [Apache Tomcat/9.0.70]
+21:31:39.207 [main] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring embedded WebApplicationContext
+21:31:39.218 [main] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring embedded WebApplicationContext
+21:31:43.807 [main] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Starting ProtocolHandler ["http-nio-10004"]
+21:31:45.940 [main] INFO  c.t.s.c.m.SpringCloudRocketmqProducerApplication - [logStarted,61] - Started SpringCloudRocketmqProducerApplication in 17.206 seconds (JVM running for 20.043)
+21:31:53.822 [main] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Starting ProtocolHandler ["http-nio-10005"]
+21:31:55.765 [main] INFO  c.t.s.c.m.SpringCloudRocketmqConsumerApplication - [logStarted,61] - Started SpringCloudRocketmqConsumerApplication in 27.031 seconds (JVM running for 32.955)
+21:58:37.159 [background-preinit] INFO  o.h.v.i.util.Version - [<clinit>,21] - HV000001: Hibernate Validator 6.2.5.Final
+21:58:40.099 [main] INFO  c.t.s.c.m.SpringCloudRocketmqConsumerApplication - [logStartupProfileInfo,631] - No active profile set, falling back to 1 default profile: "default"
+21:58:41.601 [background-preinit] INFO  o.h.v.i.util.Version - [<clinit>,21] - HV000001: Hibernate Validator 6.2.5.Final
+21:58:41.840 [main] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Initializing ProtocolHandler ["http-nio-10005"]
+21:58:41.841 [main] INFO  o.a.c.c.StandardService - [log,173] - Starting service [Tomcat]
+21:58:41.841 [main] INFO  o.a.c.c.StandardEngine - [log,173] - Starting Servlet engine: [Apache Tomcat/9.0.70]
+21:58:42.388 [main] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring embedded WebApplicationContext
+21:58:55.438 [main] INFO  c.t.s.c.m.SpringCloudRocketmqConsumerApplication - [logStarted,61] - Started SpringCloudRocketmqConsumerApplication in 20.973 seconds (JVM running for 22.763)
