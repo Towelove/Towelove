@@ -15,7 +15,7 @@ import org.springframework.scheduling.annotation.EnableAsync;
  * @date: 2023/2/23 20:10
  * Description:
  */
-@EnableAsync //开启spring的异步的功能
+
 @EnableCustomConfig
 @EnableFeignClients
 @EnableCustomSwagger2

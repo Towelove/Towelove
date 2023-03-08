@@ -6,15 +6,21 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.towelove.common.core.exception.ServiceException;
 import com.towelove.common.core.utils.SpringUtils;
 import com.towelove.common.core.utils.StringUtils;
+import com.towelove.common.mq.core.bus.AbstractBusProducer;
 import com.towelove.common.security.utils.SecurityUtils;
 import com.towelove.system.api.domain.SysUser;
 import com.towelove.system.event.SysUserRegisterEvent;
 import com.towelove.system.mapper.user.SysUserMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.bus.ServiceMatcher;
+import org.springframework.cloud.bus.event.RemoteApplicationEvent;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.ApplicationEventPublisherAware;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.Resource;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -24,8 +30,10 @@ import java.util.stream.Collectors;
  * ISysUserServiceImpl类
  */
 @Service
-public class ISysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser>
-        implements ISysUserService , ApplicationEventPublisherAware {
+public class ISysUserServiceImpl extends AbstractBusProducer
+        implements ISysUserService  {
+    @Autowired
+    private SysUserMapper baseMapper;
     /**
      * 根据输入的信息查询符合条件的用户
      *
@@ -161,16 +169,6 @@ public class ISysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser>
     }
 
     /**
-     * 实现 ApplicationEventPublisherAware 接口，从而将 ApplicationEventPublisher 注入到其中。
-     * 在执行完注册逻辑后，调用 ApplicationEventPublisher 的
-     * #publishEvent(ApplicationEvent event) 方法，发布「3.2 UserRegisterEvent」事件。
-     */
-    private ApplicationEventPublisher applicationEventPublisher;
-    @Override
-    public void setApplicationEventPublisher(ApplicationEventPublisher applicationEventPublisher) {
-        this.applicationEventPublisher=applicationEventPublisher;
-    }
-    /**
      * 根据表单传递来的用户信息注册用户
      * 并且发送注册事件 注册事件会被监听
      * 并且会发送邮件给对应的用户
@@ -178,17 +176,20 @@ public class ISysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser>
      * @return 注册成功返回true 否则返回false
      */
     @Override
+    @Transactional
     public Boolean registerUser(SysUser sysUser) {
         Boolean aBoolean = baseMapper.insert(sysUser) > 0 ? Boolean.TRUE : Boolean.FALSE;
         if(aBoolean){
             //发送邮件给用户
             applicationEventPublisher.publishEvent(new SysUserRegisterEvent(
-                    this,sysUser
+                    this,getMonitorBusId(),
+                    sendToMonitorMqDestination(),sysUser
             ));
             return aBoolean;
         }
         return Boolean.FALSE;
     }
+
 
     /**
      * 根据用户id查询用户

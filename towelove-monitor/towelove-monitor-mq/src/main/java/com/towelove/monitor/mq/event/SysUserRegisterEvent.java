@@ -1,8 +1,9 @@
-package com.towelove.system.event;
+package com.towelove.monitor.mq.event;
 
 import com.towelove.system.api.domain.SysUser;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.springframework.cloud.bus.event.Destination;
 import org.springframework.cloud.bus.event.RemoteApplicationEvent;
 import org.springframework.context.ApplicationEvent;
 import org.springframework.stereotype.Component;
@@ -28,8 +29,7 @@ public class SysUserRegisterEvent extends RemoteApplicationEvent {
     }
 
     public SysUserRegisterEvent(Object source,String originService,String destinationService, SysUser sysUser) {
-        super(source, originService, DEFAULT_DESTINATION_FACTORY.getDestination(
-                destinationService));
+        super(source, originService, DEFAULT_DESTINATION_FACTORY.getDestination(destinationService));
         this.sysUser = sysUser;
     }
 

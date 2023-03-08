@@ -39,7 +39,7 @@ import java.util.Objects;
 @Service
 @Validated
 @Slf4j
-public class MailSendServiceImpl implements MailSendService , ApplicationListener<SysUserRegisterEvent> {
+public class MailSendServiceImpl implements MailSendService {
 
     @Resource
     private MailAccountService mailAccountService;
@@ -137,26 +137,7 @@ public class MailSendServiceImpl implements MailSendService , ApplicationListene
         }
     }
 
-    /**
-     * 事件监听 收到用户注册的事件之后
-     * 发送邮件给对应的用户
-     * 使用@Async表示当前任务异步执行
-     * 虽然邮件发送可能比较慢，但是这是非关键逻辑
-     * @param event the event to respond to
-     */
-    @Override
-    @Async
-    public void onApplicationEvent(SysUserRegisterEvent event) {
-        SysUser sysUser = event.getSysUser();
-        String email = sysUser.getEmail();
-        MailAccount mailAccount = new MailAccount()
-                .setFrom("Towelove官方<460219753@qq.com>") // 邮箱地址
-                .setHost("smtp.qq.com").setPort(465).setSslEnable(true) // SMTP 服务器
-                .setAuth(true).setUser("460219753@qq.com").setPass("xxayxcbswxorbggb"); // 登录账号密码
-        String messageId = MailUtil.send(mailAccount, email,
-                "Towelove官方感谢您的注册", "欢迎您使用我们的开发的项目，" +
-                        "我们的联系方法为VX:15377920718，如有问题，请您联系", false);
-    }
+
 
     /**
      * 管理员监听用户注册事件

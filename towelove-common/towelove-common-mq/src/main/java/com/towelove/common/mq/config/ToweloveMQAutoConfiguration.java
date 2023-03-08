@@ -16,7 +16,7 @@ import java.util.List;
  *
  * @author zjb
  */
-@AutoConfiguration
+@Configuration
 public class ToweloveMQAutoConfiguration {
 
     /**

@@ -1,12 +1,12 @@
 # Tomcat
 server:
-  port: 9201
+  port: 7777
 
 # Spring
 spring:
   application:
     # 应用名称
-    name: towelove-system
+    name: towelove-monitor-mq
   profiles:
     # 环境配置
     active: dev
@@ -20,16 +20,6 @@ spring:
         server-addr: 123.249.97.220:8848
         # 配置文件格式
         file-extension: yaml
-        # 共享配置
-        shared-configs[0]:
-          data-id: towelove-base-dev.yaml
-          refresh: true
-        shared-configs[1]:
-          data-id: towelove-mysql-dev.yaml
-          refresh: true
-        shared-configs[2]:
-          data-id: towelove-redis-dev.yaml
-          refresh: true
     # Spring Cloud Stream 配置项，对应 BindingServiceProperties 类
     stream:
       function:

@@ -39,11 +39,21 @@ public abstract class AbstractBusProducer {
      * @return 只广播给自己服务的实例
      */
     protected String selfDestinationService() {
-        return applicationName + ":**";
+        String destination = applicationName + ":**";
+        return destination;
     }
 
     protected String getBusId() {
-        return serviceMatcher.getBusId();
+        String busId = serviceMatcher.getBusId();
+        return busId;
+    }
+    protected String getMonitorBusId(){
+        //TODO 使用注册中心的方式获取所有的实例
+        //然后获取监控中心的实例名称
+        return "towelove-monitor-mq:7777";
+    }
+    protected String sendToMonitorMqDestination(){
+        return "**:**";
     }
 
 }
