@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.openfeign.EnableFeignClients;
+import org.springframework.cloud.stream.annotation.EnableBinding;
 import org.springframework.scheduling.annotation.EnableAsync;
 
 /**
@@ -16,6 +17,7 @@ import org.springframework.scheduling.annotation.EnableAsync;
  * Description:
  */
 
+//@EnableBinding
 @EnableCustomConfig
 @EnableFeignClients
 @EnableCustomSwagger2

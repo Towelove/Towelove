@@ -26,18 +26,20 @@ spring:
         definition: smsSendConsumer;mailSendConsumer;
       # Binding 配置项，对应 BindingProperties Map
       bindings:
-        smsSend-out-0:
-          destination: system_sms_send
+        # 监听类（消费者）只需要编写input即可
+        # 事件产生类（生产者）需要编写output
+#        smsSend-out-0:
+#          destination: system_sms_send
         smsSendConsumer-in-0:
           destination: system_sms_send
           group: system_sms_send_consumer_group
-        mailSend-out-0:
-          destination: system_mail_send
+#        mailSend-out-0:
+#          destination: system_mail_send
         mailSendConsumer-in-0:
           destination: system_mail_send
           group: system_mail_send_consumer_group
-        mailSend-out-1:
-          destination: springCloudBus
+#        mailSend-out-1:
+#          destination: springCloudBus
         mailSendConsumer-in-1:
           destination: springCloudBus
           group: system_mail_send_consumer_group

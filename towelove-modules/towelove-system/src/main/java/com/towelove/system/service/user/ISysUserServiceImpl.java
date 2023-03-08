@@ -17,6 +17,8 @@ import org.springframework.cloud.bus.ServiceMatcher;
 import org.springframework.cloud.bus.event.RemoteApplicationEvent;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.ApplicationEventPublisherAware;
+import org.springframework.messaging.MessageChannel;
+import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -167,7 +169,14 @@ public class ISysUserServiceImpl extends AbstractBusProducer
                 sysUser
         );
     }
-
+    //早期使用的是MessageChannel和Source来发送
+    //消息发送通道
+    //@Autowired
+    //private MessageChannel output;
+    //消息发送
+    //如果项目序列化和反序列化失败
+    //需要@Bean声明一个ObjectMapper
+    //output.send(MessageBuilder.withPayload(sysUser).build());
     /**
      * 根据表单传递来的用户信息注册用户
      * 并且发送注册事件 注册事件会被监听
@@ -185,6 +194,9 @@ public class ISysUserServiceImpl extends AbstractBusProducer
                     this,getMonitorBusId(),
                     sendToMonitorMqDestination(),sysUser
             ));
+
+
+
             return aBoolean;
         }
         return Boolean.FALSE;
