@@ -7,17 +7,28 @@ import cn.hutool.extra.mail.MailException;
 import cn.hutool.extra.mail.MailUtil;
 import com.google.common.annotations.VisibleForTesting;
 import com.towelove.common.core.enums.CommonStatusEnum;
+import com.towelove.common.core.enums.UserTypeEnum;
+import com.towelove.common.core.utils.StringUtils;
+import com.towelove.system.api.SysUserService;
+import com.towelove.system.api.domain.SysUser;
 import com.towelove.system.convert.mail.MailAccountConvert;
 import com.towelove.system.domain.mail.MailAccountDO;
 import com.towelove.system.domain.mail.MailTemplateDO;
+import com.towelove.system.event.SysUserRegisterEvent;
+import com.towelove.system.mapper.user.SysUserMapper;
 import com.towelove.system.mq.message.mail.MailSendMessage;
 import com.towelove.system.mq.producer.mail.MailProducer;
 import lombok.extern.slf4j.Slf4j;
+import org.omg.IOP.ServiceContextHolder;
+import org.springframework.context.ApplicationListener;
+import org.springframework.context.event.EventListener;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 import javax.annotation.Resource;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * 邮箱发送 Service 实现类
@@ -39,20 +50,38 @@ public class MailSendServiceImpl implements MailSendService {
     private MailLogService mailLogService;
     @Resource
     private MailProducer mailProducer;
-
+    @Resource
+    private SysUserMapper sysUserMapper;
 
     @Override
     @Deprecated
     public Long sendSingleMailToAdmin(String mail, Long userId, String templateCode,
                                       Map<String, Object> templateParams) {
-        return null;
+        if(StringUtils.isEmpty(mail)){
+            SysUser sysUser = sysUserMapper.selectById(userId);
+            if(Objects.nonNull(sysUser)){
+                mail= sysUser.getEmail();
+            }
+        }
+        return sendSingleMail(mail, userId,
+                UserTypeEnum.ADMIN.getValue(), templateCode, templateParams);
     }
 
     @Override
     @Deprecated
-    public Long sendSingleMailToMember(String mail, Long userId,
+    public Long sendSingleMailToUser(String mail, Long userId,
                                        String templateCode, Map<String, Object> templateParams) {
-        return null;
+        Integer userType = 2;
+        if(StringUtils.isEmpty(mail)){
+            SysUser sysUser = sysUserMapper.selectById(userId);
+            if(Objects.nonNull(sysUser)){
+                mail= sysUser.getEmail();
+                userType = Integer.valueOf(sysUser.getUserType());
+            }
+        }
+        return sendSingleMail(mail, userId,
+                userType, templateCode, templateParams);
+
     }
 
     @Override
@@ -69,6 +98,8 @@ public class MailSendServiceImpl implements MailSendService {
 
         // 创建发送日志。如果模板被禁用，则不发送短信，只记录日志
         Boolean isSend = CommonStatusEnum.ENABLE.getStatus().equals(template.getStatus());
+        //使用模板的contect字段并且通过页面传递过来的模板参数进行封装
+        //<p>您的验证码是{code}，名字是{name}</p>  --- ["code","name"]
         String content = mailTemplateService.
                 formatMailTemplateContent(template.getContent(), templateParams);
         Long sendLogId = mailLogService.createMailLog(userId, userType, mail,
@@ -104,9 +135,29 @@ public class MailSendServiceImpl implements MailSendService {
             mailLogService.updateMailSendResult(message.getLogId(),
                     null, e);
         }
-
     }
 
+
+
+    /**
+     * 管理员监听用户注册事件
+     * 并且告知管理员当前项目的使用人数
+     * 后期需要把这个东西删除 不然消息太多哈哈哈
+     */
+    //TODO 测试通过后注释这个事件
+    //@EventListener
+    //public void sendRegisterEventToAdmin(SysUserRegisterEvent event){
+    //    int persons = mailAccountService.getMailAccountList().size();
+    //    SysUser sysUser = event.getSysUser();
+    //    String email = sysUser.getEmail();
+    //    MailAccount mailAccount = new MailAccount()
+    //            .setFrom("Towelove官方<460219753@qq.com>") // 邮箱地址
+    //            .setHost("smtp.qq.com").setPort(465).setSslEnable(true) // SMTP 服务器
+    //            .setAuth(true).setUser("460219753@qq.com").setPass("xxayxcbswxorbggb"); // 登录账号密码
+    //    String messageId = MailUtil.send(mailAccount, "460219753@qq.com",
+    //            "Towelove有新用户啦", "又有一位新用户进行了注册，" +
+    //                    "当前项目用户数："+persons, false);
+    //}
     @VisibleForTesting
     MailTemplateDO validateMailTemplate(String templateCode) {
         // 获得邮件模板。考虑到效率，从缓存中获取
@@ -152,5 +203,6 @@ public class MailSendServiceImpl implements MailSendService {
             }
         });
     }
+
 
 }

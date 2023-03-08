@@ -29,5 +29,6 @@ public interface MailTemplateConvert {
     PageResult<MailTemplateRespVO> convertPage(PageResult<MailTemplateDO> pageResult);
 
     List<MailTemplateSimpleRespVO> convertList02(List<MailTemplateDO> list);
+    MailTemplateSimpleRespVO map(MailTemplateDO value);
 
 }

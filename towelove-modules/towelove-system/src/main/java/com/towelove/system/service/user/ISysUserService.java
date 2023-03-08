@@ -10,7 +10,7 @@ import java.util.List;
  * @date: 2023/2/24 13:38
  * ISysUserService接口
  */
-public interface ISysUserService extends IService<SysUser> {
+public interface ISysUserService{
     List<SysUser> selectUserList(SysUser user);
 
     SysUser selectUserByUserName(String username);

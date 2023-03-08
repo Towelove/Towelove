@@ -6,12 +6,23 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.towelove.common.core.exception.ServiceException;
 import com.towelove.common.core.utils.SpringUtils;
 import com.towelove.common.core.utils.StringUtils;
+import com.towelove.common.mq.core.bus.AbstractBusProducer;
 import com.towelove.common.security.utils.SecurityUtils;
 import com.towelove.system.api.domain.SysUser;
+import com.towelove.system.event.SysUserRegisterEvent;
 import com.towelove.system.mapper.user.SysUserMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.bus.ServiceMatcher;
+import org.springframework.cloud.bus.event.RemoteApplicationEvent;
+import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.context.ApplicationEventPublisherAware;
+import org.springframework.messaging.MessageChannel;
+import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.Resource;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -21,8 +32,10 @@ import java.util.stream.Collectors;
  * ISysUserServiceImpl类
  */
 @Service
-public class ISysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser>
-        implements ISysUserService {
+public class ISysUserServiceImpl extends AbstractBusProducer
+        implements ISysUserService  {
+    @Autowired
+    private SysUserMapper baseMapper;
     /**
      * 根据输入的信息查询符合条件的用户
      *
@@ -156,17 +169,39 @@ public class ISysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser>
                 sysUser
         );
     }
-
+    //早期使用的是MessageChannel和Source来发送
+    //消息发送通道
+    //@Autowired
+    //private MessageChannel output;
+    //消息发送
+    //如果项目序列化和反序列化失败
+    //需要@Bean声明一个ObjectMapper
+    //output.send(MessageBuilder.withPayload(sysUser).build());
     /**
      * 根据表单传递来的用户信息注册用户
-     *
+     * 并且发送注册事件 注册事件会被监听
+     * 并且会发送邮件给对应的用户
      * @param sysUser 用户信息
      * @return 注册成功返回true 否则返回false
      */
     @Override
+    @Transactional
     public Boolean registerUser(SysUser sysUser) {
-        return baseMapper.insert(sysUser) > 0 ? Boolean.TRUE : Boolean.FALSE;
+        Boolean aBoolean = baseMapper.insert(sysUser) > 0 ? Boolean.TRUE : Boolean.FALSE;
+        if(aBoolean){
+            //发送邮件给用户
+            applicationEventPublisher.publishEvent(new SysUserRegisterEvent(
+                    this,getMonitorBusId(),
+                    sendToMonitorMqDestination(),sysUser
+            ));
+
+
+
+            return aBoolean;
+        }
+        return Boolean.FALSE;
     }
+
 
     /**
      * 根据用户id查询用户
@@ -196,4 +231,6 @@ public class ISysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser>
     {
         return baseMapper.updateById(user);
     }
+
+
 }

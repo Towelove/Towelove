@@ -10,7 +10,7 @@ public class MailAccountSimpleRespVO {
     @Schema(description = "邮箱编号", required = true, example = "1024")
     private Long id;
 
-    @Schema(description = "邮箱", required = true, example = "768541388@qq.com")
+    @Schema(description = "邮箱", required = true, example = "460219753@qq.com")
     private String mail;
 
 }

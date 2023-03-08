@@ -9,7 +9,10 @@ import org.springframework.cloud.stream.function.StreamBridge;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
-
+/**
+ * @author 张锦标
+ * @date: 2023/3/7 20:10
+ */
 @Slf4j
 @Component
 public class MailProducer extends AbstractBusProducer {
@@ -18,16 +21,17 @@ public class MailProducer extends AbstractBusProducer {
     private StreamBridge streamBridge;
 
     /**
-     * 发送  消息
+     * 发送邮件模板刷新消息
+     *
      */
     public void sendMailTemplateRefreshMessage() {
         publishEvent(
                 new MailTemplateRefreshMessage(
                         this, getBusId(), selfDestinationService()));
     }
-
+    //这两个消息都会被springcloudbus消息总线给监听到
     /**
-     * 发送消息
+     * 发送邮件账户刷新消息
      */
     public void sendMailAccountRefreshMessage() {
         publishEvent(
@@ -49,7 +53,7 @@ public class MailProducer extends AbstractBusProducer {
         MailSendMessage message = new MailSendMessage()
                 .setLogId(sendLogId).setMail(mail).setAccountId(accountId)
                 .setNickname(nickname).setTitle(title).setContent(content);
-        streamBridge.send("smsMail-out-0", message);
+        streamBridge.send("mailSend-out-0", message);
     }
 
 }

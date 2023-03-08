@@ -4,6 +4,7 @@ import lombok.Data;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.io.File;
 
 @Data
 public class MailSendMessage {
@@ -38,5 +39,9 @@ public class MailSendMessage {
      */
     @NotEmpty(message = "邮件内容不能为空")
     private String content;
+
+    private Boolean isHtml;
+
+    private File[] files;
 
 }

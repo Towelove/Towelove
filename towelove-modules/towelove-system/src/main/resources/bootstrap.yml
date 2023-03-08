@@ -32,18 +32,33 @@ spring:
           refresh: true
     # Spring Cloud Stream 配置项，对应 BindingServiceProperties 类
     stream:
-      function:
-        definition: smsSendConsumer;mailSendConsumer;
+      function: # 这里面要么声明的是消费者类 要么就是消费者类中的多个方法
+          # 如果只有一个方法 那么只需要声明一个消费者类 但是如果是多个方法 就需要吧方法名称都声明出来
+        definition: smsSendConsumer;mailSendConsumer;sendSmsToAdmin;sendSmsToUser; # 需要确保消费者类的名称和这里一样
+#        definition: mailSendConsumer;smsSendConsumer; # 需要确保消费者类的名称和这里一样
       # Binding 配置项，对应 BindingProperties Map
       bindings:
-        smsSend-out-0:
-          destination: system_sms_send
-        smsSendConsumer-in-0:
-          destination: system_sms_send
+
+        sendSmsToAdmin-out-0: # 配置生产者
+          destination: admin_sms_send
+        sendSmsToAdmin-in-0:
+          destination: admin_sms_send
           group: system_sms_send_consumer_group
+        sendSmsToUser-out-0: # 配置生产者
+          destination: admin_sms_send
+        sendSmsToUser-in-0:
+          destination: admin_sms_send
+          group: system_sms_send_consumer_group
+
+        smsSend-out-0:
+          destination: admin_sms_send
+        smsSendConsumer-in-0: # 配置消费者
+          destination: admin_sms_send
+          group: system_sms_send_consumer_group
+
         mailSend-out-0:
           destination: system_mail_send
-        mailSendConsumer-in-0:
+        mailSendConsumer-in-0: # 需要确保消费者类的名称和这里一样
           destination: system_mail_send
           group: system_mail_send_consumer_group
       # Spring Cloud Stream RocketMQ 配置项
@@ -51,10 +66,23 @@ spring:
         # RocketMQ Binder 配置项，对应 RocketMQBinderConfigurationProperties 类
         binder:
           name-server: 192.168.146.115:9876 # RocketMQ Namesrv 地址
+        #          access-key: # 用户名
+        #          secret-key:  # 密码
         default: # 默认 bindings 全局配置
           producer: # RocketMQ Producer 配置项，对应 RocketMQProducerProperties 类
             group: system_producer_group # 生产者分组
             send-type: SYNC # 发送模式，SYNC 同步
+
+              # 如果你项目里只对接一个中间件，那么不用定义binders
+              # 当系统要定义多个不同消息中间件的时候，使用binders定义
+              #      binders:
+              #        my-rocketmq:
+              #          type: rocketmq
+              #          environment:
+              #            rocketmq:
+              #              name-server: 192.168.146.115:9876
+              #          access-key: # 用户名
+            #          secret-key:  # 密码
 
     # Spring Cloud Bus 配置项，对应 BusProperties 类
     bus:

@@ -10,6 +10,10 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>towelove-monitor</artifactId>
+    <packaging>pom</packaging>
+    <modules>
+        <module>towelove-monitor-mq</module>
+    </modules>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>

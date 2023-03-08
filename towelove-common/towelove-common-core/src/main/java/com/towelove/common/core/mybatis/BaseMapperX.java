@@ -14,7 +14,11 @@ import org.apache.ibatis.annotations.Param;
 
 import java.util.Collection;
 import java.util.List;
-
+/**
+ * @author: 张锦标
+ * @date: 2023/3/5 20:10
+ * Description:
+ */
 /**
  * 在 MyBatis Plus 的 BaseMapper 的基础上拓展，提供更多的能力
  */

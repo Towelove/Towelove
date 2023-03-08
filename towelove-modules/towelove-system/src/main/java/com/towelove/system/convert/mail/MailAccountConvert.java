@@ -4,7 +4,9 @@ import cn.hutool.core.util.StrUtil;
 import cn.hutool.extra.mail.MailAccount;
 import com.towelove.common.core.domain.PageResult;
 import com.towelove.system.domain.mail.MailAccountDO;
+import com.towelove.system.domain.mail.MailTemplateDO;
 import com.towelove.system.domain.mail.vo.account.*;
+import com.towelove.system.domain.mail.vo.template.MailTemplateSimpleRespVO;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
@@ -28,7 +30,8 @@ public interface MailAccountConvert {
     PageResult<MailAccountBaseVO> convertPage(PageResult<MailAccountDO> pageResult);
 
     List<MailAccountSimpleRespVO> convertList02(List<MailAccountDO> list);
-
+    MailAccountSimpleRespVO map(MailAccountDO value);
+    MailTemplateSimpleRespVO map(MailTemplateDO value);
     default MailAccount convert(MailAccountDO account,
                                 String nickname) {
         String from = StrUtil.isNotEmpty(nickname) ? nickname + " <" + account.getMail() + ">" : account.getMail();

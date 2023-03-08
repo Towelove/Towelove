@@ -82,11 +82,6 @@
             <groupId>com.twowaylove</groupId>
             <artifactId>towelove-common-swagger</artifactId>
         </dependency>
-        <!-- lombok -->
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-        </dependency>
         <!-- mapStruct 对象转换 -->
         <dependency>
             <groupId>org.mapstruct</groupId>
