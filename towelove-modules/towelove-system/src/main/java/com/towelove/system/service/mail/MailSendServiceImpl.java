@@ -7,12 +7,17 @@ import cn.hutool.extra.mail.MailException;
 import cn.hutool.extra.mail.MailUtil;
 import com.google.common.annotations.VisibleForTesting;
 import com.towelove.common.core.enums.CommonStatusEnum;
+import com.towelove.system.api.domain.SysUser;
 import com.towelove.system.convert.mail.MailAccountConvert;
 import com.towelove.system.domain.mail.MailAccountDO;
 import com.towelove.system.domain.mail.MailTemplateDO;
+import com.towelove.system.event.SysUserRegisterEvent;
 import com.towelove.system.mq.message.mail.MailSendMessage;
 import com.towelove.system.mq.producer.mail.MailProducer;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.ApplicationListener;
+import org.springframework.context.event.EventListener;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
@@ -28,7 +33,7 @@ import java.util.Map;
 @Service
 @Validated
 @Slf4j
-public class MailSendServiceImpl implements MailSendService {
+public class MailSendServiceImpl implements MailSendService , ApplicationListener<SysUserRegisterEvent> {
 
     @Resource
     private MailAccountService mailAccountService;
@@ -104,9 +109,48 @@ public class MailSendServiceImpl implements MailSendService {
             mailLogService.updateMailSendResult(message.getLogId(),
                     null, e);
         }
-
     }
 
+    /**
+     * 事件监听 收到用户注册的事件之后
+     * 发送邮件给对应的用户
+     * 使用@Async表示当前任务异步执行
+     * 虽然邮件发送可能比较慢，但是这是非关键逻辑
+     * @param event the event to respond to
+     */
+    @Override
+    @Async
+    public void onApplicationEvent(SysUserRegisterEvent event) {
+        SysUser sysUser = event.getSysUser();
+        String email = sysUser.getEmail();
+        MailAccount mailAccount = new MailAccount()
+                .setFrom("Towelove官方<460219753@qq.com>") // 邮箱地址
+                .setHost("smtp.qq.com").setPort(465).setSslEnable(true) // SMTP 服务器
+                .setAuth(true).setUser("460219753@qq.com").setPass("xxayxcbswxorbggb"); // 登录账号密码
+        String messageId = MailUtil.send(mailAccount, email,
+                "Towelove官方感谢您的注册", "欢迎您使用我们的开发的项目，" +
+                        "我们的联系方法为VX:15377920718，如有问题，请您联系", false);
+    }
+
+    /**
+     * 管理员监听用户注册事件
+     * 并且告知管理员当前项目的使用人数
+     * 后期需要把这个东西删除 不然消息太多哈哈哈
+     */
+    //TODO 测试通过后注释这个事件
+    //@EventListener
+    //public void sendRegisterEventToAdmin(SysUserRegisterEvent event){
+    //    int persons = mailAccountService.getMailAccountList().size();
+    //    SysUser sysUser = event.getSysUser();
+    //    String email = sysUser.getEmail();
+    //    MailAccount mailAccount = new MailAccount()
+    //            .setFrom("Towelove官方<460219753@qq.com>") // 邮箱地址
+    //            .setHost("smtp.qq.com").setPort(465).setSslEnable(true) // SMTP 服务器
+    //            .setAuth(true).setUser("460219753@qq.com").setPass("xxayxcbswxorbggb"); // 登录账号密码
+    //    String messageId = MailUtil.send(mailAccount, "460219753@qq.com",
+    //            "Towelove有新用户啦", "又有一位新用户进行了注册，" +
+    //                    "当前项目用户数："+persons, false);
+    //}
     @VisibleForTesting
     MailTemplateDO validateMailTemplate(String templateCode) {
         // 获得邮件模板。考虑到效率，从缓存中获取
@@ -152,5 +196,6 @@ public class MailSendServiceImpl implements MailSendService {
             }
         });
     }
+
 
 }

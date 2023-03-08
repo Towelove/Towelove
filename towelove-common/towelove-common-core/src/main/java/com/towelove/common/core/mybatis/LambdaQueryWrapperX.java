@@ -10,6 +10,9 @@ import org.springframework.util.StringUtils;
 import java.util.Collection;
 
 /**
+ * @author: 张锦标
+ * @date: 2023/3/5 20:10
+ * Description:
  * 拓展 MyBatis Plus QueryWrapper 类，主要增加如下功能：
  *
  * 1. 拼接条件的方法，增加 xxxIfPresent 方法，用于判断值不存在的时候，不要拼接到条件中。

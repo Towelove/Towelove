@@ -8,7 +8,10 @@ import com.towelove.common.core.utils.SpringUtils;
 import com.towelove.common.core.utils.StringUtils;
 import com.towelove.common.security.utils.SecurityUtils;
 import com.towelove.system.api.domain.SysUser;
+import com.towelove.system.event.SysUserRegisterEvent;
 import com.towelove.system.mapper.user.SysUserMapper;
+import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.context.ApplicationEventPublisherAware;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,7 +25,7 @@ import java.util.stream.Collectors;
  */
 @Service
 public class ISysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser>
-        implements ISysUserService {
+        implements ISysUserService , ApplicationEventPublisherAware {
     /**
      * 根据输入的信息查询符合条件的用户
      *
@@ -158,14 +161,33 @@ public class ISysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser>
     }
 
     /**
+     * 实现 ApplicationEventPublisherAware 接口，从而将 ApplicationEventPublisher 注入到其中。
+     * 在执行完注册逻辑后，调用 ApplicationEventPublisher 的
+     * #publishEvent(ApplicationEvent event) 方法，发布「3.2 UserRegisterEvent」事件。
+     */
+    private ApplicationEventPublisher applicationEventPublisher;
+    @Override
+    public void setApplicationEventPublisher(ApplicationEventPublisher applicationEventPublisher) {
+        this.applicationEventPublisher=applicationEventPublisher;
+    }
+    /**
      * 根据表单传递来的用户信息注册用户
-     *
+     * 并且发送注册事件 注册事件会被监听
+     * 并且会发送邮件给对应的用户
      * @param sysUser 用户信息
      * @return 注册成功返回true 否则返回false
      */
     @Override
     public Boolean registerUser(SysUser sysUser) {
-        return baseMapper.insert(sysUser) > 0 ? Boolean.TRUE : Boolean.FALSE;
+        Boolean aBoolean = baseMapper.insert(sysUser) > 0 ? Boolean.TRUE : Boolean.FALSE;
+        if(aBoolean){
+            //发送邮件给用户
+            applicationEventPublisher.publishEvent(new SysUserRegisterEvent(
+                    this,sysUser
+            ));
+            return aBoolean;
+        }
+        return Boolean.FALSE;
     }
 
     /**
@@ -196,4 +218,6 @@ public class ISysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser>
     {
         return baseMapper.updateById(user);
     }
+
+
 }
