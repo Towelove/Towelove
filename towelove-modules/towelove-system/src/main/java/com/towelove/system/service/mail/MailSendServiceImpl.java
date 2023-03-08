@@ -7,14 +7,19 @@ import cn.hutool.extra.mail.MailException;
 import cn.hutool.extra.mail.MailUtil;
 import com.google.common.annotations.VisibleForTesting;
 import com.towelove.common.core.enums.CommonStatusEnum;
+import com.towelove.common.core.enums.UserTypeEnum;
+import com.towelove.common.core.utils.StringUtils;
+import com.towelove.system.api.SysUserService;
 import com.towelove.system.api.domain.SysUser;
 import com.towelove.system.convert.mail.MailAccountConvert;
 import com.towelove.system.domain.mail.MailAccountDO;
 import com.towelove.system.domain.mail.MailTemplateDO;
 import com.towelove.system.event.SysUserRegisterEvent;
+import com.towelove.system.mapper.user.SysUserMapper;
 import com.towelove.system.mq.message.mail.MailSendMessage;
 import com.towelove.system.mq.producer.mail.MailProducer;
 import lombok.extern.slf4j.Slf4j;
+import org.omg.IOP.ServiceContextHolder;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.EventListener;
 import org.springframework.scheduling.annotation.Async;
@@ -23,6 +28,7 @@ import org.springframework.validation.annotation.Validated;
 
 import javax.annotation.Resource;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * 邮箱发送 Service 实现类
@@ -44,20 +50,38 @@ public class MailSendServiceImpl implements MailSendService , ApplicationListene
     private MailLogService mailLogService;
     @Resource
     private MailProducer mailProducer;
-
+    @Resource
+    private SysUserMapper sysUserMapper;
 
     @Override
     @Deprecated
     public Long sendSingleMailToAdmin(String mail, Long userId, String templateCode,
                                       Map<String, Object> templateParams) {
-        return null;
+        if(StringUtils.isEmpty(mail)){
+            SysUser sysUser = sysUserMapper.selectById(userId);
+            if(Objects.nonNull(sysUser)){
+                mail= sysUser.getEmail();
+            }
+        }
+        return sendSingleMail(mail, userId,
+                UserTypeEnum.ADMIN.getValue(), templateCode, templateParams);
     }
 
     @Override
     @Deprecated
-    public Long sendSingleMailToMember(String mail, Long userId,
+    public Long sendSingleMailToUser(String mail, Long userId,
                                        String templateCode, Map<String, Object> templateParams) {
-        return null;
+        Integer userType = 2;
+        if(StringUtils.isEmpty(mail)){
+            SysUser sysUser = sysUserMapper.selectById(userId);
+            if(Objects.nonNull(sysUser)){
+                mail= sysUser.getEmail();
+                userType = Integer.valueOf(sysUser.getUserType());
+            }
+        }
+        return sendSingleMail(mail, userId,
+                userType, templateCode, templateParams);
+
     }
 
     @Override
@@ -74,6 +98,8 @@ public class MailSendServiceImpl implements MailSendService , ApplicationListene
 
         // 创建发送日志。如果模板被禁用，则不发送短信，只记录日志
         Boolean isSend = CommonStatusEnum.ENABLE.getStatus().equals(template.getStatus());
+        //使用模板的contect字段并且通过页面传递过来的模板参数进行封装
+        //<p>您的验证码是{code}，名字是{name}</p>  --- ["code","name"]
         String content = mailTemplateService.
                 formatMailTemplateContent(template.getContent(), templateParams);
         Long sendLogId = mailLogService.createMailLog(userId, userType, mail,

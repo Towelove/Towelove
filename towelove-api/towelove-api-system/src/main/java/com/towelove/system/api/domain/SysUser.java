@@ -85,7 +85,7 @@ public class SysUser extends BaseEntity {
     private String loginIp;
 
     /**
-     * 用户类型
+     * 用户类型 默认2为普通用户
      */
     private String userType;
     /**
@@ -112,6 +112,14 @@ public class SysUser extends BaseEntity {
 
     public SysUser(Long userId) {
         this.userId = userId;
+    }
+
+    public String getUserType() {
+        return userType;
+    }
+
+    public void setUserType(String userType) {
+        this.userType = userType;
     }
 
     public Long getUserId() {
