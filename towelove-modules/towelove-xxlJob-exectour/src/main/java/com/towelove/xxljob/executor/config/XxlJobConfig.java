@@ -1,9 +1,9 @@
-package com.twowaylove.config;
+package com.towelove.xxljob.executor.config;
 
 import org.springframework.context.annotation.Configuration;
 
 /**
- * @author Boy
+ * @author 季台星
  * @version 1.0
  */
 import com.xxl.job.core.executor.impl.XxlJobSpringExecutor;

@@ -1,4 +1,4 @@
-package com.twowaylove;
+package com.towelove.xxljob.executor;
 
 import com.baomidou.mybatisplus.autoconfigure.MybatisPlusAutoConfiguration;
 import org.springframework.boot.SpringApplication;
@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 
 /**
- * @author Boy
+ * @author 季台星
  * @version 1.0
  */
 @SpringBootApplication(exclude = MybatisPlusAutoConfiguration.class)

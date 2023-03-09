@@ -1,4 +1,4 @@
-package com.twowaylove.excutor;
+package com.towelove.xxljob.executor.excutor;
 
 import com.towelove.common.core.constant.SecurityConstants;
 import com.towelove.common.core.domain.R;
@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
- * @author Boy
+ * @author 季台星
  * @version 1.0
  */
 @Component
