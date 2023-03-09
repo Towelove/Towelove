@@ -13,11 +13,12 @@
     <packaging>pom</packaging>
     <modules>
         <module>towelove-system</module>
-        <module>towelove-job</module>
+        <module>towelove-xxlJob-exectour</module>
         <module>towelove-rocketmq-consumer</module>
         <module>towelove-rocketmq-producer</module>
         <module>towelove-scs-consumer</module>
         <module>towelove-scs-producer</module>
+        <module>towelove-xxlJob-exectour</module>
     </modules>
 
     <description>
