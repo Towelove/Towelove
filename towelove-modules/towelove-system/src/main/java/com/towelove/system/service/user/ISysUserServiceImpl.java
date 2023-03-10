@@ -191,12 +191,9 @@ public class ISysUserServiceImpl extends AbstractBusProducer
         if(aBoolean){
             //发送邮件给用户
             applicationEventPublisher.publishEvent(new SysUserRegisterEvent(
-                    this,getMonitorBusId(),
-                    sendToMonitorMqDestination(),sysUser
+                    this,getBusId(),
+                    selfDestinationService(),sysUser
             ));
-
-
-
             return aBoolean;
         }
         return Boolean.FALSE;

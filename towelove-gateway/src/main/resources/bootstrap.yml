@@ -9,8 +9,14 @@ spring:
     gateway:
       discovery:
         locator:
-          enabled: true
+          enabled: false # 设定为true 会导致自定义的filter失效 只有Global的有效
       routes:
+        - id: validate-code
+          uri: lb://towelove-gateway
+          predicates:
+            - Path=/auth/login,/auth/register
+          filters:
+            - ValidateCodeFilter
         - id: towelove-system
           uri: lb://towelove-system
           predicates:
@@ -57,10 +63,3 @@ spring:
             group-id: SENTINEL_GROUP
             rule-type: flow
             data-type: json
-#security:
-#  ignore:
-#    whites:
-#      - /auth/login
-#      - /auth/register
-#      - /auth/logout
-#      - /auth/refresh

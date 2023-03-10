@@ -21,6 +21,7 @@ import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
+import sun.net.httpserver.AuthFilter;
 
 /**
  * 网关鉴权
@@ -28,7 +29,7 @@ import reactor.core.publisher.Mono;
  * @author: 张锦标
  */
 @Component
-public class AuthFilter implements GlobalFilter, Ordered
+public class AuthGlobalFilter implements GlobalFilter, Ordered
 {
     private static final Logger log = LoggerFactory.getLogger(AuthFilter.class);
 

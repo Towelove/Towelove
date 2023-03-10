@@ -1,6 +1,7 @@
 package com.towelove.system.controller.sms;
 
 import com.towelove.common.core.domain.R;
+import com.towelove.common.security.annotation.RequiresPermissions;
 import com.towelove.system.mq.message.sms.SmsSendMessage;
 import com.towelove.system.mq.producer.sms.SmsProducer;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,7 @@ import javax.validation.Valid;
 public class SmsController {
     @Autowired
     private SmsProducer smsProducer;
+    @RequiresPermissions("system:sms:send")
     @PostMapping("/send/admin")
     public R<Boolean> sendSmsToAdmin(@RequestBody @Valid SmsSendMessage message){
         smsProducer.sendSmsToAdmin(message);
