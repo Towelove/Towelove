@@ -2,6 +2,7 @@ package com.towelove.system.domain.mail;
 
 
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -91,4 +92,6 @@ public class MailTemplateDO implements Serializable {
     @TableField(typeHandler = JacksonTypeHandler.class)
     private List<String> params;
 
+    @TableLogic
+    private Boolean deleted;
 }

@@ -77,6 +77,6 @@ public class MsgTask extends BaseEntity {
      * 是否删除
      * 使用逻辑删除
      */
-    @TableLogic(value = "0", delval = "1")
-    private Integer deleted;
+    @TableLogic
+    private Boolean deleted;
 }

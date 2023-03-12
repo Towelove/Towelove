@@ -1,11 +1,14 @@
 package com.towelove.system.mapper.mail;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.towelove.common.core.domain.PageResult;
 import com.towelove.common.core.mybatis.BaseMapperX;
 import com.towelove.common.core.mybatis.LambdaQueryWrapperX;
 import com.towelove.system.domain.mail.MailTemplateDO;
 import com.towelove.system.domain.mail.vo.template.MailTemplatePageReqVO;
 import org.apache.ibatis.annotations.Mapper;
+
+import java.util.List;
 
 @Mapper
 public interface MailTemplateMapper extends BaseMapperX<MailTemplateDO> {
@@ -26,5 +29,6 @@ public interface MailTemplateMapper extends BaseMapperX<MailTemplateDO> {
     default MailTemplateDO selectByCode(String code) {
         return selectOne(MailTemplateDO::getCode, code);
     }
+
 
 }
