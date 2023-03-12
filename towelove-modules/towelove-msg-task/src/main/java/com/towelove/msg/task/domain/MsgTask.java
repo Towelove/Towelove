@@ -20,11 +20,12 @@ import java.util.List;
  * MsgTaskInfo类
  */
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 @TableName(value = "msg_task", autoResultMap = true)
 public class MsgTask extends BaseEntity {
+    private static final long serialVersionUID = 1L;
     /**
      * 主键
      */
@@ -65,37 +66,9 @@ public class MsgTask extends BaseEntity {
 
     /**
      * 状态
-     * <p>
      * 枚举
      */
     private Integer status;
-    private static final long serialVersionUID = 1L;
-    /**
-     * 备注
-     */
-    private String remark;
-    /**
-     * 创建者
-     */
-    private String createBy;
-
-    /**
-     * 创建时间
-     */
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private Date createTime;
-
-    /**
-     * 更新者
-     */
-    private String updateBy;
-
-    /**
-     * 更新时间
-     */
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private Date updateTime;
-
     /**
      * 是否删除
      * 使用逻辑删除

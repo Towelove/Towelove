@@ -12,7 +12,7 @@ import lombok.EqualsAndHashCode;
  * 用途：配置发送邮箱的账号
  *
  * @author: 张锦标
- * @since 2022-03-21
+ * @since 2023-03-01
  */
 @TableName(value = "sys_mail_account", autoResultMap = true)
 @Data

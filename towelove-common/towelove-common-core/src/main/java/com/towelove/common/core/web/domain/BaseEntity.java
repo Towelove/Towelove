@@ -9,6 +9,8 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 
 /**
  * Entity基类
@@ -17,6 +19,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
  * @date: 2023/2/23 18:36
  * Description:
  */
+
 public class BaseEntity implements Serializable
 {
     private static final long serialVersionUID = 1L;
@@ -43,10 +46,10 @@ public class BaseEntity implements Serializable
     /** 备注 */
     private String remark;
 
-    /** 请求参数 */
-    @TableField(exist = false)
-    @JsonInclude(JsonInclude.Include.NON_EMPTY)
-    private Map<String, Object> params;
+    ///** 请求参数 */
+    //@TableField(exist = false)
+    //@JsonInclude(JsonInclude.Include.NON_EMPTY)
+    //private Map<String, Object> params;
 
     public String getSearchValue()
     {
@@ -108,17 +111,17 @@ public class BaseEntity implements Serializable
         this.remark = remark;
     }
 
-    public Map<String, Object> getParams()
-    {
-        if (params == null)
-        {
-            params = new HashMap<>();
-        }
-        return params;
-    }
-
-    public void setParams(Map<String, Object> params)
-    {
-        this.params = params;
-    }
+    //public Map<String, Object> getParams()
+    //{
+    //    if (params == null)
+    //    {
+    //        params = new HashMap<>();
+    //    }
+    //    return params;
+    //}
+    //
+    //public void setParams(Map<String, Object> params)
+    //{
+    //    this.params = params;
+    //}
 }

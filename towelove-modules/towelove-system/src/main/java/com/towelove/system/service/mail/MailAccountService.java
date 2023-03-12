@@ -15,7 +15,7 @@ import java.util.List;
  * 邮箱账号 Service 接口
  *
  * @author: 张锦标
- * @since 2022-03-21
+ * @since 2023-03-01
  */
 public interface MailAccountService {
 

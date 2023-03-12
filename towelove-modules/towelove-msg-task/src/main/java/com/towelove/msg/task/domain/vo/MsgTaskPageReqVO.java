@@ -29,6 +29,6 @@ public class MsgTaskPageReqVO extends PageParam {
     private Date sendTime;
 
     @Schema(description = "内容" , required = true , example = "早安")
-    private Date content;
+    private String content;
 
 }

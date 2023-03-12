@@ -18,7 +18,7 @@ import java.util.Map;
  * 邮件内容完全由用户自定义
  * 只有后期发送官方模板文件之后使用这个功能
  * @author: 张锦标
- * @since 2022-03-21
+ * @since 2023-03-01
  */
 public interface MailTemplateService {
 
