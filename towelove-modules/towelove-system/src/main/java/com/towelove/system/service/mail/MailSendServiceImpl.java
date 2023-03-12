@@ -54,7 +54,6 @@ public class MailSendServiceImpl implements MailSendService {
     private SysUserMapper sysUserMapper;
 
     @Override
-    @Deprecated
     public Long sendSingleMailToAdmin(String mail, Long userId, String templateCode,
                                       Map<String, Object> templateParams) {
         if(StringUtils.isEmpty(mail)){
@@ -68,7 +67,6 @@ public class MailSendServiceImpl implements MailSendService {
     }
 
     @Override
-    @Deprecated
     public Long sendSingleMailToUser(String mail, Long userId,
                                        String templateCode, Map<String, Object> templateParams) {
         Integer userType = 2;

@@ -11,12 +11,12 @@ spring:
         locator:
           enabled: false # 设定为true 会导致自定义的filter失效 只有Global的有效
       routes:
-        - id: validate-code # 应该把验证码的过滤器放在前面 放在后面会失效
-          uri: lb://towelove-gateway
-          predicates:
-            - Path=/auth/login,/auth/register
-          filters:
-            - ValidateCodeFilter
+#        - id: validate-code # 应该把验证码的过滤器放在前面 放在后面会失效
+#          uri: lb://towelove-gateway
+#          predicates:
+#            - Path=/auth/login,/auth/register
+#          filters:
+#            - ValidateCodeFilter
         - id: towelove-system
           uri: lb://towelove-system
           predicates:
