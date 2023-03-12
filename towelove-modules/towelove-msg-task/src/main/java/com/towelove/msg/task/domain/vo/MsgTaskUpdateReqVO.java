@@ -10,7 +10,7 @@ import javax.validation.constraints.NotNull;
  * @author: 张锦标
  * @date: 2023/3/11 17:32
  */
-@Schema(description = "管理后台 - 邮箱账号修改 Request VO")
+@Schema(description = "消息任务修改 Request VO")
 @Data
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)

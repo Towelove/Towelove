@@ -6,14 +6,21 @@ import lombok.Data;
  * @author: 张锦标
  * @date: 2023/3/11 17:32
  */
-@Schema(description = "管理后台 - 邮箱账号的精简 Response VO")
+@Schema(description = "消息的精简 Response VO")
 @Data
 public class MsgTaskSimpleRespVO {
 
-    @Schema(description = "邮箱编号", required = true, example = "1024")
+    @Schema(description = "消息编号", required = true, example = "1024")
     private Long id;
 
-    @Schema(description = "邮箱", required = true, example = "768541388@qq.com")
-    private String mail;
+    @Schema(description = "用户编号", required = true, example = "1024")
+    private Long userId;
+
+    @Schema(description = "邮件账号编号", required = true, example = "1024")
+    private Long accountId;
+
+    @Schema(description = "模板编号", required = true, example = "1024")
+    private Long templateId;
+
 
 }

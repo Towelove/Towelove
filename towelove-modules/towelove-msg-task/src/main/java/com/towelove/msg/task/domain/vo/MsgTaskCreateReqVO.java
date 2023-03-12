@@ -8,7 +8,7 @@ import lombok.ToString;
  * @author: 张锦标
  * @date: 2023/3/11 17:32
  */
-@Schema(description = "管理后台 - 邮箱账号创建 Request VO")
+@Schema(description = "消息任务创建VO Request VO")
 @Data
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
