@@ -7,8 +7,10 @@
         <groupId>com.twowaylove</groupId>
         <version>1.0</version>
     </parent>
+    <version>1.0</version>
     <modelVersion>4.0.0</modelVersion>
 
+    <groupId>com.twowaylove</groupId>
     <artifactId>towelove-msg-task</artifactId>
 
     <properties>

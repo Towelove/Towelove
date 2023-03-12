@@ -27,11 +27,15 @@
             <artifactId>towelove-common-core</artifactId>
             <version>1.0</version>
         </dependency>
+
         <dependency>
-            <groupId>com.baomidou</groupId>
-            <artifactId>mybatis-plus-annotation</artifactId>
-            <version>3.5.3.1</version>
-        </dependency>
+        <groupId>com.baomidou</groupId>
+        <artifactId>mybatis-plus-annotation</artifactId>
+        <version>3.5.3.1</version>
+        <classifier>sources</classifier>
+        <type>java-source</type>
+    </dependency>
+
 
     </dependencies>
 </project>

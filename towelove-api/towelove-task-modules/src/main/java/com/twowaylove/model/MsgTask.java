@@ -1,10 +1,9 @@
-package com.towelove.msg.task.domain;
+package com.twowaylove.model;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.towelove.common.core.web.domain.BaseEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
