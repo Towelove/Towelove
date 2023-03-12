@@ -1,9 +1,9 @@
-package com.twowaylove;
+package com.towelove.task.api;
 
 import com.towelove.common.core.domain.R;
-import com.twowaylove.factory.MsgTaskFallbackFactory;
-import com.twowaylove.model.MsgTask;
-import com.twowaylove.vo.MsgTaskSimpleRespVO;
+import com.towelove.task.api.factory.MsgTaskFallbackFactory;
+import com.towelove.task.api.model.MsgTask;
+import com.towelove.task.api.vo.MsgTaskSimpleRespVO;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;

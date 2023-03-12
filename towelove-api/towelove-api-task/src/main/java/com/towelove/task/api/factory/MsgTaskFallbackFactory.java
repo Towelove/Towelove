@@ -1,9 +1,9 @@
-package com.twowaylove.factory;
+package com.towelove.task.api.factory;
 
 import com.towelove.common.core.domain.R;
-import com.twowaylove.MsgTaskService;
-import com.twowaylove.model.MsgTask;
-import com.twowaylove.vo.MsgTaskSimpleRespVO;
+import com.towelove.task.api.MsgTaskService;
+import com.towelove.task.api.model.MsgTask;
+import com.towelove.task.api.vo.MsgTaskSimpleRespVO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.cloud.openfeign.FallbackFactory;

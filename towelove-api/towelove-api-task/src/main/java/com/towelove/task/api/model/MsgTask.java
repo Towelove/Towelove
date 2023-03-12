@@ -1,4 +1,4 @@
-package com.twowaylove.model;
+package com.towelove.task.api.model;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableLogic;
