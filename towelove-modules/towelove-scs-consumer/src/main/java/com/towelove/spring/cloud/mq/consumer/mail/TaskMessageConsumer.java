@@ -13,13 +13,13 @@ import java.util.function.Consumer;
  * @date: 2023/3/13 22:23
  * TaskMessageConsumer类
  */
-@Component
-@Slf4j
-public class TaskMessageConsumer implements Consumer<MailSendMessage> {
-
-
-    @Override
-    public void accept(MailSendMessage mailSendMessage) {
-        log.info("接收到任务消息消息: {}",mailSendMessage);
-    }
-}
+//@Component
+//@Slf4j
+//public class TaskMessageConsumer implements Consumer<MailSendMessage> {
+//
+//
+//    @Override
+//    public void accept(MailSendMessage mailSendMessage) {
+//        log.info("接收到任务消息消息: {}",mailSendMessage);
+//    }
+//}

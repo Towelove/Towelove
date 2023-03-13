@@ -11,11 +11,6 @@ import javax.annotation.Resource;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * @author: 张锦标
- * @date: 2023/3/2 21:57
- * MyProducer类
- */
 @Component
 public class MyProducer {
     @Resource

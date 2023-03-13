@@ -4,8 +4,20 @@ spring:
       rocketmq:
         binder:
           name-server: 192.168.146.115:9876
+        default: # 默认 bindings 全局配置
+          producer: # RocketMQ Producer 配置项，对应 RocketMQProducerProperties 类
+            group: system_producer_group # 生产者分组
+            send-type: SYNC # 发送模式，SYNC 同步
+      function: #一个是用户自定义消息 一个是系统定时消息
+        definition: sendTaskMsg;sendSysMsg;
       bindings:
         taskSend-out-0:
           destination: task_msg_send
         sysSend-out-0:
           destination: sys_msg_send
+        sendTaskMsg-in-0:
+          destination: task_msg_send
+          group: task_msg_group
+        sendSysMsg-in-0:
+          destination: sys_msg_send
+          group: sys_msg_group

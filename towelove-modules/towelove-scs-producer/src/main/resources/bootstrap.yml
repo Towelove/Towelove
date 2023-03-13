@@ -8,15 +8,9 @@ spring:
       rocketmq:
         binder:
           name-server: 192.168.146.115:9876
-        bindings:
-          delayed-out-0:
-            producer:
-              group: delayed-group
-              sync: true
+          group:
       bindings:
-        cluster-out-0:
-          destination: cluster
-        broadcast-out-0:
-          destination: broadcast
-        delayed-out-0:
-          destination: delayed
+        taskSend-out-0:
+          destination: task_msg_send
+        sysSend-out-0:
+          destination: sys_msg_send

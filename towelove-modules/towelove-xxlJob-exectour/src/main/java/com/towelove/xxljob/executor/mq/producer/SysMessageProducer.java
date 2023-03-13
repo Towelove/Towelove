@@ -1,4 +1,4 @@
-package com.towelove.xxljob.executor.producer;
+package com.towelove.xxljob.executor.mq.producer;
 
 import com.towelove.common.core.constant.MessageConstant;
 import com.towelove.common.core.domain.MailSendMessage;
@@ -11,12 +11,12 @@ import javax.annotation.Resource;
 
 /**
  * @author: 张锦标
- * @date: 2023/3/13 12:15
- * TaskMessageProducer类
+ * @date: 2023/3/13 12:16
+ * SysMessageProdcuer类
  */
 @Component
 @Slf4j
-public class TaskMessageProducer extends AbstractBusProducer {
+public class SysMessageProducer  extends AbstractBusProducer {
     @Resource
     private StreamBridge streamBridge;
 
@@ -35,6 +35,7 @@ public class TaskMessageProducer extends AbstractBusProducer {
         MailSendMessage message = new MailSendMessage()
                 .setLogId(sendLogId).setMail(mail).setAccountId(accountId)
                 .setNickname(nickname).setTitle(title).setContent(content);
-        streamBridge.send(MessageConstant.TASK_MESSAGE_OUTPUT, message);
+        streamBridge.send(MessageConstant.SYS_MESSAGE_OUTPUT, message);
+        System.out.println("消息发送成功");
     }
 }

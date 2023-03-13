@@ -2,6 +2,7 @@ package com.towelove.spring.cloud.mq;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.cloud.stream.annotation.EnableBinding;
 import org.springframework.cloud.stream.messaging.Source;
 
@@ -11,7 +12,7 @@ import org.springframework.cloud.stream.messaging.Source;
  * SpringCloudStreamApplication类
  */
 @EnableBinding(Source.class)
-@SpringBootApplication
+@SpringBootApplication(exclude = DataSourceAutoConfiguration.class)
 public class SpringCloudRocketmqProducerApplication {
 
     public static void main(String[] args) {

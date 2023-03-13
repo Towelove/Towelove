@@ -16,6 +16,10 @@
     </description>
 
     <dependencies>
+        <dependency>
+            <groupId>com.twowaylove</groupId>
+            <artifactId>towelove-common-core</artifactId>
+        </dependency>
 <!--        <dependency>-->
 <!--            <groupId>org.apache.rocketmq</groupId>-->
 <!--            <artifactId>rocketmq-client</artifactId>-->
@@ -40,6 +44,12 @@
         <dependency>
             <groupId>com.twowaylove</groupId>
             <artifactId>towelove-common-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.twowaylove</groupId>
+            <artifactId>towelove-common-mq</artifactId>
+            <version>1.0</version>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
 
