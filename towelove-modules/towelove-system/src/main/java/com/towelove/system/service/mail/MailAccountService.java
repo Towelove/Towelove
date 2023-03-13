@@ -2,7 +2,6 @@ package com.towelove.system.service.mail;
 
 
 import com.towelove.common.core.domain.PageResult;
-
 import com.towelove.system.domain.mail.MailAccountDO;
 import com.towelove.system.domain.mail.vo.account.MailAccountCreateReqVO;
 import com.towelove.system.domain.mail.vo.account.MailAccountPageReqVO;

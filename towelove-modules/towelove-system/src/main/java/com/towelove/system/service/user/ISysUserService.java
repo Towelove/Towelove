@@ -1,6 +1,5 @@
 package com.towelove.system.service.user;
 
-import com.baomidou.mybatisplus.extension.service.IService;
 import com.towelove.system.api.domain.SysUser;
 
 import java.util.List;

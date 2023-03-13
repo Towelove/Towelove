@@ -1,15 +1,10 @@
 package com.towelove.system;
 
-import cn.hutool.extra.mail.MailUtil;
 import com.towelove.common.security.annotation.EnableCustomConfig;
 import com.towelove.common.swagger.annotation.EnableCustomSwagger2;
-import org.mybatis.spring.annotation.MapperScan;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.openfeign.EnableFeignClients;
-import org.springframework.cloud.stream.annotation.EnableBinding;
-import org.springframework.scheduling.annotation.EnableAsync;
 
 /**
  * @author: 张锦标

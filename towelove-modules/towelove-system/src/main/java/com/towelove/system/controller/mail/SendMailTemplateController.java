@@ -1,12 +1,13 @@
 package com.towelove.system.controller.mail;
 
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import com.towelove.common.core.domain.R;
 import com.towelove.system.domain.mail.dto.MailSendSingleToUserReqDTO;
-import com.towelove.system.domain.mail.vo.template.MailTemplateSendReqVO;
 import com.towelove.system.service.mail.MailSendService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * @author: 张锦标

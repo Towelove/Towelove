@@ -11,9 +11,9 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
  */
 @SpringBootApplication(exclude = MybatisPlusAutoConfiguration.class)
 @EnableFeignClients(basePackages = "com.towelove")
-public class ToweloveTaskApplication {
+public class ToweloveXxlJobExecutorApplication {
     public static void main(String[] args) {
-        SpringApplication.run(ToweloveTaskApplication.class, args);
+        SpringApplication.run(ToweloveXxlJobExecutorApplication.class, args);
         System.out.println("Towelove任务调度模块启动成功");
         System.out.println("" +
                 " ██████████                             ██                                        ██          ██     \n" +

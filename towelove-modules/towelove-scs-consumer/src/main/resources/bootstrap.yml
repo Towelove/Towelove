@@ -1,28 +1,19 @@
 server:
-  port: 10005 #${random.int[10000,19999]} # \u968F\u673A\u7AEF\u53E3\uFF0C\u65B9\u4FBF\u542F\u52A8\u591A\u4E2A\u6D88\u8D39\u8005
+  port: 10005
 spring:
   application:
     name: towelove-scs-consumer
   cloud:
     stream:
-      function:
-        #\u6D88\u8D39\u8005\u7AEF\u914D\u7F6E
-        definition: cluster;broadcast;delayed
+      function: #一个是用户自定义消息 一个是系统定时消息
+        definition: taskMessageConsumer;sysMessageConsumer;
       rocketmq:
         binder:
           name-server: 192.168.146.115:9876
-        bindings:
-          broadcast-in-0:
-            consumer:
-              #\u914D\u7F6E\u662F\u5426\u5F00\u542F\u5E7F\u64AD\u6D88\u606F \u9ED8\u8BA4\u4E3Afalse
-              broadcasting: true
       bindings:
-        cluster-in-0:
-          destination: cluster
-          group: cluster-group
-        broadcast-in-0:
-          destination: broadcast
-          group: broadcast-group
-        delayed-in-0:
-          destination: delayed
-          group: delayed-group
+        taskMessageConsumer-in-0:
+          destination: task_msg_send
+          group: task-msg-group
+        sysMessageConsumer-in-0:
+          destination: sys_msg_send
+          group: sys-msg-group

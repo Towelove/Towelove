@@ -2,7 +2,6 @@ package com.towelove.system.listener;
 
 import cn.hutool.extra.mail.MailAccount;
 import cn.hutool.extra.mail.MailUtil;
-
 import com.towelove.system.api.domain.SysUser;
 import com.towelove.system.event.SysUserRegisterEvent;
 import lombok.extern.slf4j.Slf4j;

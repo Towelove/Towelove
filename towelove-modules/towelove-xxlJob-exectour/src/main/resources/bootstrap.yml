@@ -1,0 +1,11 @@
+spring:
+  cloud:
+    stream:
+      rocketmq:
+        binder:
+          name-server: 192.168.146.115:9876
+      bindings:
+        taskSend-out-0:
+          destination: task_msg_send
+        sysSend-out-0:
+          destination: sys_msg_send

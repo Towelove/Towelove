@@ -4,6 +4,8 @@ import com.towelove.common.core.constant.SecurityConstants;
 import com.towelove.common.core.domain.R;
 import com.towelove.system.api.SysUserService;
 import com.towelove.system.api.model.LoginUser;
+import com.towelove.xxljob.executor.producer.SysMessageProducer;
+import com.towelove.xxljob.executor.producer.TaskMessageProducer;
 import com.xxl.job.core.context.XxlJobHelper;
 import com.xxl.job.core.handler.IJobHandler;
 import com.xxl.job.core.handler.annotation.XxlJob;
@@ -22,6 +24,10 @@ import java.util.Objects;
 public class SimpleXxxJob {
     @Autowired(required = false)
     private SysUserService userService;
+    @Autowired
+    private SysMessageProducer sysMessageProducer;
+    @Autowired
+    private TaskMessageProducer taskMessageProducer;
     //日志记录
     private static final Logger logger = LoggerFactory.getLogger(SimpleXxxJob.class);
     @XxlJob(value = "myJobHander",init = "initHandler",destroy = "destroyHandler")

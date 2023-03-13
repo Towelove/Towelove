@@ -41,6 +41,11 @@ public class SysUserFallbackFactory implements FallbackFactory<SysUserService> {
             public AjaxResult resetPwd(SysUser sysUser, String inner) {
                 return AjaxResult.error("修改密码失败:" + throwable.getMessage());
             }
+
+            @Override
+            public R<SysUser> getUserById(Long userId) {
+                return R.fail("根据ID获取用户失败:"+throwable.getMessage());
+            }
         };
     }
 }

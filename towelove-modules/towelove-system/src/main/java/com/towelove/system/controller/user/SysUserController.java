@@ -3,6 +3,7 @@ package com.towelove.system.controller.user;
 import com.towelove.common.core.constant.UserConstants;
 import com.towelove.common.core.domain.R;
 import com.towelove.common.core.utils.StringUtils;
+import com.towelove.common.core.web.controller.BaseController;
 import com.towelove.common.core.web.domain.AjaxResult;
 import com.towelove.common.core.web.page.TableDataInfo;
 import com.towelove.common.security.annotation.InnerAuth;
@@ -16,8 +17,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Objects;
-
-import com.towelove.common.core.web.controller.BaseController;
 /**
  * @author: 张锦标
  * @date: 2023/2/24 12:58

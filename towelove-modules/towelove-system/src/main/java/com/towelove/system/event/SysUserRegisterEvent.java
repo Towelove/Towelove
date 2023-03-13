@@ -4,8 +4,6 @@ import com.towelove.system.api.domain.SysUser;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.springframework.cloud.bus.event.RemoteApplicationEvent;
-import org.springframework.context.ApplicationEvent;
-import org.springframework.stereotype.Component;
 
 /**
  * @author: 张锦标Blossom

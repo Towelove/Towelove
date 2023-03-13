@@ -47,6 +47,15 @@
             <groupId>com.twowaylove</groupId>
             <artifactId>towelove-api-system</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.twowaylove</groupId>
+            <artifactId>towelove-common-mq</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.twowaylove</groupId>
+            <artifactId>towelove-common-core</artifactId>
+        </dependency>
     </dependencies>
 
 </project>

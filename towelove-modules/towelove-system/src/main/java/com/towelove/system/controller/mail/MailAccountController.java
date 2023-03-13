@@ -2,9 +2,11 @@ package com.towelove.system.controller.mail;
 
 import com.towelove.common.core.domain.PageResult;
 import com.towelove.common.core.domain.R;
+
 import com.towelove.system.convert.mail.MailAccountConvert;
 import com.towelove.system.domain.mail.MailAccountDO;
 import com.towelove.system.domain.mail.vo.account.*;
+
 import com.towelove.system.service.mail.MailAccountService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;

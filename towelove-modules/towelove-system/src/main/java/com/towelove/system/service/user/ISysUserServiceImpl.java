@@ -2,7 +2,6 @@ package com.towelove.system.service.user;
 
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.towelove.common.core.exception.ServiceException;
 import com.towelove.common.core.utils.SpringUtils;
 import com.towelove.common.core.utils.StringUtils;
@@ -12,18 +11,12 @@ import com.towelove.system.api.domain.SysUser;
 import com.towelove.system.event.SysUserRegisterEvent;
 import com.towelove.system.mapper.user.SysUserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.cloud.bus.ServiceMatcher;
-import org.springframework.cloud.bus.event.RemoteApplicationEvent;
-import org.springframework.context.ApplicationEventPublisher;
-import org.springframework.context.ApplicationEventPublisherAware;
-import org.springframework.messaging.MessageChannel;
-import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.annotation.Resource;
-import java.util.*;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
