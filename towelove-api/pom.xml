@@ -13,7 +13,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>towelove-api-system</module>
-        <module>towelove-task-modules</module>
+        <module>towelove-api-task</module>
     </modules>
 
     <properties>

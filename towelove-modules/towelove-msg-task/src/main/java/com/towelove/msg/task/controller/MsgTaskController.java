@@ -1,6 +1,4 @@
 package com.towelove.msg.task.controller;
-
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import com.towelove.common.core.domain.PageResult;
 import com.towelove.common.core.domain.R;
 import com.towelove.common.core.utils.JwtUtils;
@@ -15,6 +13,7 @@ import com.towelove.system.api.domain.SysMailAccount;
 import io.jsonwebtoken.Claims;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,6 +22,7 @@ import javax.validation.Valid;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author: 张锦标
@@ -36,42 +36,42 @@ public class MsgTaskController {
     private MsgTaskService msgTaskService;
     @Autowired
     private MsgTaskProducer msgTaskProducer;
-    @Autowired
-    private SysMailAccountService sysMailAccountService;
-    private SysMailAccount getUserAndAccountId(HttpServletRequest request){
-        String token = request.getHeader("Authorization");
-        Claims claims = JwtUtils.parseToken(token);
-        Long userId = Long.valueOf(JwtUtils.getUserId(claims));
-        //TODO 根据userId远程调用获取accountId
-        SysMailAccount sysMailAccount = sysMailAccountService
-                .getMailAccountByUserId(userId).getData();
-        return sysMailAccount;
-    }
+//    @Autowired
+//    private SysMailAccountService sysMailAccountService;
+//    private SysMailAccount getUserAndAccountId(HttpServletRequest request){
+//        String token = request.getHeader("Authorization");
+//        Claims claims = JwtUtils.parseToken(token);
+//        Long userId = Long.valueOf(JwtUtils.getUserId(claims));
+//        //TODO 根据userId远程调用获取accountId
+//        SysMailAccount sysMailAccount = sysMailAccountService
+//                .getMailAccountByUserId(userId).getData();
+//        return sysMailAccount;
+//    }
     /**
      * 创建消息任务
      * @param createReqVO 前端传来的消息任务信息
      * @return 创建成功返回id
      */
-    @PostMapping("/create")
-    @Operation(summary = "创建消息任务")
-    public R<Long> createMsgTask(@Valid @RequestBody MsgTaskCreateReqVO createReqVO,
-                                 HttpServletRequest request){
-
-        //TODO 需要发送事件的话需要判断当前消息的发送事件是否是下一个即将要发送的时间范围
-        //TODO 需要远程调用获取accountId
-        //TODO templateId是在页面上选择的 所以直接会传
-        //TODO 时间比较 如果是下一个要发送的时间 需要添加到 mq里面
-        Date sendTime = createReqVO.getSendTime();
-        LocalDateTime ldt = LocalDateTime.now();
-        if (true){
-            SysMailAccount sysMailAccount = getUserAndAccountId(request);
-            if (true) {
-                msgTaskProducer.sendMsgCreateEvent(createReqVO);
-            }
-
-        }
-        return R.ok(msgTaskService.createMsgTask(createReqVO));
-    }
+//    @PostMapping("/create")
+//    @Operation(summary = "创建消息任务")
+//    public R<Long> createMsgTask(@Valid @RequestBody MsgTaskCreateReqVO createReqVO,
+//                                 HttpServletRequest request){
+//
+//        //TODO 需要发送事件的话需要判断当前消息的发送事件是否是下一个即将要发送的时间范围
+//        //TODO 需要远程调用获取accountId
+//        //TODO templateId是在页面上选择的 所以直接会传
+//        //TODO 时间比较 如果是下一个要发送的时间 需要添加到 mq里面
+//        Date sendTime = createReqVO.getSendTime();
+//        LocalDateTime ldt = LocalDateTime.now();
+//        if (true){
+//            SysMailAccount sysMailAccount = getUserAndAccountId(request);
+//            if (true) {
+//                msgTaskProducer.sendMsgCreateEvent(createReqVO);
+//            }
+//
+//        }
+//        return R.ok(msgTaskService.createMsgTask(createReqVO));
+//    }
 
     /**
      * 修改消息任务
@@ -129,6 +129,11 @@ public class MsgTaskController {
     @Operation(summary = "获得消息任务精简列表")
     public R<List<MsgTaskSimpleRespVO>> getSimpleMailAccountList() {
         List<MsgTask> list = msgTaskService.getMsgTaskList();
-        return R.ok(MsgTaskConvert.INSTANCE.convertList02(list));
+        List<MsgTaskSimpleRespVO> msgTaskSimpleRespVOList = list.stream().map(msgTask -> {
+            MsgTaskSimpleRespVO msgTaskSimpleRespVO = new MsgTaskSimpleRespVO();
+            BeanUtils.copyProperties(msgTask, msgTaskSimpleRespVO);
+            return msgTaskSimpleRespVO;
+        }).collect(Collectors.toList());
+            return R.ok(msgTaskSimpleRespVOList);
     }
 }

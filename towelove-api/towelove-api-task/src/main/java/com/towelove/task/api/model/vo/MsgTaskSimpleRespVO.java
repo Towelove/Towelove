@@ -1,4 +1,4 @@
-package com.towelove.msg.task.domain.vo;
+package com.towelove.task.api.model.vo;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;

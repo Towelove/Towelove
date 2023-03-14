@@ -46,9 +46,8 @@
 <!--        </dependency>-->
         <!-- mybatis-plus-->
         <dependency>
-            <groupId>com.twowaylove</groupId>
-            <artifactId>towelove-common-mybatisplus</artifactId>
-            <version>1.0</version>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-boot-starter</artifactId>
         </dependency>
         <!-- SpringBoot Actuator -->
         <dependency>

@@ -5,6 +5,8 @@ import com.towelove.common.core.domain.MailSendMessage;
 import com.towelove.common.core.domain.R;
 import com.towelove.system.api.SysUserService;
 import com.towelove.system.api.model.LoginUser;
+import com.towelove.task.api.MsgTaskService;
+import com.towelove.task.api.vo.MsgTaskSimpleRespVO;
 import com.towelove.xxljob.executor.mq.producer.SysMessageProducer;
 import com.towelove.xxljob.executor.mq.producer.TaskMessageProducer;
 import com.xxl.job.core.context.XxlJobHelper;
@@ -15,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -32,6 +35,8 @@ public class SimpleXxxJob {
     //用户定时消息任务生产者
     @Autowired
     private TaskMessageProducer taskMessageProducer;
+    @Autowired
+    private MsgTaskService msgTaskService;
     //日志记录
     /**
      * 任务模块需要定时的去获取数据库中的用户消息任务
@@ -71,5 +76,14 @@ public class SimpleXxxJob {
     }
     public void destroyHandler(){
         System.out.println("任务执行器被销毁");
+    }
+
+    /**
+     *
+     */
+    @XxlJob(value = "TaskJobHandler",init = "initHandler",destroy = "destroyHandler")
+    public void getTaskForDB(){
+        R<List<MsgTaskSimpleRespVO>> msgTaskServiceSimpleMailAccountList = msgTaskService.getSimpleMailAccountList();
+        //将获得到的消息任务绑定到mq队列中
     }
 }
