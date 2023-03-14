@@ -11,7 +11,6 @@ import org.springframework.cloud.stream.messaging.Sink;
  * @date: 2023/3/2 20:23
  * SpringCloudStreamApplication类
  */
-@EnableBinding(Sink.class)
 @SpringBootApplication(exclude = DataSourceAutoConfiguration.class)
 public class SpringCloudRocketmqConsumerApplication {
     public static void main(String[] args) {

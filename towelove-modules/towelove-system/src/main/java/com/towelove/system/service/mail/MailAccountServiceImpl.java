@@ -2,7 +2,9 @@ package com.towelove.system.service.mail;
 
 
 import cn.hutool.extra.mail.MailException;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.towelove.common.core.domain.PageResult;
+import com.towelove.common.core.mybatis.LambdaQueryWrapperX;
 import com.towelove.system.convert.mail.MailAccountConvert;
 import com.towelove.system.domain.mail.MailAccountDO;
 import com.towelove.system.domain.mail.vo.account.MailAccountCreateReqVO;
@@ -98,6 +100,13 @@ public class MailAccountServiceImpl implements MailAccountService {
     @Override
     public PageResult<MailAccountDO> getMailAccountPage(MailAccountPageReqVO pageReqVO){
         return mailAccountMapper.selectPage(pageReqVO);
+    }
+
+    @Override
+    public MailAccountDO getMailAccountByUserId(Long userId) {
+        LambdaQueryWrapper<MailAccountDO> lqw =  new LambdaQueryWrapper();
+        lqw.eq(MailAccountDO::getUserId,userId);
+        return mailAccountMapper.selectOne(lqw);
     }
 
     @Override

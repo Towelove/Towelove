@@ -3,6 +3,7 @@ package com.towelove.system.convert.mail;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.extra.mail.MailAccount;
 import com.towelove.common.core.domain.PageResult;
+import com.towelove.system.api.domain.SysMailAccount;
 import com.towelove.system.domain.mail.MailAccountDO;
 import com.towelove.system.domain.mail.MailTemplateDO;
 import com.towelove.system.domain.mail.vo.account.*;
@@ -26,7 +27,7 @@ public interface MailAccountConvert {
     MailAccountDO convert(MailAccountUpdateReqVO bean);
 
     MailAccountRespVO convert(MailAccountDO bean);
-
+    SysMailAccount convertToSysMailAccount(MailAccountDO bean);
     PageResult<MailAccountBaseVO> convertPage(PageResult<MailAccountDO> pageResult);
 
     List<MailAccountSimpleRespVO> convertList02(List<MailAccountDO> list);

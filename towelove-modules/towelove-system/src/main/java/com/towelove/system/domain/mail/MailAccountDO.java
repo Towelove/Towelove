@@ -25,6 +25,10 @@ public class MailAccountDO extends BaseEntity {
     @TableId
     private Long id;
     /**
+     * 用户id
+     */
+    private Long userId;
+    /**
      * 邮箱
      */
     private String mail;

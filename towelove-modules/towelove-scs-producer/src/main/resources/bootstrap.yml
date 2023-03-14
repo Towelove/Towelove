@@ -11,6 +11,6 @@ spring:
           group:
       bindings:
         taskSend-out-0:
-          destination: task_msg_send
+          destination: task_mail_send
         sysSend-out-0:
-          destination: sys_msg_send
+          destination: sys_mail_send

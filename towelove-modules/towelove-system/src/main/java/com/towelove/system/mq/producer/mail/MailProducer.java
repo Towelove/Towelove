@@ -56,4 +56,5 @@ public class MailProducer extends AbstractBusProducer {
         streamBridge.send("mailSend-out-0", message);
     }
 
+
 }

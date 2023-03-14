@@ -11,7 +11,6 @@ import org.springframework.cloud.stream.messaging.Source;
  * @date: 2023/3/2 20:23
  * SpringCloudStreamApplication类
  */
-@EnableBinding(Source.class)
 @SpringBootApplication(exclude = DataSourceAutoConfiguration.class)
 public class SpringCloudRocketmqProducerApplication {
 

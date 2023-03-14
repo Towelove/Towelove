@@ -9,15 +9,15 @@ spring:
             group: system_producer_group # 生产者分组
             send-type: SYNC # 发送模式，SYNC 同步
       function: #一个是用户自定义消息 一个是系统定时消息
-        definition: sendTaskMsg;sendSysMsg;
+        definition: sysMessageConsumer;taskMessageConsumer;
       bindings:
         taskSend-out-0:
-          destination: task_msg_send
+          destination: task_mail_send
+        taskMessageConsumer-in-0:
+          destination: task_mail_send
+          group: task_mail_send_group
         sysSend-out-0:
-          destination: sys_msg_send
-        sendTaskMsg-in-0:
-          destination: task_msg_send
-          group: task_msg_group
-        sendSysMsg-in-0:
-          destination: sys_msg_send
-          group: sys_msg_group
+          destination: sys_mail_send
+        sysMessageConsumer-in-0:
+          destination: sys_mail_send
+          group: sys_mail_send_group

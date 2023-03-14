@@ -3,6 +3,7 @@ package com.towelove.system.controller.mail;
 import com.towelove.common.core.domain.PageResult;
 import com.towelove.common.core.domain.R;
 
+import com.towelove.system.api.domain.SysMailAccount;
 import com.towelove.system.convert.mail.MailAccountConvert;
 import com.towelove.system.domain.mail.MailAccountDO;
 import com.towelove.system.domain.mail.vo.account.*;
@@ -76,6 +77,18 @@ public class MailAccountController {
     public R<MailAccountRespVO> getMailAccount(@RequestParam("id") Long id) {
         MailAccountDO mailAccountDO = mailAccountService.getMailAccount(id);
         return R.ok(MailAccountConvert.INSTANCE.convert(mailAccountDO));
+    }
+    /**
+     * 根据id获取邮箱账号
+     * @param userId 要获取的邮箱账号id
+     * @return 返回查询的信息
+     */
+    @GetMapping("/getByUserId")
+    @Operation(summary = "获得邮箱账号根据userid")
+    @Parameter(name = "id", description = "编号", required = true, example = "1024")
+    public R<SysMailAccount> getMailAccountByUserId(@RequestParam("userId") Long userId) {
+        MailAccountDO mailAccountDO = mailAccountService.getMailAccountByUserId(userId);
+        return R.ok(MailAccountConvert.INSTANCE.convertToSysMailAccount(mailAccountDO));
     }
 
     /**

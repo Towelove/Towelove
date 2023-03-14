@@ -6,14 +6,14 @@ spring:
   cloud:
     stream:
       function: #一个是用户自定义消息 一个是系统定时消息
-        definition: sendTaskMsg;sendSysMsg;
+        definition: sysMessageConsumer;taskMessageConsumer;
       rocketmq:
         binder:
           name-server: 192.168.146.115:9876
       bindings:
-        sendTaskMsg-in-0:
-          destination: task_msg_send
-          group: task-msg-group
-        sendSysMsg-in-0:
-          destination: sys_msg_send
-          group: sys-msg-group
+        taskMessageConsumer-in-0:
+          destination: task_mail_send
+          group: task_mail_send_group
+        sysMessageConsumer-in-0:
+          destination: sys_mail_send
+          group: sys_mail_send_group

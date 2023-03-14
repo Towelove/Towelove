@@ -35,7 +35,8 @@ spring:
       function: # 这里面要么声明的是消费者类 要么就是消费者类中的多个方法
           # 如果只有一个方法 那么只需要声明一个消费者类
         # 但是如果是多个方法 就需要吧方法名称都声明出来
-        definition: smsSendConsumer;mailSendConsumer;sendSmsToAdmin;sendSmsToUser; # 需要确保消费者类的名称和这里一样
+        definition: smsSendConsumer;mailSendConsumer;sendSmsToAdmin;sendSmsToUser;
+        # 需要确保消费者类的名称和这里一样
 #        definition: mailSendConsumer;smsSendConsumer; # 需要确保消费者类的名称和这里一样
       # Binding 配置项，对应 BindingProperties Map
       bindings:
@@ -62,6 +63,7 @@ spring:
         mailSendConsumer-in-0: # 需要确保消费者类的名称和这里一样 ---> 一个消费模块
           destination: system_mail_send
           group: system_mail_send_consumer_group
+
       # Spring Cloud Stream RocketMQ 配置项
       rocketmq:
         # RocketMQ Binder 配置项，对应 RocketMQBinderConfigurationProperties 类
