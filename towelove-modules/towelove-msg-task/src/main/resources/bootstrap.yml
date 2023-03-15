@@ -37,8 +37,18 @@ spring:
       function: # 这里面要么声明的是消费者类 要么就是消费者类中的多个方法
           # 如果只有一个方法 那么只需要声明一个消费者类
         # 但是如果是多个方法 就需要吧方法名称都声明出来
-        definition: msgUpdate;msgCreate;msgDelete;
+        definition: msgUpdate;msgCreate;msgDelete;sysMessageConsumer;taskMessageConsumer;
       bindings:
+        taskSend-out-0:
+          destination: task_mail_send
+        taskMessageConsumer-in-0:
+          destination: task_mail_send
+          group: task_mail_send_group
+        sysSend-out-0:
+          destination: sys_mail_send
+        sysMessageConsumer-in-0:
+          destination: sys_mail_send
+          group: sys_mail_send_group
       # 消息更新删除创建需要发送消息给xxljob模块
         msgUpdate-out-0:
           destination: msg_update
@@ -46,6 +56,15 @@ spring:
           destination: msg_create
         msgDelete-out-0:
           destination: msg_delete
+        msgUpdate-in-0:
+          destination: msg_update
+          group: msg_task_group
+        msgCreate-in-0:
+          destination: msg_create
+          group: msg_task_group
+        msgDelete-in-0:
+          destination: msg_delete
+          group: msg_task_group
       # Spring Cloud Stream RocketMQ 配置项
       rocketmq:
         # RocketMQ Binder 配置项，对应 RocketMQBinderConfigurationProperties 类

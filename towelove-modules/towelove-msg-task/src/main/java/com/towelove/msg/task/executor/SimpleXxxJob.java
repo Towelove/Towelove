@@ -37,7 +37,7 @@ public class SimpleXxxJob {
     private TaskMessageProducer taskMessageProducer;
     @Autowired
     private MsgTaskService msgTaskService;
-    //日志记录
+    //日志记录  `
     /**
      * 任务模块需要定时的去获取数据库中的用户消息任务
      * 那么这个模块就需要要求能远程调用和发送邮件相关的所有函数
