@@ -379,3 +379,237 @@ See http://rocketmq.apache.org/docs/faq/ for further details.
 	at org.apache.rocketmq.client.consumer.DefaultMQPushConsumer.start(DefaultMQPushConsumer.java:707)
 	at com.alibaba.cloud.stream.binder.rocketmq.integration.inbound.RocketMQInboundChannelAdapter.doStart(RocketMQInboundChannelAdapter.java:189)
 	... 13 common frames omitted
+13:19:18.196 [main] ERROR c.a.c.s.b.r.i.i.RocketMQInboundChannelAdapter - [doStart,194] - DefaultMQPushConsumer init failed, Caused by org.apache.rocketmq.remoting.exception.RemotingConnectException: connect to [192.168.146.115:9876] failed
+13:19:18.203 [main] ERROR o.s.c.s.b.BindingService - [rescheduleConsumerBinding,204] - Failed to create consumer binding; retrying in 30 seconds
+org.springframework.cloud.stream.binder.BinderException: Exception thrown while starting consumer: 
+	at org.springframework.cloud.stream.binder.AbstractMessageChannelBinder.doBindConsumer(AbstractMessageChannelBinder.java:487)
+	at org.springframework.cloud.stream.binder.AbstractMessageChannelBinder.doBindConsumer(AbstractMessageChannelBinder.java:98)
+	at org.springframework.cloud.stream.binder.AbstractBinder.bindConsumer(AbstractBinder.java:143)
+	at org.springframework.cloud.stream.binding.BindingService.doBindConsumer(BindingService.java:184)
+	at org.springframework.cloud.stream.binding.BindingService.bindConsumer(BindingService.java:137)
+	at org.springframework.cloud.stream.binding.AbstractBindableProxyFactory.createAndBindInputs(AbstractBindableProxyFactory.java:118)
+	at org.springframework.cloud.stream.binding.InputBindingLifecycle.doStartWithBindable(InputBindingLifecycle.java:58)
+	at java.util.LinkedHashMap$LinkedValues.forEach(LinkedHashMap.java:608)
+	at org.springframework.cloud.stream.binding.AbstractBindingLifecycle.start(AbstractBindingLifecycle.java:57)
+	at org.springframework.cloud.stream.binding.InputBindingLifecycle.start(InputBindingLifecycle.java:34)
+	at org.springframework.context.support.DefaultLifecycleProcessor.doStart(DefaultLifecycleProcessor.java:178)
+	at org.springframework.context.support.DefaultLifecycleProcessor.access$200(DefaultLifecycleProcessor.java:54)
+	at org.springframework.context.support.DefaultLifecycleProcessor$LifecycleGroup.start(DefaultLifecycleProcessor.java:356)
+	at java.lang.Iterable.forEach(Iterable.java:75)
+	at org.springframework.context.support.DefaultLifecycleProcessor.startBeans(DefaultLifecycleProcessor.java:155)
+	at org.springframework.context.support.DefaultLifecycleProcessor.onRefresh(DefaultLifecycleProcessor.java:123)
+	at org.springframework.context.support.AbstractApplicationContext.finishRefresh(AbstractApplicationContext.java:935)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:586)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:147)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:731)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:408)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:307)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1303)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1292)
+	at com.towelove.spring.cloud.mq.SpringCloudRocketmqConsumerApplication.main(SpringCloudRocketmqConsumerApplication.java:17)
+Caused by: org.springframework.messaging.MessagingException: nested exception is java.lang.IllegalStateException: org.apache.rocketmq.remoting.exception.RemotingConnectException: connect to [192.168.146.115:9876] failed
+	at com.alibaba.cloud.stream.binder.rocketmq.integration.inbound.RocketMQInboundChannelAdapter.doStart(RocketMQInboundChannelAdapter.java:197)
+	at org.springframework.integration.endpoint.AbstractEndpoint.start(AbstractEndpoint.java:158)
+	at org.springframework.cloud.stream.binder.AbstractMessageChannelBinder.doBindConsumer(AbstractMessageChannelBinder.java:440)
+	... 24 common frames omitted
+Caused by: java.lang.IllegalStateException: org.apache.rocketmq.remoting.exception.RemotingConnectException: connect to [192.168.146.115:9876] failed
+	at org.apache.rocketmq.client.impl.factory.MQClientInstance.updateTopicRouteInfoFromNameServer(MQClientInstance.java:680)
+	at org.apache.rocketmq.client.impl.factory.MQClientInstance.updateTopicRouteInfoFromNameServer(MQClientInstance.java:510)
+	at org.apache.rocketmq.client.impl.consumer.DefaultMQPushConsumerImpl.updateTopicSubscribeInfoWhenSubscriptionChanged(DefaultMQPushConsumerImpl.java:872)
+	at org.apache.rocketmq.client.impl.consumer.DefaultMQPushConsumerImpl.start(DefaultMQPushConsumerImpl.java:655)
+	at org.apache.rocketmq.client.consumer.DefaultMQPushConsumer.start(DefaultMQPushConsumer.java:707)
+	at com.alibaba.cloud.stream.binder.rocketmq.integration.inbound.RocketMQInboundChannelAdapter.doStart(RocketMQInboundChannelAdapter.java:189)
+	... 26 common frames omitted
+Caused by: org.apache.rocketmq.remoting.exception.RemotingConnectException: connect to [192.168.146.115:9876] failed
+	at org.apache.rocketmq.remoting.netty.NettyRemotingClient.getAndCreateNameserverChannel(NettyRemotingClient.java:458)
+	at org.apache.rocketmq.remoting.netty.NettyRemotingClient.getAndCreateChannel(NettyRemotingClient.java:413)
+	at org.apache.rocketmq.remoting.netty.NettyRemotingClient.invokeSync(NettyRemotingClient.java:382)
+	at org.apache.rocketmq.client.impl.MQClientAPIImpl.getTopicRouteInfoFromNameServer(MQClientAPIImpl.java:1394)
+	at org.apache.rocketmq.client.impl.MQClientAPIImpl.getTopicRouteInfoFromNameServer(MQClientAPIImpl.java:1384)
+	at org.apache.rocketmq.client.impl.factory.MQClientInstance.updateTopicRouteInfoFromNameServer(MQClientInstance.java:623)
+	... 31 common frames omitted
+13:19:23.427 [main] ERROR c.a.c.s.b.r.i.i.RocketMQInboundChannelAdapter - [doStart,194] - DefaultMQPushConsumer init failed, Caused by org.apache.rocketmq.remoting.exception.RemotingConnectException: connect to [192.168.146.115:9876] failed
+13:19:23.427 [main] ERROR o.s.c.s.b.BindingService - [rescheduleConsumerBinding,204] - Failed to create consumer binding; retrying in 30 seconds
+org.springframework.cloud.stream.binder.BinderException: Exception thrown while starting consumer: 
+	at org.springframework.cloud.stream.binder.AbstractMessageChannelBinder.doBindConsumer(AbstractMessageChannelBinder.java:487)
+	at org.springframework.cloud.stream.binder.AbstractMessageChannelBinder.doBindConsumer(AbstractMessageChannelBinder.java:98)
+	at org.springframework.cloud.stream.binder.AbstractBinder.bindConsumer(AbstractBinder.java:143)
+	at org.springframework.cloud.stream.binding.BindingService.doBindConsumer(BindingService.java:184)
+	at org.springframework.cloud.stream.binding.BindingService.bindConsumer(BindingService.java:137)
+	at org.springframework.cloud.stream.binding.AbstractBindableProxyFactory.createAndBindInputs(AbstractBindableProxyFactory.java:118)
+	at org.springframework.cloud.stream.binding.InputBindingLifecycle.doStartWithBindable(InputBindingLifecycle.java:58)
+	at java.util.LinkedHashMap$LinkedValues.forEach(LinkedHashMap.java:608)
+	at org.springframework.cloud.stream.binding.AbstractBindingLifecycle.start(AbstractBindingLifecycle.java:57)
+	at org.springframework.cloud.stream.binding.InputBindingLifecycle.start(InputBindingLifecycle.java:34)
+	at org.springframework.context.support.DefaultLifecycleProcessor.doStart(DefaultLifecycleProcessor.java:178)
+	at org.springframework.context.support.DefaultLifecycleProcessor.access$200(DefaultLifecycleProcessor.java:54)
+	at org.springframework.context.support.DefaultLifecycleProcessor$LifecycleGroup.start(DefaultLifecycleProcessor.java:356)
+	at java.lang.Iterable.forEach(Iterable.java:75)
+	at org.springframework.context.support.DefaultLifecycleProcessor.startBeans(DefaultLifecycleProcessor.java:155)
+	at org.springframework.context.support.DefaultLifecycleProcessor.onRefresh(DefaultLifecycleProcessor.java:123)
+	at org.springframework.context.support.AbstractApplicationContext.finishRefresh(AbstractApplicationContext.java:935)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:586)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:147)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:731)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:408)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:307)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1303)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1292)
+	at com.towelove.spring.cloud.mq.SpringCloudRocketmqConsumerApplication.main(SpringCloudRocketmqConsumerApplication.java:17)
+Caused by: org.springframework.messaging.MessagingException: nested exception is java.lang.IllegalStateException: org.apache.rocketmq.remoting.exception.RemotingConnectException: connect to [192.168.146.115:9876] failed
+	at com.alibaba.cloud.stream.binder.rocketmq.integration.inbound.RocketMQInboundChannelAdapter.doStart(RocketMQInboundChannelAdapter.java:197)
+	at org.springframework.integration.endpoint.AbstractEndpoint.start(AbstractEndpoint.java:158)
+	at org.springframework.cloud.stream.binder.AbstractMessageChannelBinder.doBindConsumer(AbstractMessageChannelBinder.java:440)
+	... 24 common frames omitted
+Caused by: java.lang.IllegalStateException: org.apache.rocketmq.remoting.exception.RemotingConnectException: connect to [192.168.146.115:9876] failed
+	at org.apache.rocketmq.client.impl.factory.MQClientInstance.updateTopicRouteInfoFromNameServer(MQClientInstance.java:680)
+	at org.apache.rocketmq.client.impl.factory.MQClientInstance.updateTopicRouteInfoFromNameServer(MQClientInstance.java:510)
+	at org.apache.rocketmq.client.impl.consumer.DefaultMQPushConsumerImpl.updateTopicSubscribeInfoWhenSubscriptionChanged(DefaultMQPushConsumerImpl.java:872)
+	at org.apache.rocketmq.client.impl.consumer.DefaultMQPushConsumerImpl.start(DefaultMQPushConsumerImpl.java:655)
+	at org.apache.rocketmq.client.consumer.DefaultMQPushConsumer.start(DefaultMQPushConsumer.java:707)
+	at com.alibaba.cloud.stream.binder.rocketmq.integration.inbound.RocketMQInboundChannelAdapter.doStart(RocketMQInboundChannelAdapter.java:189)
+	... 26 common frames omitted
+Caused by: org.apache.rocketmq.remoting.exception.RemotingConnectException: connect to [192.168.146.115:9876] failed
+	at org.apache.rocketmq.remoting.netty.NettyRemotingClient.getAndCreateNameserverChannel(NettyRemotingClient.java:458)
+	at org.apache.rocketmq.remoting.netty.NettyRemotingClient.getAndCreateChannel(NettyRemotingClient.java:413)
+	at org.apache.rocketmq.remoting.netty.NettyRemotingClient.invokeSync(NettyRemotingClient.java:382)
+	at org.apache.rocketmq.client.impl.MQClientAPIImpl.getTopicRouteInfoFromNameServer(MQClientAPIImpl.java:1394)
+	at org.apache.rocketmq.client.impl.MQClientAPIImpl.getTopicRouteInfoFromNameServer(MQClientAPIImpl.java:1384)
+	at org.apache.rocketmq.client.impl.factory.MQClientInstance.updateTopicRouteInfoFromNameServer(MQClientInstance.java:623)
+	... 31 common frames omitted
+13:19:26.783 [main] ERROR c.a.c.s.b.r.i.i.RocketMQInboundChannelAdapter - [doStart,194] - DefaultMQPushConsumer init failed, Caused by org.apache.rocketmq.remoting.exception.RemotingConnectException: connect to [192.168.146.115:9876] failed
+13:19:26.788 [main] ERROR o.s.c.s.b.BindingService - [rescheduleConsumerBinding,204] - Failed to create consumer binding; retrying in 30 seconds
+org.springframework.cloud.stream.binder.BinderException: Exception thrown while starting consumer: 
+	at org.springframework.cloud.stream.binder.AbstractMessageChannelBinder.doBindConsumer(AbstractMessageChannelBinder.java:487)
+	at org.springframework.cloud.stream.binder.AbstractMessageChannelBinder.doBindConsumer(AbstractMessageChannelBinder.java:98)
+	at org.springframework.cloud.stream.binder.AbstractBinder.bindConsumer(AbstractBinder.java:143)
+	at org.springframework.cloud.stream.binding.BindingService.doBindConsumer(BindingService.java:184)
+	at org.springframework.cloud.stream.binding.BindingService.bindConsumer(BindingService.java:137)
+	at org.springframework.cloud.stream.binding.AbstractBindableProxyFactory.createAndBindInputs(AbstractBindableProxyFactory.java:118)
+	at org.springframework.cloud.stream.binding.InputBindingLifecycle.doStartWithBindable(InputBindingLifecycle.java:58)
+	at java.util.LinkedHashMap$LinkedValues.forEach(LinkedHashMap.java:608)
+	at org.springframework.cloud.stream.binding.AbstractBindingLifecycle.start(AbstractBindingLifecycle.java:57)
+	at org.springframework.cloud.stream.binding.InputBindingLifecycle.start(InputBindingLifecycle.java:34)
+	at org.springframework.context.support.DefaultLifecycleProcessor.doStart(DefaultLifecycleProcessor.java:178)
+	at org.springframework.context.support.DefaultLifecycleProcessor.access$200(DefaultLifecycleProcessor.java:54)
+	at org.springframework.context.support.DefaultLifecycleProcessor$LifecycleGroup.start(DefaultLifecycleProcessor.java:356)
+	at java.lang.Iterable.forEach(Iterable.java:75)
+	at org.springframework.context.support.DefaultLifecycleProcessor.startBeans(DefaultLifecycleProcessor.java:155)
+	at org.springframework.context.support.DefaultLifecycleProcessor.onRefresh(DefaultLifecycleProcessor.java:123)
+	at org.springframework.context.support.AbstractApplicationContext.finishRefresh(AbstractApplicationContext.java:935)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:586)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:147)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:731)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:408)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:307)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1303)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1292)
+	at com.towelove.spring.cloud.mq.SpringCloudRocketmqProducerApplication.main(SpringCloudRocketmqProducerApplication.java:18)
+Caused by: org.springframework.messaging.MessagingException: nested exception is java.lang.IllegalStateException: org.apache.rocketmq.remoting.exception.RemotingConnectException: connect to [192.168.146.115:9876] failed
+	at com.alibaba.cloud.stream.binder.rocketmq.integration.inbound.RocketMQInboundChannelAdapter.doStart(RocketMQInboundChannelAdapter.java:197)
+	at org.springframework.integration.endpoint.AbstractEndpoint.start(AbstractEndpoint.java:158)
+	at org.springframework.cloud.stream.binder.AbstractMessageChannelBinder.doBindConsumer(AbstractMessageChannelBinder.java:440)
+	... 24 common frames omitted
+Caused by: java.lang.IllegalStateException: org.apache.rocketmq.remoting.exception.RemotingConnectException: connect to [192.168.146.115:9876] failed
+	at org.apache.rocketmq.client.impl.factory.MQClientInstance.updateTopicRouteInfoFromNameServer(MQClientInstance.java:680)
+	at org.apache.rocketmq.client.impl.factory.MQClientInstance.updateTopicRouteInfoFromNameServer(MQClientInstance.java:510)
+	at org.apache.rocketmq.client.impl.consumer.DefaultMQPushConsumerImpl.updateTopicSubscribeInfoWhenSubscriptionChanged(DefaultMQPushConsumerImpl.java:872)
+	at org.apache.rocketmq.client.impl.consumer.DefaultMQPushConsumerImpl.start(DefaultMQPushConsumerImpl.java:655)
+	at org.apache.rocketmq.client.consumer.DefaultMQPushConsumer.start(DefaultMQPushConsumer.java:707)
+	at com.alibaba.cloud.stream.binder.rocketmq.integration.inbound.RocketMQInboundChannelAdapter.doStart(RocketMQInboundChannelAdapter.java:189)
+	... 26 common frames omitted
+Caused by: org.apache.rocketmq.remoting.exception.RemotingConnectException: connect to [192.168.146.115:9876] failed
+	at org.apache.rocketmq.remoting.netty.NettyRemotingClient.getAndCreateNameserverChannel(NettyRemotingClient.java:458)
+	at org.apache.rocketmq.remoting.netty.NettyRemotingClient.getAndCreateChannel(NettyRemotingClient.java:413)
+	at org.apache.rocketmq.remoting.netty.NettyRemotingClient.invokeSync(NettyRemotingClient.java:382)
+	at org.apache.rocketmq.client.impl.MQClientAPIImpl.getTopicRouteInfoFromNameServer(MQClientAPIImpl.java:1394)
+	at org.apache.rocketmq.client.impl.MQClientAPIImpl.getTopicRouteInfoFromNameServer(MQClientAPIImpl.java:1384)
+	at org.apache.rocketmq.client.impl.factory.MQClientInstance.updateTopicRouteInfoFromNameServer(MQClientInstance.java:623)
+	... 31 common frames omitted
+13:19:49.275 [scheduling-1] ERROR c.a.c.s.b.r.i.i.RocketMQInboundChannelAdapter - [doStart,194] - DefaultMQPushConsumer init failed, Caused by The consumer group[sys_mail_send_group] has been created before, specify another name please.
+See http://rocketmq.apache.org/docs/faq/ for further details.
+13:19:49.275 [scheduling-1] ERROR o.s.c.s.b.BindingService - [rescheduleConsumerBinding,204] - Failed to create consumer binding; retrying in 30 seconds
+org.springframework.cloud.stream.binder.BinderException: Exception thrown while starting consumer: 
+	at org.springframework.cloud.stream.binder.AbstractMessageChannelBinder.doBindConsumer(AbstractMessageChannelBinder.java:487)
+	at org.springframework.cloud.stream.binder.AbstractMessageChannelBinder.doBindConsumer(AbstractMessageChannelBinder.java:98)
+	at org.springframework.cloud.stream.binder.AbstractBinder.bindConsumer(AbstractBinder.java:143)
+	at org.springframework.cloud.stream.binding.BindingService.lambda$rescheduleConsumerBinding$1(BindingService.java:209)
+	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:54)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)
+	at java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:266)
+	at java.util.concurrent.FutureTask.run(FutureTask.java)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$201(ScheduledThreadPoolExecutor.java:180)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:293)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+Caused by: org.springframework.messaging.MessagingException: nested exception is org.apache.rocketmq.client.exception.MQClientException: The consumer group[sys_mail_send_group] has been created before, specify another name please.
+See http://rocketmq.apache.org/docs/faq/ for further details.
+	at com.alibaba.cloud.stream.binder.rocketmq.integration.inbound.RocketMQInboundChannelAdapter.doStart(RocketMQInboundChannelAdapter.java:197)
+	at org.springframework.integration.endpoint.AbstractEndpoint.start(AbstractEndpoint.java:158)
+	at org.springframework.cloud.stream.binder.AbstractMessageChannelBinder.doBindConsumer(AbstractMessageChannelBinder.java:440)
+	... 12 common frames omitted
+Caused by: org.apache.rocketmq.client.exception.MQClientException: The consumer group[sys_mail_send_group] has been created before, specify another name please.
+See http://rocketmq.apache.org/docs/faq/ for further details.
+	at org.apache.rocketmq.client.impl.consumer.DefaultMQPushConsumerImpl.start(DefaultMQPushConsumerImpl.java:636)
+	at org.apache.rocketmq.client.consumer.DefaultMQPushConsumer.start(DefaultMQPushConsumer.java:707)
+	at com.alibaba.cloud.stream.binder.rocketmq.integration.inbound.RocketMQInboundChannelAdapter.doStart(RocketMQInboundChannelAdapter.java:189)
+	... 14 common frames omitted
+13:19:54.330 [scheduling-1] ERROR c.a.c.s.b.r.i.i.RocketMQInboundChannelAdapter - [doStart,194] - DefaultMQPushConsumer init failed, Caused by The consumer group[task_mail_send_group] has been created before, specify another name please.
+See http://rocketmq.apache.org/docs/faq/ for further details.
+13:19:54.331 [scheduling-1] ERROR o.s.c.s.b.BindingService - [rescheduleConsumerBinding,204] - Failed to create consumer binding; retrying in 30 seconds
+org.springframework.cloud.stream.binder.BinderException: Exception thrown while starting consumer: 
+	at org.springframework.cloud.stream.binder.AbstractMessageChannelBinder.doBindConsumer(AbstractMessageChannelBinder.java:487)
+	at org.springframework.cloud.stream.binder.AbstractMessageChannelBinder.doBindConsumer(AbstractMessageChannelBinder.java:98)
+	at org.springframework.cloud.stream.binder.AbstractBinder.bindConsumer(AbstractBinder.java:143)
+	at org.springframework.cloud.stream.binding.BindingService.lambda$rescheduleConsumerBinding$1(BindingService.java:209)
+	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:54)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)
+	at java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:266)
+	at java.util.concurrent.FutureTask.run(FutureTask.java)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$201(ScheduledThreadPoolExecutor.java:180)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:293)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+Caused by: org.springframework.messaging.MessagingException: nested exception is org.apache.rocketmq.client.exception.MQClientException: The consumer group[task_mail_send_group] has been created before, specify another name please.
+See http://rocketmq.apache.org/docs/faq/ for further details.
+	at com.alibaba.cloud.stream.binder.rocketmq.integration.inbound.RocketMQInboundChannelAdapter.doStart(RocketMQInboundChannelAdapter.java:197)
+	at org.springframework.integration.endpoint.AbstractEndpoint.start(AbstractEndpoint.java:158)
+	at org.springframework.cloud.stream.binder.AbstractMessageChannelBinder.doBindConsumer(AbstractMessageChannelBinder.java:440)
+	... 12 common frames omitted
+Caused by: org.apache.rocketmq.client.exception.MQClientException: The consumer group[task_mail_send_group] has been created before, specify another name please.
+See http://rocketmq.apache.org/docs/faq/ for further details.
+	at org.apache.rocketmq.client.impl.consumer.DefaultMQPushConsumerImpl.start(DefaultMQPushConsumerImpl.java:636)
+	at org.apache.rocketmq.client.consumer.DefaultMQPushConsumer.start(DefaultMQPushConsumer.java:707)
+	at com.alibaba.cloud.stream.binder.rocketmq.integration.inbound.RocketMQInboundChannelAdapter.doStart(RocketMQInboundChannelAdapter.java:189)
+	... 14 common frames omitted
+13:19:57.849 [scheduling-1] ERROR c.a.c.s.b.r.i.i.RocketMQInboundChannelAdapter - [doStart,194] - DefaultMQPushConsumer init failed, Caused by The consumer group[rocketmq-bus-group] has been created before, specify another name please.
+See http://rocketmq.apache.org/docs/faq/ for further details.
+13:19:57.849 [scheduling-1] ERROR o.s.c.s.b.BindingService - [rescheduleConsumerBinding,204] - Failed to create consumer binding; retrying in 30 seconds
+org.springframework.cloud.stream.binder.BinderException: Exception thrown while starting consumer: 
+	at org.springframework.cloud.stream.binder.AbstractMessageChannelBinder.doBindConsumer(AbstractMessageChannelBinder.java:487)
+	at org.springframework.cloud.stream.binder.AbstractMessageChannelBinder.doBindConsumer(AbstractMessageChannelBinder.java:98)
+	at org.springframework.cloud.stream.binder.AbstractBinder.bindConsumer(AbstractBinder.java:143)
+	at org.springframework.cloud.stream.binding.BindingService.lambda$rescheduleConsumerBinding$1(BindingService.java:209)
+	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:54)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)
+	at java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:266)
+	at java.util.concurrent.FutureTask.run(FutureTask.java)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$201(ScheduledThreadPoolExecutor.java:180)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:293)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+Caused by: org.springframework.messaging.MessagingException: nested exception is org.apache.rocketmq.client.exception.MQClientException: The consumer group[rocketmq-bus-group] has been created before, specify another name please.
+See http://rocketmq.apache.org/docs/faq/ for further details.
+	at com.alibaba.cloud.stream.binder.rocketmq.integration.inbound.RocketMQInboundChannelAdapter.doStart(RocketMQInboundChannelAdapter.java:197)
+	at org.springframework.integration.endpoint.AbstractEndpoint.start(AbstractEndpoint.java:158)
+	at org.springframework.cloud.stream.binder.AbstractMessageChannelBinder.doBindConsumer(AbstractMessageChannelBinder.java:440)
+	... 12 common frames omitted
+Caused by: org.apache.rocketmq.client.exception.MQClientException: The consumer group[rocketmq-bus-group] has been created before, specify another name please.
+See http://rocketmq.apache.org/docs/faq/ for further details.
+	at org.apache.rocketmq.client.impl.consumer.DefaultMQPushConsumerImpl.start(DefaultMQPushConsumerImpl.java:636)
+	at org.apache.rocketmq.client.consumer.DefaultMQPushConsumer.start(DefaultMQPushConsumer.java:707)
+	at com.alibaba.cloud.stream.binder.rocketmq.integration.inbound.RocketMQInboundChannelAdapter.doStart(RocketMQInboundChannelAdapter.java:189)
+	... 14 common frames omitted

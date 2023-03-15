@@ -98,3 +98,19 @@
 10:13:18.280 [SpringApplicationShutdownHook] INFO  c.x.j.c.s.EmbedServer - [stop,117] - >>>>>>>>>>> xxl-job remoting server destroy success.
 10:13:18.280 [xxl-job, executor TriggerCallbackThread] INFO  c.x.j.c.t.TriggerCallbackThread - [run,98] - >>>>>>>>>>> xxl-job, executor callback thread destroy.
 10:13:18.280 [Thread-5] INFO  c.x.j.c.t.TriggerCallbackThread - [run,128] - >>>>>>>>>>> xxl-job, executor retry callback thread destroy.
+13:19:02.846 [background-preinit] INFO  o.h.v.i.util.Version - [<clinit>,21] - HV000001: Hibernate Validator 6.2.5.Final
+13:19:04.350 [main] INFO  c.t.s.c.m.SpringCloudRocketmqConsumerApplication - [logStartupProfileInfo,631] - No active profile set, falling back to 1 default profile: "default"
+13:19:05.615 [main] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Initializing ProtocolHandler ["http-nio-10005"]
+13:19:05.616 [main] INFO  o.a.c.c.StandardService - [log,173] - Starting service [Tomcat]
+13:19:05.616 [main] INFO  o.a.c.c.StandardEngine - [log,173] - Starting Servlet engine: [Apache Tomcat/9.0.70]
+13:19:05.878 [main] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring embedded WebApplicationContext
+13:19:15.047 [background-preinit] INFO  o.h.v.i.util.Version - [<clinit>,21] - HV000001: Hibernate Validator 6.2.5.Final
+13:19:16.477 [main] INFO  c.t.s.c.m.SpringCloudRocketmqProducerApplication - [logStartupProfileInfo,631] - No active profile set, falling back to 1 default profile: "default"
+13:19:17.614 [main] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Initializing ProtocolHandler ["http-nio-10004"]
+13:19:17.614 [main] INFO  o.a.c.c.StandardService - [log,173] - Starting service [Tomcat]
+13:19:17.614 [main] INFO  o.a.c.c.StandardEngine - [log,173] - Starting Servlet engine: [Apache Tomcat/9.0.70]
+13:19:17.838 [main] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring embedded WebApplicationContext
+13:19:23.428 [main] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Starting ProtocolHandler ["http-nio-10005"]
+13:19:24.199 [main] INFO  c.t.s.c.m.SpringCloudRocketmqConsumerApplication - [logStarted,61] - Started SpringCloudRocketmqConsumerApplication in 22.958 seconds (JVM running for 25.081)
+13:19:26.791 [main] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Starting ProtocolHandler ["http-nio-10004"]
+13:19:27.502 [main] INFO  c.t.s.c.m.SpringCloudRocketmqProducerApplication - [logStarted,61] - Started SpringCloudRocketmqProducerApplication in 14.115 seconds (JVM running for 17.033)

@@ -1,5 +1,6 @@
 package com.towelove.msg.task.mapper;
 
+import cn.hutool.core.date.DateTime;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.towelove.common.core.domain.PageResult;
 import com.towelove.common.core.mybatis.BaseMapperX;
@@ -7,6 +8,7 @@ import com.towelove.common.core.mybatis.LambdaQueryWrapperX;
 import com.towelove.msg.task.domain.MsgTask;
 import com.towelove.msg.task.domain.vo.MsgTaskPageReqVO;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -28,4 +30,5 @@ public interface MsgTaskMapper extends BaseMapperX<MsgTask> {
                 .likeIfPresent(MsgTask::getSendTime,pageReqVO.getSendTime().toString())
                 .likeIfPresent(MsgTask::getTitle,pageReqVO.getTitle()));
     }
+    List<MsgTask> selectAfterTenMinJob(@Param("beginTime") DateTime beginTime, @Param("endTime") DateTime endTime);
 }

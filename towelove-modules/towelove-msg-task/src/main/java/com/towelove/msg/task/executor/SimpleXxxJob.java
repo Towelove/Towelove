@@ -3,6 +3,7 @@ package com.towelove.msg.task.executor;
 import com.towelove.common.core.constant.SecurityConstants;
 import com.towelove.common.core.domain.MailSendMessage;
 import com.towelove.common.core.domain.R;
+import com.towelove.msg.task.domain.MsgTask;
 import com.towelove.msg.task.domain.vo.MsgTaskSimpleRespVO;
 import com.towelove.msg.task.mq.producer.SysMessageProducer;
 import com.towelove.msg.task.mq.producer.TaskMessageProducer;
@@ -92,9 +93,9 @@ public class SimpleXxxJob {
      */
     @XxlJob(value = "TaskJobHandler",init = "initHandler",destroy = "destroyHandler")
     public void getTaskForDB(){
-
-        List<MsgTaskSimpleRespVO> list
-                = msgTaskService.getSimpleMailAccountList();
+        //拿到十分钟后的数据
+        List<MsgTask> msgTaskList = msgTaskService.getMsgTaskList();
+        System.out.println(msgTaskList);
         //将获得到的消息任务绑定到mq队列中
     }
 }
