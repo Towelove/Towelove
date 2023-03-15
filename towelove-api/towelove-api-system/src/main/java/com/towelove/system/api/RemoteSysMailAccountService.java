@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
  * SysMailAccountService接口
  */
 @FeignClient(
-        //contextId = "sysUserService",
+        contextId = "sysMailAccountService",
         //value = ServiceNameConstants.SYSTEM_SERVICE,
         value = "towelove-system",
         fallbackFactory = SysMailAccountFallbackFactory.class)

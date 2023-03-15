@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
  * Description:
  */
 @FeignClient(
-        //contextId = "sysUserService",
+        contextId = "sysUserService",
         //value = ServiceNameConstants.SYSTEM_SERVICE,
         value = "towelove-system",
         fallbackFactory = SysUserFallbackFactory.class)
