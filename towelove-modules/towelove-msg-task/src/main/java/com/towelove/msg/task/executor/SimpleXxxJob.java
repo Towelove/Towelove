@@ -83,6 +83,7 @@ public class SimpleXxxJob {
      */
     @XxlJob(value = "TaskJobHandler",init = "initHandler",destroy = "destroyHandler")
     public void getTaskForDB(){
+
         List<MsgTaskSimpleRespVO> list
                 = msgTaskService.getSimpleMailAccountList();
         //将获得到的消息任务绑定到mq队列中

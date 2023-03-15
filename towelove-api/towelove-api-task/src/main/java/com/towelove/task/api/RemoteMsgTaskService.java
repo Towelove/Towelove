@@ -15,11 +15,10 @@ import java.util.List;
  * @Date：2023-3-12 12:10
  */
 @FeignClient(value = "towelove-msg-task",fallbackFactory = RemoteMsgTaskFallbackFactory.class)
-@RequestMapping("/msg/task")
 public interface RemoteMsgTaskService {
-   @GetMapping("/get")
+   @GetMapping("/msg/task/get")
    R<MsgTask> getMailAccount(@RequestParam("id") Long id);
-    @GetMapping("/list-all-simple")
+    @GetMapping("/msg/task/list-all-simple")
     @Operation(summary = "获得消息任务精简列表")
     public R<List<MsgTaskSimpleRespVO>> getSimpleMailAccountList();
 

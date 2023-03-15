@@ -1,482 +1,100 @@
-12:35:13.100 [background-preinit] INFO  o.h.v.i.util.Version - [<clinit>,21] - HV000001: Hibernate Validator 6.2.5.Final
-12:35:13.911 [main] INFO  c.t.s.c.m.SpringCloudRocketmqConsumerApplication - [logStartupProfileInfo,631] - No active profile set, falling back to 1 default profile: "default"
-12:35:15.158 [main] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Initializing ProtocolHandler ["http-nio-10005"]
-12:35:15.159 [main] INFO  o.a.c.c.StandardService - [log,173] - Starting service [Tomcat]
-12:35:15.159 [main] INFO  o.a.c.c.StandardEngine - [log,173] - Starting Servlet engine: [Apache Tomcat/9.0.70]
-12:35:15.284 [main] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring embedded WebApplicationContext
-12:35:15.769 [main] INFO  o.a.c.c.StandardService - [log,173] - Stopping service [Tomcat]
-12:37:33.164 [background-preinit] INFO  o.h.v.i.util.Version - [<clinit>,21] - HV000001: Hibernate Validator 6.2.5.Final
-12:37:34.007 [main] INFO  c.t.s.c.m.SpringCloudRocketmqConsumerApplication - [logStartupProfileInfo,631] - No active profile set, falling back to 1 default profile: "default"
-12:37:35.536 [main] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Initializing ProtocolHandler ["http-nio-10005"]
-12:37:35.537 [main] INFO  o.a.c.c.StandardService - [log,173] - Starting service [Tomcat]
-12:37:35.537 [main] INFO  o.a.c.c.StandardEngine - [log,173] - Starting Servlet engine: [Apache Tomcat/9.0.70]
-12:37:35.650 [main] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring embedded WebApplicationContext
-12:37:40.197 [main] INFO  c.a.c.s.b.r.i.i.RocketMQInboundChannelAdapter - [info,292] - started com.alibaba.cloud.stream.binder.rocketmq.integration.inbound.RocketMQInboundChannelAdapter@434a8938
-12:37:41.233 [main] INFO  c.a.c.s.b.r.i.i.RocketMQInboundChannelAdapter - [info,292] - started com.alibaba.cloud.stream.binder.rocketmq.integration.inbound.RocketMQInboundChannelAdapter@7de2bdc7
-12:37:41.234 [main] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Starting ProtocolHandler ["http-nio-10005"]
-12:37:41.686 [main] INFO  c.t.s.c.m.SpringCloudRocketmqConsumerApplication - [logStarted,61] - Started SpringCloudRocketmqConsumerApplication in 9.655 seconds (JVM running for 13.065)
-12:39:38.632 [background-preinit] INFO  o.h.v.i.util.Version - [<clinit>,21] - HV000001: Hibernate Validator 6.2.5.Final
-12:39:39.803 [main] INFO  c.t.s.c.m.SpringCloudRocketmqProducerApplication - [logStartupProfileInfo,631] - No active profile set, falling back to 1 default profile: "default"
-12:39:41.934 [main] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Initializing ProtocolHandler ["http-nio-10004"]
-12:39:41.935 [main] INFO  o.a.c.c.StandardService - [log,173] - Starting service [Tomcat]
-12:39:41.935 [main] INFO  o.a.c.c.StandardEngine - [log,173] - Starting Servlet engine: [Apache Tomcat/9.0.70]
-12:39:42.094 [main] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring embedded WebApplicationContext
-12:39:43.161 [main] INFO  o.a.c.c.StandardService - [log,173] - Stopping service [Tomcat]
-12:40:12.841 [background-preinit] INFO  o.h.v.i.util.Version - [<clinit>,21] - HV000001: Hibernate Validator 6.2.5.Final
-12:40:14.028 [main] INFO  c.t.s.c.m.SpringCloudRocketmqProducerApplication - [logStartupProfileInfo,631] - No active profile set, falling back to 1 default profile: "default"
-12:40:15.974 [main] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Initializing ProtocolHandler ["http-nio-10004"]
-12:40:15.975 [main] INFO  o.a.c.c.StandardService - [log,173] - Starting service [Tomcat]
-12:40:15.975 [main] INFO  o.a.c.c.StandardEngine - [log,173] - Starting Servlet engine: [Apache Tomcat/9.0.70]
-12:40:16.115 [main] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring embedded WebApplicationContext
-12:40:20.607 [main] INFO  c.a.c.s.b.r.i.i.RocketMQInboundChannelAdapter - [info,292] - started com.alibaba.cloud.stream.binder.rocketmq.integration.inbound.RocketMQInboundChannelAdapter@98a0e2e
-12:40:20.610 [main] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Starting ProtocolHandler ["http-nio-10004"]
-12:40:20.986 [main] INFO  c.t.s.c.m.SpringCloudRocketmqProducerApplication - [logStarted,61] - Started SpringCloudRocketmqProducerApplication in 9.175 seconds (JVM running for 14.557)
-12:40:50.041 [http-nio-10004-exec-3] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring DispatcherServlet 'dispatcherServlet'
-13:08:35.664 [SpringApplicationShutdownHook] INFO  c.a.c.s.b.r.i.i.RocketMQInboundChannelAdapter - [info,292] - stopped com.alibaba.cloud.stream.binder.rocketmq.integration.inbound.RocketMQInboundChannelAdapter@434a8938
-13:08:35.671 [SpringApplicationShutdownHook] INFO  c.a.c.s.b.r.i.i.RocketMQInboundChannelAdapter - [info,292] - stopped com.alibaba.cloud.stream.binder.rocketmq.integration.inbound.RocketMQInboundChannelAdapter@98a0e2e
-13:08:35.814 [SpringApplicationShutdownHook] INFO  c.a.c.s.b.r.i.i.RocketMQInboundChannelAdapter - [info,292] - stopped com.alibaba.cloud.stream.binder.rocketmq.integration.inbound.RocketMQInboundChannelAdapter@7de2bdc7
-13:08:41.611 [background-preinit] INFO  o.h.v.i.util.Version - [<clinit>,21] - HV000001: Hibernate Validator 6.2.5.Final
-13:08:42.447 [main] INFO  c.t.s.c.m.SpringCloudRocketmqConsumerApplication - [logStartupProfileInfo,631] - No active profile set, falling back to 1 default profile: "default"
-13:08:43.757 [main] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Initializing ProtocolHandler ["http-nio-10005"]
-13:08:43.758 [main] INFO  o.a.c.c.StandardService - [log,173] - Starting service [Tomcat]
-13:08:43.758 [main] INFO  o.a.c.c.StandardEngine - [log,173] - Starting Servlet engine: [Apache Tomcat/9.0.70]
-13:08:43.939 [main] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring embedded WebApplicationContext
-13:08:45.818 [main] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Starting ProtocolHandler ["http-nio-10005"]
-13:08:46.451 [main] INFO  c.t.s.c.m.SpringCloudRocketmqConsumerApplication - [logStarted,61] - Started SpringCloudRocketmqConsumerApplication in 5.877 seconds (JVM running for 6.958)
-13:09:22.425 [background-preinit] INFO  o.h.v.i.util.Version - [<clinit>,21] - HV000001: Hibernate Validator 6.2.5.Final
-13:09:23.133 [main] INFO  c.t.s.c.m.SpringCloudRocketmqConsumerApplication - [logStartupProfileInfo,631] - No active profile set, falling back to 1 default profile: "default"
-13:09:24.218 [main] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Initializing ProtocolHandler ["http-nio-10005"]
-13:09:24.219 [main] INFO  o.a.c.c.StandardService - [log,173] - Starting service [Tomcat]
-13:09:24.219 [main] INFO  o.a.c.c.StandardEngine - [log,173] - Starting Servlet engine: [Apache Tomcat/9.0.70]
-13:09:24.371 [main] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring embedded WebApplicationContext
-13:09:25.748 [main] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Starting ProtocolHandler ["http-nio-10005"]
-13:09:26.178 [main] INFO  c.t.s.c.m.SpringCloudRocketmqConsumerApplication - [logStarted,61] - Started SpringCloudRocketmqConsumerApplication in 4.532 seconds (JVM running for 5.55)
-13:10:07.653 [background-preinit] INFO  o.h.v.i.util.Version - [<clinit>,21] - HV000001: Hibernate Validator 6.2.5.Final
-13:10:08.661 [main] INFO  c.t.s.c.m.SpringCloudRocketmqProducerApplication - [logStartupProfileInfo,631] - No active profile set, falling back to 1 default profile: "default"
-13:10:10.053 [main] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Initializing ProtocolHandler ["http-nio-10004"]
-13:10:10.054 [main] INFO  o.a.c.c.StandardService - [log,173] - Starting service [Tomcat]
-13:10:10.054 [main] INFO  o.a.c.c.StandardEngine - [log,173] - Starting Servlet engine: [Apache Tomcat/9.0.70]
-13:10:10.154 [main] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring embedded WebApplicationContext
-13:10:13.993 [main] INFO  c.a.c.s.b.r.i.i.RocketMQInboundChannelAdapter - [info,292] - started com.alibaba.cloud.stream.binder.rocketmq.integration.inbound.RocketMQInboundChannelAdapter@1c90029b
-13:10:13.995 [main] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Starting ProtocolHandler ["http-nio-10004"]
-13:10:14.350 [main] INFO  c.t.s.c.m.SpringCloudRocketmqProducerApplication - [logStarted,61] - Started SpringCloudRocketmqProducerApplication in 7.697 seconds (JVM running for 10.901)
-13:10:18.491 [http-nio-10004-exec-1] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring DispatcherServlet 'dispatcherServlet'
-13:19:47.026 [SpringApplicationShutdownHook] INFO  c.a.c.s.b.r.i.i.RocketMQInboundChannelAdapter - [info,292] - stopped com.alibaba.cloud.stream.binder.rocketmq.integration.inbound.RocketMQInboundChannelAdapter@1c90029b
-13:19:55.887 [background-preinit] INFO  o.h.v.i.util.Version - [<clinit>,21] - HV000001: Hibernate Validator 6.2.5.Final
-13:19:56.800 [main] INFO  c.t.s.c.m.SpringCloudRocketmqConsumerApplication - [logStartupProfileInfo,631] - No active profile set, falling back to 1 default profile: "default"
-13:19:59.000 [main] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Initializing ProtocolHandler ["http-nio-10005"]
-13:19:59.001 [main] INFO  o.a.c.c.StandardService - [log,173] - Starting service [Tomcat]
-13:19:59.002 [main] INFO  o.a.c.c.StandardEngine - [log,173] - Starting Servlet engine: [Apache Tomcat/9.0.70]
-13:19:59.170 [main] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring embedded WebApplicationContext
-13:20:05.377 [main] INFO  c.a.c.s.b.r.i.i.RocketMQInboundChannelAdapter - [info,292] - started com.alibaba.cloud.stream.binder.rocketmq.integration.inbound.RocketMQInboundChannelAdapter@16e07bae
-13:20:05.381 [main] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Starting ProtocolHandler ["http-nio-10005"]
-13:20:05.759 [background-preinit] INFO  o.h.v.i.util.Version - [<clinit>,21] - HV000001: Hibernate Validator 6.2.5.Final
-13:20:05.884 [main] INFO  c.t.s.c.m.SpringCloudRocketmqConsumerApplication - [logStarted,61] - Started SpringCloudRocketmqConsumerApplication in 11.061 seconds (JVM running for 14.658)
-13:20:07.449 [main] INFO  c.t.s.c.m.SpringCloudRocketmqProducerApplication - [logStartupProfileInfo,631] - No active profile set, falling back to 1 default profile: "default"
-13:20:09.710 [main] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Initializing ProtocolHandler ["http-nio-10004"]
-13:20:09.710 [main] INFO  o.a.c.c.StandardService - [log,173] - Starting service [Tomcat]
-13:20:09.710 [main] INFO  o.a.c.c.StandardEngine - [log,173] - Starting Servlet engine: [Apache Tomcat/9.0.70]
-13:20:09.888 [main] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring embedded WebApplicationContext
-13:20:10.566 [main] INFO  o.a.c.c.StandardService - [log,173] - Stopping service [Tomcat]
-13:20:42.736 [background-preinit] INFO  o.h.v.i.util.Version - [<clinit>,21] - HV000001: Hibernate Validator 6.2.5.Final
-13:20:43.928 [main] INFO  c.t.s.c.m.SpringCloudRocketmqProducerApplication - [logStartupProfileInfo,631] - No active profile set, falling back to 1 default profile: "default"
-13:20:46.064 [main] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Initializing ProtocolHandler ["http-nio-10004"]
-13:20:46.065 [main] INFO  o.a.c.c.StandardService - [log,173] - Starting service [Tomcat]
-13:20:46.065 [main] INFO  o.a.c.c.StandardEngine - [log,173] - Starting Servlet engine: [Apache Tomcat/9.0.70]
-13:20:46.241 [main] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring embedded WebApplicationContext
-13:20:49.021 [main] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Starting ProtocolHandler ["http-nio-10004"]
-13:20:49.439 [main] INFO  c.t.s.c.m.SpringCloudRocketmqProducerApplication - [logStarted,61] - Started SpringCloudRocketmqProducerApplication in 7.741 seconds (JVM running for 12.911)
-13:21:06.828 [http-nio-10004-exec-1] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring DispatcherServlet 'dispatcherServlet'
-13:24:43.880 [SpringApplicationShutdownHook] INFO  c.a.c.s.b.r.i.i.RocketMQInboundChannelAdapter - [info,292] - stopped com.alibaba.cloud.stream.binder.rocketmq.integration.inbound.RocketMQInboundChannelAdapter@16e07bae
-13:26:23.707 [background-preinit] INFO  o.h.v.i.util.Version - [<clinit>,21] - HV000001: Hibernate Validator 6.2.5.Final
-13:26:25.220 [main] INFO  c.t.s.c.m.SpringCloudRocketmqConsumerApplication - [logStartupProfileInfo,631] - No active profile set, falling back to 1 default profile: "default"
-13:26:26.400 [background-preinit] INFO  o.h.v.i.util.Version - [<clinit>,21] - HV000001: Hibernate Validator 6.2.5.Final
-13:26:27.230 [main] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Initializing ProtocolHandler ["http-nio-10005"]
-13:26:27.231 [main] INFO  o.a.c.c.StandardService - [log,173] - Starting service [Tomcat]
-13:26:27.232 [main] INFO  o.a.c.c.StandardEngine - [log,173] - Starting Servlet engine: [Apache Tomcat/9.0.70]
-13:26:27.444 [main] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring embedded WebApplicationContext
-13:26:27.583 [main] INFO  c.t.s.c.m.SpringCloudRocketmqProducerApplication - [logStartupProfileInfo,631] - No active profile set, falling back to 1 default profile: "default"
-13:26:28.776 [main] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Initializing ProtocolHandler ["http-nio-10004"]
-13:26:28.777 [main] INFO  o.a.c.c.StandardService - [log,173] - Starting service [Tomcat]
-13:26:28.777 [main] INFO  o.a.c.c.StandardEngine - [log,173] - Starting Servlet engine: [Apache Tomcat/9.0.70]
-13:26:28.978 [main] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring embedded WebApplicationContext
-13:26:31.001 [main] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Starting ProtocolHandler ["http-nio-10004"]
-13:26:31.455 [main] INFO  c.t.s.c.m.SpringCloudRocketmqProducerApplication - [logStarted,61] - Started SpringCloudRocketmqProducerApplication in 6.532 seconds (JVM running for 8.055)
-13:26:31.822 [main] INFO  c.a.c.s.b.r.i.i.RocketMQInboundChannelAdapter - [info,292] - started com.alibaba.cloud.stream.binder.rocketmq.integration.inbound.RocketMQInboundChannelAdapter@7c40ffef
-13:26:31.824 [main] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Starting ProtocolHandler ["http-nio-10005"]
-13:26:32.313 [main] INFO  c.t.s.c.m.SpringCloudRocketmqConsumerApplication - [logStarted,61] - Started SpringCloudRocketmqConsumerApplication in 9.601 seconds (JVM running for 10.846)
-13:30:08.531 [SpringApplicationShutdownHook] INFO  c.a.c.s.b.r.i.i.RocketMQInboundChannelAdapter - [info,292] - stopped com.alibaba.cloud.stream.binder.rocketmq.integration.inbound.RocketMQInboundChannelAdapter@7c40ffef
-13:42:05.850 [background-preinit] INFO  o.h.v.i.util.Version - [<clinit>,21] - HV000001: Hibernate Validator 6.2.5.Final
-13:42:06.682 [main] INFO  c.t.x.e.ToweloveXxlJobExecutorApplication - [logStartupProfileInfo,631] - No active profile set, falling back to 1 default profile: "default"
-13:42:08.235 [main] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Initializing ProtocolHandler ["http-nio-8082"]
-13:42:08.235 [main] INFO  o.a.c.c.StandardService - [log,173] - Starting service [Tomcat]
-13:42:08.236 [main] INFO  o.a.c.c.StandardEngine - [log,173] - Starting Servlet engine: [Apache Tomcat/9.0.70]
-13:42:08.348 [main] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring embedded WebApplicationContext
-13:42:08.775 [main] INFO  c.t.x.e.c.XxlJobConfig - [xxlJobExecutor,51] - >>>>>>>>>>> xxl-job config init.
-13:42:10.021 [main] INFO  c.x.j.c.e.XxlJobExecutor - [registJobHandler,183] - >>>>>>>>>>> xxl-job register jobhandler success, name:myJobHander, jobHandler:com.xxl.job.core.handler.impl.MethodJobHandler@b768a65[class com.towelove.xxljob.executor.excutor.SimpleXxxJob#myJobHander]
-13:42:10.483 [main] INFO  c.a.n.c.r.client - [lambda$createClient$0,80] - [RpcClientFactory] create a new rpc client of 64334fbb-1813-45e8-b069-67444efdedd5
-13:42:10.600 [main] INFO  o.r.Reflections - [scan,232] - Reflections took 68 ms to scan 1 urls, producing 3 keys and 6 values 
-13:42:10.688 [main] INFO  o.r.Reflections - [scan,232] - Reflections took 22 ms to scan 1 urls, producing 4 keys and 9 values 
-13:42:10.718 [main] INFO  o.r.Reflections - [scan,232] - Reflections took 21 ms to scan 1 urls, producing 3 keys and 10 values 
-13:42:10.994 [main] INFO  o.r.Reflections - [scan,232] - Reflections took 272 ms to scan 220 urls, producing 0 keys and 0 values 
-13:42:11.011 [main] INFO  o.r.Reflections - [scan,232] - Reflections took 14 ms to scan 1 urls, producing 1 keys and 5 values 
-13:42:11.031 [main] INFO  o.r.Reflections - [scan,232] - Reflections took 16 ms to scan 1 urls, producing 1 keys and 7 values 
-13:42:11.051 [main] INFO  o.r.Reflections - [scan,232] - Reflections took 14 ms to scan 1 urls, producing 2 keys and 8 values 
-13:42:11.189 [Thread-16] INFO  c.x.j.c.s.EmbedServer - [run,82] - >>>>>>>>>>> xxl-job remoting server start success, nettype = class com.xxl.job.core.server.EmbedServer, port = 30020
-13:42:11.242 [main] INFO  o.r.Reflections - [scan,232] - Reflections took 187 ms to scan 220 urls, producing 0 keys and 0 values 
-13:42:11.245 [main] INFO  c.a.n.c.r.client - [printIfInfoEnabled,60] - [64334fbb-1813-45e8-b069-67444efdedd5] RpcClient init label, labels = {module=naming, source=sdk}
-13:42:11.249 [main] INFO  c.a.n.c.r.client - [printIfInfoEnabled,60] - [64334fbb-1813-45e8-b069-67444efdedd5] RpcClient init, ServerListFactory = com.alibaba.nacos.client.naming.core.ServerListManager
-13:42:11.249 [main] INFO  c.a.n.c.r.client - [printIfInfoEnabled,60] - [64334fbb-1813-45e8-b069-67444efdedd5] Registry connection listener to current client:com.alibaba.nacos.client.naming.remote.gprc.redo.NamingGrpcRedoService
-13:42:11.250 [main] INFO  c.a.n.c.r.client - [printIfInfoEnabled,60] - [64334fbb-1813-45e8-b069-67444efdedd5] Register server push request handler:com.alibaba.nacos.client.naming.remote.gprc.NamingPushRequestHandler
-13:42:11.253 [main] INFO  c.a.n.c.r.client - [printIfInfoEnabled,60] - [64334fbb-1813-45e8-b069-67444efdedd5] Try to connect to server on start up, server: {serverIp = '123.249.97.220', server main port = 8848}
-13:42:13.596 [main] INFO  c.a.n.c.r.client - [printIfInfoEnabled,60] - [64334fbb-1813-45e8-b069-67444efdedd5] Success to connect to server [123.249.97.220:8848] on start up, connectionId = 1678686131847_116.2.240.65_50395
-13:42:13.598 [com.alibaba.nacos.client.remote.worker] INFO  c.a.n.c.r.client - [printIfInfoEnabled,60] - [64334fbb-1813-45e8-b069-67444efdedd5] Notify connected event to listeners.
-13:42:13.599 [main] INFO  c.a.n.c.r.client - [printIfInfoEnabled,60] - [64334fbb-1813-45e8-b069-67444efdedd5] Register server push request handler:com.alibaba.nacos.common.remote.client.RpcClient$ConnectResetRequestHandler
-13:42:13.600 [main] INFO  c.a.n.c.r.client - [printIfInfoEnabled,60] - [64334fbb-1813-45e8-b069-67444efdedd5] Register server push request handler:com.alibaba.nacos.common.remote.client.RpcClient$$Lambda$920/1861043945
-13:42:13.746 [main] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Starting ProtocolHandler ["http-nio-8082"]
-13:42:13.829 [main] INFO  c.a.c.n.r.NacosServiceRegistry - [register,75] - nacos registry, DEFAULT_GROUP towelove-xxlJob-exectour 192.168.146.1:8082 register finished
-13:42:14.204 [nacos-grpc-client-executor-9] INFO  c.a.n.c.r.client - [printIfInfoEnabled,60] - [64334fbb-1813-45e8-b069-67444efdedd5] Receive server push request, request = NotifySubscriberRequest, requestId = 821
-13:42:14.214 [nacos-grpc-client-executor-9] INFO  c.a.n.c.r.client - [printIfInfoEnabled,60] - [64334fbb-1813-45e8-b069-67444efdedd5] Ack server push request, request = NotifySubscriberRequest, requestId = 821
-13:42:14.226 [xxl-job, executor ExecutorRegistryThread] INFO  c.x.j.c.t.ExecutorRegistryThread - [run,54] - >>>>>>>>>>> xxl-job registry fail, registryParam:RegistryParam{registryGroup='EXECUTOR', registryKey='toweolove-executor', registryValue='http://192.168.0.102:30020/'}, registryResult:ReturnT [code=500, msg=xxl-job remoting error(connect timed out), for url : http://192.168.75.1:8320/xxl-job-admin/api/registry, content=null]
-13:42:14.453 [main] INFO  c.t.x.e.ToweloveXxlJobExecutorApplication - [logStarted,61] - Started ToweloveXxlJobExecutorApplication in 9.482 seconds (JVM running for 10.682)
-13:42:45.364 [http-nio-8082-exec-1] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring DispatcherServlet 'dispatcherServlet'
-13:42:47.241 [xxl-job, executor ExecutorRegistryThread] INFO  c.x.j.c.t.ExecutorRegistryThread - [run,54] - >>>>>>>>>>> xxl-job registry fail, registryParam:RegistryParam{registryGroup='EXECUTOR', registryKey='toweolove-executor', registryValue='http://192.168.0.102:30020/'}, registryResult:ReturnT [code=500, msg=xxl-job remoting error(connect timed out), for url : http://192.168.75.1:8320/xxl-job-admin/api/registry, content=null]
-13:43:20.251 [xxl-job, executor ExecutorRegistryThread] INFO  c.x.j.c.t.ExecutorRegistryThread - [run,54] - >>>>>>>>>>> xxl-job registry fail, registryParam:RegistryParam{registryGroup='EXECUTOR', registryKey='toweolove-executor', registryValue='http://192.168.0.102:30020/'}, registryResult:ReturnT [code=500, msg=xxl-job remoting error(connect timed out), for url : http://192.168.75.1:8320/xxl-job-admin/api/registry, content=null]
-13:43:53.258 [xxl-job, executor ExecutorRegistryThread] INFO  c.x.j.c.t.ExecutorRegistryThread - [run,54] - >>>>>>>>>>> xxl-job registry fail, registryParam:RegistryParam{registryGroup='EXECUTOR', registryKey='toweolove-executor', registryValue='http://192.168.0.102:30020/'}, registryResult:ReturnT [code=500, msg=xxl-job remoting error(connect timed out), for url : http://192.168.75.1:8320/xxl-job-admin/api/registry, content=null]
-13:44:26.282 [xxl-job, executor ExecutorRegistryThread] INFO  c.x.j.c.t.ExecutorRegistryThread - [run,54] - >>>>>>>>>>> xxl-job registry fail, registryParam:RegistryParam{registryGroup='EXECUTOR', registryKey='toweolove-executor', registryValue='http://192.168.0.102:30020/'}, registryResult:ReturnT [code=500, msg=xxl-job remoting error(connect timed out), for url : http://192.168.75.1:8320/xxl-job-admin/api/registry, content=null]
-13:44:31.854 [SpringApplicationShutdownHook] INFO  c.a.c.n.r.NacosServiceRegistry - [deregister,94] - De-registering from Nacos Server now...
-13:44:31.893 [SpringApplicationShutdownHook] INFO  c.a.c.n.r.NacosServiceRegistry - [deregister,114] - De-registration finished.
-13:44:32.220 [SpringApplicationShutdownHook] INFO  c.a.n.c.r.client - [shutdown,454] - Shutdown rpc client, set status to shutdown
-13:44:32.221 [SpringApplicationShutdownHook] INFO  c.a.n.c.r.client - [shutdown,456] - Shutdown client event executor java.util.concurrent.ScheduledThreadPoolExecutor@5984855[Running, pool size = 2, active threads = 2, queued tasks = 0, completed tasks = 0]
-13:44:32.221 [SpringApplicationShutdownHook] INFO  c.a.n.c.r.client - [closeConnection,591] - Close current connection 1678686131847_116.2.240.65_50395
-13:44:32.225 [SpringApplicationShutdownHook] INFO  c.a.n.c.r.c.g.GrpcClient - [shutdown,85] - Shutdown grpc executor java.util.concurrent.ThreadPoolExecutor@7331257e[Running, pool size = 4, active threads = 0, queued tasks = 0, completed tasks = 39]
-13:44:32.227 [Thread-16] INFO  c.x.j.c.s.EmbedServer - [run,91] - >>>>>>>>>>> xxl-job remoting server stop.
-13:44:35.237 [xxl-job, executor ExecutorRegistryThread] INFO  c.x.j.c.t.ExecutorRegistryThread - [run,90] - >>>>>>>>>>> xxl-job registry-remove fail, registryParam:RegistryParam{registryGroup='EXECUTOR', registryKey='toweolove-executor', registryValue='http://192.168.0.102:30020/'}, registryResult:ReturnT [code=500, msg=xxl-job remoting error(connect timed out), for url : http://192.168.75.1:8320/xxl-job-admin/api/registryRemove, content=null]
-13:44:35.238 [xxl-job, executor ExecutorRegistryThread] INFO  c.x.j.c.t.ExecutorRegistryThread - [run,105] - >>>>>>>>>>> xxl-job, executor registry thread destroy.
-13:44:35.238 [SpringApplicationShutdownHook] INFO  c.x.j.c.s.EmbedServer - [stop,117] - >>>>>>>>>>> xxl-job remoting server destroy success.
-13:44:35.238 [xxl-job, executor TriggerCallbackThread] INFO  c.x.j.c.t.TriggerCallbackThread - [run,98] - >>>>>>>>>>> xxl-job, executor callback thread destroy.
-13:44:35.238 [Thread-15] INFO  c.x.j.c.t.TriggerCallbackThread - [run,128] - >>>>>>>>>>> xxl-job, executor retry callback thread destroy.
-13:44:44.383 [background-preinit] INFO  o.h.v.i.util.Version - [<clinit>,21] - HV000001: Hibernate Validator 6.2.5.Final
-13:44:45.867 [main] INFO  c.t.x.e.ToweloveXxlJobExecutorApplication - [logStartupProfileInfo,631] - No active profile set, falling back to 1 default profile: "default"
-13:44:48.122 [main] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Initializing ProtocolHandler ["http-nio-8082"]
-13:44:48.123 [main] INFO  o.a.c.c.StandardService - [log,173] - Starting service [Tomcat]
-13:44:48.123 [main] INFO  o.a.c.c.StandardEngine - [log,173] - Starting Servlet engine: [Apache Tomcat/9.0.70]
-13:44:48.244 [main] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring embedded WebApplicationContext
-13:44:48.854 [main] INFO  c.t.x.e.c.XxlJobConfig - [xxlJobExecutor,51] - >>>>>>>>>>> xxl-job config init.
-13:44:50.440 [main] INFO  c.x.j.c.e.XxlJobExecutor - [registJobHandler,183] - >>>>>>>>>>> xxl-job register jobhandler success, name:myJobHander, jobHandler:com.xxl.job.core.handler.impl.MethodJobHandler@19e3152[class com.towelove.xxljob.executor.excutor.SimpleXxxJob#myJobHander]
-13:44:50.827 [main] INFO  c.a.n.c.r.client - [lambda$createClient$0,80] - [RpcClientFactory] create a new rpc client of 92b807ce-da0f-45ab-b9d5-d7a65ae2ea58
-13:44:50.908 [main] INFO  o.r.Reflections - [scan,232] - Reflections took 36 ms to scan 1 urls, producing 3 keys and 6 values 
-13:44:50.944 [main] INFO  o.r.Reflections - [scan,232] - Reflections took 12 ms to scan 1 urls, producing 4 keys and 9 values 
-13:44:50.958 [main] INFO  o.r.Reflections - [scan,232] - Reflections took 10 ms to scan 1 urls, producing 3 keys and 10 values 
-13:44:51.138 [main] INFO  o.r.Reflections - [scan,232] - Reflections took 177 ms to scan 220 urls, producing 0 keys and 0 values 
-13:44:51.147 [main] INFO  o.r.Reflections - [scan,232] - Reflections took 8 ms to scan 1 urls, producing 1 keys and 5 values 
-13:44:51.161 [main] INFO  o.r.Reflections - [scan,232] - Reflections took 10 ms to scan 1 urls, producing 1 keys and 7 values 
-13:44:51.173 [main] INFO  o.r.Reflections - [scan,232] - Reflections took 8 ms to scan 1 urls, producing 2 keys and 8 values 
-13:44:51.215 [Thread-29] INFO  c.x.j.c.s.EmbedServer - [run,82] - >>>>>>>>>>> xxl-job remoting server start success, nettype = class com.xxl.job.core.server.EmbedServer, port = 30020
-13:44:51.321 [main] INFO  o.r.Reflections - [scan,232] - Reflections took 145 ms to scan 220 urls, producing 0 keys and 0 values 
-13:44:51.324 [main] INFO  c.a.n.c.r.client - [printIfInfoEnabled,60] - [92b807ce-da0f-45ab-b9d5-d7a65ae2ea58] RpcClient init label, labels = {module=naming, source=sdk}
-13:44:51.326 [main] INFO  c.a.n.c.r.client - [printIfInfoEnabled,60] - [92b807ce-da0f-45ab-b9d5-d7a65ae2ea58] RpcClient init, ServerListFactory = com.alibaba.nacos.client.naming.core.ServerListManager
-13:44:51.326 [main] INFO  c.a.n.c.r.client - [printIfInfoEnabled,60] - [92b807ce-da0f-45ab-b9d5-d7a65ae2ea58] Registry connection listener to current client:com.alibaba.nacos.client.naming.remote.gprc.redo.NamingGrpcRedoService
-13:44:51.327 [main] INFO  c.a.n.c.r.client - [printIfInfoEnabled,60] - [92b807ce-da0f-45ab-b9d5-d7a65ae2ea58] Register server push request handler:com.alibaba.nacos.client.naming.remote.gprc.NamingPushRequestHandler
-13:44:51.329 [main] INFO  c.a.n.c.r.client - [printIfInfoEnabled,60] - [92b807ce-da0f-45ab-b9d5-d7a65ae2ea58] Try to connect to server on start up, server: {serverIp = '123.249.97.220', server main port = 8848}
-13:44:52.940 [main] INFO  c.a.n.c.r.client - [printIfInfoEnabled,60] - [92b807ce-da0f-45ab-b9d5-d7a65ae2ea58] Success to connect to server [123.249.97.220:8848] on start up, connectionId = 1678686291491_116.2.240.65_50721
-13:44:52.941 [com.alibaba.nacos.client.remote.worker] INFO  c.a.n.c.r.client - [printIfInfoEnabled,60] - [92b807ce-da0f-45ab-b9d5-d7a65ae2ea58] Notify connected event to listeners.
-13:44:52.941 [main] INFO  c.a.n.c.r.client - [printIfInfoEnabled,60] - [92b807ce-da0f-45ab-b9d5-d7a65ae2ea58] Register server push request handler:com.alibaba.nacos.common.remote.client.RpcClient$ConnectResetRequestHandler
-13:44:52.942 [main] INFO  c.a.n.c.r.client - [printIfInfoEnabled,60] - [92b807ce-da0f-45ab-b9d5-d7a65ae2ea58] Register server push request handler:com.alibaba.nacos.common.remote.client.RpcClient$$Lambda$974/1521104704
-13:44:53.039 [main] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Starting ProtocolHandler ["http-nio-8082"]
-13:44:53.130 [main] INFO  c.a.c.n.r.NacosServiceRegistry - [register,75] - nacos registry, DEFAULT_GROUP towelove-xxlJob-exectour 192.168.146.1:8082 register finished
-13:44:53.460 [main] INFO  c.t.x.e.ToweloveXxlJobExecutorApplication - [logStarted,61] - Started ToweloveXxlJobExecutorApplication in 10.409 seconds (JVM running for 13.556)
-13:44:53.579 [nacos-grpc-client-executor-8] INFO  c.a.n.c.r.client - [printIfInfoEnabled,60] - [92b807ce-da0f-45ab-b9d5-d7a65ae2ea58] Receive server push request, request = NotifySubscriberRequest, requestId = 822
-13:44:53.588 [nacos-grpc-client-executor-8] INFO  c.a.n.c.r.client - [printIfInfoEnabled,60] - [92b807ce-da0f-45ab-b9d5-d7a65ae2ea58] Ack server push request, request = NotifySubscriberRequest, requestId = 822
-13:44:54.244 [xxl-job, executor ExecutorRegistryThread] INFO  c.x.j.c.t.ExecutorRegistryThread - [run,54] - >>>>>>>>>>> xxl-job registry fail, registryParam:RegistryParam{registryGroup='EXECUTOR', registryKey='toweolove-executor', registryValue='http://192.168.0.102:30020/'}, registryResult:ReturnT [code=500, msg=xxl-job remoting error(connect timed out), for url : http://192.168.75.1:8320/xxl-job-admin/api/registry, content=null]
-13:44:58.607 [http-nio-8082-exec-2] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring DispatcherServlet 'dispatcherServlet'
-13:45:27.261 [xxl-job, executor ExecutorRegistryThread] INFO  c.x.j.c.t.ExecutorRegistryThread - [run,54] - >>>>>>>>>>> xxl-job registry fail, registryParam:RegistryParam{registryGroup='EXECUTOR', registryKey='toweolove-executor', registryValue='http://192.168.0.102:30020/'}, registryResult:ReturnT [code=500, msg=xxl-job remoting error(connect timed out), for url : http://192.168.75.1:8320/xxl-job-admin/api/registry, content=null]
-13:46:00.266 [xxl-job, executor ExecutorRegistryThread] INFO  c.x.j.c.t.ExecutorRegistryThread - [run,54] - >>>>>>>>>>> xxl-job registry fail, registryParam:RegistryParam{registryGroup='EXECUTOR', registryKey='toweolove-executor', registryValue='http://192.168.0.102:30020/'}, registryResult:ReturnT [code=500, msg=xxl-job remoting error(connect timed out), for url : http://192.168.75.1:8320/xxl-job-admin/api/registry, content=null]
-13:46:33.283 [xxl-job, executor ExecutorRegistryThread] INFO  c.x.j.c.t.ExecutorRegistryThread - [run,54] - >>>>>>>>>>> xxl-job registry fail, registryParam:RegistryParam{registryGroup='EXECUTOR', registryKey='toweolove-executor', registryValue='http://192.168.0.102:30020/'}, registryResult:ReturnT [code=500, msg=xxl-job remoting error(connect timed out), for url : http://192.168.75.1:8320/xxl-job-admin/api/registry, content=null]
-13:47:06.295 [xxl-job, executor ExecutorRegistryThread] INFO  c.x.j.c.t.ExecutorRegistryThread - [run,54] - >>>>>>>>>>> xxl-job registry fail, registryParam:RegistryParam{registryGroup='EXECUTOR', registryKey='toweolove-executor', registryValue='http://192.168.0.102:30020/'}, registryResult:ReturnT [code=500, msg=xxl-job remoting error(connect timed out), for url : http://192.168.75.1:8320/xxl-job-admin/api/registry, content=null]
-13:47:10.013 [SpringApplicationShutdownHook] INFO  c.a.c.n.r.NacosServiceRegistry - [deregister,94] - De-registering from Nacos Server now...
-13:47:10.048 [SpringApplicationShutdownHook] INFO  c.a.c.n.r.NacosServiceRegistry - [deregister,114] - De-registration finished.
-13:47:10.371 [SpringApplicationShutdownHook] INFO  c.a.n.c.r.client - [shutdown,454] - Shutdown rpc client, set status to shutdown
-13:47:10.372 [SpringApplicationShutdownHook] INFO  c.a.n.c.r.client - [shutdown,456] - Shutdown client event executor java.util.concurrent.ScheduledThreadPoolExecutor@49395b22[Running, pool size = 2, active threads = 2, queued tasks = 0, completed tasks = 0]
-13:47:10.372 [SpringApplicationShutdownHook] INFO  c.a.n.c.r.client - [closeConnection,591] - Close current connection 1678686291491_116.2.240.65_50721
-13:47:10.378 [SpringApplicationShutdownHook] INFO  c.a.n.c.r.c.g.GrpcClient - [shutdown,85] - Shutdown grpc executor java.util.concurrent.ThreadPoolExecutor@12f90785[Running, pool size = 4, active threads = 0, queued tasks = 0, completed tasks = 43]
-13:47:10.382 [Thread-29] INFO  c.x.j.c.s.EmbedServer - [run,91] - >>>>>>>>>>> xxl-job remoting server stop.
-13:47:13.390 [xxl-job, executor ExecutorRegistryThread] INFO  c.x.j.c.t.ExecutorRegistryThread - [run,90] - >>>>>>>>>>> xxl-job registry-remove fail, registryParam:RegistryParam{registryGroup='EXECUTOR', registryKey='toweolove-executor', registryValue='http://192.168.0.102:30020/'}, registryResult:ReturnT [code=500, msg=xxl-job remoting error(connect timed out), for url : http://192.168.75.1:8320/xxl-job-admin/api/registryRemove, content=null]
-13:47:13.391 [xxl-job, executor ExecutorRegistryThread] INFO  c.x.j.c.t.ExecutorRegistryThread - [run,105] - >>>>>>>>>>> xxl-job, executor registry thread destroy.
-13:47:13.391 [SpringApplicationShutdownHook] INFO  c.x.j.c.s.EmbedServer - [stop,117] - >>>>>>>>>>> xxl-job remoting server destroy success.
-13:47:13.392 [xxl-job, executor TriggerCallbackThread] INFO  c.x.j.c.t.TriggerCallbackThread - [run,98] - >>>>>>>>>>> xxl-job, executor callback thread destroy.
-13:47:13.392 [Thread-28] INFO  c.x.j.c.t.TriggerCallbackThread - [run,128] - >>>>>>>>>>> xxl-job, executor retry callback thread destroy.
-13:47:22.769 [background-preinit] INFO  o.h.v.i.util.Version - [<clinit>,21] - HV000001: Hibernate Validator 6.2.5.Final
-13:47:23.717 [main] INFO  c.t.x.e.ToweloveXxlJobExecutorApplication - [logStartupProfileInfo,631] - No active profile set, falling back to 1 default profile: "default"
-13:47:25.553 [main] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Initializing ProtocolHandler ["http-nio-8082"]
-13:47:25.554 [main] INFO  o.a.c.c.StandardService - [log,173] - Starting service [Tomcat]
-13:47:25.554 [main] INFO  o.a.c.c.StandardEngine - [log,173] - Starting Servlet engine: [Apache Tomcat/9.0.70]
-13:47:25.679 [main] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring embedded WebApplicationContext
-13:47:26.412 [main] INFO  c.t.x.e.c.XxlJobConfig - [xxlJobExecutor,51] - >>>>>>>>>>> xxl-job config init.
-13:47:28.133 [main] INFO  c.x.j.c.e.XxlJobExecutor - [registJobHandler,183] - >>>>>>>>>>> xxl-job register jobhandler success, name:myJobHander, jobHandler:com.xxl.job.core.handler.impl.MethodJobHandler@778197c0[class com.towelove.xxljob.executor.excutor.SimpleXxxJob#myJobHander]
-13:47:28.588 [main] INFO  c.a.n.c.r.client - [lambda$createClient$0,80] - [RpcClientFactory] create a new rpc client of 59c8ee4d-f01b-4f39-b08e-b9f53ada3278
-13:47:28.655 [main] INFO  o.r.Reflections - [scan,232] - Reflections took 41 ms to scan 1 urls, producing 3 keys and 6 values 
-13:47:28.708 [main] INFO  o.r.Reflections - [scan,232] - Reflections took 22 ms to scan 1 urls, producing 4 keys and 9 values 
-13:47:28.731 [main] INFO  o.r.Reflections - [scan,232] - Reflections took 18 ms to scan 1 urls, producing 3 keys and 10 values 
-13:47:28.967 [main] INFO  o.r.Reflections - [scan,232] - Reflections took 230 ms to scan 220 urls, producing 0 keys and 0 values 
-13:47:28.980 [main] INFO  o.r.Reflections - [scan,232] - Reflections took 13 ms to scan 1 urls, producing 1 keys and 5 values 
-13:47:28.998 [main] INFO  o.r.Reflections - [scan,232] - Reflections took 14 ms to scan 1 urls, producing 1 keys and 7 values 
-13:47:29.015 [main] INFO  o.r.Reflections - [scan,232] - Reflections took 14 ms to scan 1 urls, producing 2 keys and 8 values 
-13:47:29.027 [Thread-30] INFO  c.x.j.c.s.EmbedServer - [run,82] - >>>>>>>>>>> xxl-job remoting server start success, nettype = class com.xxl.job.core.server.EmbedServer, port = 30020
-13:47:29.180 [main] INFO  o.r.Reflections - [scan,232] - Reflections took 161 ms to scan 220 urls, producing 0 keys and 0 values 
-13:47:29.183 [main] INFO  c.a.n.c.r.client - [printIfInfoEnabled,60] - [59c8ee4d-f01b-4f39-b08e-b9f53ada3278] RpcClient init label, labels = {module=naming, source=sdk}
-13:47:29.186 [main] INFO  c.a.n.c.r.client - [printIfInfoEnabled,60] - [59c8ee4d-f01b-4f39-b08e-b9f53ada3278] RpcClient init, ServerListFactory = com.alibaba.nacos.client.naming.core.ServerListManager
-13:47:29.187 [main] INFO  c.a.n.c.r.client - [printIfInfoEnabled,60] - [59c8ee4d-f01b-4f39-b08e-b9f53ada3278] Registry connection listener to current client:com.alibaba.nacos.client.naming.remote.gprc.redo.NamingGrpcRedoService
-13:47:29.188 [main] INFO  c.a.n.c.r.client - [printIfInfoEnabled,60] - [59c8ee4d-f01b-4f39-b08e-b9f53ada3278] Register server push request handler:com.alibaba.nacos.client.naming.remote.gprc.NamingPushRequestHandler
-13:47:29.190 [main] INFO  c.a.n.c.r.client - [printIfInfoEnabled,60] - [59c8ee4d-f01b-4f39-b08e-b9f53ada3278] Try to connect to server on start up, server: {serverIp = '123.249.97.220', server main port = 8848}
-13:47:31.424 [main] INFO  c.a.n.c.r.client - [printIfInfoEnabled,60] - [59c8ee4d-f01b-4f39-b08e-b9f53ada3278] Success to connect to server [123.249.97.220:8848] on start up, connectionId = 1678686449895_116.2.240.65_51065
-13:47:31.426 [com.alibaba.nacos.client.remote.worker] INFO  c.a.n.c.r.client - [printIfInfoEnabled,60] - [59c8ee4d-f01b-4f39-b08e-b9f53ada3278] Notify connected event to listeners.
-13:47:31.427 [main] INFO  c.a.n.c.r.client - [printIfInfoEnabled,60] - [59c8ee4d-f01b-4f39-b08e-b9f53ada3278] Register server push request handler:com.alibaba.nacos.common.remote.client.RpcClient$ConnectResetRequestHandler
-13:47:31.429 [main] INFO  c.a.n.c.r.client - [printIfInfoEnabled,60] - [59c8ee4d-f01b-4f39-b08e-b9f53ada3278] Register server push request handler:com.alibaba.nacos.common.remote.client.RpcClient$$Lambda$974/1281445260
-13:47:31.568 [main] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Starting ProtocolHandler ["http-nio-8082"]
-13:47:31.636 [main] INFO  c.a.c.n.r.NacosServiceRegistry - [register,75] - nacos registry, DEFAULT_GROUP towelove-xxlJob-exectour 192.168.146.1:8082 register finished
-13:47:32.028 [nacos-grpc-client-executor-9] INFO  c.a.n.c.r.client - [printIfInfoEnabled,60] - [59c8ee4d-f01b-4f39-b08e-b9f53ada3278] Receive server push request, request = NotifySubscriberRequest, requestId = 823
-13:47:32.037 [nacos-grpc-client-executor-9] INFO  c.a.n.c.r.client - [printIfInfoEnabled,60] - [59c8ee4d-f01b-4f39-b08e-b9f53ada3278] Ack server push request, request = NotifySubscriberRequest, requestId = 823
-13:47:32.049 [xxl-job, executor ExecutorRegistryThread] INFO  c.x.j.c.t.ExecutorRegistryThread - [run,54] - >>>>>>>>>>> xxl-job registry fail, registryParam:RegistryParam{registryGroup='EXECUTOR', registryKey='toweolove-executor', registryValue='http://192.168.0.102:30020/'}, registryResult:ReturnT [code=500, msg=xxl-job remoting error(connect timed out), for url : http://192.168.75.1:8320/xxl-job-admin/api/registry, content=null]
-13:47:32.096 [main] INFO  c.t.x.e.ToweloveXxlJobExecutorApplication - [logStarted,61] - Started ToweloveXxlJobExecutorApplication in 10.257 seconds (JVM running for 13.718)
-13:47:38.290 [http-nio-8082-exec-1] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring DispatcherServlet 'dispatcherServlet'
-13:48:05.059 [xxl-job, executor ExecutorRegistryThread] INFO  c.x.j.c.t.ExecutorRegistryThread - [run,54] - >>>>>>>>>>> xxl-job registry fail, registryParam:RegistryParam{registryGroup='EXECUTOR', registryKey='toweolove-executor', registryValue='http://192.168.0.102:30020/'}, registryResult:ReturnT [code=500, msg=xxl-job remoting error(connect timed out), for url : http://192.168.75.1:8320/xxl-job-admin/api/registry, content=null]
-13:48:38.088 [xxl-job, executor ExecutorRegistryThread] INFO  c.x.j.c.t.ExecutorRegistryThread - [run,54] - >>>>>>>>>>> xxl-job registry fail, registryParam:RegistryParam{registryGroup='EXECUTOR', registryKey='toweolove-executor', registryValue='http://192.168.0.102:30020/'}, registryResult:ReturnT [code=500, msg=xxl-job remoting error(connect timed out), for url : http://192.168.75.1:8320/xxl-job-admin/api/registry, content=null]
-13:49:11.109 [xxl-job, executor ExecutorRegistryThread] INFO  c.x.j.c.t.ExecutorRegistryThread - [run,54] - >>>>>>>>>>> xxl-job registry fail, registryParam:RegistryParam{registryGroup='EXECUTOR', registryKey='toweolove-executor', registryValue='http://192.168.0.102:30020/'}, registryResult:ReturnT [code=500, msg=xxl-job remoting error(connect timed out), for url : http://192.168.75.1:8320/xxl-job-admin/api/registry, content=null]
-13:49:44.129 [xxl-job, executor ExecutorRegistryThread] INFO  c.x.j.c.t.ExecutorRegistryThread - [run,54] - >>>>>>>>>>> xxl-job registry fail, registryParam:RegistryParam{registryGroup='EXECUTOR', registryKey='toweolove-executor', registryValue='http://192.168.0.102:30020/'}, registryResult:ReturnT [code=500, msg=xxl-job remoting error(connect timed out), for url : http://192.168.75.1:8320/xxl-job-admin/api/registry, content=null]
-13:50:17.135 [xxl-job, executor ExecutorRegistryThread] INFO  c.x.j.c.t.ExecutorRegistryThread - [run,54] - >>>>>>>>>>> xxl-job registry fail, registryParam:RegistryParam{registryGroup='EXECUTOR', registryKey='toweolove-executor', registryValue='http://192.168.0.102:30020/'}, registryResult:ReturnT [code=500, msg=xxl-job remoting error(connect timed out), for url : http://192.168.75.1:8320/xxl-job-admin/api/registry, content=null]
-13:50:50.141 [xxl-job, executor ExecutorRegistryThread] INFO  c.x.j.c.t.ExecutorRegistryThread - [run,54] - >>>>>>>>>>> xxl-job registry fail, registryParam:RegistryParam{registryGroup='EXECUTOR', registryKey='toweolove-executor', registryValue='http://192.168.0.102:30020/'}, registryResult:ReturnT [code=500, msg=xxl-job remoting error(connect timed out), for url : http://192.168.75.1:8320/xxl-job-admin/api/registry, content=null]
-13:51:23.158 [xxl-job, executor ExecutorRegistryThread] INFO  c.x.j.c.t.ExecutorRegistryThread - [run,54] - >>>>>>>>>>> xxl-job registry fail, registryParam:RegistryParam{registryGroup='EXECUTOR', registryKey='toweolove-executor', registryValue='http://192.168.0.102:30020/'}, registryResult:ReturnT [code=500, msg=xxl-job remoting error(connect timed out), for url : http://192.168.75.1:8320/xxl-job-admin/api/registry, content=null]
-13:51:56.168 [xxl-job, executor ExecutorRegistryThread] INFO  c.x.j.c.t.ExecutorRegistryThread - [run,54] - >>>>>>>>>>> xxl-job registry fail, registryParam:RegistryParam{registryGroup='EXECUTOR', registryKey='toweolove-executor', registryValue='http://192.168.0.102:30020/'}, registryResult:ReturnT [code=500, msg=xxl-job remoting error(connect timed out), for url : http://192.168.75.1:8320/xxl-job-admin/api/registry, content=null]
-13:52:29.184 [xxl-job, executor ExecutorRegistryThread] INFO  c.x.j.c.t.ExecutorRegistryThread - [run,54] - >>>>>>>>>>> xxl-job registry fail, registryParam:RegistryParam{registryGroup='EXECUTOR', registryKey='toweolove-executor', registryValue='http://192.168.0.102:30020/'}, registryResult:ReturnT [code=500, msg=xxl-job remoting error(connect timed out), for url : http://192.168.75.1:8320/xxl-job-admin/api/registry, content=null]
-13:53:02.208 [xxl-job, executor ExecutorRegistryThread] INFO  c.x.j.c.t.ExecutorRegistryThread - [run,54] - >>>>>>>>>>> xxl-job registry fail, registryParam:RegistryParam{registryGroup='EXECUTOR', registryKey='toweolove-executor', registryValue='http://192.168.0.102:30020/'}, registryResult:ReturnT [code=500, msg=xxl-job remoting error(connect timed out), for url : http://192.168.75.1:8320/xxl-job-admin/api/registry, content=null]
-13:53:35.217 [xxl-job, executor ExecutorRegistryThread] INFO  c.x.j.c.t.ExecutorRegistryThread - [run,54] - >>>>>>>>>>> xxl-job registry fail, registryParam:RegistryParam{registryGroup='EXECUTOR', registryKey='toweolove-executor', registryValue='http://192.168.0.102:30020/'}, registryResult:ReturnT [code=500, msg=xxl-job remoting error(connect timed out), for url : http://192.168.75.1:8320/xxl-job-admin/api/registry, content=null]
-13:53:58.339 [SpringApplicationShutdownHook] INFO  c.a.c.n.r.NacosServiceRegistry - [deregister,94] - De-registering from Nacos Server now...
-13:53:58.372 [SpringApplicationShutdownHook] INFO  c.a.c.n.r.NacosServiceRegistry - [deregister,114] - De-registration finished.
-13:53:58.701 [SpringApplicationShutdownHook] INFO  c.a.n.c.r.client - [shutdown,454] - Shutdown rpc client, set status to shutdown
-13:53:58.701 [SpringApplicationShutdownHook] INFO  c.a.n.c.r.client - [shutdown,456] - Shutdown client event executor java.util.concurrent.ScheduledThreadPoolExecutor@528798c6[Running, pool size = 2, active threads = 2, queued tasks = 0, completed tasks = 0]
-13:53:58.702 [SpringApplicationShutdownHook] INFO  c.a.n.c.r.client - [closeConnection,591] - Close current connection 1678686449895_116.2.240.65_51065
-13:53:58.709 [SpringApplicationShutdownHook] INFO  c.a.n.c.r.c.g.GrpcClient - [shutdown,85] - Shutdown grpc executor java.util.concurrent.ThreadPoolExecutor@72aea417[Running, pool size = 5, active threads = 0, queued tasks = 0, completed tasks = 101]
-13:53:58.712 [Thread-30] INFO  c.x.j.c.s.EmbedServer - [run,91] - >>>>>>>>>>> xxl-job remoting server stop.
-13:54:01.715 [xxl-job, executor ExecutorRegistryThread] INFO  c.x.j.c.t.ExecutorRegistryThread - [run,90] - >>>>>>>>>>> xxl-job registry-remove fail, registryParam:RegistryParam{registryGroup='EXECUTOR', registryKey='toweolove-executor', registryValue='http://192.168.0.102:30020/'}, registryResult:ReturnT [code=500, msg=xxl-job remoting error(connect timed out), for url : http://192.168.75.1:8320/xxl-job-admin/api/registryRemove, content=null]
-13:54:01.715 [xxl-job, executor ExecutorRegistryThread] INFO  c.x.j.c.t.ExecutorRegistryThread - [run,105] - >>>>>>>>>>> xxl-job, executor registry thread destroy.
-13:54:01.715 [SpringApplicationShutdownHook] INFO  c.x.j.c.s.EmbedServer - [stop,117] - >>>>>>>>>>> xxl-job remoting server destroy success.
-13:54:01.715 [xxl-job, executor TriggerCallbackThread] INFO  c.x.j.c.t.TriggerCallbackThread - [run,98] - >>>>>>>>>>> xxl-job, executor callback thread destroy.
-13:54:01.716 [Thread-29] INFO  c.x.j.c.t.TriggerCallbackThread - [run,128] - >>>>>>>>>>> xxl-job, executor retry callback thread destroy.
-14:00:03.121 [background-preinit] INFO  o.h.v.i.util.Version - [<clinit>,21] - HV000001: Hibernate Validator 6.2.5.Final
-14:00:04.128 [main] INFO  c.t.x.e.ToweloveXxlJobExecutorApplication - [logStartupProfileInfo,631] - No active profile set, falling back to 1 default profile: "default"
-14:00:06.140 [main] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Initializing ProtocolHandler ["http-nio-8082"]
-14:00:06.141 [main] INFO  o.a.c.c.StandardService - [log,173] - Starting service [Tomcat]
-14:00:06.141 [main] INFO  o.a.c.c.StandardEngine - [log,173] - Starting Servlet engine: [Apache Tomcat/9.0.70]
-14:00:06.290 [main] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring embedded WebApplicationContext
-14:00:07.079 [main] INFO  c.t.x.e.c.XxlJobConfig - [xxlJobExecutor,51] - >>>>>>>>>>> xxl-job config init.
-14:00:09.003 [main] INFO  c.x.j.c.e.XxlJobExecutor - [registJobHandler,183] - >>>>>>>>>>> xxl-job register jobhandler success, name:myJobHander, jobHandler:com.xxl.job.core.handler.impl.MethodJobHandler@470c4229[class com.towelove.xxljob.executor.excutor.SimpleXxxJob#myJobHander]
-14:00:09.507 [main] INFO  c.a.n.c.r.client - [lambda$createClient$0,80] - [RpcClientFactory] create a new rpc client of 19adf522-3703-4128-8214-ca8d7ad865f9
-14:00:09.590 [main] INFO  o.r.Reflections - [scan,232] - Reflections took 49 ms to scan 1 urls, producing 3 keys and 6 values 
-14:00:09.640 [main] INFO  o.r.Reflections - [scan,232] - Reflections took 17 ms to scan 1 urls, producing 4 keys and 9 values 
-14:00:09.669 [main] INFO  o.r.Reflections - [scan,232] - Reflections took 23 ms to scan 1 urls, producing 3 keys and 10 values 
-14:00:09.885 [main] INFO  o.r.Reflections - [scan,232] - Reflections took 212 ms to scan 220 urls, producing 0 keys and 0 values 
-14:00:09.899 [main] INFO  o.r.Reflections - [scan,232] - Reflections took 13 ms to scan 1 urls, producing 1 keys and 5 values 
-14:00:09.927 [main] INFO  o.r.Reflections - [scan,232] - Reflections took 24 ms to scan 1 urls, producing 1 keys and 7 values 
-14:00:09.943 [main] INFO  o.r.Reflections - [scan,232] - Reflections took 12 ms to scan 1 urls, producing 2 keys and 8 values 
-14:00:09.988 [Thread-31] INFO  c.x.j.c.s.EmbedServer - [run,82] - >>>>>>>>>>> xxl-job remoting server start success, nettype = class com.xxl.job.core.server.EmbedServer, port = 30020
-14:00:10.158 [main] INFO  o.r.Reflections - [scan,232] - Reflections took 210 ms to scan 220 urls, producing 0 keys and 0 values 
-14:00:10.161 [main] INFO  c.a.n.c.r.client - [printIfInfoEnabled,60] - [19adf522-3703-4128-8214-ca8d7ad865f9] RpcClient init label, labels = {module=naming, source=sdk}
-14:00:10.165 [main] INFO  c.a.n.c.r.client - [printIfInfoEnabled,60] - [19adf522-3703-4128-8214-ca8d7ad865f9] RpcClient init, ServerListFactory = com.alibaba.nacos.client.naming.core.ServerListManager
-14:00:10.165 [main] INFO  c.a.n.c.r.client - [printIfInfoEnabled,60] - [19adf522-3703-4128-8214-ca8d7ad865f9] Registry connection listener to current client:com.alibaba.nacos.client.naming.remote.gprc.redo.NamingGrpcRedoService
-14:00:10.167 [main] INFO  c.a.n.c.r.client - [printIfInfoEnabled,60] - [19adf522-3703-4128-8214-ca8d7ad865f9] Register server push request handler:com.alibaba.nacos.client.naming.remote.gprc.NamingPushRequestHandler
-14:00:10.169 [main] INFO  c.a.n.c.r.client - [printIfInfoEnabled,60] - [19adf522-3703-4128-8214-ca8d7ad865f9] Try to connect to server on start up, server: {serverIp = '123.249.97.220', server main port = 8848}
-14:00:11.972 [main] INFO  c.a.n.c.r.client - [printIfInfoEnabled,60] - [19adf522-3703-4128-8214-ca8d7ad865f9] Success to connect to server [123.249.97.220:8848] on start up, connectionId = 1678687210473_116.2.240.65_52292
-14:00:11.974 [com.alibaba.nacos.client.remote.worker] INFO  c.a.n.c.r.client - [printIfInfoEnabled,60] - [19adf522-3703-4128-8214-ca8d7ad865f9] Notify connected event to listeners.
-14:00:11.974 [main] INFO  c.a.n.c.r.client - [printIfInfoEnabled,60] - [19adf522-3703-4128-8214-ca8d7ad865f9] Register server push request handler:com.alibaba.nacos.common.remote.client.RpcClient$ConnectResetRequestHandler
-14:00:11.975 [main] INFO  c.a.n.c.r.client - [printIfInfoEnabled,60] - [19adf522-3703-4128-8214-ca8d7ad865f9] Register server push request handler:com.alibaba.nacos.common.remote.client.RpcClient$$Lambda$973/1589288513
-14:00:12.081 [main] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Starting ProtocolHandler ["http-nio-8082"]
-14:00:12.156 [main] INFO  c.a.c.n.r.NacosServiceRegistry - [register,75] - nacos registry, DEFAULT_GROUP towelove-xxlJob-exectour 192.168.146.1:8082 register finished
-14:00:12.576 [main] INFO  c.t.x.e.ToweloveXxlJobExecutorApplication - [logStarted,61] - Started ToweloveXxlJobExecutorApplication in 10.568 seconds (JVM running for 14.978)
-14:00:12.578 [nacos-grpc-client-executor-9] INFO  c.a.n.c.r.client - [printIfInfoEnabled,60] - [19adf522-3703-4128-8214-ca8d7ad865f9] Receive server push request, request = NotifySubscriberRequest, requestId = 832
-14:00:12.588 [nacos-grpc-client-executor-9] INFO  c.a.n.c.r.client - [printIfInfoEnabled,60] - [19adf522-3703-4128-8214-ca8d7ad865f9] Ack server push request, request = NotifySubscriberRequest, requestId = 832
-14:00:13.017 [xxl-job, executor ExecutorRegistryThread] INFO  c.x.j.c.t.ExecutorRegistryThread - [run,54] - >>>>>>>>>>> xxl-job registry fail, registryParam:RegistryParam{registryGroup='EXECUTOR', registryKey='toweolove-executor', registryValue='http://192.168.0.102:30020/'}, registryResult:ReturnT [code=500, msg=xxl-job remoting error(connect timed out), for url : http://192.168.75.1:8320/xxl-job-admin/api/registry, content=null]
-14:00:46.026 [xxl-job, executor ExecutorRegistryThread] INFO  c.x.j.c.t.ExecutorRegistryThread - [run,54] - >>>>>>>>>>> xxl-job registry fail, registryParam:RegistryParam{registryGroup='EXECUTOR', registryKey='toweolove-executor', registryValue='http://192.168.0.102:30020/'}, registryResult:ReturnT [code=500, msg=xxl-job remoting error(connect timed out), for url : http://192.168.75.1:8320/xxl-job-admin/api/registry, content=null]
-14:01:19.036 [xxl-job, executor ExecutorRegistryThread] INFO  c.x.j.c.t.ExecutorRegistryThread - [run,54] - >>>>>>>>>>> xxl-job registry fail, registryParam:RegistryParam{registryGroup='EXECUTOR', registryKey='toweolove-executor', registryValue='http://192.168.0.102:30020/'}, registryResult:ReturnT [code=500, msg=xxl-job remoting error(connect timed out), for url : http://192.168.75.1:8320/xxl-job-admin/api/registry, content=null]
-14:01:45.882 [SpringApplicationShutdownHook] INFO  c.a.c.n.r.NacosServiceRegistry - [deregister,94] - De-registering from Nacos Server now...
-14:01:45.918 [SpringApplicationShutdownHook] INFO  c.a.c.n.r.NacosServiceRegistry - [deregister,114] - De-registration finished.
-14:01:46.247 [SpringApplicationShutdownHook] INFO  c.a.n.c.r.client - [shutdown,454] - Shutdown rpc client, set status to shutdown
-14:01:46.247 [SpringApplicationShutdownHook] INFO  c.a.n.c.r.client - [shutdown,456] - Shutdown client event executor java.util.concurrent.ScheduledThreadPoolExecutor@21b10ecf[Running, pool size = 2, active threads = 2, queued tasks = 0, completed tasks = 0]
-14:01:46.247 [SpringApplicationShutdownHook] INFO  c.a.n.c.r.client - [closeConnection,591] - Close current connection 1678687210473_116.2.240.65_52292
-14:01:46.252 [SpringApplicationShutdownHook] INFO  c.a.n.c.r.c.g.GrpcClient - [shutdown,85] - Shutdown grpc executor java.util.concurrent.ThreadPoolExecutor@67759617[Running, pool size = 4, active threads = 0, queued tasks = 0, completed tasks = 36]
-14:01:46.256 [Thread-31] INFO  c.x.j.c.s.EmbedServer - [run,91] - >>>>>>>>>>> xxl-job remoting server stop.
-14:01:49.268 [xxl-job, executor ExecutorRegistryThread] INFO  c.x.j.c.t.ExecutorRegistryThread - [run,90] - >>>>>>>>>>> xxl-job registry-remove fail, registryParam:RegistryParam{registryGroup='EXECUTOR', registryKey='toweolove-executor', registryValue='http://192.168.0.102:30020/'}, registryResult:ReturnT [code=500, msg=xxl-job remoting error(connect timed out), for url : http://192.168.75.1:8320/xxl-job-admin/api/registryRemove, content=null]
-14:01:49.268 [xxl-job, executor ExecutorRegistryThread] INFO  c.x.j.c.t.ExecutorRegistryThread - [run,105] - >>>>>>>>>>> xxl-job, executor registry thread destroy.
-14:01:49.268 [SpringApplicationShutdownHook] INFO  c.x.j.c.s.EmbedServer - [stop,117] - >>>>>>>>>>> xxl-job remoting server destroy success.
-14:01:49.269 [xxl-job, executor TriggerCallbackThread] INFO  c.x.j.c.t.TriggerCallbackThread - [run,98] - >>>>>>>>>>> xxl-job, executor callback thread destroy.
-14:01:49.269 [Thread-30] INFO  c.x.j.c.t.TriggerCallbackThread - [run,128] - >>>>>>>>>>> xxl-job, executor retry callback thread destroy.
-14:01:57.342 [background-preinit] INFO  o.h.v.i.util.Version - [<clinit>,21] - HV000001: Hibernate Validator 6.2.5.Final
-14:01:58.269 [main] INFO  c.t.x.e.ToweloveXxlJobExecutorApplication - [logStartupProfileInfo,631] - No active profile set, falling back to 1 default profile: "default"
-14:02:00.075 [main] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Initializing ProtocolHandler ["http-nio-8082"]
-14:02:00.076 [main] INFO  o.a.c.c.StandardService - [log,173] - Starting service [Tomcat]
-14:02:00.076 [main] INFO  o.a.c.c.StandardEngine - [log,173] - Starting Servlet engine: [Apache Tomcat/9.0.70]
-14:02:00.207 [main] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring embedded WebApplicationContext
-14:02:00.831 [main] INFO  c.t.x.e.c.XxlJobConfig - [xxlJobExecutor,51] - >>>>>>>>>>> xxl-job config init.
-14:02:02.528 [main] INFO  c.x.j.c.e.XxlJobExecutor - [registJobHandler,183] - >>>>>>>>>>> xxl-job register jobhandler success, name:myJobHander, jobHandler:com.xxl.job.core.handler.impl.MethodJobHandler@4627dfda[class com.towelove.xxljob.executor.excutor.SimpleXxxJob#myJobHander]
-14:02:03.010 [main] INFO  c.a.n.c.r.client - [lambda$createClient$0,80] - [RpcClientFactory] create a new rpc client of a16b63d8-aa0c-4a99-82c8-5acc23a9251a
-14:02:03.083 [main] INFO  o.r.Reflections - [scan,232] - Reflections took 39 ms to scan 1 urls, producing 3 keys and 6 values 
-14:02:03.133 [main] INFO  o.r.Reflections - [scan,232] - Reflections took 21 ms to scan 1 urls, producing 4 keys and 9 values 
-14:02:03.148 [main] INFO  o.r.Reflections - [scan,232] - Reflections took 10 ms to scan 1 urls, producing 3 keys and 10 values 
-14:02:03.375 [main] INFO  o.r.Reflections - [scan,232] - Reflections took 222 ms to scan 220 urls, producing 0 keys and 0 values 
-14:02:03.391 [main] INFO  o.r.Reflections - [scan,232] - Reflections took 16 ms to scan 1 urls, producing 1 keys and 5 values 
-14:02:03.407 [main] INFO  o.r.Reflections - [scan,232] - Reflections took 13 ms to scan 1 urls, producing 1 keys and 7 values 
-14:02:03.425 [main] INFO  o.r.Reflections - [scan,232] - Reflections took 15 ms to scan 1 urls, producing 2 keys and 8 values 
-14:02:03.469 [Thread-30] INFO  c.x.j.c.s.EmbedServer - [run,82] - >>>>>>>>>>> xxl-job remoting server start success, nettype = class com.xxl.job.core.server.EmbedServer, port = 30020
-14:02:03.591 [main] INFO  o.r.Reflections - [scan,232] - Reflections took 162 ms to scan 220 urls, producing 0 keys and 0 values 
-14:02:03.594 [main] INFO  c.a.n.c.r.client - [printIfInfoEnabled,60] - [a16b63d8-aa0c-4a99-82c8-5acc23a9251a] RpcClient init label, labels = {module=naming, source=sdk}
-14:02:03.596 [main] INFO  c.a.n.c.r.client - [printIfInfoEnabled,60] - [a16b63d8-aa0c-4a99-82c8-5acc23a9251a] RpcClient init, ServerListFactory = com.alibaba.nacos.client.naming.core.ServerListManager
-14:02:03.596 [main] INFO  c.a.n.c.r.client - [printIfInfoEnabled,60] - [a16b63d8-aa0c-4a99-82c8-5acc23a9251a] Registry connection listener to current client:com.alibaba.nacos.client.naming.remote.gprc.redo.NamingGrpcRedoService
-14:02:03.598 [main] INFO  c.a.n.c.r.client - [printIfInfoEnabled,60] - [a16b63d8-aa0c-4a99-82c8-5acc23a9251a] Register server push request handler:com.alibaba.nacos.client.naming.remote.gprc.NamingPushRequestHandler
-14:02:03.600 [main] INFO  c.a.n.c.r.client - [printIfInfoEnabled,60] - [a16b63d8-aa0c-4a99-82c8-5acc23a9251a] Try to connect to server on start up, server: {serverIp = '123.249.97.220', server main port = 8848}
-14:02:05.485 [main] INFO  c.a.n.c.r.client - [printIfInfoEnabled,60] - [a16b63d8-aa0c-4a99-82c8-5acc23a9251a] Success to connect to server [123.249.97.220:8848] on start up, connectionId = 1678687323972_116.2.240.65_52654
-14:02:05.487 [com.alibaba.nacos.client.remote.worker] INFO  c.a.n.c.r.client - [printIfInfoEnabled,60] - [a16b63d8-aa0c-4a99-82c8-5acc23a9251a] Notify connected event to listeners.
-14:02:05.487 [main] INFO  c.a.n.c.r.client - [printIfInfoEnabled,60] - [a16b63d8-aa0c-4a99-82c8-5acc23a9251a] Register server push request handler:com.alibaba.nacos.common.remote.client.RpcClient$ConnectResetRequestHandler
-14:02:05.488 [main] INFO  c.a.n.c.r.client - [printIfInfoEnabled,60] - [a16b63d8-aa0c-4a99-82c8-5acc23a9251a] Register server push request handler:com.alibaba.nacos.common.remote.client.RpcClient$$Lambda$974/57866172
-14:02:05.592 [main] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Starting ProtocolHandler ["http-nio-8082"]
-14:02:05.655 [main] INFO  c.a.c.n.r.NacosServiceRegistry - [register,75] - nacos registry, DEFAULT_GROUP towelove-xxlJob-exectour 192.168.146.1:8082 register finished
-14:02:06.089 [main] INFO  c.t.x.e.ToweloveXxlJobExecutorApplication - [logStarted,61] - Started ToweloveXxlJobExecutorApplication in 9.73 seconds (JVM running for 13.296)
-14:02:06.090 [nacos-grpc-client-executor-9] INFO  c.a.n.c.r.client - [printIfInfoEnabled,60] - [a16b63d8-aa0c-4a99-82c8-5acc23a9251a] Receive server push request, request = NotifySubscriberRequest, requestId = 833
-14:02:06.101 [nacos-grpc-client-executor-9] INFO  c.a.n.c.r.client - [printIfInfoEnabled,60] - [a16b63d8-aa0c-4a99-82c8-5acc23a9251a] Ack server push request, request = NotifySubscriberRequest, requestId = 833
-14:02:06.500 [xxl-job, executor ExecutorRegistryThread] INFO  c.x.j.c.t.ExecutorRegistryThread - [run,54] - >>>>>>>>>>> xxl-job registry fail, registryParam:RegistryParam{registryGroup='EXECUTOR', registryKey='toweolove-executor', registryValue='http://192.168.0.102:30020/'}, registryResult:ReturnT [code=500, msg=xxl-job remoting error(connect timed out), for url : http://192.168.75.1:8320/xxl-job-admin/api/registry, content=null]
-14:02:39.521 [xxl-job, executor ExecutorRegistryThread] INFO  c.x.j.c.t.ExecutorRegistryThread - [run,54] - >>>>>>>>>>> xxl-job registry fail, registryParam:RegistryParam{registryGroup='EXECUTOR', registryKey='toweolove-executor', registryValue='http://192.168.0.102:30020/'}, registryResult:ReturnT [code=500, msg=xxl-job remoting error(connect timed out), for url : http://192.168.75.1:8320/xxl-job-admin/api/registry, content=null]
-14:03:12.539 [xxl-job, executor ExecutorRegistryThread] INFO  c.x.j.c.t.ExecutorRegistryThread - [run,54] - >>>>>>>>>>> xxl-job registry fail, registryParam:RegistryParam{registryGroup='EXECUTOR', registryKey='toweolove-executor', registryValue='http://192.168.0.102:30020/'}, registryResult:ReturnT [code=500, msg=xxl-job remoting error(connect timed out), for url : http://192.168.75.1:8320/xxl-job-admin/api/registry, content=null]
-14:03:45.554 [xxl-job, executor ExecutorRegistryThread] INFO  c.x.j.c.t.ExecutorRegistryThread - [run,54] - >>>>>>>>>>> xxl-job registry fail, registryParam:RegistryParam{registryGroup='EXECUTOR', registryKey='toweolove-executor', registryValue='http://192.168.0.102:30020/'}, registryResult:ReturnT [code=500, msg=xxl-job remoting error(connect timed out), for url : http://192.168.75.1:8320/xxl-job-admin/api/registry, content=null]
-14:04:18.571 [xxl-job, executor ExecutorRegistryThread] INFO  c.x.j.c.t.ExecutorRegistryThread - [run,54] - >>>>>>>>>>> xxl-job registry fail, registryParam:RegistryParam{registryGroup='EXECUTOR', registryKey='toweolove-executor', registryValue='http://192.168.0.102:30020/'}, registryResult:ReturnT [code=500, msg=xxl-job remoting error(connect timed out), for url : http://192.168.75.1:8320/xxl-job-admin/api/registry, content=null]
-14:04:51.584 [xxl-job, executor ExecutorRegistryThread] INFO  c.x.j.c.t.ExecutorRegistryThread - [run,54] - >>>>>>>>>>> xxl-job registry fail, registryParam:RegistryParam{registryGroup='EXECUTOR', registryKey='toweolove-executor', registryValue='http://192.168.0.102:30020/'}, registryResult:ReturnT [code=500, msg=xxl-job remoting error(connect timed out), for url : http://192.168.75.1:8320/xxl-job-admin/api/registry, content=null]
-14:05:24.602 [xxl-job, executor ExecutorRegistryThread] INFO  c.x.j.c.t.ExecutorRegistryThread - [run,54] - >>>>>>>>>>> xxl-job registry fail, registryParam:RegistryParam{registryGroup='EXECUTOR', registryKey='toweolove-executor', registryValue='http://192.168.0.102:30020/'}, registryResult:ReturnT [code=500, msg=xxl-job remoting error(connect timed out), for url : http://192.168.75.1:8320/xxl-job-admin/api/registry, content=null]
-14:05:47.199 [SpringApplicationShutdownHook] INFO  c.a.c.n.r.NacosServiceRegistry - [deregister,94] - De-registering from Nacos Server now...
-14:05:47.235 [SpringApplicationShutdownHook] INFO  c.a.c.n.r.NacosServiceRegistry - [deregister,114] - De-registration finished.
-14:05:47.566 [SpringApplicationShutdownHook] INFO  c.a.n.c.r.client - [shutdown,454] - Shutdown rpc client, set status to shutdown
-14:05:47.566 [SpringApplicationShutdownHook] INFO  c.a.n.c.r.client - [shutdown,456] - Shutdown client event executor java.util.concurrent.ScheduledThreadPoolExecutor@769ae1c7[Running, pool size = 2, active threads = 2, queued tasks = 0, completed tasks = 0]
-14:05:47.566 [SpringApplicationShutdownHook] INFO  c.a.n.c.r.client - [closeConnection,591] - Close current connection 1678687323972_116.2.240.65_52654
-14:05:47.571 [SpringApplicationShutdownHook] INFO  c.a.n.c.r.c.g.GrpcClient - [shutdown,85] - Shutdown grpc executor java.util.concurrent.ThreadPoolExecutor@70c506ea[Running, pool size = 5, active threads = 0, queued tasks = 0, completed tasks = 65]
-14:05:47.574 [Thread-30] INFO  c.x.j.c.s.EmbedServer - [run,91] - >>>>>>>>>>> xxl-job remoting server stop.
-14:05:50.586 [xxl-job, executor ExecutorRegistryThread] INFO  c.x.j.c.t.ExecutorRegistryThread - [run,90] - >>>>>>>>>>> xxl-job registry-remove fail, registryParam:RegistryParam{registryGroup='EXECUTOR', registryKey='toweolove-executor', registryValue='http://192.168.0.102:30020/'}, registryResult:ReturnT [code=500, msg=xxl-job remoting error(connect timed out), for url : http://192.168.75.1:8320/xxl-job-admin/api/registryRemove, content=null]
-14:05:50.587 [xxl-job, executor ExecutorRegistryThread] INFO  c.x.j.c.t.ExecutorRegistryThread - [run,105] - >>>>>>>>>>> xxl-job, executor registry thread destroy.
-14:05:50.587 [SpringApplicationShutdownHook] INFO  c.x.j.c.s.EmbedServer - [stop,117] - >>>>>>>>>>> xxl-job remoting server destroy success.
-14:05:50.588 [xxl-job, executor TriggerCallbackThread] INFO  c.x.j.c.t.TriggerCallbackThread - [run,98] - >>>>>>>>>>> xxl-job, executor callback thread destroy.
-14:05:50.588 [Thread-29] INFO  c.x.j.c.t.TriggerCallbackThread - [run,128] - >>>>>>>>>>> xxl-job, executor retry callback thread destroy.
-14:06:04.086 [background-preinit] INFO  o.h.v.i.util.Version - [<clinit>,21] - HV000001: Hibernate Validator 6.2.5.Final
-14:06:05.123 [main] INFO  c.t.x.e.ToweloveXxlJobExecutorApplication - [logStartupProfileInfo,631] - No active profile set, falling back to 1 default profile: "default"
-14:06:07.067 [main] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Initializing ProtocolHandler ["http-nio-8082"]
-14:06:07.068 [main] INFO  o.a.c.c.StandardService - [log,173] - Starting service [Tomcat]
-14:06:07.068 [main] INFO  o.a.c.c.StandardEngine - [log,173] - Starting Servlet engine: [Apache Tomcat/9.0.70]
-14:06:07.177 [main] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring embedded WebApplicationContext
-14:06:07.812 [main] INFO  c.t.x.e.c.XxlJobConfig - [xxlJobExecutor,51] - >>>>>>>>>>> xxl-job config init.
-14:06:09.256 [main] INFO  c.x.j.c.e.XxlJobExecutor - [registJobHandler,183] - >>>>>>>>>>> xxl-job register jobhandler success, name:myJobHander, jobHandler:com.xxl.job.core.handler.impl.MethodJobHandler@45e69324[class com.towelove.xxljob.executor.excutor.SimpleXxxJob#myJobHander]
-14:06:09.664 [main] INFO  c.a.n.c.r.client - [lambda$createClient$0,80] - [RpcClientFactory] create a new rpc client of 560ca8cf-156a-4b12-8255-13bd376b3240
-14:06:09.738 [main] INFO  o.r.Reflections - [scan,232] - Reflections took 46 ms to scan 1 urls, producing 3 keys and 6 values 
-14:06:09.779 [main] INFO  o.r.Reflections - [scan,232] - Reflections took 16 ms to scan 1 urls, producing 4 keys and 9 values 
-14:06:09.793 [main] INFO  o.r.Reflections - [scan,232] - Reflections took 11 ms to scan 1 urls, producing 3 keys and 10 values 
-14:06:09.964 [main] INFO  o.r.Reflections - [scan,232] - Reflections took 166 ms to scan 220 urls, producing 0 keys and 0 values 
-14:06:09.974 [main] INFO  o.r.Reflections - [scan,232] - Reflections took 8 ms to scan 1 urls, producing 1 keys and 5 values 
-14:06:09.985 [main] INFO  o.r.Reflections - [scan,232] - Reflections took 9 ms to scan 1 urls, producing 1 keys and 7 values 
-14:06:09.997 [main] INFO  o.r.Reflections - [scan,232] - Reflections took 8 ms to scan 1 urls, producing 2 keys and 8 values 
-14:06:10.017 [Thread-29] INFO  c.x.j.c.s.EmbedServer - [run,82] - >>>>>>>>>>> xxl-job remoting server start success, nettype = class com.xxl.job.core.server.EmbedServer, port = 30020
-14:06:10.138 [main] INFO  o.r.Reflections - [scan,232] - Reflections took 138 ms to scan 220 urls, producing 0 keys and 0 values 
-14:06:10.140 [main] INFO  c.a.n.c.r.client - [printIfInfoEnabled,60] - [560ca8cf-156a-4b12-8255-13bd376b3240] RpcClient init label, labels = {module=naming, source=sdk}
-14:06:10.143 [main] INFO  c.a.n.c.r.client - [printIfInfoEnabled,60] - [560ca8cf-156a-4b12-8255-13bd376b3240] RpcClient init, ServerListFactory = com.alibaba.nacos.client.naming.core.ServerListManager
-14:06:10.144 [main] INFO  c.a.n.c.r.client - [printIfInfoEnabled,60] - [560ca8cf-156a-4b12-8255-13bd376b3240] Registry connection listener to current client:com.alibaba.nacos.client.naming.remote.gprc.redo.NamingGrpcRedoService
-14:06:10.144 [main] INFO  c.a.n.c.r.client - [printIfInfoEnabled,60] - [560ca8cf-156a-4b12-8255-13bd376b3240] Register server push request handler:com.alibaba.nacos.client.naming.remote.gprc.NamingPushRequestHandler
-14:06:10.146 [main] INFO  c.a.n.c.r.client - [printIfInfoEnabled,60] - [560ca8cf-156a-4b12-8255-13bd376b3240] Try to connect to server on start up, server: {serverIp = '123.249.97.220', server main port = 8848}
-14:06:11.703 [main] INFO  c.a.n.c.r.client - [printIfInfoEnabled,60] - [560ca8cf-156a-4b12-8255-13bd376b3240] Success to connect to server [123.249.97.220:8848] on start up, connectionId = 1678687570216_116.2.240.65_53005
-14:06:11.705 [com.alibaba.nacos.client.remote.worker] INFO  c.a.n.c.r.client - [printIfInfoEnabled,60] - [560ca8cf-156a-4b12-8255-13bd376b3240] Notify connected event to listeners.
-14:06:11.705 [main] INFO  c.a.n.c.r.client - [printIfInfoEnabled,60] - [560ca8cf-156a-4b12-8255-13bd376b3240] Register server push request handler:com.alibaba.nacos.common.remote.client.RpcClient$ConnectResetRequestHandler
-14:06:11.706 [main] INFO  c.a.n.c.r.client - [printIfInfoEnabled,60] - [560ca8cf-156a-4b12-8255-13bd376b3240] Register server push request handler:com.alibaba.nacos.common.remote.client.RpcClient$$Lambda$977/528469698
-14:06:12.329 [nacos-grpc-client-executor-6] INFO  c.a.n.c.r.client - [printIfInfoEnabled,60] - [560ca8cf-156a-4b12-8255-13bd376b3240] Receive server push request, request = NotifySubscriberRequest, requestId = 834
-14:06:12.336 [nacos-grpc-client-executor-6] INFO  c.a.n.c.r.client - [printIfInfoEnabled,60] - [560ca8cf-156a-4b12-8255-13bd376b3240] Ack server push request, request = NotifySubscriberRequest, requestId = 834
-14:06:13.036 [xxl-job, executor ExecutorRegistryThread] INFO  c.x.j.c.t.ExecutorRegistryThread - [run,54] - >>>>>>>>>>> xxl-job registry fail, registryParam:RegistryParam{registryGroup='EXECUTOR', registryKey='toweolove-executor', registryValue='http://192.168.0.102:30020/'}, registryResult:ReturnT [code=500, msg=xxl-job remoting error(connect timed out), for url : http://192.168.75.1:8320/xxl-job-admin/api/registry, content=null]
-14:06:16.918 [main] INFO  c.a.c.s.b.r.i.i.RocketMQInboundChannelAdapter - [info,292] - started com.alibaba.cloud.stream.binder.rocketmq.integration.inbound.RocketMQInboundChannelAdapter@54b96813
-14:06:17.776 [main] INFO  c.a.c.s.b.r.i.i.RocketMQInboundChannelAdapter - [info,292] - started com.alibaba.cloud.stream.binder.rocketmq.integration.inbound.RocketMQInboundChannelAdapter@2ebcbf9d
-14:06:17.777 [main] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Starting ProtocolHandler ["http-nio-8082"]
-14:06:17.832 [main] INFO  c.a.c.n.r.NacosServiceRegistry - [register,75] - nacos registry, DEFAULT_GROUP towelove-xxlJob-exectour 192.168.146.1:8082 register finished
-14:06:18.176 [main] INFO  c.t.x.e.ToweloveXxlJobExecutorApplication - [logStarted,61] - Started ToweloveXxlJobExecutorApplication in 15.067 seconds (JVM running for 18.665)
-14:06:18.421 [nacos-grpc-client-executor-11] INFO  c.a.n.c.r.client - [printIfInfoEnabled,60] - [560ca8cf-156a-4b12-8255-13bd376b3240] Receive server push request, request = NotifySubscriberRequest, requestId = 835
-14:06:18.433 [nacos-grpc-client-executor-11] INFO  c.a.n.c.r.client - [printIfInfoEnabled,60] - [560ca8cf-156a-4b12-8255-13bd376b3240] Ack server push request, request = NotifySubscriberRequest, requestId = 835
-14:06:35.122 [http-nio-8082-exec-1] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring DispatcherServlet 'dispatcherServlet'
-14:06:51.351 [ConsumeMessageThread_sys_mail_send_group_1] INFO  c.t.x.e.m.c.m.SysMessageConsumer - [accept,23] - 接收到系统消息: MailSendMessage(logId=1, mail=460219753@qq.com, accountId=1, nickname=460219753@qq.com, title=helo, content=123, isHtml=null, files=null)
-14:06:51.351 [xxl-job, executor ExecutorRegistryThread] INFO  c.x.j.c.t.ExecutorRegistryThread - [run,54] - >>>>>>>>>>> xxl-job registry fail, registryParam:RegistryParam{registryGroup='EXECUTOR', registryKey='toweolove-executor', registryValue='http://192.168.0.102:30020/'}, registryResult:ReturnT [code=500, msg=xxl-job remoting error(connect timed out), for url : http://192.168.75.1:8320/xxl-job-admin/api/registry, content=null]
-14:07:25.253 [xxl-job, executor ExecutorRegistryThread] INFO  c.x.j.c.t.ExecutorRegistryThread - [run,54] - >>>>>>>>>>> xxl-job registry fail, registryParam:RegistryParam{registryGroup='EXECUTOR', registryKey='toweolove-executor', registryValue='http://192.168.0.102:30020/'}, registryResult:ReturnT [code=500, msg=xxl-job remoting error(connect timed out), for url : http://192.168.75.1:8320/xxl-job-admin/api/registry, content=null]
-14:07:28.694 [ConsumeMessageThread_sys_mail_send_group_1] INFO  c.t.x.e.m.c.m.SysMessageConsumer - [accept,23] - 接收到系统消息: MailSendMessage(logId=1, mail=460219753@qq.com, accountId=1, nickname=460219753@qq.com, title=helo, content=123, isHtml=null, files=null)
-14:07:35.022 [ConsumeMessageThread_sys_mail_send_group_1] INFO  c.t.x.e.m.c.m.SysMessageConsumer - [accept,23] - 接收到系统消息: MailSendMessage(logId=1, mail=460219753@qq.com, accountId=1, nickname=460219753@qq.com, title=helo, content=123, isHtml=null, files=null)
-14:07:35.590 [com.alibaba.nacos.client.remote.worker] INFO  c.a.n.c.r.client - [printIfInfoEnabled,60] - [560ca8cf-156a-4b12-8255-13bd376b3240] Server healthy check fail, currentConnection = 1678687570216_116.2.240.65_53005
-14:07:37.820 [com.alibaba.nacos.client.remote.worker] INFO  c.a.n.c.r.client - [printIfInfoEnabled,60] - [560ca8cf-156a-4b12-8255-13bd376b3240] Try to reconnect to a new server, server is  not appointed, will choose a random server.
-14:07:38.037 [com.alibaba.nacos.client.remote.worker] INFO  c.a.n.c.r.client - [printIfInfoEnabled,60] - [560ca8cf-156a-4b12-8255-13bd376b3240] Success to connect a server [123.249.97.220:8848], connectionId = 1678687656629_116.2.240.65_53085
-14:07:38.037 [com.alibaba.nacos.client.remote.worker] INFO  c.a.n.c.r.client - [printIfInfoEnabled,60] - [560ca8cf-156a-4b12-8255-13bd376b3240] Abandon prev connection, server is 123.249.97.220:8848, connectionId is 1678687570216_116.2.240.65_53005
-14:07:38.037 [com.alibaba.nacos.client.remote.worker] INFO  c.a.n.c.r.client - [closeConnection,591] - Close current connection 1678687570216_116.2.240.65_53005
-14:07:38.044 [com.alibaba.nacos.client.remote.worker] INFO  c.a.n.c.r.client - [printIfInfoEnabled,60] - [560ca8cf-156a-4b12-8255-13bd376b3240] Notify disconnected event to listeners
-14:07:38.046 [com.alibaba.nacos.client.remote.worker] INFO  c.a.n.c.r.client - [printIfInfoEnabled,60] - [560ca8cf-156a-4b12-8255-13bd376b3240] Notify connected event to listeners.
-14:07:41.603 [nacos-grpc-client-executor-36] INFO  c.a.n.c.r.client - [printIfInfoEnabled,60] - [560ca8cf-156a-4b12-8255-13bd376b3240] Receive server push request, request = NotifySubscriberRequest, requestId = 836
-14:07:41.604 [nacos-grpc-client-executor-36] INFO  c.a.n.c.r.client - [printIfInfoEnabled,60] - [560ca8cf-156a-4b12-8255-13bd376b3240] Ack server push request, request = NotifySubscriberRequest, requestId = 836
-14:07:58.280 [xxl-job, executor ExecutorRegistryThread] INFO  c.x.j.c.t.ExecutorRegistryThread - [run,54] - >>>>>>>>>>> xxl-job registry fail, registryParam:RegistryParam{registryGroup='EXECUTOR', registryKey='toweolove-executor', registryValue='http://192.168.0.102:30020/'}, registryResult:ReturnT [code=500, msg=xxl-job remoting error(connect timed out), for url : http://192.168.75.1:8320/xxl-job-admin/api/registry, content=null]
-14:08:31.303 [xxl-job, executor ExecutorRegistryThread] INFO  c.x.j.c.t.ExecutorRegistryThread - [run,54] - >>>>>>>>>>> xxl-job registry fail, registryParam:RegistryParam{registryGroup='EXECUTOR', registryKey='toweolove-executor', registryValue='http://192.168.0.102:30020/'}, registryResult:ReturnT [code=500, msg=xxl-job remoting error(connect timed out), for url : http://192.168.75.1:8320/xxl-job-admin/api/registry, content=null]
-14:09:04.319 [xxl-job, executor ExecutorRegistryThread] INFO  c.x.j.c.t.ExecutorRegistryThread - [run,54] - >>>>>>>>>>> xxl-job registry fail, registryParam:RegistryParam{registryGroup='EXECUTOR', registryKey='toweolove-executor', registryValue='http://192.168.0.102:30020/'}, registryResult:ReturnT [code=500, msg=xxl-job remoting error(connect timed out), for url : http://192.168.75.1:8320/xxl-job-admin/api/registry, content=null]
-14:09:37.340 [xxl-job, executor ExecutorRegistryThread] INFO  c.x.j.c.t.ExecutorRegistryThread - [run,54] - >>>>>>>>>>> xxl-job registry fail, registryParam:RegistryParam{registryGroup='EXECUTOR', registryKey='toweolove-executor', registryValue='http://192.168.0.102:30020/'}, registryResult:ReturnT [code=500, msg=xxl-job remoting error(connect timed out), for url : http://192.168.75.1:8320/xxl-job-admin/api/registry, content=null]
-14:10:10.364 [xxl-job, executor ExecutorRegistryThread] INFO  c.x.j.c.t.ExecutorRegistryThread - [run,54] - >>>>>>>>>>> xxl-job registry fail, registryParam:RegistryParam{registryGroup='EXECUTOR', registryKey='toweolove-executor', registryValue='http://192.168.0.102:30020/'}, registryResult:ReturnT [code=500, msg=xxl-job remoting error(connect timed out), for url : http://192.168.75.1:8320/xxl-job-admin/api/registry, content=null]
-14:10:43.379 [xxl-job, executor ExecutorRegistryThread] INFO  c.x.j.c.t.ExecutorRegistryThread - [run,54] - >>>>>>>>>>> xxl-job registry fail, registryParam:RegistryParam{registryGroup='EXECUTOR', registryKey='toweolove-executor', registryValue='http://192.168.0.102:30020/'}, registryResult:ReturnT [code=500, msg=xxl-job remoting error(connect timed out), for url : http://192.168.75.1:8320/xxl-job-admin/api/registry, content=null]
-14:11:16.388 [xxl-job, executor ExecutorRegistryThread] INFO  c.x.j.c.t.ExecutorRegistryThread - [run,54] - >>>>>>>>>>> xxl-job registry fail, registryParam:RegistryParam{registryGroup='EXECUTOR', registryKey='toweolove-executor', registryValue='http://192.168.0.102:30020/'}, registryResult:ReturnT [code=500, msg=xxl-job remoting error(connect timed out), for url : http://192.168.75.1:8320/xxl-job-admin/api/registry, content=null]
-14:11:17.290 [SpringApplicationShutdownHook] INFO  c.a.c.s.b.r.i.i.RocketMQInboundChannelAdapter - [info,292] - stopped com.alibaba.cloud.stream.binder.rocketmq.integration.inbound.RocketMQInboundChannelAdapter@54b96813
-14:11:17.495 [SpringApplicationShutdownHook] INFO  c.a.c.s.b.r.i.i.RocketMQInboundChannelAdapter - [info,292] - stopped com.alibaba.cloud.stream.binder.rocketmq.integration.inbound.RocketMQInboundChannelAdapter@2ebcbf9d
-14:11:17.541 [SpringApplicationShutdownHook] INFO  c.a.c.n.r.NacosServiceRegistry - [deregister,94] - De-registering from Nacos Server now...
-14:11:17.594 [SpringApplicationShutdownHook] INFO  c.a.c.n.r.NacosServiceRegistry - [deregister,114] - De-registration finished.
-14:11:17.912 [SpringApplicationShutdownHook] INFO  c.a.n.c.r.client - [shutdown,454] - Shutdown rpc client, set status to shutdown
-14:11:17.913 [SpringApplicationShutdownHook] INFO  c.a.n.c.r.client - [shutdown,456] - Shutdown client event executor java.util.concurrent.ScheduledThreadPoolExecutor@69547825[Running, pool size = 2, active threads = 2, queued tasks = 0, completed tasks = 0]
-14:11:17.913 [SpringApplicationShutdownHook] INFO  c.a.n.c.r.client - [closeConnection,591] - Close current connection 1678687656629_116.2.240.65_53085
-14:11:17.915 [SpringApplicationShutdownHook] INFO  c.a.n.c.r.c.g.GrpcClient - [shutdown,85] - Shutdown grpc executor java.util.concurrent.ThreadPoolExecutor@34acb96d[Running, pool size = 7, active threads = 0, queued tasks = 0, completed tasks = 89]
-14:11:17.918 [Thread-29] INFO  c.x.j.c.s.EmbedServer - [run,91] - >>>>>>>>>>> xxl-job remoting server stop.
-14:11:20.933 [xxl-job, executor ExecutorRegistryThread] INFO  c.x.j.c.t.ExecutorRegistryThread - [run,90] - >>>>>>>>>>> xxl-job registry-remove fail, registryParam:RegistryParam{registryGroup='EXECUTOR', registryKey='toweolove-executor', registryValue='http://192.168.0.102:30020/'}, registryResult:ReturnT [code=500, msg=xxl-job remoting error(connect timed out), for url : http://192.168.75.1:8320/xxl-job-admin/api/registryRemove, content=null]
-14:11:20.933 [xxl-job, executor ExecutorRegistryThread] INFO  c.x.j.c.t.ExecutorRegistryThread - [run,105] - >>>>>>>>>>> xxl-job, executor registry thread destroy.
-14:11:20.933 [SpringApplicationShutdownHook] INFO  c.x.j.c.s.EmbedServer - [stop,117] - >>>>>>>>>>> xxl-job remoting server destroy success.
-14:11:20.933 [xxl-job, executor TriggerCallbackThread] INFO  c.x.j.c.t.TriggerCallbackThread - [run,98] - >>>>>>>>>>> xxl-job, executor callback thread destroy.
-14:11:20.934 [Thread-28] INFO  c.x.j.c.t.TriggerCallbackThread - [run,128] - >>>>>>>>>>> xxl-job, executor retry callback thread destroy.
-14:11:28.371 [background-preinit] INFO  o.h.v.i.util.Version - [<clinit>,21] - HV000001: Hibernate Validator 6.2.5.Final
-14:11:29.695 [main] INFO  c.t.s.c.m.SpringCloudRocketmqConsumerApplication - [logStartupProfileInfo,631] - No active profile set, falling back to 1 default profile: "default"
-14:11:31.617 [main] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Initializing ProtocolHandler ["http-nio-10005"]
-14:11:31.618 [main] INFO  o.a.c.c.StandardService - [log,173] - Starting service [Tomcat]
-14:11:31.619 [main] INFO  o.a.c.c.StandardEngine - [log,173] - Starting Servlet engine: [Apache Tomcat/9.0.70]
-14:11:31.790 [main] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring embedded WebApplicationContext
-14:11:36.624 [background-preinit] INFO  o.h.v.i.util.Version - [<clinit>,21] - HV000001: Hibernate Validator 6.2.5.Final
-14:11:38.068 [main] INFO  c.a.c.s.b.r.i.i.RocketMQInboundChannelAdapter - [info,292] - started com.alibaba.cloud.stream.binder.rocketmq.integration.inbound.RocketMQInboundChannelAdapter@55e91e61
-14:11:38.518 [main] INFO  c.t.s.c.m.SpringCloudRocketmqProducerApplication - [logStartupProfileInfo,631] - No active profile set, falling back to 1 default profile: "default"
-14:11:39.333 [main] INFO  c.a.c.s.b.r.i.i.RocketMQInboundChannelAdapter - [info,292] - started com.alibaba.cloud.stream.binder.rocketmq.integration.inbound.RocketMQInboundChannelAdapter@55638165
-14:11:39.334 [main] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Starting ProtocolHandler ["http-nio-10005"]
-14:11:39.778 [main] INFO  c.t.s.c.m.SpringCloudRocketmqConsumerApplication - [logStarted,61] - Started SpringCloudRocketmqConsumerApplication in 12.509 seconds (JVM running for 16.104)
-14:11:41.078 [main] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Initializing ProtocolHandler ["http-nio-10004"]
-14:11:41.079 [main] INFO  o.a.c.c.StandardService - [log,173] - Starting service [Tomcat]
-14:11:41.079 [main] INFO  o.a.c.c.StandardEngine - [log,173] - Starting Servlet engine: [Apache Tomcat/9.0.70]
-14:11:41.280 [main] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring embedded WebApplicationContext
-14:11:47.429 [main] INFO  c.a.c.s.b.r.i.i.RocketMQInboundChannelAdapter - [info,292] - started com.alibaba.cloud.stream.binder.rocketmq.integration.inbound.RocketMQInboundChannelAdapter@50e5fdb5
-14:11:47.432 [main] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Starting ProtocolHandler ["http-nio-10004"]
-14:11:47.819 [main] INFO  c.t.s.c.m.SpringCloudRocketmqProducerApplication - [logStarted,61] - Started SpringCloudRocketmqProducerApplication in 12.911 seconds (JVM running for 19.426)
-14:12:22.021 [http-nio-10004-exec-2] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring DispatcherServlet 'dispatcherServlet'
-14:13:38.466 [SpringApplicationShutdownHook] INFO  c.a.c.s.b.r.i.i.RocketMQInboundChannelAdapter - [info,292] - stopped com.alibaba.cloud.stream.binder.rocketmq.integration.inbound.RocketMQInboundChannelAdapter@50e5fdb5
-14:13:38.501 [SpringApplicationShutdownHook] INFO  c.a.c.s.b.r.i.i.RocketMQInboundChannelAdapter - [info,292] - stopped com.alibaba.cloud.stream.binder.rocketmq.integration.inbound.RocketMQInboundChannelAdapter@55e91e61
-14:13:38.682 [SpringApplicationShutdownHook] INFO  c.a.c.s.b.r.i.i.RocketMQInboundChannelAdapter - [info,292] - stopped com.alibaba.cloud.stream.binder.rocketmq.integration.inbound.RocketMQInboundChannelAdapter@55638165
-14:17:43.023 [background-preinit] INFO  o.h.v.i.util.Version - [<clinit>,21] - HV000001: Hibernate Validator 6.2.5.Final
-14:17:43.910 [main] INFO  c.t.s.c.m.SpringCloudRocketmqConsumerApplication - [logStartupProfileInfo,631] - No active profile set, falling back to 1 default profile: "default"
-14:17:46.129 [main] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Initializing ProtocolHandler ["http-nio-10005"]
-14:17:46.130 [main] INFO  o.a.c.c.StandardService - [log,173] - Starting service [Tomcat]
-14:17:46.130 [main] INFO  o.a.c.c.StandardEngine - [log,173] - Starting Servlet engine: [Apache Tomcat/9.0.70]
-14:17:46.258 [main] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring embedded WebApplicationContext
-14:17:47.644 [background-preinit] INFO  o.h.v.i.util.Version - [<clinit>,21] - HV000001: Hibernate Validator 6.2.5.Final
-14:17:49.220 [main] INFO  c.t.s.c.m.SpringCloudRocketmqProducerApplication - [logStartupProfileInfo,631] - No active profile set, falling back to 1 default profile: "default"
-14:17:51.431 [main] INFO  c.a.c.s.b.r.i.i.RocketMQInboundChannelAdapter - [info,292] - started com.alibaba.cloud.stream.binder.rocketmq.integration.inbound.RocketMQInboundChannelAdapter@13a268cd
-14:17:51.661 [main] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Initializing ProtocolHandler ["http-nio-10004"]
-14:17:51.662 [main] INFO  o.a.c.c.StandardService - [log,173] - Starting service [Tomcat]
-14:17:51.662 [main] INFO  o.a.c.c.StandardEngine - [log,173] - Starting Servlet engine: [Apache Tomcat/9.0.70]
-14:17:51.868 [main] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring embedded WebApplicationContext
-14:17:52.375 [main] INFO  c.a.c.s.b.r.i.i.RocketMQInboundChannelAdapter - [info,292] - started com.alibaba.cloud.stream.binder.rocketmq.integration.inbound.RocketMQInboundChannelAdapter@483b7dc4
-14:17:52.376 [main] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Starting ProtocolHandler ["http-nio-10005"]
-14:17:52.733 [main] INFO  c.t.s.c.m.SpringCloudRocketmqConsumerApplication - [logStarted,61] - Started SpringCloudRocketmqConsumerApplication in 10.683 seconds (JVM running for 14.635)
-14:17:56.697 [main] INFO  c.a.c.s.b.r.i.i.RocketMQInboundChannelAdapter - [info,292] - started com.alibaba.cloud.stream.binder.rocketmq.integration.inbound.RocketMQInboundChannelAdapter@711dda46
-14:17:56.700 [main] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Starting ProtocolHandler ["http-nio-10004"]
-14:17:57.046 [main] INFO  c.t.s.c.m.SpringCloudRocketmqProducerApplication - [logStarted,61] - Started SpringCloudRocketmqProducerApplication in 10.825 seconds (JVM running for 16.977)
-14:19:16.107 [http-nio-10004-exec-1] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring DispatcherServlet 'dispatcherServlet'
-15:05:08.643 [SpringApplicationShutdownHook] INFO  c.a.c.s.b.r.i.i.RocketMQInboundChannelAdapter - [info,292] - stopped com.alibaba.cloud.stream.binder.rocketmq.integration.inbound.RocketMQInboundChannelAdapter@13a268cd
-15:05:08.756 [SpringApplicationShutdownHook] INFO  c.a.c.s.b.r.i.i.RocketMQInboundChannelAdapter - [info,292] - stopped com.alibaba.cloud.stream.binder.rocketmq.integration.inbound.RocketMQInboundChannelAdapter@711dda46
-15:05:08.836 [SpringApplicationShutdownHook] INFO  c.a.c.s.b.r.i.i.RocketMQInboundChannelAdapter - [info,292] - stopped com.alibaba.cloud.stream.binder.rocketmq.integration.inbound.RocketMQInboundChannelAdapter@483b7dc4
+10:07:49.560 [background-preinit] INFO  o.h.v.i.util.Version - [<clinit>,21] - HV000001: Hibernate Validator 6.2.5.Final
+10:07:51.864 [main] INFO  c.t.x.e.ToweloveXxlJobExecutorApplication - [logStartupProfileInfo,631] - No active profile set, falling back to 1 default profile: "default"
+10:10:29.689 [background-preinit] INFO  o.h.v.i.util.Version - [<clinit>,21] - HV000001: Hibernate Validator 6.2.5.Final
+10:10:31.108 [main] INFO  c.t.x.e.ToweloveXxlJobExecutorApplication - [logStartupProfileInfo,631] - No active profile set, falling back to 1 default profile: "default"
+10:10:33.431 [main] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Initializing ProtocolHandler ["http-nio-8082"]
+10:10:33.431 [main] INFO  o.a.c.c.StandardService - [log,173] - Starting service [Tomcat]
+10:10:33.441 [main] INFO  o.a.c.c.StandardEngine - [log,173] - Starting Servlet engine: [Apache Tomcat/9.0.70]
+10:10:33.656 [main] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring embedded WebApplicationContext
+10:10:34.564 [main] INFO  o.a.c.c.StandardService - [log,173] - Stopping service [Tomcat]
+10:11:42.043 [background-preinit] INFO  o.h.v.i.util.Version - [<clinit>,21] - HV000001: Hibernate Validator 6.2.5.Final
+10:11:43.324 [main] INFO  c.t.x.e.ToweloveXxlJobExecutorApplication - [logStartupProfileInfo,631] - No active profile set, falling back to 1 default profile: "default"
+10:11:45.924 [main] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Initializing ProtocolHandler ["http-nio-8082"]
+10:11:45.925 [main] INFO  o.a.c.c.StandardService - [log,173] - Starting service [Tomcat]
+10:11:45.925 [main] INFO  o.a.c.c.StandardEngine - [log,173] - Starting Servlet engine: [Apache Tomcat/9.0.70]
+10:11:46.211 [main] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring embedded WebApplicationContext
+10:11:46.893 [main] INFO  c.t.x.e.c.XxlJobConfig - [xxlJobExecutor,51] - >>>>>>>>>>> xxl-job config init.
+10:11:48.924 [main] INFO  c.x.j.c.e.XxlJobExecutor - [registJobHandler,183] - >>>>>>>>>>> xxl-job register jobhandler success, name:TaskJobHandler, jobHandler:com.xxl.job.core.handler.impl.MethodJobHandler@74e2cfc5[class com.towelove.xxljob.executor.excutor.SimpleXxxJob#getTaskForDB]
+10:11:48.925 [main] INFO  c.x.j.c.e.XxlJobExecutor - [registJobHandler,183] - >>>>>>>>>>> xxl-job register jobhandler success, name:myJobHander, jobHandler:com.xxl.job.core.handler.impl.MethodJobHandler@4f7ef948[class com.towelove.xxljob.executor.excutor.SimpleXxxJob#myJobHander]
+10:11:49.591 [main] INFO  c.a.n.c.r.client - [lambda$createClient$0,80] - [RpcClientFactory] create a new rpc client of aacf9d8b-d1b8-4998-bc55-c90078887d5c
+10:11:49.703 [main] INFO  o.r.Reflections - [scan,232] - Reflections took 51 ms to scan 1 urls, producing 3 keys and 6 values 
+10:11:49.748 [main] INFO  o.r.Reflections - [scan,232] - Reflections took 11 ms to scan 1 urls, producing 4 keys and 9 values 
+10:11:49.761 [main] INFO  o.r.Reflections - [scan,232] - Reflections took 9 ms to scan 1 urls, producing 3 keys and 10 values 
+10:11:49.783 [main] INFO  o.r.Reflections - [scan,232] - Reflections took 18 ms to scan 1 urls, producing 1 keys and 5 values 
+10:11:49.804 [main] INFO  o.r.Reflections - [scan,232] - Reflections took 18 ms to scan 1 urls, producing 1 keys and 7 values 
+10:11:49.820 [main] INFO  o.r.Reflections - [scan,232] - Reflections took 12 ms to scan 1 urls, producing 2 keys and 8 values 
+10:11:49.824 [main] INFO  c.a.n.c.r.client - [printIfInfoEnabled,60] - [aacf9d8b-d1b8-4998-bc55-c90078887d5c] RpcClient init label, labels = {module=naming, source=sdk}
+10:11:49.826 [main] INFO  c.a.n.c.r.client - [printIfInfoEnabled,60] - [aacf9d8b-d1b8-4998-bc55-c90078887d5c] RpcClient init, ServerListFactory = com.alibaba.nacos.client.naming.core.ServerListManager
+10:11:49.827 [main] INFO  c.a.n.c.r.client - [printIfInfoEnabled,60] - [aacf9d8b-d1b8-4998-bc55-c90078887d5c] Registry connection listener to current client:com.alibaba.nacos.client.naming.remote.gprc.redo.NamingGrpcRedoService
+10:11:49.827 [main] INFO  c.a.n.c.r.client - [printIfInfoEnabled,60] - [aacf9d8b-d1b8-4998-bc55-c90078887d5c] Register server push request handler:com.alibaba.nacos.client.naming.remote.gprc.NamingPushRequestHandler
+10:11:49.829 [main] INFO  c.a.n.c.r.client - [printIfInfoEnabled,60] - [aacf9d8b-d1b8-4998-bc55-c90078887d5c] Try to connect to server on start up, server: {serverIp = '123.249.97.220', server main port = 8848}
+10:11:51.376 [main] INFO  c.a.n.c.r.client - [printIfInfoEnabled,60] - [aacf9d8b-d1b8-4998-bc55-c90078887d5c] Success to connect to server [123.249.97.220:8848] on start up, connectionId = 1678846310969_111.23.19.127_50675
+10:11:51.376 [com.alibaba.nacos.client.remote.worker] INFO  c.a.n.c.r.client - [printIfInfoEnabled,60] - [aacf9d8b-d1b8-4998-bc55-c90078887d5c] Notify connected event to listeners.
+10:11:51.377 [main] INFO  c.a.n.c.r.client - [printIfInfoEnabled,60] - [aacf9d8b-d1b8-4998-bc55-c90078887d5c] Register server push request handler:com.alibaba.nacos.common.remote.client.RpcClient$ConnectResetRequestHandler
+10:11:51.377 [main] INFO  c.a.n.c.r.client - [printIfInfoEnabled,60] - [aacf9d8b-d1b8-4998-bc55-c90078887d5c] Register server push request handler:com.alibaba.nacos.common.remote.client.RpcClient$$Lambda$1103/0x000000080144b928
+10:11:52.004 [nacos-grpc-client-executor-7] INFO  c.a.n.c.r.client - [printIfInfoEnabled,60] - [aacf9d8b-d1b8-4998-bc55-c90078887d5c] Receive server push request, request = NotifySubscriberRequest, requestId = 960
+10:11:52.006 [nacos-grpc-client-executor-7] INFO  c.a.n.c.r.client - [printIfInfoEnabled,60] - [aacf9d8b-d1b8-4998-bc55-c90078887d5c] Ack server push request, request = NotifySubscriberRequest, requestId = 960
+10:11:58.281 [main] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Starting ProtocolHandler ["http-nio-8082"]
+10:11:58.916 [main] INFO  c.a.n.c.r.client - [shutdown,454] - Shutdown rpc client, set status to shutdown
+10:11:58.917 [main] INFO  c.a.n.c.r.client - [shutdown,456] - Shutdown client event executor java.util.concurrent.ScheduledThreadPoolExecutor@54f62ac6[Running, pool size = 2, active threads = 2, queued tasks = 0, completed tasks = 0]
+10:11:58.918 [main] INFO  c.a.n.c.r.client - [closeConnection,591] - Close current connection 1678846310969_111.23.19.127_50675
+10:11:58.962 [nacos-grpc-client-executor-10] INFO  c.a.n.c.r.c.g.GrpcClient - [printIfInfoEnabled,60] - [1678846310969_111.23.19.127_50675]Ignore complete event,isRunning:false,isAbandon=false
+10:11:59.256 [main] INFO  c.a.n.c.r.c.g.GrpcClient - [shutdown,85] - Shutdown grpc executor java.util.concurrent.ThreadPoolExecutor@18d09283[Running, pool size = 11, active threads = 0, queued tasks = 0, completed tasks = 11]
+10:11:59.265 [main] INFO  c.a.n.c.r.client - [lambda$createClient$0,80] - [RpcClientFactory] create a new rpc client of 46bd3e33-c2bb-40d1-b410-cbb9dc0c42a1
+10:11:59.265 [main] INFO  c.a.n.c.r.client - [printIfInfoEnabled,60] - [46bd3e33-c2bb-40d1-b410-cbb9dc0c42a1] RpcClient init label, labels = {module=naming, source=sdk}
+10:11:59.266 [main] INFO  c.a.n.c.r.client - [printIfInfoEnabled,60] - [46bd3e33-c2bb-40d1-b410-cbb9dc0c42a1] RpcClient init, ServerListFactory = com.alibaba.nacos.client.naming.core.ServerListManager
+10:11:59.267 [main] INFO  c.a.n.c.r.client - [printIfInfoEnabled,60] - [46bd3e33-c2bb-40d1-b410-cbb9dc0c42a1] Registry connection listener to current client:com.alibaba.nacos.client.naming.remote.gprc.redo.NamingGrpcRedoService
+10:11:59.268 [main] INFO  c.a.n.c.r.client - [printIfInfoEnabled,60] - [46bd3e33-c2bb-40d1-b410-cbb9dc0c42a1] Register server push request handler:com.alibaba.nacos.client.naming.remote.gprc.NamingPushRequestHandler
+10:11:59.270 [main] INFO  c.a.n.c.r.client - [printIfInfoEnabled,60] - [46bd3e33-c2bb-40d1-b410-cbb9dc0c42a1] Try to connect to server on start up, server: {serverIp = '123.249.97.220', server main port = 8848}
+10:11:59.504 [main] INFO  c.a.n.c.r.client - [printIfInfoEnabled,60] - [46bd3e33-c2bb-40d1-b410-cbb9dc0c42a1] Success to connect to server [123.249.97.220:8848] on start up, connectionId = 1678846319364_111.23.19.127_50690
+10:11:59.504 [main] INFO  c.a.n.c.r.client - [printIfInfoEnabled,60] - [46bd3e33-c2bb-40d1-b410-cbb9dc0c42a1] Register server push request handler:com.alibaba.nacos.common.remote.client.RpcClient$ConnectResetRequestHandler
+10:11:59.504 [com.alibaba.nacos.client.remote.worker] INFO  c.a.n.c.r.client - [printIfInfoEnabled,60] - [46bd3e33-c2bb-40d1-b410-cbb9dc0c42a1] Notify connected event to listeners.
+10:11:59.504 [main] INFO  c.a.n.c.r.client - [printIfInfoEnabled,60] - [46bd3e33-c2bb-40d1-b410-cbb9dc0c42a1] Register server push request handler:com.alibaba.nacos.common.remote.client.RpcClient$$Lambda$1103/0x000000080144b928
+10:11:59.547 [main] INFO  c.x.j.c.s.EmbedServer - [stop,117] - >>>>>>>>>>> xxl-job remoting server destroy success.
+10:11:59.548 [xxl-job, executor TriggerCallbackThread] INFO  c.x.j.c.t.TriggerCallbackThread - [run,98] - >>>>>>>>>>> xxl-job, executor callback thread destroy.
+10:11:59.548 [Thread-5] INFO  c.x.j.c.t.TriggerCallbackThread - [run,128] - >>>>>>>>>>> xxl-job, executor retry callback thread destroy.
+10:11:59.554 [main] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Pausing ProtocolHandler ["http-nio-8082"]
+10:11:59.555 [main] INFO  o.a.c.c.StandardService - [log,173] - Stopping service [Tomcat]
+10:11:59.560 [main] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Stopping ProtocolHandler ["http-nio-8082"]
+10:11:59.561 [main] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Destroying ProtocolHandler ["http-nio-8082"]
+10:12:25.548 [background-preinit] INFO  o.h.v.i.util.Version - [<clinit>,21] - HV000001: Hibernate Validator 6.2.5.Final
+10:12:26.798 [main] INFO  c.t.x.e.ToweloveXxlJobExecutorApplication - [logStartupProfileInfo,631] - No active profile set, falling back to 1 default profile: "default"
+10:12:28.988 [main] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Initializing ProtocolHandler ["http-nio-8083"]
+10:12:28.988 [main] INFO  o.a.c.c.StandardService - [log,173] - Starting service [Tomcat]
+10:12:28.989 [main] INFO  o.a.c.c.StandardEngine - [log,173] - Starting Servlet engine: [Apache Tomcat/9.0.70]
+10:12:29.439 [main] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring embedded WebApplicationContext
+10:12:30.150 [main] INFO  c.t.x.e.c.XxlJobConfig - [xxlJobExecutor,51] - >>>>>>>>>>> xxl-job config init.
+10:12:31.815 [main] INFO  c.x.j.c.e.XxlJobExecutor - [registJobHandler,183] - >>>>>>>>>>> xxl-job register jobhandler success, name:TaskJobHandler, jobHandler:com.xxl.job.core.handler.impl.MethodJobHandler@47ae6c18[class com.towelove.xxljob.executor.excutor.SimpleXxxJob#getTaskForDB]
+10:12:31.817 [main] INFO  c.x.j.c.e.XxlJobExecutor - [registJobHandler,183] - >>>>>>>>>>> xxl-job register jobhandler success, name:myJobHander, jobHandler:com.xxl.job.core.handler.impl.MethodJobHandler@61d6c8c4[class com.towelove.xxljob.executor.excutor.SimpleXxxJob#myJobHander]
+10:12:32.439 [main] INFO  c.a.n.c.r.client - [lambda$createClient$0,80] - [RpcClientFactory] create a new rpc client of 1b343cda-0130-4b10-aaaa-d846de321876
+10:12:32.561 [main] INFO  o.r.Reflections - [scan,232] - Reflections took 62 ms to scan 1 urls, producing 3 keys and 6 values 
+10:12:32.624 [main] INFO  o.r.Reflections - [scan,232] - Reflections took 21 ms to scan 1 urls, producing 4 keys and 9 values 
+10:12:32.637 [main] INFO  o.r.Reflections - [scan,232] - Reflections took 9 ms to scan 1 urls, producing 3 keys and 10 values 
+10:12:32.651 [main] INFO  o.r.Reflections - [scan,232] - Reflections took 11 ms to scan 1 urls, producing 1 keys and 5 values 
+10:12:32.667 [main] INFO  o.r.Reflections - [scan,232] - Reflections took 12 ms to scan 1 urls, producing 1 keys and 7 values 
+10:12:32.682 [main] INFO  o.r.Reflections - [scan,232] - Reflections took 12 ms to scan 1 urls, producing 2 keys and 8 values 
+10:12:32.686 [main] INFO  c.a.n.c.r.client - [printIfInfoEnabled,60] - [1b343cda-0130-4b10-aaaa-d846de321876] RpcClient init label, labels = {module=naming, source=sdk}
+10:12:32.688 [main] INFO  c.a.n.c.r.client - [printIfInfoEnabled,60] - [1b343cda-0130-4b10-aaaa-d846de321876] RpcClient init, ServerListFactory = com.alibaba.nacos.client.naming.core.ServerListManager
+10:12:32.689 [main] INFO  c.a.n.c.r.client - [printIfInfoEnabled,60] - [1b343cda-0130-4b10-aaaa-d846de321876] Registry connection listener to current client:com.alibaba.nacos.client.naming.remote.gprc.redo.NamingGrpcRedoService
+10:12:32.690 [main] INFO  c.a.n.c.r.client - [printIfInfoEnabled,60] - [1b343cda-0130-4b10-aaaa-d846de321876] Register server push request handler:com.alibaba.nacos.client.naming.remote.gprc.NamingPushRequestHandler
+10:12:32.692 [main] INFO  c.a.n.c.r.client - [printIfInfoEnabled,60] - [1b343cda-0130-4b10-aaaa-d846de321876] Try to connect to server on start up, server: {serverIp = '123.249.97.220', server main port = 8848}
+10:12:34.310 [main] INFO  c.a.n.c.r.client - [printIfInfoEnabled,60] - [1b343cda-0130-4b10-aaaa-d846de321876] Success to connect to server [123.249.97.220:8848] on start up, connectionId = 1678846353826_111.23.19.127_50733
+10:12:34.312 [com.alibaba.nacos.client.remote.worker] INFO  c.a.n.c.r.client - [printIfInfoEnabled,60] - [1b343cda-0130-4b10-aaaa-d846de321876] Notify connected event to listeners.
+10:12:34.313 [main] INFO  c.a.n.c.r.client - [printIfInfoEnabled,60] - [1b343cda-0130-4b10-aaaa-d846de321876] Register server push request handler:com.alibaba.nacos.common.remote.client.RpcClient$ConnectResetRequestHandler
+10:12:34.314 [main] INFO  c.a.n.c.r.client - [printIfInfoEnabled,60] - [1b343cda-0130-4b10-aaaa-d846de321876] Register server push request handler:com.alibaba.nacos.common.remote.client.RpcClient$$Lambda$1102/0x000000080146e588
+10:12:34.944 [nacos-grpc-client-executor-7] INFO  c.a.n.c.r.client - [printIfInfoEnabled,60] - [1b343cda-0130-4b10-aaaa-d846de321876] Receive server push request, request = NotifySubscriberRequest, requestId = 961
+10:12:34.946 [nacos-grpc-client-executor-7] INFO  c.a.n.c.r.client - [printIfInfoEnabled,60] - [1b343cda-0130-4b10-aaaa-d846de321876] Ack server push request, request = NotifySubscriberRequest, requestId = 961
+10:12:41.250 [main] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Starting ProtocolHandler ["http-nio-8083"]
+10:12:41.366 [main] INFO  c.a.c.n.r.NacosServiceRegistry - [register,75] - nacos registry, DEFAULT_GROUP towelove-xxlJob-exectour 172.27.222.111:8083 register finished
+10:12:41.935 [nacos-grpc-client-executor-11] INFO  c.a.n.c.r.client - [printIfInfoEnabled,60] - [1b343cda-0130-4b10-aaaa-d846de321876] Receive server push request, request = NotifySubscriberRequest, requestId = 962
+10:12:41.938 [nacos-grpc-client-executor-11] INFO  c.a.n.c.r.client - [printIfInfoEnabled,60] - [1b343cda-0130-4b10-aaaa-d846de321876] Ack server push request, request = NotifySubscriberRequest, requestId = 962
+10:12:41.958 [main] INFO  c.t.x.e.ToweloveXxlJobExecutorApplication - [logStarted,61] - Started ToweloveXxlJobExecutorApplication in 17.491 seconds (JVM running for 18.993)
+10:13:17.910 [SpringApplicationShutdownHook] INFO  c.a.c.n.r.NacosServiceRegistry - [deregister,94] - De-registering from Nacos Server now...
+10:13:17.960 [SpringApplicationShutdownHook] INFO  c.a.c.n.r.NacosServiceRegistry - [deregister,114] - De-registration finished.
+10:13:18.270 [SpringApplicationShutdownHook] INFO  c.a.n.c.r.client - [shutdown,454] - Shutdown rpc client, set status to shutdown
+10:13:18.270 [SpringApplicationShutdownHook] INFO  c.a.n.c.r.client - [shutdown,456] - Shutdown client event executor java.util.concurrent.ScheduledThreadPoolExecutor@6a2eebad[Running, pool size = 2, active threads = 2, queued tasks = 0, completed tasks = 0]
+10:13:18.270 [SpringApplicationShutdownHook] INFO  c.a.n.c.r.client - [closeConnection,591] - Close current connection 1678846353826_111.23.19.127_50733
+10:13:18.280 [SpringApplicationShutdownHook] INFO  c.a.n.c.r.c.g.GrpcClient - [shutdown,85] - Shutdown grpc executor java.util.concurrent.ThreadPoolExecutor@ae69add[Running, pool size = 3, active threads = 0, queued tasks = 0, completed tasks = 20]
+10:13:18.280 [SpringApplicationShutdownHook] INFO  c.x.j.c.s.EmbedServer - [stop,117] - >>>>>>>>>>> xxl-job remoting server destroy success.
+10:13:18.280 [xxl-job, executor TriggerCallbackThread] INFO  c.x.j.c.t.TriggerCallbackThread - [run,98] - >>>>>>>>>>> xxl-job, executor callback thread destroy.
+10:13:18.280 [Thread-5] INFO  c.x.j.c.t.TriggerCallbackThread - [run,128] - >>>>>>>>>>> xxl-job, executor retry callback thread destroy.

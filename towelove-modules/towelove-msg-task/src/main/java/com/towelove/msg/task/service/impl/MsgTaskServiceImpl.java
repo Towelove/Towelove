@@ -1,6 +1,9 @@
 package com.towelove.msg.task.service.impl;
 
+import com.alibaba.nacos.shaded.com.google.protobuf.ServiceException;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.mysql.cj.Query;
 import com.towelove.common.core.domain.PageResult;
 import com.towelove.common.core.domain.R;
@@ -13,6 +16,7 @@ import com.towelove.msg.task.mapper.MsgTaskMapper;
 import com.towelove.msg.task.service.MsgTaskService;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.logging.log4j.util.Strings;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,6 +26,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
@@ -37,27 +42,75 @@ public class MsgTaskServiceImpl implements MsgTaskService {
     private MsgTaskMapper msgTaskMapper;
     @Override
     public Long createMsgTask(MsgTaskCreateReqVO createReqVO) {
-        return null;
+        if (Objects.isNull(createReqVO)){
+            throw new RuntimeException("用户传来的对象为空");
+        }
+        MsgTask msgTask = new MsgTask();
+        BeanUtils.copyProperties(createReqVO,msgTask );
+        try {
+            int Isinsert = msgTaskMapper.insert(msgTask);
+        } catch (Exception e) {
+            throw new RuntimeException("新增任务失败");
+        }
+        return msgTask.getUserId();
     }
 
     @Override
     public Boolean updateMsgTask(MsgTaskUpdateReqVO updateReqVO) {
-        return null;
+        if (Objects.isNull(updateReqVO)){
+            throw new RuntimeException("前端传来的对象为空");
+        }
+        MsgTask msgTask = new MsgTask();
+        BeanUtils.copyProperties(updateReqVO, msgTask);
+        int isUpdate = msgTaskMapper.updateById(msgTask);
+        if (isUpdate == 0){
+            throw new RuntimeException("修改任务失败");
+        }
+        return isUpdate > 0;
     }
 
     @Override
     public Boolean deleteMsgTask(Long id) {
-        return null;
+        if (null == id){
+            throw new RuntimeException("id为空...");
+        }
+            int i = msgTaskMapper.deleteById(id);
+        return i > 0;
     }
 
     @Override
     public MsgTask getMsgTask(Long id) {
-        return null;
+        if (null == id){
+            throw new RuntimeException("id为空...");
+        }
+        MsgTask msgTask = msgTaskMapper.selectById(id);
+        if (Objects.isNull(msgTask)){
+            throw new RuntimeException("获得消息任务失败");
+        }
+        return msgTask;
     }
 
     @Override
     public PageResult<MsgTask> getMsgTaskPage(MsgTaskPageReqVO pageReqVO) {
-        return null;
+        if (Objects.isNull(pageReqVO)){
+            throw new RuntimeException("查询数据失败");
+        }
+        IPage page = new Page(pageReqVO.getPageNo(), pageReqVO.getPageSize());
+        QueryWrapper<MsgTask> msgTaskQueryWrapper = new QueryWrapper<>();
+        //带分页的条件查询
+        page = msgTaskMapper.selectPage(page,msgTaskQueryWrapper
+                .eq(Strings.isNotBlank(pageReqVO.getContent()), "content", pageReqVO.getContent())
+                .eq(Strings.isNotBlank(pageReqVO.getTitle()), "title", pageReqVO.getTitle())
+                .eq(Strings.isNotBlank(pageReqVO.getNickname()), "nickname", pageReqVO.getNickname())
+                .eq(null != pageReqVO.getSendTime(), "send_time", pageReqVO.getSendTime())
+        );
+        PageResult<MsgTask> msgTaskPageResult = new PageResult<>();
+        msgTaskPageResult.setList(page.getRecords());
+        msgTaskPageResult.setTotal(page.getTotal());
+        if (Objects.isNull(msgTaskPageResult)){
+            throw new RuntimeException("查询对象失败");
+        }
+        return msgTaskPageResult;
     }
 
     @Override

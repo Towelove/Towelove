@@ -12,7 +12,9 @@ import com.towelove.system.api.domain.SysMailAccount;
 import io.jsonwebtoken.Claims;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -20,6 +22,7 @@ import javax.validation.Valid;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author: 张锦标
@@ -103,7 +106,9 @@ public class MsgTaskController {
     @Parameter(name = "id", description = "编号", required = true, example = "1024")
     public R<MsgTaskRespVO> getMailAccount(@RequestParam("id") Long id) {
         MsgTask msgTask = msgTaskService.getMsgTask(id);
-        return R.ok(MsgTaskConvert.INSTANCE.convert(msgTask));
+        MsgTaskRespVO msgTaskRespVO = new MsgTaskRespVO();
+        BeanUtils.copyProperties(msgTask,msgTaskRespVO);
+        return R.ok(msgTaskRespVO);
     }
 
     /**
@@ -115,7 +120,15 @@ public class MsgTaskController {
     @Operation(summary = "获得消息任务分页")
     public R<PageResult<MsgTaskBaseVO>> getMailAccountPage(@Valid MsgTaskPageReqVO pageReqVO) {
         PageResult<MsgTask> msgTaskPage = msgTaskService.getMsgTaskPage(pageReqVO);
-        return R.ok(MsgTaskConvert.INSTANCE.convertPage(msgTaskPage));
+        List<MsgTask> list = msgTaskPage.getList();
+        List<MsgTaskBaseVO> collect = list.stream().map(msgTask -> {
+            MsgTaskBaseVO msgTaskBaseVO = new MsgTaskBaseVO();
+            BeanUtils.copyProperties(msgTask, msgTaskBaseVO);
+            return msgTaskBaseVO;
+        }).collect(Collectors.toList());
+        PageResult<MsgTaskBaseVO> msgTaskBaseVOPageResult = new PageResult<>();
+        msgTaskBaseVOPageResult.setList(collect);
+        return R.ok(msgTaskBaseVOPageResult);
     }
 
     /**
