@@ -31,6 +31,7 @@ public class MsgTaskProducer extends AbstractBusProducer {
     public void sendMsgCreateEvent(MsgTaskCreateReqVO createReqVO){
         log.info("接收到消息创建事件，新增的消息内容为：{}",createReqVO);
         streamBridge.send(MessageConstant.MESSAGE_CREATE_OUTPUT,createReqVO);
+        System.out.println("创建任务消息发送成功！！");
     }
     public void sendMsgDeleteEvent(Long id){
         log.info("接收到消息删除事件，删除的消息id为：{}",id);

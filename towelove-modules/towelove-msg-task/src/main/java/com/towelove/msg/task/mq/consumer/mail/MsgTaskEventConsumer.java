@@ -1,7 +1,9 @@
 package com.towelove.msg.task.mq.consumer.mail;
 
+import com.towelove.common.core.constant.MsgTaskConstants;
 import com.towelove.msg.task.domain.vo.MsgTaskCreateReqVO;
 import com.towelove.msg.task.domain.vo.MsgTaskUpdateReqVO;
+import com.towelove.msg.task.executor.SimpleXxxJob;
 import lombok.extern.slf4j.Slf4j;
 import org.bouncycastle.cert.ocsp.Req;
 import org.springframework.context.annotation.Bean;
@@ -28,14 +30,16 @@ public class MsgTaskEventConsumer {
     public Consumer<MsgTaskCreateReqVO> msgCreate(){
         return createReqVO->{
             log.info("接收到消息新增事件，新增的内容为：{}",createReqVO);
-            //TODO 业务操作
+            //删除这个map中的消息
+            //SimpleXxxJob.getMap().remove(MsgTaskConstants.MSG_PREFIX+createReqVO.get);
         };
     }
     @Bean
     public Consumer<Long> msgDelete(){
         return id->{
             log.info("接收到消息删除事件，删除的id为：{}",id);
-            //TODO 业务操作
+            //删除这个map中的消息
+            SimpleXxxJob.getMap().remove(MsgTaskConstants.MSG_PREFIX+id);
         };
     }
 }

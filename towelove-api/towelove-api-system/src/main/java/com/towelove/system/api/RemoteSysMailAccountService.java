@@ -18,5 +18,5 @@ import org.springframework.web.bind.annotation.*;
         fallbackFactory = SysMailAccountFallbackFactory.class)
 public interface RemoteSysMailAccountService {
     @GetMapping("/sys/mail-account/getByUserId")
-    R<SysMailAccount> getMailAccountByUserId(@RequestParam("userId") Long userId);
+    R<Long> getMailAccountByUserId(@RequestParam("userId") Long userId);
 }

@@ -25,6 +25,7 @@ import javax.validation.Valid;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
@@ -41,14 +42,14 @@ public class MsgTaskController {
     private MsgTaskProducer msgTaskProducer;
     @Autowired
     private RemoteSysMailAccountService sysMailAccountService;
-    private SysMailAccount getUserAndAccountId(HttpServletRequest request){
+    private Long getAccountId(HttpServletRequest request){
         String token = request.getHeader("Authorization");
         Claims claims = JwtUtils.parseToken(token);
         Long userId = Long.valueOf(JwtUtils.getUserId(claims));
         //TODO 根据userId远程调用获取accountId
-        SysMailAccount sysMailAccount = sysMailAccountService
+        Long accountId = sysMailAccountService
                 .getMailAccountByUserId(userId).getData();
-        return sysMailAccount;
+        return accountId;
     }
     /**
      * 创建消息任务
@@ -61,12 +62,12 @@ public class MsgTaskController {
                                  @Autowired HttpServletRequest request){
         String token = request.getHeader("Authorization");
         System.out.println(token);
-        //TODO 需要发送事件的话需要判断当前消息的发送事件是否是下一个即将要发送的时间范围
-        //TODO 需要远程调用获取accountId
-        //TODO templateId是在页面上选择的 所以直接会传
-        //TODO 时间比较 如果是下一个要发送的时间 需要添加到 mq里面
-        Date sendTime = createReqVO.getSendTime();
-        LocalDateTime ldt = LocalDateTime.now();
+        Long accountId = getAccountId(request);
+        if (Objects.isNull(accountId)){
+            throw new RuntimeException("远程调用获取到的accountId为空！！！");
+        }
+        System.out.println(accountId);
+        createReqVO.setAccountId(accountId);
         return R.ok(msgTaskService.createMsgTask(createReqVO));
     }
 

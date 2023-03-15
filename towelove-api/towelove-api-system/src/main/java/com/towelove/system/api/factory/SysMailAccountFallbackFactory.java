@@ -23,7 +23,7 @@ public class SysMailAccountFallbackFactory implements FallbackFactory<RemoteSysM
 
         return new RemoteSysMailAccountService() {
             @Override
-            public R<SysMailAccount> getMailAccountByUserId(Long id) {
+            public R<Long> getMailAccountByUserId(Long id) {
                 return R.fail("根据ID获取邮箱账户失败:"+throwable.getMessage());
             }
         };

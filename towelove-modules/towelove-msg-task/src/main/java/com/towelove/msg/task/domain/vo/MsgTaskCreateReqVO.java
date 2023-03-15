@@ -4,6 +4,9 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
+
+import javax.validation.constraints.NotNull;
+
 /**
  * @author: 张锦标
  * @date: 2023/3/11 17:32
@@ -13,5 +16,6 @@ import lombok.ToString;
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
 public class MsgTaskCreateReqVO extends MsgTaskBaseVO {
-
+    @Schema(description = "创建任务的id", required = false, example = "1024")
+    private Long id;
 }

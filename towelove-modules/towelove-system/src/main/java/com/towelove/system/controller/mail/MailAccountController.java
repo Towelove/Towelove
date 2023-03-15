@@ -87,13 +87,9 @@ public class MailAccountController {
     @GetMapping("/getByUserId")
     @Operation(summary = "获得邮箱账号根据userid")
     @Parameter(name = "id", description = "编号", required = true, example = "1024")
-    public R<SysMailAccount> getMailAccountByUserId(@RequestParam("userId") Long userId) {
+    public R<Long> getMailAccountByUserId(@RequestParam("userId") Long userId) {
         MailAccountDO mailAccountDO = mailAccountService.getMailAccountByUserId(userId);
-        System.out.println(mailAccountDO);
-        SysMailAccount sysMailAccount = new SysMailAccount();
-        BeanUtils.copyProperties(mailAccountDO,sysMailAccount);
-        System.out.println(sysMailAccount);
-        return R.ok(sysMailAccount);
+        return R.ok(mailAccountDO.getId());
     }
 
     /**

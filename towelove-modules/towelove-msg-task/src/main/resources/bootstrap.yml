@@ -67,7 +67,7 @@ spring:
       rocketmq:
         # RocketMQ Binder 配置项，对应 RocketMQBinderConfigurationProperties 类
         binder:
-          name-server: 192.168.146.115:9876 # RocketMQ Namesrv 地址
+          name-server: 123.249.111.175:9876 # RocketMQ Namesrv 地址
         #          access-key: # 用户名
         #          secret-key:  # 密码
         default: # 默认 bindings 全局配置

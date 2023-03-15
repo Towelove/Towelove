@@ -65,7 +65,7 @@ public class MsgTask extends BaseEntity {
     /**
      * 参数数组(自动根据内容生成)
      */
-    @TableField(typeHandler = JacksonTypeHandler.class,exist = false)
+    @TableField(typeHandler = JacksonTypeHandler.class)
     private List<String> params;
 
     /**

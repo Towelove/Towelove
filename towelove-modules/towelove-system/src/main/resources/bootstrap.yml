@@ -47,17 +47,17 @@ spring:
           destination: admin_sms_send
         sendSmsToAdmin-in-0:
           destination: admin_sms_send
-          group: system_sms_send_consumer_group
+          group: send_sms_admin_group
         sendSmsToUser-out-0: # 配置生产者
-          destination: admin_sms_send
+          destination: user_sms_send
         sendSmsToUser-in-0:
-          destination: admin_sms_send
-          group: system_sms_send_consumer_group
+          destination: user_sms_send
+          group: send_sms_user_group
 
         smsSend-out-0:
-          destination: admin_sms_send
+          destination: sms_send
         smsSendConsumer-in-0: # 配置消费者
-          destination: admin_sms_send
+          destination: sms_send
           group: system_sms_send_consumer_group
 
         mailSend-out-0: # rocketmq-->broker ---> xxl-job
@@ -70,7 +70,7 @@ spring:
       rocketmq:
         # RocketMQ Binder 配置项，对应 RocketMQBinderConfigurationProperties 类
         binder:
-          name-server: 192.168.146.115:9876 # RocketMQ Namesrv 地址
+          name-server: 123.249.111.175:9876 # RocketMQ Namesrv 地址
         #          access-key: # 用户名
         #          secret-key:  # 密码
         default: # 默认 bindings 全局配置

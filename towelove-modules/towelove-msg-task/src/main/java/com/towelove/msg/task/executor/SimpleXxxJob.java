@@ -27,6 +27,15 @@ import java.util.Objects;
 @Component
 public class SimpleXxxJob {
     private static HashMap<String, MailSendMessage> map;
+
+    public static HashMap<String, MailSendMessage> getMap() {
+        return map;
+    }
+
+    public static void setMap(HashMap<String, MailSendMessage> map) {
+        SimpleXxxJob.map = map;
+    }
+
     @Autowired
     private RemoteSysUserService remoteSysUserService;
     //系统任务生产者
