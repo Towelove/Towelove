@@ -1,7 +1,7 @@
 package com.towelove.task.api;
 
 import com.towelove.common.core.domain.R;
-import com.towelove.task.api.factory.MsgTaskFallbackFactory;
+import com.towelove.task.api.factory.RemoteMsgTaskFallbackFactory;
 import com.towelove.task.api.model.MsgTask;
 import com.towelove.task.api.vo.MsgTaskSimpleRespVO;
 import io.swagger.v3.oas.annotations.Operation;
@@ -14,9 +14,9 @@ import java.util.List;
  * Author:季台星
  * @Date：2023-3-12 12:10
  */
-@FeignClient(value = "msg-task",fallbackFactory = MsgTaskFallbackFactory.class)
+@FeignClient(value = "towelove-msg-task",fallbackFactory = RemoteMsgTaskFallbackFactory.class)
 @RequestMapping("/msg/task")
-public interface MsgTaskService {
+public interface RemoteMsgTaskService {
    @GetMapping("/get")
    R<MsgTask> getMailAccount(@RequestParam("id") Long id);
     @GetMapping("/list-all-simple")

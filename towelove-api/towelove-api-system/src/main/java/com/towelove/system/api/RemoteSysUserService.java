@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.*;
         //value = ServiceNameConstants.SYSTEM_SERVICE,
         value = "towelove-system",
         fallbackFactory = SysUserFallbackFactory.class)
-public interface SysUserService {
+public interface RemoteSysUserService {
     /**
      * 通过用户名查询用户信息
      *

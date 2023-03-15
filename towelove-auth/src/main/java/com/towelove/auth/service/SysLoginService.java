@@ -10,13 +10,11 @@ import com.towelove.common.core.exception.ServiceException;
 import com.towelove.common.core.utils.StringUtils;
 import com.towelove.common.core.web.domain.AjaxResult;
 import com.towelove.common.security.utils.SecurityUtils;
-import com.towelove.system.api.SysUserService;
+import com.towelove.system.api.RemoteSysUserService;
 import com.towelove.system.api.domain.SysUser;
 import com.towelove.system.api.model.LoginUser;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.util.Objects;
@@ -33,7 +31,7 @@ import java.util.concurrent.TimeUnit;
 public class SysLoginService
 {
     @Autowired
-    private SysUserService sysUserService;
+    private RemoteSysUserService remoteSysUserService;
 
     @Autowired
     private SysPasswordService passwordService;
@@ -71,7 +69,7 @@ public class SysLoginService
             throw new ServiceException("用户名不在指定范围");
         }
         // 查询用户信息
-        R<LoginUser> userResult = sysUserService.getUserInfo(username,
+        R<LoginUser> userResult = remoteSysUserService.getUserInfo(username,
                 SecurityConstants.INNER);
 
         if (Objects.isNull(userResult) || Objects.isNull(userResult.getData()))
@@ -143,7 +141,7 @@ public class SysLoginService
         //对注册的密码进行加盐
         sysUser.setPassword(SecurityUtils.encryptPassword(password));
         //远程调用system模块进行用户注册
-        R<?> registerResult = sysUserService
+        R<?> registerResult = remoteSysUserService
                 .registerUserInfo(sysUser, SecurityConstants.INNER);
 
         if (R.FAIL == registerResult.getCode())
@@ -172,12 +170,12 @@ public class SysLoginService
         {
             throw new ServiceException("密码长度必须在5到20个字符之间");
         }
-        R<LoginUser> userInfo = sysUserService.getUserInfo(username, SecurityConstants.INNER);
+        R<LoginUser> userInfo = remoteSysUserService.getUserInfo(username, SecurityConstants.INNER);
         SysUser sysUser = userInfo.getData().getSysUser();
         //对修改的的密码进行加盐
         sysUser.setPassword(SecurityUtils.encryptPassword(password));
         //远程调用system模块进行用户注册
-        AjaxResult registerResult = sysUserService
+        AjaxResult registerResult = remoteSysUserService
                 .resetPwd(sysUser, SecurityConstants.INNER);
 
         if (R.FAIL == (Integer) registerResult.get("code"))

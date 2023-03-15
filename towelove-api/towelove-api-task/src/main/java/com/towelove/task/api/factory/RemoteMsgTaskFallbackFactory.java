@@ -1,7 +1,7 @@
 package com.towelove.task.api.factory;
 
 import com.towelove.common.core.domain.R;
-import com.towelove.task.api.MsgTaskService;
+import com.towelove.task.api.RemoteMsgTaskService;
 import com.towelove.task.api.model.MsgTask;
 import com.towelove.task.api.vo.MsgTaskSimpleRespVO;
 import org.slf4j.Logger;
@@ -19,12 +19,12 @@ import java.util.List;
 //使用下面这个注解必须保证该类的类路径被配置到
 //META-INF/spring/org.springframework.boot.autoconfigure.AutoConfiguration.imports
 //@AutoConfiguration
-public class MsgTaskFallbackFactory implements FallbackFactory<MsgTaskService> {
-    private static final Logger log = LoggerFactory.getLogger(MsgTaskFallbackFactory.class);
+public class RemoteMsgTaskFallbackFactory implements FallbackFactory<RemoteMsgTaskService> {
+    private static final Logger log = LoggerFactory.getLogger(RemoteMsgTaskFallbackFactory.class);
 
     @Override
-    public MsgTaskService create(Throwable throwable) {
-        return new MsgTaskService() {
+    public RemoteMsgTaskService create(Throwable throwable) {
+        return new RemoteMsgTaskService() {
             @Override
             public R<MsgTask> getMailAccount(Long id) {
                 return R.fail("获得消息任务失败"+throwable.getMessage());

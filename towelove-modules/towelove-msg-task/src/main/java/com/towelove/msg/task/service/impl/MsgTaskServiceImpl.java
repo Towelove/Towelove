@@ -3,6 +3,7 @@ package com.towelove.msg.task.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.mysql.cj.Query;
 import com.towelove.common.core.domain.PageResult;
+import com.towelove.common.core.domain.R;
 import com.towelove.msg.task.domain.MsgTask;
 import com.towelove.msg.task.domain.vo.MsgTaskCreateReqVO;
 import com.towelove.msg.task.domain.vo.MsgTaskPageReqVO;
@@ -67,5 +68,17 @@ public class MsgTaskServiceImpl implements MsgTaskService {
 //        msgTaskQueryWrapper.between(MsgTask::getSendTime, localDateTime, localDateTime.plusMinutes(10));
         List<MsgTask> msgTasks = msgTaskMapper.selectList(new QueryWrapper<>());
         return msgTasks;
+    }
+
+    @Override
+    public List<MsgTaskSimpleRespVO> getSimpleMailAccountList() {
+        List<MsgTask> list = this.getMsgTaskList();
+        List<MsgTaskSimpleRespVO> msgTaskSimpleRespVOList = list.stream().map(
+                msgTask -> {
+                    MsgTaskSimpleRespVO msgTaskSimpleRespVO = new MsgTaskSimpleRespVO();
+                    BeanUtils.copyProperties(msgTask, msgTaskSimpleRespVO);
+                    return msgTaskSimpleRespVO;
+                }).collect(Collectors.toList());
+        return msgTaskSimpleRespVOList;
     }
 }

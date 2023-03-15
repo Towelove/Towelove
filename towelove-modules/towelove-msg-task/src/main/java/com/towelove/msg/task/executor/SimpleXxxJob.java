@@ -1,14 +1,14 @@
-package com.towelove.xxljob.executor.excutor;
+package com.towelove.msg.task.executor;
 
 import com.towelove.common.core.constant.SecurityConstants;
 import com.towelove.common.core.domain.MailSendMessage;
 import com.towelove.common.core.domain.R;
+import com.towelove.msg.task.domain.vo.MsgTaskSimpleRespVO;
+import com.towelove.msg.task.mq.producer.SysMessageProducer;
+import com.towelove.msg.task.mq.producer.TaskMessageProducer;
+import com.towelove.msg.task.service.MsgTaskService;
 import com.towelove.system.api.RemoteSysUserService;
 import com.towelove.system.api.model.LoginUser;
-import com.towelove.task.api.RemoteMsgTaskService;
-import com.towelove.task.api.vo.MsgTaskSimpleRespVO;
-import com.towelove.xxljob.executor.mq.producer.SysMessageProducer;
-import com.towelove.xxljob.executor.mq.producer.TaskMessageProducer;
 import com.xxl.job.core.context.XxlJobHelper;
 import com.xxl.job.core.handler.annotation.XxlJob;
 import org.slf4j.Logger;
@@ -27,7 +27,7 @@ import java.util.Objects;
 @Component
 public class SimpleXxxJob {
     private static HashMap<String, MailSendMessage> map;
-    @Autowired(required = false)
+    @Autowired
     private RemoteSysUserService remoteSysUserService;
     //系统任务生产者
     @Autowired
@@ -36,7 +36,7 @@ public class SimpleXxxJob {
     @Autowired
     private TaskMessageProducer taskMessageProducer;
     @Autowired
-    private RemoteMsgTaskService remoteMsgTaskService;
+    private MsgTaskService msgTaskService;
     //日志记录
     /**
      * 任务模块需要定时的去获取数据库中的用户消息任务
@@ -83,8 +83,8 @@ public class SimpleXxxJob {
      */
     @XxlJob(value = "TaskJobHandler",init = "initHandler",destroy = "destroyHandler")
     public void getTaskForDB(){
-        R<List<MsgTaskSimpleRespVO>> msgTaskServiceSimpleMailAccountList
-                = remoteMsgTaskService.getSimpleMailAccountList();
+        List<MsgTaskSimpleRespVO> list
+                = msgTaskService.getSimpleMailAccountList();
         //将获得到的消息任务绑定到mq队列中
     }
 }

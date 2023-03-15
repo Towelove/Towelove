@@ -4,6 +4,8 @@ server:
 
 # Spring
 spring:
+  main:
+    allow-bean-definition-overriding: true
   application:
     # 应用名称
     name: towelove-msg-task

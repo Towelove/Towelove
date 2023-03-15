@@ -29,12 +29,12 @@
         </dependency>
 
         <dependency>
-        <groupId>com.baomidou</groupId>
-        <artifactId>mybatis-plus-annotation</artifactId>
-        <version>3.5.3.1</version>
-        <classifier>sources</classifier>
-        <type>java-source</type>
-    </dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-annotation</artifactId>
+            <version>3.5.3.1</version>
+            <classifier>sources</classifier>
+            <type>java-source</type>
+        </dependency>
 
 
     </dependencies>

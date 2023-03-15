@@ -12,9 +12,9 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
  * ToweloveMsgTaskApplication类
  */
 @EnableCustomConfig
-@EnableFeignClients
 @EnableCustomSwagger2
 @SpringBootApplication
+@EnableFeignClients(basePackages = "com.towelove")
 public class ToweloveMsgTaskApplication {
     public static void main(String[] args) {
         SpringApplication.run(ToweloveMsgTaskApplication.class,args);

@@ -1,9 +1,11 @@
 package com.towelove.msg.task.service;
 
 import com.towelove.common.core.domain.PageResult;
+import com.towelove.common.core.domain.R;
 import com.towelove.msg.task.domain.MsgTask;
 import com.towelove.msg.task.domain.vo.MsgTaskCreateReqVO;
 import com.towelove.msg.task.domain.vo.MsgTaskPageReqVO;
+import com.towelove.msg.task.domain.vo.MsgTaskSimpleRespVO;
 import com.towelove.msg.task.domain.vo.MsgTaskUpdateReqVO;
 
 import javax.validation.Valid;
@@ -55,4 +57,6 @@ public interface MsgTaskService {
      * @return 所有的查询消息
      */
     List<MsgTask> getMsgTaskList();
+
+    List<MsgTaskSimpleRespVO> getSimpleMailAccountList();
 }

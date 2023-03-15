@@ -1,8 +1,7 @@
 package com.towelove.system.api.factory;
 
 import com.towelove.common.core.domain.R;
-import com.towelove.system.api.SysMailAccountService;
-import com.towelove.system.api.SysUserService;
+import com.towelove.system.api.RemoteSysMailAccountService;
 import com.towelove.system.api.domain.SysMailAccount;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,14 +14,14 @@ import org.springframework.stereotype.Component;
  * SysMailAccountFallbackFactory类
  */
 @Component
-public class SysMailAccountFallbackFactory implements FallbackFactory<SysMailAccountService> {
+public class SysMailAccountFallbackFactory implements FallbackFactory<RemoteSysMailAccountService> {
     private static final Logger log = LoggerFactory.getLogger(SysMailAccountFallbackFactory.class);
 
     @Override
-    public SysMailAccountService create(Throwable throwable) {
+    public RemoteSysMailAccountService create(Throwable throwable) {
         log.error("获取系统邮箱账号信息调用失败:{}", throwable.getMessage());
 
-        return new SysMailAccountService() {
+        return new RemoteSysMailAccountService() {
             @Override
             public R<SysMailAccount> getMailAccountByUserId(Long id) {
                 return R.fail("根据ID获取邮箱账户失败:"+throwable.getMessage());

@@ -1,28 +1,18 @@
 package com.towelove.msg.task.controller;
 import com.towelove.common.core.domain.PageResult;
 import com.towelove.common.core.domain.R;
-import com.towelove.common.core.utils.JwtUtils;
-import com.towelove.common.core.web.domain.AjaxResult;
 import com.towelove.msg.task.convert.MsgTaskConvert;
 import com.towelove.msg.task.domain.MsgTask;
 import com.towelove.msg.task.domain.vo.*;
 import com.towelove.msg.task.mq.producer.MsgTaskProducer;
 import com.towelove.msg.task.service.MsgTaskService;
-import com.towelove.system.api.SysMailAccountService;
-import com.towelove.system.api.domain.SysMailAccount;
-import io.jsonwebtoken.Claims;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * @author: 张锦标
@@ -37,7 +27,7 @@ public class MsgTaskController {
     @Autowired
     private MsgTaskProducer msgTaskProducer;
 //    @Autowired
-//    private SysMailAccountService sysMailAccountService;
+//    private RemoteSysMailAccountService sysMailAccountService;
 //    private SysMailAccount getUserAndAccountId(HttpServletRequest request){
 //        String token = request.getHeader("Authorization");
 //        Claims claims = JwtUtils.parseToken(token);
@@ -128,12 +118,8 @@ public class MsgTaskController {
     @GetMapping("/list-all-simple")
     @Operation(summary = "获得消息任务精简列表")
     public R<List<MsgTaskSimpleRespVO>> getSimpleMailAccountList() {
-        List<MsgTask> list = msgTaskService.getMsgTaskList();
-        List<MsgTaskSimpleRespVO> msgTaskSimpleRespVOList = list.stream().map(msgTask -> {
-            MsgTaskSimpleRespVO msgTaskSimpleRespVO = new MsgTaskSimpleRespVO();
-            BeanUtils.copyProperties(msgTask, msgTaskSimpleRespVO);
-            return msgTaskSimpleRespVO;
-        }).collect(Collectors.toList());
-            return R.ok(msgTaskSimpleRespVOList);
+        List<MsgTaskSimpleRespVO> simpleMailAccountList =
+                msgTaskService.getSimpleMailAccountList();
+        return R.ok(simpleMailAccountList);
     }
 }
