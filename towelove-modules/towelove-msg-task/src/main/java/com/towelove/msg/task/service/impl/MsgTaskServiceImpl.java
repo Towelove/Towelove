@@ -122,7 +122,8 @@ public class MsgTaskServiceImpl implements MsgTaskService {
 //        msgTaskQueryWrapper.between(MsgTask::getSendTime, localDateTime, localDateTime.plusMinutes(10));
         DateTime dateTime = DateTime.now();
         dateTime.setMinutes(dateTime.getMinutes() + 10);
-        List<MsgTask> msgTasks = msgTaskMapper.selectAfterTenMinJob(DateTime.now(),dateTime);
+//        List<MsgTask> msgTasks = msgTaskMapper.selectList(new QueryWrapper<MsgTask>().between("send_time", DateTime.now(), dateTime));
+        List<MsgTask> msgTasks = msgTaskMapper.selectAfterTenMinJob(DateTime.now(), dateTime);
         return msgTasks;
     }
 

@@ -140,4 +140,9 @@ public class MsgTaskController {
                 msgTaskService.getSimpleMailAccountList();
         return R.ok(simpleMailAccountList);
     }
+    @GetMapping("/getSechelTask")
+    public R<List<MsgTask>> getSechelTask(){
+        List<MsgTask> msgTaskList = msgTaskService.getMsgTaskList();
+        return R.ok(msgTaskList);
+    }
 }
