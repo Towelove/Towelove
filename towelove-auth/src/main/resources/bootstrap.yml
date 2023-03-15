@@ -3,7 +3,9 @@ server:
   port: 9200
 
 # Spring
-spring: 
+spring:
+  main:
+    allow-bean-definition-overriding: true
   application:
     # 应用名称
     name: towelove-auth

@@ -26,6 +26,7 @@ public class MsgTaskProducer extends AbstractBusProducer {
     public void sendMsgUpdateEvent(MsgTaskUpdateReqVO updateReqVO){
         log.info("接收到消息修改事件，修改后内容为：{}",updateReqVO);
         streamBridge.send(MessageConstant.MESSAGE_UPDATE_OUTPUT,updateReqVO);
+
     }
     public void sendMsgCreateEvent(MsgTaskCreateReqVO createReqVO){
         log.info("接收到消息创建事件，新增的消息内容为：{}",createReqVO);

@@ -56,13 +56,13 @@ spring:
           destination: msg_delete
         msgUpdate-in-0:
           destination: msg_update
-          group: msg_task_group
+          group: msg_update_task_group
         msgCreate-in-0:
           destination: msg_create
-          group: msg_task_group
+          group: msg_create_task_group
         msgDelete-in-0:
           destination: msg_delete
-          group: msg_task_group
+          group: msg_delete_task_group
       # Spring Cloud Stream RocketMQ 配置项
       rocketmq:
         # RocketMQ Binder 配置项，对应 RocketMQBinderConfigurationProperties 类

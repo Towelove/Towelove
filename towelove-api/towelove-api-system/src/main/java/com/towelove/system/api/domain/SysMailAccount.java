@@ -1,6 +1,9 @@
 package com.towelove.system.api.domain;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
@@ -11,6 +14,9 @@ import java.util.Date;
  * @date: 2023/3/14 10:14
  * SysMailAccount类
  */
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class SysMailAccount {
     //---------邮箱账号内容-------------
     @Schema(description = "id", required = true, example = "1024")

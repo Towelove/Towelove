@@ -21,7 +21,8 @@ import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
-import sun.net.httpserver.AuthFilter;
+
+
 
 /**
  * 网关鉴权
@@ -31,7 +32,7 @@ import sun.net.httpserver.AuthFilter;
 @Component
 public class AuthGlobalFilter implements GlobalFilter, Ordered
 {
-    private static final Logger log = LoggerFactory.getLogger(AuthFilter.class);
+    private static final Logger log = LoggerFactory.getLogger(AuthGlobalFilter.class);
 
     // 排除过滤的 uri 地址，nacos自行添加
     @Autowired

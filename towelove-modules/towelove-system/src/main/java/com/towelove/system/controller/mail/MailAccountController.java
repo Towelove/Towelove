@@ -3,6 +3,7 @@ package com.towelove.system.controller.mail;
 import com.towelove.common.core.domain.PageResult;
 import com.towelove.common.core.domain.R;
 
+import com.towelove.common.core.utils.bean.BeanUtils;
 import com.towelove.system.api.domain.SysMailAccount;
 import com.towelove.system.convert.mail.MailAccountConvert;
 import com.towelove.system.domain.mail.MailAccountDO;
@@ -88,7 +89,11 @@ public class MailAccountController {
     @Parameter(name = "id", description = "编号", required = true, example = "1024")
     public R<SysMailAccount> getMailAccountByUserId(@RequestParam("userId") Long userId) {
         MailAccountDO mailAccountDO = mailAccountService.getMailAccountByUserId(userId);
-        return R.ok(MailAccountConvert.INSTANCE.convertToSysMailAccount(mailAccountDO));
+        System.out.println(mailAccountDO);
+        SysMailAccount sysMailAccount = new SysMailAccount();
+        BeanUtils.copyProperties(mailAccountDO,sysMailAccount);
+        System.out.println(sysMailAccount);
+        return R.ok(sysMailAccount);
     }
 
     /**

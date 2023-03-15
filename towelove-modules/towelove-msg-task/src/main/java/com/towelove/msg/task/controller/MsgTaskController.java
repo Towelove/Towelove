@@ -1,4 +1,6 @@
 package com.towelove.msg.task.controller;
+import cn.hutool.http.server.HttpServerRequest;
+import com.towelove.common.core.constant.TokenConstants;
 import com.towelove.common.core.domain.PageResult;
 import com.towelove.common.core.domain.R;
 import com.towelove.common.core.utils.JwtUtils;
@@ -15,6 +17,7 @@ import io.swagger.v3.oas.annotations.Parameter;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -55,21 +58,15 @@ public class MsgTaskController {
     @PostMapping("/create")
     @Operation(summary = "创建消息任务")
     public R<Long> createMsgTask(@Valid @RequestBody MsgTaskCreateReqVO createReqVO,
-                                 HttpServletRequest request){
-
+                                 @Autowired HttpServletRequest request){
+        String token = request.getHeader("Authorization");
+        System.out.println(token);
         //TODO 需要发送事件的话需要判断当前消息的发送事件是否是下一个即将要发送的时间范围
         //TODO 需要远程调用获取accountId
         //TODO templateId是在页面上选择的 所以直接会传
         //TODO 时间比较 如果是下一个要发送的时间 需要添加到 mq里面
         Date sendTime = createReqVO.getSendTime();
         LocalDateTime ldt = LocalDateTime.now();
-        if (true){
-            SysMailAccount sysMailAccount = getUserAndAccountId(request);
-            if (true) {
-                msgTaskProducer.sendMsgCreateEvent(createReqVO);
-            }
-
-        }
         return R.ok(msgTaskService.createMsgTask(createReqVO));
     }
 

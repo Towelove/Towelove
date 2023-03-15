@@ -101,7 +101,7 @@ public class MailAccountServiceImpl implements MailAccountService {
     public PageResult<MailAccountDO> getMailAccountPage(MailAccountPageReqVO pageReqVO){
         return mailAccountMapper.selectPage(pageReqVO);
     }
-
+    //TODO 一个人有没有可能它可以有多个邮箱。。。
     @Override
     public MailAccountDO getMailAccountByUserId(Long userId) {
         LambdaQueryWrapper<MailAccountDO> lqw =  new LambdaQueryWrapper();
