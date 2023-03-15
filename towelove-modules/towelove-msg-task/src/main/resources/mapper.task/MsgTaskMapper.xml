@@ -7,6 +7,6 @@
     <select id="selectAfterTenMinJob" resultType="com.towelove.msg.task.domain.MsgTask">
         SELECT id,user_id,account_id,template_id,receive_account,nickname,title,content,
                send_time,params,status,deleted,create_by,create_time,update_by,update_time,remark
-        FROM msg_task WHERE deleted=0 AND (send_time BETWEEN #{beginTime} AND ${endTime})
+        FROM msg_task WHERE deleted=0 AND (send_time BETWEEN #{beginTime} AND #{endTime})
     </select>
 </mapper>

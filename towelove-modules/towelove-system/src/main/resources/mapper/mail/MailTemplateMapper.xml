@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.towelove.system.mapper.mail.MailTemplateMapper">
-
     <resultMap type="com.towelove.system.domain.mail.MailTemplateDO"
                id="MailTemplateResult">
         <id property="id" column="id"/>
@@ -24,13 +23,22 @@
 
     <!--根据分页条件和邮件模版表信息查询邮件模版表数据-->
     <select id="selectList" resultMap="MailTemplateResult">
-        select
-          id, name, code, account_id, nickname, title, content,
-          params, status, remark, create_by, create_time, update_by, update_time, deleted
+        select id,
+               name,
+               code,
+               account_id,
+               nickname,
+               title,
+               content,
+               params,
+               status,
+               remark,
+               create_by,
+               create_time,
+               update_by,
+               update_time,
+               deleted
         from sys_mail_template
     </select>
-
-
-
 </mapper>
 

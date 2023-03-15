@@ -30,5 +30,6 @@ public interface MsgTaskMapper extends BaseMapperX<MsgTask> {
                 .likeIfPresent(MsgTask::getSendTime,pageReqVO.getSendTime().toString())
                 .likeIfPresent(MsgTask::getTitle,pageReqVO.getTitle()));
     }
-    List<MsgTask> selectAfterTenMinJob(@Param("beginTime") DateTime beginTime, @Param("endTime") DateTime endTime);
+    List<MsgTask> selectAfterTenMinJob(@Param("beginTime") DateTime beginTime,
+                                       @Param("endTime") DateTime endTime);
 }

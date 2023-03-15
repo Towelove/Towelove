@@ -120,10 +120,16 @@ public class MsgTaskServiceImpl implements MsgTaskService {
         //需要查询获得十分钟内的任务数据
 //        QueryWrapper<MsgTask> msgTaskQueryWrapper = new QueryWrapper<>();
 //        msgTaskQueryWrapper.between(MsgTask::getSendTime, localDateTime, localDateTime.plusMinutes(10));
-        DateTime dateTime = DateTime.now();
-        dateTime.setMinutes(dateTime.getMinutes() + 10);
-//        List<MsgTask> msgTasks = msgTaskMapper.selectList(new QueryWrapper<MsgTask>().between("send_time", DateTime.now(), dateTime));
-        List<MsgTask> msgTasks = msgTaskMapper.selectAfterTenMinJob(DateTime.now(), dateTime);
+        DateTime dateTime1 = DateTime.now();
+        DateTime dateTime2 = DateTime.now();
+        dateTime1.setMinutes(dateTime1.getMinutes() - 5);
+        dateTime2.setMinutes(dateTime2.getMinutes() + 10);
+        List<MsgTask> msgTasks = msgTaskMapper
+        .selectList(new QueryWrapper<MsgTask>()
+                .between("send_time", dateTime1.toString(),
+                        dateTime2.toString()));
+        //List<MsgTask> msgTasks = msgTaskMapper.
+        //        selectAfterTenMinJob(dateTime1, dateTime2);
         return msgTasks;
     }
 
