@@ -114,3 +114,26 @@
 13:19:24.199 [main] INFO  c.t.s.c.m.SpringCloudRocketmqConsumerApplication - [logStarted,61] - Started SpringCloudRocketmqConsumerApplication in 22.958 seconds (JVM running for 25.081)
 13:19:26.791 [main] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Starting ProtocolHandler ["http-nio-10004"]
 13:19:27.502 [main] INFO  c.t.s.c.m.SpringCloudRocketmqProducerApplication - [logStarted,61] - Started SpringCloudRocketmqProducerApplication in 14.115 seconds (JVM running for 17.033)
+08:54:49.961 [background-preinit] INFO  o.h.v.i.util.Version - [<clinit>,21] - HV000001: Hibernate Validator 6.2.5.Final
+08:54:52.067 [main] INFO  c.t.s.c.m.SpringCloudRocketmqConsumerApplication - [logStartupProfileInfo,631] - No active profile set, falling back to 1 default profile: "default"
+08:54:52.226 [background-preinit] INFO  o.h.v.i.util.Version - [<clinit>,21] - HV000001: Hibernate Validator 6.2.5.Final
+08:54:54.065 [main] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Initializing ProtocolHandler ["http-nio-10005"]
+08:54:54.067 [main] INFO  o.a.c.c.StandardService - [log,173] - Starting service [Tomcat]
+08:54:54.067 [main] INFO  o.a.c.c.StandardEngine - [log,173] - Starting Servlet engine: [Apache Tomcat/9.0.70]
+08:54:54.218 [main] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring embedded WebApplicationContext
+08:54:54.571 [main] INFO  c.t.s.c.m.SpringCloudRocketmqProducerApplication - [logStartupProfileInfo,631] - No active profile set, falling back to 1 default profile: "default"
+08:54:56.696 [main] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Initializing ProtocolHandler ["http-nio-10004"]
+08:54:56.697 [main] INFO  o.a.c.c.StandardService - [log,173] - Starting service [Tomcat]
+08:54:56.697 [main] INFO  o.a.c.c.StandardEngine - [log,173] - Starting Servlet engine: [Apache Tomcat/9.0.70]
+08:54:56.850 [main] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring embedded WebApplicationContext
+08:54:59.777 [main] INFO  c.a.c.s.b.r.i.i.RocketMQInboundChannelAdapter - [info,292] - started com.alibaba.cloud.stream.binder.rocketmq.integration.inbound.RocketMQInboundChannelAdapter@58aa5c94
+08:55:00.903 [main] INFO  c.a.c.s.b.r.i.i.RocketMQInboundChannelAdapter - [info,292] - started com.alibaba.cloud.stream.binder.rocketmq.integration.inbound.RocketMQInboundChannelAdapter@382faf51
+08:55:00.904 [main] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Starting ProtocolHandler ["http-nio-10005"]
+08:55:02.323 [main] INFO  c.t.s.c.m.SpringCloudRocketmqConsumerApplication - [logStarted,61] - Started SpringCloudRocketmqConsumerApplication in 14.426 seconds (JVM running for 20.2)
+08:55:02.980 [main] INFO  c.a.c.s.b.r.i.i.RocketMQInboundChannelAdapter - [info,292] - started com.alibaba.cloud.stream.binder.rocketmq.integration.inbound.RocketMQInboundChannelAdapter@3d606fec
+08:55:02.985 [main] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Starting ProtocolHandler ["http-nio-10004"]
+08:55:04.455 [main] INFO  c.t.s.c.m.SpringCloudRocketmqProducerApplication - [logStarted,61] - Started SpringCloudRocketmqProducerApplication in 14.478 seconds (JVM running for 20.286)
+08:55:33.067 [http-nio-10004-exec-1] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+09:02:12.865 [SpringApplicationShutdownHook] INFO  c.a.c.s.b.r.i.i.RocketMQInboundChannelAdapter - [info,292] - stopped com.alibaba.cloud.stream.binder.rocketmq.integration.inbound.RocketMQInboundChannelAdapter@58aa5c94
+09:02:13.010 [SpringApplicationShutdownHook] INFO  c.a.c.s.b.r.i.i.RocketMQInboundChannelAdapter - [info,292] - stopped com.alibaba.cloud.stream.binder.rocketmq.integration.inbound.RocketMQInboundChannelAdapter@3d606fec
+09:02:13.513 [SpringApplicationShutdownHook] INFO  c.a.c.s.b.r.i.i.RocketMQInboundChannelAdapter - [info,292] - stopped com.alibaba.cloud.stream.binder.rocketmq.integration.inbound.RocketMQInboundChannelAdapter@382faf51
