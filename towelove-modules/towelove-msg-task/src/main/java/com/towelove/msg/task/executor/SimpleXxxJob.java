@@ -1,15 +1,21 @@
 package com.towelove.msg.task.executor;
 
+import cn.hutool.extra.mail.MailException;
+import com.towelove.common.core.constant.MsgTaskConstants;
 import com.towelove.common.core.constant.SecurityConstants;
 import com.towelove.common.core.domain.MailSendMessage;
 import com.towelove.common.core.domain.R;
+import com.towelove.common.core.utils.bean.BeanUtils;
+import com.towelove.msg.task.domain.MailMsg;
 import com.towelove.msg.task.domain.MsgTask;
 import com.towelove.msg.task.domain.vo.MsgTaskSimpleRespVO;
+import com.towelove.msg.task.mq.producer.MailMessageProducer;
 import com.towelove.msg.task.mq.producer.SysMessageProducer;
-import com.towelove.msg.task.mq.producer.TaskMessageProducer;
 import com.towelove.msg.task.service.MsgTaskService;
+import com.towelove.system.api.RemoteSysMailAccountService;
 import com.towelove.system.api.RemoteSysUserService;
 import com.towelove.system.api.model.LoginUser;
+import com.towelove.system.api.model.MailAccountRespVO;
 import com.xxl.job.core.context.XxlJobHelper;
 import com.xxl.job.core.handler.annotation.XxlJob;
 import org.slf4j.Logger;
@@ -17,9 +23,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * @author 季台星
@@ -27,13 +36,13 @@ import java.util.Objects;
  */
 @Component
 public class SimpleXxxJob {
-    private static HashMap<String, MailSendMessage> map;
+    private static ConcurrentHashMap<String, MailMsg> map;
 
-    public static HashMap<String, MailSendMessage> getMap() {
+    public static ConcurrentHashMap<String, MailMsg> getMap() {
         return map;
     }
 
-    public static void setMap(HashMap<String, MailSendMessage> map) {
+    public static void setMap(ConcurrentHashMap<String, MailMsg> map) {
         SimpleXxxJob.map = map;
     }
 
@@ -44,7 +53,7 @@ public class SimpleXxxJob {
     private SysMessageProducer sysMessageProducer;
     //用户定时消息任务生产者
     @Autowired
-    private TaskMessageProducer taskMessageProducer;
+    private MailMessageProducer mailMessageProducer;
     @Autowired
     private MsgTaskService msgTaskService;
     //日志记录  `
@@ -87,15 +96,40 @@ public class SimpleXxxJob {
     public void destroyHandler(){
         System.out.println("任务执行器被销毁");
     }
-
+    @Autowired
+    private RemoteSysMailAccountService remoteSysMailAccountService;
     /**
-     *
+     * @author: 张锦标
+     * 将每十分钟的任务暂存到map中
+     * 之后到快要发送消息的时候
+     * 再将消息推送到mq准备发送
      */
     @XxlJob(value = "TaskJobHandler",init = "initHandler",destroy = "destroyHandler")
-    public void getTaskForDB(){
+    public void getTaskFromDB(){
         //拿到十分钟后的数据
         List<MsgTask> msgTaskList = msgTaskService.getMsgTaskList();
         System.out.println(msgTaskList);
+        msgTaskList.parallelStream().peek(msgTask -> {
+            MailMsg msg = new MailMsg();
+            BeanUtils.copyProperties(msgTask,msg);
+            R<MailAccountRespVO> mailAccount = remoteSysMailAccountService.
+                    getMailAccount(msgTask.getAccountId());
+            if (Objects.nonNull(mailAccount)){
+                BeanUtils.copyProperties(mailAccount,msg);
+                //将所有的任务放入到map中暂存
+                map.put(MsgTaskConstants.MSG_PREFIX+msg.getId(),msg);
+            }else{
+                throw new MailException("邮箱账户为空，出现异常！！！");
+            }
+        });
         //将获得到的消息任务绑定到mq队列中
+    }
+    @XxlJob(value = "ToMQJobHandler",init = "initHandler",destroy = "destroyHandler")
+    public void sendMsgToMQ(){
+        //将获得到的消息任务绑定mq队列中
+        for (Map.Entry<String, MailMsg> entry : map.entrySet()) {
+            MailMsg mailMsg = entry.getValue();
+            mailMessageProducer.sendMailMessage(mailMsg);
+        }
     }
 }

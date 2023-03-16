@@ -16,6 +16,8 @@ import java.util.List;
  * 将MsgTask与VO和DTO对象之间进行转换
  */
 @Mapper
+@Deprecated
+//暂时不可以使用 有问题
 public interface MsgTaskConvert {
     MsgTaskConvert INSTANCE = Mappers.getMapper(MsgTaskConvert.class);
 

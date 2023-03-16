@@ -35,7 +35,8 @@ public interface MailAccountConvert {
     MailTemplateSimpleRespVO map(MailTemplateDO value);
     default MailAccount convert(MailAccountDO account,
                                 String nickname) {
-        String from = StrUtil.isNotEmpty(nickname) ? nickname + " <" + account.getMail() + ">" : account.getMail();
+        String from = StrUtil.isNotEmpty(nickname) ?
+                nickname + " <" + account.getMail() + ">" : account.getMail();
         return new MailAccount().setFrom(from).setAuth(true)
                 .setUser(account.getUsername()).setPass(account.getPassword())
                 .setHost(account.getHost()).setPort(account.getPort())

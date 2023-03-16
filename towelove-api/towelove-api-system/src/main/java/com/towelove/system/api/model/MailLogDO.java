@@ -1,0 +1,112 @@
+package com.towelove.system.api.model;
+
+
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler;
+import com.towelove.common.core.web.domain.BaseEntity;
+import lombok.*;
+
+import java.io.Serializable;
+import java.util.Date;
+import java.util.Map;
+
+/**
+ * 邮箱日志 DO
+ * 记录每一次邮件的发送
+ *
+ * @author: 张锦标
+ * @since 2023-03-01
+ */
+@Data
+@EqualsAndHashCode(callSuper = true)
+@ToString(callSuper = true)
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+public class MailLogDO extends BaseEntity implements Serializable {
+
+    /**
+     * 日志编号，自增
+     */
+    private Long id;
+
+    /**
+     * 用户编码
+     */
+    private Long userId;
+    /**
+     * 用户类型
+     *
+     * 枚举 UserTypeEnum
+     */
+    private Integer userType;
+    /**
+     * 接收邮箱地址
+     */
+    private String toMail;
+
+    /**
+     * 邮箱账号编号
+     *
+     */
+    private Long accountId;
+    /**
+     * 发送邮箱地址
+     *
+     */
+    private String fromMail;
+
+    // ========= 模板相关字段 =========
+    /**
+     * 模版编号
+     *
+     */
+    private Long templateId;
+    /**
+     * 模版编码
+     *
+     */
+    private String templateCode;
+    /**
+     * 模版发送人名称
+     *
+     */
+    private String templateNickname;
+    /**
+     * 模版标题
+     */
+    private String templateTitle;
+    /**
+     * 模版内容
+     *
+     */
+    private String templateContent;
+    /**
+     * 模版参数
+     *
+     */
+    @TableField(typeHandler = JacksonTypeHandler.class)
+    private Map<String, Object> templateParams;
+
+    // ========= 发送相关字段 =========
+    /**
+     * 发送状态
+     *
+     * 枚举  MailSendStatusEnum
+     */
+    private Integer sendStatus;
+    /**
+     * 发送时间
+     */
+    private Date sendTime;
+    /**
+     * 发送返回的消息 ID
+     */
+    private String sendMessageId;
+    /**
+     * 发送异常
+     */
+    private String sendException;
+
+}
