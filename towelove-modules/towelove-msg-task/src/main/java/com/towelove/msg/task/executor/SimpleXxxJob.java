@@ -130,6 +130,7 @@ public class SimpleXxxJob {
         for (Map.Entry<String, MailMsg> entry : map.entrySet()) {
             MailMsg mailMsg = entry.getValue();
             mailMessageProducer.sendMailMessage(mailMsg);
+            System.out.println("发送邮件给MQ成功");
         }
     }
 }
