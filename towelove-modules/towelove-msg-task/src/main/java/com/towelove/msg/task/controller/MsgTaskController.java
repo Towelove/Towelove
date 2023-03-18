@@ -39,8 +39,6 @@ public class MsgTaskController {
     @Autowired
     private MsgTaskService msgTaskService;
     @Autowired
-    private MsgTaskProducer msgTaskProducer;
-    @Autowired
     private RemoteSysMailAccountService sysMailAccountService;
     private Long getAccountId(HttpServletRequest request){
         String token = request.getHeader("Authorization");
@@ -66,7 +64,7 @@ public class MsgTaskController {
         if (Objects.isNull(accountId)){
             throw new RuntimeException("远程调用获取到的accountId为空！！！");
         }
-        System.out.println(accountId);
+        System.out.println("当前accountId为："+accountId);
         createReqVO.setAccountId(accountId);
         return R.ok(msgTaskService.createMsgTask(createReqVO));
     }
