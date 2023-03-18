@@ -7,6 +7,7 @@ import lombok.ToString;
 
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
+import java.util.Date;
 
 /**
  * @author: 张锦标
@@ -24,6 +25,6 @@ public class MailAccountRespVO extends MailAccountBaseVO {
     private Long id;
 
     @Schema(description = "创建时间", required = true)
-    private LocalDateTime createTime;
+    private Date createTime;
 
 }

@@ -6,6 +6,7 @@ import com.towelove.common.core.constant.SecurityConstants;
 import com.towelove.common.core.domain.MailSendMessage;
 import com.towelove.common.core.domain.R;
 import com.towelove.common.core.utils.bean.BeanUtils;
+import com.towelove.msg.task.config.TaskMapUtil;
 import com.towelove.msg.task.domain.MailMsg;
 import com.towelove.msg.task.domain.MsgTask;
 import com.towelove.msg.task.domain.vo.MsgTaskSimpleRespVO;
@@ -21,6 +22,7 @@ import com.xxl.job.core.handler.annotation.XxlJob;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
@@ -36,15 +38,7 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 @Component
 public class SimpleXxxJob {
-    private static ConcurrentHashMap<String, MailMsg> map;
 
-    public static ConcurrentHashMap<String, MailMsg> getMap() {
-        return map;
-    }
-
-    public static void setMap(ConcurrentHashMap<String, MailMsg> map) {
-        SimpleXxxJob.map = map;
-    }
 
     @Autowired
     private RemoteSysUserService remoteSysUserService;
@@ -117,7 +111,7 @@ public class SimpleXxxJob {
             if (Objects.nonNull(mailAccount)){
                 BeanUtils.copyProperties(mailAccount,msg);
                 //将所有的任务放入到map中暂存
-                map.put(MsgTaskConstants.MSG_PREFIX+msg.getId(),msg);
+                TaskMapUtil.getTaskMap().put(MsgTaskConstants.MSG_PREFIX+msg.getId(),msg);
             }else{
                 throw new MailException("邮箱账户为空，出现异常！！！");
             }
@@ -127,7 +121,7 @@ public class SimpleXxxJob {
     @XxlJob(value = "ToMQJobHandler",init = "initHandler",destroy = "destroyHandler")
     public void sendMsgToMQ(){
         //将获得到的消息任务绑定mq队列中
-        for (Map.Entry<String, MailMsg> entry : map.entrySet()) {
+        for (Map.Entry<String, MailMsg> entry : TaskMapUtil.getTaskMap().entrySet()) {
             MailMsg mailMsg = entry.getValue();
             mailMessageProducer.sendMailMessage(mailMsg);
             System.out.println("发送邮件给MQ成功");

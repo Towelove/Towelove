@@ -1,14 +1,17 @@
 package com.towelove.system.controller.mail;
 
+
 import com.towelove.common.core.domain.PageResult;
 import com.towelove.common.core.domain.R;
-
 import com.towelove.common.core.utils.bean.BeanUtils;
-import com.towelove.system.api.domain.SysMailAccount;
+import com.towelove.system.api.model.MailAccountBaseVO;
+import com.towelove.system.api.model.MailAccountRespVO;
 import com.towelove.system.convert.mail.MailAccountConvert;
 import com.towelove.system.domain.mail.MailAccountDO;
-import com.towelove.system.domain.mail.vo.account.*;
-
+import com.towelove.system.domain.mail.vo.account.MailAccountCreateReqVO;
+import com.towelove.system.domain.mail.vo.account.MailAccountPageReqVO;
+import com.towelove.system.domain.mail.vo.account.MailAccountSimpleRespVO;
+import com.towelove.system.domain.mail.vo.account.MailAccountUpdateReqVO;
 import com.towelove.system.service.mail.MailAccountService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -18,6 +21,8 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import javax.validation.Valid;
 import java.util.List;
+import java.util.stream.Collectors;
+
 /**
  * @author: 张锦标
  * @date: 2023/3/7 12:58
@@ -77,7 +82,9 @@ public class MailAccountController {
     @Parameter(name = "id", description = "编号", required = true, example = "1024")
     public R<MailAccountRespVO> getMailAccount(@RequestParam("id") Long id) {
         MailAccountDO mailAccountDO = mailAccountService.getMailAccount(id);
-        return R.ok(MailAccountConvert.INSTANCE.convert(mailAccountDO));
+        MailAccountRespVO mailAccountRespVO = new MailAccountRespVO();
+        BeanUtils.copyProperties(mailAccountDO,mailAccountRespVO);
+        return R.ok(mailAccountRespVO);
     }
     /**
      * 根据id获取邮箱账号
@@ -102,7 +109,15 @@ public class MailAccountController {
     @Operation(summary = "获得邮箱账号分页")
     public R<PageResult<MailAccountBaseVO>> getMailAccountPage(@Valid MailAccountPageReqVO pageReqVO) {
         PageResult<MailAccountDO> pageResult = mailAccountService.getMailAccountPage(pageReqVO);
-        return R.ok(MailAccountConvert.INSTANCE.convertPage(pageResult));
+        List<MailAccountBaseVO> voList = pageResult.getList().stream().map(x -> {
+            MailAccountBaseVO baseVO = new MailAccountBaseVO();
+            BeanUtils.copyProperties(x, baseVO);
+            return baseVO;
+        }).collect(Collectors.toList());
+        PageResult<MailAccountBaseVO> pageResult1 = new PageResult<>();
+        pageResult1.setList(voList);
+        pageResult1.setTotal((long) voList.size());
+        return R.ok(pageResult1);
     }
 
     /**

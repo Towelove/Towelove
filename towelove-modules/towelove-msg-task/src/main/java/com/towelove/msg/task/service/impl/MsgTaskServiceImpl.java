@@ -79,7 +79,8 @@ public class MsgTaskServiceImpl implements MsgTaskService {
         BeanUtils.copyProperties(createReqVO, msgTask);
         try {
             int isInsert = msgTaskMapper.insert(msgTask);
-            if (isInsert > 0 && needToChangeMap(createReqVO.getSendTime())) {
+            if (isInsert > 0 && needToChangeMap(
+                    createReqVO.getSendTime())) {
                 msgTaskProducer.sendMsgCreateEvent(msgTask);
             }
         } catch (Exception e) {

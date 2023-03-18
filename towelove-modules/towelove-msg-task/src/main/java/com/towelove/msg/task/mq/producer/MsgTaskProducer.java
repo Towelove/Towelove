@@ -2,15 +2,13 @@ package com.towelove.msg.task.mq.producer;
 
 import cn.hutool.extra.mail.MailException;
 import com.towelove.common.core.constant.MessageConstant;
-import com.towelove.common.core.constant.MsgTaskConstants;
+
 import com.towelove.common.core.domain.R;
 import com.towelove.common.core.utils.bean.BeanUtils;
 import com.towelove.common.mq.core.bus.AbstractBusProducer;
 import com.towelove.msg.task.domain.MailMsg;
 import com.towelove.msg.task.domain.MsgTask;
-import com.towelove.msg.task.domain.vo.MsgTaskCreateReqVO;
-import com.towelove.msg.task.domain.vo.MsgTaskUpdateReqVO;
-import com.towelove.msg.task.executor.SimpleXxxJob;
+
 import com.towelove.system.api.RemoteSysMailAccountService;
 import com.towelove.system.api.model.MailAccountRespVO;
 import lombok.extern.slf4j.Slf4j;
