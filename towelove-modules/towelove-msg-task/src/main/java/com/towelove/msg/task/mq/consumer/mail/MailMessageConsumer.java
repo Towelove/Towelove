@@ -10,6 +10,7 @@ import com.towelove.msg.task.domain.MailMsg;
 import com.towelove.system.api.RemoteSendLog;
 import com.towelove.system.api.model.MailAccountRespVO;
 import com.towelove.system.api.model.SendLogDo;
+import jdk.internal.joptsimple.internal.Strings;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -61,15 +62,15 @@ public class MailMessageConsumer implements Consumer<MailMsg> {
         } catch (Exception e) {
             String finalMsgId = msgId;
             LOG_THREAD_POOL.execute(()->{
-                //日志记录
-                //这里可以配合线程池
-                remoteSendLog.createSendLog(
-                        new SendLogDo().setSendEmail(mailMsg.getMail())
+                //TODO 日志记录 远程日志记录
+                remoteSendLog.createSendLog(new SendLogDo().setSendEmail(mailMsg.getMail())
                         .setReceiveEmail(mailMsg.getReceiveAccount())
                         .setSendStatus(StringUtils.isNotEmpty(finalMsgId) ? 1 : 0 )
                         .setSendError(e.getMessage()));
             });
             throw new RuntimeException(e);
         }
+        //TODO 远程调用日志记录
+        //这里可以配合线程池
     }
 }
