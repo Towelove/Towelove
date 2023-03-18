@@ -35,6 +35,8 @@ public class MailMessageConsumer implements Consumer<MailMsg> {
     @Autowired
     private RemoteSendLog remoteSendLog;
 
+    String msgId = null;
+
 
 
     //TODO 还需要编写一个对应的日志记录类
@@ -55,22 +57,26 @@ public class MailMessageConsumer implements Consumer<MailMsg> {
                 .setHost(mailMsg.getHost()).setPort(mailMsg.getPort())
                 .setSslEnable(mailMsg.getSslEnable());
         //发送邮件 msgIG为邮件id
-        String msgId = null;
         try {
             msgId = MailUtil.send(mailAccount, mailMsg.getReceiveAccount(),
                     mailMsg.getTitle(), mailMsg.getContent(), false, null);
         } catch (Exception e) {
-            String finalMsgId = msgId;
             LOG_THREAD_POOL.execute(()->{
                 //TODO 日志记录 远程日志记录
                 remoteSendLog.createSendLog(new SendLogDo().setSendEmail(mailMsg.getMail())
                         .setReceiveEmail(mailMsg.getReceiveAccount())
-                        .setSendStatus(StringUtils.isNotEmpty(finalMsgId) ? 1 : 0 )
+                        .setSendStatus(StringUtils.isNotEmpty(msgId) ? 1 : 0 )
                         .setSendError(e.getMessage()));
             });
             throw new RuntimeException(e);
         }
         //TODO 远程调用日志记录
         //这里可以配合线程池
+        LOG_THREAD_POOL.execute(()->{
+            //TODO 日志记录 远程日志记录
+            remoteSendLog.createSendLog(new SendLogDo().setSendEmail(mailMsg.getMail())
+                    .setReceiveEmail(mailMsg.getReceiveAccount())
+                    .setSendStatus(StringUtils.isNotEmpty(msgId) ? 1 : 0 ));
+        });
     }
 }
