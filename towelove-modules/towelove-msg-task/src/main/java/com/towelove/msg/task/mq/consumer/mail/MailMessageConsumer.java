@@ -7,7 +7,10 @@ import cn.hutool.extra.mail.MailUtil;
 import com.towelove.common.core.domain.MailSendMessage;
 import com.towelove.common.core.utils.StringUtils;
 import com.towelove.msg.task.domain.MailMsg;
+import com.towelove.system.api.RemoteSendLog;
 import com.towelove.system.api.model.MailAccountRespVO;
+import com.towelove.system.api.model.SendLogDo;
+import jdk.internal.joptsimple.internal.Strings;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -29,6 +32,11 @@ public class MailMessageConsumer implements Consumer<MailMsg> {
     @Qualifier("logThreadPool")
     private ThreadPoolExecutor LOG_THREAD_POOL;
 
+    @Autowired
+    private RemoteSendLog remoteSendLog;
+
+
+
     //TODO 还需要编写一个对应的日志记录类
     //TODO 或者使用远程调用去记录日志
     //这个日志记录应该是异步的 不然很浪费性能
@@ -47,12 +55,22 @@ public class MailMessageConsumer implements Consumer<MailMsg> {
                 .setHost(mailMsg.getHost()).setPort(mailMsg.getPort())
                 .setSslEnable(mailMsg.getSslEnable());
         //发送邮件 msgIG为邮件id
-        String msgId = MailUtil.send(mailAccount, mailMsg.getReceiveAccount(),
-                mailMsg.getTitle(), mailMsg.getContent(), false, null);
+        String msgId = null;
+        try {
+            msgId = MailUtil.send(mailAccount, mailMsg.getReceiveAccount(),
+                    mailMsg.getTitle(), mailMsg.getContent(), false, null);
+        } catch (Exception e) {
+            String finalMsgId = msgId;
+            LOG_THREAD_POOL.execute(()->{
+                //TODO 日志记录 远程日志记录
+                remoteSendLog.createSendLog(new SendLogDo().setSendEmail(mailMsg.getMail())
+                        .setReceiveEmail(mailMsg.getReceiveAccount())
+                        .setSendStatus(StringUtils.isNotEmpty(finalMsgId) ? 1 : 0 )
+                        .setSendError(e.getMessage()));
+            });
+            throw new RuntimeException(e);
+        }
         //TODO 远程调用日志记录
         //这里可以配合线程池
-        LOG_THREAD_POOL.execute(()->{
-            //TODO 日志记录 远程日志记录
-        });
     }
 }

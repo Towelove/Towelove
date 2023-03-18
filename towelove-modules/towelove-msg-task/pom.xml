@@ -27,6 +27,10 @@
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.twowaylove</groupId>
+            <artifactId>towelove-api-system</artifactId>
+        </dependency>
 
         <!-- SpringCloud Alibaba Nacos Config -->
         <dependency>

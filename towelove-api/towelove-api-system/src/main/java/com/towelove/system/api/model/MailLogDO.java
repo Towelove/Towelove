@@ -18,6 +18,7 @@ import java.util.Map;
  * @author: 张锦标
  * @since 2023-03-01
  */
+@TableName(value = "sys_mail_log", autoResultMap = true)
 @Data
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
@@ -49,11 +50,13 @@ public class MailLogDO extends BaseEntity implements Serializable {
     /**
      * 邮箱账号编号
      *
+     * 关联 {@link MailAccountDO#getId()}
      */
     private Long accountId;
     /**
      * 发送邮箱地址
      *
+     * 冗余 {@link MailAccountDO#getMail()}
      */
     private String fromMail;
 
@@ -61,16 +64,19 @@ public class MailLogDO extends BaseEntity implements Serializable {
     /**
      * 模版编号
      *
+     * 关联 {@link MailTemplateDO#getId()}
      */
     private Long templateId;
     /**
      * 模版编码
      *
+     * 冗余 {@link MailTemplateDO#getCode()}
      */
     private String templateCode;
     /**
      * 模版发送人名称
      *
+     * 冗余 {@link MailTemplateDO#getNickname()}
      */
     private String templateNickname;
     /**
@@ -80,11 +86,13 @@ public class MailLogDO extends BaseEntity implements Serializable {
     /**
      * 模版内容
      *
+     * 基于 {@link MailTemplateDO#getContent()} 格式化后的内容
      */
     private String templateContent;
     /**
      * 模版参数
      *
+     * 基于 {@link MailTemplateDO#getParams()} 输入后的参数
      */
     @TableField(typeHandler = JacksonTypeHandler.class)
     private Map<String, Object> templateParams;
