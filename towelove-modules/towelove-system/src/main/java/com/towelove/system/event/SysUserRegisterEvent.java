@@ -1,8 +1,7 @@
 package com.towelove.system.event;
 
 import com.towelove.system.api.domain.SysUser;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.*;
 import org.springframework.cloud.bus.event.RemoteApplicationEvent;
 
 /**
@@ -13,6 +12,8 @@ import org.springframework.cloud.bus.event.RemoteApplicationEvent;
  * 完成用户注册事件的监听
  */
 @Data
+@Builder
+@AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 public class SysUserRegisterEvent extends RemoteApplicationEvent {
 

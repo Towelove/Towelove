@@ -1,9 +1,7 @@
 package com.towelove.system.domain.mail.vo.template;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
+import lombok.*;
 
 @Schema(description = "管理后台 - 邮件模版创建 Request VO")
 @Data

@@ -1,9 +1,7 @@
 package com.towelove.msg.task.domain.vo;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
+import lombok.*;
 
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
@@ -17,6 +15,9 @@ import java.time.LocalDateTime;
  */
 @Schema(description = "消息任务响应VO Response VO")
 @Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
 public class MsgTaskRespVO extends MsgTaskBaseVO {

@@ -2,15 +2,14 @@ package com.towelove.system.domain.mail.vo.log;
 
 import com.towelove.common.core.domain.PageParam;
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
+import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDateTime;
 
 @Schema(description = "管理后台 - 邮箱日志分页 Request VO")
 @Data
+
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
 public class MailLogPageReqVO extends PageParam {

@@ -2,9 +2,7 @@ package com.towelove.system.domain.mail.vo.template;
 
 import com.towelove.common.core.domain.PageParam;
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
+import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDateTime;

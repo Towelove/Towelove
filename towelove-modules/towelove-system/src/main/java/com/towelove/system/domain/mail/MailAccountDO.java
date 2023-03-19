@@ -3,8 +3,7 @@ package com.towelove.system.domain.mail;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.towelove.common.core.web.domain.BaseEntity;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.*;
 
 /**
  * 邮箱账号 DO
@@ -16,6 +15,9 @@ import lombok.EqualsAndHashCode;
  */
 @TableName(value = "sys_mail_account", autoResultMap = true)
 @Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 public class MailAccountDO extends BaseEntity {
 

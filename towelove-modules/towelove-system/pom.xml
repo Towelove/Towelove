@@ -81,6 +81,13 @@
             <groupId>com.twowaylove</groupId>
             <artifactId>towelove-common-swagger</artifactId>
         </dependency>
+        <!--        不是必备 只是为了懒，不用写get set方法
+        为了防止mapstruct转换后属性为null，必须放在其依赖的上面-->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <optional>true</optional>
+        </dependency>
         <!-- mapStruct 对象转换 -->
         <dependency>
             <groupId>org.mapstruct</groupId>
@@ -91,12 +98,6 @@
             <groupId>org.mapstruct</groupId>
             <artifactId>mapstruct-processor</artifactId>
             <version>${org.mapstruct.version}</version>
-        </dependency>
-        <!--        不是必备 只是为了懒，不用写get set方法-->
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <optional>true</optional>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>

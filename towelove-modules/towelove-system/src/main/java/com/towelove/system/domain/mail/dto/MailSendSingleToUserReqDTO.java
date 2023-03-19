@@ -1,7 +1,10 @@
 package com.towelove.system.domain.mail.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
@@ -13,6 +16,9 @@ import java.util.Map;
  */
 @Schema(description = "RPC 服务 - 邮件发送给 Admin 或者 Member 用户 Request DTO")
 @Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class MailSendSingleToUserReqDTO {
 
     @Schema(description = "用户编号", example = "1024")

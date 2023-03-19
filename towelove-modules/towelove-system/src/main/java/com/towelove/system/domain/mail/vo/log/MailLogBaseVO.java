@@ -1,7 +1,10 @@
 package com.towelove.system.domain.mail.vo.log;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.NotNull;
@@ -13,6 +16,7 @@ import java.util.Map;
 * 如果子 VO 存在差异的字段，请不要添加到这里，影响 Swagger 文档生成
 */
 @Data
+
 public class MailLogBaseVO {
 
     @Schema(description = "用户编号", example = "30883")

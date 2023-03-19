@@ -7,7 +7,10 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -21,6 +24,9 @@ import java.util.List;
  */
 @TableName(value = "sys_mail_template", autoResultMap = true)
 @Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class MailTemplateDO implements Serializable {
 
     /**

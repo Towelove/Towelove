@@ -77,19 +77,6 @@ spring:
           producer: # RocketMQ Producer 配置项，对应 RocketMQProducerProperties 类
             group: system_producer_group # 生产者分组
             send-type: SYNC # 发送模式，SYNC 同步
-
-              # 如果你项目里只对接一个中间件，那么不用定义binders
-              # 当系统要定义多个不同消息中间件的时候，使用binders定义
-              #      binders:
-              #        my-rocketmq:
-              #          type: rocketmq
-              #          environment:
-              #            rocketmq:
-              #              name-server: 192.168.146.115:9876
-              #          access-key: # 用户名
-            #          secret-key:  # 密码
-
-    # Spring Cloud Bus 配置项，对应 BusProperties 类
     bus:
       enabled: true # 是否开启，默认为 true
       id: ${spring.application.name}:${server.port} # 编号，Spring Cloud Alibaba 建议使用“应用:端口”的格式

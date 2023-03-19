@@ -1,7 +1,10 @@
 package com.towelove.system.domain.mail.vo.template;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Schema(description = "管理后台 - 邮件模版的精简 Response VO")
 @Data

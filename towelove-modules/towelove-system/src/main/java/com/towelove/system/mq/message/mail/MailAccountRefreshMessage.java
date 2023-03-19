@@ -1,7 +1,6 @@
 package com.towelove.system.mq.message.mail;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.*;
 import org.springframework.cloud.bus.event.RemoteApplicationEvent;
 
 /**
@@ -15,6 +14,7 @@ import org.springframework.cloud.bus.event.RemoteApplicationEvent;
  * @author: 张锦标
  */
 @Data
+@Builder
 @EqualsAndHashCode(callSuper = true)
 public class MailAccountRefreshMessage extends RemoteApplicationEvent {
 

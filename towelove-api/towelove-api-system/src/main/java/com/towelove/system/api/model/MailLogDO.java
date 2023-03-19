@@ -20,11 +20,11 @@ import java.util.Map;
  */
 @TableName(value = "sys_mail_log", autoResultMap = true)
 @Data
-@EqualsAndHashCode(callSuper = true)
-@ToString(callSuper = true)
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@EqualsAndHashCode(callSuper = true)
+@ToString(callSuper = true)
 public class MailLogDO extends BaseEntity implements Serializable {
 
     /**

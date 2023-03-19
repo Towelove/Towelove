@@ -10,7 +10,6 @@ import com.towelove.msg.task.domain.MailMsg;
 import com.towelove.system.api.RemoteSendLog;
 import com.towelove.system.api.model.MailAccountRespVO;
 import com.towelove.system.api.model.SendLogDo;
-import jdk.internal.joptsimple.internal.Strings;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -34,8 +33,6 @@ public class MailMessageConsumer implements Consumer<MailMsg> {
 
     @Autowired
     private RemoteSendLog remoteSendLog;
-
-
 
     //TODO 还需要编写一个对应的日志记录类
     //TODO 或者使用远程调用去记录日志

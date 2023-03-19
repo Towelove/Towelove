@@ -1,7 +1,6 @@
 package com.towelove.system.domain.mail;
 
-import lombok.Data;
-import lombok.ToString;
+import lombok.*;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
@@ -11,6 +10,9 @@ import org.springframework.stereotype.Component;
  * MailConfiguration类
  */
 @Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @ToString
 @Component
 @ConfigurationProperties(prefix = "spring.mail")

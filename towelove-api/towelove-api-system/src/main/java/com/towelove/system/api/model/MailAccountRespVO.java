@@ -1,12 +1,10 @@
 package com.towelove.system.api.model;
 
+
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
+import lombok.*;
 
 import javax.validation.constraints.NotNull;
-import java.time.LocalDateTime;
 import java.util.Date;
 
 /**
@@ -16,6 +14,9 @@ import java.util.Date;
  */
 @Schema(description = "管理后台 - 邮箱账号 Response VO")
 @Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
 public class MailAccountRespVO extends MailAccountBaseVO {
