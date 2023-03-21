@@ -1,12 +1,10 @@
-package com.towelove.monitor.mq;
+package com.towelove.monitor.admin;
 
+import de.codecentric.boot.admin.server.config.EnableAdminServer;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
-import org.springframework.cloud.bus.jackson.RemoteApplicationEventScan;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
-import org.springframework.cloud.openfeign.EnableFeignClients;
-import org.springframework.scheduling.annotation.EnableAsync;
 
 /**
  * @author: 张锦标
@@ -14,17 +12,13 @@ import org.springframework.scheduling.annotation.EnableAsync;
  * ToweloveMonitorMQApplication类
  * 当前项目用于监控MQ消息队列
  */
-
-//添加 Spring Cloud Bus 定义的 @RemoteApplicationEventScan 注解，
-// 声明要从 Spring Cloud Bus 监听 RemoteApplicationEvent 事件。
-@RemoteApplicationEventScan(basePackages = "com.towelove.monitor.mq.event.*")
-@EnableAsync
+@EnableAdminServer
 @EnableDiscoveryClient
 @SpringBootApplication(exclude = DataSourceAutoConfiguration.class)
-public class ToweloveMonitorMQApplication {
+public class ToweloveMonitorAdminApplication {
     public static void main(String[] args) {
-        SpringApplication.run(ToweloveMonitorMQApplication.class,args);
-        System.out.println("（づ￣3￣）づ╭❤～ Towelove消息队列监控模块启动成功  (o>ε(o>ｕ(≧∩≦)");
+        SpringApplication.run(ToweloveMonitorAdminApplication.class,args);
+        System.out.println("（づ￣3￣）づ╭❤～ Towelove监控模块启动成功  (o>ε(o>ｕ(≧∩≦)");
         System.out.println("\n" +
                 "  __  __                   _   _                  \n" +
                 " |  \\/  |                 (_) | |                 \n" +
