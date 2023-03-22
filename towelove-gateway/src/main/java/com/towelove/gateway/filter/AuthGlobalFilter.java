@@ -1,9 +1,6 @@
 package com.towelove.gateway.filter;
 
-import com.towelove.common.core.constant.CacheConstants;
-import com.towelove.common.core.constant.HttpStatus;
-import com.towelove.common.core.constant.SecurityConstants;
-import com.towelove.common.core.constant.TokenConstants;
+import com.towelove.common.core.constant.*;
 import com.towelove.common.core.utils.JwtUtils;
 import com.towelove.common.core.utils.ServletUtils;
 import com.towelove.common.core.utils.StringUtils;
@@ -22,16 +19,18 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
+import javax.annotation.PostConstruct;
+import java.util.List;
+import java.util.Objects;
 
 
 /**
  * 网关鉴权
- * 
+ *
  * @author: 张锦标
  */
 @Component
-public class AuthGlobalFilter implements GlobalFilter, Ordered
-{
+public class AuthGlobalFilter implements GlobalFilter, Ordered {
     private static final Logger log = LoggerFactory.getLogger(AuthGlobalFilter.class);
 
     // 排除过滤的 uri 地址，nacos自行添加
@@ -40,6 +39,13 @@ public class AuthGlobalFilter implements GlobalFilter, Ordered
 
     @Autowired
     private RedisService redisService;
+    public static final int UP_LIMIT = 10;
+    public static List<String> BLACK_LIST ;
+
+    @PostConstruct
+    public void initIpList(){
+        BLACK_LIST = redisService.getCacheList(RedisServiceConstants.BLACK_LIST_IP);
+    }
 
     //来自auth的请求会先通过当前接口
     //并且来自/auth的请求直接进行放行
@@ -47,38 +53,45 @@ public class AuthGlobalFilter implements GlobalFilter, Ordered
     //其访问其他路径的请求的时候需要进行拦截
     //判断其请求头中是否有对应的用户信息
     @Override
-    public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain)
-    {
+    public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
         ServerHttpRequest request = exchange.getRequest();
+        String ip = request.getHeaders().getHost().getHostString();
+        Integer times = (Integer) redisService.getCacheObject(ip);
+        if (Objects.isNull(times)) {
+            redisService.setCacheObject(RedisServiceConstants.USING_SYS_IP + ip, 1);
+        } else {
+            //如果达到上限
+            if (times+1==UP_LIMIT){
+                BLACK_LIST.add(ip);
+                redisService.setCacheList(RedisServiceConstants.BLACK_LIST_IP,BLACK_LIST);
+                return chain.filter(exchange);
+            }
+            redisService.setCacheObject(RedisServiceConstants.USING_SYS_IP + ip, times+1);
+        }
         ServerHttpRequest.Builder mutate = request.mutate();
 
         String url = request.getURI().getPath();
         // TODO 跳过不需要验证的路径 路径来自于nacos
-        if (StringUtils.matches(url, ignoreWhite.getWhites()))
-        {
+        if (StringUtils.matches(url, ignoreWhite.getWhites())) {
             return chain.filter(exchange);
         }
         String token = getToken(request);
-        if (StringUtils.isEmpty(token))
-        {
+        if (StringUtils.isEmpty(token)) {
             return unauthorizedResponse(exchange, "令牌不能为空");
         }
         Claims claims = JwtUtils.parseToken(token);
-        if (claims == null)
-        {
+        if (claims == null) {
             return unauthorizedResponse(exchange, "令牌已过期或验证不正确！");
         }
         String userkey = JwtUtils.getUserKey(claims);
         boolean islogin = redisService.hasKey(getTokenKey(userkey));
 
-        if (!islogin)
-        {
+        if (!islogin) {
             return unauthorizedResponse(exchange, "登录状态已过期");
         }
         String userid = JwtUtils.getUserId(claims);
         String username = JwtUtils.getUserName(claims);
-        if (StringUtils.isEmpty(userid) || StringUtils.isEmpty(username))
-        {
+        if (StringUtils.isEmpty(userid) || StringUtils.isEmpty(username)) {
             return unauthorizedResponse(exchange, "令牌验证失败");
         }
 
@@ -93,10 +106,8 @@ public class AuthGlobalFilter implements GlobalFilter, Ordered
         return chain.filter(exchange.mutate().request(mutate.build()).build());
     }
 
-    private void addHeader(ServerHttpRequest.Builder mutate, String name, Object value)
-    {
-        if (value == null)
-        {
+    private void addHeader(ServerHttpRequest.Builder mutate, String name, Object value) {
+        if (value == null) {
             return;
         }
         String valueStr = value.toString();
@@ -104,13 +115,11 @@ public class AuthGlobalFilter implements GlobalFilter, Ordered
         mutate.header(name, valueEncode);
     }
 
-    private void removeHeader(ServerHttpRequest.Builder mutate, String name)
-    {
+    private void removeHeader(ServerHttpRequest.Builder mutate, String name) {
         mutate.headers(httpHeaders -> httpHeaders.remove(name)).build();
     }
 
-    private Mono<Void> unauthorizedResponse(ServerWebExchange exchange, String msg)
-    {
+    private Mono<Void> unauthorizedResponse(ServerWebExchange exchange, String msg) {
         log.error("[鉴权异常处理]请求路径:{}", exchange.getRequest().getPath());
         return ServletUtils.webFluxResponseWriter(exchange.getResponse(), msg, HttpStatus.UNAUTHORIZED);
     }
@@ -118,28 +127,24 @@ public class AuthGlobalFilter implements GlobalFilter, Ordered
     /**
      * 获取缓存key
      */
-    private String getTokenKey(String token)
-    {
+    private String getTokenKey(String token) {
         return CacheConstants.LOGIN_TOKEN_KEY + token;
     }
 
     /**
      * 获取请求token
      */
-    private String getToken(ServerHttpRequest request)
-    {
+    private String getToken(ServerHttpRequest request) {
         String token = request.getHeaders().getFirst(TokenConstants.AUTHENTICATION);
         // 如果前端设置了令牌前缀，则裁剪掉前缀
-        if (StringUtils.isNotEmpty(token) && token.startsWith(TokenConstants.PREFIX))
-        {
+        if (StringUtils.isNotEmpty(token) && token.startsWith(TokenConstants.PREFIX)) {
             token = token.replaceFirst(TokenConstants.PREFIX, StringUtils.EMPTY);
         }
         return token;
     }
 
     @Override
-    public int getOrder()
-    {
+    public int getOrder() {
         return -200;
     }
 }

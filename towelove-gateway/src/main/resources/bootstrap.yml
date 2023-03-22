@@ -21,6 +21,13 @@ spring:
           uri: lb://towelove-system
           predicates:
             - Path=/sys/**
+          filters:
+            # 具体微服务限流位置
+            - name: RequestRateLimiter  #请求数限流 名字不能随便写
+              args:
+                    key-resolver: "#{@ipKeyResolver}"  #指定限流的key
+                    redis-rate-limiter.replenishRate: 1 # 允许每秒处理了多少个请求
+                    redis-rate-limiter.burstCapacity: 1 # 令牌桶的容量（最高处理并发容量大小1）
         - id: towelove-auth
           uri: lb://towelove-auth
           predicates:
