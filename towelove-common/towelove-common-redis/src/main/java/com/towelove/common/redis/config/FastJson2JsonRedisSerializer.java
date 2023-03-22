@@ -1,4 +1,4 @@
-package com.towelove.common.redis.configure;
+package com.towelove.common.redis.config;
 
 import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.JSONReader;

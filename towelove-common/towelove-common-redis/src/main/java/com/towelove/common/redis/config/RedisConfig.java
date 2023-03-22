@@ -1,4 +1,4 @@
-package com.towelove.common.redis.configure;
+package com.towelove.common.redis.config;
 
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration;
@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.RedisSerializer;
-import org.springframework.data.redis.serializer.StringRedisSerializer;
+
 /**
  * @author: 张锦标
  * @date: 2023/2/24 9:49

@@ -13,10 +13,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>towelove-system</module>
-        <module>towelove-rocketmq-consumer</module>
-        <module>towelove-rocketmq-producer</module>
-<!--        <module>towelove-scs-consumer</module>-->
-<!--        <module>towelove-scs-producer</module>-->
+        <module>towelove-file</module>
         <module>towelove-msg-task</module>
     </modules>
 

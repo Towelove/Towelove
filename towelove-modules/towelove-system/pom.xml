@@ -108,6 +108,10 @@
             <artifactId>junit</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>com.twowaylove</groupId>
+            <artifactId>towelove-common-redis</artifactId>
+        </dependency>
     </dependencies>
 
     <build>

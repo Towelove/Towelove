@@ -12,7 +12,7 @@
     <artifactId>towelove-monitor</artifactId>
     <packaging>pom</packaging>
     <modules>
-        <module>towelove-monitor-mq</module>
+        <module>towelove-monitor-admin</module>
     </modules>
 
     <properties>

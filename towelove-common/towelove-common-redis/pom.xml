@@ -16,19 +16,32 @@
     </description>
 
     <dependencies>
-
-        <!-- SpringBoot Boot Redis -->
+        <dependency>
+            <groupId>com.twowaylove</groupId>
+            <artifactId>towelove-common-core</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-redis</artifactId>
         </dependency>
-
-        <!-- towelove Common Core-->
+        <!-- DB 相关 -->
         <dependency>
-            <groupId>com.twowaylove</groupId>
-            <artifactId>towelove-common-core</artifactId>
-            <version>1.0</version>
+            <groupId>org.redisson</groupId>
+            <artifactId>redisson-spring-boot-starter</artifactId>
+            <version>3.18.0</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-cache</artifactId> <!-- 实现对 Caches 的自动化配置 -->
+        </dependency>
+
+        <dependency>
+            <groupId>io.netty</groupId>
+            <artifactId>netty-all</artifactId>
+        </dependency>
+
+
 
     </dependencies>
 

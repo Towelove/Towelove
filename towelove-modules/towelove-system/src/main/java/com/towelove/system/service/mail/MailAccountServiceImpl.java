@@ -3,8 +3,10 @@ package com.towelove.system.service.mail;
 
 import cn.hutool.extra.mail.MailException;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.towelove.common.core.constant.RedisServiceConstants;
 import com.towelove.common.core.domain.PageResult;
 import com.towelove.common.core.mybatis.LambdaQueryWrapperX;
+import com.towelove.common.redis.service.RedisService;
 import com.towelove.system.convert.mail.MailAccountConvert;
 import com.towelove.system.domain.mail.MailAccountDO;
 import com.towelove.system.domain.mail.vo.account.MailAccountCreateReqVO;
@@ -14,11 +16,14 @@ import com.towelove.system.mapper.mail.MailAccountMapper;
 import com.towelove.system.mq.producer.mail.MailProducer;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.cache.RedisCache;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -43,7 +48,8 @@ public class MailAccountServiceImpl implements MailAccountService {
 
     @Resource
     private MailProducer mailProducer;
-
+    @Resource
+    private RedisService redisService;
     /**
      * 邮箱账号缓存 创建的是本地缓存 使用的不是redis
      * 后期可以换为redis
@@ -54,8 +60,10 @@ public class MailAccountServiceImpl implements MailAccountService {
     @Getter
     private volatile Map<Long, MailAccountDO> mailAccountCache;
 
+    @Autowired
+    private RedisCache redisCache;
     @Override
-    @PostConstruct
+    @PostConstruct //当前类构造后就会执行当前方法
     public void initLocalCache() {
         // 第一步：查询所有的数据（可以优化 不应该使用jvm内存来做缓存）
         List<MailAccountDO> accounts = mailAccountMapper.selectList();
@@ -79,6 +87,28 @@ public class MailAccountServiceImpl implements MailAccountService {
         //mailProducer.sendMailAccountRefreshMessage();
         return account.getId();
     }
+    public static final int WAIT_SIZE = 10;
+    private static List<MailAccountDO> waitList = new ArrayList<>();
+    //TODO 使用Write Behind方式来保证数据库与缓存的数据一致性
+    private void writeBehindUpdateMailAccount(MailAccountUpdateReqVO updateReqVO){
+        // 校验是否存在
+        validateMailAccountExists(updateReqVO.getId());
+        MailAccountDO updateObj = MailAccountConvert.INSTANCE.convert(updateReqVO);
+        //先更新更新缓存
+        redisService.setCacheObject(RedisServiceConstants.SYS_MAIL_ACCOUNT
+                +updateReqVO.getId(),updateObj);
+        //先把要更新的数据放到一个队列中 之后批量更新
+        waitList.add(updateObj);
+        //TODO 使用全局线程池去管理这个任务
+        if (waitList.size() == WAIT_SIZE){
+            new Thread(()->{
+                //批量执行任务
+                mailAccountMapper.updateBatch(waitList,WAIT_SIZE);
+                //清空任务
+                waitList.clear();
+            }).start();
+        }
+    }
 
     @Override
     public void updateMailAccount(MailAccountUpdateReqVO updateReqVO) {
@@ -90,6 +120,8 @@ public class MailAccountServiceImpl implements MailAccountService {
         mailAccountMapper.updateById(updateObj);
         // 发送刷新消息
         //mailProducer.sendMailAccountRefreshMessage();
+        //更新缓存
+        redisService.setCacheObject(RedisServiceConstants.SYS_MAIL_ACCOUNT+updateReqVO.getId(),updateObj);
     }
 
     @Override

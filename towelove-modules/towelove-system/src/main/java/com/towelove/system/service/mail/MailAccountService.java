@@ -76,4 +76,6 @@ public interface MailAccountService {
     List<MailAccountDO> getMailAccountList();
 
     MailAccountDO getMailAccountByUserId(Long userId);
+
+
 }

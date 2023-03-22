@@ -1,2 +1,3 @@
-com.towelove.common.redis.configure.RedisConfig
+com.towelove.common.redis.config.RedisConfig
+com.towelove.common.redis.config.RedisCacheAutoConfiguration
 com.towelove.common.redis.service.RedisService
