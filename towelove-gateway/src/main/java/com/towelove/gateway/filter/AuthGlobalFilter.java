@@ -22,6 +22,7 @@ import reactor.core.publisher.Mono;
 import javax.annotation.PostConstruct;
 import java.util.List;
 import java.util.Objects;
+import java.util.concurrent.TimeUnit;
 
 
 /**
@@ -39,12 +40,14 @@ public class AuthGlobalFilter implements GlobalFilter, Ordered {
 
     @Autowired
     private RedisService redisService;
+    //单个IP/s访问上限
     public static final int UP_LIMIT = 10;
     public static List<String> BLACK_LIST ;
 
     @PostConstruct
     public void initIpList(){
-        BLACK_LIST = redisService.getCacheList(RedisServiceConstants.BLACK_LIST_IP);
+        BLACK_LIST = redisService.getCacheList(
+                RedisServiceConstants.BLACK_LIST_IP);
     }
 
     //来自auth的请求会先通过当前接口
@@ -55,18 +58,24 @@ public class AuthGlobalFilter implements GlobalFilter, Ordered {
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
         ServerHttpRequest request = exchange.getRequest();
+        //获得当前ip
         String ip = request.getHeaders().getHost().getHostString();
-        Integer times = (Integer) redisService.getCacheObject(ip);
+        //获得当前ip访问次数
+        Integer times = (Integer) redisService.getCacheObject(
+                RedisServiceConstants.USING_SYS_IP+ip);
         if (Objects.isNull(times)) {
-            redisService.setCacheObject(RedisServiceConstants.USING_SYS_IP + ip, 1);
+            redisService.setCacheObject(RedisServiceConstants.USING_SYS_IP + ip,
+                    1,3L, TimeUnit.SECONDS);
         } else {
             //如果达到上限
             if (times+1==UP_LIMIT){
                 BLACK_LIST.add(ip);
-                redisService.setCacheList(RedisServiceConstants.BLACK_LIST_IP,BLACK_LIST);
+                redisService.setCacheList(RedisServiceConstants.BLACK_LIST_IP,
+                        BLACK_LIST);
                 return chain.filter(exchange);
             }
-            redisService.setCacheObject(RedisServiceConstants.USING_SYS_IP + ip, times+1);
+            redisService.setCacheObject(RedisServiceConstants.USING_SYS_IP + ip,
+                    times+1, 3L,TimeUnit.SECONDS);
         }
         ServerHttpRequest.Builder mutate = request.mutate();
 

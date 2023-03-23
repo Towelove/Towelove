@@ -75,7 +75,7 @@ public class IPCheckFilter implements GlobalFilter, Ordered {
         response.getHeaders().set("content-type","application/json;charset=utf-8");
         HashMap<String, Object> map = new HashMap<>(4);
         map.put("code", 438);
-        map.put("msg","你是黑名单");
+        map.put("msg","你已被加入黑名单，如需申请解除，可以私信WX:15377920718");
         ObjectMapper objectMapper = new ObjectMapper();
         byte[] bytes = new byte[0];
         try {
@@ -89,6 +89,6 @@ public class IPCheckFilter implements GlobalFilter, Ordered {
 
     @Override
     public int getOrder() {
-        return -300;
+        return -199;
     }
 }
