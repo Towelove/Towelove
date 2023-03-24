@@ -20,6 +20,7 @@
         <module>towelove-common-core</module>
         <module>towelove-common-swagger</module>
         <module>towelove-common-log</module>
+        <module>towelove-common-async</module>
         <module>towelove-common-redis</module>
         <module>towelove-common-mq</module>
         <module>towelove-common-mybatisplus</module>

@@ -112,6 +112,11 @@
             <groupId>com.twowaylove</groupId>
             <artifactId>towelove-common-redis</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.twowaylove</groupId>
+            <artifactId>towelove-common-async</artifactId>
+            <version>1.0</version>
+        </dependency>
     </dependencies>
 
     <build>

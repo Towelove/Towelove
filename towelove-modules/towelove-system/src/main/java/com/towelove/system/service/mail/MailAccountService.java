@@ -9,6 +9,7 @@ import com.towelove.system.domain.mail.vo.account.MailAccountUpdateReqVO;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 /**
  * 邮箱账号 Service 接口
@@ -17,6 +18,13 @@ import java.util.List;
  * @since 2023-03-01
  */
 public interface MailAccountService {
+    Integer exectorWithWrong();
+    /**
+     * 异步任务测试方法
+     */
+    void testAsync();
+    void testAsyncWithCallBack() throws ExecutionException, InterruptedException;
+
 
     /**
      * 初始化邮箱账号的本地缓存
