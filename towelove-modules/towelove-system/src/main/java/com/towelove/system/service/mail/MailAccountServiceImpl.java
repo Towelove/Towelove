@@ -56,7 +56,8 @@ public class MailAccountServiceImpl implements MailAccountService {
     private MailProducer mailProducer;
     @Resource
     private RedisService redisService;
-
+    //对于实现了Future接口的类或接口 其异常处理必须通过回调
+    //而不是全局异步异常处理器
     @Async(AsyncConfig.CPU_INTENSIVE)
     public ListenableFuture<Integer> cpuIntensiveExector() {
         try {

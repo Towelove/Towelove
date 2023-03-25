@@ -24,7 +24,8 @@ import java.util.List;
  */
 public interface BaseMapperX<T> extends BaseMapper<T> {
 
-    default PageResult<T> selectPage(PageParam pageParam, @Param("ew") Wrapper<T> queryWrapper) {
+    default PageResult<T> selectPage(PageParam pageParam,
+                                     @Param("ew") Wrapper<T> queryWrapper) {
         // MyBatis Plus 查询
         IPage<T> mpPage = MyBatisUtils.buildPage(pageParam);
         selectPage(mpPage, queryWrapper);

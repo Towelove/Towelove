@@ -30,3 +30,12 @@ spring:
         shared-configs[2]:
           data-id: towelove-redis-dev.yaml
           refresh: true
+
+file:
+  path: D:\desktophoto\file
+  prefix:
+minio:
+  url:
+  accessKey:
+  secretKey:
+  bucketName:
