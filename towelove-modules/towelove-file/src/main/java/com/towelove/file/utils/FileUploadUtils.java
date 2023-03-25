@@ -25,9 +25,9 @@ import java.util.Objects;
 public class FileUploadUtils
 {
     /**
-     * 默认大小 50M
+     * 默认大小 10M
      */
-    public static final long DEFAULT_MAX_SIZE = 50 * 1024 * 1024;
+    public static final long DEFAULT_MAX_SIZE = 10 * 1024 * 1024;
 
     /**
      * 默认的文件名最大长度 100
@@ -69,19 +69,21 @@ public class FileUploadUtils
     public static final String upload(String baseDir, MultipartFile file, String[] allowedExtension)
             throws FileSizeLimitExceededException, IOException, FileNameLengthLimitExceededException,
             InvalidExtensionException
-    {
+    {   //判断文件名长度是否过长
         int fileNamelength = Objects.requireNonNull(file.getOriginalFilename()).length();
         if (fileNamelength > FileUploadUtils.DEFAULT_FILE_NAME_LENGTH)
         {
             throw new FileNameLengthLimitExceededException(FileUploadUtils.DEFAULT_FILE_NAME_LENGTH);
         }
-
+        //判断文件的扩展类型是否合理
         assertAllowed(file, allowedExtension);
-
+        //对文件名进行编码
         String fileName = extractFilename(file);
-
+        //获取文件在本机的绝对地址
         String absPath = getAbsoluteFile(baseDir, fileName).getAbsolutePath();
+        //将文件放到本机绝对地址
         file.transferTo(Paths.get(absPath));
+        //返回文件名
         return getPathFileName(fileName);
     }
 

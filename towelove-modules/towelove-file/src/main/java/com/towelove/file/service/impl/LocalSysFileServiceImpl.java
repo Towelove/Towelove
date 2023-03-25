@@ -12,6 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
  * 
  * @author 张锦标
  */
+//优先使用本地文件存储系统
 @Primary
 @Service
 public class LocalSysFileServiceImpl implements ISysFileService
@@ -22,12 +23,13 @@ public class LocalSysFileServiceImpl implements ISysFileService
     @Value("${file.prefix}")
     public String localFilePrefix;
 
+
     /**
      * 域名或本机访问地址
      */
     @Value("${file.domain}")
     public String domain;
-    
+
     /**
      * 上传文件存储在本地的根路径
      */
@@ -36,7 +38,7 @@ public class LocalSysFileServiceImpl implements ISysFileService
 
     /**
      * 本地文件上传接口
-     * 
+     *
      * @param file 上传的文件
      * @return 访问地址
      * @throws Exception
@@ -45,7 +47,8 @@ public class LocalSysFileServiceImpl implements ISysFileService
     public String uploadFile(MultipartFile file) throws Exception
     {
         String name = FileUploadUtils.upload(localFilePath, file);
-        String url = domain + localFilePrefix + name;
+        //获取完整url
+        String url = localFilePath + name;
         return url;
     }
 }

@@ -30,12 +30,18 @@ spring:
         shared-configs[2]:
           data-id: towelove-redis-dev.yaml
           refresh: true
-
+  servlet:
+    multipart:
+      max-file-size: 10MB # 设置单个文件的大小
+      max-request-size: 30MB # 设置总上传文件的大小
 file:
-  path: D:\desktophoto\file
-  prefix:
+  path: D:/photo/local # 本地文件存储位置
+  prefix: sec-hand # 文件前缀
+  domain: http://localhost:9093/ # 域名或者本机地址ip
+fdfs:
+  domain: localhost
 minio:
-  url:
-  accessKey:
-  secretKey:
-  bucketName:
+  url: 876876
+  accessKey: 897897
+  secretKey: 68768
+  bucketName: 87897
