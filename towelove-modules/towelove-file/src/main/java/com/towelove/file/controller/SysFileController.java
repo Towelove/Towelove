@@ -20,21 +20,15 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.IOException;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 /**
  * 文件请求处理
- * 
+ *
  * @author 张锦标
  */
 @RequestMapping("/file")
 @RestController
-public class SysFileController
-{
+public class SysFileController {
     private static final Logger log = LoggerFactory.getLogger(SysFileController.class);
 
     @Autowired
@@ -44,19 +38,15 @@ public class SysFileController
      * 单文件上传请求
      */
     @PostMapping("/upload")
-    public R<SysFile> upload(@RequestParam("file") MultipartFile file)
-    {
-        try
-        {
+    public R<SysFile> upload(@RequestParam("file") MultipartFile file) {
+        try {
             // 上传并返回访问地址
             String url = sysFileService.uploadFile(file);
             SysFile sysFile = new SysFile();
             sysFile.setName(FileUtils.getName(url));
             sysFile.setUrl(url);
             return R.ok(sysFile);
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             log.error("上传文件失败", e);
             return R.fail(e.getMessage());
         }
@@ -68,7 +58,7 @@ public class SysFileController
     public R<LoveLogs> handleFileUpload(@RequestParam("files") MultipartFile[] files) {
         LoveLogs loveLogs = new LoveLogs();
         String[] urls = new String[files.length];
-        for (int i=0;i<files.length;i++) {
+        for (int i = 0; i < files.length; i++) {
             try {
                 //// 获取文件名
                 //String fileName = file.getOriginalFilename();
@@ -78,16 +68,15 @@ public class SysFileController
                 //file.transferTo(new File(filePath));
                 MultipartFile file = files[i];
                 String url = sysFileService.uploadFile(file);
-                urls[i]=url;
-            }  catch (Exception e) {
+                urls[i] = url;
+            } catch (Exception e) {
                 throw new RuntimeException(e);
             }
         }
         loveLogs.setUrls(urls);
         return R.ok(loveLogs);
     }
-    @Value("${file.path}")
-    private String localFilePath;
+
 
     /**
      * 文件下载
@@ -97,30 +86,24 @@ public class SysFileController
      */
     @GetMapping("/download")
     public void download(@RequestParam String name, HttpServletResponse response) {
-        FileInputStream fis = null;
-        ServletOutputStream os = null;
-        try {
+        //FileInputStream fis = null;
+        //ServletOutputStream os = null;
+        try (FileInputStream fis = new FileInputStream(new File(name));
+             ServletOutputStream os = response.getOutputStream()) {
             //输入流,通过输入流读取文件内容
-            fis = new FileInputStream(new File( name));
+            //fis = new FileInputStream(new File( name));
             //输出流,通过输出流将文件写回浏览器,在浏览器展示图片
-            os = response.getOutputStream();
+            //os = response.getOutputStream();
             //设置响应的数据的格式
             response.setContentType("image/jpeg");
             int len = 0;
-            byte[] buffre = new byte[1024];
+            byte[] buffre = new byte[1024 * 10];
             while ((len = fis.read(buffre)) != -1) {
                 os.write(buffre, 0, len);
                 os.flush();
             }
         } catch (Exception e) {
             e.printStackTrace();
-        } finally {
-            try {
-                fis.close();
-                os.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
         }
     }
 
