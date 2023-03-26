@@ -1,22 +1,39 @@
 package com.towelove.file.domain;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import com.towelove.common.core.web.domain.BaseEntity;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.Date;
-import java.util.List;
 
 /**
- * @author: 张锦标
- * @date: 2023/3/25 21:28
- * LoveAlbum类
- * 对应恋爱相册
- * 思路来源于qq相册
+ * 恋爱相册(LoveAlbum) 实体类
+ *
+ * @author 张锦标
+ * @since 2023-03-26 20:42:55
  */
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@TableName("love_album")
 public class LoveAlbum extends BaseEntity {
     /**
-     * id
+     * 编号
      */
+    @TableId(value = "id", type = IdType.AUTO)
     private Long id;
+    /**
+     * 男方id
+     */
+    private Long boyId;
+    /**
+     * 女方id
+     */
+    private Long girlId;
     /**
      * 相册标题
      */
@@ -28,21 +45,23 @@ public class LoveAlbum extends BaseEntity {
     /**
      * 点赞人数
      */
-    private Integer likes;
-    /**
-     * 评论
-     */
-    private String[] remarks;
+    private Integer likesNumber;
     /**
      * 观看人数
      */
     private Integer viewsNumber;
     /**
-     * 是否他人可见
+     * 外人是否可见
      */
-    private Boolean canSee;
+    private Integer canSee;
     /**
-     * 恋爱日志 对应每一份小日志
+     * 开启状态
      */
-    private List<LoveLogs> loveLogs;
+    private Integer status;
+    /**
+     * 是否删除
+     */
+    private Integer deleted;
+
 }
+

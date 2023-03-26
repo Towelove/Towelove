@@ -52,6 +52,11 @@ public class SysFileController {
         }
     }
 
+    /**
+     * 实现多文件上传
+     * @param files 要上传的文件
+     * @return 返回恋爱日志信息
+     */
     @ApiOperation(value = "多附件上传-纯附件上传", notes = "多附件上传")
     @ResponseBody
     @PostMapping("/uploadFiles")
@@ -73,7 +78,8 @@ public class SysFileController {
                 throw new RuntimeException(e);
             }
         }
-        loveLogs.setUrls(urls);
+        String photoUrls = String.join(",", urls);
+        loveLogs.setUrls(photoUrls);
         return R.ok(loveLogs);
     }
 

@@ -1,37 +1,51 @@
 package com.towelove.file.domain;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.towelove.common.core.web.domain.BaseEntity;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.Date;
 
 /**
- * @author: 张锦标
- * @date: 2023/3/25 21:33
- * LoveLogs类
+ * 恋爱日志表(LoveLogs) 实体类
+ *
+ * @author 张锦标
+ * @since 2023-03-26 20:42:56
  */
-//@TableName(value = "sys_mail_account", autoResultMap = true)
 @Data
-@Builder
-@AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode(callSuper = true)
+@AllArgsConstructor
+@TableName("love_logs")
 public class LoveLogs extends BaseEntity {
     /**
-     * 恋爱日志id
+     * 编号
      */
+    @TableId(value = "id", type = IdType.AUTO)
     private Long id;
     /**
-     * 创建时间
+     * 当前邮件选择的模板
      */
-    private Date date;
+    private Long description;
     /**
-     * 当天描述
+     * 发送人名称
      */
-    private String description;
+    private String urls;
     /**
-     * 照片urls
+     * 开启状态
      */
-    private String[] urls;
+    private Integer status;
+    /**
+     * 备注
+     */
+    private String cansee;
+    /**
+     * 是否删除
+     */
+    private Integer deleted;
+
 }
+
