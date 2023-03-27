@@ -59,12 +59,12 @@ public class MinioSysFileServiceImpl implements ISysFileService {
     }
 
     public GetObjectResponse getFile(String name) throws Exception{
-        DownloadObjectArgs downloadObjectArgs = DownloadObjectArgs.builder()
-                .bucket(minioConfig.getBucketName()) //设定桶名称
-                .object(name) //设定要下载的文件
-                .filename("D:/photo/local/test.jpg") //设定下载的位置
-                .build();
-        minioClient.downloadObject(downloadObjectArgs);
+        //DownloadObjectArgs downloadObjectArgs = DownloadObjectArgs.builder()
+        //        .bucket(minioConfig.getBucketName()) //设定桶名称
+        //        .object(name) //设定要下载的文件
+        //        .filename("D:/photo/local/test.jpg") //设定下载的位置
+        //        .build();
+        //minioClient.downloadObject(downloadObjectArgs);
         GetObjectArgs getObjectArgs = GetObjectArgs.builder()
                 .bucket(minioConfig.getBucketName())
                 .object(name)

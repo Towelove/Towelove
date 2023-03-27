@@ -14,7 +14,7 @@ import java.io.File;
  * @author 张锦标
  */
 @Configuration
-public class ResourcesConfig implements WebMvcConfigurer
+public class WebMvcConfig implements WebMvcConfigurer
 {
     /**
      * 上传文件存储在本地的根路径

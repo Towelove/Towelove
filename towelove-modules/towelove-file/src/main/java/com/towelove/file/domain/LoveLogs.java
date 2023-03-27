@@ -2,6 +2,7 @@ package com.towelove.file.domain;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.towelove.common.core.web.domain.BaseEntity;
 import lombok.AllArgsConstructor;
@@ -29,7 +30,7 @@ public class LoveLogs extends BaseEntity {
     /**
      * 当前邮件选择的模板
      */
-    private Long description;
+    private String description;
     /**
      * 发送人名称
      */
@@ -41,10 +42,11 @@ public class LoveLogs extends BaseEntity {
     /**
      * 备注
      */
-    private String cansee;
+    private Integer canSee;
     /**
      * 是否删除
      */
+    @TableLogic(value = "0",delval = "1")
     private Integer deleted;
 
 }
