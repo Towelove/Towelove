@@ -41,7 +41,7 @@ file:
 fdfs:
   domain: localhost
 minio:
-  url: 876876
-  accessKey: 897897
-  secretKey: 68768
-  bucketName: 87897
+  url: http://123.249.100.204:9000
+  accessKey: towelove
+  secretKey: towelove
+  bucketName: towelove

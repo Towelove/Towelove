@@ -4,9 +4,11 @@ package com.towelove.file.controller;
 import com.towelove.common.core.constant.HttpStatus;
 import com.towelove.common.core.domain.R;
 import com.towelove.common.core.utils.file.FileUtils;
+import com.towelove.file.config.MinioConfig;
 import com.towelove.file.domain.LoveLogs;
 import com.towelove.file.domain.SysFile;
 import com.towelove.file.service.ISysFileService;
+import com.towelove.file.service.impl.MinioSysFileServiceImpl;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,6 +40,22 @@ public class SysFileController {
     @Autowired
     private ISysFileService sysFileService;
 
+    @Autowired
+    private MinioSysFileServiceImpl minioSysFileService;
+    @PostMapping("/uploadMinio")
+    public R<SysFile> uploadMinio(@RequestParam("file") MultipartFile file){
+        try {
+            // 上传并返回访问地址
+            String url = minioSysFileService.uploadFile(file);
+            SysFile sysFile = new SysFile();
+            sysFile.setName(FileUtils.getName(url));
+            sysFile.setUrl(url);
+            return R.ok(sysFile);
+        } catch (Exception e) {
+            log.error("上传文件失败", e);
+            return R.fail(e.getMessage());
+        }
+    }
     /**
      * 单文件上传请求
      *
@@ -64,7 +82,7 @@ public class SysFileController {
     private ThreadPoolExecutor fileThreadPool;
 
     /**
-     * 实现多文件上传
+     * 实现多文件多线程上传
      *
      * @param files 要上传的文件
      * @return 返回恋爱日志信息
@@ -72,9 +90,8 @@ public class SysFileController {
     @ApiOperation(value = "多附件上传-纯附件上传", notes = "多附件上传")
     @ResponseBody
     @PostMapping("/uploadFiles")
-    public R<LoveLogs> handleFileUpload(@RequestParam("files") MultipartFile[] files) {
-        LoveLogs loveLogs = new LoveLogs();
-        String[] urls = new String[files.length];
+    public R<LoveLogs> handleFileUpload(@RequestParam("files") MultipartFile[] files,
+                                        @RequestBody LoveLogs loveLogs) {
         CopyOnWriteArrayList<String> list = new CopyOnWriteArrayList<>();
         CountDownLatch countDownLatch = new CountDownLatch(files.length);
         for (int i = 0; i < files.length; i++) {
@@ -94,9 +111,11 @@ public class SysFileController {
                     try {
                         String s = sysFileService.uploadFile(file);
                         list.add(s);
-                        countDownLatch.countDown();
                     } catch (Exception e) {
                         throw new RuntimeException(e);
+                    } finally {
+                        //表示一个文件已经被完成
+                        countDownLatch.countDown();
                     }
                 });
             } catch (Exception e) {
@@ -109,8 +128,10 @@ public class SysFileController {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
+        //统计每个文件的url
         String photoUrls = String.join(",", list);
         loveLogs.setUrls(photoUrls);
+        //返回结果
         return R.ok(loveLogs);
     }
 

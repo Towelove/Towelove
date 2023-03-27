@@ -14,6 +14,15 @@ import org.springframework.context.annotation.Configuration;
 @ConfigurationProperties(prefix = "minio")
 public class MinioConfig
 {
+    @Bean
+    public MinioClient minioClient(){
+        MinioClient minioClient =
+                MinioClient.builder()
+                        .endpoint(url)
+                        .credentials(accessKey, secretKey)
+                        .build();
+        return minioClient;
+    }
     /**
      * 服务地址
      */
