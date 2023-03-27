@@ -11,6 +11,7 @@ import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.*;
@@ -20,6 +21,9 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.FileInputStream;
+import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ThreadPoolExecutor;
 
 /**
  * 文件请求处理
@@ -36,6 +40,9 @@ public class SysFileController {
 
     /**
      * 单文件上传请求
+     *
+     * @param file 要上传的单个文件
+     * @return 返回SysFile对象 存储的是文件名称和url
      */
     @PostMapping("/upload")
     public R<SysFile> upload(@RequestParam("file") MultipartFile file) {
@@ -52,8 +59,13 @@ public class SysFileController {
         }
     }
 
+    @Autowired
+    @Qualifier("fileThreadPool")
+    private ThreadPoolExecutor fileThreadPool;
+
     /**
      * 实现多文件上传
+     *
      * @param files 要上传的文件
      * @return 返回恋爱日志信息
      */
@@ -63,6 +75,8 @@ public class SysFileController {
     public R<LoveLogs> handleFileUpload(@RequestParam("files") MultipartFile[] files) {
         LoveLogs loveLogs = new LoveLogs();
         String[] urls = new String[files.length];
+        CopyOnWriteArrayList<String> list = new CopyOnWriteArrayList<>();
+        CountDownLatch countDownLatch = new CountDownLatch(files.length);
         for (int i = 0; i < files.length; i++) {
             try {
                 //// 获取文件名
@@ -72,13 +86,30 @@ public class SysFileController {
                 //// 保存文件到本地
                 //file.transferTo(new File(filePath));
                 MultipartFile file = files[i];
-                String url = sysFileService.uploadFile(file);
-                urls[i] = url;
+                //String url = sysFileService.uploadFile(file);
+                //urls[i] = url;
+                //TODO 使用CountDownLaunch或者ComplatableFuture或者Semaphore
+                //来完成多线程的文件上传
+                fileThreadPool.submit(() -> {
+                    try {
+                        String s = sysFileService.uploadFile(file);
+                        list.add(s);
+                        countDownLatch.countDown();
+                    } catch (Exception e) {
+                        throw new RuntimeException(e);
+                    }
+                });
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
         }
-        String photoUrls = String.join(",", urls);
+        try {
+            //阻塞直到所有的文件完成复制
+            countDownLatch.await();
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        String photoUrls = String.join(",", list);
         loveLogs.setUrls(photoUrls);
         return R.ok(loveLogs);
     }
@@ -87,8 +118,8 @@ public class SysFileController {
     /**
      * 文件下载
      *
-     * @param name
-     * @param response
+     * @param name     文件名称
+     * @param response 响应流
      */
     @GetMapping("/download")
     public void download(@RequestParam String name, HttpServletResponse response) {
