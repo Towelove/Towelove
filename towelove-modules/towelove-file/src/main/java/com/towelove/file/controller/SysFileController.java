@@ -9,6 +9,7 @@ import com.towelove.file.domain.LoveLogs;
 import com.towelove.file.domain.SysFile;
 import com.towelove.file.service.ISysFileService;
 import com.towelove.file.service.impl.MinioSysFileServiceImpl;
+import io.minio.GetObjectResponse;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -164,5 +165,24 @@ public class SysFileController {
             e.printStackTrace();
         }
     }
-
+    @GetMapping("/downloadMinio")
+    public void downloadMinio(@RequestParam String name, HttpServletResponse response) {
+        try (ServletOutputStream os = response.getOutputStream()) {
+            //输入流,通过输入流读取文件内容
+            //fis = new FileInputStream(new File( name));
+            //输出流,通过输出流将文件写回浏览器,在浏览器展示图片
+            //os = response.getOutputStream();
+            //设置响应的数据的格式
+            response.setContentType("image/jpeg");
+            GetObjectResponse file = minioSysFileService.getFile(name);
+            int len = 0;
+            byte[] buffre = new byte[1024 * 10];
+            while ((len = file.read(buffre)) != -1) {
+                os.write(buffre, 0, len);
+                os.flush();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

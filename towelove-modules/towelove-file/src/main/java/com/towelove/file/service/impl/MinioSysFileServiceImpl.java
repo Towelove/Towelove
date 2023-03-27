@@ -4,9 +4,7 @@ package com.towelove.file.service.impl;
 import com.towelove.file.config.MinioConfig;
 import com.towelove.file.service.ISysFileService;
 import com.towelove.file.utils.FileUploadUtils;
-import io.minio.BucketExistsArgs;
-import io.minio.MinioClient;
-import io.minio.PutObjectArgs;
+import io.minio.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -44,11 +42,12 @@ public class MinioSysFileServiceImpl implements ISysFileService {
             InputStream is = file.getInputStream();
             System.out.println("my-bucketname exists");
             PutObjectArgs args = PutObjectArgs.builder()
-                    .bucket(minioConfig.getBucketName())
-                    .object(fileName)
-                    .stream(is, file.getSize(), -1)
-                    .contentType(file.getContentType())
+                    .bucket(minioConfig.getBucketName()) //设定桶名称
+                    .object(fileName) //要下载的文件
+                    .stream(is, file.getSize(), -1) //文件上传流
+                    .contentType(file.getContentType()) //设定文件类型
                     .build();
+            //上传文件
             minioClient.putObject(args);
             is.close();
             return minioConfig.getUrl() + "/" + minioConfig.getBucketName() + "/" + fileName;
@@ -58,4 +57,19 @@ public class MinioSysFileServiceImpl implements ISysFileService {
                     + " does not exist");
         }
     }
+
+    public GetObjectResponse getFile(String name) throws Exception{
+        DownloadObjectArgs downloadObjectArgs = DownloadObjectArgs.builder()
+                .bucket(minioConfig.getBucketName()) //设定桶名称
+                .object(name) //设定要下载的文件
+                .filename("D:/photo/local/test.jpg") //设定下载的位置
+                .build();
+        minioClient.downloadObject(downloadObjectArgs);
+        GetObjectArgs getObjectArgs = GetObjectArgs.builder()
+                .bucket(minioConfig.getBucketName())
+                .object(name)
+                .build();
+        GetObjectResponse getObjectResponse = minioClient.getObject(getObjectArgs);
+        return getObjectResponse;
+    };
 }
