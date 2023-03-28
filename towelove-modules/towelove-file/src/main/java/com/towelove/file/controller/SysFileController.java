@@ -55,7 +55,7 @@ public class SysFileController {
     @ResponseBody
     @PostMapping("/upload")
     public R<LoveLogs> upload(@RequestParam("files") MultipartFile[] files,
-                                        @RequestParam("description")String description) {
+                              @RequestParam("description") String description) {
         LoveLogs loveLogs = new LoveLogs();
         loveLogs.setDescription(description);
         CopyOnWriteArrayList<String> list = new CopyOnWriteArrayList<>();
@@ -115,13 +115,15 @@ public class SysFileController {
             e.printStackTrace();
         }
     }
+
     /**
      * 单文件上传
+     *
      * @param file 要上传的文件
      * @return 返回文件名称以及url
      */
     @PostMapping("/uploadMinio")
-    public R<SysFile> uploadMinio(@RequestParam("file") MultipartFile file){
+    public R<SysFile> uploadMinio(@RequestParam("file") MultipartFile file) {
         try {
             // 上传并返回访问地址
             String url = minioSysFileService.uploadFile(file);

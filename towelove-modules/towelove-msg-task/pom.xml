@@ -21,6 +21,11 @@
         项目消息发送与任务管理模块
     </description>
     <dependencies>
+        <dependency>
+            <groupId>com.twowaylove</groupId>
+            <artifactId>towelove-common-threadpool</artifactId>
+            <version>1.0</version>
+        </dependency>
         <!-- SpringCloud Alibaba Nacos -->
         <dependency>
             <groupId>com.alibaba.cloud</groupId>

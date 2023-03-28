@@ -16,6 +16,21 @@ import java.util.concurrent.*;
  */
 @AutoConfiguration
 public class DynamicThreadPool {
+    /**
+     * 初始化线程池
+     *
+     * @return
+     */
+    @Bean("logThreadPool")
+    private static ThreadPoolExecutor logThreadPool() {
+        return new ThreadPoolExecutor(4,
+                6,
+                60,
+                TimeUnit.SECONDS,
+                new ResizableCapacityLinkedBlockIngQueue<Runnable>(10),
+                new NamedThreadFactory("log-thread-"),
+                new ThreadPoolExecutor.DiscardPolicy());
+    }
 
     /**
      * 初始化线程池
@@ -23,7 +38,7 @@ public class DynamicThreadPool {
      * @return
      */
     @Bean("fileThreadPool")
-    private static ThreadPoolExecutor buildThreadPoolExecutor() {
+    private static ThreadPoolExecutor fileThreadPool() {
         return new ThreadPoolExecutor(3,
                 3,
                 60,
@@ -52,7 +67,7 @@ public class DynamicThreadPool {
      * 先提交任务给线程池，并修改线程池状态
      */
     private static void dynamicModifyThreadPoolExecutor() throws InterruptedException {
-        ThreadPoolExecutor executor = buildThreadPoolExecutor();
+        ThreadPoolExecutor executor = fileThreadPool();
         for (int i = 0; i < 15; i++) {
             executor.submit(() -> {
                 threadPoolStatus(executor, "创建任务");
