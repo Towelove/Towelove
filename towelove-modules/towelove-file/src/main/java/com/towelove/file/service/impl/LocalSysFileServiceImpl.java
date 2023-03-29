@@ -1,7 +1,7 @@
 package com.towelove.file.service.impl;
 
+import com.towelove.common.core.utils.file.FileUploadUtils;
 import com.towelove.file.service.ISysFileService;
-import com.towelove.file.utils.FileUploadUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;

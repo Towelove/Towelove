@@ -1,4 +1,4 @@
-package com.towelove.file.utils;
+package com.towelove.common.core.utils.file;
 
 
 import com.towelove.common.core.exception.file.FileNameLengthLimitExceededException;
@@ -6,8 +6,6 @@ import com.towelove.common.core.exception.file.FileSizeLimitExceededException;
 import com.towelove.common.core.exception.file.InvalidExtensionException;
 import com.towelove.common.core.utils.DateUtils;
 import com.towelove.common.core.utils.StringUtils;
-import com.towelove.common.core.utils.file.FileTypeUtils;
-import com.towelove.common.core.utils.file.MimeTypeUtils;
 import com.towelove.common.core.utils.uuid.Seq;
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.web.multipart.MultipartFile;

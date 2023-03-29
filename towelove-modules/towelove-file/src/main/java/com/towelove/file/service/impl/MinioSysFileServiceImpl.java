@@ -1,9 +1,9 @@
 package com.towelove.file.service.impl;
 
 
+import com.towelove.common.core.utils.file.FileUploadUtils;
 import com.towelove.file.config.MinioConfig;
 import com.towelove.file.service.ISysFileService;
-import com.towelove.file.utils.FileUploadUtils;
 import io.minio.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -59,17 +59,10 @@ public class MinioSysFileServiceImpl implements ISysFileService {
     }
 
     public GetObjectResponse getFile(String name) throws Exception{
-        //DownloadObjectArgs downloadObjectArgs = DownloadObjectArgs.builder()
-        //        .bucket(minioConfig.getBucketName()) //设定桶名称
-        //        .object(name) //设定要下载的文件
-        //        .filename("D:/photo/local/test.jpg") //设定下载的位置
-        //        .build();
-        //minioClient.downloadObject(downloadObjectArgs);
         GetObjectArgs getObjectArgs = GetObjectArgs.builder()
                 .bucket(minioConfig.getBucketName())
                 .object(name)
                 .build();
-        GetObjectResponse getObjectResponse = minioClient.getObject(getObjectArgs);
-        return getObjectResponse;
+        return  minioClient.getObject(getObjectArgs);
     };
 }
