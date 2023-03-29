@@ -44,9 +44,4 @@ public class SendLogDo extends BaseEntity {
      */
     @TableField("sned_status")
     private Integer sendStatus;
-    /**
-     * 逻辑删除
-     */
-    @TableLogic
-    private Boolean deleted;
 }

@@ -4,6 +4,7 @@ import com.towelove.auth.form.LoginBody;
 import com.towelove.auth.form.RegisterBody;
 import com.towelove.auth.service.SysLoginService;
 import com.towelove.common.core.domain.R;
+import com.towelove.common.core.mybatis.EncryptTypeHandler;
 import com.towelove.common.core.utils.JwtUtils;
 import com.towelove.common.core.utils.StringUtils;
 import com.towelove.common.security.auth.AuthUtil;
@@ -15,7 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-
+import cn.hutool.crypto.symmetric.*;
 /**
  * @author: 张锦标
  * @date: 2023/2/24 9:49
@@ -47,7 +48,8 @@ public class TokenController {
            return R.fail("用户已经登入,请勿重复登入");
         }
         // 用户登录
-        LoginUser userInfo = sysLoginService.login(form.getUsername(), form.getPassword());
+        LoginUser userInfo = sysLoginService.login(form.getUsername(),
+                EncryptTypeHandler.encrypt(form.getPassword()));
         //上面的代码只为LoginUser提供了SysUser对象，下面的createToken为其其他属性添加属性
         // 获取登录token
         //将token放入到请求头中

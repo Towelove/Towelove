@@ -71,10 +71,4 @@ public class MsgTask extends BaseEntity {
      * 枚举
      */
     private Integer status;
-    /**
-     * 是否删除
-     * 使用逻辑删除
-     */
-    @TableLogic
-    private Boolean deleted;
 }

@@ -58,10 +58,6 @@ public class LoveAlbum extends BaseEntity {
      * 开启状态
      */
     private Integer status;
-    /**
-     * 是否删除
-     */
-    private Integer deleted;
 
 }
 

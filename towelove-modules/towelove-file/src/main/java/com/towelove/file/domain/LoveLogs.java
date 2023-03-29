@@ -43,11 +43,6 @@ public class LoveLogs extends BaseEntity {
      * 备注
      */
     private Integer canSee;
-    /**
-     * 是否删除
-     */
-    @TableLogic(value = "0",delval = "1")
-    private Integer deleted;
 
 }
 

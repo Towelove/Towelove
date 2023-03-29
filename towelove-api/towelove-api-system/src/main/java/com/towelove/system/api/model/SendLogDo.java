@@ -15,11 +15,11 @@ import lombok.NoArgsConstructor;
  * @Date 2023 03 18 11 27
  */
 
-@TableName("sys_send_log")
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@TableName("sys_send_log")
 public class SendLogDo extends BaseEntity {
 
     /**
@@ -42,9 +42,4 @@ public class SendLogDo extends BaseEntity {
      */
     @TableField("sned_status")
     private Integer sendStatus;
-    /**
-     * 逻辑删除
-     */
-    @TableLogic
-    private Boolean deleted;
 }

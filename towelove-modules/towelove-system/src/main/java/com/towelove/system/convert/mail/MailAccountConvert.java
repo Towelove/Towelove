@@ -56,7 +56,8 @@ public interface MailAccountConvert {
         String from = StrUtil.isNotEmpty(nickname) ?
                 nickname + " <" + account.getMail() + ">" : account.getMail();
         return new MailAccount().setFrom(from).setAuth(true)
-                .setUser(account.getUsername()).setPass(account.getPassword())
+                .setUser(account.getUsername())
+                .setPass(account.getPassword())
                 .setHost(account.getHost()).setPort(account.getPort())
                 .setSslEnable(account.getSslEnable());
     }

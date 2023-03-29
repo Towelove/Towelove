@@ -16,7 +16,7 @@ import java.util.Date;
 public class MsgTaskServiceTest {
     public static void main(String[] args) {
         MsgTask msgTask = MsgTask.builder().content("!@3123")
-                .id(1L).deleted(false)
+                .id(1L)
                 .receiveAccount("460219753@qq.com")
                 .sendTime(new Date())
                 .accountId(1L)

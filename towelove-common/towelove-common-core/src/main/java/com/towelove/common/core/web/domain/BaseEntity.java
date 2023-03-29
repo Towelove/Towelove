@@ -5,7 +5,9 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -30,22 +32,39 @@ public class BaseEntity implements Serializable
     private String searchValue;
 
     /** 创建者 */
+    @TableField(fill = FieldFill.INSERT)
     private String createBy;
 
     /** 创建时间 */
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @TableField(fill = FieldFill.INSERT)
     private Date createTime;
 
     /** 更新者 */
+    @TableField(fill = FieldFill.INSERT_UPDATE)
     private String updateBy;
 
     /** 更新时间 */
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @TableField(fill = FieldFill.INSERT_UPDATE)
     private Date updateTime;
 
     /** 备注 */
     private String remark;
 
+    /**
+     * 是否删除
+     */
+    @TableLogic
+    private Boolean deleted;
+
+    public Boolean getDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(Boolean deleted) {
+        this.deleted = deleted;
+    }
     ///** 请求参数 */
     //@TableField(exist = false)
     //@JsonInclude(JsonInclude.Include.NON_EMPTY)
