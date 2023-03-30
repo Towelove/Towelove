@@ -12,4 +12,7 @@ public class RedisServiceConstants {
     public static final String BLACK_LIST_IP = "black_list_ip:";
     //当前正在使用系统的ip
     public static final String USING_SYS_IP = "using_sys_ip:";
+
+    public static final String USER_LIKE_ARTICLE = "users:like:article:";
+    public static final String USER_LIKE_TIME = "users:like:time:";
 }

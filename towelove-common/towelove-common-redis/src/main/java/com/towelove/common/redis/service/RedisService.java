@@ -1,10 +1,9 @@
 package com.towelove.common.redis.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.BoundSetOperations;
-import org.springframework.data.redis.core.HashOperations;
-import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.core.ValueOperations;
+import org.springframework.data.redis.connection.BitFieldSubCommands;
+import org.springframework.data.redis.connection.ReactiveStringCommands;
+import org.springframework.data.redis.core.*;
 import org.springframework.stereotype.Component;
 
 import java.util.*;
@@ -22,6 +21,73 @@ public class RedisService
     @Autowired
     public RedisTemplate redisTemplate;
 
+    /**
+     * 使用bitmap并且设定某一个位值
+     * @param key bitmap缓存的键值
+     * @param offset bitmap对应的索引位
+     * @param value bitmap对应的值 0/1
+     * @return 是否设置成功
+     */
+    public boolean setBit(final String key,final Long offset,final Boolean value){
+        return redisTemplate.opsForValue().setBit(key,offset,value);
+    }
+
+    /**
+     * 获取bitmap某一个位上的值
+     * @param key bitmap缓存的键值
+     * @param offset bitmap对应的索引位
+     * @return 该位键值是0/1
+     */
+    public boolean getBit(final String key,final Long offset){
+        return redisTemplate.opsForValue().getBit(key,offset);
+    }
+
+    /**
+     * 返回bitmap的长度
+     * @param key bitmap缓存的键值
+     * @return 返回bitmap的长度
+     */
+    public long bitmapSize(String key){
+        return redisTemplate.opsForValue().size(key);
+    }
+    /**
+     * 获取某个bitmap上的1的个数
+     * @param key bitmap缓存的键值
+     * @return 返回1的个数
+     */
+    public Long bitCount(final String key){
+        //Long start = 0L; // 起始位置
+        //Long end = -1L; // 结束位置，-1表示计算整个bitmap的长度
+        Long count = (Long) redisTemplate.execute((RedisCallback<Long>) connection ->
+                connection.bitCount(key.getBytes()));
+        return count;
+    }
+    /**
+     * 获取某个bitmap上某一段上的1的个数
+     * @param key bitmap缓存的键值
+     * @return 返回1的个数
+     */
+    public Long bitCountRange(final String key,final Long start,final Long end){
+        Long length = (Long) redisTemplate.execute((RedisCallback<Long>) con ->
+            con.bitCount(key.getBytes(),start,end));
+        return length;
+    }
+
+    /**
+     * 是哦那个bitfield获取连续为1的天数
+     * @param buildSignKey bitmap缓存的键值
+     * @param limit
+     * @param offset
+     * @return
+     */
+    @Deprecated
+    public List<Long> bitField(final String buildSignKey,final Integer limit,final Long offset){
+        return (List<Long>) redisTemplate.execute((RedisCallback<List<Long>>)con->
+                con.bitField(buildSignKey.getBytes(),
+                        BitFieldSubCommands.create()
+                                .get(BitFieldSubCommands.BitFieldType
+                                        .unsigned(limit)).valueAt(offset)));
+    }
     /**
      * 缓存基本的对象，Integer、String、实体类等
      *
