@@ -50,7 +50,8 @@ public class MinioSysFileServiceImpl implements ISysFileService {
             //上传文件
             minioClient.putObject(args);
             is.close();
-            return minioConfig.getUrl() + "/" + minioConfig.getBucketName() + "/" + fileName;
+            //return minioConfig.getUrl() + "/" + minioConfig.getBucketName() + "/" + fileName;
+            return fileName;
         } else {
             System.out.println("my-bucketname does not exist");
             throw new RuntimeException("my-bucketname " + minioConfig.getBucketName()
