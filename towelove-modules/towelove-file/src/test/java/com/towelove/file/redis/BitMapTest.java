@@ -9,6 +9,7 @@ import org.springframework.data.redis.core.script.RedisScript;
 import sun.awt.util.IdentityArrayList;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 /**
@@ -20,7 +21,30 @@ import java.util.List;
 public class BitMapTest {
     @Autowired
     private RedisService redisService;
+    @Test
+    public void bitmapCode(){
+        //15.4k byte  1024k = 1m
+        long userId = 1;
+        long articleId = 1000;
+        //设定喜欢的文章 设定状态为相反
+        boolean bit = redisService.getBit(RedisServiceConstants.USER_LIKE_ARTICLE + userId,
+                Long.valueOf(articleId));
+        redisService.setBit(RedisServiceConstants.USER_LIKE_ARTICLE + userId
+                ,Long.valueOf(articleId),!bit);
 
+        List<Long> likeList = redisService.getCacheList(
+                RedisServiceConstants.USER_LIKE_TIME + userId);
+        if (bit){
+            likeList.remove(articleId);
+        }else{
+            likeList.add(articleId);
+        }
+        //去重后放入list
+        ArrayList<Long> likeList1 = new ArrayList<>(new HashSet<Long>(likeList));
+        redisService.deleteObject(RedisServiceConstants.USER_LIKE_TIME+userId);
+        redisService.setCacheList(RedisServiceConstants.USER_LIKE_TIME+userId,
+                likeList1);
+    }
     @Test
     public void bitmap() {
         Long userId = 1L;
