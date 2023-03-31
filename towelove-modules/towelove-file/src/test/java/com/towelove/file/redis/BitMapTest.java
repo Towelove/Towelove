@@ -24,7 +24,7 @@ public class BitMapTest {
     @Test
     public void bitmapCode(){
         //15.4k byte  1024k = 1m
-        long userId = 1;
+        long userId = 22;
         long articleId = 1000;
         //设定喜欢的文章 设定状态为相反
         boolean bit = redisService.getBit(RedisServiceConstants.USER_LIKE_ARTICLE + userId,

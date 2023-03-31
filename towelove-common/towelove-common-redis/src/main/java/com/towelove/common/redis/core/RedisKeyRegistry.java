@@ -5,6 +5,8 @@ import java.util.List;
 
 /**
  * {@link RedisKeyDefine} 注册表
+ *
+ * @author :张锦标
  */
 public class RedisKeyRegistry {
 
