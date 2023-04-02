@@ -13,7 +13,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>towelove-system</module>
-        <module>towelove-file</module>
+        <module>towelove-core</module>
         <module>towelove-msg-task</module>
     </modules>
 

@@ -1,6 +1,6 @@
 # Tomcat
 server:
-  port: 9203
+  port: 80
 
 # Spring
 spring:
@@ -45,3 +45,16 @@ minio:
   accessKey: towelove
   secretKey: towelove
   bucketName: towelove
+
+chatGPT:
+  proxy-url: 127.0.0.1 #代理地址
+  proxy-port: 7890 #代理的端口
+  api-url: https://api.openai.com/v1/chat/completions
+  api-key: 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
+
+wechat:
+  mp:
+    appId: wx396b4584dfa5c257
+    secret: 1e6b336bb9e4d33edb30dac8bd01200c
+    token: towelove
+    aesKey: lqcxQBlsOSn35Nrya5saORbOqoIpHbM35RCy3l3kVcD # EncodingAESKey
