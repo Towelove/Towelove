@@ -4,7 +4,9 @@ import com.alibaba.fastjson2.JSONArray;
 import com.alibaba.fastjson2.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import java.io.*;
 import java.net.HttpURLConnection;
@@ -29,13 +31,15 @@ public class ChatGptService {
         }
         return "";
     }
+
+
     /**
      * 调用ChatGPTAPI
      *
      * @param question
      * @return
      */
-    public static String postChatGPT(String question) {
+    public String postChatGPT(String question) {
 
         StringBuffer receive = new StringBuffer();
         BufferedWriter dos = null;
@@ -43,12 +47,11 @@ public class ChatGptService {
         HttpURLConnection URLConn = null;
 
         try {
-
             // API的地址
             URL url = new URL("https://api.openai.com/v1/completions");
             URLConn = (HttpURLConnection) url.openConnection();
-            URLConn.setReadTimeout(1000 * 10);
-            URLConn.setConnectTimeout(1000 * 10);
+            URLConn.setReadTimeout(1000 * 100);
+            URLConn.setConnectTimeout(1000 * 100);
             URLConn.setDoOutput(true);
             URLConn.setDoInput(true);
             URLConn.setRequestMethod("POST");
@@ -62,15 +65,17 @@ public class ChatGptService {
 
             JSONObject sendParam = new JSONObject();
             // 语言模型
-            sendParam.put("model", "text-davinci-003");
+            sendParam.put("model", "gpt-3.5-turbo-0301");
             // 要问的问题
-            sendParam.put("prompt", question);
+            //sendParam.put("prompt", question);
+            sendParam.put("message","[{\"role\": \"user\", \"content\":"+"\""+question +"\"");
             // 温度，即随机性，0表示随机性最低，2表示随机性最高
-            sendParam.put("temperature", 0.8);
+            sendParam.put("temperature", 0);
             // 返回最大的字数
-            sendParam.put("max_tokens", 2048);
+            sendParam.put("max_tokens", 3072);
 
-            URLConn.setRequestProperty("Content-Length", String.valueOf(sendParam.toString().getBytes().length));
+            URLConn.setRequestProperty("Content-Length",
+                    String.valueOf(sendParam.toString().getBytes().length));
             dos = new BufferedWriter(new OutputStreamWriter(URLConn.getOutputStream(), "UTF-8"));
             dos.write(sendParam.toString());
             dos.flush();
