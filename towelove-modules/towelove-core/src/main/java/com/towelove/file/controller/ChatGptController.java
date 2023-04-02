@@ -31,8 +31,10 @@ public class ChatGptController {
     @Autowired
     ChatGptService chatGptService;
 
-    public static final String path = "https://api.openai.com/v1/completions";
-
+    public static final String path = "https://openapi.capoo.cc/v1/completions"; //无需代理
+    //public static final String path = "https://openapi.deno.capoo.cc/v1/completions";
+    //public static final String path = "https://openapi.cf.capoo.cc/v1/completions";
+    //public static final String path = "https://api.openai.com/v1/completions"; //必须代理
     @Value("${chatGPT.proxy-url}")
     private String PROXY_URL;
     @Value("${chatGPT.proxy-port}")

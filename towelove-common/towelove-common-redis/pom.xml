@@ -18,10 +18,6 @@
     <dependencies>
         <dependency>
             <groupId>com.twowaylove</groupId>
-            <artifactId>towelove-common-redis</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.twowaylove</groupId>
             <artifactId>towelove-common-core</artifactId>
         </dependency>
         <dependency>

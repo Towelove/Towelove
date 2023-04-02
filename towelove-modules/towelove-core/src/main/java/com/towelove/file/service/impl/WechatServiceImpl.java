@@ -1,9 +1,6 @@
 package com.towelove.file.service.impl;
 
-import cn.hutool.http.server.HttpServerRequest;
-import cn.hutool.http.server.HttpServerResponse;
 import com.alibaba.fastjson2.JSONObject;
-import com.sun.org.apache.xml.internal.security.utils.XMLUtils;
 import com.towelove.common.core.constant.MsgTypeConstant;
 import com.towelove.common.core.constant.WechatMsgTypeConstant;
 import com.towelove.file.domain.wechat.ReceiveMessage;

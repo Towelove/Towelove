@@ -22,7 +22,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 @Log
 @RestController
-@RequestMapping("/token")
+@RequestMapping("/wx")
 public class TokenCheckController {
     @Value("${wechat.mp.token}")
     private String token;

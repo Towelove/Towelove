@@ -24,6 +24,9 @@
         <module>towelove-common-redis</module>
         <module>towelove-common-mq</module>
         <module>towelove-common-mybatisplus</module>
+        <module>towelove-common-threadpool</module>
+        <module>towelove-common-minio</module>
+        <module>towelove-common-idempotent</module>
     </modules>
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
