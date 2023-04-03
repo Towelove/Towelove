@@ -22,18 +22,20 @@ import org.dom4j.io.XMLWriter;
  * XMLUtil类
  */
 public class XMLUtil {
-    public static ReceiveMessage XMLTOModel(HttpServletRequest request) {
+    public static void main(String[] args) {
+        String str = "<xml><ToUserName><![CDATA[gh_71a0837d69a6]]></ToUserName>\n" +
+                "<FromUserName><![CDATA[oy__X6O4BjH9QyyOcQaj55-O5Awo]]></FromUserName>\n" +
+                "<CreateTime>1680533388</CreateTime>\n" +
+                "<MsgType><![CDATA[text]]></MsgType>\n" +
+                "<Content><![CDATA[123]]></Content>\n" +
+                "<MsgId>24059451823534879</MsgId>\n" +
+                "</xml>";
+        System.out.println(XMLUtil.XMLTOModel(str));
+    }
+    public  static ReceiveMessage XMLTOModel(String str) {
         ReceiveMessage receiveMessage = new ReceiveMessage();
         try {
-            InputStream inputstream;
-            StringBuffer sb = new StringBuffer();
-            inputstream = request.getInputStream();
-            String s;
-            BufferedReader in = new BufferedReader(new InputStreamReader(inputstream, "UTF-8"));
-            while ((s = in.readLine()) != null) {
-                sb.append(s);
-            }
-            Document document = DocumentHelper.parseText(String.valueOf(sb));
+            Document document = DocumentHelper.parseText(String.valueOf(str));
             Element root = document.getRootElement();
             receiveMessage.setToUserName(root.elementText("ToUserName"));
             receiveMessage.setFromUserName(root.elementText("FromUserName"));
@@ -41,12 +43,10 @@ public class XMLUtil {
             receiveMessage.setContent(root.elementText("Content"));
             receiveMessage.setCreateTime(root.elementText("CreateTime"));
             receiveMessage.setMsgId(root.elementText("MsgId"));
-            receiveMessage.setMsgDataId(root.elementText("MsgDataId"));
-            receiveMessage.setIdx(root.elementText("Idx"));
+            //receiveMessage.setMsgDataId(root.elementText("MsgDataId"));
+            //receiveMessage.setIdx(root.elementText("Idx"));
             //关注
-            receiveMessage.setEvent(root.elementText("Event"));
-            in.close();
-            inputstream.close();
+            //receiveMessage.setEvent(root.elementText("Event"));
         } catch (Exception e) {
             System.out.println(e);
         }

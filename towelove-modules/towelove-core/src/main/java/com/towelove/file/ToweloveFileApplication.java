@@ -18,15 +18,15 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 public class ToweloveFileApplication {
     public static void main(String[] args) {
         SpringApplication.run(ToweloveFileApplication.class,args);
-        System.out.println("（づ￣3￣）づ╭❤～ Towelove文件管理模块启动成功  (o>ε(o>ｕ(≧∩≦)");
-        System.out.println(
-                "  ______   _   _        \n" +
-                " |  ____| (_) | |       \n" +
-                " | |__     _  | |   ___ \n" +
-                " |  __|   | | | |  / _ \\\n" +
-                " | |      | | | | |  __/\n" +
-                " |_|      |_| |_|  \\___|\n" +
-                "                        \n" +
-                "                        \n");
+        System.out.println("（づ￣3￣）づ╭❤～ Towelove核心模块启动成功  (o>ε(o>ｕ(≧∩≦)");
+        System.out.println("\n" +
+                "   _____                       \n" +
+                "  / ____|                      \n" +
+                " | |        ___    _ __    ___ \n" +
+                " | |       / _ \\  | '__|  / _ \\\n" +
+                " | |____  | (_) | | |    |  __/\n" +
+                "  \\_____|  \\___/  |_|     \\___|\n" +
+                "                               \n" +
+                "                               \n");
     }
 }
