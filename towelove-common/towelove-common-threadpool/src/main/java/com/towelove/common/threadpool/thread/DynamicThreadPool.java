@@ -4,6 +4,7 @@ package com.towelove.common.threadpool.thread;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 
 import java.time.LocalTime;
 import java.util.concurrent.*;
@@ -29,6 +30,22 @@ public class DynamicThreadPool {
                 TimeUnit.SECONDS,
                 new ResizableCapacityLinkedBlockIngQueue<Runnable>(10),
                 new NamedThreadFactory("log-thread-"),
+                new ThreadPoolExecutor.DiscardPolicy());
+    }
+    /**
+     * 初始化线程池
+     *
+     * @return
+     */
+    @Bean("cpuThreadPool")
+    @Primary
+    private static ThreadPoolExecutor cpuThreadPool() {
+        return new ThreadPoolExecutor(4,
+                6,
+                60,
+                TimeUnit.SECONDS,
+                new ResizableCapacityLinkedBlockIngQueue<Runnable>(10),
+                new NamedThreadFactory("cpu-thread-"),
                 new ThreadPoolExecutor.DiscardPolicy());
     }
 

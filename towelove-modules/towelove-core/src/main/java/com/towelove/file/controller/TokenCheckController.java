@@ -1,9 +1,14 @@
 package com.towelove.file.controller;
 
 
+import com.alibaba.fastjson.JSONObject;
 import com.squareup.moshi.Moshi;
+import com.towelove.common.core.constant.WxConstant;
+import com.towelove.common.core.domain.R;
 import com.towelove.file.domain.ChatGPTRequest;
 import com.towelove.file.domain.wechat.ReceiveMessage;
+import com.towelove.file.domain.wechat.Text;
+import com.towelove.file.domain.wechat.WxCustomMessage;
 import com.towelove.file.service.WechatService;
 import com.towelove.file.service.impl.ChatGptService;
 import com.towelove.file.util.TokenCheckUtil;
@@ -29,6 +34,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.Proxy;
+import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 
@@ -41,17 +47,24 @@ import java.util.concurrent.TimeUnit;
 @RestController
 @RequestMapping("/wx")
 public class TokenCheckController {
-    @Value("${wechat.mp.token}")
-    private String token;
     @Autowired
     private WechatService wechatService;
     @Autowired
     ChatGptService chatGptService;
 
+    @Autowired
+    private ThreadPoolExecutor threadPoolExecutor;
+
     public static final String path = "https://openapi.capoo.cc/v1/completions"; //无需代理
     //public static final String path = "https://openapi.deno.capoo.cc/v1/completions";
     //public static final String path = "https://openapi.cf.capoo.cc/v1/completions";
     //public static final String path = "https://api.openai.com/v1/completions"; //必须代理
+    @Value("${wechat.mp.token}")
+    private String token;
+    @Value("${wechat.mp.appId}")
+    private String appId;
+    @Value("${wechat.mp.secret}")
+    private String secret;
     @Value("${chatGPT.proxy-url}")
     private String PROXY_URL;
     @Value("${chatGPT.proxy-port}")
@@ -77,58 +90,53 @@ public class TokenCheckController {
         ReceiveMessage receiveMessage = XMLUtil.parseXmlToMsg(requestBody);
         System.out.println("接收到的微信公众号的消息:" + receiveMessage);
 
-        //ChatGPTRequest chatGPTRequest = new ChatGPTRequest();
-        //chatGPTRequest.setMax_tokens(3072);
-        ////封装okhttp请求向chatgpt发送请求
-        //OkHttpClient okHttpClient = new OkHttpClient.Builder()
-        //        // 设置代理
-        //        .proxy(new Proxy(Proxy.Type.HTTP, new InetSocketAddress(PROXY_URL, PROXY_PORT)))
-        //        // 设置超时时间
-        //        .connectTimeout(10, TimeUnit.SECONDS).writeTimeout(10, TimeUnit.SECONDS).readTimeout(30,
-        //                TimeUnit.SECONDS).callTimeout(60, TimeUnit.SECONDS).build();
-        //
-        //MediaType mediaType = MediaType.parse("application/json");
-        //Moshi moshi = new Moshi.Builder().build();
-        //String chatGptRequestJson = moshi.adapter(ChatGPTRequest.class).toJson(chatGPTRequest);
-        //System.out.println("向chatgpt发送的请求如下：" + chatGptRequestJson);
-        //Request toChatGPTRequest = new Request.Builder().url(API_URL)
-        //        .addHeader("Content-Type", "application/json")
-        //        .header("Authorization", "Bearer " + API_KEY)
-        //        .post(okhttp3.RequestBody.create
-        //                (mediaType, chatGptRequestJson))
-        //        .build();
-        //
-        //Response fromChatGPTResponse = okHttpClient.newCall(toChatGPTRequest).execute();
-        //String chatGptResponseString = fromChatGPTResponse.body().string();
-        //
-        //receiveMessage.setContent(chatGptResponseString);
+        //异步调用客服接口，只需要在48小时内给出响应即可
+        //threadPoolExecutor.execute(() -> {
+        //    //得到用户的OpenId
+        //    getCustomResponse(receiveMessage.getFromUserName(),
+        //            receiveMessage.getContent());
+        //});
 
         return XMLUtil.parseMsgToXML(receiveMessage);
     }
 
-    private String parseMsgToXML(ReceiveMessage receiveMessage) {
-        // 创建document对象
-        Document document = DocumentHelper.createDocument();
-        // 创建根节点bookRoot
-        Element xml = document.addElement("xml");
-        // 向根节点中添加第一个节点
-        Element toUserName = xml.addElement("ToUserName");
-        // 向子节点中添加属性
-        toUserName.addCDATA(receiveMessage.getToUserName());
-        Element fromUserName = xml.addElement("FromUserName");
-        fromUserName.addCDATA(receiveMessage.getFromUserName());
-        Element createTime = xml.addElement("CreateTime");
-        createTime.addCDATA(String.valueOf(System.currentTimeMillis()));
-        Element msgType = xml.addElement("MsgType");
-        msgType.addCDATA(receiveMessage.getMsgType());
-        Element content = xml.addElement("Content");
-        //这里的content内容应该是你从数据库或者某种方式生成的 而不是固定的
-        content.addCDATA("hello呀，我是张锦标");
-        String asXML = document.getRootElement().asXML();
-        System.out.println(asXML);
-        return asXML;
-
+    @GetMapping("/customResponse")
+    public R getCustomResponse(String openId, String content) {
+        OkHttpClient okHttpClient = new OkHttpClient.Builder().connectTimeout(300, TimeUnit.SECONDS).writeTimeout(100
+                , TimeUnit.SECONDS).readTimeout(100, TimeUnit.SECONDS).callTimeout(100, TimeUnit.SECONDS).build();
+        //替换url中的token,远程调用微信的接口得到accessToken
+        String url = WxConstant.Send_Custom_Message.replace("ACCESS_TOKEN", wechatService.getAccessToken(appId,
+                secret));
+        ;
+        /**
+         * 设置返回类型为json
+         */
+        MediaType mediaType = MediaType.parse("application/json");
+        WxCustomMessage wxCustomMessage = new WxCustomMessage();
+        //得到openId
+        wxCustomMessage.setTouser(openId);
+        wxCustomMessage.setMsgtype("text");
+        Text text = new Text();
+        text.setContent(wechatService.getContentFromGpt(content));
+        wxCustomMessage.setText(text);
+        //将请求体设置为JSON
+        String requestBody = JSONObject.toJSONString(wxCustomMessage);
+        //构建请求
+        Request request =
+                new Request.Builder().url(url).post(okhttp3.RequestBody.create(mediaType, requestBody)).build();
+        //发起请求
+        Response response = null;
+        try {
+            response = okHttpClient.newCall(request).execute();
+            if (response.isSuccessful()) {
+                log.info("POST请求得到的响应体: response======>" + response.body().string());
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return R.ok();
     }
+
 
     public static void main(String[] args) {
         try {

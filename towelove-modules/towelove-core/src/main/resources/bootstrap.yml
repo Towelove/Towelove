@@ -49,7 +49,7 @@ minio:
 chatGPT:
   proxy-url: 127.0.0.1 #代理地址
   proxy-port: 7890 #代理的端口
-  api-url: https://api.openai.com/v1/chat/completions
+  api-url: https://openapi.capoo.cc/v1/chat/completions
   api-key: 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
 
 wechat:

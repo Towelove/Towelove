@@ -19,4 +19,7 @@ import java.util.Map;
 public interface WechatService {
     Map<String, String> parseXmlData2Map(HttpServletRequest req);
     JSONObject orderReply(HttpServletResponse response, ReceiveMessage receiveMessage) throws Exception;
+    String getAccessToken(String appId,String secret);
+
+    String getContentFromGpt(String content);
 }
