@@ -30,9 +30,9 @@ public class XMLUtil {
                 "<Content><![CDATA[张锦标请加油！]]></Content>\n" +
                 "<MsgId>24060005236946394</MsgId>\n" +
                 "</xml>";
-        System.out.println(XMLUtil.XMLTOModel(str));
+        System.out.println(XMLUtil.parseXmlToMsg(str));
     }
-    public  static ReceiveMessage XMLTOModel(String str) {
+    public  static ReceiveMessage parseXmlToMsg(String str) {
         ReceiveMessage receiveMessage = new ReceiveMessage();
         try {
             Document document = DocumentHelper.parseText(String.valueOf(str));
@@ -52,7 +52,29 @@ public class XMLUtil {
         }
         return receiveMessage;
     }
+    public static  String parseMsgToXML(ReceiveMessage receiveMessage) {
+        // 创建document对象
+        Document document = DocumentHelper.createDocument();
+        // 创建根节点bookRoot
+        Element xml = document.addElement("xml");
+        // 向根节点中添加第一个节点
+        Element toUserName = xml.addElement("ToUserName");
+        // 向子节点中添加属性
+        toUserName.addCDATA(receiveMessage.getToUserName());
+        Element fromUserName = xml.addElement("FromUserName");
+        fromUserName.addCDATA(receiveMessage.getFromUserName());
+        Element createTime = xml.addElement("CreateTime");
+        createTime.addCDATA(String.valueOf(System.currentTimeMillis()));
+        Element msgType = xml.addElement("MsgType");
+        msgType.addCDATA(receiveMessage.getMsgType());
+        Element content = xml.addElement("Content");
+        //这里的content内容应该是你从数据库或者某种方式生成的 而不是固定的
+        content.addCDATA("hello呀，我是张锦标");
+        String asXML = document.getRootElement().asXML();
+        System.out.println(asXML);
+        return asXML;
 
+    }
     public static String ObjToXml(ReplyMessage obj) throws Exception {
         Document document = DocumentHelper.createDocument();
         Element root = document.addElement(obj.getClass().getSimpleName());
