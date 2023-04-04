@@ -24,11 +24,11 @@ import org.dom4j.io.XMLWriter;
 public class XMLUtil {
     public static void main(String[] args) {
         String str = "<xml><ToUserName><![CDATA[gh_71a0837d69a6]]></ToUserName>\n" +
-                "<FromUserName><![CDATA[oy__X6O4BjH9QyyOcQaj55-O5Awo]]></FromUserName>\n" +
-                "<CreateTime>1680533388</CreateTime>\n" +
+                "<FromUserName><![CDATA[oy__X6JbTiLxEVG85ABtAawsc_qw]]></FromUserName>\n" +
+                "<CreateTime>1680571837</CreateTime>\n" +
                 "<MsgType><![CDATA[text]]></MsgType>\n" +
-                "<Content><![CDATA[123]]></Content>\n" +
-                "<MsgId>24059451823534879</MsgId>\n" +
+                "<Content><![CDATA[张锦标请加油！]]></Content>\n" +
+                "<MsgId>24060005236946394</MsgId>\n" +
                 "</xml>";
         System.out.println(XMLUtil.XMLTOModel(str));
     }
@@ -37,15 +37,15 @@ public class XMLUtil {
         try {
             Document document = DocumentHelper.parseText(String.valueOf(str));
             Element root = document.getRootElement();
-            receiveMessage.setToUserName(root.elementText("ToUserName"));
-            receiveMessage.setFromUserName(root.elementText("FromUserName"));
+            receiveMessage.setToUserName(root.elementText("FromUserName"));
+            receiveMessage.setFromUserName(root.elementText("ToUserName"));
             receiveMessage.setMsgType(root.elementText("MsgType"));
             receiveMessage.setContent(root.elementText("Content"));
             receiveMessage.setCreateTime(root.elementText("CreateTime"));
             receiveMessage.setMsgId(root.elementText("MsgId"));
             //receiveMessage.setMsgDataId(root.elementText("MsgDataId"));
             //receiveMessage.setIdx(root.elementText("Idx"));
-            //关注
+            ////关注
             //receiveMessage.setEvent(root.elementText("Event"));
         } catch (Exception e) {
             System.out.println(e);
