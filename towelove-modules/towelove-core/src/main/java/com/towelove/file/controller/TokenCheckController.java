@@ -8,7 +8,6 @@ import com.towelove.file.domain.wx.ReceiveMessage;
 import com.towelove.file.domain.wx.Text;
 import com.towelove.file.domain.wx.WxCustomMessage;
 import com.towelove.file.service.WechatService;
-import com.towelove.file.service.impl.ChatGptService;
 import com.towelove.file.util.TokenCheckUtil;
 import com.towelove.file.util.XMLUtil;
 import lombok.extern.java.Log;
@@ -45,8 +44,6 @@ import java.util.concurrent.TimeUnit;
 public class TokenCheckController {
     @Autowired
     private WechatService wechatService;
-    @Autowired
-    ChatGptService chatGptService;
     @Autowired
     private ThreadPoolExecutor threadPoolExecutor;
 

@@ -23,12 +23,11 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 public class RedisCacheAutoConfiguration {
     /**
      * RedisCacheConfiguration Bean
-     *
+     *  优先使用RedisCache作为项目缓存
      * 参考 org.springframework.boot.autoconfigure.cache.RedisCacheConfiguration
      * 的 createConfiguration 方法
      */
     @Bean
-    @Primary
     public RedisCacheConfiguration redisCacheConfiguration(CacheProperties cacheProperties) {
         // 设置使用 JSON 序列化方式
         RedisCacheConfiguration config = RedisCacheConfiguration.defaultCacheConfig();

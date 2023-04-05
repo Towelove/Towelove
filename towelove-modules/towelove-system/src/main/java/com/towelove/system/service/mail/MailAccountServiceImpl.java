@@ -3,11 +3,12 @@ package com.towelove.system.service.mail;
 
 import cn.hutool.extra.mail.MailException;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.github.benmanes.caffeine.cache.Cache;
 import com.towelove.common.async.config.AsyncConfig;
+import com.towelove.common.core.constant.CaffeineCacheConstant;
 import com.towelove.common.core.constant.RedisServiceConstants;
 import com.towelove.common.core.domain.PageResult;
 import com.towelove.common.redis.service.RedisService;
-import com.towelove.system.api.factory.SysMailAccountFallbackFactory;
 import com.towelove.system.convert.mail.MailAccountConvert;
 import com.towelove.system.domain.mail.MailAccountDO;
 import com.towelove.system.domain.mail.vo.account.MailAccountCreateReqVO;
@@ -19,6 +20,7 @@ import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.stereotype.Service;
@@ -31,7 +33,9 @@ import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
 
 import static com.towelove.common.core.utils.CollectionUtils.convertMap;
 
@@ -131,7 +135,9 @@ public class MailAccountServiceImpl implements MailAccountService {
      */
     @Getter
     private volatile Map<Long, MailAccountDO> mailAccountCache;
-
+    //直接使用Caffeine的缓存操作
+    @Autowired
+    private Cache cache;
     @Override
     @PostConstruct //当前类构造后就会执行当前方法
     public void initLocalCache() {
@@ -141,10 +147,28 @@ public class MailAccountServiceImpl implements MailAccountService {
         // 第二步：构建缓存 也就是把所有的数据库里面查询出来的id放在我们的代码中
         mailAccountCache = convertMap(accounts, MailAccountDO::getId);
     }
-
     @Override
     public MailAccountDO getMailAccountFromCache(Long id) {
-        return mailAccountCache.get(id);
+
+        String key = CaffeineCacheConstant.MAILACCOUNT + id;
+        MailAccountDO mailAccountDO1 = (MailAccountDO) cache.get(key,
+                k -> {
+                    //先查询 Redis
+                    Object obj = redisService.getCacheObject((String) k);
+                    if (Objects.nonNull(obj)) {
+                        log.info("get data from redis");
+                        return obj;
+                    }
+
+                    // Redis没有则查询 DB
+                    log.info("get data from database");
+                    MailAccountDO mailAccountDO = mailAccountMapper.selectOne(new LambdaQueryWrapper<MailAccountDO>()
+                            .eq(MailAccountDO::getId, id));
+                    redisService.setCacheObject((String) k, mailAccountDO, 120L, TimeUnit.SECONDS);
+                    return mailAccountDO;
+                });
+        return mailAccountDO1;
+        //return mailAccountCache.get(id);
     }
 
     @Override
@@ -186,13 +210,18 @@ public class MailAccountServiceImpl implements MailAccountService {
         // 校验是否存在
         validateMailAccountExists(updateReqVO.getId());
 
-        // 更新
+        // 更新数据转换
         MailAccountDO updateObj = MailAccountConvert.INSTANCE.convert(updateReqVO);
+        String key= CaffeineCacheConstant.MAILACCOUNT + updateObj.getId();
         mailAccountMapper.updateById(updateObj);
+        // 修改本地缓存
+        cache.put(key,updateObj);
         // 发送刷新消息
         //mailProducer.sendMailAccountRefreshMessage();
+        //修改 Redis
         //更新缓存
-        redisService.setCacheObject(RedisServiceConstants.SYS_MAIL_ACCOUNT + updateReqVO.getId(), updateObj);
+        redisService.setCacheObject(RedisServiceConstants.
+                SYS_MAIL_ACCOUNT + updateReqVO.getId(), updateObj);
     }
 
     @Override
@@ -229,6 +258,12 @@ public class MailAccountServiceImpl implements MailAccountService {
 
         // 删除
         mailAccountMapper.deleteById(id);
+
+        String key= CaffeineCacheConstant.MAILACCOUNT + id;
+        //删除缓存
+        redisService.deleteObject(key);
+        cache.invalidate(key);
+
         // 发送刷新消息
         //mailProducer.sendMailAccountRefreshMessage();
     }
