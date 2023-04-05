@@ -5,11 +5,15 @@ import com.towelove.common.core.utils.file.FileUploadUtils;
 import com.towelove.file.config.MinioConfig;
 import com.towelove.file.service.ISysFileService;
 import io.minio.*;
+import io.minio.errors.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.io.InputStream;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
 
 /**
  * Minio 文件存储
@@ -65,5 +69,31 @@ public class MinioSysFileServiceImpl implements ISysFileService {
                 .object(name)
                 .build();
         return  minioClient.getObject(getObjectArgs);
-    };
+    }
+    /**
+     * 根据图片的url删除图片
+     *
+     * @param photoUrls 二手商品对象的url
+     */
+    public void deleteFiles(String photoUrls) throws ServerException, InsufficientDataException,
+            ErrorResponseException, IOException, NoSuchAlgorithmException, InvalidKeyException,
+            InvalidResponseException, XmlParserException, InternalException {
+        boolean found =
+                minioClient.bucketExists(BucketExistsArgs.builder().bucket(minioConfig.getBucketName()).build());
+        if (found) {
+
+            String[] names = photoUrls.split(",");
+            for (String name : names) {
+                try {
+                    RemoveObjectArgs removeObjectsArgs =
+                            RemoveObjectArgs.builder().bucket(minioConfig.getBucketName()).object(name).build();
+                    minioClient.removeObject(removeObjectsArgs);
+                } catch (Exception e){
+                    throw new RuntimeException(e);
+                }
+            }
+        }else{
+            throw new RuntimeException("Minio中并没有这个桶:"+minioConfig.getBucketName());
+        }
+    }
 }

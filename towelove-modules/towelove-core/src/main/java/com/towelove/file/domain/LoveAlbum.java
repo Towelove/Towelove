@@ -1,14 +1,17 @@
 package com.towelove.file.domain;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler;
 import com.towelove.common.core.web.domain.BaseEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * 恋爱相册(LoveAlbum) 实体类
@@ -58,6 +61,11 @@ public class LoveAlbum extends BaseEntity {
      * 开启状态
      */
     private Integer status;
+    /**
+     * 相册中的小照片
+     */
+    @TableField(typeHandler = JacksonTypeHandler.class)
+    private List<LoveLogs> loveLogs;
 
 }
 

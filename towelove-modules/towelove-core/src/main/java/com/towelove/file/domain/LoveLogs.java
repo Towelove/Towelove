@@ -28,19 +28,25 @@ public class LoveLogs extends BaseEntity {
     @TableId(value = "id", type = IdType.AUTO)
     private Long id;
     /**
-     * 当前邮件选择的模板
+     * 恋爱相册id
+     * 用于获取当前日志属于哪一个相册
+     */
+    private Long loveAlbumId;
+    /**
+     * 今日描述
      */
     private String description;
     /**
-     * 发送人名称
+     * 照片url
+     * 根据英文逗号分割
      */
     private String urls;
     /**
-     * 开启状态
+     * 状态
      */
     private Integer status;
     /**
-     * 备注
+     * 外人是否可见
      */
     private Integer canSee;
 
