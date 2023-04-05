@@ -2,13 +2,11 @@ package com.towelove.file.controller;
 
 
 import com.alibaba.fastjson.JSONObject;
-import com.squareup.moshi.Moshi;
 import com.towelove.common.core.constant.WxConstant;
 import com.towelove.common.core.domain.R;
-import com.towelove.file.domain.ChatGPTRequest;
-import com.towelove.file.domain.wechat.ReceiveMessage;
-import com.towelove.file.domain.wechat.Text;
-import com.towelove.file.domain.wechat.WxCustomMessage;
+import com.towelove.file.domain.wx.ReceiveMessage;
+import com.towelove.file.domain.wx.Text;
+import com.towelove.file.domain.wx.WxCustomMessage;
 import com.towelove.file.service.WechatService;
 import com.towelove.file.service.impl.ChatGptService;
 import com.towelove.file.util.TokenCheckUtil;
@@ -32,8 +30,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.net.InetSocketAddress;
-import java.net.Proxy;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
@@ -51,7 +47,6 @@ public class TokenCheckController {
     private WechatService wechatService;
     @Autowired
     ChatGptService chatGptService;
-
     @Autowired
     private ThreadPoolExecutor threadPoolExecutor;
 

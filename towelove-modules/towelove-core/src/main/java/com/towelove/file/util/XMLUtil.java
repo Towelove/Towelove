@@ -1,20 +1,13 @@
 package com.towelove.file.util;
 
-import com.towelove.file.domain.wechat.ReceiveMessage;
-import com.towelove.file.domain.wechat.ReplyMessage;
+import com.towelove.file.domain.wx.ReceiveMessage;
+import com.towelove.file.domain.wx.ReplyMessage;
 import org.dom4j.Document;
 import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
 
-import javax.servlet.http.HttpServletRequest;
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.StringWriter;
-import java.io.StringWriter;
-import org.dom4j.Document;
-import org.dom4j.DocumentHelper;
-import org.dom4j.Element;
+
 import org.dom4j.io.XMLWriter;
 /**
  * @author: 张锦标

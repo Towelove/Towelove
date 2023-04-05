@@ -1,13 +1,10 @@
 package com.towelove.file.service;
 
-import cn.hutool.http.server.HttpServerRequest;
-import cn.hutool.http.server.HttpServerResponse;
 import com.alibaba.fastjson2.JSONObject;
-import com.towelove.file.domain.wechat.ReceiveMessage;
+import com.towelove.file.domain.wx.ReceiveMessage;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.util.Map;
 
 /**

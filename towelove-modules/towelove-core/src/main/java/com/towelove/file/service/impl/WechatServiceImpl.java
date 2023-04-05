@@ -3,15 +3,13 @@ package com.towelove.file.service.impl;
 import com.alibaba.fastjson2.JSONObject;
 import com.squareup.moshi.Moshi;
 import com.towelove.common.core.constant.MsgTypeConstant;
-import com.towelove.common.core.constant.WechatMsgTypeConstant;
 import com.towelove.common.core.constant.WxConstant;
-import com.towelove.file.domain.ChatGPTRequest;
-import com.towelove.file.domain.ChatGptResponse;
-import com.towelove.file.domain.Messages;
-import com.towelove.file.domain.wechat.ReceiveMessage;
-import com.towelove.file.domain.wechat.ReplyMessage;
-import com.towelove.file.domain.wechat.WxToken;
-import com.towelove.file.service.TextReplyService;
+import com.towelove.file.domain.wx.ChatGPTRequest;
+import com.towelove.file.domain.wx.ChatGptResponse;
+import com.towelove.file.domain.wx.Messages;
+import com.towelove.file.domain.wx.ReceiveMessage;
+import com.towelove.file.domain.wx.ReplyMessage;
+import com.towelove.file.domain.wx.WxToken;
 import com.towelove.file.service.WechatService;
 import com.towelove.file.util.XMLUtil;
 import okhttp3.MediaType;
@@ -23,7 +21,6 @@ import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -31,13 +28,10 @@ import javax.servlet.ServletInputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
-
-import static org.reflections.Reflections.log;
 
 /**
  * @author: 张锦标

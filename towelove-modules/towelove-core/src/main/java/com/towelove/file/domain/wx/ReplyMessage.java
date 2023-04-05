@@ -1,4 +1,4 @@
-package com.towelove.file.domain.wechat;
+package com.towelove.file.domain.wx;
 
 import lombok.Data;
 

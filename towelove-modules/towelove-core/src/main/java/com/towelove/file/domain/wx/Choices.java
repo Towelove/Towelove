@@ -1,4 +1,4 @@
-package com.towelove.file.domain;
+package com.towelove.file.domain.wx;
 
 import lombok.Data;
 
