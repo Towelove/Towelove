@@ -7,6 +7,8 @@ import com.towelove.file.service.ISysFileService;
 import io.minio.*;
 import io.minio.errors.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -14,6 +16,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
+import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ThreadPoolExecutor;
 
 /**
  * Minio 文件存储
@@ -21,13 +27,16 @@ import java.security.NoSuchAlgorithmException;
  * @author 张锦标
  */
 @Service
+@Primary
 public class MinioSysFileServiceImpl implements ISysFileService {
     @Autowired
     private MinioConfig minioConfig;
 
     @Autowired
     private MinioClient minioClient;
-
+    @Autowired
+    @Qualifier("fileThreadPool")
+    private ThreadPoolExecutor fileThreadPool;
     /**
      * 本地文件上传接口
      *
@@ -63,6 +72,44 @@ public class MinioSysFileServiceImpl implements ISysFileService {
         }
     }
 
+    /**
+     * 实现多文件多线程上传接口
+     * @param files
+     * @return
+     */
+    @Override
+    public List<String> uploadloadFileMultiple(MultipartFile[] files) {
+        CopyOnWriteArrayList<String> list = new CopyOnWriteArrayList<>();
+        CountDownLatch countDownLatch = new CountDownLatch(files.length);
+        for (int i = 0; i < files.length; i++) {
+            try {
+                MultipartFile file = files[i];
+                //TODO 使用CountDownLaunch或者ComplatableFuture或者Semaphore
+                //来完成多线程的文件上传
+                fileThreadPool.submit(() -> {
+                    try {
+                        String url = uploadFile(file);
+                        list.add(url);
+                    } catch (Exception e) {
+                        throw new RuntimeException(e);
+                    } finally {
+                        //表示一个文件已经被完成
+                        countDownLatch.countDown();
+                    }
+                });
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        }
+        try {
+            //阻塞直到所有的文件完成复制
+            countDownLatch.await();
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        return list;
+    }
+
     public GetObjectResponse getFile(String name) throws Exception{
         GetObjectArgs getObjectArgs = GetObjectArgs.builder()
                 .bucket(minioConfig.getBucketName())
@@ -73,7 +120,7 @@ public class MinioSysFileServiceImpl implements ISysFileService {
     /**
      * 根据图片的url删除图片
      *
-     * @param photoUrls 二手商品对象的url
+     * @param photoUrls 对象的url
      */
     public void deleteFiles(String photoUrls) throws ServerException, InsufficientDataException,
             ErrorResponseException, IOException, NoSuchAlgorithmException, InvalidKeyException,

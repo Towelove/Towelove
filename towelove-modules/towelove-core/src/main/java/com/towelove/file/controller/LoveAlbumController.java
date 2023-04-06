@@ -54,8 +54,8 @@ public class LoveAlbumController {
      * @param loveAlbumId 恋爱相册ID
      * @return 结果
      */
-    @GetMapping(value = "/getInfo/{loveAlbumId}")
-    public R<LoveAlbum> getInfo(@PathVariable Long loveAlbumId) {
+    @GetMapping(value = "/get/{loveAlbumId}")
+    public R<LoveAlbum> getInfo(@PathVariable("loveAlbumId") Long loveAlbumId) {
         LoveAlbum loveAlbum = loveAlbumService.selectLoveAlbumById(loveAlbumId);
         return R.ok(loveAlbum);
     }
