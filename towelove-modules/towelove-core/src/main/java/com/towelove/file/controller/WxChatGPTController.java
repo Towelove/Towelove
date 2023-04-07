@@ -41,7 +41,7 @@ import java.util.concurrent.TimeUnit;
 @Log
 @RestController
 @RequestMapping("/wx")
-public class TokenCheckController {
+public class WxChatGPTController {
     @Autowired
     private WechatService wechatService;
     @Autowired
@@ -67,14 +67,13 @@ public class TokenCheckController {
     private String API_KEY;
 
     @GetMapping("/")
-    public String index(HttpServletResponse response, HttpServletRequest request) throws Exception {
+    public String index(HttpServletRequest request) throws Exception {
         String echostr = TokenCheckUtil.checkToken(request, token);
         return echostr;
     }
 
     @PostMapping("/")
-    public String chatGPTproxy(HttpServletResponse response, HttpServletRequest request,
-                               @RequestBody String requestBody, @RequestParam("signature") String signature,
+    public String chatGPTproxy(@RequestBody String requestBody, @RequestParam("signature") String signature,
                                @RequestParam("timestamp") String timestamp, @RequestParam("nonce") String nonce,
                                @RequestParam(name = "encrypt_type", required = false) String encType,
                                @RequestParam(name = "msg_signature", required = false) String msgSignature) throws IOException {
