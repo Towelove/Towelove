@@ -36,6 +36,10 @@ spring:
           uri: lb://towelove-msg-task
           predicates:
             - Path=/msg/**
+        - id: towelove-core
+          uri: lb://towelove-core
+          predicates:
+            - Path=/core/**
     nacos:
       discovery:
         # 服务注册地址

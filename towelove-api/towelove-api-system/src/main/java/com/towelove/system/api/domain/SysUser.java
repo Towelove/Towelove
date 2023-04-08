@@ -74,10 +74,6 @@ public class SysUser extends BaseEntity {
      */
     private String status;
 
-    /**
-     * 删除标志（0代表存在 2代表删除）
-     */
-    private String delFlag;
 
     /**
      * 最后登录IP
@@ -216,13 +212,6 @@ public class SysUser extends BaseEntity {
         this.status = status;
     }
 
-    public String getDelFlag() {
-        return delFlag;
-    }
-
-    public void setDelFlag(String delFlag) {
-        this.delFlag = delFlag;
-    }
 
     public String getLoginIp() {
         return loginIp;
@@ -275,8 +264,8 @@ public class SysUser extends BaseEntity {
                 .append("phonenumber", getPhonenumber())
                 .append("sex", getSex())
                 .append("avatar", getAvatar())
-                .append("password", getPassword()).append("status", getStatus())
-                .append("delFlag", getDelFlag())
+                .append("password", getPassword())
+                .append("status", getStatus())
                 .append("loginIp", getLoginIp())
                 .append("loginDate", getLoginDate())
                 .append("createBy", getCreateBy())

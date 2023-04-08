@@ -181,7 +181,7 @@
                 </executions>
                 <configuration>
                     <layout>ZIP</layout>
-                    <mainClass>com.towelove.file.ToweloveFileApplication</mainClass>
+                    <mainClass>com.towelove.core.ToweloveCoreApplication</mainClass>
                 </configuration>
             </plugin>
             <plugin>

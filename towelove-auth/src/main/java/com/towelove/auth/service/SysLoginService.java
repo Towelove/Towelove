@@ -85,7 +85,8 @@ public class SysLoginService
         
         LoginUser userInfo = userResult.getData();
         SysUser user = userResult.getData().getSysUser();
-        if (UserStatus.DELETED.getCode().equals(user.getDelFlag()))
+        //判断用户是否呗删除
+        if (user.getDeleted())
         {
             //recordLogService.recordLogininfor(username, Constants.LOGIN_FAIL, "对不起，您的账号已被删除");
             throw new ServiceException("对不起，您的账号：" + username + " 已被删除");

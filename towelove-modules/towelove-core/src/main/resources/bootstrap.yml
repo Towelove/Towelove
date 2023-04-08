@@ -1,12 +1,12 @@
 # Tomcat
 server:
-  port: 80
+  port: 9203
 
 # Spring
 spring:
   application:
     # 应用名称
-    name: towelove-file
+    name: towelove-core
   profiles:
     # 环境配置
     active: dev
