@@ -3,6 +3,7 @@ package com.towelove.core.controller;
 
 import com.towelove.common.core.domain.PageResult;
 import com.towelove.common.core.domain.R;
+import com.towelove.common.security.annotation.RequiresPermissions;
 import com.towelove.core.domain.lovealbum.*;
 import com.towelove.core.service.LoveAlbumService;
 import org.apache.ibatis.annotations.Delete;

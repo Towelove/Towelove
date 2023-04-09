@@ -19,7 +19,8 @@ public class KeyResolverConfig {
     @Bean
     @Primary // 主候选的
     public KeyResolver ipKeyResolver() {
-        return exchange -> Mono.just(exchange.getRequest().getHeaders().getHost().getHostString());
+        return exchange ->
+                Mono.just(exchange.getRequest().getHeaders().getHost().getHostString());
     }
     // 针对这个路径来限制  /login
     // api 就是 接口  外面一般把gateway    api网关  新一代网关

@@ -40,7 +40,7 @@ public class HeaderInterceptor implements AsyncHandlerInterceptor
         {
             return true;
         }
-
+        System.out.println("------开始设定SecurityContextHolder参数-----");
         SecurityContextHolder.setUserId(ServletUtils.getHeader(request, SecurityConstants.DETAILS_USER_ID));
         SecurityContextHolder.setUserName(ServletUtils.getHeader(request, SecurityConstants.DETAILS_USERNAME));
         SecurityContextHolder.setUserKey(ServletUtils.getHeader(request, SecurityConstants.USER_KEY));

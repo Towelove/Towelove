@@ -29,11 +29,11 @@ public class RouterFunctionConfig {
     @Bean
     public RouterFunction routerFunction()
     {
+        //传入的请求通过RouterFunction路由到处理程序函数
         return RouterFunctions.route(
                 RequestPredicates.GET("/code")
                         .and(RequestPredicates
                                 .accept(MediaType.TEXT_PLAIN)),
                 validateCodeHandler);
-        //传入的请求通过RouterFunction路由到处理程序函数
     }
 }

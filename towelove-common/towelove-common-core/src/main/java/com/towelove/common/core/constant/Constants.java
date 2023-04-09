@@ -112,7 +112,7 @@ public class Constants
     /**
      * 验证码有效期（分钟）
      */
-    public static final long CAPTCHA_EXPIRATION = 2;
+    public static final long CAPTCHA_EXPIRATION = 5;
 
     /**
      * 资源映射路径 前缀

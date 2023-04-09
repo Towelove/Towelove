@@ -2,26 +2,39 @@ package com.towelove.gateway.filter;
 
 import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.JSONObject;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.towelove.common.core.utils.ServletUtils;
 import com.towelove.common.core.utils.StringUtils;
-import com.towelove.gateway.config.properties.CaptchaProperties;
+import com.towelove.gateway.config.properties.KaptchaProperties;
 import com.towelove.gateway.service.ValidateCodeService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFactory;
+import org.springframework.cloud.gateway.route.Route;
+import org.springframework.cloud.gateway.support.ServerWebExchangeUtils;
 import org.springframework.core.Ordered;
 import org.springframework.core.io.buffer.DataBuffer;
 import org.springframework.core.io.buffer.DataBufferUtils;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.stereotype.Component;
+import org.springframework.web.filter.OncePerRequestFilter;
 import org.springframework.web.server.ServerWebExchange;
+import org.springframework.web.util.UriComponentsBuilder;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import javax.servlet.FilterChain;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.net.URI;
 import java.nio.CharBuffer;
+import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -30,55 +43,77 @@ import java.util.concurrent.atomic.AtomicReference;
  * @date: 2023/3/10 13:42
  * ValidateCodeFilter类
  * 验证码校验过滤器
+ * 这个类的问题在于会不断的导致gateway请求重放
  */
-@Component
-public class ValidateCodeFilter //implements GlobalFilter, Ordered
-        extends AbstractGatewayFilterFactory<Object>
-{
+//@Component
+public class ValidateCodeFilter
+        //extends OncePerRequestFilter
+        //implements GlobalFilter, Ordered
+        extends AbstractGatewayFilterFactory<Object> {
+
+    private static final Logger log = LoggerFactory.getLogger(ValidateCodeFilter.class);
+
     //需要生成验证码的路径
-    private final static String[] VALIDATE_URL =
-            new String[] { "/auth/login", "/auth/register" };
+    private final static String[] VALIDATE_URL = new String[]{"/auth/login", "/auth/register"};
     //验证码服务
     @Autowired
     private ValidateCodeService validateCodeService;
     //验证码配置学习
     @Autowired
-    private CaptchaProperties captchaProperties;
+    private KaptchaProperties kaptchaProperties;
     //验证码内容
     private static final String CODE = "code";
     //验证码的uuid
     private static final String UUID = "uuid";
 
+    //实现局部过滤器
     @Override
-    public GatewayFilter apply(Object config)
-    {
-         return (exchange, chain) -> {
+    public GatewayFilter apply(Object config) {
+        return (exchange, chain) -> {
+
             ServerHttpRequest request = exchange.getRequest();
+            //从Header中获取用户信息
+            log.info("请求ID：{}", request.getId());
+            String Key = "Request:ID:" + request.getId();
+
+            //if (request.getURI().getPath().matches(".+.ico$")){
+            //    return chain.filter(exchange);
+            //}
 
             // 非登录/注册请求或验证码关闭，不处理
-            if (!StringUtils.containsAnyIgnoreCase(request.getURI().getPath(),
-                    VALIDATE_URL) || !captchaProperties.getEnabled())
-            {
+            if (!StringUtils.containsAnyIgnoreCase(request.getURI().getPath(), VALIDATE_URL) || !kaptchaProperties.getEnabled()) {
                 return chain.filter(exchange);
             }
+            //if (StringUtils.containsAnyIgnoreCase(request.getURI().getPath(), VALIDATE_URL) || !kaptchaProperties.getEnabled()) {
+            //    ServerHttpRequest.Builder mutate = request.mutate();
+            //    return chain.filter(exchange.mutate()
+            //            .request(mutate.build()).build());
+            //}
 
-            try
-            {
+            try {
+                //获取请求体内容
                 String rspStr = resolveBodyFromRequest(request);
                 //接收JSON格式的请求
                 JSONObject obj = JSON.parseObject(rspStr);
+                //校验验证码是否正确
                 validateCodeService.checkCaptcha(obj.getString(CODE), obj.getString(UUID));
-            }
-            catch (Exception e)
-            {
-                return ServletUtils.webFluxResponseWriter(exchange.getResponse(), e.getMessage());
+
+
+            } catch (Exception e) {
+                return ServletUtils.webFluxResponseWriter
+                        (exchange.getResponse(), e.getMessage());
             }
             return chain.filter(exchange);
         };
     }
 
-    private String resolveBodyFromRequest(ServerHttpRequest serverHttpRequest)
-    {
+    /**
+     * 获取请求体内容并且转换为字符串
+     *
+     * @param serverHttpRequest 请求
+     * @return
+     */
+    private String resolveBodyFromRequest(ServerHttpRequest serverHttpRequest) {
         // 获取请求体
         Flux<DataBuffer> body = serverHttpRequest.getBody();
         AtomicReference<String> bodyRef = new AtomicReference<>();
@@ -90,25 +125,21 @@ public class ValidateCodeFilter //implements GlobalFilter, Ordered
         return bodyRef.get();
     }
 
+    // ----------- 全局过滤器使用的 ------------------
     //@Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
         ServerHttpRequest request = exchange.getRequest();
 
         // 非登录/注册请求或验证码关闭，不处理
-        if (!StringUtils.containsAnyIgnoreCase(request.getURI().getPath(),
-                VALIDATE_URL) || !captchaProperties.getEnabled())
-        {
+        if (!StringUtils.containsAnyIgnoreCase(request.getURI().getPath(), VALIDATE_URL) || !kaptchaProperties.getEnabled()) {
             return chain.filter(exchange);
         }
 
-        try
-        {
+        try {
             String rspStr = resolveBodyFromRequest(request);
             JSONObject obj = JSON.parseObject(rspStr);
             validateCodeService.checkCaptcha(obj.getString(CODE), obj.getString(UUID));
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             return ServletUtils.webFluxResponseWriter(exchange.getResponse(), e.getMessage());
         }
         return chain.filter(exchange);
@@ -116,6 +147,12 @@ public class ValidateCodeFilter //implements GlobalFilter, Ordered
 
     //@Override
     public int getOrder() {
-        return 0;
+        return -100;
     }
+
+    //@Override
+    //protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain
+    // filterChain) throws ServletException, IOException {
+    //
+    //}
 }

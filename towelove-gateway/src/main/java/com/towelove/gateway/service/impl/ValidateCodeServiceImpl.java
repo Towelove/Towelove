@@ -9,7 +9,7 @@ import com.towelove.common.core.utils.sign.Base64;
 import com.towelove.common.core.utils.uuid.IdUtils;
 import com.towelove.common.core.web.domain.AjaxResult;
 import com.towelove.common.redis.service.RedisService;
-import com.towelove.gateway.config.properties.CaptchaProperties;
+import com.towelove.gateway.config.properties.KaptchaProperties;
 import com.towelove.gateway.service.ValidateCodeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -39,7 +39,7 @@ public class ValidateCodeServiceImpl implements ValidateCodeService
     private RedisService redisService;
 
     @Autowired
-    private CaptchaProperties captchaProperties;
+    private KaptchaProperties kaptchaProperties;
 
     /**
      * 生成验证码
@@ -48,21 +48,21 @@ public class ValidateCodeServiceImpl implements ValidateCodeService
     public AjaxResult createCaptcha() throws IOException, CaptchaException
     {
         AjaxResult ajax = AjaxResult.success();
-        boolean captchaEnabled = captchaProperties.getEnabled();
-        ajax.put("captchaEnabled", captchaEnabled);
-        if (!captchaEnabled)
+        boolean kaptchaEnabled = kaptchaProperties.getEnabled();
+        ajax.put("kaptchaEnabled", kaptchaEnabled);
+        if (!kaptchaEnabled)
         {
             return ajax;
         }
 
         // 保存验证码信息
         String uuid = IdUtils.simpleUUID();
-        String verifyKey = CacheConstants.CAPTCHA_CODE_KEY + uuid;
+        String verifyKey = CacheConstants.KAPTCHA_CODES + uuid;
 
         String capStr = null, code = null;
         BufferedImage image = null;
 
-        String captchaType = captchaProperties.getType();
+        String captchaType = kaptchaProperties.getType();
         // 生成验证码
         if ("math".equals(captchaType))
         {
@@ -77,7 +77,8 @@ public class ValidateCodeServiceImpl implements ValidateCodeService
             image = captchaProducer.createImage(capStr);
         }
 
-        redisService.setCacheObject(verifyKey, code, Constants.CAPTCHA_EXPIRATION, TimeUnit.MINUTES);
+        redisService.setCacheObject(verifyKey, code, 
+                Constants.CAPTCHA_EXPIRATION, TimeUnit.MINUTES);
         // 转换流信息写出
         FastByteArrayOutputStream os = new FastByteArrayOutputStream();
         try
@@ -102,19 +103,20 @@ public class ValidateCodeServiceImpl implements ValidateCodeService
     {
         if (StringUtils.isEmpty(code))
         {
-            throw new CaptchaException("验证码不能为空");
+            throw new CaptchaException("验证码答案不能为空");
         }
         if (StringUtils.isEmpty(uuid))
         {
             throw new CaptchaException("验证码已失效");
         }
-        String verifyKey = CacheConstants.CAPTCHA_CODE_KEY + uuid;
+        //获取并且删除验证码在redis中的缓存
+        String verifyKey = CacheConstants.KAPTCHA_CODES + uuid;
         String captcha = redisService.getCacheObject(verifyKey);
-        redisService.deleteObject(verifyKey);
-
+        //redisService.expire(verifyKey,10,TimeUnit.SECONDS);
         if (!code.equalsIgnoreCase(captcha))
         {
             throw new CaptchaException("验证码错误");
         }
+        redisService.deleteObject(verifyKey);
     }
 }

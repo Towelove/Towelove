@@ -26,6 +26,7 @@ public class CacheBodyGlobalFilter implements Ordered, GlobalFilter {
 
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
+        System.out.println("------开始执行CacheBodyGlobalFilter-----");
         if (exchange.getRequest().getHeaders().getContentType() == null) {
             return chain.filter(exchange);
         } else {

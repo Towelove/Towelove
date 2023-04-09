@@ -22,6 +22,7 @@ import reactor.core.publisher.Mono;
 import javax.annotation.PostConstruct;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 
@@ -42,11 +43,11 @@ public class AuthGlobalFilter implements GlobalFilter, Ordered {
     private RedisService redisService;
     //单个IP/s访问上限
     public static final int UP_LIMIT = 10;
-    public static List<String> BLACK_LIST ;
+    public static Set<String> BLACK_LIST ;
 
     @PostConstruct
     public void initIpList(){
-        BLACK_LIST = redisService.getCacheList(
+        BLACK_LIST = redisService.getCacheSet(
                 RedisServiceConstants.BLACK_LIST_IP);
     }
 
@@ -70,7 +71,7 @@ public class AuthGlobalFilter implements GlobalFilter, Ordered {
             //如果达到上限
             if (times+1==UP_LIMIT){
                 BLACK_LIST.add(ip);
-                redisService.setCacheList(RedisServiceConstants.BLACK_LIST_IP,
+                redisService.setCacheSet(RedisServiceConstants.BLACK_LIST_IP,
                         BLACK_LIST);
                 return chain.filter(exchange);
             }
@@ -80,10 +81,11 @@ public class AuthGlobalFilter implements GlobalFilter, Ordered {
         ServerHttpRequest.Builder mutate = request.mutate();
 
         String url = request.getURI().getPath();
-        // TODO 跳过不需要验证的路径 路径来自于nacos
+        //跳过不需要验证的路径 路径来自于nacos 比如登录和注册
         if (StringUtils.matches(url, ignoreWhite.getWhites())) {
             return chain.filter(exchange);
         }
+        //非登录和注册请求需要进行token获取
         String token = getToken(request);
         if (StringUtils.isEmpty(token)) {
             return unauthorizedResponse(exchange, "令牌不能为空");

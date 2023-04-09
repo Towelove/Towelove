@@ -1,25 +1,36 @@
 package com.towelove.gateway.filter;
 
 
+import com.alibaba.fastjson2.JSON;
+import com.alibaba.fastjson2.JSONObject;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.towelove.common.core.constant.RedisServiceConstants;
+import com.towelove.common.core.utils.ServletUtils;
+import com.towelove.common.core.utils.StringUtils;
 import com.towelove.common.redis.service.RedisService;
+import com.towelove.gateway.config.properties.KaptchaProperties;
+import com.towelove.gateway.service.ValidateCodeService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.core.Ordered;
 import org.springframework.core.io.buffer.DataBuffer;
+import org.springframework.core.io.buffer.DataBufferUtils;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.http.server.reactive.ServerHttpResponse;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
+import java.nio.CharBuffer;
+import java.nio.charset.StandardCharsets;
+import java.util.*;
+import java.util.concurrent.atomic.AtomicReference;
+
 /**
  * @author: 张锦标
  * @date: 2023/3/22 19:56
@@ -33,9 +44,11 @@ import java.util.List;
  * 根据数量
  * 像具体的业务服务 一般黑名单
  * 一般像数据库 用白名单
+ *
+ * 当前过滤器用于过滤验证码和ip黑名单
  */
 @Component
-public class IPCheckFilter implements GlobalFilter, Ordered {
+public class IPAndCodeCheckGlobalFilter implements GlobalFilter, Ordered {
 
     /**
      * 网关的并发比较高 不要再网关里面直接操作mysql
@@ -46,11 +59,24 @@ public class IPCheckFilter implements GlobalFilter, Ordered {
     @Resource
     private RedisService redisService;
     //初始化黑名单
-    public static List<String> BLACK_LIST ;
+    public static Set<Object> BLACK_LIST ;
+
+    //需要生成验证码的路径
+    private final static String[] VALIDATE_URL = new String[]{"/auth/login", "/auth/register"};
+    //验证码服务
+    @Autowired
+    private ValidateCodeService validateCodeService;
+    //验证码配置学习
+    @Autowired
+    private KaptchaProperties kaptchaProperties;
+    //验证码内容
+    private static final String CODE = "code";
+    //验证码的uuid
+    private static final String UUID = "uuid";
     @PostConstruct
     public void initBlackList()
     {
-        BLACK_LIST = redisService.getCacheList(RedisServiceConstants.BLACK_LIST_IP);
+        BLACK_LIST = redisService.getCacheSet(RedisServiceConstants.BLACK_LIST_IP);
     }
     /**
      * 1.拿到ip
@@ -68,8 +94,28 @@ public class IPCheckFilter implements GlobalFilter, Ordered {
         // 查询数据库 看这个ip是否存在黑名单里面   mysql数据库的并发
         // 只要是能存储数据地方都叫数据库 redis  mysql
         if (!BLACK_LIST.contains(ip)) {
+
+            // 非登录/注册请求或验证码关闭，不处理
+            if (!StringUtils.containsAnyIgnoreCase(request.getURI().getPath(), VALIDATE_URL) || !kaptchaProperties.getEnabled()) {
+                return chain.filter(exchange);
+            }
+
+            try {
+                //获取请求体内容
+                String rspStr = resolveBodyFromRequest(request);
+                //接收JSON格式的请求
+                JSONObject obj = JSON.parseObject(rspStr);
+                //校验验证码是否正确
+                validateCodeService.checkCaptcha(obj.getString(CODE), obj.getString(UUID));
+
+
+            } catch (Exception e) {
+                return ServletUtils.webFluxResponseWriter
+                        (exchange.getResponse(), e.getMessage());
+            }
             return chain.filter(exchange);
         }
+
         // 拦截
         ServerHttpResponse response = exchange.getResponse();
         response.getHeaders().set("content-type","application/json;charset=utf-8");
@@ -86,7 +132,23 @@ public class IPCheckFilter implements GlobalFilter, Ordered {
         DataBuffer wrap = response.bufferFactory().wrap(bytes);
         return response.writeWith(Mono.just(wrap));
     }
-
+    /**
+     * 获取请求体内容并且转换为字符串
+     *
+     * @param serverHttpRequest 请求
+     * @return
+     */
+    private String resolveBodyFromRequest(ServerHttpRequest serverHttpRequest) {
+        // 获取请求体
+        Flux<DataBuffer> body = serverHttpRequest.getBody();
+        AtomicReference<String> bodyRef = new AtomicReference<>();
+        body.subscribe(buffer -> {
+            CharBuffer charBuffer = StandardCharsets.UTF_8.decode(buffer.asByteBuffer());
+            DataBufferUtils.release(buffer);
+            bodyRef.set(charBuffer.toString());
+        });
+        return bodyRef.get();
+    }
     @Override
     public int getOrder() {
         return -199;
