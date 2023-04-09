@@ -12,6 +12,7 @@ import com.towelove.common.redis.service.RedisService;
 import com.towelove.gateway.config.properties.KaptchaProperties;
 import com.towelove.gateway.service.ValidateCodeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.core.Ordered;
@@ -29,6 +30,8 @@ import javax.annotation.Resource;
 import java.nio.CharBuffer;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicReference;
 
 /**
@@ -76,8 +79,26 @@ public class IPAndCodeCheckGlobalFilter implements GlobalFilter, Ordered {
     @PostConstruct
     public void initBlackList()
     {
-        BLACK_LIST = redisService.getCacheSet(RedisServiceConstants.BLACK_LIST_IP);
+        //BLACK_LIST = redisService.getCacheSet(RedisServiceConstants.BLACK_LIST_IP);
+        threadPoolExecutor.execute(()->{
+            //每十秒钟刷新一次黑名单
+            while(true){
+                try {
+                    BLACK_LIST = redisService.getCacheSet
+                            (RedisServiceConstants.BLACK_LIST_IP);
+                    Thread.sleep(10 * 1000);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        });
     }
+
+    @Autowired
+    @Qualifier("cpuThreadPool")
+    private ThreadPoolExecutor threadPoolExecutor;
+
+
     /**
      * 1.拿到ip
      * 2.校验ip是否符合规范

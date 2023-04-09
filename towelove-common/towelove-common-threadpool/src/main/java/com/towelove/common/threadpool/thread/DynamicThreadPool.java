@@ -40,7 +40,7 @@ public class DynamicThreadPool {
     @Bean("cpuThreadPool")
     @Primary
     private static ThreadPoolExecutor cpuThreadPool() {
-        return new ThreadPoolExecutor(4,
+        return new ThreadPoolExecutor(3,
                 6,
                 60,
                 TimeUnit.SECONDS,

@@ -49,11 +49,19 @@
             <if test="loginIp != null and loginIp != ''">login_ip = #{loginIp},</if>
             <if test="loginDate != null">login_date = #{loginDate},</if>
             <if test="updateBy != null and updateBy != ''">update_by = #{updateBy},</if>
-            <if test="delFlag != null and delFlag != ''">del_flag = #{delFlag},</if>
+            <if test="deleted != null and deleted != ''">deleted = #{deleted},</if>
             <if test="remark != null">remark = #{remark},</if>
             update_time = sysdate()
         </set>
         where user_id = #{userId}
     </update>
 
+    <update id="uploadAvatar">
+        update sys_user
+        <set>
+            <if test="avatar != null and avatar != ''">avatar = #{avatar},</if>
+            update_time = sysdate()
+        </set>
+        where user_id = #{userId}
+    </update>
 </mapper>
