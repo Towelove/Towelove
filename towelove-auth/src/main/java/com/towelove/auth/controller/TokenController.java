@@ -64,6 +64,7 @@ public class TokenController {
      */
     @DeleteMapping("logout")
     public R<?> logout(HttpServletRequest request) {
+        //token里面存储userkey username userid
         String token = SecurityUtils.getToken(request);
         if (StringUtils.isNotEmpty(token)) {
             String username = JwtUtils.getUserName(token);

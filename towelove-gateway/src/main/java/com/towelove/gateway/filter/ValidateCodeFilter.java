@@ -46,6 +46,7 @@ import java.util.concurrent.atomic.AtomicReference;
  * 这个类的问题在于会不断的导致gateway请求重放
  */
 //@Component
+@Deprecated
 public class ValidateCodeFilter
         //extends OncePerRequestFilter
         //implements GlobalFilter, Ordered
@@ -84,7 +85,8 @@ public class ValidateCodeFilter
             if (!StringUtils.containsAnyIgnoreCase(request.getURI().getPath(), VALIDATE_URL) || !kaptchaProperties.getEnabled()) {
                 return chain.filter(exchange);
             }
-            //if (StringUtils.containsAnyIgnoreCase(request.getURI().getPath(), VALIDATE_URL) || !kaptchaProperties.getEnabled()) {
+            //if (StringUtils.containsAnyIgnoreCase(request.getURI().getPath(), VALIDATE_URL) || !kaptchaProperties
+            // .getEnabled()) {
             //    ServerHttpRequest.Builder mutate = request.mutate();
             //    return chain.filter(exchange.mutate()
             //            .request(mutate.build()).build());

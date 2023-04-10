@@ -70,7 +70,8 @@ public class SecurityUtils
     }
 
     /**
-     * 裁剪token前缀
+     * 裁剪token前缀 也就是那个Bearer
+     * 用于单纯的返回token字段
      */
     public static String replaceTokenPrefix(String token)
     {

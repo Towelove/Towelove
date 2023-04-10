@@ -103,7 +103,11 @@
             <artifactId>hutool-all</artifactId>
             <version>5.8.10</version>
         </dependency>
-
+        <dependency>
+            <groupId>com.twowaylove</groupId>
+            <artifactId>towelove-common-threadpool</artifactId>
+            <version>1.0</version>
+        </dependency>
     </dependencies>
 
     <build>

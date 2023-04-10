@@ -76,6 +76,10 @@ public class IPAndCodeCheckGlobalFilter implements GlobalFilter, Ordered {
     private static final String CODE = "code";
     //验证码的uuid
     private static final String UUID = "uuid";
+
+    @Autowired
+    @Qualifier("cpuThreadPool")
+    private ThreadPoolExecutor threadPoolExecutor;
     @PostConstruct
     public void initBlackList()
     {
@@ -93,10 +97,6 @@ public class IPAndCodeCheckGlobalFilter implements GlobalFilter, Ordered {
             }
         });
     }
-
-    @Autowired
-    @Qualifier("cpuThreadPool")
-    private ThreadPoolExecutor threadPoolExecutor;
 
 
     /**
