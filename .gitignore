@@ -4,7 +4,7 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 logs
-
+config
 ### STS ###
 .apt_generated
 .classpath
