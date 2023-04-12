@@ -17,6 +17,7 @@ import java.util.List;
  */
 @Mapper
 public interface LoveAlbumConvert {
+    //TODO 需要进行一下test测试
     LoveAlbumConvert INSTANCE = Mappers.getMapper(LoveAlbumConvert.class);
 
     LoveAlbum convert(LoveAlbumCreateReqVO createReqVO);
