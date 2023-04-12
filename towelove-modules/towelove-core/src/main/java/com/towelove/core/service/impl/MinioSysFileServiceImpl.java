@@ -59,13 +59,14 @@ public class MinioSysFileServiceImpl implements ISysFileService {
             fileDir.mkdirs();
             //压缩后的文件位置
             Thumbnails.of(is)
-                    .scale(1)
+                    .scale(0.5)
+                    .outputFormat("webp")
                     .toFile(path);
-            FileInputStream fis = new FileInputStream(path);
+            FileInputStream fis = new FileInputStream(path+".webp");
             System.out.println("my-bucketname exists");
             PutObjectArgs args = PutObjectArgs.builder()
                     .bucket(minioConfig.getBucketName()) //设定桶名称
-                    .object(fileName) //要下载的文件
+                    .object(fileName+".webp") //要下载的文件
                     .stream(fis, fis.available(), -1) //文件上传流
                     .contentType(file.getContentType()) //设定文件类型
                     .build();
