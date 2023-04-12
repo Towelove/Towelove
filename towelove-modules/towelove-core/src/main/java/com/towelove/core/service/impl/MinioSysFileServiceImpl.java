@@ -8,12 +8,15 @@ import com.towelove.core.config.MinioConfig;
 import io.minio.*;
 import io.minio.errors.*;
 import io.netty.util.internal.StringUtil;
+import net.coobird.thumbnailator.Thumbnails;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.security.InvalidKeyException;
@@ -37,6 +40,49 @@ public class MinioSysFileServiceImpl implements ISysFileService {
     @Autowired
     @Qualifier("fileThreadPool")
     private ThreadPoolExecutor fileThreadPool;
+
+    public static final String PREFIX_PATH = "D:/desktophoto/file/";
+
+
+    public String uploadFileWithZip(MultipartFile file) throws Exception {
+        String fileName = FileUploadUtils.extractFilename(file);
+        //判断桶是否存在
+        boolean found =
+                minioClient.bucketExists(BucketExistsArgs.builder()
+                        .bucket(minioConfig.getBucketName()).build());
+        if (found) {
+            InputStream is = file.getInputStream();
+            //为当前文件创建目录
+            String path = PREFIX_PATH+fileName;
+            String dir = path.substring(0, path.lastIndexOf("/"));
+            File fileDir = new File(dir);
+            fileDir.mkdirs();
+            //压缩后的文件位置
+            Thumbnails.of(is)
+                    .scale(1)
+                    .toFile(path);
+            FileInputStream fis = new FileInputStream(path);
+            System.out.println("my-bucketname exists");
+            PutObjectArgs args = PutObjectArgs.builder()
+                    .bucket(minioConfig.getBucketName()) //设定桶名称
+                    .object(fileName) //要下载的文件
+                    .stream(fis, fis.available(), -1) //文件上传流
+                    .contentType(file.getContentType()) //设定文件类型
+                    .build();
+            //上传文件
+            minioClient.putObject(args);
+            is.close();
+            fis.close();
+            //return minioConfig.getUrl() + "/" + minioConfig.getBucketName() + "/" + fileName;
+            return fileName;
+        } else {
+            System.out.println("my-bucketname does not exist");
+            throw new RuntimeException("my-bucketname " + minioConfig.getBucketName()
+                    + " does not exist");
+        }
+    }
+
+
     /**
      * 本地文件上传接口
      *

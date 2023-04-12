@@ -44,6 +44,18 @@ public class SysFileController {
     @Autowired
     private static final CountDownLatch COUNT_DOWN_LATCH = new CountDownLatch(FILE_UPLOAD_LIMIT_NUM);
 
+
+    @PostMapping("/uploadZip")
+    public R<String> uploadZip(@RequestParam("file") MultipartFile file) {
+        String s = null;
+        try {
+            s = minioSysFileService.uploadFileWithZip(file);
+            return R.ok(s);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     /**
      * 实现多文件多线程上传
      *
