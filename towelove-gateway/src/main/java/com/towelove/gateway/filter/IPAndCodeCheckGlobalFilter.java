@@ -65,7 +65,7 @@ public class IPAndCodeCheckGlobalFilter implements GlobalFilter, Ordered {
     public static Set<Object> BLACK_LIST ;
 
     //需要生成验证码的路径
-    private final static String[] VALIDATE_URL = new String[]{"/auth/login", "/auth/register"};
+    private final static String[] VALIDATE_URL = new String[]{"/auth/login", "/auth/register","/auth/resetPwd"};
     //验证码服务
     @Autowired
     private ValidateCodeService validateCodeService;

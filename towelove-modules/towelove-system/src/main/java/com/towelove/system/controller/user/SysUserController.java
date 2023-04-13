@@ -78,6 +78,7 @@ public class SysUserController extends BaseController{
      * 用户注册用户信息
      */
     @PostMapping("/register")
+    //这里重写最好
     public R<Boolean> register(@RequestBody SysUser sysUser)
     {
         String username = sysUser.getUserName();

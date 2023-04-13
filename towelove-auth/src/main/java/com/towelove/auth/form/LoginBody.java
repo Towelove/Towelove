@@ -11,11 +11,26 @@ public class LoginBody {
      * 用户名
      */
     private String username;
-
     /**
-     * 用户密码
+     * 用户登录时候用的密码
      */
     private String password;
+    /**
+     * 用户新密码
+     */
+    private String newPassword;
+    /**
+     * 用户旧密码
+     */
+    private String oldPassword;
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
     public String getUuid() {
         return uuid;
@@ -46,13 +61,19 @@ public class LoginBody {
         this.username = username;
     }
 
-    public String getPassword()
-    {
-        return password;
+    public String getNewPassword() {
+        return newPassword;
     }
 
-    public void setPassword(String password)
-    {
-        this.password = password;
+    public void setNewPassword(String newPassword) {
+        this.newPassword = newPassword;
+    }
+
+    public String getOldPassword() {
+        return oldPassword;
+    }
+
+    public void setOldPassword(String oldPassword) {
+        this.oldPassword = oldPassword;
     }
 }

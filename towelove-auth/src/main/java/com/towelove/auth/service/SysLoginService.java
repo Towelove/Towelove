@@ -155,9 +155,17 @@ public class SysLoginService
 
     public void resetPwd(LoginBody form) {
         String username = form.getUsername();
-        String password = form.getPassword();
+        String oldPassword = form.getOldPassword();
+
+        //TODO 校验旧的密码是否正确
+        //TODO 用户修改密码之后也需要删除token 因为修改会导致token改变
+        //TODO 传递username然后判断是否存在 然后比较密码
+        String encryptPassword = SecurityUtils.encryptPassword(oldPassword);
+
+
+        String newPassword = form.getNewPassword();
         // 用户名或密码为空 错误
-        if (StringUtils.isAnyBlank(username, password))
+        if (StringUtils.isAnyBlank(username, newPassword))
         {
             throw new ServiceException("用户/密码必须填写");
         }
@@ -166,15 +174,15 @@ public class SysLoginService
         {
             throw new ServiceException("账户长度必须在2到20个字符之间");
         }
-        if (password.length() < UserConstants.PASSWORD_MIN_LENGTH
-                || password.length() > UserConstants.PASSWORD_MAX_LENGTH)
+        if (newPassword.length() < UserConstants.PASSWORD_MIN_LENGTH
+                || newPassword.length() > UserConstants.PASSWORD_MAX_LENGTH)
         {
             throw new ServiceException("密码长度必须在5到20个字符之间");
         }
         R<LoginUser> userInfo = remoteSysUserService.getUserInfo(username, SecurityConstants.INNER);
         SysUser sysUser = userInfo.getData().getSysUser();
         //对修改的的密码进行加盐
-        sysUser.setPassword(SecurityUtils.encryptPassword(password));
+        sysUser.setPassword(SecurityUtils.encryptPassword(newPassword));
         //远程调用system模块进行用户注册
         AjaxResult registerResult = remoteSysUserService
                 .resetPwd(sysUser, SecurityConstants.INNER);

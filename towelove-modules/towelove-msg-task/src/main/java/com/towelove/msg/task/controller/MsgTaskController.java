@@ -49,8 +49,10 @@ public class MsgTaskController {
                 .getMailAccountByUserId(userId).getData();
         return accountId;
     }
+    //TODO 消息返回的时候需要返回当前创建消息的json以及创建后的id
     /**
      * 创建消息任务
+     *
      * @param createReqVO 前端传来的消息任务信息
      * @return 创建成功返回id
      */
