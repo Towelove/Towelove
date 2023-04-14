@@ -90,6 +90,16 @@ public class SysUserController extends BaseController{
     }
 
     /**
+     * 判断当前用户输入的旧密码是否正确
+     * @param username 用户名
+     * @param oldPassword 用户旧密码
+     * @return 返回是否正确 true为正确
+     */
+    @GetMapping("/compare/pwd")
+    public R<Boolean> comparePwd(String username,String oldPassword){
+        return R.ok(userService.comparePwd(username,oldPassword));
+    }
+    /**
      * 用户获取用户信息
      *
      * @return 用户信息

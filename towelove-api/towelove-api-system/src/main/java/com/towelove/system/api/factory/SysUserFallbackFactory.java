@@ -32,6 +32,11 @@ public class SysUserFallbackFactory implements FallbackFactory<RemoteSysUserServ
             }
 
             @Override
+            public R<Boolean> comparePwd(String username, String oldPassword) {
+                return R.fail("比较用户密码失败:" + throwable.getMessage());
+            }
+
+            @Override
             public R<Boolean> registerUserInfo(SysUser sysUser, String source) {
                 return R.fail("注册用户失败:" + throwable.getMessage());
             }

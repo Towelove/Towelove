@@ -3,6 +3,7 @@ package com.towelove.system.service.user;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.towelove.common.core.exception.ServiceException;
+import com.towelove.common.core.mybatis.LambdaQueryWrapperX;
 import com.towelove.common.core.utils.SpringUtils;
 import com.towelove.common.core.utils.StringUtils;
 import com.towelove.common.mq.core.bus.AbstractBusProducer;
@@ -141,6 +142,14 @@ public class ISysUserServiceImpl extends AbstractBusProducer
         List<Long> ids = Arrays.stream(userIds).collect(Collectors.toList());
         int i = baseMapper.deleteBatchIds(ids);
         return i==userIds.length?1:0;
+    }
+
+    @Override
+    public boolean comparePwd(String username, String password) {
+        LambdaQueryWrapperX<SysUser> lqw = new LambdaQueryWrapperX<>();
+        lqw.eq(SysUser::getUserName,username);
+        SysUser sysUser = baseMapper.selectOne(lqw);
+        return sysUser.getPassword().equals(password);
     }
 
     @Override

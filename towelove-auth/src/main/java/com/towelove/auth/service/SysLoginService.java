@@ -156,14 +156,11 @@ public class SysLoginService
     public void resetPwd(LoginBody form) {
         String username = form.getUsername();
         String oldPassword = form.getOldPassword();
+        String newPassword = form.getNewPassword();
 
         //TODO 校验旧的密码是否正确
         //TODO 用户修改密码之后也需要删除token 因为修改会导致token改变
         //TODO 传递username然后判断是否存在 然后比较密码
-        String encryptPassword = SecurityUtils.encryptPassword(oldPassword);
-
-
-        String newPassword = form.getNewPassword();
         // 用户名或密码为空 错误
         if (StringUtils.isAnyBlank(username, newPassword))
         {
@@ -175,10 +172,20 @@ public class SysLoginService
             throw new ServiceException("账户长度必须在2到20个字符之间");
         }
         if (newPassword.length() < UserConstants.PASSWORD_MIN_LENGTH
-                || newPassword.length() > UserConstants.PASSWORD_MAX_LENGTH)
+                || newPassword.length() > UserConstants.PASSWORD_MAX_LENGTH
+                || oldPassword.length() < UserConstants.PASSWORD_MIN_LENGTH
+        || oldPassword.length()>UserConstants.PASSWORD_MAX_LENGTH)
         {
-            throw new ServiceException("密码长度必须在5到20个字符之间");
+            throw new ServiceException("新旧密码长度必须在5到20个字符之间");
         }
+
+        String encryptPassword = SecurityUtils.encryptPassword(oldPassword);
+        Boolean isEqual = remoteSysUserService.comparePwd(username, encryptPassword)
+                .getData();
+        if(!isEqual){
+            throw new ServiceException("用户旧密码输入错误");
+        }
+
         R<LoginUser> userInfo = remoteSysUserService.getUserInfo(username, SecurityConstants.INNER);
         SysUser sysUser = userInfo.getData().getSysUser();
         //对修改的的密码进行加盐

@@ -36,4 +36,6 @@ public interface ISysUserService{
     int updateUserStatus(SysUser user);
 
     int authRole(Long userId);
+
+    boolean comparePwd(String username,String password);
 }

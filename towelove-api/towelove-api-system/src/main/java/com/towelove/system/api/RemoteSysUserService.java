@@ -1,5 +1,6 @@
 package com.towelove.system.api;
 
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import com.towelove.common.core.constant.SecurityConstants;
 import com.towelove.common.core.domain.R;
 import com.towelove.common.core.web.domain.AjaxResult;
@@ -32,6 +33,13 @@ public interface RemoteSysUserService {
                                     @RequestHeader(SecurityConstants.FROM_SOURCE) String source);
 
     /**
+     * 匹配旧密码是否正确
+     * @param oldPassword
+     * @return
+     */
+    @GetMapping("/compare/pwd")
+    public R<Boolean> comparePwd(String username,String oldPassword);
+    /**
      * 注册用户信息
      *
      * @param sysUser 用户信息
@@ -49,4 +57,6 @@ public interface RemoteSysUserService {
                          String inner);
     @GetMapping("/get/{id}")
     R<SysUser> getUserById(@PathVariable("id") Long userId);
+
+
 }
