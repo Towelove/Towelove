@@ -7,6 +7,7 @@ import com.towelove.common.core.domain.R;
 import com.towelove.common.core.mybatis.EncryptTypeHandler;
 import com.towelove.common.core.utils.JwtUtils;
 import com.towelove.common.core.utils.StringUtils;
+import com.towelove.common.redis.service.RedisService;
 import com.towelove.common.security.auth.AuthUtil;
 import com.towelove.common.security.service.TokenService;
 import com.towelove.common.security.utils.SecurityUtils;
@@ -33,7 +34,6 @@ public class TokenController {
 
     @Autowired
     private SysLoginService sysLoginService;
-
     /**
      * 登录操作用于获取token
      *
@@ -105,15 +105,20 @@ public class TokenController {
         sysLoginService.register(sysUser);
         return R.ok();
     }
-
+    @Autowired
+    private RedisService redisService;
     /**
      * 用户重置密码操作
      * @param form
      * @return
      */
     @PutMapping("/resetPwd")
-    public R<?> resetPassword(@RequestBody LoginBody form) {
+    public R<?> resetPassword(@RequestBody LoginBody form,HttpServletRequest request) {
         sysLoginService.resetPwd(form);
+        String token = request.getHeader("Authorization");
+        String userKey =  "login_tokens:" + token;
+        //删除修改用用户的redis缓存
+        redisService.deleteObject(userKey);
         return R.ok();
     }
 }
