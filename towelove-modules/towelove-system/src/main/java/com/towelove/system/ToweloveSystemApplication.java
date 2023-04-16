@@ -10,6 +10,12 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
  * @author: 张锦标
  * @date: 2023/2/23 20:10
  * Description:
+ * 项目启动类
+ * 已经走了这么远了
+ * 真的 继续加油吧
+ * wx：15377920718
+ * 悟以往之不谏，
+ * 知来者之可追
  */
 
 //@EnableBinding
