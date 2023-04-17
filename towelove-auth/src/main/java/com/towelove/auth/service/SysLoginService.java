@@ -2,6 +2,7 @@ package com.towelove.auth.service;
 
 
 import com.towelove.auth.form.LoginBody;
+import com.towelove.auth.form.RegisterBody;
 import com.towelove.common.core.constant.SecurityConstants;
 import com.towelove.common.core.constant.UserConstants;
 import com.towelove.common.core.domain.R;
@@ -117,10 +118,10 @@ public class SysLoginService
     /**
      * 注册
      */
-    public void register(SysUser sysUser)
+    public void register(RegisterBody registerBody)
     {
-        String username = sysUser.getUserName();
-        String password = sysUser.getPassword();
+        String username = registerBody.getUsername();
+        String password = registerBody.getPassword();
         // 用户名或密码为空 错误
         if (StringUtils.isAnyBlank(username, password))
         {
@@ -136,7 +137,11 @@ public class SysLoginService
         {
             throw new ServiceException("密码长度必须在5到20个字符之间");
         }
-
+        SysUser sysUser = new SysUser();
+        sysUser.setUserName(username);
+        sysUser.setEmail(registerBody.getEmail());
+        sysUser.setPhonenumber(registerBody.getPhonenumber());
+        sysUser.setSex(registerBody.getSex());
         // 注册用户信息
         sysUser.setNickName(username);
         //对注册的密码进行加盐
