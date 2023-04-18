@@ -47,7 +47,7 @@ import java.util.concurrent.atomic.AtomicReference;
  * 根据数量
  * 像具体的业务服务 一般黑名单
  * 一般像数据库 用白名单
- *
+ * <p>
  * 当前过滤器用于过滤验证码和ip黑名单
  */
 @Component
@@ -62,10 +62,11 @@ public class IPAndCodeCheckGlobalFilter implements GlobalFilter, Ordered {
     @Resource
     private RedisService redisService;
     //初始化黑名单
-    public static Set<Object> BLACK_LIST ;
+    public static Set<Object> BLACK_LIST;
 
     //需要生成验证码的路径
-    private final static String[] VALIDATE_URL = new String[]{"/auth/login", "/auth/register","/auth/resetPwd"};
+    private final static String[] VALIDATE_URL =
+            new String[]{"/auth/login", "/auth/register", "/auth/resetPwd"};
     //验证码服务
     @Autowired
     private ValidateCodeService validateCodeService;
@@ -80,13 +81,13 @@ public class IPAndCodeCheckGlobalFilter implements GlobalFilter, Ordered {
     @Autowired
     @Qualifier("cpuThreadPool")
     private ThreadPoolExecutor threadPoolExecutor;
+
     @PostConstruct
-    public void initBlackList()
-    {
+    public void initBlackList() {
         //BLACK_LIST = redisService.getCacheSet(RedisServiceConstants.BLACK_LIST_IP);
-        threadPoolExecutor.execute(()->{
+        threadPoolExecutor.execute(() -> {
             //每十秒钟刷新一次黑名单
-            while(true){
+            while (true) {
                 try {
                     BLACK_LIST = redisService.getCacheSet
                             (RedisServiceConstants.BLACK_LIST_IP);
@@ -103,6 +104,7 @@ public class IPAndCodeCheckGlobalFilter implements GlobalFilter, Ordered {
      * 1.拿到ip
      * 2.校验ip是否符合规范
      * 3.放行/拦截
+     *
      * @param exchange
      * @param chain
      * @return
@@ -111,7 +113,7 @@ public class IPAndCodeCheckGlobalFilter implements GlobalFilter, Ordered {
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
         ServerHttpRequest request = exchange.getRequest();
         String ip = request.getHeaders().getHost().getHostString();
-        System.out.println("-------当前访问ip为："+ip+"---------");
+        System.out.println("-------当前访问ip为：" + ip + "---------");
         // 查询数据库 看这个ip是否存在黑名单里面   mysql数据库的并发
         // 只要是能存储数据地方都叫数据库 redis  mysql
         if (!BLACK_LIST.contains(ip)) {
@@ -139,10 +141,10 @@ public class IPAndCodeCheckGlobalFilter implements GlobalFilter, Ordered {
 
         // 拦截
         ServerHttpResponse response = exchange.getResponse();
-        response.getHeaders().set("content-type","application/json;charset=utf-8");
+        response.getHeaders().set("content-type", "application/json;charset=utf-8");
         HashMap<String, Object> map = new HashMap<>(4);
         map.put("code", 438);
-        map.put("msg","你已被加入黑名单，如需申请解除，可以私信WX:15377920718");
+        map.put("msg", "你已被加入黑名单，如需申请解除，可以私信WX:15377920718");
         ObjectMapper objectMapper = new ObjectMapper();
         byte[] bytes = new byte[0];
         try {
@@ -153,6 +155,7 @@ public class IPAndCodeCheckGlobalFilter implements GlobalFilter, Ordered {
         DataBuffer wrap = response.bufferFactory().wrap(bytes);
         return response.writeWith(Mono.just(wrap));
     }
+
     /**
      * 获取请求体内容并且转换为字符串
      *
@@ -170,6 +173,7 @@ public class IPAndCodeCheckGlobalFilter implements GlobalFilter, Ordered {
         });
         return bodyRef.get();
     }
+
     @Override
     public int getOrder() {
         return -199;

@@ -96,13 +96,13 @@ public class TokenController {
 
     /**
      * 用户注册操作
-     * @param sysUser 注册信息
+     * @param registerBody 注册信息
      * @return
      */
     @PostMapping("register")
-    public R<?> register(@RequestBody SysUser sysUser) {
+    public R<?> register(@RequestBody RegisterBody registerBody) {
         // 用户注册
-        sysLoginService.register(sysUser);
+        sysLoginService.register(registerBody);
         return R.ok();
     }
     @Autowired
