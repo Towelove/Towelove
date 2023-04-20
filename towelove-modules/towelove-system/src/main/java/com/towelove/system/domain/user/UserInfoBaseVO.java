@@ -57,10 +57,4 @@ public class UserInfoBaseVO {
     private String sex;
 
 
-    /**
-     * 密码
-     */
-    @Schema(description = "用户密码", required = false, example = "用户密码")
-    private String password;
-
 }

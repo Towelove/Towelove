@@ -23,7 +23,8 @@ public class LoginBody {
      * 用户旧密码
      */
     private String oldPassword;
-
+    private String uuid;
+    private String code;
     public String getPassword() {
         return password;
     }
@@ -48,8 +49,6 @@ public class LoginBody {
         this.code = code;
     }
 
-    private String uuid;
-    private String code;
 
     public String getUsername()
     {

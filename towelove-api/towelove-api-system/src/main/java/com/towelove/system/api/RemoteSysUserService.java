@@ -37,8 +37,9 @@ public interface RemoteSysUserService {
      * @param oldPassword
      * @return
      */
-    @GetMapping("/compare/pwd")
-    public R<Boolean> comparePwd(String username,String oldPassword);
+    @GetMapping("/sys/user/info/compare/pwd")
+    public R<Boolean> comparePwd(@RequestParam("username") String username,
+                                 @RequestParam("oldPassword") String oldPassword);
     /**
      * 注册用户信息
      *
@@ -46,7 +47,7 @@ public interface RemoteSysUserService {
      * @param source  请求来源
      * @return 结果
      */
-    @PostMapping("/sys/user/register")
+    @PostMapping("/sys/user/info/register")
     public R<Boolean> registerUserInfo(@RequestBody SysUser sysUser,
                                        @RequestHeader(SecurityConstants.FROM_SOURCE)
                                        String source);

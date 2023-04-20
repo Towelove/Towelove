@@ -43,10 +43,10 @@ spring:
     nacos:
       discovery:
         # 服务注册地址
-        server-addr: 123.249.97.220:8848
+#        server-addr: 127.0.0.1:8848
       config:
         # 配置中心地址
-        server-addr: 123.249.97.220:8848
+#        server-addr: 127.0.0.1:8848
         # 配置文件格式
         file-extension: yaml
         extension-configs:
@@ -60,21 +60,24 @@ spring:
         shared-configs[1]:
           data-id: towelove-redis-dev.yaml
           refresh: true
+        shared-configs[2]:
+          data-id: towelove-gateway-dev.yaml
+          refresh: true
         prefix: application-${spring.profiles.active}.${spring.cloud.nacos.config.file-extension}
-    sentinel:
-      filter:
-        enabled: false
-      transport:
-        dashboard: 127.0.0.1:8081
-        port: 8719
-      eager: true
-#      对于网关的限流规则与普通服务的限流规则有所不同
-#      网关限流中有一个resourceMode属性，判断是rotuesID or API分组ID。默认是routesID
-      datasource:
-        ds1:
-          nacos:
-            server-addr: 123.249.97.220:8848
-            data-id: towelove-gateway-sentinel.json
-            group-id: SENTINEL_GROUP
-            rule-type: flow
-            data-type: json
+#    sentinel:
+#      filter:
+#        enabled: false
+#      transport:
+#        dashboard: 127.0.0.1:8081
+#        port: 8719
+#      eager: true
+##      对于网关的限流规则与普通服务的限流规则有所不同
+##      网关限流中有一个resourceMode属性，判断是rotuesID or API分组ID。默认是routesID
+#      datasource:
+#        ds1:
+#          nacos:
+#            server-addr: 127.0.0.1:8848
+#            data-id: towelove-gateway-sentinel.json
+#            group-id: SENTINEL_GROUP
+#            rule-type: flow
+#            data-type: json

@@ -109,16 +109,21 @@ public class TokenController {
     private RedisService redisService;
     /**
      * 用户重置密码操作
-     * @param form
+     * 修改用户密码需要用到验证码
+     * @param form 包含这次修改用户密码的信息
      * @return
      */
     @PutMapping("/resetPwd")
     public R<?> resetPassword(@RequestBody LoginBody form,HttpServletRequest request) {
+        if (form.getOldPassword().equals(form.getNewPassword())){
+            return R.fail("新旧密码不能一样");
+        }
         sysLoginService.resetPwd(form);
         String token = request.getHeader("Authorization");
         String userKey =  "login_tokens:" + token;
         //删除修改用用户的redis缓存
         redisService.deleteObject(userKey);
-        return R.ok();
+        return R.ok(null,"修改密码成功");
+
     }
 }

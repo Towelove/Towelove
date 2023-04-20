@@ -184,14 +184,16 @@ public class SysLoginService
             throw new ServiceException("新旧密码长度必须在5到20个字符之间");
         }
 
-        String encryptPassword = SecurityUtils.encryptPassword(oldPassword);
-        Boolean isEqual = remoteSysUserService.comparePwd(username, encryptPassword)
-                .getData();
+        //String encryptPassword = SecurityUtils.encryptPassword(oldPassword);
+        //比较密码
+        Boolean isEqual = remoteSysUserService.comparePwd(username,
+                        oldPassword).getData();
         if(!isEqual){
             throw new ServiceException("用户旧密码输入错误");
         }
 
-        R<LoginUser> userInfo = remoteSysUserService.getUserInfo(username, SecurityConstants.INNER);
+        R<LoginUser> userInfo = remoteSysUserService.
+                getUserInfo(username, SecurityConstants.INNER);
         SysUser sysUser = userInfo.getData().getSysUser();
         //对修改的的密码进行加盐
         sysUser.setPassword(SecurityUtils.encryptPassword(newPassword));

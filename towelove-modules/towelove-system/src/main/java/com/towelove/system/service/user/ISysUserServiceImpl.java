@@ -149,7 +149,8 @@ public class ISysUserServiceImpl extends AbstractBusProducer
         LambdaQueryWrapperX<SysUser> lqw = new LambdaQueryWrapperX<>();
         lqw.eq(SysUser::getUserName,username);
         SysUser sysUser = baseMapper.selectOne(lqw);
-        return sysUser.getPassword().equals(password);
+        return SecurityUtils.
+                matchesPassword(password,sysUser.getPassword());
     }
 
     @Override

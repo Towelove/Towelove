@@ -1,9 +1,11 @@
 package com.towelove.system.controller.user;
 
+import com.towelove.common.core.constant.UserConstants;
 import com.towelove.common.core.domain.R;
 import com.towelove.common.minio.MinioService;
 import com.towelove.system.api.domain.SysUser;
 import com.towelove.system.domain.user.UserInfoBaseVO;
+import com.towelove.system.service.user.ISysUserService;
 import com.towelove.system.service.user.UserInfoService;
 import io.minio.GetObjectResponse;
 import io.swagger.annotations.ApiOperation;
@@ -26,10 +28,37 @@ import javax.servlet.http.HttpServletResponse;
 public class UserInfoController {
     @Autowired
     private UserInfoService userInfoService;
-
+    @Autowired
+    private ISysUserService userService;
     @Autowired
     private MinioService minioService;
+    /**
+     * 用户注册用户信息
+     */
+    @PostMapping("/register")
+    //这里重写最好
+    public R<Boolean> register(@RequestBody SysUser sysUser)
+    {
+        String username = sysUser.getUserName();
+        if (UserConstants.NOT_UNIQUE.equals(userService.checkUserNameUnique(sysUser)))
+        {
+            return R.fail("保存用户'" + username + "'失败，用户名已存在");
+        }
+        return R.ok(userService.registerUser(sysUser));
+    }
 
+
+    /**
+     * 判断当前用户输入的旧密码是否正确
+     * @param username 用户名
+     * @param oldPassword 用户旧密码
+     * @return 返回是否正确 true为正确
+     */
+    @GetMapping("/compare/pwd")
+    public R<Boolean> comparePwd(@RequestParam("username") String username,
+                                 @RequestParam("oldPassword") String oldPassword){
+        return R.ok(userService.comparePwd(username,oldPassword));
+    }
     /**
      * 当前方法用于用户上传头像
      *
@@ -75,6 +104,7 @@ public class UserInfoController {
     @PutMapping("/edit")
     public R<SysUser> edit(@RequestBody UserInfoBaseVO baseVO) {
         SysUser sysUser = userInfoService.updateUserInfo(baseVO);
+        sysUser.setPassword(null);
         return R.ok(sysUser);
     }
 }

@@ -9,6 +9,7 @@ import com.towelove.common.core.constant.RedisServiceConstants;
 import com.towelove.common.core.utils.ServletUtils;
 import com.towelove.common.core.utils.StringUtils;
 import com.towelove.common.redis.service.RedisService;
+import com.towelove.gateway.config.properties.IgnoreWhiteProperties;
 import com.towelove.gateway.config.properties.KaptchaProperties;
 import com.towelove.gateway.service.ValidateCodeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,9 +65,13 @@ public class IPAndCodeCheckGlobalFilter implements GlobalFilter, Ordered {
     //初始化黑名单
     public static Set<Object> BLACK_LIST;
 
+    @Autowired
+    private IgnoreWhiteProperties ignoreWhite;
+
     //需要生成验证码的路径
     private final static String[] VALIDATE_URL =
-            new String[]{"/auth/login", "/auth/register", "/auth/resetPwd"};
+            //new String[]{"/auth/login", "/auth/register", "/auth/resetPwd"};
+            new String[]{"/auth/login", "/auth/register"}; //关闭重置密码的验证码
     //验证码服务
     @Autowired
     private ValidateCodeService validateCodeService;
@@ -119,7 +124,9 @@ public class IPAndCodeCheckGlobalFilter implements GlobalFilter, Ordered {
         if (!BLACK_LIST.contains(ip)) {
 
             // 非登录/注册请求或验证码关闭，不处理
-            if (!StringUtils.containsAnyIgnoreCase(request.getURI().getPath(), VALIDATE_URL) || !kaptchaProperties.getEnabled()) {
+            if (!StringUtils.containsAnyIgnoreCase(request.getURI().getPath(),
+                    VALIDATE_URL)
+                    || !kaptchaProperties.getEnabled()) {
                 return chain.filter(exchange);
             }
 

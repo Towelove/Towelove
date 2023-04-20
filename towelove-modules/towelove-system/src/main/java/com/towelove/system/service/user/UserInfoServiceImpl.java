@@ -46,9 +46,9 @@ public class UserInfoServiceImpl implements UserInfoService {
     @Override
     public SysUser updateUserInfo(UserInfoBaseVO baseVO) {
         SysUser sysUser =  new SysUser();
-        sysUser = UserInfoConvert.INSTANCE.convert(baseVO);
+        //sysUser = UserInfoConvert.INSTANCE.convert(baseVO);
+        BeanUtils.copyProperties(baseVO,sysUser);
         System.out.println(sysUser);
-        //BeanUtils.copyProperties(baseVO,sysUser);
         int i = sysUserMapper.updateById(sysUser);
         if (!(i > 0)) {
             throw new RuntimeException("更新用户数据失败");
