@@ -11,6 +11,7 @@ import com.towelove.msg.task.mq.producer.MsgTaskProducer;
 import com.towelove.msg.task.service.MsgTaskService;
 import com.towelove.system.api.RemoteSysMailAccountService;
 import com.towelove.system.api.domain.SysMailAccount;
+import com.towelove.system.api.model.MailAccountDO;
 import io.jsonwebtoken.Claims;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -40,14 +41,14 @@ public class MsgTaskController {
     private MsgTaskService msgTaskService;
     @Autowired
     private RemoteSysMailAccountService sysMailAccountService;
-    private Long getAccountId(HttpServletRequest request){
+    private List<MailAccountDO> getAccountId(HttpServletRequest request){
         String token = request.getHeader("Authorization");
         Claims claims = JwtUtils.parseToken(token);
         Long userId = Long.valueOf(JwtUtils.getUserId(claims));
-        //TODO 根据userId远程调用获取accountId
-        Long accountId = sysMailAccountService
+        //根据userId远程调用获取accountId
+        List<MailAccountDO> data = sysMailAccountService
                 .getMailAccountByUserId(userId).getData();
-        return accountId;
+        return data;
     }
     //TODO 消息返回的时候需要返回当前创建消息的json以及创建后的id
     /**
@@ -62,13 +63,14 @@ public class MsgTaskController {
                                  @Autowired HttpServletRequest request){
         String token = request.getHeader("Authorization");
         System.out.println(token);
-        Long accountId = getAccountId(request);
-        if (Objects.isNull(accountId)){
+        List<MailAccountDO> mailAccountDOList = getAccountId(request);
+        if (Objects.isNull(mailAccountDOList)){
             throw new RuntimeException("远程调用获取到的accountId为空！！！");
         }
-        System.out.println("当前accountId为："+accountId);
-        createReqVO.setAccountId(accountId);
-        return R.ok(msgTaskService.createMsgTask(createReqVO));
+        System.out.println("当前accountList为："+mailAccountDOList);
+        MailAccountDO accountDO = mailAccountDOList.get(0);
+        createReqVO.setAccountId(accountDO.getId());
+        return R.ok(msgTaskService.createMsgTask(createReqVO),"消息创建成功");
     }
 
     /**
@@ -79,7 +81,7 @@ public class MsgTaskController {
     @PutMapping("/update")
     @Operation(summary = "修改消息任务")
     public R<Boolean> updateMailAccount(@Valid @RequestBody MsgTaskUpdateReqVO updateReqVO) {
-        return R.ok( msgTaskService.updateMsgTask(updateReqVO));
+        return R.ok( msgTaskService.updateMsgTask(updateReqVO),"消息修改成功");
     }
 
     /**

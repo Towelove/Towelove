@@ -23,4 +23,5 @@ public interface MailAccountMapper extends BaseMapperX<MailAccountDO> {
                 .likeIfPresent(MailAccountDO::getMail, pageReqVO.getMail())
                 .likeIfPresent(MailAccountDO::getUsername , pageReqVO.getUsername()));
     }
+
 }

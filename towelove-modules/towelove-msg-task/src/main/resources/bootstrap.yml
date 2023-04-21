@@ -14,10 +14,10 @@ spring:
     nacos:
       discovery:
         # 服务注册地址
-        server-addr: 127.0.0.1:8848
+#        server-addr: 127.0.0.1:8848
       config:
         # 配置中心地址
-        server-addr: 127.0.0.1:8848
+#        server-addr: 127.0.0.1:8848
         # 配置文件格式
         file-extension: yaml
         # 共享配置
@@ -66,17 +66,17 @@ spring:
         msgDelete-in-0:
           destination: msg_delete
           group: msg_delete_task_group
-      # Spring Cloud Stream RocketMQ 配置项
-#      rocketmq:
-#        # RocketMQ Binder 配置项，对应 RocketMQBinderConfigurationProperties 类
-#        binder:
-#          name-server: 123.249.111.175:9876 # RocketMQ Namesrv 地址
-#        #          access-key: # 用户名
-#        #          secret-key:  # 密码
-#        default: # 默认 bindings 全局配置
-#          producer: # RocketMQ Producer 配置项，对应 RocketMQProducerProperties 类
-#            group: msg_task_producer_group # 生产者分组
-#            send-type: SYNC # 发送模式，SYNC 同步
+#       Spring Cloud Stream RocketMQ配置项
+      rocketmq:
+        # RocketMQ Binder 配置项，对应 RocketMQBinderConfigurationProperties 类
+        binder:
+          name-server: 123.249.111.175:9876 # RocketMQ Namesrv 地址
+        #          access-key: # 用户名
+        #          secret-key:  # 密码
+        default: # 默认 bindings 全局配置
+          producer: # RocketMQ Producer 配置项，对应 RocketMQProducerProperties 类
+            group: msg_task_producer_group # 生产者分组
+            send-type: SYNC # 发送模式，SYNC 同步
     bus:
       enabled: true # 是否开启，默认为 true
       id: ${spring.application.name}:${server.port} # 编号，Spring Cloud Alibaba 建议使用“应用:端口”的格式

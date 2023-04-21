@@ -8,6 +8,7 @@ import com.towelove.common.async.config.AsyncConfig;
 import com.towelove.common.core.constant.CaffeineCacheConstant;
 import com.towelove.common.core.constant.RedisServiceConstants;
 import com.towelove.common.core.domain.PageResult;
+import com.towelove.common.core.mybatis.LambdaQueryWrapperX;
 import com.towelove.common.redis.service.RedisService;
 import com.towelove.system.convert.mail.MailAccountConvert;
 import com.towelove.system.domain.mail.MailAccountDO;
@@ -173,8 +174,10 @@ public class MailAccountServiceImpl implements MailAccountService {
 
     @Override
     public Long createMailAccount(MailAccountCreateReqVO createReqVO) {
+        validateMailExist(createReqVO.getMail());
         // 插入
         MailAccountDO account = MailAccountConvert.INSTANCE.convert(createReqVO);
+
         mailAccountMapper.insert(account);
 
         // 发送刷新消息
@@ -191,7 +194,8 @@ public class MailAccountServiceImpl implements MailAccountService {
         validateMailAccountExists(updateReqVO.getId());
         MailAccountDO updateObj = MailAccountConvert.INSTANCE.convert(updateReqVO);
         //先更新更新缓存
-        redisService.setCacheObject(RedisServiceConstants.SYS_MAIL_ACCOUNT + updateReqVO.getId(), updateObj);
+        redisService.setCacheObject(RedisServiceConstants.SYS_MAIL_ACCOUNT
+                + updateReqVO.getId(), updateObj);
         //先把要更新的数据放到一个队列中 之后批量更新
         waitList.add(updateObj);
         //TODO 使用全局线程池去管理这个任务
@@ -234,19 +238,26 @@ public class MailAccountServiceImpl implements MailAccountService {
         return mailAccountMapper.selectPage(pageReqVO);
     }
 
-    //TODO 一个人有没有可能它可以有多个邮箱。。。
     @Override
-    public MailAccountDO getMailAccountByUserId(Long userId) {
+    public List<MailAccountDO> getMailAccountByUserId(Long userId) {
         LambdaQueryWrapper<MailAccountDO> lqw = new LambdaQueryWrapper();
         lqw.eq(MailAccountDO::getUserId, userId);
-        return mailAccountMapper.selectOne(lqw);
+        return mailAccountMapper.selectList(lqw);
     }
 
+    /**
+     * 获取所有的邮箱账号
+     * @return
+     */
     @Override
     public List<MailAccountDO> getMailAccountList() {
         return mailAccountMapper.selectList();
     }
 
+    /**
+     * 删除某一个邮箱账号 根据邮箱账号的id
+     * @param id 编号
+     */
     @Override
     public void deleteMailAccount(Long id) {
         // 校验是否存在账号
@@ -268,9 +279,25 @@ public class MailAccountServiceImpl implements MailAccountService {
         //mailProducer.sendMailAccountRefreshMessage();
     }
 
+    /**
+     * 判断邮箱账号是否存在
+     * @param id 邮箱账号的id
+     */
     private void validateMailAccountExists(Long id) {
         if (mailAccountMapper.selectById(id) == null) {
             throw new MailException("邮箱账号不存在");
+        }
+    }
+
+    /**
+     * 判断当前邮箱是否存在
+     * @param mail 邮箱
+     */
+    private void validateMailExist(String mail){
+        LambdaQueryWrapperX<MailAccountDO> lqw = new LambdaQueryWrapperX<>();
+        lqw.eq(MailAccountDO::getMail,mail);
+        if (mailAccountMapper.selectOne(lqw)!=null){
+            throw new MailException("当前邮箱已经存在！");
         }
     }
 }

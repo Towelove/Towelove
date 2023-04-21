@@ -45,6 +45,4 @@ public class MsgTaskBaseVO {
     @Schema(description = "发送时间", required = true, example = "2002-03-22 12:12:12")
     @NotNull(message = "发送时间不能为空")
     private Date sendTime;
-
-
 }

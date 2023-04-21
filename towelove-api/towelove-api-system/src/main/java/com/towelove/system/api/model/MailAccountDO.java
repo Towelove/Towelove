@@ -1,24 +1,10 @@
-package com.towelove.system.domain.mail;
+package com.towelove.system.api.model;
 
 import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
 import com.towelove.common.core.web.domain.BaseEntity;
-import lombok.*;
+import lombok.Data;
 
-/**
- * 邮箱账号 DO
- *
- * 用途：配置发送邮箱的账号
- *
- * @author: 张锦标
- * @since 2023-03-01
- */
-@TableName(value = "sys_mail_account", autoResultMap = true)
 @Data
-@Builder
-@AllArgsConstructor
-@NoArgsConstructor
-@EqualsAndHashCode(callSuper = true)
 public class MailAccountDO extends BaseEntity {
 
     /**

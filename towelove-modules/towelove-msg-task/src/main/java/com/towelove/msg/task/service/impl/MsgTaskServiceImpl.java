@@ -49,6 +49,11 @@ public class MsgTaskServiceImpl implements MsgTaskService {
     @Autowired
     private MsgTaskProducer msgTaskProducer;
 
+    /**
+     * 当前方法用于判断当前任务是否需要修改队列
+     * @param taskDate 发送消息的时间
+     * @return
+     */
     private boolean needToChangeMap(Date taskDate) {
         long time = taskDate.getTime();
         Date date = new Date();
@@ -87,9 +92,14 @@ public class MsgTaskServiceImpl implements MsgTaskService {
         } catch (Exception e) {
             throw new RuntimeException("新增任务失败");
         }
-        return msgTask.getUserId();
+        return msgTask.getId();
     }
 
+    /**
+     *
+     * @param updateReqVO 修改后的消息任务消息
+     * @return
+     */
     @Override
     public Boolean updateMsgTask(MsgTaskUpdateReqVO updateReqVO) {
         if (Objects.isNull(updateReqVO)) {
@@ -106,6 +116,11 @@ public class MsgTaskServiceImpl implements MsgTaskService {
         return isUpdate > 0;
     }
 
+    /**
+     *
+     * @param id 要删除的消息
+     * @return
+     */
     @Override
     public Boolean deleteMsgTask(Long id) {
         if (null == id) {

@@ -22,6 +22,7 @@ import java.util.HashMap;
  * @author: 张锦标
  * @date: 2023/3/7 12:58
  * 邮箱日志管理控制层
+ * 暂时不考虑使用
  */
 @Tag(name =  "管理后台 - 邮件日志")
 @RestController
@@ -58,7 +59,8 @@ public class MailLogController {
 
     @PostMapping("/crateMailLog")
     public R createMailLog(MailAccountDO mailAccountDO,MailTemplateDO mailTemplateDO){
-        mailLogService.createMailLog(mailAccountDO.getUserId(),1,"123",mailAccountDO,mailTemplateDO,"123", new HashMap<>(), true);
+        mailLogService.createMailLog(mailAccountDO.getUserId(),
+                1,"123",mailAccountDO,mailTemplateDO,"123", new HashMap<>(), true);
         return R.ok();
     }
 

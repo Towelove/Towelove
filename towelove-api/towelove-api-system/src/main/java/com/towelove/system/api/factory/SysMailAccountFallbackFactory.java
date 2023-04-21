@@ -1,12 +1,15 @@
 package com.towelove.system.api.factory;
 
 import com.towelove.common.core.domain.R;
+import com.towelove.system.api.model.MailAccountDO;
 import com.towelove.system.api.model.MailAccountRespVO;
 import com.towelove.system.api.RemoteSysMailAccountService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.cloud.openfeign.FallbackFactory;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 /**
  * @author: 张锦标
@@ -23,7 +26,7 @@ public class SysMailAccountFallbackFactory implements FallbackFactory<RemoteSysM
 
         return new RemoteSysMailAccountService() {
             @Override
-            public R<Long> getMailAccountByUserId(Long id) {
+            public R<List<MailAccountDO>> getMailAccountByUserId(Long id) {
                 return R.fail("根据ID获取邮箱账户失败:"+throwable.getMessage());
             }
 

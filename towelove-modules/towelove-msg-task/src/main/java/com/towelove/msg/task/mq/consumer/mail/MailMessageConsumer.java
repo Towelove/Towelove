@@ -1,7 +1,6 @@
 package com.towelove.msg.task.mq.consumer.mail;
 
 
-
 import cn.hutool.extra.mail.MailAccount;
 import cn.hutool.extra.mail.MailUtil;
 import com.towelove.common.core.domain.MailSendMessage;
@@ -42,32 +41,31 @@ public class MailMessageConsumer implements Consumer<MailMsg> {
 
     @Override
     public void accept(MailMsg mailMsg) {
-        log.info("接收到任务消息消息: {}",mailMsg);
+        log.info("接收到任务消息消息: {}", mailMsg);
         //TODO 真正的发送消息并且记录日志
 
         String from = StringUtils.isNotEmpty(mailMsg.getNickname()) ?
-                mailMsg.getNickname() +" <"+mailMsg.getMail()+">": mailMsg.getMail();
-        MailAccount mailAccount = new MailAccount().setFrom(from).setAuth(true)
-                .setUser(mailMsg.getUsername()).setPass(mailMsg.getPassword())
-                .setHost(mailMsg.getHost()).setPort(mailMsg.getPort())
-                .setSslEnable(mailMsg.getSslEnable());
+                mailMsg.getNickname() + " <" + mailMsg.getMail() + ">" : mailMsg.getMail();
+        //配置MailAccount对象 hutool提供的
+        MailAccount mailAccount =
+                new MailAccount().setFrom(from).setAuth(true).setUser(mailMsg.getUsername()).setPass(mailMsg.getPassword()).setHost(mailMsg.getHost()).setPort(mailMsg.getPort()).setSslEnable(mailMsg.getSslEnable());
         //发送邮件 msgIG为邮件id
         String msgId = null;
         try {
-            msgId = MailUtil.send(mailAccount, mailMsg.getReceiveAccount(),
-                    mailMsg.getTitle(), mailMsg.getContent(), false, null);
+            msgId = MailUtil.send(mailAccount, mailMsg.getReceiveAccount(), mailMsg.getTitle(), mailMsg.getContent(),
+                    false, null);
         } catch (Exception e) {
             String finalMsgId = msgId;
-            LOG_THREAD_POOL.execute(()->{
-                //TODO 日志记录 远程日志记录
-                remoteSendLog.createSendLog(new SendLogDo().setSendEmail(mailMsg.getMail())
-                        .setReceiveEmail(mailMsg.getReceiveAccount())
-                        .setSendStatus(StringUtils.isNotEmpty(finalMsgId) ? 1 : 0 )
-                        .setSendError(e.getMessage()));
+            //远程调用日志记录
+            //这里可以配合线程池
+            LOG_THREAD_POOL.execute(() -> {
+                remoteSendLog.createSendLog(
+                        new SendLogDo().setSendEmail(mailMsg.getMail())
+                                .setReceiveEmail(mailMsg.getReceiveAccount())
+                                .setSendStatus(StringUtils.isNotEmpty(finalMsgId) ? 1 : 0)
+                                .setSendError(e.getMessage()));
             });
             throw new RuntimeException(e);
         }
-        //TODO 远程调用日志记录
-        //这里可以配合线程池
     }
 }

@@ -44,7 +44,7 @@ public class MailAccountController {
     @PostMapping("/create")
     @Operation(summary = "创建邮箱账号")
     public R<Long> createMailAccount(@Valid @RequestBody MailAccountCreateReqVO createReqVO) {
-        return R.ok(mailAccountService.createMailAccount(createReqVO));
+        return R.ok(mailAccountService.createMailAccount(createReqVO),"创建邮箱账号成功");
     }
 
     /**
@@ -56,7 +56,7 @@ public class MailAccountController {
     @Operation(summary = "修改邮箱账号")
     public R<Boolean> updateMailAccount(@Valid @RequestBody MailAccountUpdateReqVO updateReqVO) {
         mailAccountService.updateMailAccount(updateReqVO);
-        return R.ok(true);
+        return R.ok(true,"修改成功");
     }
 
     /**
@@ -94,9 +94,9 @@ public class MailAccountController {
     @GetMapping("/getByUserId")
     @Operation(summary = "获得邮箱账号根据userid")
     @Parameter(name = "id", description = "编号", required = true, example = "1024")
-    public R<Long> getMailAccountByUserId(@RequestParam("userId") Long userId) {
-        MailAccountDO mailAccountDO = mailAccountService.getMailAccountByUserId(userId);
-        return R.ok(mailAccountDO.getId());
+    public R<List<MailAccountDO>> getMailAccountByUserId(@RequestParam("userId") Long userId) {
+        List<MailAccountDO> mailAccountDOList = mailAccountService.getMailAccountByUserId(userId);
+        return R.ok(mailAccountDOList);
     }
 
     /**

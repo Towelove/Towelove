@@ -61,70 +61,78 @@ public class SimpleXxxJob {
      * 然后在xxl模块去监听这个消息，然后读取消息再次放入到我们的mq中
      */
     private static final Logger logger = LoggerFactory.getLogger(SimpleXxxJob.class);
-    @XxlJob(value = "myJobHander",init = "initHandler",destroy = "destroyHandler")
-    public void myJobHander(){
+
+    @XxlJob(value = "myJobHander", init = "initHandler", destroy = "destroyHandler")
+    public void myJobHander() {
         //做查询数据库操作
         //使用远程调用方法
-        try{
+        try {
             R<LoginUser> userResult = remoteSysUserService.getUserInfo("季台星", SecurityConstants.INNER);
-            if (!Objects.isNull(userResult)){
+            if (!Objects.isNull(userResult)) {
                 //自定义返回给调度中心的失败原因
                 XxlJobHelper.handleFail("任务执行失败，请检查用户模块服务器");
             }
             System.out.println(userResult.getData().getSysUser().getUserName());
             //这个方法底层是给HandlerContext设置返回值以及消息
             XxlJobHelper.handleSuccess("任务执行成功");
-        }catch (Exception e){
+        } catch (Exception e) {
             //在控制台终止程序的时候是使用InterruptException异常来停止，我们需要对这个异常进行抛出，否则无法停止任务
-            if (e instanceof InterruptedException){
+            if (e instanceof InterruptedException) {
                 throw e;
             }
             logger.error("{}", e);
         }
     }
+
     //任务初始化方法
-    public void initHandler(){
+    public void initHandler() {
         logger.info("task init ...");
         System.out.println("任务调用初始化方法执行");
     }
-    public void destroyHandler(){
+
+    public void destroyHandler() {
         System.out.println("任务执行器被销毁");
     }
+
     @Autowired
     private RemoteSysMailAccountService remoteSysMailAccountService;
+
     /**
      * @author: 张锦标
      * 将每十分钟的任务暂存到map中
      * 之后到快要发送消息的时候
      * 再将消息推送到mq准备发送
      */
-    @XxlJob(value = "TaskJobHandler",init = "initHandler",destroy = "destroyHandler")
-    public void getTaskFromDB(){
-        //拿到十分钟后的数据
+    @XxlJob(value = "TaskJobHandler", init = "initHandler", destroy = "destroyHandler")
+    public void getTaskFromDB() {
+        //拿到十分钟后要发送的数据
         List<MsgTask> msgTaskList = msgTaskService.getMsgTaskList();
         System.out.println(msgTaskList);
         msgTaskList.parallelStream().peek(msgTask -> {
             MailMsg msg = new MailMsg();
-            BeanUtils.copyProperties(msgTask,msg);
+            BeanUtils.copyProperties(msgTask, msg);
             R<MailAccountRespVO> mailAccount = remoteSysMailAccountService.
                     getMailAccount(msgTask.getAccountId());
-            if (Objects.nonNull(mailAccount)){
-                BeanUtils.copyProperties(mailAccount,msg);
+            if (Objects.nonNull(mailAccount)) {
+                BeanUtils.copyProperties(mailAccount, msg);
                 //将所有的任务放入到map中暂存
-                TaskMapUtil.getTaskMap().put(MsgTaskConstants.MSG_PREFIX+msg.getId(),msg);
-            }else{
+                TaskMapUtil.getTaskMap().put(MsgTaskConstants.MSG_PREFIX + msg.getId(), msg);
+            } else {
                 throw new MailException("邮箱账户为空，出现异常！！！");
             }
         });
         //将获得到的消息任务绑定到mq队列中
     }
-    @XxlJob(value = "ToMQJobHandler",init = "initHandler",destroy = "destroyHandler")
-    public void sendMsgToMQ(){
+
+    @XxlJob(value = "ToMQJobHandler", init = "initHandler", destroy = "destroyHandler")
+    public void sendMsgToMQ() {
         //将获得到的消息任务绑定mq队列中
         for (Map.Entry<String, MailMsg> entry : TaskMapUtil.getTaskMap().entrySet()) {
             MailMsg mailMsg = entry.getValue();
             mailMessageProducer.sendMailMessage(mailMsg);
-            //System.out.println("发送邮件给MQ成功");
         }
+        //完成把消息放入到RocketMQ之后就需要清空一下Map集合了
+        TaskMapUtil.getTaskMap().clear();
+        System.out.println("发送邮件给MQ成功");
     }
 }

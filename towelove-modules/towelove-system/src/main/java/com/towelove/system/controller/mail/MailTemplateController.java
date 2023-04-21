@@ -21,6 +21,7 @@ import java.util.List;
  * @author: 张锦标
  * @date: 2023/3/7 12:58
  * 邮件模板管理控制层
+ * 暂时不考虑使用
  */
 
 @Tag(name =  "管理后台 - 邮件模版")
