@@ -38,11 +38,11 @@ spring:
       function: # 这里面要么声明的是消费者类 要么就是消费者类中的多个方法
           # 如果只有一个方法 那么只需要声明一个消费者类
         # 但是如果是多个方法 就需要吧方法名称都声明出来
-        definition: msgUpdate;msgCreate;msgDelete;sysMessageConsumer;taskMessageConsumer;
+        definition: msgUpdate;msgCreate;msgDelete;sysMessageConsumer;mailMessageConsumer;
       bindings:
-        taskSend-out-0:
+        mailSend-out-0:
           destination: task_mail_send
-        taskMessageConsumer-in-0:
+        mailMessageConsumer-in-0:
           destination: task_mail_send
           group: task_mail_send_group
         sysSend-out-0:

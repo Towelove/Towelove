@@ -61,14 +61,14 @@ public class SimpleXxxJob {
      * 然后在xxl模块去监听这个消息，然后读取消息再次放入到我们的mq中
      */
     private static final Logger logger = LoggerFactory.getLogger(SimpleXxxJob.class);
-
+    //使用XXLJOB注解定义一个job
     @XxlJob(value = "myJobHander", init = "initHandler", destroy = "destroyHandler")
     public void myJobHander() {
         //做查询数据库操作
         //使用远程调用方法
         try {
             R<LoginUser> userResult = remoteSysUserService.getUserInfo("季台星", SecurityConstants.INNER);
-            if (!Objects.isNull(userResult)) {
+            if (Objects.isNull(userResult)) {
                 //自定义返回给调度中心的失败原因
                 XxlJobHelper.handleFail("任务执行失败，请检查用户模块服务器");
             }
@@ -108,19 +108,35 @@ public class SimpleXxxJob {
         //拿到十分钟后要发送的数据
         List<MsgTask> msgTaskList = msgTaskService.getMsgTaskList();
         System.out.println(msgTaskList);
-        msgTaskList.parallelStream().peek(msgTask -> {
+        for (MsgTask msgTask : msgTaskList) {
             MailMsg msg = new MailMsg();
             BeanUtils.copyProperties(msgTask, msg);
-            R<MailAccountRespVO> mailAccount = remoteSysMailAccountService.
-                    getMailAccount(msgTask.getAccountId());
+            MailAccountRespVO mailAccount = remoteSysMailAccountService.
+                    getMailAccount(msgTask.getAccountId()).getData();
             if (Objects.nonNull(mailAccount)) {
                 BeanUtils.copyProperties(mailAccount, msg);
+                //BeanUtils.copyProperties(msgTask, msg);
                 //将所有的任务放入到map中暂存
                 TaskMapUtil.getTaskMap().put(MsgTaskConstants.MSG_PREFIX + msg.getId(), msg);
             } else {
                 throw new MailException("邮箱账户为空，出现异常！！！");
             }
-        });
+        }
+        //msgTaskList.parallelStream().peek(msgTask -> {
+        //    MailMsg msg = new MailMsg();
+        //    BeanUtils.copyProperties(msgTask, msg);
+        //    MailAccountRespVO mailAccount = remoteSysMailAccountService.
+        //            getMailAccount(msgTask.getAccountId()).getData();
+        //    if (Objects.nonNull(mailAccount)) {
+        //        BeanUtils.copyProperties(mailAccount, msg);
+        //        BeanUtils.copyProperties(msgTask, msg);
+        //        //将所有的任务放入到map中暂存
+        //        TaskMapUtil.getTaskMap().put(MsgTaskConstants.MSG_PREFIX + msg.getId(), msg);
+        //    } else {
+        //        throw new MailException("邮箱账户为空，出现异常！！！");
+        //    }
+        //});
+
         //将获得到的消息任务绑定到mq队列中
     }
 

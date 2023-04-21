@@ -3,9 +3,9 @@ package com.towelove.common.core.constant;
 public class MessageConstant {
 
     //生产者-任务消息主题
-    public static final String TASK_MESSAGE_OUTPUT="scsTaskSend-out-0";
+    public static final String TASK_MESSAGE_OUTPUT="mailSend-out-0";
     //生产者-系统消息主题
-    public static final String SYS_MESSAGE_OUTPUT="scsSysSend-out-0";
+    public static final String SYS_MESSAGE_OUTPUT="sysSend-out-0";
 
     public static final String MAIL_MESSAGE_OUTPUT = "mailSend-out-0";
     //生产者-任务消息修改

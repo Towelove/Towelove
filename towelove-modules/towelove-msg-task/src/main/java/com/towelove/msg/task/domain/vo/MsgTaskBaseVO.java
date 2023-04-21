@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
+import java.sql.Time;
 import java.util.Date;
 
 /**
@@ -42,7 +43,8 @@ public class MsgTaskBaseVO {
     @NotNull(message = "接收人邮箱不能为空")
     private String receiveAccount;
 
-    @Schema(description = "发送时间", required = true, example = "2002-03-22 12:12:12")
+
+    @Schema(description = "发送时间", required = true, example = "12:12:12")
     @NotNull(message = "发送时间不能为空")
-    private Date sendTime;
+    private Time sendTime;
 }

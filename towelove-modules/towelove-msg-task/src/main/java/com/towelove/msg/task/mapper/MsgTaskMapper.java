@@ -10,6 +10,7 @@ import com.towelove.msg.task.domain.vo.MsgTaskPageReqVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import java.time.LocalTime;
 import java.util.List;
 
 /**
@@ -30,6 +31,6 @@ public interface MsgTaskMapper extends BaseMapperX<MsgTask> {
                 .likeIfPresent(MsgTask::getSendTime,pageReqVO.getSendTime().toString())
                 .likeIfPresent(MsgTask::getTitle,pageReqVO.getTitle()));
     }
-    List<MsgTask> selectAfterTenMinJob(@Param("beginTime") DateTime beginTime,
-                                       @Param("endTime") DateTime endTime);
+    List<MsgTask> selectAfterTenMinJob(@Param("beginTime") LocalTime beginTime,
+                                       @Param("endTime") LocalTime endTime);
 }

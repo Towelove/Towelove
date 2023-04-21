@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.towelove.common.core.web.domain.BaseEntity;
 import lombok.*;
 
+import java.sql.Time;
 import java.util.Date;
 import java.util.List;
 
@@ -59,7 +60,7 @@ public class MsgTask extends BaseEntity {
     /**
      * 消息发送时间
      */
-    private Date sendTime;
+    //private Date sendTime;
     /**
      * 参数数组(自动根据内容生成)
      */
@@ -71,4 +72,6 @@ public class MsgTask extends BaseEntity {
      * 枚举
      */
     private Integer status;
+    @JsonFormat(pattern = "HH:mm:ss")
+    private Time sendTime;
 }

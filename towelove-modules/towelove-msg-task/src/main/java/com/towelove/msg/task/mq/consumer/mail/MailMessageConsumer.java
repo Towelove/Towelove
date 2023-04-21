@@ -48,11 +48,16 @@ public class MailMessageConsumer implements Consumer<MailMsg> {
                 mailMsg.getNickname() + " <" + mailMsg.getMail() + ">" : mailMsg.getMail();
         //配置MailAccount对象 hutool提供的
         MailAccount mailAccount =
-                new MailAccount().setFrom(from).setAuth(true).setUser(mailMsg.getUsername()).setPass(mailMsg.getPassword()).setHost(mailMsg.getHost()).setPort(mailMsg.getPort()).setSslEnable(mailMsg.getSslEnable());
+                new MailAccount().setFrom(from).setAuth(true)
+                        .setUser(mailMsg.getMail())
+                        .setPass(mailMsg.getPassword()).setHost(mailMsg.getHost())
+                        .setPort(mailMsg.getPort()).setSslEnable(mailMsg.getSslEnable());
         //发送邮件 msgIG为邮件id
         String msgId = null;
         try {
-            msgId = MailUtil.send(mailAccount, mailMsg.getReceiveAccount(), mailMsg.getTitle(), mailMsg.getContent(),
+            //TODO 这里需要完成消息的延时发送
+            msgId = MailUtil.send(mailAccount, mailMsg.getReceiveAccount(),
+                    mailMsg.getTitle(), mailMsg.getContent(),
                     false, null);
         } catch (Exception e) {
             String finalMsgId = msgId;

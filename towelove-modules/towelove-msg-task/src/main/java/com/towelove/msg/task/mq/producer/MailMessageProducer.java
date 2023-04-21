@@ -26,6 +26,7 @@ public class MailMessageProducer extends AbstractBusProducer {
      *
      */
     public void sendMailMessage(MailMsg mail) {
+        //TODO 这里需要配置延迟线程池 来完成消息延迟发送给rocketmq
         log.info("接收到定时任务消息，并且准备发送给MQ：{}",mail);
         streamBridge.send(MessageConstant.TASK_MESSAGE_OUTPUT,
                 mail);

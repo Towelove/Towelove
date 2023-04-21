@@ -36,9 +36,11 @@ public class SysUserRegisterListener implements
         String email = sysUser.getEmail();
         MailAccount mailAccount = new MailAccount()
                 .setFrom("Towelove官方<460219753@qq.com>") // 邮箱地址
-                .setHost(mailConfiguration.getHost()).setPort(mailConfiguration.getPort()).setSslEnable(true) //
+                .setHost(mailConfiguration.getHost())
+                .setPort(mailConfiguration.getPort()).setSslEnable(true) //
                 // SMTP 服务器
-                .setAuth(true).setUser(mailConfiguration.getUsername()).setPass(mailConfiguration.getPassword()); // 登录账号密码
+                .setAuth(true).setUser(mailConfiguration.getUsername())
+                .setPass(mailConfiguration.getPassword()); // 登录账号密码
         String messageId = MailUtil.send(mailAccount, email,
                 "Towelove官方感谢您的注册", "欢迎您使用我们的开发的项目，" +
                         "我们的联系方法为VX:15377920718，如有问题，请您联系", false);

@@ -28,6 +28,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
+import java.sql.Time;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
@@ -174,17 +175,15 @@ public class MsgTaskServiceImpl implements MsgTaskService {
         //需要查询获得十分钟内的任务数据
 //        QueryWrapper<MsgTask> msgTaskQueryWrapper = new QueryWrapper<>();
 //        msgTaskQueryWrapper.between(MsgTask::getSendTime, localDateTime, localDateTime.plusMinutes(10));
-        DateTime dateTime1 = DateTime.now();
-        DateTime dateTime2 = DateTime.now();
-        dateTime1.setMinutes(dateTime1.getMinutes() - 5);
-        dateTime2.setMinutes(dateTime2.getMinutes() + 10);
-        List<MsgTask> msgTasks = msgTaskMapper
+        LocalDateTime localDateTime = LocalDateTime.now();
+        Time start = new Time(localDateTime.getHour(), localDateTime.getMinute(), localDateTime.getSecond());
+        Time end = new Time(localDateTime.getHour(), localDateTime.getMinute() + 10, localDateTime.getSecond());
+        List<MsgTask> msgTaskList = msgTaskMapper
                 .selectList(new QueryWrapper<MsgTask>()
-                        .between("send_time", dateTime1.toString(),
-                                dateTime2.toString()));
-        //List<MsgTask> msgTasks = msgTaskMapper.
-        //        selectAfterTenMinJob(dateTime1, dateTime2);
-        return msgTasks;
+                        .between("send_time", start,
+                                end));
+        System.out.println(msgTaskList);
+        return msgTaskList;
     }
 
     @Override
