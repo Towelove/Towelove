@@ -4,6 +4,7 @@ package com.towelove.msg.task.service;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.towelove.msg.task.domain.MsgTask;
 import com.towelove.msg.task.mapper.MsgTaskMapper;
+import com.xxl.job.core.context.XxlJobHelper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -47,6 +48,29 @@ public class MsgTaskServiceTest {
                 .selectList(new QueryWrapper<MsgTask>()
                         .between("send_time", start,
                                 end));
+        System.out.println(msgTaskList);
+    }
+    @Test
+    public void test1(){
+        //获取总的分片数量
+        int total = XxlJobHelper.getShardTotal();
+        //获取当前机器的分片索引
+        int index = XxlJobHelper.getShardIndex();
+        //获得当前时间
+        //需要查询获得十分钟内的任务数据
+//        QueryWrapper<MsgTask> msgTaskQueryWrapper = new QueryWrapper<>();
+//        msgTaskQueryWrapper.between(MsgTask::getSendTime, localDateTime, localDateTime.plusMinutes(10));
+        LocalDateTime localDateTime = LocalDateTime.now();
+        Time start = new Time(localDateTime.getHour(), localDateTime.getMinute(), localDateTime.getSecond());
+        Time end = new Time(localDateTime.getHour(), localDateTime.getMinute() + 10, localDateTime.getSecond());
+
+        //List<MsgTask> msgTaskList = msgTaskMapper
+        //        .selectList(new QueryWrapper<MsgTask>()
+        //                .between("send_time", start,
+        //                        end));
+
+        List<MsgTask> msgTaskList = msgTaskMapper
+                .selectAfterTenMinJob(start, end, total, index);
         System.out.println(msgTaskList);
     }
 }

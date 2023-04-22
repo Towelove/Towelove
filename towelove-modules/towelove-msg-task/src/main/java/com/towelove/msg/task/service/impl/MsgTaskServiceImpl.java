@@ -10,6 +10,7 @@ import com.towelove.common.core.constant.MessageConstant;
 import com.towelove.common.core.constant.MsgTaskConstants;
 import com.towelove.common.core.domain.PageResult;
 import com.towelove.common.core.domain.R;
+import com.towelove.common.core.mybatis.LambdaQueryWrapperX;
 import com.towelove.msg.task.domain.MsgTask;
 import com.towelove.msg.task.domain.vo.MsgTaskCreateReqVO;
 import com.towelove.msg.task.domain.vo.MsgTaskPageReqVO;
@@ -18,6 +19,7 @@ import com.towelove.msg.task.domain.vo.MsgTaskUpdateReqVO;
 import com.towelove.msg.task.mapper.MsgTaskMapper;
 import com.towelove.msg.task.mq.producer.MsgTaskProducer;
 import com.towelove.msg.task.service.MsgTaskService;
+import com.xxl.job.core.context.XxlJobHelper;
 import jdk.nashorn.internal.ir.IfNode;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
@@ -171,6 +173,10 @@ public class MsgTaskServiceImpl implements MsgTaskService {
 
     @Override
     public List<MsgTask> getMsgTaskList() {
+        //获取总的分片数量
+        int total = XxlJobHelper.getShardTotal();
+        //获取当前机器的分片索引
+        int index = XxlJobHelper.getShardIndex();
         //获得当前时间
         //需要查询获得十分钟内的任务数据
 //        QueryWrapper<MsgTask> msgTaskQueryWrapper = new QueryWrapper<>();
@@ -178,10 +184,14 @@ public class MsgTaskServiceImpl implements MsgTaskService {
         LocalDateTime localDateTime = LocalDateTime.now();
         Time start = new Time(localDateTime.getHour(), localDateTime.getMinute(), localDateTime.getSecond());
         Time end = new Time(localDateTime.getHour(), localDateTime.getMinute() + 10, localDateTime.getSecond());
+
+        //List<MsgTask> msgTaskList = msgTaskMapper
+        //        .selectList(new QueryWrapper<MsgTask>()
+        //                .between("send_time", start,
+        //                        end));
+
         List<MsgTask> msgTaskList = msgTaskMapper
-                .selectList(new QueryWrapper<MsgTask>()
-                        .between("send_time", start,
-                                end));
+                .selectAfterTenMinJob(start, end, total, index);
         System.out.println(msgTaskList);
         return msgTaskList;
     }
