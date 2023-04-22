@@ -33,6 +33,9 @@ spring:
         shared-configs[3]:
           data-id: towelove-rocketmq-dev.yaml
           refresh: true
+        shared-configs[4]:
+          data-id: towelove-xxl-dev.yaml
+          refresh: true
     # Spring Cloud Stream 配置项，对应 BindingServiceProperties 类
     stream:
       function: # 这里面要么声明的是消费者类 要么就是消费者类中的多个方法
@@ -67,17 +70,18 @@ spring:
           destination: msg_delete
           group: msg_delete_task_group
 #       Spring Cloud Stream RocketMQ配置项
-      rocketmq:
-        # RocketMQ Binder 配置项，对应 RocketMQBinderConfigurationProperties 类
-        binder:
-          name-server: 123.249.111.175:9876 # RocketMQ Namesrv 地址
-        #          access-key: # 用户名
-        #          secret-key:  # 密码
-        default: # 默认 bindings 全局配置
-          producer: # RocketMQ Producer 配置项，对应 RocketMQProducerProperties 类
-            group: msg_task_producer_group # 生产者分组
-            send-type: SYNC # 发送模式，SYNC 同步
+#      rocketmq:
+#        # RocketMQ Binder 配置项，对应 RocketMQBinderConfigurationProperties 类
+#        binder:
+#          name-server: 127.0.0.1:9876 # RocketMQ Namesrv 地址
+#        #          access-key: # 用户名
+#        #          secret-key:  # 密码
+#        default: # 默认 bindings 全局配置
+#          producer: # RocketMQ Producer 配置项，对应 RocketMQProducerProperties 类
+#            group: msg_task_producer_group # 生产者分组
+#            send-type: SYNC # 发送模式，SYNC 同步
     bus:
       enabled: true # 是否开启，默认为 true
       id: ${spring.application.name}:${server.port} # 编号，Spring Cloud Alibaba 建议使用“应用:端口”的格式
       destination: springCloudBus # 目标消息队列，默认为 springCloudBus
+
