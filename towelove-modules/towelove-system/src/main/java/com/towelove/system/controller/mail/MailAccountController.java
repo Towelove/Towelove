@@ -84,6 +84,7 @@ public class MailAccountController {
         MailAccountDO mailAccountDO = mailAccountService.getMailAccount(id);
         MailAccountRespVO mailAccountRespVO = new MailAccountRespVO();
         BeanUtils.copyProperties(mailAccountDO,mailAccountRespVO);
+        mailAccountRespVO.setPassword(null);
         return R.ok(mailAccountRespVO);
     }
     /**
@@ -96,6 +97,9 @@ public class MailAccountController {
     @Parameter(name = "id", description = "编号", required = true, example = "1024")
     public R<List<MailAccountDO>> getMailAccountByUserId(@RequestParam("userId") Long userId) {
         List<MailAccountDO> mailAccountDOList = mailAccountService.getMailAccountByUserId(userId);
+        for (MailAccountDO mailAccountDO : mailAccountDOList) {
+            mailAccountDO.setPassword(null);
+        }
         return R.ok(mailAccountDOList);
     }
 
@@ -112,6 +116,7 @@ public class MailAccountController {
         List<MailAccountBaseVO> voList = pageResult.getList().stream().map(x -> {
             MailAccountBaseVO baseVO = new MailAccountBaseVO();
             BeanUtils.copyProperties(x, baseVO);
+            baseVO.setPassword(null);
             return baseVO;
         }).collect(Collectors.toList());
         PageResult<MailAccountBaseVO> pageResult1 = new PageResult<>();

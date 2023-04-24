@@ -27,7 +27,7 @@ public interface MsgTaskMapper extends BaseMapperX<MsgTask> {
 
     default PageResult<MsgTask> selectPage(MsgTaskPageReqVO pageReqVO) {
         return selectPage(pageReqVO, new LambdaQueryWrapperX<MsgTask>()
-                .likeIfPresent(MsgTask::getContent, pageReqVO.getContent())
+                .likeIfPresent(MsgTask::getReceiveAccount, pageReqVO.getReceiveAccount())
                 .likeIfPresent(MsgTask::getNickname , pageReqVO.getNickname())
                 .likeIfPresent(MsgTask::getSendTime,pageReqVO.getSendTime().toString())
                 .likeIfPresent(MsgTask::getTitle,pageReqVO.getTitle()));

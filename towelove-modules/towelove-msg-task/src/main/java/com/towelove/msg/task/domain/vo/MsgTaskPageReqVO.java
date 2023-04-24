@@ -5,6 +5,7 @@ import com.towelove.common.core.domain.PageParam;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 
+import java.sql.Time;
 import java.util.Date;
 
 /**
@@ -24,9 +25,9 @@ public class MsgTaskPageReqVO extends PageParam {
     private String nickname;
 
     @Schema(description = "发送时间" , required = true , example = "2022-11-06 22:20:20")
-    private Date sendTime;
+    private Time sendTime;
 
     @Schema(description = "内容" , required = true , example = "早安")
-    private String content;
+    private String receiveAccount;
 
 }

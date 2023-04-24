@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.sql.Time;
 import java.util.Date;
 
 /**
@@ -35,7 +36,7 @@ public class MsgTaskSimpleRespVO {
     private String receiveAccount;
 
     @Schema(description = "发送邮件的时间",required = true)
-    private Date sendTime;
+    private Time sendTime;
 
 
 }

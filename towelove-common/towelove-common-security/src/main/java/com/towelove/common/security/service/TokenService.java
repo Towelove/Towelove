@@ -9,9 +9,13 @@ import com.towelove.common.core.utils.ip.IpUtils;
 import com.towelove.common.core.utils.uuid.IdUtils;
 import com.towelove.common.redis.service.RedisService;
 import com.towelove.common.security.utils.SecurityUtils;
+import com.towelove.system.api.domain.SysUser;
 import com.towelove.system.api.model.LoginUser;
+import com.towelove.system.api.model.SysUserRespVO;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
@@ -56,6 +60,9 @@ public class TokenService
         loginUser.setUserid(userId);
         loginUser.setUsername(userName);
         loginUser.setIpaddr(IpUtils.getIpAddr(ServletUtils.getRequest()));
+        SysUser sysUser = loginUser.getSysUser();
+        SysUserRespVO respVO = new SysUserRespVO();
+        BeanUtils.copyProperties(sysUser,respVO);
         //刷新token的持续时间
         refreshToken(loginUser);
 
@@ -69,6 +76,7 @@ public class TokenService
         Map<String, Object> rspMap = new HashMap<String, Object>();
         rspMap.put("access_token", JwtUtils.createToken(claimsMap));
         rspMap.put("expires_in", expireTime);
+        rspMap.put("user",respVO);
         return rspMap;
     }
 

@@ -50,6 +50,12 @@ public class MsgTaskController {
                 .getMailAccountByUserId(userId).getData();
         return data;
     }
+    private List<MailAccountDO> getAccountId(Long userId){
+        //根据userId远程调用获取accountId
+        List<MailAccountDO> data = sysMailAccountService
+                .getMailAccountByUserId(userId).getData();
+        return data;
+    }
     //TODO 消息返回的时候需要返回当前创建消息的json以及创建后的id
     /**
      * 创建消息任务
@@ -61,9 +67,10 @@ public class MsgTaskController {
     @Operation(summary = "创建消息任务")
     public R<Long> createMsgTask(@Valid @RequestBody MsgTaskCreateReqVO createReqVO,
                                  @Autowired HttpServletRequest request){
-        String token = request.getHeader("Authorization");
-        System.out.println(token);
-        List<MailAccountDO> mailAccountDOList = getAccountId(request);
+        //String token = request.getHeader("Authorization");
+        //System.out.println(token);
+        //List<MailAccountDO> mailAccountDOList = getAccountId(request);
+        List<MailAccountDO> mailAccountDOList = getAccountId(createReqVO.getUserId());
         if (Objects.isNull(mailAccountDOList)){
             throw new RuntimeException("远程调用获取到的accountId为空！！！");
         }
@@ -118,15 +125,15 @@ public class MsgTaskController {
      */
     @GetMapping("/page")
     @Operation(summary = "获得消息任务分页")
-    public R<PageResult<MsgTaskBaseVO>> getMailAccountPage(@Valid MsgTaskPageReqVO pageReqVO) {
+    public R<PageResult<MsgTaskRespVO>> getMailAccountPage(@Valid MsgTaskPageReqVO pageReqVO) {
         PageResult<MsgTask> msgTaskPage = msgTaskService.getMsgTaskPage(pageReqVO);
         List<MsgTask> list = msgTaskPage.getList();
-        List<MsgTaskBaseVO> collect = list.stream().map(msgTask -> {
-            MsgTaskBaseVO msgTaskBaseVO = new MsgTaskBaseVO();
+        List<MsgTaskRespVO> collect = list.stream().map(msgTask -> {
+            MsgTaskRespVO msgTaskBaseVO = new MsgTaskRespVO();
             BeanUtils.copyProperties(msgTask, msgTaskBaseVO);
             return msgTaskBaseVO;
         }).collect(Collectors.toList());
-        PageResult<MsgTaskBaseVO> msgTaskBaseVOPageResult = new PageResult<>();
+        PageResult<MsgTaskRespVO> msgTaskBaseVOPageResult = new PageResult<>();
         msgTaskBaseVOPageResult.setList(collect);
         return R.ok(msgTaskBaseVOPageResult);
     }

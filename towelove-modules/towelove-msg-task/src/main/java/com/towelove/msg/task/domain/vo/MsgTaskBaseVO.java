@@ -22,7 +22,6 @@ public class MsgTaskBaseVO {
     private Long userId;
 
     @Schema(description = "当前用户账号id", required = true, example = "1024")
-    @NotNull(message = "账号id必填")
     private Long accountId;
 
     @Schema(description = "模板id", required = true, example = "1024")

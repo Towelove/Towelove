@@ -4,11 +4,13 @@ import com.towelove.common.core.constant.UserConstants;
 import com.towelove.common.core.domain.R;
 import com.towelove.common.minio.MinioService;
 import com.towelove.system.api.domain.SysUser;
+import com.towelove.system.api.model.SysUserRespVO;
 import com.towelove.system.domain.user.UserInfoBaseVO;
 import com.towelove.system.service.user.ISysUserService;
 import com.towelove.system.service.user.UserInfoService;
 import io.minio.GetObjectResponse;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -67,10 +69,12 @@ public class UserInfoController {
      * @return
      */
     @PostMapping("/upload/avatar/{userId}")
-    public R<SysUser> uploadAvatar(@PathVariable("userId") Long userId,
-                                  MultipartFile file) {
+    public R<SysUserRespVO> uploadAvatar(@PathVariable("userId") Long userId,
+                                         MultipartFile file) {
         SysUser sysUser = userInfoService.uploadAvatar(userId, file);
-        return R.ok(sysUser);
+        SysUserRespVO respVO = new SysUserRespVO();
+        BeanUtils.copyProperties(sysUser,respVO);
+        return R.ok(respVO);
     }
 
     /**
@@ -102,9 +106,10 @@ public class UserInfoController {
      * @return 返回修改后的用户信息
      */
     @PutMapping("/edit")
-    public R<SysUser> edit(@RequestBody UserInfoBaseVO baseVO) {
+    public R<SysUserRespVO> edit(@RequestBody UserInfoBaseVO baseVO) {
         SysUser sysUser = userInfoService.updateUserInfo(baseVO);
-        sysUser.setPassword(null);
-        return R.ok(sysUser);
+        SysUserRespVO respVO = new SysUserRespVO();
+        BeanUtils.copyProperties(sysUser,respVO);
+        return R.ok(respVO);
     }
 }

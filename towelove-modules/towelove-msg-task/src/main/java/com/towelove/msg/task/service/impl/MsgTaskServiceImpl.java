@@ -2,6 +2,7 @@ package com.towelove.msg.task.service.impl;
 
 import cn.hutool.core.date.DateTime;
 import com.alibaba.nacos.shaded.com.google.protobuf.ServiceException;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -154,13 +155,21 @@ public class MsgTaskServiceImpl implements MsgTaskService {
             throw new RuntimeException("查询数据失败");
         }
         IPage page = new Page(pageReqVO.getPageNo(), pageReqVO.getPageSize());
-        QueryWrapper<MsgTask> msgTaskQueryWrapper = new QueryWrapper<>();
+        LambdaQueryWrapper<MsgTask> msgTaskQueryWrapper = new LambdaQueryWrapper<>();
+        Time sendTime = pageReqVO.getSendTime();
+        int hours = sendTime.getHours();
+        int minutes = sendTime.getMinutes();
+        int seconds = sendTime.getSeconds();
+        Time startTime = new Time(hours-1,minutes,seconds);
+        Time endTime = new Time(hours+1,minutes,seconds);
         //带分页的条件查询
         page = msgTaskMapper.selectPage(page, msgTaskQueryWrapper
-                .eq(Strings.isNotBlank(pageReqVO.getContent()), "content", pageReqVO.getContent())
-                .eq(Strings.isNotBlank(pageReqVO.getTitle()), "title", pageReqVO.getTitle())
-                .eq(Strings.isNotBlank(pageReqVO.getNickname()), "nickname", pageReqVO.getNickname())
-                .eq(null != pageReqVO.getSendTime(), "send_time", pageReqVO.getSendTime())
+                .eq(Strings.isNotBlank(pageReqVO.getTitle()), MsgTask::getTitle, pageReqVO.getTitle())
+                .eq(Strings.isNotBlank(pageReqVO.getNickname()), MsgTask::getNickname, pageReqVO.getNickname())
+                .between( MsgTask::getSendTime, startTime,endTime)
+                .like(Strings.isNotBlank(pageReqVO.getReceiveAccount()),
+                        MsgTask::getReceiveAccount,
+                        pageReqVO.getReceiveAccount())
         );
         PageResult<MsgTask> msgTaskPageResult = new PageResult<>();
         msgTaskPageResult.setList(page.getRecords());
