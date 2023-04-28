@@ -13,7 +13,7 @@ public class InvitationCodeUtils {
      */
     public static String getInvitationCode(Long id){
         String randomStr = UUID.randomUUID().toString();
-        String trim = randomStr.substring(0,5).trim();
+        String trim = randomStr.substring(0,4).trim();
         return id.toString()+trim;
     }
 
