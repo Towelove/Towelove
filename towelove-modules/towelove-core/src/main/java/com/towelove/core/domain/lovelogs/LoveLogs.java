@@ -49,6 +49,5 @@ public class LoveLogs extends BaseEntity {
      * 外人是否可见
      */
     private Integer canSee;
-
 }
 

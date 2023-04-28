@@ -22,9 +22,14 @@ public interface LoveLogsMapper extends BaseMapperX<LoveLogs> {
     default List<LoveLogs> selectList() {
         return selectList(new QueryWrapper<>());
     }
+
     default PageResult<LoveLogs> selectPage(LoveLogsPageReqVO pageReqVO) {
+        //根据lovealbumid查询并且倒叙返回
         return selectPage(pageReqVO,
-                new LambdaQueryWrapperX<LoveLogs>());
+                new LambdaQueryWrapperX<LoveLogs>()
+                        .eq(LoveLogs::getLoveAlbumId,
+                pageReqVO.getLoveAlbumId())
+                        .orderBy(true,false,LoveLogs::getCreateTime));
     }
 
 }

@@ -23,5 +23,7 @@ public class LoveLogsBaseVO {
     @Schema(description = "是否他人可见", required = false, example = "true")
     private Integer canSee;
 
+    @Schema(description = "是否他人可见", required = false, example = "true")
+    private Date createTime;
 
 }

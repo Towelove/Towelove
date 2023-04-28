@@ -1,8 +1,10 @@
 package com.towelove.core.service;
 
 
+import com.github.pagehelper.PageHelper;
 import com.towelove.common.core.domain.PageResult;
 import com.towelove.core.domain.lovelogs.*;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,12 +21,11 @@ public interface LoveLogsService {
      *
      * @return 分页数据对象 (TableDataInfo)
      */
-    default List<LoveLogs> selectList(){
+    default List<LoveLogs> selectList() {
         return null;
     }
-    default PageResult<LoveLogsBaseVO> selectPage(LoveLogsPageReqVO pageReqVO){
-        return null;
-    }
+
+    PageResult<LoveLogsBaseVO> selectPage(LoveLogsPageReqVO pageReqVO);
 
     /**
      * 根据ID查询恋爱日志表详情

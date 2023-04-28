@@ -11,6 +11,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
+import javax.websocket.server.PathParam;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,11 +46,10 @@ public class LoveLogsController {
     /**
      * 根据分页条件和恋爱日志表信息查询恋爱日志表数据
      *
-     * @param pageReqVO 分页查询条件
      * @return 分页数据
      */
     @GetMapping("/page")
-    public R<PageResult<LoveLogsBaseVO>> page(LoveLogsPageReqVO pageReqVO) {
+    public R<PageResult<LoveLogsBaseVO>> page(@RequestBody LoveLogsPageReqVO pageReqVO) {
         return R.ok(loveLogsService.selectPage(pageReqVO));
     }
 

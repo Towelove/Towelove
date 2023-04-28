@@ -85,11 +85,11 @@ public class LoveAlbumServiceImpl implements LoveAlbumService {
         LoveAlbum loveAlbum = LoveAlbumConvert.INSTANCE.convert(createReqVO);
         BeanUtils.copyProperties(createReqVO, loveAlbum);
 
-        //if (loveAlbumMapper.duplicatedCreation(createReqVO.getBoyId(),
-        //        createReqVO.getGirlId())>0) {
-        //    throw new RuntimeException("当前男女其中一人已经创建过情侣相册，" +
-        //            "不可重复创建");
-        //}
+        if (loveAlbumMapper.duplicatedCreation(createReqVO.getBoyId(),
+                createReqVO.getGirlId())>0) {
+            throw new RuntimeException("当前男女其中一人已经创建过情侣相册，" +
+                    "不可重复创建");
+        }
 
         int success = loveAlbumMapper.insert(loveAlbum);
         if (success > 0) {
