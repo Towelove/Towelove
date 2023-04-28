@@ -1,5 +1,6 @@
 package com.towelove.system.controller.user;
 
+import com.google.common.base.Strings;
 import com.towelove.common.core.constant.UserConstants;
 import com.towelove.common.core.domain.R;
 import com.towelove.common.core.utils.InvitationCodeUtils;
@@ -11,8 +12,6 @@ import com.towelove.system.domain.user.UserInfoBaseVO;
 import com.towelove.system.service.user.ISysUserService;
 import com.towelove.system.service.user.UserInfoService;
 import io.minio.GetObjectResponse;
-import io.swagger.annotations.ApiOperation;
-import jdk.internal.joptsimple.internal.Strings;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;

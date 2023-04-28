@@ -118,7 +118,7 @@ public class SysUser extends BaseEntity {
     private Long[] roleIds;
 
     @TableField(exist = false)
-    private String InvitationCode;
+    private String invitationCode;
 
 
 
@@ -127,11 +127,11 @@ public class SysUser extends BaseEntity {
     }
 
     public String getInvitationCode() {
-        return InvitationCode;
+        return invitationCode;
     }
 
     public void setInvitationCode(String invitationCode) {
-        InvitationCode = invitationCode;
+        invitationCode = invitationCode;
     }
 
     public SysUser(Long userId) {
