@@ -2,7 +2,9 @@ package com.towelove.system.controller.user;
 
 import com.towelove.common.core.constant.UserConstants;
 import com.towelove.common.core.domain.R;
+import com.towelove.common.core.utils.InvitationCodeUtils;
 import com.towelove.common.minio.MinioService;
+import com.towelove.common.redis.service.RedisService;
 import com.towelove.system.api.domain.SysUser;
 import com.towelove.system.api.model.SysUserRespVO;
 import com.towelove.system.domain.user.UserInfoBaseVO;
@@ -10,13 +12,17 @@ import com.towelove.system.service.user.ISysUserService;
 import com.towelove.system.service.user.UserInfoService;
 import io.minio.GetObjectResponse;
 import io.swagger.annotations.ApiOperation;
+import jdk.internal.joptsimple.internal.Strings;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Objects;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author: 张锦标
@@ -34,6 +40,9 @@ public class UserInfoController {
     private ISysUserService userService;
     @Autowired
     private MinioService minioService;
+
+    @Autowired
+    private RedisService redisService;
     /**
      * 用户注册用户信息
      */
@@ -45,8 +54,41 @@ public class UserInfoController {
         if (UserConstants.NOT_UNIQUE.equals(userService.checkUserNameUnique(sysUser)))
         {
             return R.fail("保存用户'" + username + "'失败，用户名已存在");
+
         }
-        return R.ok(userService.registerUser(sysUser));
+        //判断传递来的数据中是否有邀请码数据
+        if (null != sysUser.getInvitationCode()){
+            //该用户是被邀请注册，校验存储在redis中的邀请码
+            //解析邀请码信息得到邀请人的用户Id
+            Long invitedId = InvitationCodeUtils.parseInvitationCode(sysUser.getInvitationCode());
+            //从redis中得到匹配邀请码
+            String invitationCode = redisService.getCacheObject("InvitationCode:user:" + invitedId);
+            if (!Strings.isNullOrEmpty(invitationCode) && sysUser.getInvitationCode().equals(invitationCode)){
+                //将女方信息存入数据库中
+                Boolean aBoolean = userService.registerUser(sysUser);
+                //校验成功绑定数据到相册表中，开启相册功能
+                if (aBoolean) {
+                    //TODO 将男女方信息存入相册表中
+                }
+            }
+        }
+        return R.ok();
+    }
+
+    /**
+     * 向伴侣发送绑定邀请
+     * @param
+     * @param
+     * @return
+     */
+    @GetMapping("/bingding")
+    public R bingdingRelationShip(@RequestParam("email") String email,
+                                  @RequestParam("userId") Long userId){
+        String invitationCode = InvitationCodeUtils.getInvitationCode(userId);
+        //将邀请码保存到redis中并且设置1天过期
+        redisService.setCacheObject("InvitationCode:user:"+userId, invitationCode, 1L, TimeUnit.DAYS);
+        //TODO 将邀请码发送到指定email即可
+        return null;
     }
 
 

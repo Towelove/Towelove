@@ -7,6 +7,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.Date;
 import java.util.List;
@@ -22,72 +23,87 @@ public class SysUser extends BaseEntity {
     /**
      * 用户ID
      */
+    @NotNull
     private Long userId;
 
     /**
      * 角色ID
      */
+    @NotNull
     private Long roleId;
     /**
      * 用户账号
      */
+    @NotBlank
     private String userName;
 
     /**
      * 用户昵称
      */
+    @NotBlank
     private String nickName;
 
     /**
      * 用户邮箱
      */
+    @NotBlank
+    @NotNull
     private String email;
 
     /**
      * 邮箱加密编码
      * pop3-smtpCode
      */
+    @NotBlank
     private String smtpCode;
 
     /**
      * 手机号码
      */
+    @NotBlank
     private String phonenumber;
 
     /**
      * 用户性别
      */
+    @NotBlank
     private String sex;
 
     /**
      * 用户头像
      */
+    @NotBlank
     private String avatar;
 
     /**
      * 密码
      */
+    @NotBlank
     private String password;
 
     /**
      * 帐号状态（0正常 1停用）
      */
+    @NotBlank
     private String status;
 
 
     /**
      * 最后登录IP
      */
+    @NotBlank
     private String loginIp;
 
     /**
      * 用户类型 默认2为普通用户
      */
+    @NotBlank
     private String userType;
     /**
      * 最后登录时间
      */
     @TableField(exist = false)
+    @NotNull
     private Date loginDate;
 
     /**
@@ -101,9 +117,21 @@ public class SysUser extends BaseEntity {
     @TableField(exist = false)
     private Long[] roleIds;
 
+    @TableField(exist = false)
+    private String InvitationCode;
+
+
 
     public SysUser() {
 
+    }
+
+    public String getInvitationCode() {
+        return InvitationCode;
+    }
+
+    public void setInvitationCode(String invitationCode) {
+        InvitationCode = invitationCode;
     }
 
     public SysUser(Long userId) {
