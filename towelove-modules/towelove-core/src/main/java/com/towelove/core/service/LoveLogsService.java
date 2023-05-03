@@ -25,7 +25,7 @@ public interface LoveLogsService {
         return null;
     }
 
-    PageResult<LoveLogsBaseVO> selectPage(LoveLogsPageReqVO pageReqVO);
+    PageResult<LoveLogs> selectPage(LoveLogsPageReqVO pageReqVO);
 
     /**
      * 根据ID查询恋爱日志表详情

@@ -35,18 +35,18 @@ public class LoveLogsServiceImpl implements LoveLogsService {
         return loveLogsMapper.selectList();
     }
     @Override
-    public PageResult<LoveLogsBaseVO> selectPage(LoveLogsPageReqVO pageReqVO) {
+    public PageResult<LoveLogs> selectPage(LoveLogsPageReqVO pageReqVO) {
         PageResult<LoveLogs> loveLogsPageResult = loveLogsMapper.selectPage(pageReqVO);
-        PageResult<LoveLogsBaseVO> pageResult = new PageResult<>();
-        List<LoveLogs> list = loveLogsPageResult.getList();
-        List<LoveLogsBaseVO> collect = list.stream().map(loveLogs -> {
-            //LoveLogsBaseVO loveLogsBaseVO = new LoveLogsBaseVO();
-            //BeanUtils.copyProperties(loveLogs, loveLogsBaseVO);
-            LoveLogsBaseVO loveLogsBaseVO  = LoveLogsConvert.INSTANCE.convert(loveLogs);
-            return loveLogsBaseVO;
-        }).collect(Collectors.toList());
-        pageResult.setList(collect);
-        return pageResult;
+        //PageResult<LoveLogsBaseVO> pageResult = new PageResult<>();
+        //List<LoveLogs> list = loveLogsPageResult.getList();
+        //List<LoveLogsBaseVO> collect = list.stream().map(loveLogs -> {
+        //    //LoveLogsBaseVO loveLogsBaseVO = new LoveLogsBaseVO();
+        //    //BeanUtils.copyProperties(loveLogs, loveLogsBaseVO);
+        //    LoveLogsBaseVO loveLogsBaseVO  = LoveLogsConvert.INSTANCE.convert(loveLogs);
+        //    return loveLogsBaseVO;
+        //}).collect(Collectors.toList());
+        //pageResult.setList(collect);
+        return loveLogsPageResult;
     }
 
 
