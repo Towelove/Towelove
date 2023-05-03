@@ -3,6 +3,7 @@ package com.towelove.common.security.annotation;
 import com.towelove.common.security.config.ApplicationConfig;
 import com.towelove.common.security.feign.FeignAutoConfiguration;
 import org.mybatis.spring.annotation.MapperScan;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.context.annotation.Import;
 import org.springframework.scheduling.annotation.EnableAsync;
@@ -21,6 +22,7 @@ import java.lang.annotation.*;
 @EnableAsync
 // 自动加载类
 @Import({ ApplicationConfig.class, FeignAutoConfiguration.class })
+@ComponentScan("com.towelove")
 public @interface EnableCustomConfig
 {
 

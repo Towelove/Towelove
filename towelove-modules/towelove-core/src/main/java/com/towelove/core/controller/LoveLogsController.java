@@ -50,7 +50,7 @@ public class LoveLogsController {
      */
     @GetMapping("/page")
     public R<PageResult<LoveLogs>> page(@RequestBody LoveLogsPageReqVO pageReqVO) {
-        return R.ok(loveLogsService.selectPage(pageReqVO),"分页查询成功");
+        return R.ok(loveLogsService.selectPage(pageReqVO), "分页查询成功");
     }
 
     /**
@@ -70,15 +70,13 @@ public class LoveLogsController {
      *
      * @param files       文件
      * @param createReqVO 恋爱日志请求VO
-     * @param loveAlbumId 恋爱相册id
      * @return
      */
     @PostMapping("/add")
     public R<Long> add(@RequestPart("files") MultipartFile[] files,
                        //@RequestParam("loveLogs") String jsonStr,
-                       @RequestPart("loveLogs") LoveLogsCreateReqVO createReqVO,
-                       @RequestParam("loveAlbumId") Long loveAlbumId) {
-        createReqVO.setLoveAlbumId(loveAlbumId);
+                       @RequestPart("loveLogs") LoveLogsCreateReqVO createReqVO) {
+        createReqVO.setLoveAlbumId(createReqVO.getLoveAlbumId());
         //统计每个文件的url
         String photoUrls = String.join(",", minioSysFileService.uploadloadFileMultiple(files));
         createReqVO.setUrls(photoUrls);

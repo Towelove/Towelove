@@ -42,10 +42,13 @@ public class WebMvcConfig implements WebMvcConfigurer
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         // 设置允许跨域的路由
-        registry.addMapping(localFilePrefix  + "/**")
+        registry.addMapping("/**")
                 // 设置允许跨域请求的域名
                 .allowedOrigins("*")
                 // 设置允许的方法
-                .allowedMethods("GET");
+                .allowedMethods("GET")
+                .allowedMethods("POST")
+                .allowedMethods("DELETE")
+                .allowedMethods("PUT");
     }
 }

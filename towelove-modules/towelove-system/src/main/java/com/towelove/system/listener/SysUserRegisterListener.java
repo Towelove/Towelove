@@ -2,8 +2,8 @@ package com.towelove.system.listener;
 
 import cn.hutool.extra.mail.MailAccount;
 import cn.hutool.extra.mail.MailUtil;
+import com.towelove.common.core.domain.OfficialMailInfo;
 import com.towelove.system.api.domain.SysUser;
-import com.towelove.system.domain.mail.MailConfiguration;
 import com.towelove.system.event.SysUserRegisterEvent;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +28,7 @@ public class SysUserRegisterListener implements
      * @param event the event to respond to
      */
     @Autowired
-    private MailConfiguration mailConfiguration;
+    private OfficialMailInfo officialMailInfo;
     @Override
     @Async
     public void onApplicationEvent(SysUserRegisterEvent event) {
@@ -36,11 +36,11 @@ public class SysUserRegisterListener implements
         String email = sysUser.getEmail();
         MailAccount mailAccount = new MailAccount()
                 .setFrom("Towelove官方<460219753@qq.com>") // 邮箱地址
-                .setHost(mailConfiguration.getHost())
-                .setPort(mailConfiguration.getPort()).setSslEnable(true) //
+                .setHost(officialMailInfo.getHost())
+                .setPort(officialMailInfo.getPort()).setSslEnable(true) //
                 // SMTP 服务器
-                .setAuth(true).setUser(mailConfiguration.getUsername())
-                .setPass(mailConfiguration.getPassword()); // 登录账号密码
+                .setAuth(true).setUser(officialMailInfo.getUsername())
+                .setPass(officialMailInfo.getPassword()); // 登录账号密码
         String messageId = MailUtil.send(mailAccount, email,
                 "Towelove官方感谢您的注册", "欢迎您使用我们的开发的项目，" +
                         "我们的联系方法为VX:15377920718，如有问题，请您联系", false);

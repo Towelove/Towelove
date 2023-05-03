@@ -122,6 +122,16 @@
             <artifactId>towelove-common-minio</artifactId>
             <version>1.0</version>
         </dependency>
+        <dependency>
+            <groupId>com.twowaylove</groupId>
+            <artifactId>towelove-api-core</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.twowaylove</groupId>
+            <artifactId>towelove-api-task</artifactId>
+            <version>1.0</version>
+        </dependency>
     </dependencies>
 
     <build>

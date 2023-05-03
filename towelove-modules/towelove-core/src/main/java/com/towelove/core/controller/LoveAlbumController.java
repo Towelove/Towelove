@@ -68,6 +68,10 @@ public class LoveAlbumController {
         return R.ok(loveAlbumService.insertLoveAlbum(createReqVO));
     }
 
+    //TODO 这里写一个通过邀请码然后同意邀请来创建恋爱相册的信息
+    //TODO 之后恋爱相册的默认信息先写上去 让用户自己修改
+    //TODO 只有用户同意了恋爱相册的邀请之后才会真的创建恋爱相册
+
     /**
      * 修改恋爱相册
      *

@@ -14,10 +14,10 @@ public class InvitationCodeUtils {
     public static String getInvitationCode(Long id){
         String randomStr = UUID.randomUUID().toString();
         String trim = randomStr.substring(0,4).trim();
-        return id.toString()+trim;
+        return id.toString()+trim; //1uuid
     }
 
     public static Long parseInvitationCode(String code){
-        return Long.valueOf(code.substring(0,code.length() - 5));
+        return Long.valueOf(code.substring(0,code.length() - 4));
     }
 }

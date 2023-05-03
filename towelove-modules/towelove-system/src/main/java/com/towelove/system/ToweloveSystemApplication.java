@@ -20,7 +20,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 
 //@EnableBinding
 @EnableCustomConfig
-@EnableFeignClients
+@EnableFeignClients(basePackages = "com.towelove")
 @EnableCustomSwagger2
 @SpringBootApplication
 public class ToweloveSystemApplication {

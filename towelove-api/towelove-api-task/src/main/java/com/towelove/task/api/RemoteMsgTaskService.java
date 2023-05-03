@@ -14,7 +14,9 @@ import java.util.List;
  * Author:季台星
  * @Date：2023-3-12 12:10
  */
-@FeignClient(value = "towelove-msg-task",fallbackFactory = RemoteMsgTaskFallbackFactory.class,contextId = "RemoteMsgTaskService")
+@FeignClient(value = "towelove-msg-task",
+        fallbackFactory = RemoteMsgTaskFallbackFactory.class,
+        contextId = "RemoteMsgTaskService")
 public interface RemoteMsgTaskService {
    @GetMapping("/msg/task/get")
    R<MsgTask> getMailAccount(@RequestParam("id") Long id);

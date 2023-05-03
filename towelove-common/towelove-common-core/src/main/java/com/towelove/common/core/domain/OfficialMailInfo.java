@@ -1,6 +1,7 @@
-package com.towelove.system.domain.mail;
+package com.towelove.common.core.domain;
 
 import lombok.*;
+import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
@@ -16,7 +17,8 @@ import org.springframework.stereotype.Component;
 @ToString
 @Component
 @ConfigurationProperties(prefix = "spring.mail")
-public class MailConfiguration {
+@AutoConfiguration
+public class OfficialMailInfo {
     private Integer port;
     private String host;
     private String username;
