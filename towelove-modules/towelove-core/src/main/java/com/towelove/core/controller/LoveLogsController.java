@@ -49,7 +49,7 @@ public class LoveLogsController {
      *
      * @return 分页数据
      */
-    @GetMapping("/page")
+    @GetMapping("/pageWithTime")
     public R<PageResult<LoveLogs>> page(@RequestParam(value = "pageNo",required = false) Integer pageNo,
                                         @RequestParam(value = "pageSize",required = false) Integer pageSize,
                                         @RequestParam(value = "loveAlbumId",required = true) String loveAlbumId) {
