@@ -75,24 +75,6 @@ public class LoveAlbumController {
     //TODO 之后恋爱相册的默认信息先写上去 让用户自己修改
     //TODO 只有用户同意了恋爱相册的邀请之后才会真的创建恋爱相册
 
-    /**
-     * 向恋爱邮局发送一个请求绑定恋爱相册的邮件
-     * @param email 接收人的邮箱消息
-     * @param userId
-     * @return
-     */
-    @PostMapping("/inviteToBind")
-    public R inviteToBind(@RequestParam(value = "email",required = false)String email,
-                          @RequestParam(value = "username",required = false)String username,
-                          @RequestParam("userId")String userId){
-        if (Strings.isEmpty(username) && Strings.isEmpty(email)){
-            return R.fail("接收人的邮箱和用户名不能同时为空");
-        }
-
-
-
-        return R.ok(null,"发送邀请成功");
-    }
 
     /**
      * 修改恋爱相册

@@ -98,8 +98,8 @@ public class UserInfoController {
                     }
                     loveAlbumCreateReqVO.setDaysInLove(null);
                     loveAlbumCreateReqVO.setTitle("等待设置相册标题");
-                        remoteCoreService.add(loveAlbumCreateReqVO);
-
+                    remoteCoreService.add(loveAlbumCreateReqVO);
+                    redisService.deleteObject("InvitationCode:user:"+invitedId);
                 }
             }
         } else {
@@ -109,24 +109,36 @@ public class UserInfoController {
     }
 
     /**
-     * 向伴侣发送绑定情侣相册的邮件请求
-     *
-     * @param email
-     * @param userId
+     * 向另一半发送绑定恋爱相册的邀请
+     * @param email 另一半的邮箱
+     * @param username 对方的用户名
+     * @param userId 发送当前邀请请求的userId
      * @return
      */
-    @GetMapping("/bingding")
-    public R bingdingRelationShip(@RequestParam("email") String email, @RequestParam("userId") Long userId) {
+    @GetMapping("/inviteLover")
+    public R bingdingRelationShip(@RequestParam(value = "email",required = false) String email,
+                                  @RequestParam(value = "username",required = false)String username,
+                                  @RequestParam("userId") Long userId) {
+
+        if (Strings.isNullOrEmpty(username) && Strings.isNullOrEmpty(email)){
+            return R.fail("接收人的邮箱和用户名不能同时为空");
+        }
         //根据userId生成用户邀请码
         String invitationCode = InvitationCodeUtils.getInvitationCode(userId);
         //将邀请码保存到redis中并且设置1天过期
-        redisService.setCacheObject("InvitationCode:user:" + userId, invitationCode, 1L, TimeUnit.DAYS);
-        sendInvitedMessageToUser(email, userId);
+        redisService.setCacheObject("InvitationCode:user:" + userId,
+                invitationCode, 7L, TimeUnit.DAYS);
+        //根据邮箱发送
+        if (!Strings.isNullOrEmpty(email)){
+            sendInvitedMessageToUser(email,invitationCode,userId);
+        }else{//根据用户名发送
+
+        }
         return R.ok("向目标用户发送电子邮件成功");
     }
 
     @Async
-    public void sendInvitedMessageToUser(String email, Long userId) {
+    public void sendInvitedMessageToUser(String email, String invitedCode,Long userId) {
         //TODO 将邀请码发送到指定email即可
         // 1. 创建发送账号
         //TODO 真正的发送消息并且记录日志
@@ -143,8 +155,11 @@ public class UserInfoController {
         SysUser sysUser = userService.selectUserById(userId);
         String invitedName = sysUser.getUserName();
         //TODO 这里需要完成消息的延时发送
-        msgId = MailUtil.send(mailAccount, email, invitedName + "邀请您绑定情侣相册",
-                invitedName + InvitedMessageConstant.INVITED_CONTENT + InvitedMessageConstant.TOWELOVE_URL, true);
+        msgId = MailUtil.send(mailAccount, email,
+                invitedName + "邀请您绑定情侣相册",
+                invitedName + InvitedMessageConstant.INVITED_CONTENT +
+                        invitedCode+"项目地址为:"
+                        +InvitedMessageConstant.TOWELOVE_URL, true);
     }
 
 
