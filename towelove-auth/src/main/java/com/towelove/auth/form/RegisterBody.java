@@ -35,4 +35,6 @@ public class RegisterBody
      * 用户性别
      */
     private String sex;
+
+    private String invitedCode;
 }

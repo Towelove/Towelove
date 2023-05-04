@@ -2,6 +2,9 @@ package com.towelove.core.mapper;
 
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.github.pagehelper.PageHelper;
 import com.towelove.common.core.domain.PageResult;
 import com.towelove.common.core.mybatis.BaseMapperX;
 import com.towelove.common.core.mybatis.LambdaQueryWrapperX;
@@ -27,8 +30,7 @@ public interface LoveLogsMapper extends BaseMapperX<LoveLogs> {
         //根据lovealbumid查询并且倒叙返回
         return selectPage(pageReqVO,
                 new LambdaQueryWrapperX<LoveLogs>()
-                        .eq(LoveLogs::getLoveAlbumId,
-                pageReqVO.getLoveAlbumId())
+                .eq(LoveLogs::getLoveAlbumId,pageReqVO.getLoveAlbumId())
                         .orderBy(true,false,LoveLogs::getCreateTime));
     }
 

@@ -179,8 +179,8 @@
             <systemPath>${project.basedir}/libs/webp-imageio-core-0.1.3.jar</systemPath>
         </dependency>
         <dependency>
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-config</artifactId>
+            <groupId>com.twowaylove</groupId>
+            <artifactId>towelove-common-security</artifactId>
         </dependency>
     </dependencies>
     <build>

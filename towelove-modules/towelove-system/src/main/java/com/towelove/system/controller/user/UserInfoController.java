@@ -68,20 +68,19 @@ public class UserInfoController {
      */
     @PostMapping("/register")
     //这里重写最好
-    public R<Boolean> register(@RequestBody SysUser sysUser) {
+    public R register(@RequestBody SysUser sysUser) {
         String username = sysUser.getUserName();
         if (UserConstants.NOT_UNIQUE.equals(userService.checkUserNameUnique(sysUser))) {
             return R.fail("保存用户'" + username + "'失败，用户名已存在");
-
         }
         //判断传递来的数据中是否有邀请码数据
-        if (null != sysUser.getInvitationCode()) {
+        if (null != sysUser.getInvitedCode()) {
             //该用户是被邀请注册，校验存储在redis中的邀请码
             //解析邀请码信息得到邀请人的用户Id
-            Long invitedId = InvitationCodeUtils.parseInvitationCode(sysUser.getInvitationCode());
+            Long invitedId = InvitationCodeUtils.parseInvitationCode(sysUser.getInvitedCode());
             //从redis中得到匹配邀请码
             String invitationCode = redisService.getCacheObject("InvitationCode:user:" + invitedId);
-            if (!Strings.isNullOrEmpty(invitationCode) && sysUser.getInvitationCode().equals(invitationCode)) {
+            if (!Strings.isNullOrEmpty(invitationCode) && sysUser.getInvitedCode().equals(invitationCode)) {
                 //将女方信息存入数据库中
                 Boolean aBoolean = userService.registerUser(sysUser);
                 //校验成功绑定数据到相册表中，开启相册功能
@@ -99,22 +98,14 @@ public class UserInfoController {
                     }
                     loveAlbumCreateReqVO.setDaysInLove(null);
                     loveAlbumCreateReqVO.setTitle("等待设置相册标题");
-                    remoteCoreService.add(loveAlbumCreateReqVO);
+                        remoteCoreService.add(loveAlbumCreateReqVO);
+
                 }
             }
+        } else {
+            userService.registerUser(sysUser);
         }
-        return R.ok();
-    }
-    @Autowired
-    private JavaMailSenderImpl javaMailSender;
-
-    private void sendMail(String email){
-        SimpleMailMessage mailMessage = new SimpleMailMessage();
-        mailMessage.setSubject("邀请你创建恋爱相册");//主题
-        mailMessage.setText("有人邀请你创建恋爱相册啦，快来吧");//内容
-        mailMessage.setTo(email);
-        mailMessage.setFrom(officialMailInfo.getUsername());
-        javaMailSender.send(mailMessage);
+        return R.ok(sysUser.getUserId(), "用户注册成功");
     }
 
     /**
@@ -133,6 +124,7 @@ public class UserInfoController {
         sendInvitedMessageToUser(email, userId);
         return R.ok("向目标用户发送电子邮件成功");
     }
+
     @Async
     public void sendInvitedMessageToUser(String email, Long userId) {
         //TODO 将邀请码发送到指定email即可
@@ -141,12 +133,10 @@ public class UserInfoController {
         //配置MailAccount对象 hutool提供的
         MailAccount mailAccount =
                 new MailAccount().setFrom("Towelove官方<460219753@qq.com>")
-                        .setAuth(true)
-                        .setUser(officialMailInfo.getUsername())
+                        .setAuth(true).setUser(officialMailInfo.getUsername())
                         .setPass(officialMailInfo.getPassword())
                         .setHost(officialMailInfo.getHost())
-                        .setPort(officialMailInfo.getPort())
-                        .setSslEnable(true);
+                        .setPort(officialMailInfo.getPort()).setSslEnable(true);
         //发送邮件 msgIG为邮件id
         String msgId = null;
 

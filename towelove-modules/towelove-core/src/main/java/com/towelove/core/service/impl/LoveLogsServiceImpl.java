@@ -1,6 +1,7 @@
 package com.towelove.core.service.impl;
 
 
+import com.towelove.common.core.domain.PageParam;
 import com.towelove.common.core.domain.PageResult;
 import com.towelove.core.convert.LoveLogsConvert;
 import com.towelove.core.domain.lovealbum.LoveAlbumBaseVO;
@@ -8,6 +9,7 @@ import com.towelove.core.domain.lovelogs.*;
 import com.towelove.core.mapper.LoveLogsMapper;
 import com.towelove.core.service.LoveLogsService;
 import io.jsonwebtoken.lang.Collections;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -34,8 +36,13 @@ public class LoveLogsServiceImpl implements LoveLogsService {
     public List<LoveLogs> selectList() {
         return loveLogsMapper.selectList();
     }
+
     @Override
-    public PageResult<LoveLogs> selectPage(LoveLogsPageReqVO pageReqVO) {
+    public PageResult<LoveLogs> selectPage(Integer pageNo, Integer pageSize, String loveAlbumId) {
+        LoveLogsPageReqVO pageReqVO = new LoveLogsPageReqVO();
+        pageReqVO.setPageNo(pageNo==null?1:pageNo);
+        pageReqVO.setPageSize(pageSize==null?10:pageSize);
+        pageReqVO.setLoveAlbumId(loveAlbumId);
         PageResult<LoveLogs> loveLogsPageResult = loveLogsMapper.selectPage(pageReqVO);
         //PageResult<LoveLogsBaseVO> pageResult = new PageResult<>();
         //List<LoveLogs> list = loveLogsPageResult.getList();
@@ -74,7 +81,7 @@ public class LoveLogsServiceImpl implements LoveLogsService {
             throw new RuntimeException("前端传来的对象为空");
         }
         LoveLogs loveLogs = LoveLogsConvert.INSTANCE.convert(updateReqVO);
-        BeanUtils.copyProperties(updateReqVO,loveLogs);
+        BeanUtils.copyProperties(updateReqVO, loveLogs);
         int isUpdate = loveLogsMapper.updateById(loveLogs);
         if (isUpdate == 0) {
             throw new RuntimeException("修改任务失败");

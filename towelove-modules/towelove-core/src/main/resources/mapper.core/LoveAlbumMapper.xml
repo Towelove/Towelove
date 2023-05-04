@@ -25,8 +25,8 @@
           create_time, update_by, update_time, deleted
     </sql>
 
-    <select id="duplicatedCreation" resultType="int">
-        select count(1) from love_album
+    <select id="duplicatedCreation" resultType="java.lang.Integer">
+        select count(*) from love_album
         where boy_id=#{boyId} or girl_id=#{girlId};
     </select>
 </mapper>

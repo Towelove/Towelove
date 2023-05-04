@@ -4,6 +4,7 @@ package com.towelove.core.service;
 import com.github.pagehelper.PageHelper;
 import com.towelove.common.core.domain.PageResult;
 import com.towelove.core.domain.lovelogs.*;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
@@ -25,7 +26,7 @@ public interface LoveLogsService {
         return null;
     }
 
-    PageResult<LoveLogs> selectPage(LoveLogsPageReqVO pageReqVO);
+    PageResult<LoveLogs> selectPage(Integer pageNo, Integer pageSize, String loveAlbumId);
 
     /**
      * 根据ID查询恋爱日志表详情
@@ -38,7 +39,6 @@ public interface LoveLogsService {
     /**
      * 新增恋爱日志表
      *
-     * @param loveLogs 恋爱日志表
      * @return 结果返回生成的id
      */
     long insertLoveLogs(LoveLogsCreateReqVO createReqVO);
@@ -46,7 +46,6 @@ public interface LoveLogsService {
     /**
      * 修改恋爱日志表
      *
-     * @param loveLogs 恋爱日志表
      * @return 结果返回是否插入成功
      */
     boolean updateLoveLogs(LoveLogsUpdateReqVO updateReqVO);

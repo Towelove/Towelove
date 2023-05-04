@@ -139,9 +139,11 @@ public class SysLoginService
         }
         SysUser sysUser = new SysUser();
         sysUser.setUserName(username);
+        sysUser.setNickName(registerBody.getNickname());
         sysUser.setEmail(registerBody.getEmail());
         sysUser.setPhonenumber(registerBody.getPhonenumber());
         sysUser.setSex(registerBody.getSex());
+        sysUser.setInvitedCode(registerBody.getInvitedCode());
         // 注册用户信息
         sysUser.setNickName(username);
         //对注册的密码进行加盐

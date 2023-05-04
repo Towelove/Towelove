@@ -6,6 +6,7 @@ import com.towelove.common.core.domain.R;
 import com.towelove.core.domain.lovelogs.*;
 import com.towelove.core.service.LoveLogsService;
 import com.towelove.core.service.impl.MinioSysFileServiceImpl;
+import org.apache.ibatis.annotations.Param;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,8 +50,10 @@ public class LoveLogsController {
      * @return 分页数据
      */
     @GetMapping("/page")
-    public R<PageResult<LoveLogs>> page(@RequestBody LoveLogsPageReqVO pageReqVO) {
-        return R.ok(loveLogsService.selectPage(pageReqVO), "分页查询成功");
+    public R<PageResult<LoveLogs>> page(@RequestParam(value = "pageNo",required = false) Integer pageNo,
+                                        @RequestParam(value = "pageSize",required = false) Integer pageSize,
+                                        @RequestParam(value = "loveAlbumId",required = true) String loveAlbumId) {
+        return R.ok(loveLogsService.selectPage(pageNo,pageSize,loveAlbumId), "分页查询成功");
     }
 
     /**

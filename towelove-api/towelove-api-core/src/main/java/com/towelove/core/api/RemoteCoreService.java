@@ -16,6 +16,6 @@ import java.util.List;
         contextId = "RemoteCoreService")
 public interface RemoteCoreService {
 
-    @PostMapping("/add")
+    @PostMapping("/core/loveAlbum/add")
     public R<Long> add(@RequestBody LoveAlbumCreateReqVO createReqVO);
 }

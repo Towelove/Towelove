@@ -9,6 +9,7 @@ import com.towelove.core.domain.lovealbum.LoveAlbumPageReqVO;
 import com.towelove.core.domain.lovealbum.LoveAlbum;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
 import java.util.Objects;
@@ -37,15 +38,20 @@ public interface LoveAlbumMapper extends BaseMapperX<LoveAlbum> {
      * @param girlId 女生id
      * @return 创建过返回true 否则返回false
      */
-    //default boolean duplicatedCreation(Long boyId, Long girlId) {
-    //    LambdaQueryWrapperX<LoveAlbum> lqw = new LambdaQueryWrapperX<>();
-    //    lqw.eqIfPresent(LoveAlbum::getBoyId, boyId)
-    //            .or()
-    //            .eq(!Objects.isNull(girlId),LoveAlbum::getGirlId, girlId);
-    //    List<LoveAlbum> loveAlbumList = selectList(lqw);
-    //    return Objects.isNull(loveAlbumList);
-    //}
-    int duplicatedCreation(@Param("boyId") Long boyId,@Param("girlId") Long girlId);
+    default Integer duplicatedCreation(@Param("boyId") Long boyId,
+                                       @Param("girlId") Long girlId) {
+        LambdaQueryWrapperX<LoveAlbum> lqw = new LambdaQueryWrapperX<>();
+        lqw.eqIfPresent(LoveAlbum::getBoyId, boyId)
+                .or()
+                .eq(!Objects.isNull(girlId), LoveAlbum::getGirlId, girlId);
+        List<LoveAlbum> loveAlbumList = selectList(lqw);
+        return loveAlbumList.size();
+    }
+
+    //@Select("select count(1) from love_album where boy_id=#{boyId} or girl_id=#{girlId}")
+    //int duplicatedCreation(@Param("boyId") Long boyId,@Param("girlId") Long girlId);
+
+
     default PageResult<LoveAlbum> selectPage(LoveAlbumPageReqVO pageReqVO) {
         return selectPage(pageReqVO,
                 new LambdaQueryWrapperX<LoveAlbum>());

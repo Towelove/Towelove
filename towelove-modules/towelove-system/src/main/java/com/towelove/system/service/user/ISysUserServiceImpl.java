@@ -122,19 +122,20 @@ public class ISysUserServiceImpl extends AbstractBusProducer
      *
      * @param userId 用户id
      */
+    //TODO 检查用户权限这里还没改
     @Override
     public void checkUserDataScope(Long userId)
     {
-        if (!SysUser.isAdmin(SecurityUtils.getUserId()))
-        {
-            SysUser user = new SysUser();
-            user.setUserId(userId);
-            List<SysUser> users = SpringUtils.getAopProxy(this).selectUserList(user);
-            if (StringUtils.isEmpty(users))
-            {
-                throw new ServiceException("没有权限访问用户数据！");
-            }
-        }
+        //if (!SysUser.isAdmin(SecurityUtils.getUserId()))
+        //{
+        //    SysUser user = new SysUser();
+        //    user.setUserId(userId);
+        //    List<SysUser> users = SpringUtils.getAopProxy(this).selectUserList(user);
+        //    if (StringUtils.isEmpty(users))
+        //    {
+        //        throw new ServiceException("没有权限访问用户数据！");
+        //    }
+        //}
     }
 
     @Override
@@ -193,10 +194,10 @@ public class ISysUserServiceImpl extends AbstractBusProducer
         Boolean aBoolean = baseMapper.insert(sysUser) > 0 ? Boolean.TRUE : Boolean.FALSE;
         if(aBoolean){
             //发送邮件给用户
-            applicationEventPublisher.publishEvent(new SysUserRegisterEvent(
-                    this,getBusId(),
-                    selfDestinationService(),sysUser
-            ));
+            //applicationEventPublisher.publishEvent(new SysUserRegisterEvent(
+            //        this,getBusId(),
+            //        selfDestinationService(),sysUser
+            //));
             return aBoolean;
         }
         return Boolean.FALSE;
