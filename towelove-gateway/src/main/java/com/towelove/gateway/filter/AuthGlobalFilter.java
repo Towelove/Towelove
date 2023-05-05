@@ -45,11 +45,11 @@ public class AuthGlobalFilter implements GlobalFilter, Ordered {
     public static final int UP_LIMIT = 10;
     public static Set<String> BLACK_LIST ;
 
-    @PostConstruct
-    public void initIpList(){
-        BLACK_LIST = redisService.getCacheSet(
-                RedisServiceConstants.BLACK_LIST_IP);
-    }
+    //@PostConstruct
+    //public void initIpList(){
+    //    BLACK_LIST = redisService.getCacheSet(
+    //            RedisServiceConstants.BLACK_LIST_IP);
+    //}
 
     //来自auth的请求会先通过当前接口
     //并且来自/auth的请求直接进行放行
@@ -62,22 +62,23 @@ public class AuthGlobalFilter implements GlobalFilter, Ordered {
         //获得当前ip
         String ip = request.getHeaders().getHost().getHostString();
         //获得当前ip访问次数
-        Integer times = (Integer) redisService.getCacheObject(
-                RedisServiceConstants.USING_SYS_IP+ip);
-        if (Objects.isNull(times)) {
-            redisService.setCacheObject(RedisServiceConstants.USING_SYS_IP + ip,
-                    1,3L, TimeUnit.SECONDS);
-        } else {
-            //如果达到上限
-            if (times+1==UP_LIMIT){
-                BLACK_LIST.add(ip);
-                redisService.setCacheSet(RedisServiceConstants.BLACK_LIST_IP,
-                        BLACK_LIST);
-                return chain.filter(exchange);
-            }
-            redisService.setCacheObject(RedisServiceConstants.USING_SYS_IP + ip,
-                    times+1, 3L,TimeUnit.SECONDS);
-        }
+        //Integer times = (Integer) redisService.getCacheObject(
+        //        RedisServiceConstants.USING_SYS_IP+ip);
+        //if (Objects.isNull(times)) {
+        //    redisService.setCacheObject(RedisServiceConstants.USING_SYS_IP + ip,
+        //            1,3L, TimeUnit.SECONDS);
+        //} else {
+        //    //如果达到上限
+        //    if (times+1==UP_LIMIT){
+        //        BLACK_LIST.add(ip);
+        //        redisService.setCacheSet(RedisServiceConstants.BLACK_LIST_IP,
+        //                BLACK_LIST);
+        //        return chain.filter(exchange);
+        //    }
+        //    redisService.setCacheObject(RedisServiceConstants.USING_SYS_IP + ip,
+        //            times+1, 3L,TimeUnit.SECONDS);
+        //}
+
         ServerHttpRequest.Builder mutate = request.mutate();
 
         String url = request.getURI().getPath();

@@ -63,7 +63,7 @@ public class IPAndCodeCheckGlobalFilter implements GlobalFilter, Ordered {
     @Resource
     private RedisService redisService;
     //初始化黑名单
-    public static Set<Object> BLACK_LIST;
+    public static Set<Object> BLACK_LIST = new HashSet<>();
 
     @Autowired
     private IgnoreWhiteProperties ignoreWhite;
@@ -87,22 +87,22 @@ public class IPAndCodeCheckGlobalFilter implements GlobalFilter, Ordered {
     @Qualifier("cpuThreadPool")
     private ThreadPoolExecutor threadPoolExecutor;
 
-    @PostConstruct
-    public void initBlackList() {
-        //BLACK_LIST = redisService.getCacheSet(RedisServiceConstants.BLACK_LIST_IP);
-        threadPoolExecutor.execute(() -> {
-            //每十秒钟刷新一次黑名单
-            while (true) {
-                try {
-                    BLACK_LIST = redisService.getCacheSet
-                            (RedisServiceConstants.BLACK_LIST_IP);
-                    Thread.sleep(10 * 1000);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-        });
-    }
+    //@PostConstruct
+    //public void initBlackList() {
+    //    //BLACK_LIST = redisService.getCacheSet(RedisServiceConstants.BLACK_LIST_IP);
+    //    threadPoolExecutor.execute(() -> {
+    //        //每十秒钟刷新一次黑名单
+    //        while (true) {
+    //            try {
+    //                BLACK_LIST = redisService.getCacheSet
+    //                        (RedisServiceConstants.BLACK_LIST_IP);
+    //                Thread.sleep(10 * 1000);
+    //            } catch (InterruptedException e) {
+    //                throw new RuntimeException(e);
+    //            }
+    //        }
+    //    });
+    //}
 
 
     /**

@@ -41,7 +41,8 @@ public class WebMvcConfig implements WebMvcConfigurer
     {
         return new HeaderInterceptor();
     }
-
+    //开启这个将会导致跨域问题的重复配置
+    //当你使用网关进行跨域解决的时候 就不需要在开启这个了
     ///**
     // * 创建 CorsFilter Bean，解决跨域问题
     // */

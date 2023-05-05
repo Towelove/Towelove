@@ -99,6 +99,7 @@ public class MinioSysFileServiceImpl implements ISysFileService {
                 minioClient.bucketExists(BucketExistsArgs.builder()
                         .bucket(minioConfig.getBucketName()).build());
         if (found) {
+            System.out.println("上传的文件名称为："+file.getName());
             InputStream is = file.getInputStream();
             System.out.println("my-bucketname exists");
             PutObjectArgs args = PutObjectArgs.builder()

@@ -81,7 +81,8 @@ public class LoveLogsController {
                        @RequestPart("loveLogs") LoveLogsCreateReqVO createReqVO) {
         createReqVO.setLoveAlbumId(createReqVO.getLoveAlbumId());
         //统计每个文件的url
-        String photoUrls = String.join(",", minioSysFileService.uploadloadFileMultiple(files));
+        String photoUrls = String.join(",",
+                minioSysFileService.uploadloadFileMultiple(files));
         createReqVO.setUrls(photoUrls);
         return R.ok(loveLogsService.insertLoveLogs(createReqVO));
     }
