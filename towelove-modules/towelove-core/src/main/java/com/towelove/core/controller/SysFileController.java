@@ -49,6 +49,7 @@ public class SysFileController {
     public R<String> uploadZip(@RequestParam("file") MultipartFile file) {
         String s = null;
         try {
+
             s = minioSysFileService.uploadFileWithZip(file);
             return R.ok(s);
         } catch (Exception e) {
