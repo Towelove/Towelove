@@ -18,7 +18,6 @@ import java.util.Date;
 @Data
 public class MsgTaskBaseVO {
     @Schema(description = "用户id", required = true, example = "1024")
-    @NotNull(message = "用户ID必填")
     private Long userId;
 
     @Schema(description = "当前用户账号id", required = true, example = "1024")
@@ -40,6 +39,7 @@ public class MsgTaskBaseVO {
 
     @Schema(description = "接收人邮箱", required = true, example = "460219753@qq.com")
     @NotNull(message = "接收人邮箱不能为空")
+    @Email
     private String receiveAccount;
 
 

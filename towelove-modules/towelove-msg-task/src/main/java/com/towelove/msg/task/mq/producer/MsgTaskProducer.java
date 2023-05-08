@@ -3,9 +3,11 @@ package com.towelove.msg.task.mq.producer;
 import cn.hutool.extra.mail.MailException;
 import com.towelove.common.core.constant.MessageConstant;
 
+import com.towelove.common.core.constant.MsgTaskConstants;
 import com.towelove.common.core.domain.R;
 import com.towelove.common.core.utils.bean.BeanUtils;
 import com.towelove.common.mq.core.bus.AbstractBusProducer;
+import com.towelove.msg.task.config.TaskMapUtil;
 import com.towelove.msg.task.domain.MailMsg;
 import com.towelove.msg.task.domain.MsgTask;
 
@@ -42,9 +44,12 @@ public class MsgTaskProducer extends AbstractBusProducer {
                 .getMailAccount(msgTask.getAccountId()).getData();
         if (Objects.nonNull(mailAccount)) {
             BeanUtils.copyProperties(mailAccount, msg);
-            //将所有的任务放入到map中暂存
-            streamBridge.send(MessageConstant.MESSAGE_UPDATE_OUTPUT,
+
+            TaskMapUtil.getTaskMap().put(MsgTaskConstants.MSG_PREFIX+msg.getId(),
                     msg);
+            //将所有的任务放入到map中暂存
+            //streamBridge.send(MessageConstant.MESSAGE_UPDATE_OUTPUT,
+            //        msg);
             System.out.println("修改任务消息事件发送给MQ成功！");
         } else {
             throw new MailException("邮箱账户为空，出现异常！！！");
@@ -59,9 +64,12 @@ public class MsgTaskProducer extends AbstractBusProducer {
                 .getMailAccount(msgTask.getAccountId()).getData();
         if (Objects.nonNull(mailAccount)) {
             BeanUtils.copyProperties(mailAccount, msg);
+
+            ConcurrentHashMap<String, MailMsg> map = TaskMapUtil.getTaskMap();
+            System.out.println(map);
+            map.put(MsgTaskConstants.MSG_PREFIX+msg.getId(), msg);
             //将所有的任务放入到map中暂存
-            streamBridge.send(MessageConstant.MESSAGE_CREATE_OUTPUT,
-                    msg);
+            //streamBridge.send(MessageConstant.MESSAGE_CREATE_OUTPUT, msg);
             System.out.println("插件任务消息事件发送给MQ成功！");
         } else {
             throw new MailException("邮箱账户为空，出现异常！！！");
@@ -70,6 +78,7 @@ public class MsgTaskProducer extends AbstractBusProducer {
 
     public void sendMsgDeleteEvent(Long id) {
         log.info("接收到消息删除事件，删除的消息id为：{}", id);
-        streamBridge.send(MessageConstant.MESSAGE_DELETE_OUTPUT, id);
+        TaskMapUtil.getTaskMap().remove(MsgTaskConstants.MSG_PREFIX+id);
+        //streamBridge.send(MessageConstant.MESSAGE_DELETE_OUTPUT, id);
     }
 }

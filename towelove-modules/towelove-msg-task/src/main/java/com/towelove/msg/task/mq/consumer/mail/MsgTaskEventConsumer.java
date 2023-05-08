@@ -38,8 +38,7 @@ public class MsgTaskEventConsumer {
             //添加这个map中的消息
             ConcurrentHashMap<String, MailMsg> map = TaskMapUtil.getTaskMap();
             System.out.println(map);
-            map.put(MsgTaskConstants.MSG_PREFIX+mailMsg.getId(),
-                    mailMsg);
+            map.put(MsgTaskConstants.MSG_PREFIX+mailMsg.getId(), mailMsg);
         };
     }
     @Bean

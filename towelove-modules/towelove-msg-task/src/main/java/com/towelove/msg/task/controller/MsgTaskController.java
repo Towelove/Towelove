@@ -62,24 +62,37 @@ public class MsgTaskController {
      *
      * @param createReqVO 前端传来的消息任务信息
      * @return 创建成功返回id
+     * 失败返回500
      */
     @PostMapping("/create")
     @Operation(summary = "创建消息任务")
     public R<Long> createMsgTask(@Valid @RequestBody MsgTaskCreateReqVO createReqVO,
                                  @Autowired HttpServletRequest request){
-        //String token = request.getHeader("Authorization");
-        //System.out.println(token);
-        //List<MailAccountDO> mailAccountDOList = getAccountId(request);
-        List<MailAccountDO> mailAccountDOList = getAccountId(createReqVO.getUserId());
+        Long userId = getUserIdByHeader(request);
+        if(msgTaskService.getMsgTaskList().size()>5){
+            return R.fail(200,"创建消息任务的数量达到上限了,请删除原有的");
+        }
+        List<MailAccountDO> mailAccountDOList = getAccountId(userId);
         if (Objects.isNull(mailAccountDOList)){
-            throw new RuntimeException("远程调用获取到的accountId为空！！！");
+            return R.fail(500,"当前用户还没有创建他的邮箱账户信息，请创建邮箱账户信息");
         }
         System.out.println("当前accountList为："+mailAccountDOList);
         MailAccountDO accountDO = mailAccountDOList.get(0);
         createReqVO.setAccountId(accountDO.getId());
-        return R.ok(msgTaskService.createMsgTask(createReqVO),"消息创建成功");
+        createReqVO.setUserId(userId);
+        return R.ok(msgTaskService.createMsgTask(createReqVO));
     }
 
+    /**
+     * 从请求头中获取当前用户id
+     * @param request
+     * @return
+     */
+    private Long getUserIdByHeader(HttpServletRequest request){
+        String header = request.getHeader("Authorization");
+        String userId = JwtUtils.getUserId(header);
+        return Long.valueOf(userId);
+    }
     /**
      * 修改消息任务
      * @param updateReqVO 要修改的消息任务消息
@@ -144,11 +157,13 @@ public class MsgTaskController {
      */
     @GetMapping("/list-all-simple")
     @Operation(summary = "获得消息任务精简列表")
-    public R<List<MsgTaskSimpleRespVO>> getSimpleMailAccountList() {
+    public R<List<MsgTaskSimpleRespVO>> getSimpleMailAccountList(HttpServletRequest request) {
+        Long userId = getUserIdByHeader(request);
         List<MsgTaskSimpleRespVO> simpleMailAccountList =
-                msgTaskService.getSimpleMailAccountList();
+                msgTaskService.getSimpleMailAccountListByUserId(userId);
         return R.ok(simpleMailAccountList);
     }
+
     @GetMapping("/getSechelTask")
     public R<List<MsgTask>> getSechelTask(){
         List<MsgTask> msgTaskList = msgTaskService.getMsgTaskList();

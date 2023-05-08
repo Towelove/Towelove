@@ -102,7 +102,7 @@ public class LoveLogsController {
      * @return 结果
      */
     @PutMapping("/edit")
-    public R<Boolean> edit(@RequestPart("files") MultipartFile[] files,
+    public R<Boolean> edit(@RequestPart(value = "files",required = false) MultipartFile[] files,
                            //@RequestParam("secHandGoods") String jsonStr,
                            HttpServletRequest request,
                            @RequestPart("loveLogs") LoveLogsUpdateReqVO updateReqVO) throws Exception {

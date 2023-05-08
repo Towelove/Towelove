@@ -1,7 +1,6 @@
 package com.towelove.msg.task.service.impl;
 
-import cn.hutool.core.date.DateTime;
-import com.alibaba.nacos.shaded.com.google.protobuf.ServiceException;
+
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -10,7 +9,6 @@ import com.mysql.cj.Query;
 import com.towelove.common.core.constant.MessageConstant;
 import com.towelove.common.core.constant.MsgTaskConstants;
 import com.towelove.common.core.domain.PageResult;
-import com.towelove.common.core.domain.R;
 import com.towelove.common.core.mybatis.LambdaQueryWrapperX;
 import com.towelove.msg.task.domain.MsgTask;
 import com.towelove.msg.task.domain.vo.MsgTaskCreateReqVO;
@@ -33,10 +31,12 @@ import org.springframework.validation.annotation.Validated;
 
 import java.sql.Time;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
 /**
@@ -47,6 +47,7 @@ import java.util.stream.Collectors;
 @Service
 @Slf4j
 @Validated
+@Transactional
 public class MsgTaskServiceImpl implements MsgTaskService {
     @Autowired
     private MsgTaskMapper msgTaskMapper;
@@ -55,21 +56,22 @@ public class MsgTaskServiceImpl implements MsgTaskService {
 
     /**
      * 当前方法用于判断当前任务是否需要修改队列
+     *
      * @param taskDate 发送消息的时间
      * @return
      */
+    //TODO
     private boolean needToChangeMap(Date taskDate) {
         long time = taskDate.getTime();
-        Date date = new Date();
-        long now = date.getTime();
+        Time nowTime = Time.valueOf(LocalTime.now());
+        long now = nowTime.getTime();
         //要发送的时间和当前时间差
         long diff = time - now;
         //如果当前时间是下一个时间周期
         //就允许发送
-        if (diff>0 &&
-                diff < MsgTaskConstants.SEND_TIME_DIFF) {
+        if (diff > 0 && diff < MsgTaskConstants.SEND_TIME_DIFF) {
             return true;
-        }else{
+        } else {
             return false;
         }
     }
@@ -87,20 +89,22 @@ public class MsgTaskServiceImpl implements MsgTaskService {
         }
         MsgTask msgTask = new MsgTask();
         BeanUtils.copyProperties(createReqVO, msgTask);
+        int isInsert = msgTaskMapper.insert(msgTask);
         try {
-            int isInsert = msgTaskMapper.insert(msgTask);
-            if (isInsert > 0 && needToChangeMap(
-                    createReqVO.getSendTime())) {
+            if (needToChangeMap(createReqVO.getSendTime())) {
                 msgTaskProducer.sendMsgCreateEvent(msgTask);
             }
         } catch (Exception e) {
-            throw new RuntimeException("新增任务失败");
+            System.out.println("RocketMQ发送更新邮件内容的请求失败");
         }
-        return msgTask.getId();
+        if (isInsert > 0) {
+            return msgTask.getId();
+        }
+        return 500L;
+
     }
 
     /**
-     *
      * @param updateReqVO 修改后的消息任务消息
      * @return
      */
@@ -114,14 +118,13 @@ public class MsgTaskServiceImpl implements MsgTaskService {
         int isUpdate = msgTaskMapper.updateById(msgTask);
         if (isUpdate == 0) {
             throw new RuntimeException("修改任务失败");
-        }else if (needToChangeMap(updateReqVO.getSendTime())){
+        } else if (needToChangeMap(updateReqVO.getSendTime())) {
             msgTaskProducer.sendMsgUpdateEvent(msgTask);
         }
         return isUpdate > 0;
     }
 
     /**
-     *
      * @param id 要删除的消息
      * @return
      */
@@ -131,7 +134,7 @@ public class MsgTaskServiceImpl implements MsgTaskService {
             throw new RuntimeException("id为空...");
         }
         int i = msgTaskMapper.deleteById(id);
-        if (i>0){
+        if (i > 0) {
             msgTaskProducer.sendMsgDeleteEvent(id);
         }
         return i > 0;
@@ -160,17 +163,12 @@ public class MsgTaskServiceImpl implements MsgTaskService {
         int hours = sendTime.getHours();
         int minutes = sendTime.getMinutes();
         int seconds = sendTime.getSeconds();
-        Time startTime = new Time(hours-1,minutes,seconds);
-        Time endTime = new Time(hours+1,minutes,seconds);
+        Time startTime = new Time(hours - 1, minutes, seconds);
+        Time endTime = new Time(hours + 1, minutes, seconds);
         //带分页的条件查询
-        page = msgTaskMapper.selectPage(page, msgTaskQueryWrapper
-                .eq(Strings.isNotBlank(pageReqVO.getTitle()), MsgTask::getTitle, pageReqVO.getTitle())
-                .eq(Strings.isNotBlank(pageReqVO.getNickname()), MsgTask::getNickname, pageReqVO.getNickname())
-                .between( MsgTask::getSendTime, startTime,endTime)
-                .like(Strings.isNotBlank(pageReqVO.getReceiveAccount()),
-                        MsgTask::getReceiveAccount,
-                        pageReqVO.getReceiveAccount())
-        );
+        page = msgTaskMapper.selectPage(page, msgTaskQueryWrapper.eq(Strings.isNotBlank(pageReqVO.getTitle()),
+                MsgTask::getTitle, pageReqVO.getTitle()).eq(Strings.isNotBlank(pageReqVO.getNickname()),
+                MsgTask::getNickname, pageReqVO.getNickname()).between(MsgTask::getSendTime, startTime, endTime).like(Strings.isNotBlank(pageReqVO.getReceiveAccount()), MsgTask::getReceiveAccount, pageReqVO.getReceiveAccount()));
         PageResult<MsgTask> msgTaskPageResult = new PageResult<>();
         msgTaskPageResult.setList(page.getRecords());
         msgTaskPageResult.setTotal(page.getTotal());
@@ -206,14 +204,18 @@ public class MsgTaskServiceImpl implements MsgTaskService {
     }
 
     @Override
-    public List<MsgTaskSimpleRespVO> getSimpleMailAccountList() {
-        List<MsgTask> list = this.getMsgTaskList();
-        List<MsgTaskSimpleRespVO> msgTaskSimpleRespVOList = list.stream().map(
-                msgTask -> {
-                    MsgTaskSimpleRespVO msgTaskSimpleRespVO = new MsgTaskSimpleRespVO();
-                    BeanUtils.copyProperties(msgTask, msgTaskSimpleRespVO);
-                    return msgTaskSimpleRespVO;
-                }).collect(Collectors.toList());
+    public List<MsgTaskSimpleRespVO> getSimpleMailAccountListByUserId(Long userId) {
+        LambdaQueryWrapperX<MsgTask> lqw = new LambdaQueryWrapperX<>();
+        lqw.eq(MsgTask::getUserId,userId);
+        List<MsgTask> list = msgTaskMapper.selectList(lqw);
+        List<MsgTaskSimpleRespVO> msgTaskSimpleRespVOList =
+                list.stream().map(msgTask -> {
+            MsgTaskSimpleRespVO msgTaskSimpleRespVO = new MsgTaskSimpleRespVO();
+            BeanUtils.copyProperties(msgTask, msgTaskSimpleRespVO);
+            return msgTaskSimpleRespVO;
+        }).collect(Collectors.toList());
         return msgTaskSimpleRespVOList;
     }
+
+
 }

@@ -58,5 +58,5 @@ public interface MsgTaskService {
      */
     List<MsgTask> getMsgTaskList();
 
-    List<MsgTaskSimpleRespVO> getSimpleMailAccountList();
+    List<MsgTaskSimpleRespVO> getSimpleMailAccountListByUserId(Long userId);
 }

@@ -20,23 +20,21 @@ import java.util.Date;
 @NoArgsConstructor
 public class MsgTaskSimpleRespVO {
 
-    @Schema(description = "消息编号", required = true, example = "1024")
+    @Schema(description = "消息编号", required = false, example = "1024")
     private Long id;
 
-    @Schema(description = "用户编号", required = true, example = "1024")
-    private Long userId;
+    @Schema(description = "消息内容", required = false, example = "消息内容")
+    private String content;
 
-    @Schema(description = "邮件账号编号", required = true, example = "1024")
-    private Long accountId;
-
-    @Schema(description = "模板编号", required = true, example = "1024")
-    private Long templateId;
-
-    @Schema(description = "接收者的邮箱",required = true)
+    @Schema(description = "接收者的邮箱", required = false
+    )
     private String receiveAccount;
 
-    @Schema(description = "发送邮件的时间",required = true)
+    @Schema(description = "发送邮件的时间", required = false)
     private Time sendTime;
+
+    @Schema(description = "发送邮件的时间", required = false)
+    private String title;
 
 
 }

@@ -31,6 +31,7 @@ public interface LoveLogsMapper extends BaseMapperX<LoveLogs> {
         return selectPage(pageReqVO,
                 new LambdaQueryWrapperX<LoveLogs>()
                 .eq(LoveLogs::getLoveAlbumId,pageReqVO.getLoveAlbumId())
+                        //.eq(LoveLogs::getDeleted,false)
                         .orderBy(true,false,LoveLogs::getCreateTime));
     }
 
