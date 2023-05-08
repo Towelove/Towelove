@@ -18,7 +18,6 @@ import javax.validation.constraints.NotNull;
 @Data
 public class LoveLogsUpdateReqVO extends LoveLogsBaseVO{
     @Schema(description = "恋爱相册id", required = true, example = "1024")
-    @NotNull(message = "恋爱相册id必填")
     private Long loveAlbumId;
 
     @Schema(description = "恋爱日志id", required = true, example = "1024")

@@ -3,6 +3,7 @@ package com.towelove.core.service.impl;
 
 import com.towelove.common.core.constant.CaffeineCacheConstant;
 import com.towelove.common.core.domain.PageResult;
+import com.towelove.common.core.mybatis.LambdaQueryWrapperX;
 import com.towelove.common.redis.service.RedisService;
 import com.towelove.core.convert.LoveAlbumConvert;
 import com.towelove.core.domain.lovealbum.*;
@@ -129,6 +130,15 @@ public class LoveAlbumServiceImpl implements LoveAlbumService {
         }
         //redisService.deleteObject(loveAlbumIds);
         return true;
+    }
+
+    @Override
+    public Long selectLoveAlbumIdByUserId(String userId) {
+        LambdaQueryWrapperX<LoveAlbum> lqw = new LambdaQueryWrapperX<>();
+        lqw.eq(LoveAlbum::getBoyId,userId).or()
+                        .eq(LoveAlbum::getGirlId,userId);
+        LoveAlbum loveAlbum = loveAlbumMapper.selectOne(lqw);
+        return loveAlbum.getId();
     }
 }
 

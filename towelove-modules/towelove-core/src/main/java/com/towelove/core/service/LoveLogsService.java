@@ -53,10 +53,10 @@ public interface LoveLogsService {
     /**
      * 删除恋爱日志表
      *
-     * @param loveLogsIds 恋爱日志表
+     * @param loveLogsId 恋爱日志表
      * @return 结果返回是否删除成功
      */
-    boolean deleteLoveLogs(ArrayList<Long> loveLogsIds);
+    boolean deleteLoveLog(Long loveLogsId);
 
 
 }

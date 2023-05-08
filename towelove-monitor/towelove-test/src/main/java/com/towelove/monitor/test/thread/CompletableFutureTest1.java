@@ -88,7 +88,7 @@ public class CompletableFutureTest1 {
                 .collect(Collectors.toList());
 
         CompletableFuture<Void> allCF = CompletableFuture.allOf(futureList.toArray(new CompletableFuture[0]));
-
+        
         allCF.join();
     }
 }

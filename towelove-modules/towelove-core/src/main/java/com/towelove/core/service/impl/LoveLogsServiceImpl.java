@@ -40,8 +40,8 @@ public class LoveLogsServiceImpl implements LoveLogsService {
     @Override
     public PageResult<LoveLogs> selectPage(Integer pageNo, Integer pageSize, String loveAlbumId) {
         LoveLogsPageReqVO pageReqVO = new LoveLogsPageReqVO();
-        pageReqVO.setPageNo(pageNo==null?1:pageNo);
-        pageReqVO.setPageSize(pageSize==null?10:pageSize);
+        pageReqVO.setPageNo(pageNo == null ? 1 : pageNo);
+        pageReqVO.setPageSize(pageSize == null ? 10 : pageSize);
         pageReqVO.setLoveAlbumId(loveAlbumId);
         PageResult<LoveLogs> loveLogsPageResult = loveLogsMapper.selectPage(pageReqVO);
         //PageResult<LoveLogsBaseVO> pageResult = new PageResult<>();
@@ -90,15 +90,10 @@ public class LoveLogsServiceImpl implements LoveLogsService {
     }
 
     @Override
-    public boolean deleteLoveLogs(ArrayList<Long> loveLogsIds) {
-        if (Collections.isEmpty(loveLogsIds)) {
-            throw new RuntimeException("id集合为空...");
-        }
-        for (Long id : loveLogsIds) {
-            int i = loveLogsMapper.deleteById(id);
-            if (i <= 0) {
-                throw new RuntimeException("删除数据失败");
-            }
+    public boolean deleteLoveLog(Long loveLogsId) {
+        int i = loveLogsMapper.deleteById(loveLogsId);
+        if (i <= 0) {
+            throw new RuntimeException("删除数据失败");
         }
         return true;
     }

@@ -16,7 +16,6 @@ import java.util.List;
 public interface LoveAlbumService {
     /**
      * 根据分页条件和恋爱相册信息查询恋爱相册数据
-     * @param loveAlbum 恋爱相册
      * @return 分页数据对象 (TableDataInfo)
      */
     default List<LoveAlbum> selectList(){
@@ -52,7 +51,8 @@ public interface LoveAlbumService {
      * @return 结果返回是否删除成功
      */
     boolean deleteLoveAlbum(ArrayList<Long> loveAlbumIds);
-    
 
+
+    Long selectLoveAlbumIdByUserId(String userId);
 }
 

@@ -28,6 +28,10 @@ public class LoveLogs extends BaseEntity {
     @TableId(value = "id", type = IdType.AUTO)
     private Long id;
     /**
+     * 恋爱日记的标题
+     */
+    private String title;
+    /**
      * 恋爱相册id
      * 用于获取当前日志属于哪一个相册
      */
