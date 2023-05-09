@@ -41,6 +41,10 @@ public class MailMessageConsumer implements Consumer<MailMsg> {
 
     @Override
     public void accept(MailMsg mailMsg) {
+        sendMailMsg(mailMsg);
+    }
+
+    private  void sendMailMsg(MailMsg mailMsg) {
         log.info("接收到任务消息消息: {}", mailMsg);
         //TODO 真正的发送消息并且记录日志
 

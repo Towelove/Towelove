@@ -67,7 +67,8 @@ public class SimpleXxxJob {
         //做查询数据库操作
         //使用远程调用方法
         try {
-            R<LoginUser> userResult = remoteSysUserService.getUserInfo("季台星", SecurityConstants.INNER);
+            R<LoginUser> userResult = remoteSysUserService
+                    .getUserInfo("季台星", SecurityConstants.INNER);
             if (Objects.isNull(userResult)) {
                 //自定义返回给调度中心的失败原因
                 XxlJobHelper.handleFail("任务执行失败，请检查用户模块服务器");

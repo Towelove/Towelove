@@ -6,6 +6,10 @@ spring:
     # 环境配置
     active: dev
   cloud:
+    inetutils:
+      preferred-networks:
+        - 123
+        - 114
     gateway:
       discovery:
         locator:

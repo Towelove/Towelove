@@ -11,6 +11,10 @@ spring:
     # 环境配置
     active: dev
   cloud:
+    inetutils:
+      preferred-networks:
+        - 123
+        - 114
     nacos:
       discovery:
         # 服务注册地址
