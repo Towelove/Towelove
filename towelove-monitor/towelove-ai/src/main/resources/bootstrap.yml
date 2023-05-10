@@ -1,0 +1,12 @@
+# Tomcat
+server:
+  port: 5555
+
+# Spring
+spring:
+  application:
+    # 应用名称
+    name: towelove-ai
+  profiles:
+    # 环境配置
+    active: dev
