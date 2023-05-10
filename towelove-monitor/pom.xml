@@ -14,6 +14,7 @@
     <modules>
         <module>towelove-monitor-admin</module>
         <module>towelove-test</module>
+        <module>towelove-ai</module>
     </modules>
 
     <properties>

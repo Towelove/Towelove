@@ -118,7 +118,7 @@ public class SysLoginService
     /**
      * 注册
      */
-    public void register(RegisterBody registerBody)
+    public Object register(RegisterBody registerBody)
     {
         String username = registerBody.getUsername();
         String password = registerBody.getPassword();
@@ -151,11 +151,12 @@ public class SysLoginService
         //远程调用system模块进行用户注册
         R<?> registerResult = remoteSysUserService
                 .registerUserInfo(sysUser, SecurityConstants.INNER);
-
         if (R.FAIL == registerResult.getCode())
         {
             throw new ServiceException(registerResult.getMsg());
         }
+        Object data = registerResult.getData();
+        return data;
         //日志记录
         //recordLogService.recordLogininfor(username, Constants.REGISTER, "注册成功");
     }

@@ -102,8 +102,8 @@ public class TokenController {
     @PostMapping("register")
     public R<?> register(@RequestBody RegisterBody registerBody) {
         // 用户注册
-        sysLoginService.register(registerBody);
-        return R.ok();
+        Object register = sysLoginService.register(registerBody);
+        return R.ok(register,"注册成功");
     }
     @Autowired
     private RedisService redisService;

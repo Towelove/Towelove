@@ -54,7 +54,6 @@ public class SysUserController extends BaseController{
      * 获取当前用户信息
      * 当前方法用于提供远程调用服务
      */
-    @InnerAuth
     @GetMapping("/info/{username}")
     public R<LoginUser> info(@PathVariable("username") String username)
     {
@@ -199,7 +198,6 @@ public class SysUserController extends BaseController{
      */
     //@RequiresPermissions("system:user:edit")
     //@Log(title = "用户管理", businessType = BusinessType.UPDATE)
-    @InnerAuth
     @PutMapping("/resetPwd")
     public AjaxResult resetPwd(@RequestBody SysUser user)
     {

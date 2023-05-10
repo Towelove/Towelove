@@ -13,8 +13,8 @@ public class InvitationCodeUtils {
      */
     public static String getInvitationCode(Long id){
         String randomStr = UUID.randomUUID().toString();
-        String trim = randomStr.substring(0,4).trim();
-        return id.toString()+trim; //1uuid
+        String trim = id.toString().concat(randomStr).substring(0,6);
+        return trim;
     }
 
     public static Long parseInvitationCode(String code){
