@@ -10,6 +10,7 @@ import com.towelove.common.core.constant.UserConstants;
 import com.towelove.common.core.domain.OfficialMailInfo;
 import com.towelove.common.core.domain.R;
 import com.towelove.common.core.utils.InvitationCodeUtils;
+import com.towelove.common.core.utils.JwtUtils;
 import com.towelove.common.core.utils.StringUtils;
 import com.towelove.common.minio.MinioService;
 import com.towelove.common.redis.service.RedisService;
@@ -35,6 +36,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Date;
 import java.util.Objects;
@@ -63,6 +65,9 @@ public class UserInfoController {
     private OfficialMailInfo officialMailInfo;
     @Autowired
     private RemoteCoreService remoteCoreService;
+
+
+
 
     /**
      * 用户注册用户信息

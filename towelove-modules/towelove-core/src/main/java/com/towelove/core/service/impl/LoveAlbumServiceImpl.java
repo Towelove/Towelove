@@ -81,15 +81,36 @@ public class LoveAlbumServiceImpl implements LoveAlbumService {
         return loveAlbum;
     }
 
+    /**
+     * 根据当前id查询当前用户的伴侣的id
+     * @param userId 当前用户的id
+     * @return 当前用户伴侣的id -1啧表示没有伴侣
+     */
+    @Override
+    public Long getUserIdFromLoveAlbum(Long userId) {
+        //先判断恋爱相册中是否有当前用户的id
+        if (loveAlbumMapper.duplicatedCreation(userId, userId) > 0) {
+            //有 那么就查找她的另一半
+            LambdaQueryWrapperX<LoveAlbum> lqw = new LambdaQueryWrapperX<>();
+            lqw.eq(LoveAlbum::getBoyId, userId).or().eq(LoveAlbum::getGirlId, userId);
+            LoveAlbum loveAlbum = loveAlbumMapper.selectOne(lqw);
+            if (loveAlbum.getBoyId().equals(userId)) {
+                return loveAlbum.getGirlId();
+            } else {
+                return loveAlbum.getBoyId();
+            }
+        }
+        return -1L;
+    }
+
+
     @Override
     public long insertLoveAlbum(LoveAlbumCreateReqVO createReqVO) {
         LoveAlbum loveAlbum = LoveAlbumConvert.INSTANCE.convert(createReqVO);
         BeanUtils.copyProperties(createReqVO, loveAlbum);
 
-        if (loveAlbumMapper.duplicatedCreation(createReqVO.getBoyId(),
-                createReqVO.getGirlId())>0) {
-            throw new RuntimeException("当前男女其中一人已经创建过情侣相册，" +
-                    "不可重复创建");
+        if (loveAlbumMapper.duplicatedCreation(createReqVO.getBoyId(), createReqVO.getGirlId()) > 0) {
+            throw new RuntimeException("当前男女其中一人已经创建过情侣相册，" + "不可重复创建");
         }
 
         int success = loveAlbumMapper.insert(loveAlbum);
@@ -111,8 +132,8 @@ public class LoveAlbumServiceImpl implements LoveAlbumService {
         if (isUpdate == 0) {
             throw new RuntimeException("修改任务失败");
         }
-        redisService.setCacheObject(CaffeineCacheConstant.LOVEALBUM + loveAlbum.getId(),
-                loveAlbum, 120L, TimeUnit.SECONDS);
+        redisService.setCacheObject(CaffeineCacheConstant.LOVEALBUM + loveAlbum.getId(), loveAlbum, 120L,
+                TimeUnit.SECONDS);
         return isUpdate > 0;
     }
 
@@ -135,8 +156,7 @@ public class LoveAlbumServiceImpl implements LoveAlbumService {
     @Override
     public Long selectLoveAlbumIdByUserId(String userId) {
         LambdaQueryWrapperX<LoveAlbum> lqw = new LambdaQueryWrapperX<>();
-        lqw.eq(LoveAlbum::getBoyId,userId).or()
-                        .eq(LoveAlbum::getGirlId,userId);
+        lqw.eq(LoveAlbum::getBoyId, userId).or().eq(LoveAlbum::getGirlId, userId);
         LoveAlbum loveAlbum = loveAlbumMapper.selectOne(lqw);
         return loveAlbum.getId();
     }

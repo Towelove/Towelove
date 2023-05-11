@@ -18,12 +18,14 @@ public interface LoveAlbumService {
      * 根据分页条件和恋爱相册信息查询恋爱相册数据
      * @return 分页数据对象 (TableDataInfo)
      */
+
     default List<LoveAlbum> selectList(){
         return null;
     };
     default PageResult<LoveAlbumBaseVO> selectPage(LoveAlbumPageReqVO pageReqVO){
         return null;
     };
+    public Long getUserIdFromLoveAlbum(Long userId);
     /**
      * 根据ID查询恋爱相册详情
      * @param loveAlbumId 恋爱相册ID

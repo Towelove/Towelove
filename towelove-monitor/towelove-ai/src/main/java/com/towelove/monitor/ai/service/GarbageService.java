@@ -26,7 +26,6 @@ public class GarbageService {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 
 }

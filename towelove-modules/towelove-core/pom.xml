@@ -20,7 +20,6 @@
         核心功能模块
     </description>
     <dependencies>
-
         <dependency>
             <groupId>com.twowaylove</groupId>
             <artifactId>towelove-common-threadpool</artifactId>
@@ -38,6 +37,12 @@
             <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
         </dependency>
 
+        <!-- towelove Api System -->
+        <dependency>
+            <groupId>com.twowaylove</groupId>
+            <artifactId>towelove-api-system</artifactId>
+            <version>1.0</version>
+        </dependency>
         <!-- SpringCloud Alibaba Sentinel -->
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
@@ -87,10 +92,6 @@
         <!--            <groupId>com.twowaylove</groupId>-->
         <!--            <artifactId>towelove-common-log</artifactId>-->
         <!--        </dependency>-->
-        <dependency>
-            <groupId>com.twowaylove</groupId>
-            <artifactId>towelove-common-security</artifactId>
-        </dependency>
 
         <!-- towelove Common Swagger -->
         <dependency>

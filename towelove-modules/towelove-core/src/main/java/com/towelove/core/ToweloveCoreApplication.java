@@ -1,6 +1,7 @@
 package com.towelove.core;
 
 import com.towelove.common.security.annotation.EnableCustomConfig;
+import com.towelove.common.security.annotation.EnableToweloveFeignClients;
 import com.towelove.common.swagger.annotation.EnableCustomSwagger2;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -12,7 +13,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
  * ToweloveFileApplication类
  */
 @EnableCustomConfig
-@EnableFeignClients
+@EnableToweloveFeignClients
 @EnableCustomSwagger2
 @SpringBootApplication
 public class ToweloveCoreApplication {

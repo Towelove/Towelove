@@ -9,8 +9,12 @@ import com.towelove.common.redis.service.RedisService;
 import com.towelove.common.security.annotation.RequiresPermissions;
 import com.towelove.core.domain.lovealbum.*;
 import com.towelove.core.service.LoveAlbumService;
+import com.towelove.system.api.RemoteSysUserService;
+import com.towelove.system.api.domain.SysUser;
+import com.towelove.system.api.model.SysUserRespVO;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.logging.log4j.util.Strings;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,6 +36,38 @@ public class LoveAlbumController {
 
     @Autowired
     private LoveAlbumService loveAlbumService;
+
+    @Autowired
+    private RemoteSysUserService userService;
+
+    private Long getUserIdByHeader(HttpServletRequest request) {
+        String token = request.getHeader("Authorization");
+        String userId = JwtUtils.getUserId(token);
+        return Long.valueOf(userId);
+    }
+
+    /**
+     * 根据当前登录用户得到当前登录用户的伴侣
+     * 这个请求需要在用户登录之后发送
+     * @param request 请求
+     * @return 返回data为-1则表示没有伴侣 否则表示有
+     */
+    @GetMapping("/have/partner")
+    public R havePartner(HttpServletRequest request) {
+
+        Long userId = getUserIdByHeader(request);
+        Long partnerId = loveAlbumService.getUserIdFromLoveAlbum(userId);
+        if (partnerId == -1) {
+            return R.ok(-1, "当前用户还没有伴侣");
+        }
+        R<SysUser> user = userService.getUserById(partnerId);
+        SysUser sysUser = user.getData();
+        SysUserRespVO respVO = new SysUserRespVO();
+        BeanUtils.copyProperties(sysUser,respVO);
+        return R.ok(respVO);
+
+    }
+
 
     /**
      * 查询所有数据
