@@ -106,7 +106,9 @@ public class SysLoginService
             throw new ServiceException("请勿重复登入");
         }
         //向redis做缓存设置过期时间位10分钟，作于校验重复登入，牺牲空间获得效率
-        redisTemplate.opsForValue().set("username:"+userInfo.getUserid()+":"+username, null, 10, TimeUnit.MINUTES);
+        redisTemplate.opsForValue().set
+                ("username:"+userInfo.getUserid()+":"+username,
+                        null, 10, TimeUnit.MINUTES);
         return userInfo;
     }
 

@@ -23,6 +23,7 @@ import com.towelove.system.domain.mail.MailAccountDO;
 import com.towelove.system.domain.user.UserInfoBaseVO;
 import com.towelove.system.service.user.ISysUserService;
 import com.towelove.system.service.user.UserInfoService;
+import io.jsonwebtoken.Claims;
 import io.minio.GetObjectResponse;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.BeanUtils;
@@ -261,6 +262,21 @@ public class UserInfoController {
         SysUser sysUser = userInfoService.updateUserInfo(baseVO);
         SysUserRespVO respVO = new SysUserRespVO();
         BeanUtils.copyProperties(sysUser, respVO);
+        return R.ok(respVO);
+    }
+
+    /**
+     * 得到tokne进行解析
+     * @param request
+     * @return
+     */
+    @GetMapping("/parseToken")
+    public R parseToken(HttpServletRequest request){
+        String authorization = request.getHeader("Authorization");
+        Long userId = Long.valueOf(JwtUtils.getUserId(authorization));
+        SysUser sysUser = userService.selectUserById(userId);
+        SysUserRespVO respVO = new SysUserRespVO();
+        BeanUtils.copyProperties(sysUser,respVO);
         return R.ok(respVO);
     }
 }
