@@ -56,5 +56,7 @@ public interface LoveAlbumService {
 
 
     Long selectLoveAlbumIdByUserId(String userId);
+
+    Long getLoveAlbumIdByUserId(String userId);
 }
 

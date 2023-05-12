@@ -7,6 +7,7 @@ import com.towelove.core.service.TimeLineService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
@@ -33,9 +34,10 @@ public class TimeLineServiceImpl implements TimeLineService {
     }
 
     @Override
-    public List<TimeLine> list() {
+    public List<TimeLine> listByLoveAlbumId(Long loveAlbumId) {
         LambdaQueryWrapperX<TimeLine> lqw = new LambdaQueryWrapperX<>();
-        lqw.orderByDesc(TimeLine::getCreateTime);
+        lqw.orderByDesc(TimeLine::getCreateTime)
+                .eq(TimeLine::getLoveAlbumId,loveAlbumId);
         return timeLineMapper.selectList(lqw);
     }
 }

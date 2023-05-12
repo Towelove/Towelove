@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
+import javax.validation.constraints.NotNull;
 import java.sql.Time;
 
 /**
@@ -16,8 +17,12 @@ import java.sql.Time;
 public class TimeLine {
     private Long id;
     private Long loveAlbumId;
+    @NotNull
     private String title;
+
+    @NotNull
     private Time createTime;
+
     @TableLogic(value = "0", delval = "1")
     private Boolean deleted;
 }

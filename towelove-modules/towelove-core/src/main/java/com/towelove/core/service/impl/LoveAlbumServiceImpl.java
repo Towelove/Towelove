@@ -160,5 +160,10 @@ public class LoveAlbumServiceImpl implements LoveAlbumService {
         LoveAlbum loveAlbum = loveAlbumMapper.selectOne(lqw);
         return loveAlbum.getId();
     }
+
+    @Override
+    public Long getLoveAlbumIdByUserId(String userId) {
+        return null;
+    }
 }
 
