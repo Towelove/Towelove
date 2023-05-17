@@ -13,7 +13,7 @@ import java.util.Arrays;
 /**
  * MyBatis-Plus 代码生成类
  */
-public class ContentCodeGenerator {
+public class CoreGenerator {
 
 	// TODO 修改服务名以及数据表名
 	private static final String SERVICE_NAME = "content";
