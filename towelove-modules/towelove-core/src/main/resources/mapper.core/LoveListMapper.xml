@@ -12,8 +12,9 @@
         <result property="deleted" column="deleted"/>
     </resultMap>
     <sql id="allFields">id, love_album_id, title, done, photo, finish_time, deleted</sql>
-    
 
-
+    <update id="cancel">
+        update love_list set done = '0' where id = #{loveListId}
+    </update>
 </mapper>
 

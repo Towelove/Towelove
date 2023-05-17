@@ -70,5 +70,10 @@ public class LoveListServiceImpl implements LoveListService {
         LoveList loveList = loveListMapper.selectById(loveListId);
         return loveList;
     }
+
+    @Override
+    public void cancel(Long loveListId) {
+        loveListMapper.cancel(loveListId);
+    }
 }
 

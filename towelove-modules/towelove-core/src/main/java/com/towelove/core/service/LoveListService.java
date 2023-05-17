@@ -47,5 +47,7 @@ public interface LoveListService {
 
 
     LoveList selectLoveListById(Long loveListId);
+
+    void cancel(Long loveListId);
 }
 

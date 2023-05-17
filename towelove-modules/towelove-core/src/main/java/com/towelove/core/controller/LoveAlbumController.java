@@ -65,7 +65,6 @@ public class LoveAlbumController {
         SysUserRespVO respVO = new SysUserRespVO();
         BeanUtils.copyProperties(sysUser,respVO);
         return R.ok(respVO);
-
     }
 
 

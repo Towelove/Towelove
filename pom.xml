@@ -13,6 +13,7 @@
         <module>towelove-monitor</module>
         <module>towelove-modules</module>
         <module>towelove-api</module>
+        <module>towelove-generator</module>
         <module>towelove-common</module>
     </modules>
 

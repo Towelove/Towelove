@@ -92,6 +92,11 @@ public class LoveListController {
         return R.ok(loveListService.updateLoveList(loveList));
     }
 
+    @PutMapping("/cancel/{loveListId}")
+    public R cancel(@PathVariable("loveListId") Long loveListId){
+        loveListService.cancel(loveListId);
+        return R.ok();
+    }
     /**
      * 删除代办列表
      * @param loveListId 代办列表

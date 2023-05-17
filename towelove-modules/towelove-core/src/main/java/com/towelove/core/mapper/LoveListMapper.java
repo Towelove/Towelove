@@ -22,5 +22,6 @@ import java.util.List;
 @Mapper
 public interface LoveListMapper extends BaseMapperX<LoveList> {
 
+    void cancel(Long loveListId);
 }
 
