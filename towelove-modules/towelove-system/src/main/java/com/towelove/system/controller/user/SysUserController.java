@@ -120,13 +120,6 @@ public class SysUserController extends BaseController {
         return ajax;
     }
 
-    @GetMapping(value = {"/get/{id}"})
-    public R<SysUser> getUserById(@PathVariable(value = "id") Long userId) {
-
-        SysUser sysUser = userService.selectUserById(userId);
-        return R.ok(sysUser);
-
-    }
 
     /**
      * 管理员添加用户方法

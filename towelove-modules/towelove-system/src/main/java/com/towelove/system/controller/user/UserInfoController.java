@@ -67,7 +67,13 @@ public class UserInfoController {
     @Autowired
     private RemoteCoreService remoteCoreService;
 
+    @GetMapping(value = "/get/{id}")
+    public R<SysUser> getUserById(@PathVariable(value = "id") Long userId) {
 
+        SysUser sysUser = userService.selectUserById(userId);
+        return R.ok(sysUser);
+
+    }
 
 
     /**

@@ -56,7 +56,7 @@ public interface RemoteSysUserService {
     public AjaxResult resetPwd(@RequestBody SysUser sysUser,
                                @RequestHeader(SecurityConstants.FROM_SOURCE)
                          String inner);
-    @GetMapping("/sys/user/get/{id}")
+    @GetMapping("/sys/user/info/get/{id}")
     R<SysUser> getUserById(@PathVariable("id") Long userId);
 
 

@@ -38,7 +38,7 @@ public class LoveAlbumController {
     private LoveAlbumService loveAlbumService;
 
     @Autowired
-    private RemoteSysUserService userService;
+    private RemoteSysUserService remoteSysUserService;
 
     private Long getUserIdByHeader(HttpServletRequest request) {
         String token = request.getHeader("Authorization");
@@ -60,11 +60,12 @@ public class LoveAlbumController {
         if (partnerId == -1) {
             return R.ok(-1, "当前用户还没有伴侣");
         }
-        R<SysUser> user = userService.getUserById(partnerId);
-        SysUser sysUser = user.getData();
-        SysUserRespVO respVO = new SysUserRespVO();
-        BeanUtils.copyProperties(sysUser,respVO);
-        return R.ok(respVO);
+        return R.ok(partnerId);
+        //R<SysUser> user = remoteSysUserService.getUserById(partnerId);
+        //SysUser sysUser = user.getData();
+        //SysUserRespVO respVO = new SysUserRespVO();
+        //BeanUtils.copyProperties(sysUser,respVO);
+        //return R.ok(respVO);
     }
 
 
