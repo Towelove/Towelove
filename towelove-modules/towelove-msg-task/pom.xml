@@ -86,11 +86,11 @@
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
         </dependency>
-        <dependency>
-            <groupId>com.twowaylove</groupId>
-            <artifactId>towelove-common-mq</artifactId>
-            <version>1.0</version>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>com.twowaylove</groupId>-->
+<!--            <artifactId>towelove-common-mq</artifactId>-->
+<!--            <version>1.0</version>-->
+<!--        </dependency>-->
         <dependency>
             <groupId>com.twowaylove</groupId>
             <artifactId>towelove-common-security</artifactId>

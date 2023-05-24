@@ -68,7 +68,7 @@ public class SimpleXxxJob {
         //使用远程调用方法
         try {
             R<LoginUser> userResult = remoteSysUserService
-                    .getUserInfo("季台星", SecurityConstants.INNER);
+                    .getUserInfo("张锦标", SecurityConstants.INNER);
             if (Objects.isNull(userResult)) {
                 //自定义返回给调度中心的失败原因
                 XxlJobHelper.handleFail("任务执行失败，请检查用户模块服务器");
@@ -146,6 +146,7 @@ public class SimpleXxxJob {
         //将获得到的消息任务绑定mq队列中
         for (Map.Entry<String, MailMsg> entry : TaskMapUtil.getTaskMap().entrySet()) {
             MailMsg mailMsg = entry.getValue();
+            System.out.println(mailMsg);
             mailMessageProducer.sendMailMessage(mailMsg);
         }
         //完成把消息放入到RocketMQ之后就需要清空一下Map集合了

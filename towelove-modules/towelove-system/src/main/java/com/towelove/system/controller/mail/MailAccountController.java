@@ -84,7 +84,7 @@ public class MailAccountController {
         MailAccountDO mailAccountDO = mailAccountService.getMailAccount(id);
         MailAccountRespVO mailAccountRespVO = new MailAccountRespVO();
         BeanUtils.copyProperties(mailAccountDO,mailAccountRespVO);
-        mailAccountRespVO.setPassword(null);
+        //mailAccountRespVO.setPassword(null);
         return R.ok(mailAccountRespVO);
     }
     /**

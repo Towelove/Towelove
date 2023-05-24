@@ -2,9 +2,7 @@ package com.towelove.msg.task.mq.producer;
 
 import com.towelove.common.core.constant.MessageConstant;
 import com.towelove.common.core.domain.MailSendMessage;
-import com.towelove.common.mq.core.bus.AbstractBusProducer;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.cloud.stream.function.StreamBridge;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
@@ -16,9 +14,10 @@ import javax.annotation.Resource;
  */
 @Component
 @Slf4j
-public class SysMessageProducer  extends AbstractBusProducer {
-    @Resource
-    private StreamBridge streamBridge;
+public class SysMessageProducer {
+        //extends AbstractBusProducer {
+    //@Resource
+    //private StreamBridge streamBridge;
 
     /**
      * 发送 {@link MailSendMessage} 消息
@@ -35,7 +34,7 @@ public class SysMessageProducer  extends AbstractBusProducer {
         MailSendMessage message = new MailSendMessage()
                 .setLogId(sendLogId).setMail(mail).setAccountId(accountId)
                 .setNickname(nickname).setTitle(title).setContent(content);
-        streamBridge.send(MessageConstant.SYS_MESSAGE_OUTPUT, message);
+        //streamBridge.send(MessageConstant.SYS_MESSAGE_OUTPUT, message);
         System.out.println("消息发送成功");
     }
 }

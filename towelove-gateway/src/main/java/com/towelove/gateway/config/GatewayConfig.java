@@ -46,10 +46,10 @@ public class GatewayConfig
     }
 
     //设定熔断优先级为最高
-    @Bean
-    @Order(Ordered.HIGHEST_PRECEDENCE+1)
-    public SentinelFallbackHandler sentinelGatewayExceptionHandler()
-    {
-        return new SentinelFallbackHandler();
-    }
+    //@Bean
+    //@Order(Ordered.HIGHEST_PRECEDENCE+1)
+    //public SentinelFallbackHandler sentinelGatewayExceptionHandler()
+    //{
+    //    return new SentinelFallbackHandler();
+    //}
 }

@@ -35,11 +35,11 @@ spring:
           data-id: towelove-redis-dev.yaml
           refresh: true
         shared-configs[3]:
-          data-id: towelove-rocketmq-dev.yaml
-          refresh: true
-        shared-configs[4]:
           data-id: towelove-xxl-dev.yaml
           refresh: true
+#        shared-configs[4]:
+#          data-id: towelove-rocketmq-dev.yaml
+#          refresh: true
     # Spring Cloud Stream 配置项，对应 BindingServiceProperties 类
     stream:
       function: # 这里面要么声明的是消费者类 要么就是消费者类中的多个方法

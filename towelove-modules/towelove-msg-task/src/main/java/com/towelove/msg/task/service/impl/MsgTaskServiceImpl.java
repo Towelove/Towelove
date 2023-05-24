@@ -189,8 +189,10 @@ public class MsgTaskServiceImpl implements MsgTaskService {
 //        QueryWrapper<MsgTask> msgTaskQueryWrapper = new QueryWrapper<>();
 //        msgTaskQueryWrapper.between(MsgTask::getSendTime, localDateTime, localDateTime.plusMinutes(10));
         LocalDateTime localDateTime = LocalDateTime.now();
-        Time start = new Time(localDateTime.getHour(), localDateTime.getMinute(), localDateTime.getSecond());
-        Time end = new Time(localDateTime.getHour(), localDateTime.getMinute() + 10, localDateTime.getSecond());
+        Time start = new Time(localDateTime.getHour(),
+                localDateTime.getMinute(), localDateTime.getSecond());
+        Time end = new Time(localDateTime.getHour(),
+                localDateTime.getMinute() + 10, localDateTime.getSecond());
 
         //List<MsgTask> msgTaskList = msgTaskMapper
         //        .selectList(new QueryWrapper<MsgTask>()

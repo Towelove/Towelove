@@ -5,14 +5,14 @@ import cn.hutool.extra.mail.MailUtil;
 import com.towelove.common.core.constant.MessageConstant;
 import com.towelove.common.core.domain.MailSendMessage;
 import com.towelove.common.core.utils.StringUtils;
-import com.towelove.common.mq.core.bus.AbstractBusProducer;
+
 import com.towelove.msg.task.domain.MailMsg;
 import com.towelove.system.api.RemoteSendLog;
 import com.towelove.system.api.model.SendLogDo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.cloud.stream.function.StreamBridge;
+
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
@@ -25,9 +25,10 @@ import java.util.concurrent.ThreadPoolExecutor;
  */
 @Component
 @Slf4j
-public class MailMessageProducer extends AbstractBusProducer {
-    @Resource
-    private StreamBridge streamBridge;
+public class MailMessageProducer{
+        // extends AbstractBusProducer {
+    //@Resource
+    //private StreamBridge streamBridge;
     @Autowired
     @Qualifier("logThreadPool")
     private ThreadPoolExecutor LOG_THREAD_POOL;

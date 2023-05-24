@@ -5,8 +5,8 @@ import com.towelove.common.core.constant.MessageConstant;
 
 import com.towelove.common.core.constant.MsgTaskConstants;
 import com.towelove.common.core.domain.R;
+
 import com.towelove.common.core.utils.bean.BeanUtils;
-import com.towelove.common.mq.core.bus.AbstractBusProducer;
 import com.towelove.msg.task.config.TaskMapUtil;
 import com.towelove.msg.task.domain.MailMsg;
 import com.towelove.msg.task.domain.MsgTask;
@@ -15,7 +15,7 @@ import com.towelove.system.api.RemoteSysMailAccountService;
 import com.towelove.system.api.model.MailAccountRespVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cloud.stream.function.StreamBridge;
+
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
@@ -29,9 +29,10 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 @Slf4j
 @Component
-public class MsgTaskProducer extends AbstractBusProducer {
-    @Resource
-    private StreamBridge streamBridge;
+public class MsgTaskProducer {
+        // extends AbstractBusProducer {
+    //@Resource
+    //private StreamBridge streamBridge;
 
     @Autowired
     private RemoteSysMailAccountService remoteSysMailAccountService;
