@@ -104,8 +104,46 @@ public class SimpleXxxJob {
      * 之后到快要发送消息的时候
      * 再将消息推送到mq准备发送
      */
-    @XxlJob(value = "TaskJobHandler", init = "initHandler", destroy = "destroyHandler")
-    public void getTaskFromDB() {
+    //@XxlJob(value = "TaskJobHandler", init = "initHandler", destroy = "destroyHandler")
+    //public void getTaskFromDB() {
+    //    //拿到十分钟后要发送的数据
+    //    List<MsgTask> msgTaskList = msgTaskService.getMsgTaskList();
+    //    System.out.println(msgTaskList);
+    //    for (MsgTask msgTask : msgTaskList) {
+    //        MailMsg msg = new MailMsg();
+    //        BeanUtils.copyProperties(msgTask, msg);
+    //        MailAccountRespVO mailAccount = remoteSysMailAccountService.
+    //                getMailAccount(msgTask.getAccountId()).getData();
+    //        if (Objects.nonNull(mailAccount)) {
+    //            BeanUtils.copyProperties(mailAccount, msg);
+    //            //BeanUtils.copyProperties(msgTask, msg);
+    //            //将所有的任务放入到map中暂存
+    //            TaskMapUtil.getTaskMap().put(MsgTaskConstants.MSG_PREFIX + msg.getId(), msg);
+    //        } else {
+    //            throw new MailException("邮箱账户为空，出现异常！！！");
+    //        }
+    //    }
+    //    //msgTaskList.parallelStream().peek(msgTask -> {
+    //    //    MailMsg msg = new MailMsg();
+    //    //    BeanUtils.copyProperties(msgTask, msg);
+    //    //    MailAccountRespVO mailAccount = remoteSysMailAccountService.
+    //    //            getMailAccount(msgTask.getAccountId()).getData();
+    //    //    if (Objects.nonNull(mailAccount)) {
+    //    //        BeanUtils.copyProperties(mailAccount, msg);
+    //    //        BeanUtils.copyProperties(msgTask, msg);
+    //    //        //将所有的任务放入到map中暂存
+    //    //        TaskMapUtil.getTaskMap().put(MsgTaskConstants.MSG_PREFIX + msg.getId(), msg);
+    //    //    } else {
+    //    //        throw new MailException("邮箱账户为空，出现异常！！！");
+    //    //    }
+    //    //});
+    //
+    //    //将获得到的消息任务绑定到mq队列中
+    //}
+
+    @XxlJob(value = "SendMailJobHandler", init = "initHandler", destroy = "destroyHandler")
+    public void SendMailJobHandler() {
+
         //拿到十分钟后要发送的数据
         List<MsgTask> msgTaskList = msgTaskService.getMsgTaskList();
         System.out.println(msgTaskList);
@@ -118,39 +156,23 @@ public class SimpleXxxJob {
                 BeanUtils.copyProperties(mailAccount, msg);
                 //BeanUtils.copyProperties(msgTask, msg);
                 //将所有的任务放入到map中暂存
-                TaskMapUtil.getTaskMap().put(MsgTaskConstants.MSG_PREFIX + msg.getId(), msg);
+
+                mailMessageProducer.sendMailMessage(msg);
+
+                //TaskMapUtil.getTaskMap().put(MsgTaskConstants.MSG_PREFIX + msg.getId(), msg);
             } else {
                 throw new MailException("邮箱账户为空，出现异常！！！");
             }
         }
-        //msgTaskList.parallelStream().peek(msgTask -> {
-        //    MailMsg msg = new MailMsg();
-        //    BeanUtils.copyProperties(msgTask, msg);
-        //    MailAccountRespVO mailAccount = remoteSysMailAccountService.
-        //            getMailAccount(msgTask.getAccountId()).getData();
-        //    if (Objects.nonNull(mailAccount)) {
-        //        BeanUtils.copyProperties(mailAccount, msg);
-        //        BeanUtils.copyProperties(msgTask, msg);
-        //        //将所有的任务放入到map中暂存
-        //        TaskMapUtil.getTaskMap().put(MsgTaskConstants.MSG_PREFIX + msg.getId(), msg);
-        //    } else {
-        //        throw new MailException("邮箱账户为空，出现异常！！！");
-        //    }
-        //});
 
-        //将获得到的消息任务绑定到mq队列中
-    }
-
-    @XxlJob(value = "ToMQJobHandler", init = "initHandler", destroy = "destroyHandler")
-    public void sendMsgToMQ() {
         //将获得到的消息任务绑定mq队列中
-        for (Map.Entry<String, MailMsg> entry : TaskMapUtil.getTaskMap().entrySet()) {
-            MailMsg mailMsg = entry.getValue();
-            System.out.println(mailMsg);
-            mailMessageProducer.sendMailMessage(mailMsg);
-        }
-        //完成把消息放入到RocketMQ之后就需要清空一下Map集合了
-        TaskMapUtil.getTaskMap().clear();
-        System.out.println("发送邮件给MQ成功");
+        //for (Map.Entry<String, MailMsg> entry : TaskMapUtil.getTaskMap().entrySet()) {
+        //    MailMsg mailMsg = entry.getValue();
+        //    System.out.println(mailMsg);
+        //    mailMessageProducer.sendMailMessage(mailMsg);
+        //}
+        ////完成把消息放入到RocketMQ之后就需要清空一下Map集合了
+        //TaskMapUtil.getTaskMap().clear();
+        //System.out.println("发送邮件给MQ成功");
     }
 }
