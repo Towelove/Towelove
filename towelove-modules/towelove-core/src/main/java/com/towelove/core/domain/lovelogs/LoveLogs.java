@@ -54,52 +54,6 @@ public class LoveLogs extends BaseEntity {
      */
     private Integer canSee;
 
-    public Long getId() {
-        return id;
-    }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getLoveAlbumId() {
-        return loveAlbumId;
-    }
-
-    public void setLoveAlbumId(Long loveAlbumId) {
-        this.loveAlbumId = loveAlbumId;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public String getUrls() {
-        return urls;
-    }
-
-    public void setUrls(String urls) {
-        this.urls = urls;
-    }
-
-    public Integer getStatus() {
-        return status;
-    }
-
-    public void setStatus(Integer status) {
-        this.status = status;
-    }
-
-    public Integer getCanSee() {
-        return canSee;
-    }
-
-    public void setCanSee(Integer canSee) {
-        this.canSee = canSee;
-    }
 }
 

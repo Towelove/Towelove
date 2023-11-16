@@ -1,6 +1,7 @@
 package com.towelove.system.domain.mail;
 
 
+import com.alibaba.fastjson2.annotation.JSONField;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.annotation.TableName;
@@ -22,11 +23,11 @@ import java.util.List;
  * @author: 张锦标
  * @since 2023-03-01
  */
-@TableName(value = "sys_mail_template", autoResultMap = true)
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@TableName(value = "sys_mail_template", autoResultMap = true)
 public class MailTemplateDO implements Serializable {
 
     /**
@@ -89,6 +90,7 @@ public class MailTemplateDO implements Serializable {
     private Date updateTime;
 
     /** 备注 */
+    @JSONField()
     private String remark;
     /**
      * 参数数组(自动根据内容生成)

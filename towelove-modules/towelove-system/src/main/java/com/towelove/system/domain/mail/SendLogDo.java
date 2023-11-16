@@ -15,11 +15,11 @@ import lombok.NoArgsConstructor;
  * @Date 2023 03 18 11 27
  */
 
-@TableName("sys_send_log")
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@TableName("sys_send_log")
 public class SendLogDo extends BaseEntity {
 
     /**

@@ -1,5 +1,6 @@
 package com.towelove.monitor.test;
 
+import org.springframework.beans.factory.support.DefaultSingletonBeanRegistry;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
@@ -26,5 +27,6 @@ public class ToweloveMonitoTestApplication {
                 " |_|  |_|  \\___/  |_| |_| |_|  \\__|  \\___/  |_|   \n" +
                 "                                                  \n" +
                 "                                                  \n");
+
     }
 }

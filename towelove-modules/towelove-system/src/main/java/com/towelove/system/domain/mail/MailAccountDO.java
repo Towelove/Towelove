@@ -13,12 +13,12 @@ import lombok.*;
  * @author: 张锦标
  * @since 2023-03-01
  */
-@TableName(value = "sys_mail_account", autoResultMap = true)
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
+@TableName(value = "sys_mail_account", autoResultMap = true)
 public class MailAccountDO extends BaseEntity {
 
     /**

@@ -18,13 +18,13 @@ import java.util.Map;
  * @author: 张锦标
  * @since 2023-03-01
  */
-@TableName(value = "sys_mail_log", autoResultMap = true)
 @Data
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@TableName(value = "sys_mail_log", autoResultMap = true)
 public class MailLogDO extends BaseEntity implements Serializable {
 
     /**

@@ -19,6 +19,7 @@ spring:
       discovery:
         # 服务注册地址
         server-addr: 127.0.0.1:8848
+        namespace:
       config:
         # 配置中心地址
         server-addr: 127.0.0.1:8848
@@ -34,6 +35,7 @@ spring:
         shared-configs[2]:
           data-id: towelove-redis-dev.yaml
           refresh: true
+        group:
   servlet:
     multipart:
       max-file-size: 10MB # 设置单个文件的大小

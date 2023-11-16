@@ -1,5 +1,6 @@
 package com.towelove.system.api.domain;
 
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import com.towelove.common.core.web.domain.BaseEntity;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
@@ -49,10 +50,7 @@ public class SysRole extends BaseEntity {
      */
     private String status;
 
-    /**
-     * 删除标志（0代表存在 2代表删除）
-     */
-    private String delFlag;
+
 
     /**
      * 用户是否存在此角色标识 默认不存在
@@ -148,12 +146,12 @@ public class SysRole extends BaseEntity {
         this.status = status;
     }
 
-    public String getDelFlag() {
-        return delFlag;
+    public Boolean getDeleted() {
+        return super.getDeleted();
     }
 
-    public void setDelFlag(String delFlag) {
-        this.delFlag = delFlag;
+    public void setDeleted(boolean deleted) {
+        super.setDeleted(deleted);
     }
 
     public boolean isFlag() {
@@ -191,7 +189,7 @@ public class SysRole extends BaseEntity {
                 .append("dataScope", getDataScope())
                 .append("menuCheckStrictly", isMenuCheckStrictly())
                 .append("status", getStatus())
-                .append("delFlag", getDelFlag())
+                .append("deleted", getDeleted())
                 .append("createBy", getCreateBy())
                 .append("createTime", getCreateTime())
                 .append("updateBy", getUpdateBy())
