@@ -134,10 +134,10 @@ create table towelove.sys_oper_log
     oper_id        bigint auto_increment comment '日志主键'
         primary key,
     title          varchar(50)   default '' null comment '模块标题',
-    business_type  int           default 0 null comment '业务类型（0其它 1新增 2修改 3删除）',
+    business_type  int           default 0  null comment '业务类型（0其它 1新增 2修改 3删除）',
     method         varchar(100)  default '' null comment '方法名称',
     request_method varchar(10)   default '' null comment '请求方式',
-    operator_type  int           default 0 null comment '操作类别（0其它 1后台用户 2手机端用户）',
+    operator_type  int           default 0  null comment '操作类别（0其它 1后台用户 2手机端用户）',
     oper_name      varchar(50)   default '' null comment '操作人员',
     dept_name      varchar(50)   default '' null comment '部门名称',
     oper_url       varchar(255)  default '' null comment '请求URL',
@@ -145,14 +145,15 @@ create table towelove.sys_oper_log
     oper_location  varchar(255)  default '' null comment '操作地点',
     oper_param     varchar(2000) default '' null comment '请求参数',
     json_result    varchar(2000) default '' null comment '返回参数',
-    status         int           default 0 null comment '操作状态（0正常 1异常）',
+    status         int           default 0  null comment '操作状态（0正常 1异常）',
     error_msg      varchar(2000) default '' null comment '错误消息',
-    oper_time      datetime null comment '操作时间',
+    oper_time      datetime                 null comment '操作时间',
     -- 公共字段
     `create_by`    VARCHAR(255) COMMENT '创建者',
     `remark`       TEXT COMMENT '备注',
     `deleted`      TINYINT(1) COMMENT '是否删除'
-) comment '操作日志记录' auto_increment = 99;
+)
+    comment '操作日志记录' auto_increment = 99;
 
 create table towelove.sys_user
 (
@@ -162,21 +163,22 @@ create table towelove.sys_user
     user_name   varchar(64) default 'NULL' not null comment '用户名',
     nick_name   varchar(64) default 'NULL' not null comment '昵称',
     password    varchar(64) default 'NULL' not null comment '密码',
-    email       varchar(64) null comment '邮箱',
-    smtp_code   varchar(64) null comment '邮箱SMTP编码',
-    phonenumber varchar(32) null comment '手机号',
-    sex         char null comment '用户性别（0男，1女，2未知）',
-    avatar      varchar(128) null comment '头像',
-    status      char        default '0' null comment '账号状态（0正常 1停用）',
+    email       varchar(64)                null comment '邮箱',
+    smtp_code   varchar(64)                null comment '邮箱SMTP编码',
+    phonenumber varchar(32)                null comment '手机号',
+    sex         char                       null comment '用户性别（0男，1女，2未知）',
+    avatar      varchar(128)               null comment '头像',
+    status      char        default '0'    null comment '账号状态（0正常 1停用）',
     user_type   char        default '1'    not null comment '用户类型（0管理员，1普通用户）',
-    login_ip    varchar(64) null comment '上次登录ip',
-    create_by   varchar(64) null comment '创建人的用户id',
-    create_time datetime null comment '创建时间',
-    update_by   varchar(64) null comment '更新人',
-    update_time datetime null comment '更新时间',
-    deleted     tinyint(1) default 0 null comment '删除标志（0代表未删除，1代表已删除）',
-    remark      varchar(200) null comment '备注'
-) comment '系统用户表' auto_increment = 6;
+    login_ip    varchar(64)                null comment '上次登录ip',
+    create_by   varchar(64)                null comment '创建人的用户id',
+    create_time datetime                   null comment '创建时间',
+    update_by   varchar(64)                null comment '更新人',
+    update_time datetime                   null comment '更新时间',
+    deleted     tinyint(1)  default 0      null comment '删除标志（0代表未删除，1代表已删除）',
+    remark      varchar(200)               null comment '备注'
+)
+    comment '系统用户表' auto_increment = 6;
 
 
 
@@ -184,18 +186,19 @@ create table towelove.sys_dict_type
 (
     dict_id     bigint auto_increment comment '字典主键'
         primary key,
-    dict_name   varchar(100) default '' null comment '字典名称',
-    dict_type   varchar(100) default '' null comment '字典类型',
+    dict_name   varchar(100) default ''  null comment '字典名称',
+    dict_type   varchar(100) default ''  null comment '字典类型',
     status      char         default '0' null comment '状态（0正常 1停用）',
-    create_by   varchar(64)  default '' null comment '创建者',
-    create_time datetime null comment '创建时间',
-    update_by   varchar(64)  default '' null comment '更新者',
-    update_time datetime null comment '更新时间',
-    remark      varchar(500) null comment '备注',
-    `deleted`   tinyint(1) default 0 COMMENT '是否删除',
+    create_by   varchar(64)  default ''  null comment '创建者',
+    create_time datetime                 null comment '创建时间',
+    update_by   varchar(64)  default ''  null comment '更新者',
+    update_time datetime                 null comment '更新时间',
+    remark      varchar(500)             null comment '备注',
+    `deleted`   tinyint(1)   default 0 COMMENT '是否删除',
     constraint dict_type
         unique (dict_type)
-) comment '字典类型表' auto_increment = 99;
+)
+    comment '字典类型表' auto_increment = 99;
 
 
 
@@ -285,7 +288,7 @@ CREATE TABLE `sys_mail_account`
     `password`    VARCHAR(255) COMMENT '密码',
     `host`        VARCHAR(255) DEFAULT 'smtp.qq.com' COMMENT 'SMTP 服务器域名',
     `port`        INT          DEFAULT 465 COMMENT 'SMTP 服务器端口',
-    `ssl_enable`  TINYINT(1) DEFAULT 1 COMMENT '是否开启 SSL',
+    `ssl_enable`  TINYINT(1)   DEFAULT 1 COMMENT '是否开启 SSL',
 
     -- 公共字段
     `create_by`   VARCHAR(255) COMMENT '创建者',
@@ -293,7 +296,7 @@ CREATE TABLE `sys_mail_account`
     `update_by`   VARCHAR(255) COMMENT '更新者',
     `update_time` DATETIME COMMENT '更新时间',
     `remark`      TEXT COMMENT '备注',
-    `deleted`     TINYINT(1) default 0 COMMENT '是否删除',
+    `deleted`     TINYINT(1)   default 0 COMMENT '是否删除',
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4;
@@ -306,31 +309,33 @@ create table towelove.email_dict
     protocal_port  int         default 465           not null comment '协议端口',
     email_protocal varchar(64) default 'smtp'        not null comment '协议',
     email_host     varchar(64) default 'smtp.qq.com' not null comment '协议主机',
-    status         char        default '0' null comment '账号状态（0正常 1停用）',
-    create_by      varchar(64) null comment '创建人的用户id',
-    create_time    datetime null comment '创建时间',
-    update_by      varchar(64) null comment '更新人',
-    update_time    datetime null comment '更新时间',
-    deleted        tinyint(1) default 0 null comment '删除标志（0代表未删除，1代表已删除）',
-    remark         varchar(200) null comment '备注'
-) comment '系统用户表';
+    status         char        default '0'           null comment '账号状态（0正常 1停用）',
+    create_by      varchar(64)                       null comment '创建人的用户id',
+    create_time    datetime                          null comment '创建时间',
+    update_by      varchar(64)                       null comment '更新人',
+    update_time    datetime                          null comment '更新时间',
+    deleted        tinyint(1)  default 0             null comment '删除标志（0代表未删除，1代表已删除）',
+    remark         varchar(200)                      null comment '备注'
+)
+    comment '系统用户表';
 
 create table towelove.user_email
 (
     user_email_id  bigint auto_increment comment '用户邮箱映射表id'
         primary key,
-    user_id        bigint      not null comment '用户id',
-    email_id       bigint      not null comment '对应的邮箱id类型',
-    email          varchar(64) not null comment '邮箱',
-    email_password varchar(64) not null comment 'smtp密码',
-    status         char default '0' null comment '账号状态（0正常 1停用）',
-    create_by      varchar(64) null comment '创建人的用户id',
-    create_time    datetime null comment '创建时间',
-    update_by      varchar(64) null comment '更新人',
-    update_time    datetime null comment '更新时间',
-    deleted        tinyint(1) default 0 null comment '删除标志（0代表未删除，1代表已删除）',
-    remark         varchar(200) null comment '备注'
-) comment '系统用户表' auto_increment = 2;
+    user_id        bigint                 not null comment '用户id',
+    email_id       bigint                 not null comment '对应的邮箱id类型',
+    email          varchar(64)            not null comment '邮箱',
+    email_password varchar(64)            not null comment 'smtp密码',
+    status         char       default '0' null comment '账号状态（0正常 1停用）',
+    create_by      varchar(64)            null comment '创建人的用户id',
+    create_time    datetime               null comment '创建时间',
+    update_by      varchar(64)            null comment '更新人',
+    update_time    datetime               null comment '更新时间',
+    deleted        tinyint(1) default 0   null comment '删除标志（0代表未删除，1代表已删除）',
+    remark         varchar(200)           null comment '备注'
+)
+    comment '系统用户表' auto_increment = 2;
 
 
 CREATE TABLE user_info
@@ -354,15 +359,14 @@ CREATE TABLE user_info
 # Copyright (c) 2015-present, xuxueli.
 
 CREATE database if NOT EXISTS `xxl_job` default character set utf8mb4 collate utf8mb4_unicode_ci;
-use
-`xxl_job`;
+use `xxl_job`;
 
 SET NAMES utf8mb4;
 
 CREATE TABLE `xxl_job_info`
 (
-    `id`                        int(11) NOT NULL AUTO_INCREMENT,
-    `job_group`                 int(11) NOT NULL COMMENT '执行器主键ID',
+    `id`                        int(11)      NOT NULL AUTO_INCREMENT,
+    `job_group`                 int(11)      NOT NULL COMMENT '执行器主键ID',
     `job_desc`                  varchar(255) NOT NULL,
     `add_time`                  datetime              DEFAULT NULL,
     `update_time`               datetime              DEFAULT NULL,
@@ -375,16 +379,16 @@ CREATE TABLE `xxl_job_info`
     `executor_handler`          varchar(255)          DEFAULT NULL COMMENT '执行器任务handler',
     `executor_param`            varchar(512)          DEFAULT NULL COMMENT '执行器任务参数',
     `executor_block_strategy`   varchar(50)           DEFAULT NULL COMMENT '阻塞处理策略',
-    `executor_timeout`          int(11) NOT NULL DEFAULT '0' COMMENT '任务执行超时时间，单位秒',
-    `executor_fail_retry_count` int(11) NOT NULL DEFAULT '0' COMMENT '失败重试次数',
+    `executor_timeout`          int(11)      NOT NULL DEFAULT '0' COMMENT '任务执行超时时间，单位秒',
+    `executor_fail_retry_count` int(11)      NOT NULL DEFAULT '0' COMMENT '失败重试次数',
     `glue_type`                 varchar(50)  NOT NULL COMMENT 'GLUE类型',
     `glue_source`               mediumtext COMMENT 'GLUE源代码',
     `glue_remark`               varchar(128)          DEFAULT NULL COMMENT 'GLUE备注',
     `glue_updatetime`           datetime              DEFAULT NULL COMMENT 'GLUE更新时间',
     `child_jobid`               varchar(255)          DEFAULT NULL COMMENT '子任务ID，多个逗号分隔',
-    `trigger_status`            tinyint(4) NOT NULL DEFAULT '0' COMMENT '调度状态：0-停止，1-运行',
-    `trigger_last_time`         bigint(13) NOT NULL DEFAULT '0' COMMENT '上次调度时间',
-    `trigger_next_time`         bigint(13) NOT NULL DEFAULT '0' COMMENT '下次调度时间',
+    `trigger_status`            tinyint(4)   NOT NULL DEFAULT '0' COMMENT '调度状态：0-停止，1-运行',
+    `trigger_last_time`         bigint(13)   NOT NULL DEFAULT '0' COMMENT '上次调度时间',
+    `trigger_next_time`         bigint(13)   NOT NULL DEFAULT '0' COMMENT '下次调度时间',
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4;
@@ -392,34 +396,34 @@ CREATE TABLE `xxl_job_info`
 CREATE TABLE `xxl_job_log`
 (
     `id`                        bigint(20) NOT NULL AUTO_INCREMENT,
-    `job_group`                 int(11) NOT NULL COMMENT '执行器主键ID',
-    `job_id`                    int(11) NOT NULL COMMENT '任务，主键ID',
-    `executor_address`          varchar(255) DEFAULT NULL COMMENT '执行器地址，本次执行的地址',
-    `executor_handler`          varchar(255) DEFAULT NULL COMMENT '执行器任务handler',
-    `executor_param`            varchar(512) DEFAULT NULL COMMENT '执行器任务参数',
-    `executor_sharding_param`   varchar(20)  DEFAULT NULL COMMENT '执行器任务分片参数，格式如 1/2',
-    `executor_fail_retry_count` int(11) NOT NULL DEFAULT '0' COMMENT '失败重试次数',
-    `trigger_time`              datetime     DEFAULT NULL COMMENT '调度-时间',
-    `trigger_code`              int(11) NOT NULL COMMENT '调度-结果',
+    `job_group`                 int(11)    NOT NULL COMMENT '执行器主键ID',
+    `job_id`                    int(11)    NOT NULL COMMENT '任务，主键ID',
+    `executor_address`          varchar(255)        DEFAULT NULL COMMENT '执行器地址，本次执行的地址',
+    `executor_handler`          varchar(255)        DEFAULT NULL COMMENT '执行器任务handler',
+    `executor_param`            varchar(512)        DEFAULT NULL COMMENT '执行器任务参数',
+    `executor_sharding_param`   varchar(20)         DEFAULT NULL COMMENT '执行器任务分片参数，格式如 1/2',
+    `executor_fail_retry_count` int(11)    NOT NULL DEFAULT '0' COMMENT '失败重试次数',
+    `trigger_time`              datetime            DEFAULT NULL COMMENT '调度-时间',
+    `trigger_code`              int(11)    NOT NULL COMMENT '调度-结果',
     `trigger_msg`               text COMMENT '调度-日志',
-    `handle_time`               datetime     DEFAULT NULL COMMENT '执行-时间',
-    `handle_code`               int(11) NOT NULL COMMENT '执行-状态',
+    `handle_time`               datetime            DEFAULT NULL COMMENT '执行-时间',
+    `handle_code`               int(11)    NOT NULL COMMENT '执行-状态',
     `handle_msg`                text COMMENT '执行-日志',
     `alarm_status`              tinyint(4) NOT NULL DEFAULT '0' COMMENT '告警状态：0-默认、1-无需告警、2-告警成功、3-告警失败',
     PRIMARY KEY (`id`),
-    KEY                         `I_trigger_time` (`trigger_time`),
-    KEY                         `I_handle_code` (`handle_code`)
+    KEY `I_trigger_time` (`trigger_time`),
+    KEY `I_handle_code` (`handle_code`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4;
 
 CREATE TABLE `xxl_job_log_report`
 (
     `id`            int(11) NOT NULL AUTO_INCREMENT,
-    `trigger_day`   datetime DEFAULT NULL COMMENT '调度-时间',
+    `trigger_day`   datetime         DEFAULT NULL COMMENT '调度-时间',
     `running_count` int(11) NOT NULL DEFAULT '0' COMMENT '运行中-日志数量',
     `suc_count`     int(11) NOT NULL DEFAULT '0' COMMENT '执行成功-日志数量',
     `fail_count`    int(11) NOT NULL DEFAULT '0' COMMENT '执行失败-日志数量',
-    `update_time`   datetime DEFAULT NULL,
+    `update_time`   datetime         DEFAULT NULL,
     PRIMARY KEY (`id`),
     UNIQUE KEY `i_trigger_day` (`trigger_day`) USING BTREE
 ) ENGINE = InnoDB
@@ -427,8 +431,8 @@ CREATE TABLE `xxl_job_log_report`
 
 CREATE TABLE `xxl_job_logglue`
 (
-    `id`          int(11) NOT NULL AUTO_INCREMENT,
-    `job_id`      int(11) NOT NULL COMMENT '任务，主键ID',
+    `id`          int(11)      NOT NULL AUTO_INCREMENT,
+    `job_id`      int(11)      NOT NULL COMMENT '任务，主键ID',
     `glue_type`   varchar(50) DEFAULT NULL COMMENT 'GLUE类型',
     `glue_source` mediumtext COMMENT 'GLUE源代码',
     `glue_remark` varchar(128) NOT NULL COMMENT 'GLUE备注',
@@ -440,34 +444,34 @@ CREATE TABLE `xxl_job_logglue`
 
 CREATE TABLE `xxl_job_registry`
 (
-    `id`             int(11) NOT NULL AUTO_INCREMENT,
+    `id`             int(11)      NOT NULL AUTO_INCREMENT,
     `registry_group` varchar(50)  NOT NULL,
     `registry_key`   varchar(255) NOT NULL,
     `registry_value` varchar(255) NOT NULL,
     `update_time`    datetime DEFAULT NULL,
     PRIMARY KEY (`id`),
-    KEY              `i_g_k_v` (`registry_group`, `registry_key`, `registry_value`)
+    KEY `i_g_k_v` (`registry_group`, `registry_key`, `registry_value`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4;
 
 CREATE TABLE `xxl_job_group`
 (
-    `id`           int(11) NOT NULL AUTO_INCREMENT,
+    `id`           int(11)     NOT NULL AUTO_INCREMENT,
     `app_name`     varchar(64) NOT NULL COMMENT '执行器AppName',
     `title`        varchar(12) NOT NULL COMMENT '执行器名称',
-    `address_type` tinyint(4) NOT NULL DEFAULT '0' COMMENT '执行器地址类型：0=自动注册、1=手动录入',
+    `address_type` tinyint(4)  NOT NULL DEFAULT '0' COMMENT '执行器地址类型：0=自动注册、1=手动录入',
     `address_list` text COMMENT '执行器地址列表，多地址逗号分隔',
-    `update_time`  datetime DEFAULT NULL,
+    `update_time`  datetime             DEFAULT NULL,
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4;
 
 CREATE TABLE `xxl_job_user`
 (
-    `id`         int(11) NOT NULL AUTO_INCREMENT,
+    `id`         int(11)     NOT NULL AUTO_INCREMENT,
     `username`   varchar(50) NOT NULL COMMENT '账号',
     `password`   varchar(50) NOT NULL COMMENT '密码',
-    `role`       tinyint(4) NOT NULL COMMENT '角色：0-普通用户、1-管理员',
+    `role`       tinyint(4)  NOT NULL COMMENT '角色：0-普通用户、1-管理员',
     `permission` varchar(255) DEFAULT NULL COMMENT '权限：执行器ID列表，多个逗号分割',
     PRIMARY KEY (`id`),
     UNIQUE KEY `i_username` (`username`) USING BTREE
@@ -493,7 +497,7 @@ VALUES (1, 1, '测试任务1', '2018-11-03 22:21:31', '2018-11-03 22:21:31', 'XX
         'FIRST', 'demoJobHandler', '', 'SERIAL_EXECUTION', 0, 0, 'BEAN', '', 'GLUE代码初始化', '2018-11-03 22:21:31',
         '');
 INSERT INTO `xxl_job_user`(`id`, `username`, `password`, `role`, `permission`)
-VALUES (1, 'admin', 'e10adc3949ba59abbe56e057f20f883e', 1, NULL);
+VALUES (1, 'towelove', 'f0368a88117cb96b097c6d082f72fec8', 1, NULL);
 INSERT INTO `xxl_job_lock` (`lock_name`)
 VALUES ('schedule_lock');
 
