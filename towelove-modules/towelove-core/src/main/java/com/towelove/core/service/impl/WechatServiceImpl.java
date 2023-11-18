@@ -37,7 +37,7 @@ import java.util.concurrent.TimeUnit;
  * @author: 张锦标
  * @date: 2023/4/2 14:18
  */
-@Service
+//@Service
 public class WechatServiceImpl implements WechatService {
     Logger log = LoggerFactory.getLogger(WechatServiceImpl.class);
 

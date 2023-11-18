@@ -4,6 +4,12 @@ server:
 
 # Spring
 spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: root
+    url: jdbc:mysql://localhost:3306/towelove?useSSL=false&serverTimezone=UTC
+
   application:
     # 应用名称
     name: towelove-msg-task

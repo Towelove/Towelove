@@ -53,10 +53,10 @@ spring:
         #        server-addr: 127.0.0.1:8848
         # 配置文件格式
         file-extension: yaml
-        extension-configs:
-          dataId: towelove-gateway-router.yml
-          group: DEFAULT_GROUP
-          refresh: true
+#        extension-configs:
+#          dataId: towelove-gateway-router.yml
+#          group: DEFAULT_GROUP
+#          refresh: true
         # 共享配置
         shared-configs[0]:
           data-id: towelove-base-dev.yaml

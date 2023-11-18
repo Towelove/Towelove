@@ -1,7 +1,6 @@
 # Tomcat
 server: 
   port: 9200
-
 # Spring
 spring:
   main:

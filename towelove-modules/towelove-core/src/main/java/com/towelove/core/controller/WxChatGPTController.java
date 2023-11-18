@@ -38,8 +38,8 @@ import java.util.concurrent.TimeUnit;
  * TokenCheckController类
  */
 @Log
-@RestController
-@RequestMapping("/core/wx")
+//@RestController
+//@RequestMapping("/core/wx")
 public class WxChatGPTController {
     @Autowired
     private WechatService wechatService;
