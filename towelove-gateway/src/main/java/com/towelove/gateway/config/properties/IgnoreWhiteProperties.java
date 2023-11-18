@@ -26,10 +26,10 @@ public class IgnoreWhiteProperties
 
     public List<String> getWhites()
     {
-        //whites.add("/auth/login");
-        //whites.add("/auth/register");
-        //whites.add("/auth/logout");
-        //whites.add("/auth/refresh");
+        whites.add("/auth/login");
+        whites.add("/auth/register");
+        whites.add("/auth/logout");
+        whites.add("/auth/refresh");
         return whites;
     }
 

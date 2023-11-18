@@ -38,7 +38,6 @@ import static com.towelove.common.core.utils.CollectionUtils.convertMap;
 @Service
 @Validated
 @Slf4j
-
 public class MailTemplateServiceImpl implements MailTemplateService {
 
     /**
