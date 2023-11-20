@@ -38,4 +38,7 @@ public interface ISysUserService{
     int authRole(Long userId);
 
     boolean comparePwd(String username,String password);
+
+    SysUser selectHalfUserById(Long userId);
+
 }

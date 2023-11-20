@@ -68,6 +68,11 @@ public class UserInfoServiceImpl implements UserInfoService {
         }
     }
 
+    @Override
+    public void saveAlbum(Long userId, Long albumId, String imageUrl) {
+        return;
+    }
+
     private SysUser getSysUserById(Long userId) {
         LambdaQueryWrapperX<SysUser> lqw = new LambdaQueryWrapperX<>();
         lqw.eq(SysUser::getUserId, userId);

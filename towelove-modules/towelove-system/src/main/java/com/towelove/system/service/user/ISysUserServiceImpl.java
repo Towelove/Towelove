@@ -155,6 +155,11 @@ public class ISysUserServiceImpl extends AbstractBusProducer
     }
 
     @Override
+    public SysUser selectHalfUserById(Long userId) {
+        return null;
+    }
+
+    @Override
     public int resetPwd(SysUser user) {
        return  baseMapper.updateById(user);
     }

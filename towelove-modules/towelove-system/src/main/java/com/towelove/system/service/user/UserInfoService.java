@@ -17,4 +17,5 @@ public interface UserInfoService {
     SysUser updateUserInfo(UserInfoBaseVO baseVO);
     GetObjectResponse downloadAvatar(Long userId);
 
+    void saveAlbum(Long userId, Long albumId, String imageUrl);
 }
