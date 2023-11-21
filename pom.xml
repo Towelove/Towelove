@@ -17,6 +17,7 @@
         <module>Towelove-Msg</module>
         <module>Towelove-Game</module>
         <module>Towelove-Society</module>
+        <module>Towelove-Framework/Towelove-Framework-Mysql</module>
     </modules>
 
     <name>${project.artifactId}</name>

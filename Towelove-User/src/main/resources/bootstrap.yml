@@ -1,7 +1,7 @@
 spring:
   application:
     # 应用名称
-    name: towelove-gateway
+    name: towelove-user
   profiles:
     # 环境配置
     active: dev
@@ -10,47 +10,14 @@ spring:
       preferred-networks:
         - 123
         - 114
-    gateway:
-      discovery:
-        locator:
-          enabled: false # 设定为true 会导致自定义的filter失效 只有Global的有效
-      routes:
-        #        - id: validate-code # 应该把验证码的过滤器放在前面 放在后面会失效
-        #          uri: lb://towelove-gateway
-        #          predicates:
-        #            - Path=/auth/login,/auth/register
-        #          filters:
-        #            - ValidateCodeFilter
-        - id: towelove-system
-          uri: lb://towelove-system
-          predicates:
-            - Path=/sys/**
-#          filters:
-#            # 具体微服务限流位置
-#            - name: RequestRateLimiter  #请求数限流 名字不能随便写
-#              args:
-#                key-resolver: "#{@ipKeyResolver}"  #指定限流的key
-#                redis-rate-limiter.replenishRate: 1 # 允许每秒处理了多少个请求
-#                redis-rate-limiter.burstCapacity: 1 # 令牌桶的容量（最高处理并发容量大小1）
-        - id: towelove-auth
-          uri: lb://towelove-auth
-          predicates:
-            - Path=/auth/**
-        - id: towelove-msg-task
-          uri: lb://towelove-msg-task
-          predicates:
-            - Path=/msg/**
-        - id: towelove-core
-          uri: lb://towelove-core
-          predicates:
-            - Path=/core/**
     nacos:
       discovery:
+        server-addr: 123.249.111.175:8848
       # 服务注册地址
       #        server-addr: 127.0.0.1:8848
       config:
         # 配置中心地址
-        #        server-addr: 127.0.0.1:8848
+        server-addr: 123.249.111.175:8848
         # 配置文件格式
         file-extension: yaml
 #        extension-configs:
