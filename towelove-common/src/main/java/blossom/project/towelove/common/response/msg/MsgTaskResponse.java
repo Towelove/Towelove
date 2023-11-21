@@ -1,8 +1,6 @@
-package blossom.project.towelove.msg.dto;
-import java.time.LocalTime;
+package blossom.project.towelove.common.response.msg;
 import java.util.Date;
 
-import java.io.Serializable;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,7 +11,7 @@ import lombok.Builder;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class MsgTaskRespDTO  {
+public class MsgTaskResponse {
     private Date createTime;
 }
 

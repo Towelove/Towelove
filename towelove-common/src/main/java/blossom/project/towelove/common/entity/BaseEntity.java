@@ -1,4 +1,4 @@
-package blossom.project.towelove.common.domain;
+package blossom.project.towelove.common.entity;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 

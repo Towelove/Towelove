@@ -1,5 +1,6 @@
 package blossom.project.towelove.msg;
 
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -12,6 +13,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @github: https://github.com/ZhangBlossom
  * MsgApplicatiojn类
  */
+@MapperScan("blossom.project.towelove.msg.mapper")
 @SpringBootApplication
 public class ToweloveMsgApplication {
     public static void main(String[] args) {

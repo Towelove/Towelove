@@ -9,10 +9,10 @@ import lombok.extern.slf4j.Slf4j;
 import blossom.project.towelove.msg.entity.MsgTask;
 import blossom.project.towelove.msg.mapper.MsgTaskMapper;
 import blossom.project.towelove.msg.service.MsgTaskService;
-import blossom.project.towelove.msg.dto.MsgTaskRespDTO;
-import blossom.project.towelove.msg.req.MsgTaskCreateRequest;
-import blossom.project.towelove.msg.req.MsgTaskPageRequest;
-import blossom.project.towelove.msg.req.MsgTaskUpdateRequest;
+import blossom.project.towelove.common.response.msg.MsgTaskResponse;
+import blossom.project.towelove.common.request.msg.MsgTaskCreateRequest;
+import blossom.project.towelove.common.request.msg.MsgTaskPageRequest;
+import blossom.project.towelove.common.request.msg.MsgTaskUpdateRequest;
 
 import java.util.List;
 
@@ -33,17 +33,17 @@ public class MsgTaskServiceImpl extends ServiceImpl<MsgTaskMapper, MsgTask> impl
     private final LoveLogClient logClient;
 
     @Override
-    public MsgTaskRespDTO getMsgTaskById(Long MsgTaskId) {
+    public MsgTaskResponse getMsgTaskById(Long MsgTaskId) {
         return null;
     }
 
     @Override
-    public PageResponse<MsgTaskRespDTO> pageQueryMsgTask(MsgTaskPageRequest requestParam) {
+    public PageResponse<MsgTaskResponse> pageQueryMsgTask(MsgTaskPageRequest requestParam) {
         return null;
     }
 
     @Override
-    public MsgTaskRespDTO updateMsgTask(MsgTaskUpdateRequest updateRequest) {
+    public MsgTaskResponse updateMsgTask(MsgTaskUpdateRequest updateRequest) {
         return null;
     }
 
@@ -58,7 +58,7 @@ public class MsgTaskServiceImpl extends ServiceImpl<MsgTaskMapper, MsgTask> impl
     }
 
     @Override
-    public MsgTaskRespDTO createMsgTask(MsgTaskCreateRequest createRequest) {
+    public MsgTaskResponse createMsgTask(MsgTaskCreateRequest createRequest) {
         return null;
     }
 }
