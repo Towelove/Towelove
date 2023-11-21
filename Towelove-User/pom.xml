@@ -85,7 +85,17 @@
             <artifactId>Towelove-Framework-Redis</artifactId>
             <version>${revision}</version>
         </dependency>
-
+        <!--使用日志记录功能 排除RocketMQ-->
+        <dependency>
+            <groupId>blossom.project</groupId>
+            <artifactId>Towelove-Framework-Log</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>blossom.project</groupId>
+                    <artifactId>Towelove-Framework-RocketMQ</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
     </dependencies>
 
     <build>

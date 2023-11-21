@@ -12,6 +12,7 @@ import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.data.redis.core.RedisTemplate;
 
@@ -44,7 +45,11 @@ import java.util.concurrent.TimeUnit;
 @AllArgsConstructor
 @AutoConfiguration
 public class DoubleCacheAspect {
+
+
     private final Cache cache;
+
+    @Autowired
     private final RedisTemplate redisTemplate;
 
     @Pointcut("@annotation(blossom.project.towelove.framework.redis.annotation.DoubleCache)")
