@@ -6,12 +6,15 @@ import java.time.LocalTime;
 import java.util.Date;
 
 import java.io.Serializable;
+import java.util.List;
+import java.util.Map;
 
 import blossom.project.towelove.framework.mysql.domain.BaseEntity;
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -67,6 +70,14 @@ public class MsgTask extends BaseEntity {
     //消息类型 0：发送一次 1：定时发送
     private Integer msgType;
 
+    /**
+     * 参数数组(自动根据内容生成)
+     */
+    @TableField(value = "params",typeHandler = JacksonTypeHandler.class)
+    private List<String> params;
+
+    @TableField(value = "json_map",typeHandler = JacksonTypeHandler.class)
+    private Map<String, Object> jsonMap;
 
 }
 

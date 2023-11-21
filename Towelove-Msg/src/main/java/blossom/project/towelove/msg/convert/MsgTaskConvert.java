@@ -25,13 +25,10 @@ import java.util.List;
 public interface MsgTaskConvert {
     MsgTaskConvert INSTANCE = Mappers.getMapper(MsgTaskConvert.class);
 
-
     MsgTask convert(MsgTaskCreateRequest request);
 
 
-
     MsgTask convert(MsgTaskUpdateRequest request);
-
 
     MsgTaskResponse convert(MsgTask bean);
 

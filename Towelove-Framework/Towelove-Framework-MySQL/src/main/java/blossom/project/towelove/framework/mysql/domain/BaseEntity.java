@@ -4,11 +4,15 @@ import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler;
+import lombok.Builder;
+import lombok.Data;
 
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 
+
+@Data
 public class BaseEntity {
 
     @TableField(value = "create_by",fill = FieldFill.INSERT)
@@ -33,12 +37,4 @@ public class BaseEntity {
     @TableField("status")
     private Integer status;
 
-    /**
-     * 参数数组(自动根据内容生成)
-     */
-    @TableField(value = "params",typeHandler = JacksonTypeHandler.class)
-    private List<String> params;
-
-    @TableField(value = "json_map",typeHandler = JacksonTypeHandler.class)
-    private Map<String, Object> jsonMap;
 }
