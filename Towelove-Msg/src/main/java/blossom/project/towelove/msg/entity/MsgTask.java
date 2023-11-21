@@ -31,22 +31,31 @@ public class MsgTask {
 
     //用户id
     private Long userId;
+
     //邮箱账号id
     private Long accountId;
+
     //模板id
     private Long templateId;
+
     //接收消息的邮箱账号
     private String receiveAccount;
+
     //发送人名称
     private String nickname;
+
     //标题
     private String title;
+
     //内容
     private String content;
+
     //发送日期
     private Date sendDate;
+
     //消息发送时间
     private LocalTime sendTime;
+
     //消息类型 0：发送一次 1：定时发送
     private Integer msgType;
     //状态

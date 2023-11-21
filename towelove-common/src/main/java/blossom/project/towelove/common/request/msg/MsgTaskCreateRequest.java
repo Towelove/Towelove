@@ -1,4 +1,4 @@
-package blossom.project.towelove.msg.req;
+package blossom.project.towelove.common.request.msg;
 
 import java.time.LocalTime;
 import java.util.Date;
