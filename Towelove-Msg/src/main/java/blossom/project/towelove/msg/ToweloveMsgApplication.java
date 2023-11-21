@@ -18,5 +18,17 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class ToweloveMsgApplication {
     public static void main(String[] args) {
         SpringApplication.run(ToweloveMsgApplication.class,args);
+
+        System.out.println("（づ￣3￣）づ╭❤～ Towelove 消息模块启动成功  (o>ε(o>ｕ(≧∩≦)");
+        System.out.println(
+                "   _____           _                                     \n" +
+                        "  / ____|         | |                                    \n" +
+                        " | |  __    __ _  | |_    ___  __      __   __ _   _   _ \n" +
+                        " | | |_ |  / _` | | __|  / _ \\ \\ \\ /\\ / /  / _` | | | | |\n" +
+                        " | |__| | | (_| | | |_  |  __/  \\ V  V /  | (_| | | |_| |\n" +
+                        "  \\_____|  \\__,_|  \\__|  \\___|   \\_/\\_/    \\__,_|  \\__, |\n" +
+                        "                                                    __/ |\n" +
+                        "                                                   |___/ \n");
+
     }
 }

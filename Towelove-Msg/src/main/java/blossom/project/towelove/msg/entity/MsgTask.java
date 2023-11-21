@@ -1,12 +1,21 @@
 package blossom.project.towelove.msg.entity;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Date;
 
 import java.io.Serializable;
+import java.util.List;
+import java.util.Map;
 
+import blossom.project.towelove.framework.mysql.domain.BaseEntity;
+import com.baomidou.mybatisplus.annotation.FieldFill;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -24,7 +33,7 @@ import lombok.Builder;
 @NoArgsConstructor
 @Builder
 @TableName("msg_task")
-public class MsgTask {
+public class MsgTask extends BaseEntity {
     //主键
     @TableId
     private Long id;
@@ -50,30 +59,25 @@ public class MsgTask {
     //内容
     private String content;
 
-    //发送日期
-    private Date sendDate;
+    //发送 日期
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    private LocalDate sendDate;
 
-    //消息发送时间
+    //发送 时间
+    @JsonFormat(pattern = "HH-mm-ss")
     private LocalTime sendTime;
 
     //消息类型 0：发送一次 1：定时发送
     private Integer msgType;
-    //状态
-    private Integer status;
-    //创建时间
-    private Date createTime;
-    //更新者
-    private String updateBy;
-    //更新时间
-    private Date updateTime;
-    //备注
-    private String remark;
-    //是否删除
-    private Integer deleted;
-    //参数数组(自动根据内容生成)
-    private String params;
-    //创建者
-    private String createBy;
+
+    /**
+     * 参数数组(自动根据内容生成)
+     */
+    @TableField(value = "params",typeHandler = JacksonTypeHandler.class)
+    private List<String> params;
+
+    @TableField(value = "json_map",typeHandler = JacksonTypeHandler.class)
+    private Map<String, Object> jsonMap;
 
 }
 
