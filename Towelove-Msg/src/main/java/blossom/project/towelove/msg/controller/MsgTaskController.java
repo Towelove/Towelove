@@ -37,7 +37,7 @@ import javax.validation.constraints.NotNull;
 public class MsgTaskController {
   
 
-    MsgTaskService msgTaskService;   
+    private final MsgTaskService msgTaskService;
   
    /**
      * 按照ID查询
@@ -96,7 +96,7 @@ public class MsgTaskController {
      * @return
      */
     @PostMapping("")
-    public Result<MsgTaskResponse> createMsgTask(@RequestBody @Valid MsgTaskCreateRequest createRequest){
+    public Result createMsgTask(@RequestBody @Valid MsgTaskCreateRequest createRequest){
         return Result.ok(msgTaskService.createMsgTask(createRequest));
 
     }

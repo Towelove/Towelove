@@ -1,0 +1,3 @@
+blossom.project.towelove.framework.mysql.config.DefaultDBFieldHandler
+blossom.project.towelove.framework.mysql.config.MybatisPlusConfig
+blossom.project.towelove.framework.mysql.config.JacksonTypeHandler

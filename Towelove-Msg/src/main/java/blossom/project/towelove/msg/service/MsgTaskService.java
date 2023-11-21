@@ -2,6 +2,7 @@ package blossom.project.towelove.msg.service;
 
 
 import blossom.project.towelove.common.page.PageResponse;
+import blossom.project.towelove.common.response.Result;
 import com.baomidou.mybatisplus.extension.service.IService;
 import blossom.project.towelove.msg.entity.MsgTask;
 import blossom.project.towelove.common.response.msg.MsgTaskResponse;
@@ -29,6 +30,6 @@ public interface MsgTaskService extends IService<MsgTask> {
 
     Boolean batchDeleteMsgTask(List<Long> ids);
 
-    MsgTaskResponse createMsgTask(MsgTaskCreateRequest createRequest);
+    Result createMsgTask(MsgTaskCreateRequest createRequest);
 }
 
