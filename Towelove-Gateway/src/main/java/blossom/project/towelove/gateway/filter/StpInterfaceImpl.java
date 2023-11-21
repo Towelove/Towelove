@@ -2,9 +2,6 @@ package blossom.project.towelove.gateway.filter;
 
 import cn.dev33.satoken.stp.StpInterface;
 import cn.hutool.core.collection.CollUtil;
-import com.titi.feign.client.UserServiceClient;
-import com.titi.titicommon.DTO.UserPermissionDto;
-import com.titi.titicommon.result.ResponseResult;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;

@@ -158,16 +158,32 @@
             </dependency>
 
             <!-- 业务框架-->
-<!--            <dependency>-->
-<!--                <groupId>blossom.star.project</groupId>-->
-<!--                <artifactId>venus-framework-redis</artifactId>-->
-<!--                <version>${revision}</version>-->
-<!--            </dependency>-->
             <dependency>
                 <groupId>blossom.project</groupId>
                 <artifactId>Towelove-Common</artifactId>
                 <version>${revision}</version>
             </dependency>
+            <dependency>
+                <groupId>blossom.project</groupId>
+                <artifactId>Towelove-Framework-RocketMQ</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>blossom.project</groupId>
+                <artifactId>Towelove-Framework-MySQL</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>blossom.project</groupId>
+                <artifactId>Towelove-Framework-Redis</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>blossom.project</groupId>
+                <artifactId>Towelove-Framework-Log</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <!--参数校验-->
             <dependency>
                 <groupId>org.hibernate</groupId>
                 <artifactId>hibernate-validator</artifactId>

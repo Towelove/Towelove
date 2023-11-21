@@ -16,6 +16,8 @@
 
     <modules>
         <module>Towelove-Framework-Redis</module>
+        <module>Towelove-Framework-MySQL</module>
+        <module>Towelove-Framework-RocketMQ</module>
     </modules>
 
 </project>
