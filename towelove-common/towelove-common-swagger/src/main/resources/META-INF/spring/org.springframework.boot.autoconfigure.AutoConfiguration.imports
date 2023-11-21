@@ -1,3 +1,0 @@
-com.towelove.common.swagger.config.SwaggerAutoConfiguration
-com.towelove.common.swagger.config.SwaggerWebConfiguration
-com.towelove.common.swagger.config.SwaggerBeanPostProcessor

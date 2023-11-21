@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>blossom.project</groupId>
+        <artifactId>Towelove</artifactId>
+        <version>${revision}</version>
+    </parent>
+    <packaging>pom</packaging>
+    <artifactId>Towelove-Framework</artifactId>
+    <description>
+        Towelove-Framework框架模块，用于为其他模块提供公共功能
+    </description>
+
+    <modules>
+        <module>Towelove-Framework-Redis</module>
+    </modules>
+
+</project>

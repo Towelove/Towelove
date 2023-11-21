@@ -1,6 +1,0 @@
-com.towelove.common.redis.config.RedisConfig
-com.towelove.common.redis.config.CaffeineCacheManagerConfig
-com.towelove.common.redis.config.CaffeineConfig
-com.towelove.common.redis.config.RedisCacheAutoConfiguration
-com.towelove.common.redis.service.RedisService
-com.towelove.common.redis.aspect.DoubleCacheAspect
