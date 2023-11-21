@@ -2,8 +2,8 @@ blossom.project.towelove.framework.redis.config.RedisConfig
 blossom.project.towelove.framework.redis.config.CaffeineCacheManagerConfig
 blossom.project.towelove.framework.redis.config.CaffeineConfig
 blossom.project.towelove.framework.redis.config.RedisCacheAutoConfiguration
+blossom.project.towelove.framework.redis.config.RedisClient
 blossom.project.towelove.framework.redis.service.RedisService
 blossom.project.towelove.framework.redis.aspect.DoubleCacheAspect
 blossom.project.towelove.framework.redis.aspect.RedisDistributedLockAspect
 blossom.project.towelove.framework.redis.lock.RedisDistributedLockFactory
-blossom.project.towelove.framework.redis.config.RedisClient

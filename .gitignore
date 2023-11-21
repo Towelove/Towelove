@@ -4,8 +4,7 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 logs
-config
-xxl-job-admin-2.4.1-SNAPSHOT.jar
+./config
 ### STS ###
 .apt_generated
 .classpath
