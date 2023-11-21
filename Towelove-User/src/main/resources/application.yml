@@ -1,3 +1,13 @@
 # Tomcat
 server:
   port: 8080
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: Venus20230829
+    url: jdbc:mysql://47.115.209.43:3306/towelove?useSSL=false&serverTimezone=UTC
+mybatis-plus:
+  mapper-locations: classpath*:/mapper/**/*.xml
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
