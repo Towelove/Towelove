@@ -1,6 +1,6 @@
 # 项目起源
 
-Hello，Hello，我是张锦标（ZhangBlossom），这个项目的发起者。
+Hello，我是张锦标（ZhangBlossom），这个项目的发起者。
 
 这个项目，这个项目是我当初是恋爱脑的时候写的，
 
