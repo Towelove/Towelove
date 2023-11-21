@@ -12,6 +12,11 @@
         <module>Towelove-Gateway</module>
         <module>Towelove-Framework</module>
         <module>Towelove-Dependencies</module>
+        <module>Towelove-User</module>
+        <module>Towelove-Loves</module>
+        <module>Towelove-Msg</module>
+        <module>Towelove-Game</module>
+        <module>Towelove-Society</module>
     </modules>
 
     <name>${project.artifactId}</name>
