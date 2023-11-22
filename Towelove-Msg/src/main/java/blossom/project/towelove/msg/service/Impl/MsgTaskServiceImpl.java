@@ -1,14 +1,13 @@
 package blossom.project.towelove.msg.service.Impl;
 
-import blossom.project.towelove.common.constant.SecurityConstants;
+import blossom.project.towelove.common.annotaion.Transaction;
 import blossom.project.towelove.common.page.PageResponse;
 import blossom.project.towelove.common.response.Result;
-import blossom.project.towelove.framework.log.client.LoveLogClient;
-import blossom.project.towelove.msg.controller.MsgTaskController;
 import blossom.project.towelove.msg.convert.MsgTaskConvert;
+import com.alibaba.fastjson.JSON;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.RequiredArgsConstructor;
-import org.slf4j.MDC;
 import org.springframework.stereotype.Service;
 import lombok.extern.slf4j.Slf4j;
 import blossom.project.towelove.msg.entity.MsgTask;
@@ -20,6 +19,7 @@ import blossom.project.towelove.common.request.msg.MsgTaskPageRequest;
 import blossom.project.towelove.common.request.msg.MsgTaskUpdateRequest;
 
 import java.util.List;
+import java.util.Objects;
 
 
 /**
@@ -27,6 +27,8 @@ import java.util.List;
  *
  * @author 张锦标
  * @since 2023-11-21 19:33:06
+ *
+ * 无需考虑异常处理，LoveLog已经完全将异常都处理完毕了
  */
 @Service
 @Slf4j
@@ -35,16 +37,26 @@ public class MsgTaskServiceImpl extends ServiceImpl<MsgTaskMapper, MsgTask> impl
 
     private final MsgTaskMapper msgTaskMapper;
 
-    private final LoveLogClient logClient;
 
     @Override
-    public MsgTaskResponse getMsgTaskById(Long MsgTaskId) {
-        return null;
+    public Result getMsgTaskById(Long msgTaskId) {
+        MsgTask msgTask = msgTaskMapper.selectById(msgTaskId);
+        if (Objects.isNull(msgTask)) {
+            //数据为空
+            return Result.ok(null, "the msgtask corresponding to the msgtaskid is empty");
+        }
+        MsgTaskResponse response = MsgTaskConvert.INSTANCE.convert(msgTask);
+        return Result.ok(response);
     }
 
     @Override
-    public PageResponse<MsgTaskResponse> pageQueryMsgTask(MsgTaskPageRequest requestParam) {
-        return null;
+    public PageResponse pageQueryMsgTask(MsgTaskPageRequest requestParam) {
+        log.info("the pageQuery info is :{} ",JSON.toJSONString(requestParam));
+        LambdaQueryWrapper<MsgTask> lqw = new LambdaQueryWrapper<>();
+        lqw.eq(MsgTask::getUserId, requestParam.getUserId());
+        lqw.last("limit " + requestParam.getPageNo() + "," + requestParam.getPageSize());
+        List<MsgTask> msgTasks = msgTaskMapper.selectList(lqw);
+        return new PageResponse(requestParam.getPageNo(), requestParam.getPageSize(), msgTasks);
     }
 
     @Override
@@ -62,15 +74,15 @@ public class MsgTaskServiceImpl extends ServiceImpl<MsgTaskMapper, MsgTask> impl
         return null;
     }
 
+
     @Override
+    @Transaction
     public Result createMsgTask(MsgTaskCreateRequest createRequest) {
+        log.info("the request info is: {} ", JSON.toJSONString(createRequest));
         MsgTask msgTask = MsgTaskConvert.INSTANCE.convert(createRequest);
-        int success = msgTaskMapper.insert(msgTask);
-        if (success > 0) {
-            return Result.ok(msgTask);
-        } else {
-            return Result.fail(MDC.get(SecurityConstants.REQUEST_ID));
-        }
+        msgTaskMapper.insert(msgTask);
+        return Result.ok(msgTask);
     }
+
 }
 

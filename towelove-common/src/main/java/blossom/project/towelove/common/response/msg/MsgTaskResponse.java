@@ -1,7 +1,10 @@
 package blossom.project.towelove.common.response.msg;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.AllArgsConstructor;
@@ -60,8 +63,12 @@ public class MsgTaskResponse {
     private String remark;
     //是否删除
     private Integer deleted;
+
     //参数数组(自动根据内容生成)
-    private String params;
+    private List<String> params;
+
+    private Map<String, Object> jsonMap;
+
     //创建者
     private String createBy;
 }

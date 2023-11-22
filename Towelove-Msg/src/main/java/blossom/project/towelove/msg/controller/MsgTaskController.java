@@ -45,9 +45,10 @@ public class MsgTaskController {
      * @return
      */
     @GetMapping("")
-    public Result<MsgTaskResponse> getMsgTaskById(@Validated @RequestParam(name = "msgTaskId") @NotNull(message = "msgTaskId Can not be null") Long msgTaskId) {
-        MsgTaskResponse result = msgTaskService.getMsgTaskById(msgTaskId);
-        return Result.ok(result);
+    public Result<MsgTaskResponse> getMsgTaskById(@Validated @RequestParam(name = "msgTaskId")
+                                                      @NotNull(message = "msgTaskId can not be null!")
+                                                      Long msgTaskId) {
+        return msgTaskService.getMsgTaskById(msgTaskId);
     }
 
     /**
