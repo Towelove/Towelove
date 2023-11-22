@@ -1,6 +1,7 @@
 package blossom.project.towelove.framework.redis.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.data.redis.connection.BitFieldSubCommands;
 import org.springframework.data.redis.core.*;
 import org.springframework.stereotype.Component;
@@ -15,7 +16,7 @@ import java.util.concurrent.TimeUnit;
  * Description:
  */
 @SuppressWarnings(value = {"unchecked", "rawtypes"})
-@Component
+@AutoConfiguration
 public class RedisService {
     @Autowired
     public RedisTemplate redisTemplate;

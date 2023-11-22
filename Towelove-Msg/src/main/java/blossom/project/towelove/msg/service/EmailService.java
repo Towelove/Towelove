@@ -11,6 +11,8 @@ import blossom.project.towelove.msg.entity.CompletedMailMsgTask;
  * @github: https://github.com/ZhangBlossom
  * MailSendService接口
  */
-public interface MailSendService {
+public interface EmailService {
     String sendCompletedMailMsg(CompletedMailMsgTask msgTask);
+
+    String generateValidateCode(String email);
 }

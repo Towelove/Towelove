@@ -41,8 +41,9 @@
         WHERE deleted = 0
           AND status = 0
           AND msg_type = 0
-          AND (send_time BETWEEN #{beginTime} AND #{endTime})
-          AND mod(id,#{total})=#{index}
+          AND send_time BETWEEN ADDTIME(CURRENT_TIME, '00:00:00') AND ADDTIME(CURRENT_TIME, '00:05:00')
+          AND mod(id, 1) = 0;
+
     </select>
 </mapper>
 

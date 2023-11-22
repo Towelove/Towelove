@@ -6,14 +6,15 @@ import blossom.project.towelove.common.response.mailaccount.MailAccountResponse;
 import blossom.project.towelove.msg.cache.TaskCache;
 import blossom.project.towelove.msg.entity.CompletedMailMsgTask;
 import blossom.project.towelove.msg.entity.MsgTask;
-import blossom.project.towelove.msg.service.MailSendService;
+import blossom.project.towelove.msg.entity.OfficialMailInfo;
+import blossom.project.towelove.msg.service.EmailService;
 import blossom.project.towelove.msg.service.MsgTaskService;
 import cn.hutool.extra.mail.MailException;
-import com.xxl.job.core.context.XxlJobHelper;
 import com.xxl.job.core.handler.annotation.XxlJob;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -35,11 +36,13 @@ import java.util.Objects;
 @RequiredArgsConstructor
 public class ScheduledSendMsgExecutor {
 
+    private final OfficialMailInfo officialMailInfo;
+
     private final RemoteUserService remoteUserService;
 
     private final MsgTaskService msgTaskService;
 
-    private final MailSendService mailSendService;
+    private final EmailService emailService;
     /**
      * 任务模块需要定时的去获取数据库中的用户消息任务
      * 那么这个模块就需要要求能远程调用和发送邮件相关的所有函数
@@ -69,7 +72,7 @@ public class ScheduledSendMsgExecutor {
      * 之后到快要发送消息的时候
      * 再将消息推送到mq准备发送
      */
-    @XxlJob(value = "GetMsgTaskJobHandler", init = "initHandler", destroy = "destroyHandler")
+    @XxlJob(value = "sendMsgTaskJobHandler", init = "initHandler", destroy = "destroyHandler")
     public void getTaskFromDB() {
         try {
             //拿到十分钟后要发送的数据
@@ -82,7 +85,8 @@ public class ScheduledSendMsgExecutor {
                 //MailAccountResponse mailAccount = remoteUserService.
                 //        getMailAccount(msgTask.getAccountId()).getData();
                 if (Objects.nonNull(mailAccount)) {
-                    BeanUtils.copyProperties(mailAccount, completeMsg);
+                    //BeanUtils.copyProperties(mailAccount, completeMsg);
+                    BeanUtils.copyProperties(officialMailInfo,completeMsg);
                     BeanUtils.copyProperties(msgTask, completeMsg);
                     //将所有的任务放入到map中暂存
                     //TODO 这里需要考虑如果用户更新了邮箱信息 那么这些东西都要失效
@@ -116,7 +120,7 @@ public class ScheduledSendMsgExecutor {
             for (Map.Entry<String, CompletedMailMsgTask> entry : TaskCache.getTaskMap().entrySet()) {
                 CompletedMailMsgTask CompletedMailMsgTask = entry.getValue();
                 System.out.println(CompletedMailMsgTask);
-                mailSendService.sendCompletedMailMsg(CompletedMailMsgTask);
+                emailService.sendCompletedMailMsg(CompletedMailMsgTask);
             }
             //完成把消息放入到RocketMQ之后就需要清空一下Map集合了
             TaskCache.getTaskMap().clear();
