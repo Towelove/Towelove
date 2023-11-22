@@ -30,6 +30,7 @@ import java.util.Optional;
 
 /**
  * @author jinbiao.zhang
+ * 日志切面工具
  */
 @Aspect
 @AutoConfiguration
@@ -38,6 +39,7 @@ public class LoveLogAspect {
     @Autowired
     private LoveLogClient loveLogClient;
 
+    //注意这里@within和@annotation的区别
     @Around("@within(blossom.project.towelove.framework.log.annotation.LoveLog) || " +
             "@annotation(blossom.project.towelove.framework.log.annotation.LoveLog)")
     public Object printMLog(ProceedingJoinPoint joinPoint) throws Throwable {
@@ -88,9 +90,10 @@ public class LoveLogAspect {
                         requestId);
                 r.setData(logPrint.getInputParams());
                 if(200!=r.getCode()){
+                    //如果出现异常就发送消息 不出现可以考虑不发送
                     loveLogClient.error(requestId,JSONObject.toJSONString(r));
                 }else{
-                    loveLogClient.info(requestId,JSONObject.toJSONString(r));
+                    //loveLogClient.info(requestId,JSONObject.toJSONString(r));
                 }
             }
         }

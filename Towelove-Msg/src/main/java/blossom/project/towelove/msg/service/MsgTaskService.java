@@ -20,7 +20,7 @@ import java.util.List;
  */
 public interface MsgTaskService extends IService<MsgTask> {
     
-    MsgTaskResponse getMsgTaskById(Long MsgTaskId);
+    Result getMsgTaskById(Long MsgTaskId);
 
     PageResponse<MsgTaskResponse> pageQueryMsgTask(MsgTaskPageRequest requestParam);
 

@@ -15,10 +15,10 @@ public class LoveLogClient {
     private LoveLogProducer loveLogProducer;
 
     public void info(String requestId,String logJson){
-        loveLogProducer.sendNormalLog(requestId,logJson);
+        //loveLogProducer.sendNormalLog(requestId,logJson);
     }
 
     public void error(String requestId,String logJson){
-        loveLogProducer.sendErrorLog(requestId,logJson);
+        //loveLogProducer.sendErrorLog(requestId,logJson);
     }
 }
