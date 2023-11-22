@@ -20,6 +20,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.Builder;
+import org.apache.ibatis.type.JdbcType;
+import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  * (MsgTask) 表实体类
@@ -61,10 +63,12 @@ public class MsgTask extends BaseEntity {
 
     //发送 日期
     @JsonFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate sendDate;
 
     //发送 时间
-    @JsonFormat(pattern = "HH-mm-ss")
+    @JsonFormat(pattern = "HH:mm:ss")
+    @DateTimeFormat(pattern = "HH:mm:ss")
     private LocalTime sendTime;
 
     //消息类型 0：发送一次 1：定时发送

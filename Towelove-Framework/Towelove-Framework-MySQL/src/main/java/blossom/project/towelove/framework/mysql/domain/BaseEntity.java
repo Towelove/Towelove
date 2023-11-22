@@ -21,20 +21,20 @@ public class BaseEntity {
     @TableField(value = "create_time",fill = FieldFill.INSERT)
     private LocalDateTime createTime;
 
-    @TableField(value = "update_by",fill = FieldFill.UPDATE)
+    @TableField(value = "update_by",fill = FieldFill.INSERT_UPDATE)
     private String updateBy;
 
-    @TableField(value = "update_time",fill = FieldFill.UPDATE)
+    @TableField(value = "update_time",fill = FieldFill.INSERT_UPDATE)
     private LocalDateTime updateTime;
 
     @TableField("deleted")
     @TableLogic(value = "0", delval = "1")
     private int deleted;
 
-    @TableField("remark")
+    @TableField(value = "remark",fill = FieldFill.INSERT)
     private String remark;
 
-    @TableField("status")
+    @TableField(value = "status",fill = FieldFill.INSERT)
     private Integer status;
 
 }

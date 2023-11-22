@@ -17,6 +17,8 @@
 
 package blossom.project.towelove.common.page;
 
+import blossom.project.towelove.common.response.Result;
+import cn.hutool.core.collection.CollectionUtil;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -64,16 +66,17 @@ public class PageResponse<T> implements Serializable {
      */
     private List<T> records = Collections.emptyList();
 
-    public PageResponse(long pageNo, long pageSize) {
-        this(pageNo, pageSize, 0);
-    }
-
-    public PageResponse(long pageNo, long pageSize, long total) {
+    public PageResponse(long pageNo, long pageSize, List<T> records) {
         if (pageNo > 1) {
             this.pageNo = pageNo;
         }
         this.pageSize = pageSize;
-        this.total = total;
+        this.records = records;
+        if (CollectionUtil.isEmpty(records)) {
+            this.total = 0L;
+        } else {
+            this.total = Long.valueOf(records.size());
+        }
     }
 
     public PageResponse setRecords(List<T> records) {

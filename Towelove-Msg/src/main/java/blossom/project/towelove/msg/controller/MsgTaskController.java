@@ -48,7 +48,7 @@ public class MsgTaskController {
     public Result<MsgTaskResponse> getMsgTaskById(@Validated @RequestParam(name = "msgTaskId")
                                                       @NotNull(message = "msgTaskId can not be null!")
                                                       Long msgTaskId) {
-        return msgTaskService.getMsgTaskById(msgTaskId);
+        return Result.ok(msgTaskService.getMsgTaskById(msgTaskId));
     }
 
     /**
@@ -57,7 +57,7 @@ public class MsgTaskController {
      * @return
      */
     @GetMapping("/page")
-    public Result<PageResponse<MsgTaskResponse>> pageQueryMsgTask(@Validated MsgTaskPageRequest requestParam) {
+    public Result<PageResponse<MsgTaskResponse>> pageQueryMsgTask(@Validated @RequestBody MsgTaskPageRequest requestParam) {
         return Result.ok(msgTaskService.pageQueryMsgTask(requestParam));
     }
 
