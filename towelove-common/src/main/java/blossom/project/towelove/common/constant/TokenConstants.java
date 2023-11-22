@@ -24,4 +24,6 @@ public class TokenConstants
      */
     public final static String SECRET = "abcdefghijklmnopqrstuvwxyz";
 
+    public final static String USER_ID_HEADER = "X-User-Id";
+
 }

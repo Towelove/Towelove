@@ -19,6 +19,7 @@
         <module>Towelove-Game</module>
         <module>Towelove-Society</module>
         <module>Towelove-Task-Center</module>
+        <module>Towelove-Auth</module>
     </modules>
 
     <name>${project.artifactId}</name>

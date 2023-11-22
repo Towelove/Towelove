@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="blossom.project.towelove.user.mapper.SysUserMapper">
+    <select id="selectByPhoneNumberOrEmail" parameterType="string" resultType="blossom.project.towelove.user.domain.SysUser">
+        SELECT id,
+        user_name,
+        nick_name,
+        password,
+        email,
+        smtp_code,
+        phonenumber,
+        sex,
+        avatar,
+        login_ip,
+        create_by,
+        create_time,
+        update_by,
+        update_time,
+        deleted,
+        remark,
+        status
+        FROM sys_user
+        <where>
+            deleted = 0
+            <choose>
+                <when test="phone != null">
+                    and phonenumber = #{phone}
+                </when>
+                <when test="email != null">
+                    and email = #{email}
+                </when>
+            </choose>
+        </where>
+        limit 1
+
+    </select>
+</mapper>

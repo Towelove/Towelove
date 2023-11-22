@@ -1,0 +1,102 @@
+package blossom.project.towelove.user.service.impl;
+
+import blossom.project.towelove.common.constant.TokenConstants;
+import blossom.project.towelove.common.exception.ServiceException;
+import blossom.project.towelove.common.page.PageResponse;
+import blossom.project.towelove.common.request.auth.AuthLoginRequest;
+import blossom.project.towelove.common.request.user.InsertUserRequest;
+import blossom.project.towelove.common.request.user.UpdateUserRequest;
+import blossom.project.towelove.common.response.user.SysUserVo;
+import blossom.project.towelove.user.convert.SysUserConvert;
+import blossom.project.towelove.user.domain.SysUser;
+import blossom.project.towelove.user.mapper.SysUserMapper;
+import blossom.project.towelove.user.service.SysUserService;
+import cn.hutool.core.util.StrUtil;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
+import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
+
+@Service
+@RequiredArgsConstructor
+@Slf4j
+public class SysUSerServiceImpl extends ServiceImpl<SysUserMapper, SysUser> implements SysUserService {
+
+    private final SysUserMapper sysUserMapper;
+
+    @Override
+    public String updateUser(UpdateUserRequest request, HttpServletRequest httpServletRequest) {
+        SysUser sysUser = SysUserConvert.INSTANCE.convert(request);
+        //获取userId,
+        String userId = httpServletRequest.getHeader(TokenConstants.USER_ID_HEADER);
+        sysUser.setId(Long.parseLong(userId));
+        if (!updateById(sysUser)) {
+            throw new ServiceException("更新用户信息失败");
+        }
+        return "更新成功";
+    }
+
+    @Override
+    public SysUserVo selectByUserId(Long userId) {
+        SysUser sysUser = getById(userId);
+        if (Objects.isNull(sysUser)){
+            throw new ServiceException("用户数据不存在");
+        }
+        return SysUserConvert.INSTANCE.convert(sysUser);
+    }
+
+    @Override
+    public String deleteById(Long userId, HttpServletRequest httpServletRequest) {
+        if (userId.equals(Long.parseLong(httpServletRequest.getHeader(TokenConstants.USER_ID_HEADER)))){
+            //TODO: 注销用户连带删除其他表中用户相关信息
+            removeById(userId);
+        }
+        return "注销用户成功";
+    }
+
+    @Override
+    public PageResponse<SysUserVo> selectByPage(Integer pageNo, Integer pageSize) {
+        LambdaQueryWrapper<SysUser> lqw = new LambdaQueryWrapper<>();
+        lqw.eq(SysUser::getDeleted,0);
+        lqw.last(String.format("limit %s,%s",pageNo,pageSize));
+        List<SysUserVo> sysUserVos = sysUserMapper.selectList(lqw).stream()
+                .map(SysUserConvert.INSTANCE::convert)
+                .collect(Collectors.toList());
+        return new PageResponse<>(pageNo,pageSize,sysUserVos);
+    }
+
+    @Override
+    public String inserUser(InsertUserRequest userRequest) {
+        String email = userRequest.getEmail();
+        String phone = userRequest.getPhoneNumber();
+        SysUser sysUserFromDB = sysUserMapper.selectByPhoneNumberOrEmail(phone, email);
+        if (Objects.nonNull(sysUserFromDB)) {
+            throw new ServiceException("用户已经存在");
+        }
+        SysUser sysUser = SysUserConvert.INSTANCE.convert(userRequest);
+        try {
+            save(sysUser);
+        } catch (Exception e) {
+            throw new ServiceException("插入用户失败");
+        }
+        return sysUser.getId().toString();
+    }
+
+    @Override
+    public String findUser(@Valid AuthLoginRequest authLoginRequest) {
+        String phone = authLoginRequest.getPhoneNumber();
+        String email = authLoginRequest.getEmail();
+        SysUser sysUser = sysUserMapper.selectByPhoneNumberOrEmail(phone,email);
+        if (Objects.isNull(sysUser)){
+            throw new ServiceException("用户不存在");
+        }
+        return String.valueOf(sysUser.getId());
+    }
+}
