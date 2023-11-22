@@ -2,9 +2,8 @@ package blossom.project.towelove.msg.service;
 
 
 import blossom.project.towelove.common.page.PageResponse;
-import blossom.project.towelove.common.response.Result;
-import com.baomidou.mybatisplus.extension.service.IService;
 import blossom.project.towelove.msg.entity.MsgTask;
+import com.baomidou.mybatisplus.extension.service.IService;
 import blossom.project.towelove.common.response.msg.MsgTaskResponse;
 import blossom.project.towelove.common.request.msg.MsgTaskCreateRequest;
 import blossom.project.towelove.common.request.msg.MsgTaskPageRequest;
@@ -30,6 +29,12 @@ public interface MsgTaskService extends IService<MsgTask> {
 
     Boolean batchDeleteMsgTask(List<Long> ids);
 
-    Result createMsgTask(MsgTaskCreateRequest createRequest);
+    MsgTaskResponse createMsgTask(MsgTaskCreateRequest createRequest);
+
+    /**
+     * 获取所有的消息
+     * @return 所有的查询消息
+     */
+    List<MsgTask> getMsgTaskList();
 }
 

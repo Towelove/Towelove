@@ -1,16 +1,11 @@
 package blossom.project.towelove.msg.convert;
 
 import blossom.project.towelove.common.request.msg.MsgTaskCreateRequest;
-import blossom.project.towelove.common.request.msg.MsgTaskPageRequest;
 import blossom.project.towelove.common.request.msg.MsgTaskUpdateRequest;
 import blossom.project.towelove.common.response.msg.MsgTaskResponse;
 import blossom.project.towelove.msg.entity.MsgTask;
-import cn.hutool.db.PageResult;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
-
-import java.util.List;
 
 /**
  * @author: ZhangBlossom
