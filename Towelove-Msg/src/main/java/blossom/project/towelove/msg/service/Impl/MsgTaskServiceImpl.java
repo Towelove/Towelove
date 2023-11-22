@@ -18,10 +18,6 @@ import blossom.project.towelove.common.response.msg.MsgTaskResponse;
 import blossom.project.towelove.common.request.msg.MsgTaskCreateRequest;
 import blossom.project.towelove.common.request.msg.MsgTaskPageRequest;
 import blossom.project.towelove.common.request.msg.MsgTaskUpdateRequest;
-
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 
@@ -76,6 +72,7 @@ public class MsgTaskServiceImpl extends ServiceImpl<MsgTaskMapper, MsgTask> impl
         if (Objects.isNull(msgTask)){
             return null;
         }
+        //先删除在创建
         msgTaskMapper.deleteById(msgTask.getId());
         msgTask.setId(null);
         msgTaskMapper.insert(msgTask);
