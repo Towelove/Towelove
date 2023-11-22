@@ -92,11 +92,11 @@
             <version>2.3.1</version>
         </dependency>
 
-        <dependency>
-            <groupId>blossom.project</groupId>
-            <artifactId>Towelove-Client</artifactId>
-            <version>${revision}</version>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>blossom.project</groupId>-->
+<!--            <artifactId>Towelove-Client</artifactId>-->
+<!--            <version>${revision}</version>-->
+<!--        </dependency>-->
     </dependencies>
 
     <build>
@@ -135,7 +135,7 @@
                 </executions>
                 <configuration>
                     <layout>ZIP</layout>
-                    <mainClass>com.towelove.system.ToweloveSystemApplication</mainClass>
+<!--                    <mainClass>blossom.project.towelove.taskcenter.</mainClass>-->
                 </configuration>
             </plugin>
             <plugin>

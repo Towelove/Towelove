@@ -25,7 +25,7 @@ public interface RemoteMsgService {
      * @return
      */
     @GetMapping("")
-    public Result<MsgTaskResponse>
+    Result<MsgTaskResponse>
     getMsgTaskById(@Validated @RequestParam(name = "msgTaskId")
                    @NotNull(message = "msgTaskId can not be null!")
                    Long msgTaskId);
@@ -37,7 +37,7 @@ public interface RemoteMsgService {
      * @return
      */
     @GetMapping("/page")
-    public Result<PageResponse<MsgTaskResponse>>
+    Result<PageResponse<MsgTaskResponse>>
     pageQueryMsgTask(@Validated @RequestBody MsgTaskPageRequest requestParam);
 
 }

@@ -1,11 +1,8 @@
 package blossom.project.towelove.msg.entity;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.Date;
 
-import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
@@ -17,7 +14,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.Builder;
-import org.apache.ibatis.type.JdbcType;
 import org.springframework.format.annotation.DateTimeFormat;
 
 /**

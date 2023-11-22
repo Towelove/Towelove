@@ -143,11 +143,6 @@
                 <artifactId>Towelove-Framework-Log</artifactId>
                 <version>${revision}</version>
             </dependency>
-            <dependency>
-                <groupId>blossom.project</groupId>
-                <artifactId>Towelove-Client</artifactId>
-                <version>${revision}</version>
-            </dependency>
 
             <!--参数校验-->
             <dependency>

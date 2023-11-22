@@ -2,22 +2,25 @@ package blossom.project.towelove.msg.service.Impl;
 
 import blossom.project.towelove.common.annotaion.Transaction;
 import blossom.project.towelove.common.page.PageResponse;
-import blossom.project.towelove.common.response.Result;
 import blossom.project.towelove.msg.convert.MsgTaskConvert;
+import blossom.project.towelove.msg.entity.MsgTask;
 import cn.hutool.core.collection.CollectionUtil;
 import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.xxl.job.core.context.XxlJobHelper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import lombok.extern.slf4j.Slf4j;
-import blossom.project.towelove.msg.entity.MsgTask;
 import blossom.project.towelove.msg.mapper.MsgTaskMapper;
 import blossom.project.towelove.msg.service.MsgTaskService;
 import blossom.project.towelove.common.response.msg.MsgTaskResponse;
 import blossom.project.towelove.common.request.msg.MsgTaskCreateRequest;
 import blossom.project.towelove.common.request.msg.MsgTaskPageRequest;
 import blossom.project.towelove.common.request.msg.MsgTaskUpdateRequest;
+
+import java.sql.Time;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 
@@ -109,11 +112,39 @@ public class MsgTaskServiceImpl extends ServiceImpl<MsgTaskMapper, MsgTask> impl
 
     @Override
     @Transaction
-    public Result createMsgTask(MsgTaskCreateRequest createRequest) {
+    public MsgTaskResponse createMsgTask(MsgTaskCreateRequest createRequest) {
         log.info("the request info is: {} ", JSON.toJSONString(createRequest));
         MsgTask msgTask = MsgTaskConvert.INSTANCE.convert(createRequest);
         msgTaskMapper.insert(msgTask);
-        return Result.ok(msgTask);
+        MsgTaskResponse response = MsgTaskConvert.INSTANCE.convert(msgTask);
+        return response;
+    }
+
+    @Override
+    public List<MsgTask> getMsgTaskList() {
+        //获取总的分片数量
+        int total = XxlJobHelper.getShardTotal();
+        //获取当前机器的分片索引
+        int index = XxlJobHelper.getShardIndex();
+        //获得当前时间
+        //需要查询获得十分钟内的任务数据
+//        QueryWrapper<MsgTask> msgTaskQueryWrapper = new QueryWrapper<>();
+//        msgTaskQueryWrapper.between(MsgTask::getSendTime, localDateTime, localDateTime.plusMinutes(10));
+        LocalDateTime localDateTime = LocalDateTime.now();
+        Time start = new Time(localDateTime.getHour(),
+                localDateTime.getMinute(), localDateTime.getSecond());
+        Time end = new Time(localDateTime.getHour(),
+                localDateTime.getMinute() + 10, localDateTime.getSecond());
+
+        //List<MsgTask> msgTaskList = msgTaskMapper
+        //        .selectList(new QueryWrapper<MsgTask>()
+        //                .between("send_time", start,
+        //                        end));
+
+        List<MsgTask> msgTaskList = msgTaskMapper
+                .selectAfterTenMinJob(start, end, total, index);
+        System.out.println(msgTaskList);
+        return msgTaskList;
     }
 
 }

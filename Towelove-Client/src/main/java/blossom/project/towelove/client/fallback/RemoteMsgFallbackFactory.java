@@ -16,10 +16,10 @@ import org.springframework.stereotype.Component;
  * Author:zhang.blossom
  * @Date：2023-11-22 14:10
  */
-@AutoConfiguration
+@Component
+//@AutoConfiguration
 //使用下面这个注解必须保证该类的类路径被配置到
 //META-INF/spring/org.springframework.boot.autoconfigure.AutoConfiguration.imports
-//@AutoConfiguration
 public class RemoteMsgFallbackFactory implements FallbackFactory<RemoteMsgService> {
 
     private static final Logger log = LoggerFactory.getLogger(RemoteMsgFallbackFactory.class);

@@ -3,6 +3,7 @@ package blossom.project.towelove.msg;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 
 /**
  * @author: ZhangBlossom
@@ -15,6 +16,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  */
 @MapperScan("blossom.project.towelove.msg.mapper")
 @SpringBootApplication
+@EnableFeignClients("blossom.project.towelove.client")
 public class ToweloveMsgApplication {
     public static void main(String[] args) {
         SpringApplication.run(ToweloveMsgApplication.class,args);
