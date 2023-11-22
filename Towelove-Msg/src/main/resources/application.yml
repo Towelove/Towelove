@@ -4,3 +4,19 @@ mybatis-plus:
   type-aliases-package: blossom.project.towelove.msg.entity
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+xxl:
+  job:
+    # 调度中心部署根地址
+    admin:
+      addresses: http://localhost:17777/xxl-job-admin  # 调度中心地址，用于执行器心跳注册和任务结果回调
+    # 执行器通讯TOKEN
+    accessToken: towelove # 非空时启用，用于执行器与调度中心的安全通信
+    # 执行器配置
+    executor:
+      appname: towelove-msg  # 执行器AppName，用于心跳注册分组依据
+      address:  # 执行器注册地址，优先使用该配置作为注册地址
+      ip:  # 执行器IP，多网卡时可手动设置指定IP
+      port: 9999  # 执行器端口号，默认9999，单机部署多个执行器时需配置不同端口
+      logpath: D:\desktop\Towelove\logs  # 执行器运行日志文件存储路径
+      logretentiondays: 30  # 执行器日志文件保存天数，过期日志自动清理

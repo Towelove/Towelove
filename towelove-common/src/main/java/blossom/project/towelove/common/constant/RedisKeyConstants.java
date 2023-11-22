@@ -16,4 +16,8 @@ public class RedisKeyConstants {
     public static final String USER_LIKE_ARTICLE = "users:like:article:";
 
     public static final String USER_LIKE_TIME = "users:like:time:";
+
+    public static final String VALIDATE_CODE = "validate:code:";
+
+    public static final String VALIDATE_CODE_SUBJECT = "Towelove<验证码>";
 }

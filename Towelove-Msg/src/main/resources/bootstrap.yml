@@ -26,8 +26,8 @@ spring:
           data-id: towelove-redis-dev.yaml
           refresh: true
         shared-configs[3]:
-          data-id: towelove-xxl-dev.yaml
-          refresh: true
-        shared-configs[4]:
           data-id: towelove-rocketmq-dev.yaml
           refresh: true
+#        shared-configs[4]:
+#          data-id: towelove-xxl-dev.yaml
+#          refresh: true
