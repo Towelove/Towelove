@@ -3,6 +3,7 @@ package blossom.project.towelove.user.convert;
 import blossom.project.towelove.common.request.auth.AuthLoginRequest;
 import blossom.project.towelove.common.request.user.InsertUserRequest;
 import blossom.project.towelove.common.request.user.UpdateUserRequest;
+import blossom.project.towelove.common.response.user.SysUserPermissionDto;
 import blossom.project.towelove.common.response.user.SysUserVo;
 import blossom.project.towelove.user.domain.SysUser;
 import blossom.project.towelove.user.mapper.SysUserMapper;
@@ -17,5 +18,7 @@ public interface SysUserConvert {
     SysUser convert(UpdateUserRequest updateUserRequest);
 
     SysUser convert(InsertUserRequest insertUserRequest);
+
+
 
 }

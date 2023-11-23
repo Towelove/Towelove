@@ -8,6 +8,7 @@ import blossom.project.towelove.common.request.auth.AuthLoginRequest;
 import blossom.project.towelove.common.request.msg.MsgTaskPageRequest;
 import blossom.project.towelove.common.response.Result;
 import blossom.project.towelove.common.response.msg.MsgTaskResponse;
+import blossom.project.towelove.common.response.user.SysUserPermissionDto;
 import blossom.project.towelove.common.response.user.SysUserVo;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.validation.annotation.Validated;
@@ -18,17 +19,21 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @FeignClient(value = "towelove-user",
         fallbackFactory = RemoteUserFallbackFactory.class,
         contextId = "RemoteUserService")
 public interface RemoteUserService {
-    @PostMapping("")
+    @PostMapping("/v1/user")
     Result<String> saveUser(@RequestBody SysUser sysUser);
 
-    @GetMapping("")
+    @GetMapping("/v1/user")
     Result<SysUserVo> getUserById(@Valid @RequestParam("userId") @NotNull(message = "请求信息缺失") Long userId);
 
-    @PostMapping("/exist")
+    @PostMapping("/v1/user/exist")
      Result<String> findUserByPhoneOrEmail(@Valid @RequestBody AuthLoginRequest authLoginRequest);
+
+    @GetMapping("/v1/user/permission")
+     Result<List<SysUserPermissionDto>> getUserPermissionByUserId(@RequestParam("userId") Long userId);
 }

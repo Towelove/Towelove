@@ -45,6 +45,29 @@ public class RedisService {
     }
 
     /**
+     * 获取BitMap中某个区间的值
+     * @param key
+     * @param start
+     * @param end
+     * @return
+     */
+    public Long getBitByRange(final String key,final int start,final int end){
+        return (Long) redisTemplate.execute((RedisCallback<Long>) conn ->{
+            return conn.bitCount(key.getBytes(),start,end);
+        } );
+    }
+
+    /**
+     * 获取BitMap中的总值
+     * @param key
+     * @return
+     */
+    public Long getBitByRange(final String key){
+        return (Long) redisTemplate.execute((RedisCallback<Long>) conn ->{
+            return conn.bitCount(key.getBytes());
+        } );
+    }
+    /**
      * 返回bitmap的长度
      *
      * @param key bitmap缓存的键值

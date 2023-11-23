@@ -1,6 +1,6 @@
 package blossom.project.towelove.user.domain;
 
-import blossom.project.towelove.framework.mysql.domain.BaseEntity;
+import blossom.project.towelove.common.domain.dto.BaseEntity;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;

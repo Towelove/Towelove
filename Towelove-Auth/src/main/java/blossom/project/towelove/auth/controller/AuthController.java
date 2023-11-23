@@ -8,17 +8,19 @@ import blossom.project.towelove.common.response.Result;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 
-@RestController("/v1/auth")
+@RestController
 @RequiredArgsConstructor
+@RequestMapping("/v1/auth")
 public class AuthController {
 
     private final AuthService authService;
     @PostMapping("/register")
-    public Result<String> register(@Valid @RequestBody AuthRegisterRequest authRegisterRequest){
+    public Result<String> register( @RequestBody AuthRegisterRequest authRegisterRequest){
         return Result.ok(authService.register(authRegisterRequest));
     }
     @PostMapping("/login")

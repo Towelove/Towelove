@@ -72,7 +72,7 @@ public class JacksonTypeHandler extends AbstractJsonTypeHandler<Object> {
     @Override
     protected String toJson(Object obj) {
         try {
-            return objectMapper.writeValueAsString(obj);
+            return objectMapper.writeValueAsString(obj).replace("\"", "");
         } catch (Exception e) {
             throw new RuntimeException("JSON 序列化失败", e);
         }

@@ -1,10 +1,13 @@
 import blossom.project.towelove.common.exception.ServiceException;
+import blossom.project.towelove.common.response.user.SysUserPermissionDto;
 import blossom.project.towelove.user.ToweloveUserApplication;
 import blossom.project.towelove.user.domain.SysUser;
+import blossom.project.towelove.user.mapper.SysPermissionMapper;
 import blossom.project.towelove.user.mapper.SysUserMapper;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import javax.annotation.Resource;
@@ -14,6 +17,9 @@ import java.util.List;
 public class UserTest {
     @Resource
     private SysUserMapper userMapper;
+
+    @Resource
+    private SysPermissionMapper sysPermissionMapper;
     @Test
     public void test(){
         List<SysUser> sysUsers = userMapper.selectList(null);
@@ -33,5 +39,11 @@ public class UserTest {
     @Test
     void test03(){
         SysUser sysUser = userMapper.selectByPhoneNumberOrEmail("78",null);
+    }
+
+    @Test
+    void test04(){
+        List<SysUserPermissionDto> sysUserPermissionDtos = sysPermissionMapper.selectUserPermissionByUserId(1727556093546999809L);
+        System.out.println(sysUserPermissionDtos);
     }
 }

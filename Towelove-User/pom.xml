@@ -87,6 +87,11 @@
             <groupId>blossom.project</groupId>
             <artifactId>Towelove-Common</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>blossom.project</groupId>
+            <artifactId>Towelove-Framework-Redis</artifactId>
+        </dependency>
         <dependency>
             <groupId>blossom.project</groupId>
             <artifactId>Towelove-Framework-MySQL</artifactId>

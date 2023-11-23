@@ -9,6 +9,7 @@ public class InsertUserRequest {
     @NotBlank
     private String userName;
 
+
     private String nickName;
 
     @NotBlank
@@ -25,4 +26,5 @@ public class InsertUserRequest {
     private String avatar;
 
     private String loginIp;
+
 }

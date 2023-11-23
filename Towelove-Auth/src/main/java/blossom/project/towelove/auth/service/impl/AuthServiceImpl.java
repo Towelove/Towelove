@@ -38,7 +38,7 @@ public class AuthServiceImpl implements AuthService {
         Result<String> result = remoteUserService.saveUser(sysUser);
         log.info("调用user远程服务获取到的接口为: {}",result);
         if (Objects.isNull(result) || result.getCode() != HttpStatus.SUCCESS){
-            throw new ServiceException("注册用户失败，请联系管理员");
+            throw new ServiceException(result.getMsg());
         }
         StpUtil.login(result.getData());
         return StpUtil.getTokenInfo().tokenValue;

@@ -11,4 +11,5 @@ import org.mapstruct.factory.Mappers;
 @Mapper
 public interface SysUserMapper extends BaseMapper<SysUser> {
     SysUser selectByPhoneNumberOrEmail(@Param("phone") String phone,@Param("email") String email);
+
 }

@@ -30,8 +30,8 @@
         <dependency>
             <groupId>blossom.project</groupId>
             <artifactId>Towelove-Client</artifactId>
+            <version>2.0</version>
         </dependency>
-
         <!-- Sa-Token 整合 Redis （使用 jackson 序列化方式） -->
         <dependency>
             <groupId>cn.dev33</groupId>
@@ -43,6 +43,11 @@
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-pool2</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>blossom.project</groupId>
+            <artifactId>Towelove-Framework-Web</artifactId>
+            <version>2.0</version>
         </dependency>
 
         <dependency>
