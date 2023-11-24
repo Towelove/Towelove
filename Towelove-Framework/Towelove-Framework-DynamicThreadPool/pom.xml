@@ -2,15 +2,16 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>blossom.project</groupId>
         <artifactId>Towelove-Framework</artifactId>
         <version>${revision}</version>
     </parent>
+    <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>Towelove-Framework-OSS</artifactId>
-    <description>Towelove项目OSS模块，支持多OSS间切换</description>
+    <artifactId>Towelove-Framework-DynamicThreadPool</artifactId>
+    <description>Towelove-Framework-DynamicThreadPool
+    项目动态线程池，支持使用Nacos进行线程池的动态参数配置</description>
     <properties>
         <maven.compiler.source>19</maven.compiler.source>
         <maven.compiler.target>19</maven.compiler.target>
@@ -19,35 +20,24 @@
 
     <dependencies>
         <dependency>
-            <groupId>io.minio</groupId>
-            <artifactId>minio</artifactId>
+            <groupId>com.alibaba.nacos</groupId>
+            <artifactId>nacos-client</artifactId>
         </dependency>
-
-        <dependency>
-            <groupId>blossom.project</groupId>
-            <artifactId>Towelove-Common</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>me.tongfei</groupId>
-            <artifactId>progressbar</artifactId>
-            <version>0.5.3</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.squareup.okhttp3</groupId>
-            <artifactId>okhttp</artifactId>
-            <version>4.8.1</version>
-        </dependency>
-
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-autoconfigure</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-context</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-all</artifactId>
+        </dependency>
+        <dependency>
             <groupId>blossom.project</groupId>
-            <artifactId>Towelove-Framework-DynamicThreadPool</artifactId>
+            <artifactId>Towelove-Common</artifactId>
         </dependency>
     </dependencies>
-
 </project>

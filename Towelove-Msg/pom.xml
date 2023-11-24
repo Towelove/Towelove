@@ -115,9 +115,13 @@
                     <artifactId>Towelove-Common</artifactId>
                 </exclusion>
             </exclusions>
-            <version>2.0</version>
+            <version>${revision}</version>
         </dependency>
-
+        <dependency>
+            <groupId>blossom.project</groupId>
+            <artifactId>Towelove-Framework-DynamicThreadPool</artifactId>
+            <version>${revision}</version>
+        </dependency>
     </dependencies>
 
     <build>

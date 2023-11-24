@@ -4,6 +4,8 @@ spring:
       discovery:
         # 服务注册地址
         server-addr: 123.249.111.175:8848
+        namespace: towelove
       config:
         # 配置中心地址
         server-addr: 123.249.111.175:8848
+        namespace: towelove
