@@ -1,7 +1,7 @@
 package blossom.project.towelove.user.service.impl;
 
 import blossom.project.towelove.common.annotaion.Transaction;
-import blossom.project.towelove.common.constant.TokenConstants;
+import blossom.project.towelove.common.constant.TokenConstant;
 import blossom.project.towelove.common.constant.UserConstants;
 import blossom.project.towelove.common.exception.ServiceException;
 import blossom.project.towelove.common.page.PageResponse;
@@ -57,7 +57,7 @@ public class SysUSerServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     public String updateUser(UpdateUserRequest request, HttpServletRequest httpServletRequest) {
         SysUser sysUser = SysUserConvert.INSTANCE.convert(request);
         //获取userId,
-        String userId = httpServletRequest.getHeader(TokenConstants.USER_ID_HEADER);
+        String userId = httpServletRequest.getHeader(TokenConstant.USER_ID_HEADER);
         sysUser.setId(Long.parseLong(userId));
         if (!updateById(sysUser)) {
             throw new ServiceException("更新用户信息失败");
@@ -77,7 +77,7 @@ public class SysUSerServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     @Transactional(propagation = Propagation.REQUIRED)
     @Override
     public String deleteById(Long userId, HttpServletRequest httpServletRequest) {
-        if (userId.equals(Long.parseLong(httpServletRequest.getHeader(TokenConstants.USER_ID_HEADER)))) {
+        if (userId.equals(Long.parseLong(httpServletRequest.getHeader(TokenConstant.USER_ID_HEADER)))) {
             //TODO: 注销用户连带删除其他表中用户相关信息
             removeById(userId);
             sysUserPermissionMapper.delete(new LambdaQueryWrapper<SysUserPermission>().eq(SysUserPermission::getUserId, userId));
@@ -120,7 +120,7 @@ public class SysUSerServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     private void addUserPermission(SysUser sysUser) {
         SysUserPermission sysUserPermission = new SysUserPermission();
         sysUserPermission.setUserId(sysUser.getId());
-        sysUserPermission.setPermissionId(TokenConstants.USER_PERMISSION_CODE);
+        sysUserPermission.setPermissionId(TokenConstant.USER_PERMISSION_CODE);
         if (sysUserPermissionMapper.insert(sysUserPermission) < 1) {
             throw new ServiceException("用户添加权限失败，回滚");
         }

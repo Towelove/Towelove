@@ -1,6 +1,6 @@
 package blossom.project.towelove.gateway.handler;
 
-import blossom.project.towelove.common.constant.SecurityConstants;
+import blossom.project.towelove.common.constant.SecurityConstant;
 import blossom.project.towelove.common.response.Result;
 import com.towelove.common.core.constant.HttpStatus;
 import lombok.Getter;
@@ -45,7 +45,7 @@ public class GlobalGatewayExceptionHandler implements ErrorWebExceptionHandler {
     public Mono<Void> handle(ServerWebExchange exchange, Throwable throwable) {
         log.error("网关异常全局处理，异常信息：{}",throwable.getMessage());
         //这里只是做个最简单的同一的异常结果输出，实际业务可根据throwable不同的异常处理不同的逻辑
-        Result<Object> result = Result.fail(throwable.getMessage(), SecurityConstants.REQUEST_ID);
+        Result<Object> result = Result.fail(throwable.getMessage(), SecurityConstant.REQUEST_ID);
         threadLocal.set(result);
         ServerRequest newRequest = ServerRequest.create(exchange, this.messageReaders);
         return RouterFunctions.route(RequestPredicates.all(), this::renderErrorResponse).route(newRequest)

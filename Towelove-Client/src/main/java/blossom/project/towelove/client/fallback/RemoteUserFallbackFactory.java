@@ -2,7 +2,6 @@ package blossom.project.towelove.client.fallback;
 
 import blossom.project.towelove.client.serivce.RemoteUserService;
 import blossom.project.towelove.common.constant.SecurityConstant;
-import blossom.project.towelove.common.constant.SecurityConstants;
 import blossom.project.towelove.common.domain.dto.SysUser;
 import blossom.project.towelove.common.request.auth.AuthLoginRequest;
 import blossom.project.towelove.common.response.Result;

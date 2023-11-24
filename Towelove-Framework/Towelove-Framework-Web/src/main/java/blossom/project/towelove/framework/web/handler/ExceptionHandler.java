@@ -1,9 +1,10 @@
 package blossom.project.towelove.framework.web.handler;
 
-import blossom.project.towelove.common.constant.SecurityConstants;
+import blossom.project.towelove.common.constant.SecurityConstant;
 import blossom.project.towelove.common.exception.ServiceException;
 import blossom.project.towelove.common.response.AjaxResult;
 import blossom.project.towelove.common.response.Result;
+import org.slf4j.MDC;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @RestControllerAdvice
@@ -15,6 +16,6 @@ public class ExceptionHandler {
 
     @org.springframework.web.bind.annotation.ExceptionHandler(ServiceException.class)
     public Result<String> SystemException(ServiceException e){
-        return Result.fail(e.getMessage(), SecurityConstants.REQUEST_ID);
+        return Result.fail(e.getMessage(), MDC.get(SecurityConstant.REQUEST_ID));
     }
 }

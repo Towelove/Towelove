@@ -1,6 +1,6 @@
 package blossom.project.towelove.gateway.filter;
 
-import blossom.project.towelove.common.constant.TokenConstants;
+import blossom.project.towelove.common.constant.TokenConstant;
 import cn.dev33.satoken.stp.StpUtil;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
@@ -29,7 +29,7 @@ public class ReWriteRequestFilter implements GlobalFilter {
         ServerHttpRequest requst = exchange
                 .getRequest()
                 .mutate()
-                .header(TokenConstants.USER_ID_HEADER, id).build();
+                .header(TokenConstant.USER_ID_HEADER, id).build();
         return chain.filter(exchange.mutate().request(requst).build());
     }
 }
