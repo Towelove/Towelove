@@ -33,8 +33,9 @@ public interface MsgTaskService extends IService<MsgTask> {
 
     /**
      * 获取所有的消息
+     * @param msgType 消息类型 0：每日消息 1：一次性消息
      * @return 所有的查询消息
      */
-    List<MsgTask> getMsgTaskList();
+    List<MsgTask> getMsgTaskList(Integer msgType);
 }
 

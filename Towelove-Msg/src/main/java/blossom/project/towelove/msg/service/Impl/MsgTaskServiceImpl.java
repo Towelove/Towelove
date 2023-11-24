@@ -121,7 +121,7 @@ public class MsgTaskServiceImpl extends ServiceImpl<MsgTaskMapper, MsgTask> impl
     }
 
     @Override
-    public List<MsgTask> getMsgTaskList() {
+    public List<MsgTask> getMsgTaskList(Integer msgType) {
         //获取总的分片数量
         int total = XxlJobHelper.getShardTotal();
         //获取当前机器的分片索引
@@ -130,19 +130,20 @@ public class MsgTaskServiceImpl extends ServiceImpl<MsgTaskMapper, MsgTask> impl
         //需要查询获得十分钟内的任务数据
 //        QueryWrapper<MsgTask> msgTaskQueryWrapper = new QueryWrapper<>();
 //        msgTaskQueryWrapper.between(MsgTask::getSendTime, localDateTime, localDateTime.plusMinutes(10));
-        LocalDateTime localDateTime = LocalDateTime.now();
-        Time start = new Time(localDateTime.getHour(),
-                localDateTime.getMinute(), localDateTime.getSecond());
-        Time end = new Time(localDateTime.getHour(),
-                localDateTime.getMinute() + 10, localDateTime.getSecond());
-
+//        LocalDateTime localDateTime = LocalDateTime.now();
+//        Time start = new Time(localDateTime.getHour(),
+//                localDateTime.getMinute(), localDateTime.getSecond());
+//        Time end = new Time(localDateTime.getHour(),
+//                localDateTime.getMinute() + 10, localDateTime.getSecond());
+        Time start = new Time(1);
+        Time end = new Time(1);
         //List<MsgTask> msgTaskList = msgTaskMapper
         //        .selectList(new QueryWrapper<MsgTask>()
         //                .between("send_time", start,
         //                        end));
 
         List<MsgTask> msgTaskList = msgTaskMapper
-                .selectAfterTenMinJob(start, end, total, index);
+                .selectAfterTenMinJob(start, end, msgType,total, index);
         System.out.println(msgTaskList);
         return msgTaskList;
     }
