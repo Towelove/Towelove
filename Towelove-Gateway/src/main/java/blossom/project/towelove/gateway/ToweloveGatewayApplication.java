@@ -3,6 +3,7 @@ package blossom.project.towelove.gateway;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 
 /**
  * @author: 张锦标
@@ -10,6 +11,7 @@ import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
  * Description:
  */
 @SpringBootApplication(exclude = {DataSourceAutoConfiguration.class })
+@EnableFeignClients("blossom.project.towelove.client")
 public class ToweloveGatewayApplication {
     public static void main(String[] args) {
         SpringApplication.run(ToweloveGatewayApplication.class, args);

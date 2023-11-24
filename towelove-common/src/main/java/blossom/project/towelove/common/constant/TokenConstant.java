@@ -24,4 +24,8 @@ public class TokenConstant
      */
     public final static String SECRET = "abcdefghijklmnopqrstuvwxyz";
 
+    public final static String USER_ID_HEADER = "X-User-Id";
+    public final static Long USER_PERMISSION_CODE = 1L;
+    public final static Long ADMIN_PERMISSION_CODE = 2L;
+
 }

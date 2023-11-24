@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="blossom.project.towelove.user.mapper.SysPermissionMapper">
+    <resultMap id="sysUserPermissionResultMap" type="blossom.project.towelove.common.response.user.SysUserPermissionDto">
+        <result property="userName" column="user_name" jdbcType="VARCHAR"></result>
+        <result property="permission" column="permission" jdbcType="VARCHAR"></result>
+    </resultMap>
+    <select id="selectUserPermissionByUserId" resultMap="sysUserPermissionResultMap" parameterType="long">
+        select u.user_name,
+               p.permission
+        from sys_user_permission up
+                 LEFT JOIN sys_user u on up.user_id = u.id
+                 LEFT JOIN sys_permission p on up.permission_id = p.id
+        WHERE user_id = #{userId}
+    </select>
+</mapper>
