@@ -7,7 +7,7 @@ package blossom.project.towelove.common.constant;
  * @date: 2023/2/23 18:36
  * Description:
  */
-public class Constants
+public class Constant
 {
     /**
      * UTF-8 字符集

@@ -3,7 +3,7 @@ package blossom.project.towelove.common.utils;
 
 import cn.hutool.core.convert.Convert;
 import com.alibaba.fastjson2.JSON;
-import blossom.project.towelove.common.constant.Constants;
+import blossom.project.towelove.common.constant.Constant;
 import blossom.project.towelove.common.response.Result;
 import org.springframework.core.io.buffer.DataBuffer;
 import org.springframework.http.HttpHeaders;
@@ -251,7 +251,7 @@ public class ServletUtils
     {
         try
         {
-            return URLEncoder.encode(str, Constants.UTF8);
+            return URLEncoder.encode(str, Constant.UTF8);
         }
         catch (UnsupportedEncodingException e)
         {
@@ -269,7 +269,7 @@ public class ServletUtils
     {
         try
         {
-            return URLDecoder.decode(str, Constants.UTF8);
+            return URLDecoder.decode(str, Constant.UTF8);
         }
         catch (UnsupportedEncodingException e)
         {

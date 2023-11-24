@@ -1,12 +1,8 @@
 package blossom.project.towelove.client.fallback;
 
 import blossom.project.towelove.client.serivce.RemoteEmailService;
-import blossom.project.towelove.client.serivce.RemoteMsgService;
-import blossom.project.towelove.common.constant.SecurityConstants;
-import blossom.project.towelove.common.page.PageResponse;
-import blossom.project.towelove.common.request.msg.MsgTaskPageRequest;
+import blossom.project.towelove.common.constant.SecurityConstant;
 import blossom.project.towelove.common.response.Result;
-import blossom.project.towelove.common.response.msg.MsgTaskResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
@@ -30,7 +26,7 @@ public class RemoteEmailFallbackFactory implements FallbackFactory<RemoteEmailSe
         return new RemoteEmailService() {
             @Override
             public Result<String> sendValidateCode(String email) {
-                return Result.fail("发送验证码失败，请稍后再发送一次", MDC.get(SecurityConstants.REQUEST_ID));
+                return Result.fail("发送验证码失败，请稍后再发送一次", MDC.get(SecurityConstant.REQUEST_ID));
             }
         };
     }

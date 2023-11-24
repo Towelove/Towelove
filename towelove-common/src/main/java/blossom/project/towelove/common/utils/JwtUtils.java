@@ -1,8 +1,8 @@
 package blossom.project.towelove.common.utils;
 
 import cn.hutool.core.convert.Convert;
-import blossom.project.towelove.common.constant.SecurityConstants;
-import blossom.project.towelove.common.constant.TokenConstants;
+import blossom.project.towelove.common.constant.SecurityConstant;
+import blossom.project.towelove.common.constant.TokenConstant;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -18,7 +18,7 @@ import java.util.Map;
  */
 public class JwtUtils
 {
-    public static String secret = TokenConstants.SECRET;
+    public static String secret = TokenConstant.SECRET;
 
     /**
      * 从数据声明生成令牌
@@ -52,7 +52,7 @@ public class JwtUtils
     public static String getUserKey(String token)
     {
         Claims claims = parseToken(token);
-        return getValue(claims, SecurityConstants.USER_KEY);
+        return getValue(claims, SecurityConstant.USER_KEY);
     }
 
     /**
@@ -63,7 +63,7 @@ public class JwtUtils
      */
     public static String getUserKey(Claims claims)
     {
-        return getValue(claims, SecurityConstants.USER_KEY);
+        return getValue(claims, SecurityConstant.USER_KEY);
     }
 
     /**
@@ -75,7 +75,7 @@ public class JwtUtils
     public static String getUserId(String token)
     {
         Claims claims = parseToken(token);
-        return getValue(claims, SecurityConstants.DETAILS_USER_ID);
+        return getValue(claims, SecurityConstant.DETAILS_USER_ID);
     }
 
     /**
@@ -86,7 +86,7 @@ public class JwtUtils
      */
     public static String getUserId(Claims claims)
     {
-        return getValue(claims, SecurityConstants.DETAILS_USER_ID);
+        return getValue(claims, SecurityConstant.DETAILS_USER_ID);
     }
 
     /**
@@ -98,7 +98,7 @@ public class JwtUtils
     public static String getUserName(String token)
     {
         Claims claims = parseToken(token);
-        return getValue(claims, SecurityConstants.DETAILS_USERNAME);
+        return getValue(claims, SecurityConstant.DETAILS_USERNAME);
     }
 
     /**
@@ -109,7 +109,7 @@ public class JwtUtils
      */
     public static String getUserName(Claims claims)
     {
-        return getValue(claims, SecurityConstants.DETAILS_USERNAME);
+        return getValue(claims, SecurityConstant.DETAILS_USERNAME);
     }
 
     /**

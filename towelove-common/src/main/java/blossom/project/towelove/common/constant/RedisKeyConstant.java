@@ -5,7 +5,7 @@ package blossom.project.towelove.common.constant;
  * @date: 2023/3/22 18:42
  * RedisServiceConstants类
  */
-public class RedisKeyConstants {
+public class RedisKeyConstant {
     //系统模块 邮件账户key前缀
     public static final String SYS_MAIL_ACCOUNT = "sys_mail_account:";
     //当前系统黑名单ip

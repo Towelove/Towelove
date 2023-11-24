@@ -7,7 +7,7 @@ package blossom.project.towelove.common.constant;
  * @date: 2023/2/23 18:36
  * Description:
  */
-public class CacheConstants
+public class CacheConstant
 {
     /**
      * 缓存有效期，默认720（分钟）
