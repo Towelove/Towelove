@@ -34,7 +34,7 @@ public class MinioService {
     private MinioClient minioClient;
 
     @Autowired
-    @Qualifier(value = "ioThreadPoolExecutor")
+    @Qualifier(value = "ioDynamicThreadPool")
     private ThreadPoolExecutor threadPoolExecutor;
 
 

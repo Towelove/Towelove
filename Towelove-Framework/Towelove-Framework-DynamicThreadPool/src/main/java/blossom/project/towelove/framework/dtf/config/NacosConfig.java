@@ -23,7 +23,8 @@ public class NacosConfig {
     private String serverAddr;
     @Value("${spring.cloud.nacos.config.namespace:public}")
     private String namespace;
- 
+
+
     @Bean
     @Primary
     public ConfigService configService() throws NacosException {
@@ -31,7 +32,12 @@ public class NacosConfig {
         properties.put("serverAddr", serverAddr);
         properties.put("namespace", namespace);
         try {
-            return NacosFactory.createConfigService(properties);
+            ConfigService configService = NacosFactory.createConfigService(properties);
+            //String config = configService.getConfig("towelove-msg-dev.yaml",
+            //        "DEFAULT_GROUP", 5000);
+            //System.out.println(config);
+            //System.out.println(corePoolSize);
+            return configService;
         } catch (NacosException e) {
             throw new NacosException(555,"nacos配置中心创建异常",e);
         }

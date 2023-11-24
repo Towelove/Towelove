@@ -26,14 +26,25 @@ public class DynamicThreadPool {
     private ThreadPoolProperty threadPoolProperty;
 
     /**
-     * 初始化线程池
+     * 初始化IO密集型线程池
      *
      * @return
      */
-    @Bean("dynamicThreadPool")
+    @Bean("ioDynamicThreadPool")
     @Primary
-    public ThreadPoolExecutor threadPool() {
-        ThreadPoolExecutor threadPoolExecutor = baseThreadPool();
+    public ThreadPoolExecutor ioIntensiveThreadPool() {
+        ThreadPoolExecutor threadPoolExecutor = generateThreadPool(0);
+        System.out.println(threadPoolExecutor);
+        return threadPoolExecutor;
+    }
+    /**
+     * 初始化CPU密集型线程池
+     *
+     * @return
+     */
+    @Bean("cpuDynamicThreadPool")
+    public ThreadPoolExecutor cpuIntensiveThreadPool() {
+        ThreadPoolExecutor threadPoolExecutor = generateThreadPool(1);
         System.out.println(threadPoolExecutor);
         return threadPoolExecutor;
     }
@@ -44,11 +55,22 @@ public class DynamicThreadPool {
      *
      * @return
      */
-    private ThreadPoolExecutor baseThreadPool() {
-        return new ThreadPoolExecutor(threadPoolProperty.getCorePoolSize(), threadPoolProperty.getMaximumPoolSize(),
-                60, TimeUnit.SECONDS,
-                new ResizableCapacityLinkedBlockIngQueue<Runnable>(threadPoolProperty.getQueueCapacity()),
-                new NamedThreadFactory("file-thread-"), new ThreadPoolExecutor.DiscardPolicy());
+    private ThreadPoolExecutor generateThreadPool(int type) {
+        switch (type){
+            case 0:{
+                return new ThreadPoolExecutor(threadPoolProperty.getIoCorePoolSize(), threadPoolProperty.getIoMaximumPoolSize(),
+                        60, TimeUnit.SECONDS,
+                        new ResizableCapacityLinkedBlockIngQueue<Runnable>(threadPoolProperty.getIoQueueCapacity()),
+                        new NamedThreadFactory("io-thread-"), new ThreadPoolExecutor.DiscardPolicy());
+
+            }
+            default:{
+                return new ThreadPoolExecutor(threadPoolProperty.getCpuCorePoolSize(), threadPoolProperty.getCpuMaximumPoolSize(),
+                        60, TimeUnit.SECONDS,
+                        new ResizableCapacityLinkedBlockIngQueue<Runnable>(threadPoolProperty.getCpuQueueCapacity()),
+                        new NamedThreadFactory("cpu-thread-"), new ThreadPoolExecutor.DiscardPolicy());
+            }
+        }
     }
 
 
