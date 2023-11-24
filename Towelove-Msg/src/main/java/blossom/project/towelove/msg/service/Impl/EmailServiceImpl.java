@@ -1,6 +1,6 @@
 package blossom.project.towelove.msg.service.Impl;
 
-import blossom.project.towelove.common.constant.RedisKeyConstants;
+import blossom.project.towelove.common.constant.RedisKeyConstant;
 import blossom.project.towelove.common.utils.CodeGeneratorUtil;
 import blossom.project.towelove.common.utils.StringUtils;
 import blossom.project.towelove.framework.redis.service.RedisService;
@@ -46,7 +46,7 @@ public class EmailServiceImpl implements EmailService {
     @Override
     public String generateValidateCode(String email) {
         String code = CodeGeneratorUtil.generateFourDigitCode();
-        sendOfficalEmail(email, RedisKeyConstants.VALIDATE_CODE_SUBJECT, code, false, null);
+        sendOfficalEmail(email, RedisKeyConstant.VALIDATE_CODE_SUBJECT, code, false, null);
         return "没报错就是发送成功哈哈哈哈";
     }
 
@@ -89,8 +89,8 @@ public class EmailServiceImpl implements EmailService {
 
         switch (subject) {
             //当前是一个验证码消息
-            case RedisKeyConstants.VALIDATE_CODE_SUBJECT: {
-                redisService.setCacheObject(RedisKeyConstants.VALIDATE_CODE + email, content);
+            case RedisKeyConstant.VALIDATE_CODE_SUBJECT: {
+                redisService.setCacheObject(RedisKeyConstant.VALIDATE_CODE + email, content);
                 break;
             }
             default: {

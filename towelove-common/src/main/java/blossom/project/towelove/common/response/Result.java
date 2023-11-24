@@ -3,7 +3,7 @@ package blossom.project.towelove.common.response;
    
 
 
-import blossom.project.towelove.common.constant.Constants;
+import blossom.project.towelove.common.constant.Constant;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -25,10 +25,10 @@ public class Result<T> implements Serializable
     private static final long serialVersionUID = 1L;
 
     /** 成功 */
-    public static final int SUCCESS = Constants.SUCCESS;
+    public static final int SUCCESS = Constant.SUCCESS;
 
     /** 失败 */
-    public static final int FAIL = Constants.FAIL;
+    public static final int FAIL = Constant.FAIL;
 
     private int code;
 

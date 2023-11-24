@@ -1,7 +1,7 @@
 package blossom.project.towelove.msg.executor;
 
 import blossom.project.towelove.client.serivce.RemoteUserService;
-import blossom.project.towelove.common.constant.MsgTaskConstants;
+import blossom.project.towelove.common.constant.MsgTaskConstant;
 import blossom.project.towelove.common.response.mailaccount.MailAccountResponse;
 import blossom.project.towelove.msg.cache.TaskCache;
 import blossom.project.towelove.msg.entity.CompletedMailMsgTask;
@@ -89,7 +89,7 @@ public class ScheduledSendMsgExecutor {
                     //将所有的任务放入到map中暂存
                     //TODO 这里需要考虑如果用户更新了邮箱信息 那么这些东西都要失效
                     //所以要去cache中查找是否已经缓存了记录
-                    TaskCache.getTaskMap().put(MsgTaskConstants.MSG_PREFIX + completeMsg.getId(), completeMsg);
+                    TaskCache.getTaskMap().put(MsgTaskConstant.MSG_PREFIX + completeMsg.getId(), completeMsg);
                 } else {
                     throw new MailException("邮箱账户为空，出现异常！！！");
                 }
@@ -104,7 +104,7 @@ public class ScheduledSendMsgExecutor {
             //        BeanUtils.copyProperties(mailAccount, msg);
             //        BeanUtils.copyProperties(msgTask, msg);
             //        //将所有的任务放入到map中暂存
-            //        TaskCache.getTaskMap().put(MsgTaskConstants.MSG_PREFIX + msg.getId(), msg);
+            //        TaskCache.getTaskMap().put(MsgTaskConstant.MSG_PREFIX + msg.getId(), msg);
             //    } else {
             //        throw new MailException("邮箱账户为空，出现异常！！！");
             //    }
@@ -152,7 +152,7 @@ public class ScheduledSendMsgExecutor {
                     //将所有的任务放入到map中暂存
                     //TODO 这里需要考虑如果用户更新了邮箱信息 那么这些东西都要失效
                     //所以要去cache中查找是否已经缓存了记录
-                    TaskCache.getTaskMap().put(MsgTaskConstants.MSG_PREFIX + completeMsg.getId(), completeMsg);
+                    TaskCache.getTaskMap().put(MsgTaskConstant.MSG_PREFIX + completeMsg.getId(), completeMsg);
                 } else {
                     throw new MailException("邮箱账户为空，出现异常！！！");
                 }
@@ -167,7 +167,7 @@ public class ScheduledSendMsgExecutor {
             //        BeanUtils.copyProperties(mailAccount, msg);
             //        BeanUtils.copyProperties(msgTask, msg);
             //        //将所有的任务放入到map中暂存
-            //        TaskCache.getTaskMap().put(MsgTaskConstants.MSG_PREFIX + msg.getId(), msg);
+            //        TaskCache.getTaskMap().put(MsgTaskConstant.MSG_PREFIX + msg.getId(), msg);
             //    } else {
             //        throw new MailException("邮箱账户为空，出现异常！！！");
             //    }

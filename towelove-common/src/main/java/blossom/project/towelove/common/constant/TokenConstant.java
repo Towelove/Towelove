@@ -7,7 +7,7 @@ package blossom.project.towelove.common.constant;
  * @date: 2023/2/23 18:36
  * Description:
  */
-public class TokenConstants
+public class TokenConstant
 {
     /**
      * 令牌自定义标识

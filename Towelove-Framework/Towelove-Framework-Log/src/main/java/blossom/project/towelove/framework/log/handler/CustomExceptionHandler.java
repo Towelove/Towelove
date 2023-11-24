@@ -1,6 +1,6 @@
 package blossom.project.towelove.framework.log.handler;
 
-import blossom.project.towelove.common.constant.SecurityConstants;
+import blossom.project.towelove.common.constant.SecurityConstant;
 import blossom.project.towelove.common.exception.RemoteException;
 import blossom.project.towelove.common.response.Result;
 import org.slf4j.MDC;
@@ -36,7 +36,7 @@ public class CustomExceptionHandler {
     public Object handleException(Exception ex) {
         log.warn("[Handled] Exception ", ex);
         return Result.fail(ex.getCause(),500,
-                ex.getMessage(), MDC.get(SecurityConstants.REQUEST_ID));
+                ex.getMessage(), MDC.get(SecurityConstant.REQUEST_ID));
     }
 
 
@@ -48,7 +48,7 @@ public class CustomExceptionHandler {
     public Object handleRemoteException(RemoteException ex) {
         log.warn("[Handled] RemoteException ", ex);
         return Result.fail(ex.getCause(),Integer.parseInt(ex.getErrorCode()),
-                ex.getMessage(),MDC.get(SecurityConstants.REQUEST_ID));
+                ex.getMessage(),MDC.get(SecurityConstant.REQUEST_ID));
     }
 
 

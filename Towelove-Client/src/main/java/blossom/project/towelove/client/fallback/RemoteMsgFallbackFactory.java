@@ -1,14 +1,13 @@
 package blossom.project.towelove.client.fallback;
 
 import blossom.project.towelove.client.serivce.RemoteMsgService;
-import blossom.project.towelove.common.constant.SecurityConstants;
+import blossom.project.towelove.common.constant.SecurityConstant;
 import blossom.project.towelove.common.page.PageResponse;
 import blossom.project.towelove.common.request.msg.MsgTaskPageRequest;
 import blossom.project.towelove.common.response.Result;
 import blossom.project.towelove.common.response.msg.MsgTaskResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.cloud.openfeign.FallbackFactory;
 import org.springframework.stereotype.Component;
 
@@ -30,12 +29,12 @@ public class RemoteMsgFallbackFactory implements FallbackFactory<RemoteMsgServic
 
             @Override
             public Result<MsgTaskResponse> getMsgTaskById(Long msgTaskId) {
-                return Result.fail(null, SecurityConstants.REQUEST_ID);
+                return Result.fail(null, SecurityConstant.REQUEST_ID);
             }
 
             @Override
             public Result<PageResponse<MsgTaskResponse>> pageQueryMsgTask(MsgTaskPageRequest requestParam) {
-                return Result.fail(null, SecurityConstants.REQUEST_ID);
+                return Result.fail(null, SecurityConstant.REQUEST_ID);
             }
         };
     }

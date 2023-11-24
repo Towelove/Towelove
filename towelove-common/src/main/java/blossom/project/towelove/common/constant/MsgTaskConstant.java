@@ -5,7 +5,7 @@ package blossom.project.towelove.common.constant;
  * @date: 2023/3/15 16:30
  * SendTimeConstant类
  */
-public class MsgTaskConstants {
+public class MsgTaskConstant {
     //设定发送时间差
     public static final Long SEND_TIME_DIFF = 1000 * 60 * 10L;
 
