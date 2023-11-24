@@ -1,6 +1,7 @@
 package blossom.project.towelove.client.fallback;
 
 import blossom.project.towelove.client.serivce.RemoteUserService;
+import blossom.project.towelove.common.constant.SecurityConstant;
 import blossom.project.towelove.common.constant.SecurityConstants;
 import blossom.project.towelove.common.domain.dto.SysUser;
 import blossom.project.towelove.common.request.auth.AuthLoginRequest;
@@ -35,22 +36,22 @@ public class RemoteUserFallbackFactory implements FallbackFactory<RemoteUserServ
 
             @Override
             public Result<String> saveUser(SysUser sysUser) {
-                return Result.fail(null,SecurityConstants.REQUEST_ID);
+                return Result.fail(null,MDC.get(SecurityConstant.REQUEST_ID));
             }
 
             @Override
             public Result<SysUserVo> getUserById(Long userId) {
-                return Result.fail(null,SecurityConstants.REQUEST_ID);
+                return Result.fail(null,MDC.get(SecurityConstant.REQUEST_ID));
             }
 
             @Override
             public Result<String> findUserByPhoneOrEmail(AuthLoginRequest authLoginRequest) {
-                return Result.fail(null,SecurityConstants.REQUEST_ID);
+                return Result.fail(null,MDC.get(SecurityConstant.REQUEST_ID));
             }
 
             @Override
             public Result<List<SysUserPermissionDto>> getUserPermissionByUserId(Long userId) {
-                return Result.fail(null,SecurityConstants.REQUEST_ID);
+                return Result.fail(null,MDC.get(SecurityConstant.REQUEST_ID));
             }
         };
     }

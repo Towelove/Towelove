@@ -1,7 +1,7 @@
 package blossom.project.towelove.client.fallback;
 
 import blossom.project.towelove.client.serivce.RemoteCodeService;
-import blossom.project.towelove.common.constant.SecurityConstants;
+import blossom.project.towelove.common.constant.SecurityConstant;
 import blossom.project.towelove.common.response.Result;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,12 +26,12 @@ public class RemoteEmailFallbackFactory implements FallbackFactory<RemoteCodeSer
         return new RemoteCodeService() {
             @Override
             public Result<String> sendValidateCodeByEmail(String email) {
-                return Result.fail(null,SecurityConstants.REQUEST_ID);
+                return Result.fail(null,MDC.get(SecurityConstant.REQUEST_ID));
             }
 
             @Override
             public Result<String> sendValidateCodeByPhone(String phoneNumber) {
-                return Result.fail(null,SecurityConstants.REQUEST_ID);
+                return Result.fail(null,MDC.get(SecurityConstant.REQUEST_ID));
             }
         };
     }

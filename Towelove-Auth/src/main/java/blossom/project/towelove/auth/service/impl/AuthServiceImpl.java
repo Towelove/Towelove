@@ -5,7 +5,6 @@ import blossom.project.towelove.auth.strategy.UserRegisterStrategy;
 import blossom.project.towelove.auth.strategy.UserRegisterStrategyFactory;
 import blossom.project.towelove.client.serivce.RemoteCodeService;
 import blossom.project.towelove.client.serivce.RemoteUserService;
-import blossom.project.towelove.common.constant.RedisKeyConstants;
 import blossom.project.towelove.common.domain.dto.SysUser;
 import blossom.project.towelove.common.exception.ServiceException;
 import blossom.project.towelove.common.request.auth.AuthLoginRequest;
