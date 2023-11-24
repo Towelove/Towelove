@@ -1,4 +1,4 @@
-package blossom.project.towelove.msg.entity;
+package blossom.project.towelove.common.entity.msg;
 
 import lombok.*;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-@Component
+@AutoConfiguration
 @ConfigurationProperties(prefix = "spring.mail")
 public class OfficialMailInfo {
     private Integer port;
@@ -18,6 +18,5 @@ public class OfficialMailInfo {
     private String username;
     private String password;
     private String protocol;
-
-
+    private Boolean sslEnable;
 }

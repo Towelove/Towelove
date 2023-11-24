@@ -28,6 +28,12 @@ spring:
         shared-configs[3]:
           data-id: towelove-rocketmq-dev.yaml
           refresh: true
-#        shared-configs[4]:
-#          data-id: towelove-xxl-dev.yaml
-#          refresh: true
+        shared-configs[4]:
+          data-id: towelove-xxl-dev.yaml
+          refresh: true
+        shared-configs[5]:
+          data-id: towelove-msg-dev.yaml
+          refresh: true
+        shared-configs[6]:
+          data-id: towelove-dynamic-threadpool-dev.yaml
+          refresh: true

@@ -1,2 +1,3 @@
 blossom.project.towelove.framework.oss.config.MinioConfig
 blossom.project.towelove.framework.oss.service.MinioService
+blossom.project.towelove.framework.oss.config.ThreadPoolConfig
