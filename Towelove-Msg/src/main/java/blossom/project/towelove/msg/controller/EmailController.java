@@ -34,5 +34,6 @@ public class EmailController {
         return Result.ok(emailService.generateValidateCode(email));
     }
 
+    //TODO 短链生成服务
 
 }

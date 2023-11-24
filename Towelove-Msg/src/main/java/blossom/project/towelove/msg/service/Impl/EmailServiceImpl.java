@@ -7,6 +7,7 @@ import blossom.project.towelove.framework.redis.service.RedisService;
 import blossom.project.towelove.msg.entity.CompletedMailMsgTask;
 import blossom.project.towelove.msg.entity.OfficialMailInfo;
 import blossom.project.towelove.msg.service.EmailService;
+import blossom.project.towelove.msg.service.MsgTaskService;
 import cn.hutool.extra.mail.MailAccount;
 import cn.hutool.extra.mail.MailUtil;
 import lombok.RequiredArgsConstructor;
@@ -34,6 +35,7 @@ public class EmailServiceImpl implements EmailService {
 
     private final OfficialMailInfo officialMailInfo;
 
+    private final MsgTaskService msgTaskService;
     @Override
     public String sendCompletedMailMsg(CompletedMailMsgTask mail) {
         log.info("接收到定时任务消息，并且准备发送给MQ：{}", mail);
@@ -65,11 +67,12 @@ public class EmailServiceImpl implements EmailService {
             MailUtil.send(mailAccount, mailMsg.getReceiveAccount(),
                     mailMsg.getTitle(), mailMsg.getContent(), false,
                     null);
+            //删除记录
+            msgTaskService.deleteMsgTaskById(mailMsg.getId());
         } catch (Exception e) {
             //远程调用日志记录
             //TODO 这里可以配合线程池
             //TODO 发送失败应该发送一条消息给MQ进行补偿
-
             e.printStackTrace();
             throw new RuntimeException(e);
         }
