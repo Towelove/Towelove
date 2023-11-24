@@ -20,6 +20,7 @@
         <module>Towelove-Framework-Log</module>
         <module>Towelove-Framework-Web</module>
         <module>Towelove-Framework-RocketMQ</module>
+        <module>Towelove-Framework-OSS</module>
     </modules>
 
 </project>

@@ -4,7 +4,7 @@ package blossom.project.towelove.common.utils;
 
 
 import cn.hutool.core.text.StrFormatter;
-import blossom.project.towelove.common.constant.Constants;
+import blossom.project.towelove.common.constant.Constant;
 import org.springframework.util.AntPathMatcher;
 
 import java.util.Collection;
@@ -297,7 +297,7 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils
      */
     public static boolean ishttp(String link)
     {
-        return StringUtils.startsWithAny(link, Constants.HTTP, Constants.HTTPS);
+        return StringUtils.startsWithAny(link, Constant.HTTP, Constant.HTTPS);
     }
 
     /**

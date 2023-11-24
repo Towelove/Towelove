@@ -1,6 +1,7 @@
 package blossom.project.towelove.common.utils.file;
 
 
+import blossom.project.towelove.common.constant.MinioConstant;
 import blossom.project.towelove.common.utils.DateUtils;
 import blossom.project.towelove.common.utils.StringUtils;
 import blossom.project.towelove.common.utils.uuid.Seq;
@@ -20,7 +21,7 @@ import java.util.Objects;
  * 
  * @author 张锦标
  */
-public class FileUploadUtils
+public class FileUploadUtil
 {
     /**
      * 默认大小 10M
@@ -31,6 +32,86 @@ public class FileUploadUtils
      * 默认的文件名最大长度 100
      */
     public static final int DEFAULT_FILE_NAME_LENGTH = 100;
+
+    /**
+     * 当前方法用于判断文件的类型
+     * @param file 上传的文件
+     * @return
+     */
+    public static final String getFileType(MultipartFile file) {
+        String contentType = file.getContentType();
+
+        if (contentType != null) {
+            if (contentType.startsWith("image/")) {
+                return "image";
+            } else if (contentType.startsWith("video/")) {
+                return "video";
+            }
+        }
+        return "file";
+    }
+
+    /**
+     * 返回最后要使用的桶名称
+     * @param fileType
+     * @return
+     */
+    private static final String determineBucket(String fileType) {
+        switch (fileType) {
+            case "image":
+                return MinioConstant.BUCKET_IMAGES;
+            case "video":
+                return MinioConstant.BUCKET_VIDEOS;
+            default:
+                return MinioConstant.BUCKET_FILES;
+        }
+    }
+
+    /**
+     * 返回要使用的桶名称
+     * @param file
+     * @return
+     */
+    public static final String getBucketName(MultipartFile file){
+        return determineBucket(getFileType(file));
+    }
+
+    /**
+     * 工具文件扩展名获取文件所在桶名称
+     * @param fileName 文件名称
+     * @return 返回桶名称
+     */
+    public static String getBucketNameByFileExtension(String fileName) {
+        String extension = "";
+
+        int i = fileName.lastIndexOf('.');
+        if (i > 0) {
+            extension = fileName.substring(i + 1).toLowerCase();
+        }
+
+        switch (extension) {
+            case "jpg":
+            case "jpeg":
+            case "png":
+            case "gif":
+            case "bmp":
+            case "tiff":
+            case "svg":
+                return MinioConstant.BUCKET_IMAGES;
+
+            case "mp4":
+            case "avi":
+            case "mov":
+            case "wmv":
+            case "flv":
+            case "mkv":
+                return MinioConstant.BUCKET_VIDEOS;
+
+            // 可以根据需要添加更多文件类型
+            default:
+                return MinioConstant.BUCKET_FILES;
+        }
+    }
 
     /**
      * 根据文件路径上传
@@ -69,9 +150,9 @@ public class FileUploadUtils
             InvalidExtensionException
     {   //判断文件名长度是否过长
         int fileNamelength = Objects.requireNonNull(file.getOriginalFilename()).length();
-        if (fileNamelength > FileUploadUtils.DEFAULT_FILE_NAME_LENGTH)
+        if (fileNamelength > FileUploadUtil.DEFAULT_FILE_NAME_LENGTH)
         {
-            throw new FileNameLengthLimitExceededException(FileUploadUtils.DEFAULT_FILE_NAME_LENGTH);
+            throw new FileNameLengthLimitExceededException(FileUploadUtil.DEFAULT_FILE_NAME_LENGTH);
         }
         //判断文件的扩展类型是否合理
         assertAllowed(file, allowedExtension);

@@ -28,6 +28,7 @@ import javax.validation.constraints.NotNull;
  *
  * @author 张锦标
  * @since 2023-11-21 19:33:06
+ * 当前模块用于提供给用户存放发送消息的信息
  */
 
 @LoveLog
@@ -99,7 +100,6 @@ public class MsgTaskController {
     @PostMapping("")
     public Result createMsgTask(@RequestBody @Valid MsgTaskCreateRequest createRequest){
         return Result.ok(msgTaskService.createMsgTask(createRequest));
-
     }
   
 }
