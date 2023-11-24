@@ -7,4 +7,5 @@ public class AuthVerifyCodeRequest {
     private String phone;
 
     private String email;
+
 }

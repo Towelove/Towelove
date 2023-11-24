@@ -14,4 +14,6 @@ public class AuthLoginRequest {
 
     private String verifyCode;
 
+    private String type;
+
 }

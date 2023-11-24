@@ -19,14 +19,32 @@ import javax.validation.Valid;
 public class AuthController {
 
     private final AuthService authService;
+
+    /**
+     * 注册
+     * @param authRegisterRequest
+     * @return
+     */
     @PostMapping("/register")
     public Result<String> register( @RequestBody AuthRegisterRequest authRegisterRequest){
         return Result.ok(authService.register(authRegisterRequest));
     }
+
+    /**
+     * 登入
+     * @param authLoginRequest
+     * @return
+     */
     @PostMapping("/login")
     public Result<String> login(@Valid @RequestBody AuthLoginRequest authLoginRequest){
         return Result.ok(authService.login(authLoginRequest));
     }
+
+    /**
+     * 发送验证码
+     * @param authVerifyCodeRequest
+     * @return
+     */
     @PostMapping("/send-code")
     public Result<String> sendVerifyCode(@RequestBody AuthVerifyCodeRequest authVerifyCodeRequest){
         return Result.ok(authService.sendVerifyCode(authVerifyCodeRequest));

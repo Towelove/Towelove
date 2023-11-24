@@ -64,5 +64,10 @@
             <artifactId>spring-cloud-starter-bootstrap</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>blossom.project</groupId>
+            <artifactId>Towelove-Framework-Redis</artifactId>
+        </dependency>
+
     </dependencies>
 </project>

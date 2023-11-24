@@ -1,7 +1,7 @@
 package blossom.project.towelove.client.fallback;
 
-import blossom.project.towelove.client.serivce.RemoteEmailService;
-import blossom.project.towelove.common.constant.SecurityConstant;
+import blossom.project.towelove.client.serivce.RemoteCodeService;
+import blossom.project.towelove.common.constant.SecurityConstants;
 import blossom.project.towelove.common.response.Result;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,16 +17,21 @@ import org.springframework.stereotype.Component;
 //@AutoConfiguration
 //使用下面这个注解必须保证该类的类路径被配置到
 //META-INF/spring/org.springframework.boot.autoconfigure.AutoConfiguration.imports
-public class RemoteEmailFallbackFactory implements FallbackFactory<RemoteEmailService> {
+public class RemoteEmailFallbackFactory implements FallbackFactory<RemoteCodeService> {
 
     private static final Logger log = LoggerFactory.getLogger(RemoteEmailFallbackFactory.class);
 
     @Override
-    public RemoteEmailService create(Throwable throwable) {
-        return new RemoteEmailService() {
+    public RemoteCodeService create(Throwable throwable) {
+        return new RemoteCodeService() {
             @Override
-            public Result<String> sendValidateCode(String email) {
-                return Result.fail("发送验证码失败，请稍后再发送一次", MDC.get(SecurityConstant.REQUEST_ID));
+            public Result<String> sendValidateCodeByEmail(String email) {
+                return Result.fail(null,SecurityConstants.REQUEST_ID);
+            }
+
+            @Override
+            public Result<String> sendValidateCodeByPhone(String phoneNumber) {
+                return Result.fail(null,SecurityConstants.REQUEST_ID);
             }
         };
     }
