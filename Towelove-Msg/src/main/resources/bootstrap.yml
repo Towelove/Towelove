@@ -37,3 +37,6 @@ spring:
         shared-configs[6]:
           data-id: towelove-dynamic-threadpool-dev.yaml
           refresh: true
+        shared-configs[7]:
+          data-id: towelove-oss-dev.yaml
+          refresh: true

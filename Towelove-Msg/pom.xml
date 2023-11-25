@@ -119,8 +119,7 @@
         </dependency>
         <dependency>
             <groupId>blossom.project</groupId>
-            <artifactId>Towelove-Framework-DynamicThreadPool</artifactId>
-            <version>${revision}</version>
+            <artifactId>Towelove-Framework-OSS</artifactId>
         </dependency>
     </dependencies>
 

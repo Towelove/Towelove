@@ -1,4 +1,4 @@
-package blossom.project.towelove.framework.oss.service;
+package blossom.project.towelove.framework.oss.strategy;
 
 
 import blossom.project.towelove.common.utils.file.FileUploadUtil;
@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CountDownLatch;
@@ -26,9 +27,9 @@ import java.util.stream.Collectors;
  *
  * @author 张锦标
  */
-@AutoConfiguration
 @Slf4j
-public class MinioService {
+@AutoConfiguration
+public class MinioOssStrategy implements FileUploadStrategy {
 
     @Autowired
     private MinioClient minioClient;
@@ -37,15 +38,53 @@ public class MinioService {
     @Qualifier(value = "ioDynamicThreadPool")
     private ThreadPoolExecutor threadPoolExecutor;
 
+    /**
+     * 本地文件上传接口
+     *
+     * @param file 上传的文件
+     * @return 访问地址
+     * @throws Exception
+     */
+    @Override
+    public String uploadFile(MultipartFile file) throws Exception {
+        try {
+            String fileName = FileUploadUtil.extractFilename(file);
+            //判断桶是否存在
+            String bucketName = FileUploadUtil.getBucketName(file);
+            boolean found = minioClient.bucketExists(BucketExistsArgs.builder().bucket(bucketName).build());
+            if (found) {
+                InputStream is = file.getInputStream();
+                //设定桶名称
+                PutObjectArgs args = PutObjectArgs.builder().bucket(bucketName).object(fileName) //要下载的文件
+                        .stream(is, file.getSize(), -1) //文件上传流
+                        .contentType(file.getContentType()) //设定文件类型
+                        .build();
+                //上传文件
+                minioClient.putObject(args);
+                //关闭文件io流
+                is.close();
+                //return minioConfig.getUrl() + "/" + minioConfig.getBucketName() + "/" + fileName;
+                return fileName;
+            } else {
+                log.error("bucket does not exist");
+            }
+        } catch (Exception e) {
+            log.error("upload file caused a exception", e);
+            throw e;
+        }
+        return "upload file error!";
+    }
 
     /**
      * 使用CompletableFuture进行异步上传
+     *
      * @param files
      */
-    public void uploadFilesAsyncWithCompletableFuture(List<MultipartFile> files) {
-        if (CollectionUtil.isEmpty(files)){
+    public List<String> uploadFilesAsyncWithCompletableFuture(List<MultipartFile> files) {
+        List<String> fileNames = new ArrayList<>();
+        if (CollectionUtil.isEmpty(files)) {
             log.info("上传的文件集合为空...");
-            return;
+            return fileNames;
         }
         String bucketName = FileUploadUtil.getBucketName(files.get(0));
         try {
@@ -57,50 +96,52 @@ public class MinioService {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-        List<CompletableFuture<Void>> futures = files.stream()
-                .map(file -> uploadFileAsync(file, bucketName)
-                        .exceptionally(e -> {
-                            System.err.println(e.getMessage()); // 异常处理
-                            return null;
-                        }))
-                .collect(Collectors.toList());
+
+        List<CompletableFuture<String>> futures =
+                files.stream().map(file -> uploadFileAsync(file, bucketName).exceptionally(e -> {
+            System.err.println(e.getMessage()); // 异常处理
+            return null;
+        })).collect(Collectors.toList());
 
         CompletableFuture.allOf(futures.toArray(new CompletableFuture[0])).join();
+        futures.forEach(future -> fileNames.add(future.join()));
+        return fileNames;
     }
 
     /**
-     * minio上传操作
-     * @param file
-     * @param bucketName
+     * 政治执行异步文件上传的方法
+     * @param file 文件
+     * @param bucketName 文件所属桶名称
      * @return
      */
-    private CompletableFuture<Void> uploadFileAsync(MultipartFile file, String bucketName) {
-        return CompletableFuture.runAsync(() -> {
+    private CompletableFuture<String> uploadFileAsync(MultipartFile file, String bucketName) {
+        return CompletableFuture.supplyAsync(() -> {
             try {
                 String fileName = FileUploadUtil.extractFilename(file);
-                //判断桶是否存在
-                log.info("当前上传的文件名称是：{}",fileName);
+                log.info("当前上传的文件名称是：{}", fileName);
                 InputStream is = file.getInputStream();
-                PutObjectArgs args = PutObjectArgs.builder().bucket(bucketName) //设定桶名称
-                        .object(fileName) //要下载的文件
-                        .stream(is, file.getSize(), -1) //文件上传流
-                        .contentType(file.getContentType()) //设定文件类型
-                        .build();
+                PutObjectArgs args = PutObjectArgs.builder().bucket(bucketName).object(fileName).stream(is,
+                        file.getSize(), -1).contentType(file.getContentType()).build();
+                minioClient.putObject(args); // 假设minioClient.putObject执行了上传操作
+                return fileName;
             } catch (Exception e) {
                 throw new RuntimeException("Failed to upload file: " + file.getOriginalFilename(), e);
             }
         }, threadPoolExecutor);
     }
+
     /**
      * 异步上传，使用CountDownLatch
      * 适合需要等待所有文件都上传完毕才返回的场景
-     * @param files
-     * @return
+     *
+     * @param files 文件集合
+     * @return 文件路径
      */
-    public Boolean uploadFilesWithCountDownLatch(List<MultipartFile> files) {
+    public List<String> uploadFilesAsyncWithCountDownLatch(List<MultipartFile> files) {
+        List<String> fileNames = new ArrayList<>();
         if (CollectionUtil.isEmpty(files)) {
             log.info("上传的文件为空...");
-            return true;
+            return fileNames;
         }
         String bucketName = FileUploadUtil.getBucketName(files.get(0));
         try {
@@ -112,19 +153,18 @@ public class MinioService {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+
         CountDownLatch latch = new CountDownLatch(files.size());
         for (MultipartFile file : files) {
             threadPoolExecutor.execute(() -> {
                 try {
                     String fileName = FileUploadUtil.extractFilename(file);
-                    //判断桶是否存在
-                    log.info("当前上传的文件名称是：{}",fileName);
+                    log.info("当前上传的文件名称是：{}", fileName);
                     InputStream is = file.getInputStream();
-                    PutObjectArgs args = PutObjectArgs.builder().bucket(bucketName) //设定桶名称
-                            .object(fileName) //要下载的文件
-                            .stream(is, file.getSize(), -1) //文件上传流
-                            .contentType(file.getContentType()) //设定文件类型
-                            .build();
+                    PutObjectArgs args = PutObjectArgs.builder().bucket(bucketName).object(fileName).stream(is,
+                            file.getSize(), -1).contentType(file.getContentType()).build();
+                    minioClient.putObject(args); // 假设minioClient.putObject执行了上传操作
+                    fileNames.add(fileName);
                 } catch (Exception e) {
                     e.printStackTrace(); // 这里处理异常
                 } finally {
@@ -139,40 +179,34 @@ public class MinioService {
             throw new RuntimeException(e);
         }
 
-        return true;
+        return fileNames;
     }
 
     /**
-     * 本地文件上传接口
+     * 批量文件上传
      *
-     * @param file 上传的文件
-     * @return 访问地址
-     * @throws Exception
+     * @param files 文件
+     * @param type  0：cf 1：countdownlatch
+     * @return 返回的文件所在oss服务中的路径
      */
-
-    public String uploadFile(MultipartFile file) throws Exception {
-        String fileName = FileUploadUtil.extractFilename(file);
-        //判断桶是否存在
-        String bucketName = FileUploadUtil.getBucketName(file);
-        boolean found = minioClient.bucketExists(BucketExistsArgs.builder().bucket(bucketName).build());
-
-        if (found) {
-            InputStream is = file.getInputStream();
-                    //设定桶名称
-            PutObjectArgs args = PutObjectArgs.builder().bucket(bucketName)
-                    .object(fileName) //要下载的文件
-                    .stream(is, file.getSize(), -1) //文件上传流
-                    .contentType(file.getContentType()) //设定文件类型
-                    .build();
-            //上传文件
-            minioClient.putObject(args);
-            is.close();
-            //return minioConfig.getUrl() + "/" + minioConfig.getBucketName() + "/" + fileName;
-            return fileName;
-        } else {
-            System.out.println("bucket does not exist");
-            throw new RuntimeException("bucketname " + bucketName + " does not exist");
+    @Override
+    public List<String> uploadFiles(List<MultipartFile> files, Integer type) {
+        List<String> fileNames = new ArrayList<>();
+        switch (type) {
+            case 0: {
+                fileNames = uploadFilesAsyncWithCompletableFuture(files);
+                break;
+            }
+            default: {
+                fileNames = uploadFilesAsyncWithCountDownLatch(files);
+            }
         }
+        return fileNames;
+    }
+
+    @Override
+    public String getOssPathPrefix(Integer type) {
+        return null;
     }
 
     /**
