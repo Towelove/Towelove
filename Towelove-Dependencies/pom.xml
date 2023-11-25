@@ -14,6 +14,9 @@
     <url>https://github.com/Towelove/Towelove.git</url>
 
     <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>19</maven.compiler.source>
+        <maven.compiler.target>19</maven.compiler.target>
         <revision>2.0</revision>
         <!-- 统一依赖管理 -->
         <spring.boot.version>2.7.8</spring.boot.version>
@@ -271,16 +274,16 @@
                 <version>${opentracing.version}</version>
             </dependency>
             <!--动态线程池-->
-<!--            <dependency>-->
-<!--                <groupId>cn.hippo4j</groupId>-->
-<!--                <artifactId>hippo4j-spring-boot-starter</artifactId>-->
-<!--                <version>${hippo4j.version}</version>-->
-<!--            </dependency>-->
-<!--            <dependency>-->
-<!--                <groupId>cn.hippo4j</groupId>-->
-<!--                <artifactId>hippo4j-config-spring-boot-starter</artifactId>-->
-<!--                <version>${hippo4j-config.version}</version>-->
-<!--            </dependency>-->
+            <!--            <dependency>-->
+            <!--                <groupId>cn.hippo4j</groupId>-->
+            <!--                <artifactId>hippo4j-spring-boot-starter</artifactId>-->
+            <!--                <version>${hippo4j.version}</version>-->
+            <!--            </dependency>-->
+            <!--            <dependency>-->
+            <!--                <groupId>cn.hippo4j</groupId>-->
+            <!--                <artifactId>hippo4j-config-spring-boot-starter</artifactId>-->
+            <!--                <version>${hippo4j-config.version}</version>-->
+            <!--            </dependency>-->
 
             <dependency>
                 <groupId>de.codecentric</groupId>

@@ -14,7 +14,7 @@ import org.springframework.context.annotation.Bean;
 @Data
 @AutoConfiguration
 @ConfigurationProperties(prefix = "minio")
-public class MinioProperties
+public class MinioConfig
 {
     @Bean
     public MinioClient minioClient(){
@@ -26,29 +26,29 @@ public class MinioProperties
     /**
      * 服务地址
      */
-    private String url;
+    private String url = "http://8.130.13.254:9000";
 
     /**
      * 用户名
      */
-    private String accessKey;
+    private String accessKey = "towelove";
 
     /**
      * 密码
      */
-    private String secretKey;
+    private String secretKey = "towelove";
 
     /**
      * 存储图片桶名称
      */
-    private String bucketImages;
+    private String bucketImages = "towelove-images";
     /**
      * 存储文件txt桶名称
      */
-    private String bucketFiles;
+    private String bucketFiles = "towelove-files";
     /**
      * 存储video影片桶名称
      */
-    private String bucketVideos;
+    private String bucketVideos = "towelove-videos";
 
 }

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="arthas.idea.plugin">
+    <option name="redisAddress" value="" />
+    <option name="redisAuth" value="" />
+    <option name="redisCacheKey" value="" />
+  </component>
+  <proxies>
+    <profile>
+      <id>jdk-19</id>
+      <activation>
+        <activeByDefault>true</activeByDefault>
+        <jdk>19</jdk>
+      </activation>
+      <properties>
+        <maven.compiler.source>19</maven.compiler.source>
+        <maven.compiler.target>19</maven.compiler.target>
+        <maven.compiler.compilerVersion>19</maven.compiler.compilerVersion>
+      </properties>
+    </profile>
+  </proxies>
+</project>
