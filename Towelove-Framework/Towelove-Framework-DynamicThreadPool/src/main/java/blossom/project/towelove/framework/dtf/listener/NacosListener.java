@@ -1,5 +1,5 @@
 package blossom.project.towelove.framework.dtf.listener;
- 
+
 import blossom.project.towelove.framework.dtf.config.ThreadPoolProperty;
 import blossom.project.towelove.framework.dtf.core.DynamicThreadPool;
 import blossom.project.towelove.framework.dtf.core.ResizableCapacityLinkedBlockIngQueue;
@@ -35,8 +35,11 @@ public class NacosListener implements ApplicationRunner {
 
     public static final String DATA_ID = "towelove-dynamic-threadpool-dev.yaml";
     @Autowired
-    @Qualifier("dynamicThreadPool")
-    private ThreadPoolExecutor threadPoolExecutor;
+    @Qualifier("ioDynamicThreadPool")
+    private ThreadPoolExecutor ioThreadPoolExecutor;
+    @Autowired
+    @Qualifier("cpuDynamicThreadPool")
+    private ThreadPoolExecutor cpuThreadPoolExecutor;
 
     @Autowired
     private SendMailService sendMailService;
@@ -49,7 +52,7 @@ public class NacosListener implements ApplicationRunner {
         //添加nacos配置文件监听
         listenerNacosConfig();
     }
- 
+
     /**
      * 监听数据源变化
      *
@@ -60,25 +63,38 @@ public class NacosListener implements ApplicationRunner {
             @Override
             public void receiveConfigInfo(String configInfo) {
                 System.out.println("-------改变之前---------");
-                System.out.println(threadPoolExecutor);
+                System.out.println(ioThreadPoolExecutor);
+                System.out.println(cpuThreadPoolExecutor);
                 System.out.println("------改变之后--------");
-                threadPoolExecutor.setCorePoolSize(threadPoolProperty.getCorePoolSize());
-                threadPoolExecutor.setMaximumPoolSize(threadPoolProperty.getMaximumPoolSize());
-                ResizableCapacityLinkedBlockIngQueue<Runnable> queue = (ResizableCapacityLinkedBlockIngQueue)threadPoolExecutor.getQueue();
-                queue.setCapacity(threadPoolProperty.getQueueCapacity());
-                System.out.println(threadPoolExecutor);
+                ioThreadPoolExecutor.setCorePoolSize(threadPoolProperty.getIoCorePoolSize());
+                ioThreadPoolExecutor.setMaximumPoolSize(threadPoolProperty.getIoMaximumPoolSize());
+                ResizableCapacityLinkedBlockIngQueue<Runnable> queue1 =
+                        (ResizableCapacityLinkedBlockIngQueue) ioThreadPoolExecutor.getQueue();
+                queue1.setCapacity(threadPoolProperty.getIoQueueCapacity());
+
+                cpuThreadPoolExecutor.setCorePoolSize(threadPoolProperty.getCpuCorePoolSize());
+                cpuThreadPoolExecutor.setMaximumPoolSize(threadPoolProperty.getCpuMaximumPoolSize());
+                ResizableCapacityLinkedBlockIngQueue<Runnable> queue2 =
+                        (ResizableCapacityLinkedBlockIngQueue) cpuThreadPoolExecutor.getQueue();
+                queue2.setCapacity(threadPoolProperty.getCpuQueueCapacity());
+
+                System.out.println(ioThreadPoolExecutor);
+                System.out.println(cpuThreadPoolExecutor);
                 System.out.println("---------------");
-                sendMailService.sendThreadPoolChangeMail(DynamicThreadPool.threadPoolStatus(threadPoolExecutor));
+
+                sendMailService.sendThreadPoolChangeMail(
+                        "cpu: " + DynamicThreadPool.threadPoolStatus(cpuThreadPoolExecutor)
+                                + "io: " + DynamicThreadPool.threadPoolStatus(ioThreadPoolExecutor));
                 System.out.println("线程池修改成功，发送邮件成功");
             }
- 
+
             @Override
             public Executor getExecutor() {
                 return null;
             }
         });
     }
- 
+
     /**
      * 向nacos发布内容
      *

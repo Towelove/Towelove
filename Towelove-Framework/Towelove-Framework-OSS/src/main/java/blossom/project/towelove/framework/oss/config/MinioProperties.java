@@ -14,7 +14,7 @@ import org.springframework.context.annotation.Bean;
 @Data
 @AutoConfiguration
 @ConfigurationProperties(prefix = "minio")
-public class MinioConfig
+public class MinioProperties
 {
     @Bean
     public MinioClient minioClient(){
