@@ -12,8 +12,8 @@
     <artifactId>Towelove-Framework-OSS</artifactId>
     <description>Towelove项目OSS模块，支持多OSS间切换</description>
     <properties>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
+        <maven.compiler.source>19</maven.compiler.source>
+        <maven.compiler.target>19</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
@@ -23,6 +23,7 @@
         <dependency>
             <groupId>io.minio</groupId>
             <artifactId>minio</artifactId>
+            <version>8.4.1</version>
         </dependency>
         <!-- 解决minio使用okhttp高版本的时候注入bean实例报错的问题 -->
         <dependency>
@@ -31,6 +32,7 @@
             <version>3.14.9</version>
             <scope>compile</scope>
         </dependency>
+
         <!-- FastDFS -->
 <!--        <dependency>-->
 <!--            <groupId>com.github.tobato</groupId>-->

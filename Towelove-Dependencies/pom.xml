@@ -14,6 +14,8 @@
     <url>https://github.com/Towelove/Towelove.git</url>
 
     <properties>
+        <maven.compiler.source>19</maven.compiler.source>
+        <maven.compiler.target>19</maven.compiler.target>
         <revision>2.0</revision>
         <!-- 统一依赖管理 -->
         <spring.boot.version>2.7.8</spring.boot.version>
