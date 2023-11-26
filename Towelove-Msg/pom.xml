@@ -117,10 +117,10 @@
             </exclusions>
             <version>${revision}</version>
         </dependency>
-        <dependency>
-            <groupId>blossom.project</groupId>
-            <artifactId>Towelove-Framework-OSS</artifactId>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>blossom.project</groupId>-->
+<!--            <artifactId>Towelove-Framework-OSS</artifactId>-->
+<!--        </dependency>-->
     </dependencies>
 
     <build>
