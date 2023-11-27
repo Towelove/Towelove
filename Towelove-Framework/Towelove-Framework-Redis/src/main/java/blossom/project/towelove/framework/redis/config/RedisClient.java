@@ -4,6 +4,7 @@ import blossom.project.towelove.common.utils.CollectionUtils;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.data.redis.core.BoundListOperations;
 import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -27,7 +28,7 @@ import static com.google.common.base.Preconditions.checkState;
  * （如需要使用其他数据类型，请联系 max.shi@nio.com）：
  * String key -> String value String key -> List<String> values String key -> bytes value <p>
  */
-@Service
+@AutoConfiguration
 public class RedisClient {
     @Autowired
     private StringRedisTemplate stringRedisTemplate;

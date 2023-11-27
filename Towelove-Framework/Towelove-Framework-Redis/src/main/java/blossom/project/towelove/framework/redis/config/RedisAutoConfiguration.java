@@ -25,5 +25,4 @@ public class RedisAutoConfiguration {
         template.setHashValueSerializer(RedisSerializer.json());
         return template;
     }
-
 }
