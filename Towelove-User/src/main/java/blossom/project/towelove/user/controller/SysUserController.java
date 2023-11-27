@@ -99,24 +99,4 @@ public class SysUserController {
     public Result<List<SysUserPermissionDto>> getUserPermissionByUserId(@RequestParam("userId") Long userId){
         return Result.ok(sysUserService.getPermissionByUserId(userId));
     }
-
-    /**
-     * 用户签到
-     * @param userId
-     * @return
-     */
-    @PostMapping("/sign-in")
-    public Result<?> signInByUserId(@RequestParam("userId") Long userId){
-        return Result.ok(sysUserService.singnInByUserId(userId));
-    }
-
-    /**
-     * 获取用户签到总天数
-     * @param userId
-     * @return
-     */
-    @GetMapping("/sign-in")
-    public Result<Long> getTotalSignIn(@RequestParam("userId") Long userId){
-        return Result.ok(sysUserService.getSignInTotally(userId));
-    }
 }

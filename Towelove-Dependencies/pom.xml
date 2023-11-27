@@ -155,6 +155,11 @@
             </dependency>
             <dependency>
                 <groupId>blossom.project</groupId>
+                <artifactId>Towelove-Framework-Web</artifactId>
+                <version>${version}</version>
+            </dependency>
+            <dependency>
+                <groupId>blossom.project</groupId>
                 <artifactId>Towelove-Framework-DynamicThreadPool</artifactId>
                 <version>${revision}</version>
             </dependency>

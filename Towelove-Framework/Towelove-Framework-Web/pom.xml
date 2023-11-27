@@ -24,12 +24,12 @@
         <dependency>
             <groupId>blossom.project</groupId>
             <artifactId>Towelove-Common</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.springframework.boot</groupId>
-                    <artifactId>spring-boot-starter-validation</artifactId>
-                </exclusion>
-            </exclusions>
+<!--            <exclusions>-->
+<!--                <exclusion>-->
+<!--                    <groupId>org.springframework.boot</groupId>-->
+<!--                    <artifactId>spring-boot-starter-validation</artifactId>-->
+<!--                </exclusion>-->
+<!--            </exclusions>-->
         </dependency>
 
     </dependencies>

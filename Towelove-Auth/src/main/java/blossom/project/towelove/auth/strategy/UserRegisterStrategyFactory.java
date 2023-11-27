@@ -1,7 +1,5 @@
 package blossom.project.towelove.auth.strategy;
 
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
 import java.util.Map;

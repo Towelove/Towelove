@@ -26,6 +26,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeField;
 import org.joda.time.DateTimeFieldType;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -35,8 +36,11 @@ import javax.validation.Valid;
 import java.text.DateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Objects;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 @Service
@@ -49,8 +53,6 @@ public class SysUSerServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     private final SysPermissionMapper sysPermissionMapper;
 
     private final SysUserPermissionMapper sysUserPermissionMapper;
-
-    private final RedisService redisService;
 
     @Transactional
     @Override
@@ -141,44 +143,6 @@ public class SysUSerServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     public List<SysUserPermissionDto> getPermissionByUserId(Long userId) {
         return sysPermissionMapper.selectUserPermissionByUserId(userId);
     }
-
-    @Override
-    public Long singnInByUserId(Long userId) {
-        String userSignInKey = String
-                .format(UserConstants.USER_SIGN_IN_KEY, DateTime.now().get(DateTimeFieldType.year()), userId);
-        //获取当天的偏移量
-        long offset = Long
-                .parseLong(LocalDateTime.now()
-                        .format(DateTimeFormatter.ofPattern("MMdd")));
-        if (redisService.getBit(userSignInKey,offset)) {
-            throw new ServiceException("用户已经签到了");
-        }
-        /**
-         * TODO:考虑使用分布式锁防止并发问题
-         */
-        if (redisService.setBit(userSignInKey,offset,true)) {
-            throw new ServiceException("用户签到失败，请联系管理员");
-        }
-
-        return getContinuousSignCount(userId);
-    }
-
-    @Override
-    public Long getSignInTotally(Long userId) {
-        String userTotalSignInKey = String.format(UserConstants.USER_TOTAL_SIGN_IN_KEY, userId);
-        Object userSignINTotally = redisService.redisTemplate.opsForValue().get(userTotalSignInKey);
-        if (Objects.nonNull(userSignINTotally)){
-            return Long.parseLong(userSignINTotally.toString());
-        }
-        return getContinuousSignCount(userId);
-    }
-
-    public Long getContinuousSignCount(Long userId){
-        String userTotalSignInKey = String.format(UserConstants.USER_TOTAL_SIGN_IN_KEY, userId);
-        String userSignInKey = String
-                .format(UserConstants.USER_SIGN_IN_KEY, DateTime.now().get(DateTimeFieldType.year()), userId);
-        Long bitByRange = redisService.getBitByRange(userSignInKey);
-        redisService.redisTemplate.opsForValue().set(userTotalSignInKey,bitByRange);
-        return bitByRange;
-    }
 }
+
+

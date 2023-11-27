@@ -12,10 +12,10 @@ import org.springframework.stereotype.Component;
  * @date: 2023/6/15 11:25
  * ThreadPoolProperty类
  */
-@Data
 @RefreshScope
 @AutoConfiguration
 @ConfigurationProperties("dynamic.threadpool")
+@Data
 public class ThreadPoolProperty {
     private Integer ioCorePoolSize;
     private Integer ioMaximumPoolSize;
@@ -24,3 +24,5 @@ public class ThreadPoolProperty {
     private Integer cpuMaximumPoolSize;
     private Integer cpuQueueCapacity;
 }
+
+

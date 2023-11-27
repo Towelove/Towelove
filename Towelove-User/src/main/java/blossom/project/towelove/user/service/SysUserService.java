@@ -27,8 +27,5 @@ public interface SysUserService extends IService<SysUser> {
 
     List<SysUserPermissionDto> getPermissionByUserId(Long userId);
 
-    Long singnInByUserId(Long userId);
-
-    Long getSignInTotally(Long userId);
 }
 
