@@ -14,8 +14,8 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
  * @github: https://github.com/ZhangBlossom
  * MsgApplicatiojn类
  */
-@MapperScan("blossom.project.towelove.msg.mapper")
 @SpringBootApplication
+@MapperScan("blossom.project.towelove.msg.mapper")
 @EnableFeignClients("blossom.project.towelove.client")
 public class ToweloveMsgApplication {
     public static void main(String[] args) {

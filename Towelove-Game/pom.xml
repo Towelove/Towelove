@@ -124,7 +124,7 @@
                 </executions>
                 <configuration>
                     <layout>ZIP</layout>
-                    <mainClass>com.towelove.system.ToweloveSystemApplication</mainClass>
+                    <mainClass>blossom.project.towelove.game.ToweloveGameApplication</mainClass>
                 </configuration>
             </plugin>
             <plugin>
