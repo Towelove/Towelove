@@ -16,6 +16,7 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
+import java.util.concurrent.ThreadPoolExecutor;
 
 /**
  * @author: ZhangBlossom
@@ -36,6 +37,8 @@ public class EmailServiceImpl implements EmailService {
     private final OfficialMailInfo officialMailInfo;
 
     private final MsgTaskService msgTaskService;
+
+    private final ThreadPoolExecutor ioDynamicThreadPool;
     @Override
     public String sendCompletedMailMsg(CompletedMailMsgTask mail) {
         log.info("接收到定时任务消息，并且准备发送给MQ：{}", mail);

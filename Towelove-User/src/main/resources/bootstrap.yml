@@ -34,8 +34,11 @@ spring:
         shared-configs[2]:
           data-id: towelove-mysql-dev.yaml
           refresh: true
-
-        prefix: application-${spring.profiles.active}.${spring.cloud.nacos.config.file-extension}
+        shared-configs[3]:
+          data-id: towelove-dynamic-threadpool-dev.yaml
+          refresh: true
+        namespace: towelove
+#        prefix: application-${spring.profiles.active}.${spring.cloud.nacos.config.file-extension}
 #    sentinel:
 #      filter:
 #        enabled: false

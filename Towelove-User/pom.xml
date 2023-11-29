@@ -100,7 +100,10 @@
             <groupId>blossom.project</groupId>
             <artifactId>Towelove-Framework-Web</artifactId>
         </dependency>
-
+        <dependency>
+            <groupId>blossom.project</groupId>
+            <artifactId>Towelove-Framework-DynamicThreadPool</artifactId>
+        </dependency>
 <!--        <dependency>-->
 <!--            <groupId>blossom.project</groupId>-->
 <!--            <artifactId>Towelove-Framework-DynamicThreadPool</artifactId>-->
