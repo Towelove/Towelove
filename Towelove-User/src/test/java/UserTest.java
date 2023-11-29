@@ -1,5 +1,4 @@
 import blossom.project.towelove.common.constant.UserConstants;
-import blossom.project.towelove.common.exception.ServiceException;
 import blossom.project.towelove.common.response.user.SysUserPermissionDto;
 import blossom.project.towelove.framework.redis.service.RedisService;
 import blossom.project.towelove.user.ToweloveUserApplication;
@@ -11,14 +10,19 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeFieldType;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.redis.connection.BitFieldSubCommands;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.data.redis.core.script.DefaultRedisScript;
+import org.springframework.scripting.support.ResourceScriptSource;
+import org.springframework.test.context.TestPropertySource;
 
 import javax.annotation.Resource;
+import java.util.Arrays;
 import java.util.List;
 
 @SpringBootTest(classes = ToweloveUserApplication.class)
+//@TestPropertySource("classpath: config/bootstrap.yml")
+//@TestPropertySource("classpath:bootstrap.yml")
 public class UserTest {
     @Resource
     private SysUserMapper userMapper;
@@ -91,6 +95,18 @@ public class UserTest {
 
     @Test
     void test111(){
-        System.out.println(redisService.redisTemplate.opsForValue().get("1"));
+        DateTime currentTime = DateTime.now();
+         String key = String.format(UserConstants.USER_SIGN_IN_KEY
+                 ,currentTime.get(DateTimeFieldType.year())
+                 ,"*"
+                 ,1727552724501671937L);
+        //redis脚本
+        DefaultRedisScript<Long> redisScript = new DefaultRedisScript<>();
+        redisScript.setResultType(Long.class);
+        redisScript.setScriptSource(new ResourceScriptSource(new ClassPathResource("lua/user_sign_in_month_totally.lua")));
+        Object execute = redisService.redisTemplate.execute(redisScript, List.of(key));
+        if (execute instanceof Long){
+            System.out.println((Long) execute);
+        }
     }
 }
