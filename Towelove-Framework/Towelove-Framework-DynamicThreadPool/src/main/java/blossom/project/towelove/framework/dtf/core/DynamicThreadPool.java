@@ -3,6 +3,7 @@ package blossom.project.towelove.framework.dtf.core;
 
 import blossom.project.towelove.framework.dtf.config.ThreadPoolProperty;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Primary;
@@ -33,6 +34,7 @@ public class DynamicThreadPool {
     @Bean("ioDynamicThreadPool")
     @Primary
     public ThreadPoolExecutor ioIntensiveThreadPool() {
+        System.out.println(threadPoolProperty);
         ThreadPoolExecutor threadPoolExecutor = generateThreadPool(0);
         System.out.println(threadPoolExecutor);
         return threadPoolExecutor;

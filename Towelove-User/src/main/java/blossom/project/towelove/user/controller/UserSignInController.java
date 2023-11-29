@@ -1,6 +1,7 @@
 package blossom.project.towelove.user.controller;
 
 import blossom.project.towelove.common.response.Result;
+import blossom.project.towelove.framework.log.annotation.LoveLog;
 import blossom.project.towelove.user.service.UserSignRecordService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
  * @version: 1.0
  */
 @RestController
+@LoveLog
 @RequiredArgsConstructor
 @RequestMapping("/v1/user")
 public class UserSignInController {

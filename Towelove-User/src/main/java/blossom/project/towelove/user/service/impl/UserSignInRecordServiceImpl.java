@@ -2,6 +2,7 @@ package blossom.project.towelove.user.service.impl;
 
 import blossom.project.towelove.common.constant.UserConstants;
 import blossom.project.towelove.common.exception.ServiceException;
+import blossom.project.towelove.framework.log.annotation.LoveLog;
 import blossom.project.towelove.framework.redis.service.RedisService;
 import blossom.project.towelove.user.constants.SignInConstants;
 import blossom.project.towelove.user.constants.UserSignInTotalType;

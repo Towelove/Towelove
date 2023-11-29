@@ -38,6 +38,7 @@ public class EmailServiceImpl implements EmailService {
 
     private final MsgTaskService msgTaskService;
 
+
     private final ThreadPoolExecutor ioDynamicThreadPool;
     @Override
     public String sendCompletedMailMsg(CompletedMailMsgTask mail) {
