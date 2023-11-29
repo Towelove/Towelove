@@ -7,6 +7,7 @@ import blossom.project.towelove.common.request.user.UpdateUserRequest;
 import blossom.project.towelove.common.response.Result;
 import blossom.project.towelove.common.response.user.SysUserPermissionDto;
 import blossom.project.towelove.common.response.user.SysUserVo;
+import blossom.project.towelove.framework.log.annotation.LoveLog;
 import blossom.project.towelove.user.domain.SysUser;
 import blossom.project.towelove.user.mapper.SysUserMapper;
 import blossom.project.towelove.user.service.SysUserService;
@@ -19,6 +20,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
+@LoveLog
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/v1/user")

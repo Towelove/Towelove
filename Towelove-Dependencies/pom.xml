@@ -77,9 +77,8 @@
         <commons.io.version>2.11.0</commons.io.version>
         <commons.fileupload.version>1.4</commons.fileupload.version>
         <!-- 三方云服务相关 -->
-        <okio.version>3.0.0</okio.version>
-        <okhttp3.version>4.10.0</okhttp3.version>
-        <minio.version>8.5.1</minio.version>
+        <okhttp3.version>4.8.1</okhttp3.version>
+        <minio.version>8.4.3</minio.version>
         <aliyun-java-sdk-core.version>4.6.3</aliyun-java-sdk-core.version>
         <aliyun-java-sdk-dysmsapi.version>2.2.1</aliyun-java-sdk-dysmsapi.version>
         <tencentcloud-sdk-java.version>3.1.676</tencentcloud-sdk-java.version>
@@ -156,7 +155,7 @@
             <dependency>
                 <groupId>blossom.project</groupId>
                 <artifactId>Towelove-Framework-Web</artifactId>
-                <version>${version}</version>
+                <version>${revision}</version>
             </dependency>
             <dependency>
                 <groupId>blossom.project</groupId>
@@ -389,11 +388,6 @@
             </dependency>
 
             <!-- 三方云服务相关 -->
-            <dependency>
-                <groupId>com.squareup.okio</groupId>
-                <artifactId>okio</artifactId>
-                <version>${okio.version}</version>
-            </dependency>
             <dependency>
                 <groupId>io.minio</groupId>
                 <artifactId>minio</artifactId>

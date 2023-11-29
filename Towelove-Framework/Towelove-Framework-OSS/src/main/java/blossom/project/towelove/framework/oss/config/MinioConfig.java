@@ -1,7 +1,9 @@
 package blossom.project.towelove.framework.oss.config;
 
+import io.minio.MinioAsyncClient;
 import io.minio.MinioClient;
 import lombok.Data;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -17,7 +19,8 @@ import org.springframework.context.annotation.Bean;
 public class MinioConfig
 {
     @Bean
-    public MinioClient minioClient(){
+    public MinioClient minioClient(@Autowired MinioAsyncClient client){
+        System.out.println(client);
         return MinioClient.builder()
                         .endpoint(url)
                         .credentials(accessKey, secretKey)

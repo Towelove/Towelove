@@ -101,40 +101,22 @@
             <artifactId>Towelove-Framework-Web</artifactId>
         </dependency>
 
-<!--        <dependency>-->
-<!--            <groupId>blossom.project</groupId>-->
-<!--            <artifactId>Towelove-Framework-DynamicThreadPool</artifactId>-->
-<!--        </dependency>-->
-        <!--        <dependency>-->
-<!--            <groupId>blossom.project</groupId>-->
-<!--            <artifactId>Towelove-Framework-Redis</artifactId>-->
-<!--            <version>${revision}</version>-->
-<!--        </dependency>-->
-<!--        &lt;!&ndash;异常捕获&ndash;&gt;-->
-<!--        <dependency>-->
-<!--            <groupId>blossom.project</groupId>-->
-<!--            <artifactId>Towelove-Framework-Web</artifactId>-->
-<!--            <version>2.0</version>-->
-<!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>blossom.project</groupId>-->
-<!--            <artifactId>Towelove-Common</artifactId>-->
-<!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>blossom.project</groupId>-->
-<!--            <artifactId>Towelove-Framework-MySQL</artifactId>-->
-<!--        </dependency>-->
+        <dependency>
+            <groupId>blossom.project</groupId>
+            <artifactId>Towelove-Framework-DynamicThreadPool</artifactId>
+        </dependency>
+
         <!--使用日志记录功能 排除RocketMQ-->
-<!--        <dependency>-->
-<!--            <groupId>blossom.project</groupId>-->
-<!--            <artifactId>Towelove-Framework-Log</artifactId>-->
-<!--            <exclusions>-->
-<!--                <exclusion>-->
-<!--                    <groupId>blossom.project</groupId>-->
-<!--                    <artifactId>Towelove-Framework-RocketMQ</artifactId>-->
-<!--                </exclusion>-->
-<!--            </exclusions>-->
-<!--        </dependency>-->
+        <dependency>
+            <groupId>blossom.project</groupId>
+            <artifactId>Towelove-Framework-Log</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>blossom.project</groupId>
+                    <artifactId>Towelove-Framework-RocketMQ</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
     </dependencies>
 
     <build>
@@ -173,7 +155,7 @@
                 </executions>
                 <configuration>
                     <layout>ZIP</layout>
-                    <mainClass>com.towelove.system.ToweloveSystemApplication</mainClass>
+                    <mainClass>blossom.project.towelove.user.ToweloveUserApplication</mainClass>
                 </configuration>
             </plugin>
             <plugin>
