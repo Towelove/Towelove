@@ -13,7 +13,7 @@ public class UserConstants {
     /**
      * 用户签到位图key,%d表示年份，%s表示userId;
      */
-    public static final String USER_SIGN_IN_KEY = "user_signIn_%d_%s:%s";
+    public static final String USER_SIGN_IN_KEY = "user_sign_in_%s_%s:%s";
 
     public static final String USER_TOTAL_SIGN_IN_KEY = "user_total_sign_%s:%s";
     public static final String USER_TOTAL_SIGN_IN_BY_MOUTH_KEY = "user_total_sign_month_%s_%s:%s";

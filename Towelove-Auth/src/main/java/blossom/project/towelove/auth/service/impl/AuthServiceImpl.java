@@ -5,6 +5,7 @@ import blossom.project.towelove.auth.strategy.UserRegisterStrategy;
 import blossom.project.towelove.auth.strategy.UserRegisterStrategyFactory;
 import blossom.project.towelove.client.serivce.RemoteCodeService;
 import blossom.project.towelove.client.serivce.RemoteUserService;
+import blossom.project.towelove.common.constant.UserConstants;
 import blossom.project.towelove.common.domain.dto.SysUser;
 import blossom.project.towelove.common.exception.ServiceException;
 import blossom.project.towelove.common.request.auth.AuthLoginRequest;
@@ -19,6 +20,8 @@ import cn.hutool.core.util.StrUtil;
 import com.towelove.common.core.constant.HttpStatus;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.joda.time.DateTime;
+import org.joda.time.DateTimeFieldType;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
