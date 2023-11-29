@@ -19,8 +19,7 @@ import org.springframework.context.annotation.Bean;
 public class MinioConfig
 {
     @Bean
-    public MinioClient minioClient(@Autowired MinioAsyncClient client){
-        System.out.println(client);
+    public MinioClient minioClient(){
         return MinioClient.builder()
                         .endpoint(url)
                         .credentials(accessKey, secretKey)

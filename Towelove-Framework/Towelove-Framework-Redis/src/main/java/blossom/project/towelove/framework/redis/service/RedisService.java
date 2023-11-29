@@ -15,7 +15,6 @@ import java.util.concurrent.TimeUnit;
  * @date: 2023/2/24 9:49
  * Description:
  */
-@SuppressWarnings(value = {"unchecked", "rawtypes"})
 @AutoConfiguration
 public class RedisService {
     @Autowired
