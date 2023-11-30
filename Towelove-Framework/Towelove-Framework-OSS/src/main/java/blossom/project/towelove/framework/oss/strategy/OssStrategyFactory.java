@@ -1,5 +1,6 @@
 package blossom.project.towelove.framework.oss.strategy;
 
+import blossom.project.towelove.framework.oss.config.OSSProperties;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanPostProcessor;
@@ -14,42 +15,15 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 @AutoConfiguration
 public class OssStrategyFactory implements BeanPostProcessor {
-    //private final TencentOssStrategy tencentOssStrategy;
-    //
-    //private final AliyunOssStrategy aliyunOssStrategy;
+    private final TencentOssStrategy tencentOssStrategy;
+
+    private final AliyunOssStrategy aliyunOssStrategy;
 
     private final MinioOssStrategy minioOssStrategy;
 
-    public final Map<Integer,FileUploadStrategy> map = new HashMap();
+    private final Map<Integer,FileUploadStrategy> map = new HashMap();
 
-    /**
-     * 多OSS文件上传选择
-     * @param file 文件
-     * @param type 0：minio 1：aliyun 2：tencentyun
-     * @return 返回文件的上传路径
-     */
-    public String uploadFile(MultipartFile file, Integer type){
-        try {
-            return map.getOrDefault(type,map.get(0)).uploadFile(file);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    /**
-     * 上传文件集合
-     * @param files 要上传的文件集合
-     * @param type 0：使用cf多线程上传 1：使用countdownlatch多文件上传
-     * @return 文件所在oss服务中的路径
-     */
-    public List<String> uploadFiles(List<MultipartFile> files,Integer type){
-        try {
-            return map.getOrDefault(type,map.get(0)).uploadFiles(files,type);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
-
+    private final OSSProperties ossProperties;
     /**
      * 初始化策略
      * @param bean
@@ -60,8 +34,49 @@ public class OssStrategyFactory implements BeanPostProcessor {
     @Override
     public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
         map.put(0,minioOssStrategy);
-        //map.put(1,aliyunOssStrategy);
-        //map.put(2,tencentOssStrategy);
+        map.put(1,aliyunOssStrategy);
+        map.put(2,tencentOssStrategy);
         return BeanPostProcessor.super.postProcessAfterInitialization(bean, beanName);
+    }
+
+    /**
+     * 多OSS文件上传选择
+     * @param file 文件
+     * @param ossType 0：minio 1：aliyun 2：tencentyun
+     * @return 返回文件的上传路径
+     */
+    public String uploadFile(MultipartFile file, Integer ossType){
+        try {
+            //使用用户的 如果用户没有传递 那么使用nacos默认的配置
+            return map.getOrDefault(ossType,map.get(ossProperties.getType())).uploadFile(file);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * 上传文件集合
+     * @param files 要上传的文件集合
+     * @param ossType oss服务类型 默认minio
+     * @param mulType 0：使用cf多线程上传 1：使用countdownlatch多文件上传
+     * @return 文件所在oss服务中的路径
+     */
+    public List<String> uploadFiles(List<MultipartFile> files,Integer ossType,Integer mulType){
+        try {
+            return map.getOrDefault(ossType,map.get(ossProperties.getType()))
+                    .uploadFiles(files,mulType);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * 获取oss服务对应的前缀
+     * @param ossType oss服务类型
+     * @return
+     */
+    public String getOssPathPrefix(Integer ossType) {
+        return map.getOrDefault(ossType,
+                map.get(ossProperties.getType())).getOssPathPrefix();
     }
 }

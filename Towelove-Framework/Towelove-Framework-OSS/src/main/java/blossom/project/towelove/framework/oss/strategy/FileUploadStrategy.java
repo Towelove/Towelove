@@ -38,8 +38,7 @@ public interface FileUploadStrategy {
 
     /**
      * 返回当前文件的路径前缀
-     * @param type
      * @return
      */
-    String getOssPathPrefix(Integer type);
+    String getOssPathPrefix();
 }

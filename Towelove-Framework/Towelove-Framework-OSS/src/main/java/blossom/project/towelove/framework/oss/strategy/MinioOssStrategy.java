@@ -98,10 +98,12 @@ public class MinioOssStrategy implements FileUploadStrategy {
         }
 
         List<CompletableFuture<String>> futures =
-                files.stream().map(file -> uploadFileAsync(file, bucketName).exceptionally(e -> {
-            System.err.println(e.getMessage()); // 异常处理
-            return null;
-        })).collect(Collectors.toList());
+                files.stream().map(file ->
+                        uploadFileAsync(file, bucketName)
+                                .exceptionally(e -> {
+                                    System.err.println(e.getMessage()); // 异常处理
+                                    return null;
+                                })).collect(Collectors.toList());
 
         CompletableFuture.allOf(futures.toArray(new CompletableFuture[0])).join();
         futures.forEach(future -> fileNames.add(future.join()));
@@ -110,7 +112,8 @@ public class MinioOssStrategy implements FileUploadStrategy {
 
     /**
      * 政治执行异步文件上传的方法
-     * @param file 文件
+     *
+     * @param file       文件
      * @param bucketName 文件所属桶名称
      * @return
      */
@@ -205,7 +208,7 @@ public class MinioOssStrategy implements FileUploadStrategy {
     }
 
     @Override
-    public String getOssPathPrefix(Integer type) {
+    public String getOssPathPrefix() {
         return null;
     }
 
