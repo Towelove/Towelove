@@ -1,9 +1,7 @@
 package blossom.project.towelove.framework.oss.config;
 
-import io.minio.MinioAsyncClient;
 import io.minio.MinioClient;
 import lombok.Data;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -16,7 +14,7 @@ import org.springframework.context.annotation.Bean;
 @Data
 @AutoConfiguration
 @ConfigurationProperties(prefix = "minio")
-public class MinioConfig
+public class MinioProperties
 {
     @Bean
     public MinioClient minioClient(){
@@ -28,29 +26,29 @@ public class MinioConfig
     /**
      * 服务地址
      */
-    private String url = "http://8.130.13.254:9000";
+    private String url;
 
     /**
      * 用户名
      */
-    private String accessKey = "towelove";
+    private String accessKey;
 
     /**
      * 密码
      */
-    private String secretKey = "towelove";
+    private String secretKey;
 
     /**
      * 存储图片桶名称
      */
-    private String bucketImages = "towelove-images";
+    private String bucketImages;
     /**
      * 存储文件txt桶名称
      */
-    private String bucketFiles = "towelove-files";
+    private String bucketFiles;
     /**
      * 存储video影片桶名称
      */
-    private String bucketVideos = "towelove-videos";
+    private String bucketVideos;
 
 }

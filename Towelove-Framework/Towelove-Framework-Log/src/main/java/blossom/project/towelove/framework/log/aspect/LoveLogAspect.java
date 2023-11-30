@@ -1,5 +1,6 @@
 package blossom.project.towelove.framework.log.aspect;
 
+import blossom.project.towelove.common.constant.SecurityConstant;
 import blossom.project.towelove.framework.log.annotation.LoveLog;
 import blossom.project.towelove.framework.log.client.LoveLogClient;
 import cn.hutool.core.date.DateUtil;
@@ -26,6 +27,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.Serializable;
 import java.lang.reflect.Method;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -51,10 +53,11 @@ public class LoveLogAspect {
         String requestId = "";
         ServletRequestAttributes servletRequestAttributes =
                 (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+        //TOOD 要求前端发送请求的时候带上一个request_id
         //使用MDC设定全局请求id
-        requestId = servletRequestAttributes.getRequest().getHeader("request_id");
+        requestId = servletRequestAttributes.getRequest().getHeader(SecurityConstant.REQUEST_ID);
         Result r = new Result();
-        MDC.put("request_id", requestId);
+        MDC.put(SecurityConstant.REQUEST_ID, requestId);
         try {
             //执行原有方法
             result = joinPoint.proceed();
@@ -156,7 +159,13 @@ public class LoveLogAspect {
                 printArgs[i] = "byte array";
             } else if (args[i] instanceof MultipartFile) {
                 printArgs[i] = "file";
-            } else {
+            } else if (args[i] instanceof List<?>){
+                if (((List<?>) args[i]).get(0) instanceof MultipartFile){
+                    printArgs[i] = "files";
+                }else{
+                    printArgs[i] = args[i];
+                }
+            }else {
                 printArgs[i] = args[i];
             }
         }

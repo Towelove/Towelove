@@ -2,6 +2,7 @@ package blossom.project.towelove.loves.service.Impl;
 
 import blossom.project.towelove.common.page.PageResponse;
 import blossom.project.towelove.framework.log.client.LoveLogClient;
+import blossom.project.towelove.framework.oss.service.FileUploadService;
 import blossom.project.towelove.loves.entity.LoveAlbum;
 import blossom.project.towelove.loves.mapper.LoveAlbumMapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -13,6 +14,8 @@ import blossom.project.towelove.common.response.love.album.LoveAlbumResponse;
 import blossom.project.towelove.common.request.loves.album.LoveAlbumCreateRequest;
 import blossom.project.towelove.common.request.loves.album.LoveAlbumPageRequest;
 import blossom.project.towelove.common.request.loves.album.LoveAlbumUpdateRequest;
+import org.springframework.web.bind.annotation.RequestPart;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -32,6 +35,14 @@ public class LoveAlbumServiceImpl extends ServiceImpl<LoveAlbumMapper, LoveAlbum
 
     private final LoveLogClient logClient;
 
+    private final FileUploadService fileUploadService;
+    @Override
+    public LoveAlbumResponse createLoveAlbum(List<MultipartFile> files,
+                                             LoveAlbumCreateRequest createRequest) {
+        List<String> uploadFiles = fileUploadService.uploadFiles(files, null, 0);
+        System.out.println(uploadFiles);
+        return null;
+    }
     @Override
     public LoveAlbumResponse getLoveAlbumById(Long LoveAlbumId) {
         return null;
@@ -57,9 +68,5 @@ public class LoveAlbumServiceImpl extends ServiceImpl<LoveAlbumMapper, LoveAlbum
         return null;
     }
 
-    @Override
-    public LoveAlbumResponse createLoveAlbum(LoveAlbumCreateRequest createRequest) {
-        return null;
-    }
 }
 

@@ -8,6 +8,8 @@ import blossom.project.towelove.common.response.love.album.LoveAlbumResponse;
 import blossom.project.towelove.common.request.loves.album.LoveAlbumCreateRequest;
 import blossom.project.towelove.common.request.loves.album.LoveAlbumPageRequest;
 import blossom.project.towelove.common.request.loves.album.LoveAlbumUpdateRequest;
+import org.springframework.web.bind.annotation.RequestPart;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -29,6 +31,7 @@ public interface LoveAlbumService extends IService<LoveAlbum> {
 
     Boolean batchDeleteLoveAlbum(List<Long> ids);
 
-    LoveAlbumResponse createLoveAlbum(LoveAlbumCreateRequest createRequest);
+    LoveAlbumResponse createLoveAlbum(List<MultipartFile> files,
+                                      LoveAlbumCreateRequest createRequest);
 }
 

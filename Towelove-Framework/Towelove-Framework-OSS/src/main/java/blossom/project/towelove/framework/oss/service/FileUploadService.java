@@ -1,8 +1,13 @@
 package blossom.project.towelove.framework.oss.service;
 
+import blossom.project.towelove.framework.oss.config.OSSProperties;
 import blossom.project.towelove.framework.oss.strategy.FileUploadStrategy;
+import blossom.project.towelove.framework.oss.strategy.OssStrategyFactory;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
+import org.springframework.lang.Nullable;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
@@ -20,36 +25,44 @@ import java.util.List;
  * 默认策略模式以及手动的方式来切换数据源
  */
 @AutoConfiguration
-public class FileUploadService implements FileUploadStrategy {
+@RequiredArgsConstructor
+public class FileUploadService  {
 
-    @Autowired
-    private FileUploadStrategy fileUploadStrategy;
+    private final OssStrategyFactory ossStrategyFactory;
+
 
     /**
-     * 单文件上传
+     * 单文件上传 默认上传到MinIO中
+     * 可以在Nacos中配置type来修改OSS服务类型
      * @param file  文件
+     * @param ossType oss服务类型
      * @return
      * @throws Exception
      */
-    @Override
-    public String uploadFile(MultipartFile file) throws Exception {
-        return fileUploadStrategy.uploadFile(file);
+    public String uploadFile(MultipartFile file,@Nullable Integer ossType){
+        return ossStrategyFactory.uploadFile(file,ossType);
     }
 
     /**
-     * 多文件上传
+     * 多文件上传 默认上传到MinIO中
+     * 可以在Nacos中配置type来修改OSS服务类型
      * @param files 文件
-     * @param type 0：cf 1：countdownlatch
+     * @param ossType oss服务类型
+     * @param mulType 0：cf 1：countdownlatch
      * @return
      * @throws Exception
      */
-    @Override
-    public List<String> uploadFiles(List<MultipartFile> files, Integer type) throws Exception {
-        return fileUploadStrategy.uploadFiles(files,type);
+    public List<String> uploadFiles(List<MultipartFile> files,@Nullable Integer ossType,Integer mulType)  {
+        return ossStrategyFactory.uploadFiles(files,ossType,mulType);
     }
 
-    @Override
-    public String getOssPathPrefix(Integer type) {
-        return fileUploadStrategy.getOssPathPrefix(type);
+
+    /**
+     * 获取oss服务前缀
+     * @param ossType
+     * @return
+     */
+    public String getOssPathPrefix(@Nullable Integer ossType) {
+        return ossStrategyFactory.getOssPathPrefix(ossType);
     }
 }

@@ -33,7 +33,7 @@ public class AliyunOssStrategy implements FileUploadStrategy {
     }
 
     @Override
-    public String getOssPathPrefix(Integer type) {
+    public String getOssPathPrefix() {
         return null;
     }
 }
