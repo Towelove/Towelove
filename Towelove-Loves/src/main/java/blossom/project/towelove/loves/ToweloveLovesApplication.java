@@ -20,7 +20,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 public class ToweloveLovesApplication {
     public static void main(String[] args) {
         SpringApplication.run(ToweloveLovesApplication.class,args);
-        System.out.println("（づ￣3￣）づ╭❤～ Towelove Loves模块启动成功  (o>ε(o>ｕ(≧∩≦)");
+        System.out.println("（づ￣3￣）づ╭❤～ Towelove Loves模块启动成功   (o>ε(o>ｕ(≧∩≦)");
         System.out.println(
                 " _                         \n" +
                         "| |                        \n" +
