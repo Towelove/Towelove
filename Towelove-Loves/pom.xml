@@ -19,7 +19,15 @@
     <description>Towelove-Loves恋爱日记等核心功能</description>
 
     <dependencies>
-
+        <!--微服务项目使用boostrap文件生效需要引入当前依赖-->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-bootstrap</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
         <!-- SpringCloud Alibaba Nacos -->
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
@@ -37,10 +45,6 @@
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-sentinel</artifactId>
         </dependency>
-        <dependency>
-            <groupId>com.baomidou</groupId>
-            <artifactId>mybatis-plus-boot-starter</artifactId>
-        </dependency>
         <!-- SpringBoot Actuator -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -51,15 +55,6 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-mail</artifactId>
         </dependency>
-
-
-        <!-- Mysql Connector -->
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-        </dependency>
-
-
         <!-- mapStruct 对象转换 -->
         <dependency>
             <groupId>org.mapstruct</groupId>
@@ -85,7 +80,23 @@
             <artifactId>Towelove-Framework-Redis</artifactId>
             <version>${revision}</version>
         </dependency>
-
+        <dependency>
+            <groupId>blossom.project</groupId>
+            <artifactId>Towelove-Framework-OSS</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>blossom.project</groupId>
+            <artifactId>Towelove-Framework-Log</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>blossom.project</groupId>
+            <artifactId>Towelove-Framework-MySQL</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>blossom.project</groupId>
+            <artifactId>Towelove-Client</artifactId>
+            <version>${revision}</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -124,7 +135,7 @@
                 </executions>
                 <configuration>
                     <layout>ZIP</layout>
-                    <mainClass>com.towelove.system.ToweloveSystemApplication</mainClass>
+                    <mainClass>blossom.project.towelove.loves.ToweloveLovesApplication</mainClass>
                 </configuration>
             </plugin>
             <plugin>
