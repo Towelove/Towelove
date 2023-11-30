@@ -1,11 +1,7 @@
 package blossom.project.towelove.framework.oss.service;
 
-import blossom.project.towelove.framework.oss.config.OSSProperties;
-import blossom.project.towelove.framework.oss.strategy.FileUploadStrategy;
 import blossom.project.towelove.framework.oss.strategy.OssStrategyFactory;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.lang.Nullable;
 import org.springframework.web.multipart.MultipartFile;
@@ -26,7 +22,7 @@ import java.util.List;
  */
 @AutoConfiguration
 @RequiredArgsConstructor
-public class FileUploadService  {
+public class OSSService {
 
     private final OssStrategyFactory ossStrategyFactory;
 
@@ -64,5 +60,14 @@ public class FileUploadService  {
      */
     public String getOssPathPrefix(@Nullable Integer ossType) {
         return ossStrategyFactory.getOssPathPrefix(ossType);
+    }
+
+    /**
+     * 从oss中按照文件URL得到要删除的文件名称
+     * @param removedUrl 要删除的文件URL-》得到文件路径
+     * @param ossType oss服务类型
+     */
+    //TOOD
+    public void removeFile(String removedUrl, Integer ossType) {
     }
 }
