@@ -29,7 +29,7 @@ public class CustomExceptionHandler {
 
 
     /**
-     * 全局处理{@link RemoteException}
+     * 全局处理{@link Exception}
      */
     @ExceptionHandler(value = Exception.class)
     @ResponseBody

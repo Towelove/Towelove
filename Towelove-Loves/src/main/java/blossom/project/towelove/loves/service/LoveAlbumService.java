@@ -20,7 +20,7 @@ import java.util.List;
  * @since 2023-11-30 16:20:45
  */
 public interface LoveAlbumService extends IService<LoveAlbum> {
-    
+
     LoveAlbumResponse getLoveAlbumById(Long LoveAlbumId);
 
     PageResponse<LoveAlbumResponse> pageQueryLoveAlbum(LoveAlbumPageRequest requestParam);
@@ -33,5 +33,6 @@ public interface LoveAlbumService extends IService<LoveAlbum> {
 
     LoveAlbumResponse createLoveAlbum(List<MultipartFile> files,
                                       LoveAlbumCreateRequest createRequest);
-}
 
+    void deleteImageFromAlbum(Long id, Integer imageIndex);
+}

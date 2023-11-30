@@ -126,9 +126,11 @@ public class MinioOssStrategy implements FileUploadStrategy {
                 PutObjectArgs args = PutObjectArgs.builder().bucket(bucketName).object(fileName).stream(is,
                         file.getSize(), -1).contentType(file.getContentType()).build();
                 minioClient.putObject(args); // 假设minioClient.putObject执行了上传操作
+                is.close();
                 return fileName;
             } catch (Exception e) {
                 throw new RuntimeException("Failed to upload file: " + file.getOriginalFilename(), e);
+            }finally {
             }
         }, threadPoolExecutor);
     }
