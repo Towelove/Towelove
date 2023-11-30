@@ -1,0 +1,106 @@
+package blossom.project.towelove.loves.controller;
+
+
+import blossom.project.towelove.common.page.PageResponse;
+import blossom.project.towelove.common.request.loves.album.LoveAlbumPageRequest;
+import blossom.project.towelove.common.response.Result;
+import blossom.project.towelove.framework.log.annotation.LoveLog;
+import blossom.project.towelove.loves.service.LoveAlbumService;
+
+
+import org.springframework.web.bind.annotation.*;
+import java.util.List;
+
+import blossom.project.towelove.common.response.love.album.LoveAlbumResponse;
+import blossom.project.towelove.common.request.loves.album.LoveAlbumCreateRequest;
+import blossom.project.towelove.common.request.loves.album.LoveAlbumUpdateRequest;
+
+
+import lombok.RequiredArgsConstructor;
+import org.springframework.validation.annotation.Validated;
+
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+
+
+/**
+ * (LoveAlbum) 表控制层[不建议修改，如果有新增的方法，写在子类中]
+ *
+ * @author 张锦标
+ * @since 2023-11-30 16:20:44
+ */
+
+@LoveLog
+@RestController
+@RequestMapping("/v1/love/album")
+@RequiredArgsConstructor
+public class LoveAlbumController {
+  
+
+    LoveAlbumService loveAlbumService;
+  
+   /**
+     * 按照ID查询
+     * @param loveAlbumId
+     * @return
+     */
+    @GetMapping("")
+    public Result<LoveAlbumResponse> getLoveAlbumById(@Validated @RequestParam(name = "loveAlbumId") @NotNull(message = "loveAlbumId Can not be null") Long loveAlbumId) {
+        LoveAlbumResponse result = loveAlbumService.getLoveAlbumById(loveAlbumId);
+        return Result.ok(result);
+    }
+
+    /**
+     * 带条件分页查询
+     * @param requestParam
+     * @return
+     */
+    @GetMapping("/page")
+    public Result<PageResponse<LoveAlbumResponse>> pageQueryLoveAlbum(@Validated LoveAlbumPageRequest requestParam) {
+        return Result.ok(loveAlbumService.pageQueryLoveAlbum(requestParam));
+    }
+
+    /**
+     * 基于ID修改
+     * @param updateRequest
+     * @return
+     */
+    @PutMapping("")
+    public Result<LoveAlbumResponse> updateLoveAlbum(@Validated @RequestBody LoveAlbumUpdateRequest updateRequest){
+       return Result.ok(loveAlbumService.updateLoveAlbum(updateRequest));
+    }
+
+    /**
+     * 基于ID修改
+     * @param loveAlbumId
+     * @return
+     */
+    @DeleteMapping("")
+    public Result<Boolean> deleteLoveAlbumById(@RequestParam @Validated Long loveAlbumId){
+        return Result.ok(loveAlbumService.deleteLoveAlbumById(loveAlbumId));
+    }
+
+    /**
+     * 根据ID批量删除
+     * @param ids
+     * @return
+     */
+    @DeleteMapping("/batch")
+    public Result<Boolean> batchDeleteLoveAlbum(@RequestBody List<Long> ids){
+        return Result.ok(loveAlbumService.batchDeleteLoveAlbum(ids));
+    }
+
+    /**
+     * 创建
+     * @param createRequest
+     * @return
+     */
+    @PostMapping("")
+    public Result<LoveAlbumResponse> createLoveAlbum(@RequestBody @Valid LoveAlbumCreateRequest createRequest){
+        return Result.ok(loveAlbumService.createLoveAlbum(createRequest));
+
+    }
+  
+}
+
+
