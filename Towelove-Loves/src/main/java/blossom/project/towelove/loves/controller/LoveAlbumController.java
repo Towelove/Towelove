@@ -4,6 +4,8 @@ package blossom.project.towelove.loves.controller;
 import blossom.project.towelove.common.page.PageResponse;
 import blossom.project.towelove.common.request.loves.album.LoveAlbumPageRequest;
 import blossom.project.towelove.common.response.Result;
+import blossom.project.towelove.common.response.love.album.LoveAlbumDetailResponse;
+import blossom.project.towelove.common.response.love.album.LoveAlbumPageResponse;
 import blossom.project.towelove.framework.log.annotation.LoveLog;
 import blossom.project.towelove.loves.service.LoveAlbumService;
 
@@ -12,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-import blossom.project.towelove.common.response.love.album.LoveAlbumResponse;
 import blossom.project.towelove.common.request.loves.album.LoveAlbumCreateRequest;
 import blossom.project.towelove.common.request.loves.album.LoveAlbumUpdateRequest;
 
@@ -22,7 +23,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
-import javax.validation.constraints.Max;
 import javax.validation.constraints.NotNull;
 
 
@@ -48,8 +48,8 @@ public class LoveAlbumController {
      * @return
      */
     @PostMapping("")
-    public Result<LoveAlbumResponse> createLoveAlbum(@RequestPart("files") List<MultipartFile> files,
-                                                     @RequestPart("album") @Valid LoveAlbumCreateRequest createRequest) {
+    public Result<LoveAlbumDetailResponse> createLoveAlbum(@RequestPart("files") List<MultipartFile> files,
+                                                           @RequestPart("album") @Valid LoveAlbumCreateRequest createRequest) {
         return Result.ok(loveAlbumService.createLoveAlbum(files,createRequest));
 
     }
@@ -60,8 +60,8 @@ public class LoveAlbumController {
      * @return
      */
     @GetMapping("")
-    public Result<LoveAlbumResponse> getLoveAlbumById(@Validated @RequestParam(name = "loveAlbumId") @NotNull(message = "loveAlbumId Can not be null") Long loveAlbumId) {
-        LoveAlbumResponse result = loveAlbumService.getLoveAlbumById(loveAlbumId);
+    public Result<LoveAlbumDetailResponse> getLoveAlbumById(@Validated @RequestParam(name = "loveAlbumId") @NotNull(message = "loveAlbumId Can not be null") Long loveAlbumId) {
+        LoveAlbumDetailResponse result = loveAlbumService.getLoveAlbumById(loveAlbumId);
         return Result.ok(result);
     }
 
@@ -72,7 +72,7 @@ public class LoveAlbumController {
      * @return
      */
     @GetMapping("/page")
-    public Result<PageResponse<LoveAlbumResponse>> pageQueryLoveAlbum(@Validated LoveAlbumPageRequest requestParam) {
+    public Result<PageResponse<LoveAlbumPageResponse>> pageQueryLoveAlbum(@Validated LoveAlbumPageRequest requestParam) {
         return Result.ok(loveAlbumService.pageQueryLoveAlbum(requestParam));
     }
 
@@ -83,7 +83,7 @@ public class LoveAlbumController {
      * @return
      */
     @PutMapping("")
-    public Result<LoveAlbumResponse> updateLoveAlbum(@Validated @RequestBody LoveAlbumUpdateRequest updateRequest) {
+    public Result<LoveAlbumDetailResponse> updateLoveAlbum(@Validated @RequestBody LoveAlbumUpdateRequest updateRequest) {
         return Result.ok(loveAlbumService.updateLoveAlbum(updateRequest));
     }
 

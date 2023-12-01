@@ -1,8 +1,11 @@
 package blossom.project.towelove.loves.service.Impl;
 
+import blossom.project.towelove.common.exception.EntityNotFoundException;
+import blossom.project.towelove.common.exception.errorcode.BaseErrorCode;
 import blossom.project.towelove.common.page.PageResponse;
+import blossom.project.towelove.common.response.love.album.LoveAlbumPageResponse;
 import blossom.project.towelove.framework.log.client.LoveLogClient;
-import blossom.project.towelove.framework.oss.service.OSSService;
+import blossom.project.towelove.framework.oss.service.OssService;
 import blossom.project.towelove.loves.convert.LoveAlbumConvert;
 import blossom.project.towelove.loves.entity.LoveAlbum;
 import blossom.project.towelove.loves.mapper.LoveAlbumMapper;
@@ -12,7 +15,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import lombok.extern.slf4j.Slf4j;
 import blossom.project.towelove.loves.service.LoveAlbumService;
-import blossom.project.towelove.common.response.love.album.LoveAlbumResponse;
+import blossom.project.towelove.common.response.love.album.LoveAlbumDetailResponse;
 import blossom.project.towelove.common.request.loves.album.LoveAlbumCreateRequest;
 import blossom.project.towelove.common.request.loves.album.LoveAlbumPageRequest;
 import blossom.project.towelove.common.request.loves.album.LoveAlbumUpdateRequest;
@@ -39,11 +42,20 @@ public class LoveAlbumServiceImpl extends ServiceImpl<LoveAlbumMapper, LoveAlbum
 
     private final LoveLogClient logClient;
 
-    private final OSSService oSSService;
+    private final OssService oSSService;
 
+
+    /**
+     * 同步上传有序、但是慢
+     * 异步上传无序、但是速度快
+     * 因为
+     * @param files
+     * @param createRequest
+     * @return
+     */
     @Override
-    public LoveAlbumResponse createLoveAlbum(List<MultipartFile> files, LoveAlbumCreateRequest createRequest) {
-        List<String> uploadFiles = oSSService.uploadFiles(files, null, 0);
+    public LoveAlbumDetailResponse createLoveAlbum(List<MultipartFile> files, LoveAlbumCreateRequest createRequest) {
+        List<String> uploadFiles = oSSService.uploadFilesAsync(files, null, 0);
         if (CollectionUtil.isEmpty(uploadFiles)) {
             log.info("the returned fileNames is empty");
             return null;
@@ -71,7 +83,7 @@ public class LoveAlbumServiceImpl extends ServiceImpl<LoveAlbumMapper, LoveAlbum
      * @param fileUrl 封面URL
      * @return
      */
-    private LoveAlbumResponse handleCoverUpload(LoveAlbumCreateRequest request, String fileUrl) {
+    private LoveAlbumDetailResponse handleCoverUpload(LoveAlbumCreateRequest request, String fileUrl) {
         LoveAlbum loveAlbum = LoveAlbumConvert.INSTANCE.convert(request);
         loveAlbum.setAlbumCoverUrl(fileUrl);
         loveAlbumMapper.insert(loveAlbum);
@@ -84,7 +96,7 @@ public class LoveAlbumServiceImpl extends ServiceImpl<LoveAlbumMapper, LoveAlbum
      * @param uploadFiles 上传的照片信息
      * @return
      */
-    private LoveAlbumResponse handleGridUpload(LoveAlbumCreateRequest request, List<String> uploadFiles) {
+    private LoveAlbumDetailResponse handleGridUpload(LoveAlbumCreateRequest request, List<String> uploadFiles) {
         // 使用 Optional 进行更优雅的 null 检查
         return Optional.ofNullable(request.getId())
                 .map(id -> {
@@ -117,7 +129,7 @@ public class LoveAlbumServiceImpl extends ServiceImpl<LoveAlbumMapper, LoveAlbum
                 .ifPresent(photoDesc -> {
                     if (photoDesc.containsKey(imageIndex)) {
                         String removedUrl = photoDesc.remove(imageIndex);
-                        oSSService.removeFile(removedUrl,null);
+                        oSSService.removeFiles(removedUrl,null);
                         // 使用 Stream API 重建索引
                         TreeMap<Integer, String> newPhotoDesc = IntStream.range(0, photoDesc.size())
                                 .boxed()
@@ -138,30 +150,56 @@ public class LoveAlbumServiceImpl extends ServiceImpl<LoveAlbumMapper, LoveAlbum
     }
 
 
+    /**
+     * 根据id返回详细的相册信息
+     * @param loveAlbumId
+     * @return
+     */
     @Override
-    public LoveAlbumResponse getLoveAlbumById(Long loveAlbumId) {
+    public LoveAlbumDetailResponse getLoveAlbumById(Long loveAlbumId) {
+        //使用optional解决判空
+        return Optional.ofNullable(loveAlbumMapper.selectById(loveAlbumId))
+                .map(LoveAlbumConvert.INSTANCE::convert)
+                .orElseThrow(() -> new EntityNotFoundException("LoveAlbum not found with id: " + loveAlbumId,null,
+                        BaseErrorCode.ENTITY_NOT_FOUNT));
+    }
+
+    @Override
+    public PageResponse<LoveAlbumPageResponse> pageQueryLoveAlbum(LoveAlbumPageRequest requestParam) {
+
+        List<LoveAlbum> loveAlbums = loveAlbumMapper.selectLoveAlbums(requestParam);
+        List<LoveAlbumPageResponse> responses = Optional.ofNullable(loveAlbums)
+                .map(LoveAlbumConvert.INSTANCE::convert)
+                .orElse(Collections.emptyList());
+
+        PageResponse<LoveAlbumPageResponse> response = new PageResponse<>();
+        response.setRecords(responses);
+        response.setPageNo(requestParam.getPageNo());
+        response.setPageSize(requestParam.getPageSize());
+        return response;
+    }
+
+    @Override
+    public LoveAlbumDetailResponse updateLoveAlbum(LoveAlbumUpdateRequest updateRequest) {
         return null;
     }
 
     @Override
-    public PageResponse<LoveAlbumResponse> pageQueryLoveAlbum(LoveAlbumPageRequest requestParam) {
-        return null;
-    }
-
-    @Override
-    public LoveAlbumResponse updateLoveAlbum(LoveAlbumUpdateRequest updateRequest) {
-        return null;
-    }
-
-    @Override
-    public Boolean deleteLoveAlbumById(Long LoveAlbumId) {
-        return null;
+    public Boolean deleteLoveAlbumById(Long loveAlbumId) {
+        int affectedRows = loveAlbumMapper.deleteById(loveAlbumId);
+        return affectedRows > 0;
     }
 
     @Override
     public Boolean batchDeleteLoveAlbum(List<Long> ids) {
-        return null;
+        if (CollectionUtil.isEmpty(ids)) {
+            throw new IllegalArgumentException("IDs list cannot be null or empty");
+        }
+
+        int affectedRows = loveAlbumMapper.deleteBatchIds(ids);
+        return affectedRows == ids.size();
     }
 
 }
+
 

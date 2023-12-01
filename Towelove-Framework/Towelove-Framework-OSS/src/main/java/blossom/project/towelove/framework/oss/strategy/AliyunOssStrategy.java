@@ -7,11 +7,10 @@ import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
-import java.io.File;
 import java.util.List;
 
 @AutoConfiguration
-public class AliyunOssStrategy implements FileUploadStrategy {
+public class AliyunOssStrategy implements OssServiceStrategy {
 
     @Resource
     private OSS oss;
@@ -34,6 +33,11 @@ public class AliyunOssStrategy implements FileUploadStrategy {
 
     @Override
     public String getOssPathPrefix() {
+        return null;
+    }
+
+    @Override
+    public String removeFiles(String url) {
         return null;
     }
 }

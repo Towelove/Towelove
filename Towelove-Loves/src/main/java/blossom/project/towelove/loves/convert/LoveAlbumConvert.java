@@ -1,10 +1,14 @@
 package blossom.project.towelove.loves.convert;
 
 import blossom.project.towelove.common.request.loves.album.LoveAlbumCreateRequest;
-import blossom.project.towelove.common.response.love.album.LoveAlbumResponse;
+import blossom.project.towelove.common.response.love.album.LoveAlbumDetailResponse;
+import blossom.project.towelove.common.response.love.album.LoveAlbumPageResponse;
 import blossom.project.towelove.loves.entity.LoveAlbum;
+import org.aspectj.weaver.ast.Var;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
+
+import java.util.List;
 
 /**
  * @author: ZhangBlossom
@@ -20,5 +24,8 @@ public interface LoveAlbumConvert {
     LoveAlbumConvert INSTANCE = Mappers.getMapper(LoveAlbumConvert.class);
 
     LoveAlbum convert(LoveAlbumCreateRequest createRequest);
-    LoveAlbumResponse convert(LoveAlbum loveAlbum);
+
+    List<LoveAlbumPageResponse> convert(List<LoveAlbum> albums);
+
+    LoveAlbumDetailResponse convert(LoveAlbum loveAlbum);
 }
