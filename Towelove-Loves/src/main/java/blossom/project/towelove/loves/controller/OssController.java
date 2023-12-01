@@ -4,10 +4,7 @@ import blossom.project.towelove.common.response.Result;
 import blossom.project.towelove.framework.log.annotation.LoveLog;
 import blossom.project.towelove.framework.oss.service.OssService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
@@ -25,6 +22,8 @@ import java.util.stream.IntStream;
  * @blog: https://blog.csdn.net/Zhangsama1
  * @github: https://github.com/ZhangBlossom
  * OssController类
+ * 当前类用于提供给项目统一的进行文件上传操作
+ *
  */
 @LoveLog
 @RestController
@@ -33,6 +32,9 @@ import java.util.stream.IntStream;
 public class OssController {
 
     private final OssService ossService;
+
+
+
 
     /**
      * 单文件上传接口
@@ -80,12 +82,12 @@ public class OssController {
     }
 
     /**
-     * 删除urls
+     * 删除urls 多个文件则以 英文逗号分隔
      * @param urls 删除url
      * @return
      */
     @DeleteMapping("/files")
-    public Result<String> removeFiles(String urls){
+    public Result<String> removeFiles(@RequestParam("urls") String urls){
         return Result.ok(ossService.removeFiles(urls,null));
     }
 

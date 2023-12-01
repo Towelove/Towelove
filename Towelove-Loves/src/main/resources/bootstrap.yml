@@ -4,6 +4,16 @@ server:
 
 # Spring
 spring:
+  datasource:
+    hikari:
+      max-lifetime: 1800000 # 连接的最大生命周期，单位毫秒（30分钟）
+      idle-timeout: 600000  # 空闲连接超时时间，单位毫秒（10分钟）
+      validation-timeout: 3000 # 验证连接有效性的超时时间，单位毫秒（3秒）
+      maximum-pool-size: 10  # 连接池的最大连接数
+      minimum-idle: 5       # 连接池保持的最小空闲连接数
+      pool-name: Towelove-Loves # 连接池的名字，可选
+      test-on-borrow: true  # 每次借用连接时进行测试
+      connection-test-query: "SELECT 1" # 测试连接的查询语句
   application:
     # 应用名称
     name: towelove-loves

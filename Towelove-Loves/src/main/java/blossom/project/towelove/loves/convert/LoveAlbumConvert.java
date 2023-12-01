@@ -1,6 +1,7 @@
 package blossom.project.towelove.loves.convert;
 
 import blossom.project.towelove.common.request.loves.album.LoveAlbumCreateRequest;
+import blossom.project.towelove.common.request.loves.album.LoveAlbumUpdateRequest;
 import blossom.project.towelove.common.response.love.album.LoveAlbumDetailResponse;
 import blossom.project.towelove.common.response.love.album.LoveAlbumPageResponse;
 import blossom.project.towelove.loves.entity.LoveAlbum;
@@ -24,6 +25,7 @@ public interface LoveAlbumConvert {
     LoveAlbumConvert INSTANCE = Mappers.getMapper(LoveAlbumConvert.class);
 
     LoveAlbum convert(LoveAlbumCreateRequest createRequest);
+    LoveAlbum convert(LoveAlbumUpdateRequest createRequest);
 
     List<LoveAlbumPageResponse> convert(List<LoveAlbum> albums);
 

@@ -27,7 +27,7 @@ import lombok.Builder;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@TableName("love_album")
+@TableName(value = "love_album",autoResultMap = true)
 public class LoveAlbum extends BaseEntity {
     //编号
     @TableId
@@ -43,8 +43,9 @@ public class LoveAlbum extends BaseEntity {
     private String albumCoverUrl;
 
     //存储map，其中key为photo的index，value为url
-    @TableField(value = "photo_Desc",typeHandler = JacksonTypeHandler.class)
-    private TreeMap<Integer, String> photoDesc;
+    @TableField(value = "photo_desc",typeHandler = JacksonTypeHandler.class)
+    private Map<String, Object> photoDesc;
+
     //观看人数
     private Integer viewsNumber;
     //外人是否可见 0:不可见 1：可见

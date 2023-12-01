@@ -21,6 +21,7 @@ import blossom.project.towelove.common.request.loves.album.LoveAlbumPageRequest;
 import blossom.project.towelove.common.request.loves.album.LoveAlbumUpdateRequest;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.time.LocalDateTime;
 import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -40,113 +41,36 @@ public class LoveAlbumServiceImpl extends ServiceImpl<LoveAlbumMapper, LoveAlbum
 
     private final LoveAlbumMapper loveAlbumMapper;
 
-    private final LoveLogClient logClient;
-
-    private final OssService oSSService;
-
-
     /**
-     * 同步上传有序、但是慢
-     * 异步上传无序、但是速度快
-     * 因为
-     * @param files
+     * 创建相册
      * @param createRequest
      * @return
      */
     @Override
-    public LoveAlbumDetailResponse createLoveAlbum(List<MultipartFile> files, LoveAlbumCreateRequest createRequest) {
-        List<String> uploadFiles = oSSService.uploadFilesAsync(files, null, 0);
-        if (CollectionUtil.isEmpty(uploadFiles)) {
-            log.info("the returned fileNames is empty");
-            return null;
-        }
-
-        // 使用 Optional 来处理可能为 null 的情况
-        return Optional.ofNullable(createRequest)
-                .map(req -> {
-                    // 上传封面
-                    if (req.getStatus().equals(0) && uploadFiles.size() == 1) {
-                        return handleCoverUpload(req, uploadFiles.get(0));
-                    }
-                    // 上传九宫格图片
-                    else if (req.getStatus().equals(1)) {
-                        return handleGridUpload(req, uploadFiles);
-                    }
-                    return null;
-                })
-                .orElse(null);
-    }
-
-    /**
-     * 处理封面照片
-     * @param request 上传的文件相册信息
-     * @param fileUrl 封面URL
-     * @return
-     */
-    private LoveAlbumDetailResponse handleCoverUpload(LoveAlbumCreateRequest request, String fileUrl) {
-        LoveAlbum loveAlbum = LoveAlbumConvert.INSTANCE.convert(request);
-        loveAlbum.setAlbumCoverUrl(fileUrl);
+    public Long createLoveAlbum(LoveAlbumCreateRequest createRequest) {
+        LoveAlbum loveAlbum = LoveAlbumConvert.INSTANCE.convert(createRequest);
         loveAlbumMapper.insert(loveAlbum);
-        return LoveAlbumConvert.INSTANCE.convert(loveAlbum);
+        return loveAlbum.getId();
     }
 
     /**
-     * 优雅处理文件上传
-     * @param request 相册信息
-     * @param uploadFiles 上传的照片信息
+     * 修改相册内容
+     * 当用户选择上传头像的时候，要求前端首先调用uploadfile方法得到url
+     * 然后先存在前端本地，然后用户可以继续上传文件，得到文件urls
+     * 最后用户点击保存之后，调用update方法，将所有的数据都给我然后我保存到数据库。
+     * 当用户要对某个照片进行删除的时候，直接调用remove方法从minio中进行删除，
+     * 并且要删除某张照片会进行提示，点击× 之后会提示确定删除，如果是，那么就直接保存更新
+     * 也就是删除后马上要求前端再次调用一个update方法。
+     * @param request
      * @return
-     */
-    private LoveAlbumDetailResponse handleGridUpload(LoveAlbumCreateRequest request, List<String> uploadFiles) {
-        // 使用 Optional 进行更优雅的 null 检查
-        return Optional.ofNullable(request.getId())
-                .map(id -> {
-                    LoveAlbum loveAlbum = loveAlbumMapper.selectById(id);
-                    TreeMap<Integer, String> photoDesc = Optional.ofNullable(loveAlbum.getPhotoDesc()).orElse(new TreeMap<>());
-
-                    // 使用 Stream API 优化照片描述的构建
-                    IntStream.range(0, uploadFiles.size())
-                            .forEach(i -> photoDesc.put(photoDesc.size() + i, uploadFiles.get(i)));
-
-                    loveAlbum.setPhotoDesc(photoDesc);
-                    loveAlbumMapper.updateById(loveAlbum);
-                    return LoveAlbumConvert.INSTANCE.convert(loveAlbum);
-                })
-                .orElseGet(() -> {
-                    log.info("the create id can not be null!");
-                    return null;
-                });
-    }
-
-    /**
-     * 根据图片索引位置删除图片
-     * @param id 相册id
-     * @param imageIndex 图片索引位置0-8
      */
     @Override
-    public void deleteImageFromAlbum(Long id, Integer imageIndex) {
-        Optional.ofNullable(loveAlbumMapper.selectById(id))
-                .map(LoveAlbum::getPhotoDesc)
-                .ifPresent(photoDesc -> {
-                    if (photoDesc.containsKey(imageIndex)) {
-                        String removedUrl = photoDesc.remove(imageIndex);
-                        oSSService.removeFiles(removedUrl,null);
-                        // 使用 Stream API 重建索引
-                        TreeMap<Integer, String> newPhotoDesc = IntStream.range(0, photoDesc.size())
-                                .boxed()
-                                .collect(Collectors.toMap(
-                                        Function.identity(),
-                                        i -> new ArrayList<>(photoDesc.values()).get(i),
-                                        (e1, e2) -> e1,
-                                        TreeMap::new
-                                ));
-
-                        // 更新九宫格
-                        LoveAlbum loveAlbum = new LoveAlbum();
-                        loveAlbum.setId(id);
-                        loveAlbum.setPhotoDesc(newPhotoDesc);
-                        loveAlbumMapper.updateById(loveAlbum);
-                    }
-                });
+    public LoveAlbumDetailResponse updateLoveAlbum(LoveAlbumUpdateRequest request) {
+        LoveAlbum loveAlbum = LoveAlbumConvert.INSTANCE.convert(request);
+        loveAlbum.setUpdateTime(LocalDateTime.now());
+        loveAlbumMapper.updateById(loveAlbum);
+        loveAlbum = loveAlbumMapper.selectById(loveAlbum.getId());
+        return LoveAlbumConvert.INSTANCE.convert(loveAlbum);
     }
 
 
@@ -156,22 +80,26 @@ public class LoveAlbumServiceImpl extends ServiceImpl<LoveAlbumMapper, LoveAlbum
      * @return
      */
     @Override
-    public LoveAlbumDetailResponse getLoveAlbumById(Long loveAlbumId) {
-        //使用optional解决判空
+    public LoveAlbumDetailResponse getLoveAlbumDetailById(Long loveAlbumId) {
         return Optional.ofNullable(loveAlbumMapper.selectById(loveAlbumId))
                 .map(LoveAlbumConvert.INSTANCE::convert)
-                .orElseThrow(() -> new EntityNotFoundException("LoveAlbum not found with id: " + loveAlbumId,null,
+                .orElseThrow(() -> new EntityNotFoundException("LoveAlbum not found with id: " + loveAlbumId, null,
                         BaseErrorCode.ENTITY_NOT_FOUNT));
     }
 
+    /**
+     * 分页查询
+     * @param requestParam
+     * @return
+     */
     @Override
     public PageResponse<LoveAlbumPageResponse> pageQueryLoveAlbum(LoveAlbumPageRequest requestParam) {
 
+        requestParam.setPageNo((requestParam.getPageNo() - 1) * requestParam.getPageSize());
         List<LoveAlbum> loveAlbums = loveAlbumMapper.selectLoveAlbums(requestParam);
         List<LoveAlbumPageResponse> responses = Optional.ofNullable(loveAlbums)
                 .map(LoveAlbumConvert.INSTANCE::convert)
                 .orElse(Collections.emptyList());
-
         PageResponse<LoveAlbumPageResponse> response = new PageResponse<>();
         response.setRecords(responses);
         response.setPageNo(requestParam.getPageNo());
@@ -179,25 +107,16 @@ public class LoveAlbumServiceImpl extends ServiceImpl<LoveAlbumMapper, LoveAlbum
         return response;
     }
 
-    @Override
-    public LoveAlbumDetailResponse updateLoveAlbum(LoveAlbumUpdateRequest updateRequest) {
-        return null;
-    }
 
+    /**
+     * 删除
+     * @param loveAlbumId
+     * @return
+     */
     @Override
     public Boolean deleteLoveAlbumById(Long loveAlbumId) {
         int affectedRows = loveAlbumMapper.deleteById(loveAlbumId);
         return affectedRows > 0;
-    }
-
-    @Override
-    public Boolean batchDeleteLoveAlbum(List<Long> ids) {
-        if (CollectionUtil.isEmpty(ids)) {
-            throw new IllegalArgumentException("IDs list cannot be null or empty");
-        }
-
-        int affectedRows = loveAlbumMapper.deleteBatchIds(ids);
-        return affectedRows == ids.size();
     }
 
 }

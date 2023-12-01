@@ -9,7 +9,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import blossom.project.towelove.common.request.loves.album.LoveAlbumCreateRequest;
 import blossom.project.towelove.common.request.loves.album.LoveAlbumPageRequest;
 import blossom.project.towelove.common.request.loves.album.LoveAlbumUpdateRequest;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -21,7 +20,7 @@ import java.util.List;
  */
 public interface LoveAlbumService extends IService<LoveAlbum> {
 
-    LoveAlbumDetailResponse getLoveAlbumById(Long LoveAlbumId);
+    LoveAlbumDetailResponse getLoveAlbumDetailById(Long LoveAlbumId);
 
     PageResponse<LoveAlbumPageResponse> pageQueryLoveAlbum(LoveAlbumPageRequest requestParam);
 
@@ -29,10 +28,7 @@ public interface LoveAlbumService extends IService<LoveAlbum> {
 
     Boolean deleteLoveAlbumById(Long LoveAlbumId);
 
-    Boolean batchDeleteLoveAlbum(List<Long> ids);
 
-    LoveAlbumDetailResponse createLoveAlbum(List<MultipartFile> files,
-                                            LoveAlbumCreateRequest createRequest);
+    Long createLoveAlbum(LoveAlbumCreateRequest createRequest);
 
-    void deleteImageFromAlbum(Long id, Integer imageIndex);
 }

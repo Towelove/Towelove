@@ -30,7 +30,7 @@ public class DefaultDBFieldHandler implements MetaObjectHandler {
     //mp执行修改操作，这个方法执行
     @Override
     public void updateFill(MetaObject metaObject) {
-        this.setFieldValByName("updateTime",LocalDateTime.now(),metaObject);
+        //this.setFieldValByName("updateTime",LocalDateTime.now(),metaObject);
         this.setFieldValByName("updateBy","Love You",metaObject);
     }
 }
