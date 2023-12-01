@@ -72,7 +72,7 @@ public class MinioOssStrategy implements OssServiceStrategy {
                 minioClient.putObject(args);
                 //关闭文件io流
                 is.close();
-                return fileName;
+                return minioProperties.getUrl() + "/" + bucketName + "/" + fileName;
             } else {
                 log.error("bucket does not exist");
             }
@@ -111,9 +111,7 @@ public class MinioOssStrategy implements OssServiceStrategy {
                         uploadFileAsync(file, bucketName)
                                 .exceptionally(e -> {
                                     System.err.println(e.getMessage()); // 异常处理
-                                    //file.getName();
                                     return null;
-                                    //return e.fillInStackTrace().getMessage();
                                 })).collect(Collectors.toList());
 
         // 使用 Future 的返回顺序
@@ -140,10 +138,9 @@ public class MinioOssStrategy implements OssServiceStrategy {
                         file.getSize(), -1).contentType(file.getContentType()).build();
                 minioClient.putObject(args); // 假设minioClient.putObject执行了上传操作
                 is.close();
-                return fileName;
+                return minioProperties.getUrl() + "/" + bucketName + "/" + fileName;
             } catch (Exception e) {
                 throw new RuntimeException("Failed to upload file: " + file.getOriginalFilename(), e);
-            } finally {
             }
         }, threadPoolExecutor);
     }
@@ -183,7 +180,7 @@ public class MinioOssStrategy implements OssServiceStrategy {
                     PutObjectArgs args = PutObjectArgs.builder().bucket(bucketName).object(fileName).stream(is,
                             file.getSize(), -1).contentType(file.getContentType()).build();
                     minioClient.putObject(args); // 假设minioClient.putObject执行了上传操作
-                    fileNames.add(fileName);
+                    fileNames.add(minioProperties.getUrl() + "/" + bucketName + "/" + fileName);
                 } catch (Exception e) {
                     e.printStackTrace(); // 这里处理异常
                 } finally {
@@ -231,30 +228,15 @@ public class MinioOssStrategy implements OssServiceStrategy {
 
 
     /**
-     * 根据文件在minio中的位置返回文件
-     *
-     * @param name 文件目录名称 /xxx/xxx/xxx.jpg
-     * @return 文件流
-     * @throws Exception
+     * 从minio中删除文件
+     * @param photoUrls 要删除文件的url
+     * @return
      */
-    public GetObjectResponse getFile(String name) throws Exception {
-        String bucketName = FileUploadUtil.getBucketNameByFileExtension(name);
-        GetObjectArgs getObjectArgs = GetObjectArgs.builder()
-                .bucket(bucketName)
-                .object(name)
-                .build();
-        return minioClient.getObject(getObjectArgs);
-    }
 
-    /**
-     * 使用 CompletableFuture 异步删除 MinIO 中的文件。
-     *
-     * @param photoUrls 用英文逗号分隔的文件 URL 列表
-     * @return 删除的文件名称列表
-     */
     public String removeFiles(String photoUrls) {
-        String[] names = photoUrls.split(",");
-        String bucketName = FileUploadUtil.getBucketNameByFileExtension(names[0]);
+        // 拆分 URL
+        String[] urls = photoUrls.split(",");
+        String bucketName = FileUploadUtil.getBucketNameByFileExtension(urls[0]);
 
         try {
             boolean found = minioClient.bucketExists(BucketExistsArgs.builder().bucket(bucketName).build());
@@ -263,14 +245,15 @@ public class MinioOssStrategy implements OssServiceStrategy {
             }
 
             // 并行删除所有文件
-            CompletableFuture<?>[] deleteFutures = Arrays.stream(names)
-                    .map(name -> CompletableFuture.runAsync(() -> {
+            CompletableFuture<?>[] deleteFutures = Arrays.stream(urls)
+                    .map(this::extractObjectNameFromUrl) // 从 URL 提取对象名称
+                    .map(objectName -> CompletableFuture.runAsync(() -> {
                         try {
                             RemoveObjectArgs removeObjectsArgs =
-                                    RemoveObjectArgs.builder().bucket(bucketName).object(name).build();
+                                    RemoveObjectArgs.builder().bucket(bucketName).object(objectName).build();
                             minioClient.removeObject(removeObjectsArgs);
                         } catch (Exception e) {
-                            throw new RuntimeException("Error deleting file: " + name, e);
+                            throw new RuntimeException("Error deleting file: " + objectName, e);
                         }
                     }))
                     .toArray(CompletableFuture[]::new);
@@ -278,9 +261,23 @@ public class MinioOssStrategy implements OssServiceStrategy {
             // 等待所有删除操作完成
             CompletableFuture.allOf(deleteFutures).join();
 
-            return Arrays.toString(names);
+            return Arrays.toString(urls);
         } catch (Exception e) {
             throw new ServiceException("Error during file deletion", e);
         }
+    }
+
+    /**
+     * 从完整的 URL 中提取 MinIO 中的对象名称
+     *
+     * @param url 文件的完整 URL
+     * @return MinIO 中的对象名称
+     */
+    private String extractObjectNameFromUrl(String url) {
+        // 假设 URL 是 "http://minio.example.com/mybucket/myfolder/myfile.jpg"
+        // 您需要从中提取 "myfolder/myfile.jpg"
+        // 这里的实现方式取决于您的 URL 格式和 MinIO 配置
+        String prefixToRemove = minioProperties.getUrl() + "/" + FileUploadUtil.getBucketNameByFileExtension(url) + "/";
+        return url.replace(prefixToRemove, "");
     }
 }

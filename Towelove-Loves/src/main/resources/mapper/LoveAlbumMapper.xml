@@ -29,7 +29,7 @@
         from love_album
         where loves_id = ${lovesId} and deleted = 0
         order by create_time desc
-        limit ${PAGE_NO}-1,${pageSize}
+        limit ${pageNo},${pageSize}
     </select>
 </mapper>
 

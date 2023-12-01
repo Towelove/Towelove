@@ -27,7 +27,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@TableName("msg_task")
+@TableName(value = "msg_task",autoResultMap = true)
 public class MsgTask extends BaseEntity {
     //主键
     @TableId(type = IdType.AUTO)
