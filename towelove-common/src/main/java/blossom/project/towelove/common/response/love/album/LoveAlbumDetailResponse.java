@@ -1,5 +1,6 @@
 package blossom.project.towelove.common.response.love.album;
 import java.util.Date;
+import java.util.Map;
 import java.util.TreeMap;
 
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -32,7 +33,7 @@ public class LoveAlbumDetailResponse {
     private String albumCoverUrl;
 
     //存储map，其中key为photo的index，value为url
-    private TreeMap<Integer, String> photoDesc;
+    private Map<String, Object> photoDesc;
 
     //观看人数
     private Integer viewsNumber;

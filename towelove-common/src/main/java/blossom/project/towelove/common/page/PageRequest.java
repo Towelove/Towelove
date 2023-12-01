@@ -37,7 +37,7 @@ public class PageRequest {
     private static final Long PAGE_SIZE = 10L;
 
     @NotNull(message = "页码不能为空")
-    @Min(value = 1, message = "页码最小值为 1")
+    @Min(value = 1, message = "页码不能小于 1")
     private Long pageNo = PAGE_NO;
 
     @NotNull(message = "每页条数不能为空")
