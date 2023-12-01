@@ -1,11 +1,7 @@
 package blossom.project.towelove.framework.oss.strategy;
 
-import io.minio.errors.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
-import java.security.InvalidKeyException;
-import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
 /**
@@ -17,7 +13,7 @@ import java.util.List;
  * @github: https://github.com/ZhangBlossom
  * FileUploadStrategy接口
  */
-public interface FileUploadStrategy {
+public interface OssServiceStrategy {
 
     /**
      * 上传单个文件
@@ -41,4 +37,14 @@ public interface FileUploadStrategy {
      * @return
      */
     String getOssPathPrefix();
+
+
+    /**
+     * 根据url删除文件，多个文件之间以 ， 分割
+     * @param url 要删除文件的url
+     * @return
+     */
+    String removeFiles(String url);
+
+
 }
