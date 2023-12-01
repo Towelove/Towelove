@@ -62,7 +62,7 @@ public class OssController {
 
 
     /**
-     * 实现多文件上传，得到文件URL集合
+     * 实现多文件上传，得到文件Map集合
      * 并且升序排列
      *
      * @param files
