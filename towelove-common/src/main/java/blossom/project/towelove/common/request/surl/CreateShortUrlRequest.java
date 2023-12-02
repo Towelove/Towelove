@@ -24,7 +24,8 @@ public class CreateShortUrlRequest {
     private String from;
 
     /**
-     * 源URL
+     * 源URL，格式：
+     * https://xxxx:xxx/xxxx/xxx
      */
     @NotBlank(message = "source url could not be null")
     private String sourceUrl;
@@ -32,6 +33,7 @@ public class CreateShortUrlRequest {
     /**
      * 是否需要统计
      */
+    //TODO 这里肯定默认true or false了
     @NotNull(message = "statistics could not be null")
     private Boolean statistics;
 }
