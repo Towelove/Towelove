@@ -9,14 +9,14 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>Towelove-Msg</artifactId>
+    <artifactId>Towelove-short-url</artifactId>
 
     <properties>
         <maven.compiler.source>19</maven.compiler.source>
         <maven.compiler.target>19</maven.compiler.target>
     </properties>
 
-    <description>Towelove-Msg短信邮件模块</description>
+    <description>Towelove-Short-Url短链服务</description>
 
     <dependencies>
         <dependency>
@@ -57,11 +57,6 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
-        <!--springboot mail-->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-mail</artifactId>
-        </dependency>
 
         <dependency>
             <groupId>blossom.project</groupId>
@@ -71,6 +66,11 @@
         <dependency>
             <groupId>blossom.project</groupId>
             <artifactId>Towelove-Framework-Log</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>blossom.project</groupId>
+            <artifactId>Towelove-Framework-Redis</artifactId>
         </dependency>
 
 
@@ -98,12 +98,6 @@
             <groupId>blossom.project</groupId>
             <artifactId>Towelove-Framework-Redis</artifactId>
             <version>${revision}</version>
-        </dependency>
-        <!--分布式任务调度系统-->
-        <dependency>
-            <groupId>com.xuxueli</groupId>
-            <artifactId>xxl-job-core</artifactId>
-            <version>2.4.0</version>
         </dependency>
 
         <dependency>

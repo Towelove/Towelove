@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="blossom.project.towelove.msg.mapper.MsgTaskMapper">
     <!-- 结果集 -->
-    <resultMap type="blossom.project.towelove.msg.entity.MsgTask" id="MsgTaskMap">
+    <resultMap type="blossom.project.towelove.shortUrl.entity.MsgTask" id="MsgTaskMap">
 <!--        <result property="id" column="id" jdbcType="Long"/>-->
 <!--        <result property="userId" column="user_id" jdbcType="Long"/>-->
 <!--        <result property="accountId" column="account_id" jdbcType="Long"/>-->
@@ -25,7 +25,7 @@
     </resultMap>
     
     <!--使用SQL语句标签-->
-    <select id="selectAfterTenMinJob" resultType="blossom.project.towelove.msg.entity.MsgTask">
+    <select id="selectAfterTenMinJob" resultType="blossom.project.towelove.shortUrl.entity.MsgTask">
         SELECT id,
                user_id,
                account_id,
