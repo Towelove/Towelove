@@ -20,7 +20,7 @@
         <module>Towelove-Society</module>
         <module>Towelove-Task-Center</module>
         <module>Towelove-Auth</module>
-        <module>Towelove-Short-Url</module>
+        <module>Towelove-Server-Center</module>
     </modules>
 
     <name>${project.artifactId}</name>

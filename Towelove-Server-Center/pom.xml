@@ -112,6 +112,7 @@
             </exclusions>
             <version>${revision}</version>
         </dependency>
+
         <dependency>
             <groupId>blossom.project</groupId>
             <artifactId>Towelove-Framework-OSS</artifactId>
@@ -154,7 +155,7 @@
                 </executions>
                 <configuration>
                     <layout>ZIP</layout>
-                    <mainClass>blossom.project.towelove.msg.ToweloveMsgApplication</mainClass>
+                    <mainClass>blossom.project.towelove.server.ToweloveServerCenterApplication</mainClass>
                 </configuration>
             </plugin>
             <plugin>

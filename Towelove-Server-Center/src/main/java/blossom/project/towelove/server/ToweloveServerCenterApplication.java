@@ -14,13 +14,12 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
  * MsgApplicatiojn类
  */
 @SpringBootApplication
-//@MapperScan("blossom.project.towelove.shortUrl.mapper")
 @EnableFeignClients("blossom.project.towelove.client")
-public class ToweloveShortURLApplication {
+public class ToweloveServerCenterApplication {
     public static void main(String[] args) {
-        SpringApplication.run(ToweloveShortURLApplication.class,args);
+        SpringApplication.run(ToweloveServerCenterApplication.class,args);
 
-        System.out.println("（づ￣3￣）づ╭❤～ Towelove 服务模块启动成功  (o>ε(o>ｕ(≧∩≦)");
+        System.out.println("（づ￣3￣）づ╭❤～ Towelove 服务中心模块启动成功  (o>ε(o>ｕ(≧∩≦)");
         System.out.println(
                " __  __           \n" +
                        "|  \\/  |          \n" +
