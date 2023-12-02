@@ -9,7 +9,7 @@ import org.springframework.beans.factory.InitializingBean;
  * @package: blossom.project.towelove.user.strategy
  * @className: UserRegisterStrategy
  * @author: Link Ji
- * @description: TODO
+ * @description:
  * @date: 2023/11/24 21:16
  * @version: 1.0
  */

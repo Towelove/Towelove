@@ -5,7 +5,7 @@ package blossom.project.towelove.user.constants;
  * @package: blossom.project.towelove.user.constants
  * @className: SignInConstans
  * @author: Link Ji
- * @description: TODO
+ * @description:
  * @date: 2023/11/29 16:40
  * @version: 1.0
  */

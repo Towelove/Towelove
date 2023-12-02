@@ -7,7 +7,7 @@ import lombok.Data;
  * @package: blossom.project.towelove.common.request.surl
  * @className: CreateShortUrlRequest
  * @author: Link Ji
- * @description: TODO
+ * @description:
  * @date: 2023/12/2 15:38
  * @version: 1.0
  */

@@ -9,7 +9,7 @@ import lombok.Data;
  * @package: blossom.project.towelove.user.domain
  * @className: SysUserPermission
  * @author: Link Ji
- * @description: TODO
+ * @description:
  * @date: 2023/11/23 23:12
  * @version: 1.0
  */
