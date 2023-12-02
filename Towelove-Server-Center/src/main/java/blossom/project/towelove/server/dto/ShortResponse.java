@@ -8,7 +8,7 @@ import lombok.Data;
  * @package: blossom.project.towelove.shortUrl.dto
  * @className: ShortResponse
  * @author: Link Ji
- * @description: TODO
+ * @description:
  * @date: 2023/12/2 17:47
  * @version: 1.0
  */

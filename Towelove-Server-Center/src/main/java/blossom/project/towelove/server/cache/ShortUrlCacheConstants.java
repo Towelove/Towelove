@@ -8,7 +8,7 @@ import cn.hutool.core.net.NetUtil;
  * @package: blossom.project.towelove.shortUrl.cache
  * @className: ShortUrlCacheConstants
  * @author: Link Ji
- * @description: TODO
+ * @description:
  * @date: 2023/12/2 16:34
  * @version: 1.0
  */

@@ -7,7 +7,7 @@ import blossom.project.towelove.framework.mysql.domain.BaseEntity;
  * @package: blossom.project.towelove.shortUrl.entity
  * @className: UrlMappingEntity
  * @author: Link Ji
- * @description: TODO
+ * @description:
  * @date: 2023/12/2 15:37
  * @version: 1.0
  */
