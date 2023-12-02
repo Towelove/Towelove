@@ -12,6 +12,19 @@
     <artifactId>Towelove-Framework-DynamicThreadPool</artifactId>
     <description>Towelove-Framework-DynamicThreadPool
     项目动态线程池，支持使用Nacos进行线程池的动态参数配置</description>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>18</source>
+                    <target>18</target>
+                    <compilerArgs>--enable-preview</compilerArgs>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
     <properties>
         <maven.compiler.source>19</maven.compiler.source>
         <maven.compiler.target>19</maven.compiler.target>
