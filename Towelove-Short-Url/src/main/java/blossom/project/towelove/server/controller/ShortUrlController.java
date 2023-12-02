@@ -1,9 +1,9 @@
-package blossom.project.towelove.msg.controller;
+package blossom.project.towelove.server.controller;
 
 import blossom.project.towelove.common.request.surl.CreateShortUrlRequest;
 import blossom.project.towelove.common.response.Result;
 import blossom.project.towelove.framework.log.annotation.LoveLog;
-import blossom.project.towelove.msg.service.ShortUrlService;
+import blossom.project.towelove.server.service.ShortUrlService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;

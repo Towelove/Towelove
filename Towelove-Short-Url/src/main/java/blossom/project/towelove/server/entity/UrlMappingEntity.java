@@ -1,4 +1,4 @@
-package blossom.project.towelove.msg.entity;
+package blossom.project.towelove.server.entity;
 
 import blossom.project.towelove.framework.mysql.domain.BaseEntity;
 

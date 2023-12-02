@@ -1,4 +1,4 @@
-package blossom.project.towelove.msg.cache;
+package blossom.project.towelove.server.cache;
 
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.net.NetUtil;

@@ -1,4 +1,4 @@
-package blossom.project.towelove.msg.dto;
+package blossom.project.towelove.server.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

@@ -1,4 +1,4 @@
-package blossom.project.towelove.msg.service;
+package blossom.project.towelove.server.service;
 
 import blossom.project.towelove.common.request.surl.CreateShortUrlRequest;
 import blossom.project.towelove.common.response.Result;

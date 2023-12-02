@@ -1,17 +1,16 @@
-package blossom.project.towelove.msg.service.impl;
+package blossom.project.towelove.server.service.impl;
 
 import blossom.project.towelove.common.exception.ServiceException;
 import blossom.project.towelove.common.request.surl.CreateShortUrlRequest;
 import blossom.project.towelove.common.response.Result;
 import blossom.project.towelove.common.utils.StringUtils;
 import blossom.project.towelove.framework.redis.service.RedisService;
-import blossom.project.towelove.msg.cache.ShortUrlCacheConstants;
-import blossom.project.towelove.msg.dto.ShortResponse;
-import blossom.project.towelove.msg.service.ShortUrlService;
+import blossom.project.towelove.server.cache.ShortUrlCacheConstants;
+import blossom.project.towelove.server.dto.ShortResponse;
+import blossom.project.towelove.server.service.ShortUrlService;
 import cn.hutool.bloomfilter.BitMapBloomFilter;
 import cn.hutool.bloomfilter.BloomFilterUtil;
 import cn.hutool.core.util.HashUtil;
-import cn.hutool.core.util.StrUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

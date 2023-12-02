@@ -1,4 +1,4 @@
-package blossom.project.towelove.msg;
+package blossom.project.towelove.server;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -20,7 +20,7 @@ public class ToweloveShortURLApplication {
     public static void main(String[] args) {
         SpringApplication.run(ToweloveShortURLApplication.class,args);
 
-        System.out.println("（づ￣3￣）づ╭❤～ Towelove 短链模块启动成功  (o>ε(o>ｕ(≧∩≦)");
+        System.out.println("（づ￣3￣）づ╭❤～ Towelove 服务模块启动成功  (o>ε(o>ｕ(≧∩≦)");
         System.out.println(
                " __  __           \n" +
                        "|  \\/  |          \n" +
