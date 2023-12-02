@@ -21,9 +21,9 @@ import javax.validation.constraints.NotNull;
  * @version: 1.0
  */
 @Controller
-@RequestMapping("/v1/surl")
+@RequestMapping
 @RequiredArgsConstructor
-@LoveLog()
+@LoveLog
 public class ShortUrlController {
 
     private final ShortUrlService shortUrlService;
@@ -33,7 +33,7 @@ public class ShortUrlController {
      * @param request
      * @return
      */
-    @PostMapping("")
+    @PostMapping("/short-url")
     @ResponseBody
     public Result<String> create(@Validated @RequestBody CreateShortUrlRequest request){
         return shortUrlService.createShortUrl(request);

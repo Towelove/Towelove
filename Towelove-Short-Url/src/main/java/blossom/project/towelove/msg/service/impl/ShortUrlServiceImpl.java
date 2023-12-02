@@ -3,6 +3,7 @@ package blossom.project.towelove.msg.service.impl;
 import blossom.project.towelove.common.exception.ServiceException;
 import blossom.project.towelove.common.request.surl.CreateShortUrlRequest;
 import blossom.project.towelove.common.response.Result;
+import blossom.project.towelove.common.utils.StringUtils;
 import blossom.project.towelove.framework.redis.service.RedisService;
 import blossom.project.towelove.msg.cache.ShortUrlCacheConstants;
 import blossom.project.towelove.msg.dto.ShortResponse;
@@ -31,14 +32,14 @@ import java.util.Objects;
 public class ShortUrlServiceImpl implements ShortUrlService {
     private final RedisService redisService;
 
-    private static BitMapBloomFilter bitMap = BloomFilterUtil.createBitMap(500);
+    private static final BitMapBloomFilter bitMap = BloomFilterUtil.createBitMap(500);
+    private static final int HASH_MODULUS = 10;
+    private static final int RADIX_36 = 36;
 
 
-    //    private final Redisson redisson;
     @Override
     public Result<String> createShortUrl(CreateShortUrlRequest request) {
         String sourceUrl = request.getSourceUrl();
-        //生成短链,获得短链对应分片hashKey Index,短链结果
         ShortResponse shortResponse = generateUrl(sourceUrl);
         //建立映射关系（暂时缓存到redis中）
 //        RBloomFilter<Object> shortUrlBloomFilter = redisson.getBloomFilter("short_url_bloomFilter");
@@ -50,40 +51,58 @@ public class ShortUrlServiceImpl implements ShortUrlService {
         int index = shortResponse.getIndex();
         String shortUrl = shortResponse.getShortUrl();
         String urlMappingKey = getUrlMappingKey(index);
-        //TODO：使用lua脚本重构
-        while (redisService.hasHashValue(urlMappingKey,shortUrl)){
-            shortUrl = generateUrl(sourceUrl + System.currentTimeMillis()).getShortUrl();
+
+        shortUrl = resolveUrlCollision(urlMappingKey, shortUrl, sourceUrl);
+
+        if (request.getStatistics()) {
+            // 短链统计业务逻辑（待实现）
         }
-        redisService.setCacheMapValue(urlMappingKey, shortUrl,sourceUrl);
-        if (request.getStatistics()){
-            //TODO:短链统计业务逻辑
-        }
+
         return Result.ok(ShortUrlCacheConstants.getUrl(shortUrl));
     }
 
-    private ShortResponse generateUrl(String sourceUrl){
-        //使用murmurHash算法
+
+    /**
+     * 解决URL冲突
+     * @param urlMappingKey
+     * @param shortUrl
+     * @param sourceUrl
+     * @return
+     */
+    private String resolveUrlCollision(String urlMappingKey, String shortUrl, String sourceUrl) {
+        //TODO：使用lua脚本重构
+        while (redisService.hasHashValue(urlMappingKey, shortUrl)) {
+            shortUrl = generateUrl(sourceUrl + System.currentTimeMillis()).getShortUrl();
+        }
+        redisService.setCacheMapValue(urlMappingKey, shortUrl, sourceUrl);
+        return shortUrl;
+    }
+
+    private ShortResponse generateUrl(String sourceUrl) {
         int hash = HashUtil.murmur32(sourceUrl.getBytes());
-        //转36进制
-        String sourUrl = Integer.toString(hash, 36);
-        if (StrUtil.isBlank(sourUrl)){
+        String encodedUrl = Integer.toString(hash, RADIX_36);
+        if (StringUtils.isBlank(encodedUrl)) {
             throw new ServiceException("短链生成失败");
         }
-        return new ShortResponse(hash % 10,sourUrl);
+        return new ShortResponse(hash % HASH_MODULUS, encodedUrl);
     }
 
     @Override
     public String mappingToSourceUrl(String url) {
-        //转换回hash值找到分片索引
-        String hash = new BigInteger(url, 36).toString(10);
-        int kIndex = Integer.parseInt(hash) % 10;
+        String hash = new BigInteger(url, RADIX_36).toString(10);
+        int kIndex = Integer.parseInt(hash) % HASH_MODULUS;
         Object cacheMapValue = redisService.getCacheMapValue(getUrlMappingKey(kIndex), url);
-        if (Objects.isNull(cacheMapValue)){
+        if (Objects.isNull(cacheMapValue)) {
             throw new ServiceException("短链无效");
         }
         return String.valueOf(cacheMapValue);
     }
 
+    /**
+     * 获得URL映射字符串key
+     * @param kIndex
+     * @return
+     */
     private String getUrlMappingKey(int kIndex){
 //        return String.format(ShortUrlCacheConstants.URL_MAPPING_FROM,from);
         return String.format(ShortUrlCacheConstants.URL_MAPPING_FROM,kIndex);
