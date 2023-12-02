@@ -1,12 +1,9 @@
 package blossom.project.towelove.msg.service.Impl;
 
-import blossom.project.towelove.framework.log.annotation.LoveLog;
 import blossom.project.towelove.framework.redis.service.RedisService;
 import blossom.project.towelove.msg.service.SmsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 /**
  * @author: ZhangBlossom

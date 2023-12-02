@@ -67,7 +67,6 @@ public class LoveAlbumServiceImpl extends ServiceImpl<LoveAlbumMapper, LoveAlbum
     @Override
     public LoveAlbumDetailResponse updateLoveAlbum(LoveAlbumUpdateRequest request) {
         LoveAlbum loveAlbum = LoveAlbumConvert.INSTANCE.convert(request);
-        loveAlbum.setUpdateTime(LocalDateTime.now());
         loveAlbumMapper.updateById(loveAlbum);
         loveAlbum = loveAlbumMapper.selectById(loveAlbum.getId());
         return LoveAlbumConvert.INSTANCE.convert(loveAlbum);

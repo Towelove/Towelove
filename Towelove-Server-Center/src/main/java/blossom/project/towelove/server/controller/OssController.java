@@ -1,4 +1,4 @@
-package blossom.project.towelove.loves.controller;
+package blossom.project.towelove.server.controller;
 
 import blossom.project.towelove.common.response.Result;
 import blossom.project.towelove.framework.log.annotation.LoveLog;

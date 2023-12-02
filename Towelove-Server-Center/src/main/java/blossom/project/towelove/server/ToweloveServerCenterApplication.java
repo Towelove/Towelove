@@ -1,6 +1,5 @@
-package blossom.project.towelove.msg;
+package blossom.project.towelove.server;
 
-import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.openfeign.EnableFeignClients;
@@ -15,13 +14,12 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
  * MsgApplicatiojn类
  */
 @SpringBootApplication
-@MapperScan("blossom.project.towelove.msg.mapper")
 @EnableFeignClients("blossom.project.towelove.client")
-public class ToweloveMsgApplication {
+public class ToweloveServerCenterApplication {
     public static void main(String[] args) {
-        SpringApplication.run(ToweloveMsgApplication.class,args);
+        SpringApplication.run(ToweloveServerCenterApplication.class,args);
 
-        System.out.println("（づ￣3￣）づ╭❤～ Towelove 消息模块启动成功  (o>ε(o>ｕ(≧∩≦)");
+        System.out.println("（づ￣3￣）づ╭❤～ Towelove 服务中心模块启动成功  (o>ε(o>ｕ(≧∩≦)");
         System.out.println(
                " __  __           \n" +
                        "|  \\/  |          \n" +
