@@ -2,6 +2,7 @@ package blossom.project.towelove.common.exception;
 
 
 import blossom.project.towelove.common.exception.errorcode.ErrorCode;
+import blossom.project.towelove.common.exception.errorcode.IErrorCode;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -9,54 +10,15 @@ import lombok.EqualsAndHashCode;
  * 服务器异常 Exception
  * @author :张锦标
  */
-@Data
 @EqualsAndHashCode(callSuper = true)
-public final class ServerException extends RuntimeException {
+public final class ServerException extends AbstractException{
 
-    /**
-     * 全局错误码
-     *
-     * @see GlobalErrorCodeConstants
-     */
-    private Integer code;
-    /**
-     * 错误提示
-     */
-    private String message;
-
-    /**
-     * 空构造方法，避免反序列化问题
-     */
-    public ServerException() {
+    public ServerException(String message, Throwable throwable, IErrorCode errorCode) {
+        super(message, throwable, errorCode);
     }
 
-    public ServerException(ErrorCode errorCode) {
-        this.code = errorCode.getCode();
-        this.message = errorCode.getMsg();
-    }
-
-    public ServerException(Integer code, String message) {
-        this.code = code;
-        this.message = message;
-    }
-
-    public Integer getCode() {
-        return code;
-    }
-
-    public ServerException setCode(Integer code) {
-        this.code = code;
-        return this;
-    }
-
-    @Override
-    public String getMessage() {
-        return message;
-    }
-
-    public ServerException setMessage(String message) {
-        this.message = message;
-        return this;
+    public ServerException(String message, IErrorCode errorCode) {
+        this(message, null, errorCode);
     }
 
 }

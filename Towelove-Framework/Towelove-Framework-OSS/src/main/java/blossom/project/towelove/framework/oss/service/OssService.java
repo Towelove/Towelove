@@ -22,7 +22,7 @@ import java.util.List;
  */
 @AutoConfiguration
 @RequiredArgsConstructor
-public class OSSService {
+public class OssService {
 
     private final OssStrategyFactory ossStrategyFactory;
 
@@ -39,8 +39,12 @@ public class OSSService {
         return ossStrategyFactory.uploadFile(file,ossType);
     }
 
+
+
+
+
     /**
-     * 多文件上传 默认上传到MinIO中
+     * 多文件异步上传 默认上传到MinIO中
      * 可以在Nacos中配置type来修改OSS服务类型
      * @param files 文件
      * @param ossType oss服务类型
@@ -48,8 +52,8 @@ public class OSSService {
      * @return
      * @throws Exception
      */
-    public List<String> uploadFiles(List<MultipartFile> files,@Nullable Integer ossType,Integer mulType)  {
-        return ossStrategyFactory.uploadFiles(files,ossType,mulType);
+    public List<String> uploadFilesAsync(List<MultipartFile> files, @Nullable Integer ossType, Integer mulType)  {
+        return ossStrategyFactory.uploadFilesAsync(files,ossType,mulType);
     }
 
 
@@ -67,7 +71,7 @@ public class OSSService {
      * @param removedUrl 要删除的文件URL-》得到文件路径
      * @param ossType oss服务类型
      */
-    //TOOD
-    public void removeFile(String removedUrl, Integer ossType) {
+    public String removeFiles(String removedUrl, Integer ossType) {
+        return ossStrategyFactory.removeFiles(removedUrl,ossType);
     }
 }

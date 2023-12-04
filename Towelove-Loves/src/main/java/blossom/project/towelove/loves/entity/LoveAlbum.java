@@ -6,6 +6,7 @@ import java.io.Serializable;
 import java.util.Map;
 import java.util.TreeMap;
 
+import blossom.project.towelove.common.domain.dto.BaseEntity;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
@@ -26,8 +27,8 @@ import lombok.Builder;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@TableName("love_album")
-public class LoveAlbum {
+@TableName(value = "love_album",autoResultMap = true)
+public class LoveAlbum extends BaseEntity {
     //编号
     @TableId
     private Long id;
@@ -42,8 +43,9 @@ public class LoveAlbum {
     private String albumCoverUrl;
 
     //存储map，其中key为photo的index，value为url
-    @TableField(value = "photo_Desc",typeHandler = JacksonTypeHandler.class)
-    private TreeMap<Integer, String> photoDesc;
+    @TableField(value = "photo_desc",typeHandler = JacksonTypeHandler.class)
+    private Map<String, Object> photoDesc;
+
     //观看人数
     private Integer viewsNumber;
     //外人是否可见 0:不可见 1：可见
@@ -52,20 +54,6 @@ public class LoveAlbum {
     private String photoUrls;
     //点赞人数
     private Integer likesNumber;
-    //开启状态
-    private Integer status;
-    //创建时间
-    private Date createTime;
-    //创建者
-    private String createBy;
-    //更新时间
-    private Date updateTime;
-    //更新者
-    private String updateBy;
-    //是否删除
-    private Integer deleted;
-    //备注
-    private String remark;
 
 }
 

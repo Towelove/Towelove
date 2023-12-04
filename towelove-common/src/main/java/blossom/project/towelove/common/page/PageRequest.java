@@ -33,16 +33,16 @@ import javax.validation.constraints.NotNull;
  */
 @Data
 public class PageRequest {
-    private static final Integer PAGE_NO = 1;
-    private static final Integer PAGE_SIZE = 10;
+    private static final Long  PAGE_NO = 1L;
+    private static final Long PAGE_SIZE = 10L;
 
     @NotNull(message = "页码不能为空")
-    @Min(value = 1, message = "页码最小值为 1")
-    private Integer pageNo = PAGE_NO;
+    @Min(value = 1, message = "页码不能小于 1")
+    private Long pageNo = PAGE_NO;
 
     @NotNull(message = "每页条数不能为空")
     @Min(value = 1, message = "每页条数最小值为 1")
     @Max(value = 100, message = "每页条数最大值为 100")
-    private Integer pageSize = PAGE_SIZE;
+    private Long pageSize = PAGE_SIZE;
 
 }

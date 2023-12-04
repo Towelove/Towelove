@@ -18,8 +18,6 @@ import javax.validation.constraints.NotNull;
 @Builder
 public class LoveAlbumCreateRequest  {
 
-   private Long id;
-
    @NotNull(message = "loves_id can not be null!")
    private Long lovesId;
 
@@ -27,14 +25,10 @@ public class LoveAlbumCreateRequest  {
    @NotBlank(message = "title can not be null!")
    private String title;
 
+   //相册封面
+   private String albumCoverUrl;
+
    //外人是否可见 0:不可见 1：可见
    private Integer canSee = 0;
-
-   /**
-    * 0: 表示当前请求上传的是封面
-    * 1: 表示当前请求上传的是子照片组
-    */
-   @NotNull
-   private Integer status;
 }
 

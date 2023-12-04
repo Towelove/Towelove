@@ -17,7 +17,7 @@ import org.springframework.stereotype.Component;
  * @package: blossom.project.towelove.user.strategy
  * @className: RegisterByPhone
  * @author: Link Ji
- * @description: TODO
+ * @description:
  * @date: 2023/11/24 21:18
  * @version: 1.0
  */

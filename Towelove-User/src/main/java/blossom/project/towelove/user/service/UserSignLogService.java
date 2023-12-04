@@ -8,7 +8,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @package: blossom.project.towelove.user.service
  * @className: UserSignLogService
  * @author: Link Ji
- * @description: TODO
+ * @description:
  * @date: 2023/11/28 20:30
  * @version: 1.0
  */

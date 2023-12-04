@@ -348,6 +348,10 @@ public class RedisService {
         redisTemplate.opsForHash().put(key, hKey, value);
     }
 
+    public  boolean hasHashValue(final String key,final String hKey){
+        return redisTemplate.opsForHash().hasKey(key,hKey);
+    }
+
     /**
      * 获取Hash中的数据
      *

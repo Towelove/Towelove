@@ -9,17 +9,29 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>Towelove-Task-Center</artifactId>
+    <artifactId>Towelove-Server-Center</artifactId>
 
     <properties>
         <maven.compiler.source>19</maven.compiler.source>
         <maven.compiler.target>19</maven.compiler.target>
     </properties>
 
-    <description>Towelove-Task-Center任务中台，用于处理定时任务和消费MQ消息</description>
+    <description>Towelove-Server-Center项目服务中心，提供如下功能：
+                1：短链接服务</description>
 
     <dependencies>
-
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate.validator</groupId>
+            <artifactId>hibernate-validator</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-bootstrap</artifactId>
+        </dependency>
         <!-- SpringCloud Alibaba Nacos -->
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
@@ -37,22 +49,29 @@
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-sentinel</artifactId>
         </dependency>
-
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-boot-starter</artifactId>
         </dependency>
-
         <!-- SpringBoot Actuator -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
 
-        <!--springboot mail-->
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-mail</artifactId>
+            <groupId>blossom.project</groupId>
+            <artifactId>Towelove-Framework-MySQL</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>blossom.project</groupId>
+            <artifactId>Towelove-Framework-Log</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>blossom.project</groupId>
+            <artifactId>Towelove-Framework-Redis</artifactId>
         </dependency>
 
 
@@ -67,36 +86,37 @@
             <artifactId>mapstruct-processor</artifactId>
             <version>1.5.3.Final</version>
         </dependency>
-
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
         </dependency>
-
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <scope>test</scope>
         </dependency>
-
         <dependency>
             <groupId>blossom.project</groupId>
             <artifactId>Towelove-Framework-Redis</artifactId>
             <version>${revision}</version>
         </dependency>
 
-        <!--分布式任务调度系统-->
         <dependency>
-            <groupId>com.xuxueli</groupId>
-            <artifactId>xxl-job-core</artifactId>
-            <version>2.3.1</version>
+            <groupId>blossom.project</groupId>
+            <artifactId>Towelove-Client</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>blossom.project</groupId>
+                    <artifactId>Towelove-Common</artifactId>
+                </exclusion>
+            </exclusions>
+            <version>${revision}</version>
         </dependency>
 
-<!--        <dependency>-->
-<!--            <groupId>blossom.project</groupId>-->
-<!--            <artifactId>Towelove-Client</artifactId>-->
-<!--            <version>${revision}</version>-->
-<!--        </dependency>-->
+        <dependency>
+            <groupId>blossom.project</groupId>
+            <artifactId>Towelove-Framework-OSS</artifactId>
+        </dependency>
     </dependencies>
 
     <build>
@@ -135,7 +155,7 @@
                 </executions>
                 <configuration>
                     <layout>ZIP</layout>
-<!--                    <mainClass>blossom.project.towelove.taskcenter.</mainClass>-->
+                    <mainClass>blossom.project.towelove.server.ToweloveServerCenterApplication</mainClass>
                 </configuration>
             </plugin>
             <plugin>

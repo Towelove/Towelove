@@ -4,15 +4,13 @@ import blossom.project.towelove.framework.oss.config.OSSProperties;
 import blossom.project.towelove.framework.oss.config.TencentOssProperties;
 import com.qcloud.cos.COSClient;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
-import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
-import java.io.File;
 import java.util.List;
 
 @AutoConfiguration
-public class TencentOssStrategy implements FileUploadStrategy {
+public class TencentOssStrategy implements OssServiceStrategy {
     @Resource
     private COSClient cosClient;
 
@@ -35,6 +33,11 @@ public class TencentOssStrategy implements FileUploadStrategy {
 
     @Override
     public String getOssPathPrefix() {
+        return null;
+    }
+
+    @Override
+    public String removeFiles(String url) {
         return null;
     }
 }
