@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="blossom.project.towelove.loves.mapper.TodolistMapper">
+<mapper namespace="blossom.project.towelove.loves.mapper.TodoListMapper">
 
     <resultMap id="BaseResultMap" type="blossom.project.towelove.loves.entity.TodoList">
             <id property="id" column="id" jdbcType="BIGINT"/>
@@ -28,4 +28,9 @@
         create_time,update_by,update_time,
         deleted,remark
     </sql>
+    <select id="selectIdByPrentId" resultType="java.lang.Long">
+        select id
+        from todo_list
+        where parent_id = #{parentId}
+    </select>
 </mapper>

@@ -1,13 +1,27 @@
 package blossom.project.towelove.loves.service.impl;
 
 import blossom.project.towelove.common.request.todoList.InsertTodoRequest;
+import blossom.project.towelove.common.request.todoList.UpdateTodoRequest;
+import blossom.project.towelove.common.response.todoList.TodoListResponse;
 import blossom.project.towelove.loves.convert.TodoListConvert;
+import blossom.project.towelove.loves.entity.TodoImages;
 import blossom.project.towelove.loves.entity.TodoList;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-
+import blossom.project.towelove.loves.mapper.TodoImagesMapper;
+import blossom.project.towelove.loves.mapper.TodoListMapper;
 import blossom.project.towelove.loves.service.TodolistService;
-import blossom.project.towelove.loves.mapper.TodolistMapper;
+import cn.hutool.core.collection.CollectionUtil;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.HashSet;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
 * @author 29097
@@ -15,9 +29,13 @@ import org.springframework.stereotype.Service;
 * @createDate 2023-11-30 17:10:50
 */
 @Service
-public class TodolistServiceImpl extends ServiceImpl<TodolistMapper, TodoList>
+public class TodolistServiceImpl extends ServiceImpl<TodoListMapper, TodoList>
     implements TodolistService{
 
+    @Autowired
+    private TodoListMapper todoListMapper;
+    @Autowired
+    private TodoImagesMapper todoImagesMapper;
 
 
     @Override
@@ -26,6 +44,90 @@ public class TodolistServiceImpl extends ServiceImpl<TodolistMapper, TodoList>
         this.save(todoList);
         return todoList.getId();
     }
+
+    @Override
+    public void updateById(UpdateTodoRequest updateTodoRequest) {
+        TodoList todoList = TodoListConvert.INSTANCE.convert(updateTodoRequest);
+        this.updateById(todoList);
+    }
+
+    @Override
+    @Transactional
+    public void deleteById(Long todoId) {
+        Set<Long> idsToDelete = new HashSet<>();
+        recursivelyCollectIds(todoId, idsToDelete);
+
+        // 批量删除图片
+        Optional.ofNullable(idsToDelete)
+                .filter(CollectionUtil::isNotEmpty)
+                .ifPresent(deleted -> {
+                    todoImagesMapper.delete(new QueryWrapper<TodoImages>().in("todo_id", idsToDelete));
+                });
+
+
+        Optional.of(idsToDelete).filter(CollectionUtil::isNotEmpty).ifPresent(deleted -> {
+            todoListMapper.delete(new QueryWrapper<TodoList>().in("id", idsToDelete));
+        });
+    }
+
+    private void recursivelyCollectIds(Long todoId, Set<Long> idsToDelete) {
+        idsToDelete.add(todoId);
+
+        // 查询子任务 ID 并递归添加到集合中
+        List<Long> childIds = todoListMapper.selectIdByPrentId(todoId);
+        for (Long childId : childIds) {
+            recursivelyCollectIds(childId, idsToDelete);
+        }
+    }
+
+    @Override
+    public List<TodoListResponse> getList(Long userId, Long parentId) {
+        LambdaQueryWrapper<TodoList> queryWrapper = new LambdaQueryWrapper<>();
+        Optional.ofNullable(userId).ifPresent(uid -> queryWrapper.eq(TodoList::getUserId, uid));
+        Optional.ofNullable(parentId).ifPresent(pid -> queryWrapper.eq(TodoList::getParentId, pid));
+
+        List<TodoList> todoLists = todoListMapper.selectList(queryWrapper);
+        if (parentId != null && !parentId.equals(0L)) {
+            return todoLists.stream().map(TodoListConvert.INSTANCE::convert).collect(Collectors.toList());
+        }
+
+        return todoLists.stream()
+                .filter(this::isTopLevelParent)
+                .map(todo -> buildTree(todo))
+                .collect(Collectors.toList());
+    }
+
+    /**
+     * 判断是否是顶级父级
+     *
+     * @param todo
+     * @return
+     */
+    private boolean isTopLevelParent(TodoList todo) {
+        return todo.getParentId() == null || todo.getParentId() == 0;
+    }
+
+    /**
+     * 递归构建树
+     *
+     * @param todo
+     * @return
+     */
+    private TodoListResponse buildTree(TodoList todo) {
+        TodoListResponse response = TodoListConvert.INSTANCE.convert(todo);
+
+        List<TodoListResponse> children = todoListMapper
+                .selectList(new LambdaQueryWrapper<TodoList>()
+                        .eq(TodoList::getParentId, todo.getId()))
+                .stream()
+                .map(this::buildTree)
+                .collect(Collectors.toList());
+
+        response.setChildren(children);
+        return response;
+    }
+
+
 }
 
 

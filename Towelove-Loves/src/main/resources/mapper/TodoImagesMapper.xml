@@ -5,8 +5,8 @@
 <mapper namespace="blossom.project.towelove.loves.mapper.TodoImagesMapper">
 
     <resultMap id="BaseResultMap" type="blossom.project.towelove.loves.entity.TodoImages">
-            <id property="id" column="id" jdbcType="INTEGER"/>
-            <result property="todoId" column="todo_id" jdbcType="INTEGER"/>
+        <id property="id" column="id" jdbcType="BIGINT"/>
+        <result property="todoId" column="todo_id" jdbcType="BIGINT"/>
             <result property="imageUrl" column="image_url" jdbcType="VARCHAR"/>
             <result property="deleted" column="deleted" jdbcType="INTEGER"/>
     </resultMap>

@@ -3,6 +3,7 @@ package blossom.project.towelove.common.request.todoList;
 import lombok.Data;
 
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 /**
  * @author wangLele
@@ -29,5 +30,6 @@ public class UpdateTodoRequest {
     private String priority;
 
 
+    private List<String> images;
 
 }

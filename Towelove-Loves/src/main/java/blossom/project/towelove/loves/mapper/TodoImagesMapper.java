@@ -3,6 +3,7 @@ package blossom.project.towelove.loves.mapper;
 
 import blossom.project.towelove.loves.entity.TodoImages;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Mapper;
 
 /**
 * @author 29097
@@ -10,6 +11,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 * @createDate 2023-11-30 17:10:50
 * @Entity blossom.project.towelove.loves.entity.TodoImages
 */
+@Mapper
 public interface TodoImagesMapper extends BaseMapper<TodoImages> {
 
 }
