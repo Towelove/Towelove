@@ -26,8 +26,16 @@ import javax.validation.constraints.NotNull;
 
 
 /**
- * (LoveAlbum) 表控制层
- *
+ * 恋爱相册外层控制层
+ * 提供如下功能：
+ * 1：相册增删改查
+ * 2：相册封面信息操作
+ * 2.1：相册封面添加
+ * 2.2：相册封面删除
+ * 3：默认相册创建
+ * 3.1：当用户没有选择和指定任何一个相册的时候，
+ * 按照当天的日期创建一个默认相册给当前用
+ * 3.2：日记相册创建（这个可以默认存在）
  * @author 张锦标
  * @since 2023-11-30 16:20:44
  */
@@ -53,19 +61,6 @@ public class LoveAlbumController {
 
     }
 
-    /**
-     * 按照ID查询
-     *
-     * @param loveAlbumId
-     * @return
-     */
-    @GetMapping("")
-    public Result<LoveAlbumDetailResponse> getLoveAlbumDetailById(
-            @Validated
-            @RequestParam(name = "id")
-            @NotNull(message = "loveAlbumId Can not be null") Long loveAlbumId) {
-        return Result.ok(loveAlbumService.getLoveAlbumDetailById(loveAlbumId));
-    }
 
     /**
      * 带条件分页查询
