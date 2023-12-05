@@ -143,6 +143,18 @@ public class SysUSerServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     public List<SysUserPermissionDto> getPermissionByUserId(Long userId) {
         return sysPermissionMapper.selectUserPermissionByUserId(userId);
     }
+
+    @Override
+    public SysUserVo findUserByThirdPartyId(String socialUid) {
+        if (StrUtil.isNotBlank(socialUid)) {
+            SysUser sysUser = sysUserMapper.selectByThirdPartyId(socialUid);
+            if (Objects.isNull(sysUser)) {
+                throw new ServiceException("用户数据不存在");
+            }
+            return SysUserConvert.INSTANCE.convert(sysUser);
+        }
+        return null;
+    }
 }
 
 

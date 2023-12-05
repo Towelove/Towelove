@@ -101,4 +101,5 @@ public class SysUserController {
     public Result<List<SysUserPermissionDto>> getUserPermissionByUserId(@RequestParam("userId") Long userId){
         return Result.ok(sysUserService.getPermissionByUserId(userId));
     }
+
 }

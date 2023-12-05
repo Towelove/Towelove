@@ -3,6 +3,7 @@ package blossom.project.towelove.client.fallback;
 import blossom.project.towelove.client.serivce.RemoteUserService;
 import blossom.project.towelove.common.constant.SecurityConstant;
 import blossom.project.towelove.common.domain.dto.SysUser;
+import blossom.project.towelove.common.domain.dto.UserThirdParty;
 import blossom.project.towelove.common.request.auth.AuthLoginRequest;
 import blossom.project.towelove.common.response.Result;
 import blossom.project.towelove.common.response.mailaccount.MailAccountResponse;
@@ -51,6 +52,18 @@ public class RemoteUserFallbackFactory implements FallbackFactory<RemoteUserServ
             @Override
             public Result<List<SysUserPermissionDto>> getUserPermissionByUserId(Long userId) {
                 return Result.fail(null,MDC.get(SecurityConstant.REQUEST_ID));
+            }
+
+            @Override
+            public Result<Long> findUserIdByThirdPartyId(String thirdPartyId) {
+                log.error("调用远程服务 findUserByThirdPartyId 失败: {}", throwable.getMessage());
+                return Result.fail("远程服务调用失败", MDC.get(SecurityConstant.REQUEST_ID));
+            }
+
+            @Override
+            public Result<String> saveThirdPartyUser(UserThirdParty userThirdParty) {
+                log.error("调用远程服务 saveThirdPartyUser 失败: {}", throwable.getMessage());
+                return Result.fail("远程服务调用失败", MDC.get(SecurityConstant.REQUEST_ID));
             }
         };
     }

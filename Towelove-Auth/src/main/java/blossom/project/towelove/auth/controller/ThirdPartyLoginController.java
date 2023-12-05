@@ -1,12 +1,10 @@
 package blossom.project.towelove.auth.controller;
 
 
-import blossom.project.towelove.common.config.ThirdPartyLoginConfig;
+import blossom.project.towelove.common.config.thirdParty.ThirdPartyLoginConfig;
 import blossom.project.towelove.common.domain.dto.ThirdPartyLoginUser;
 import blossom.project.towelove.common.response.Result;
-import blossom.project.towelove.common.utils.JsonUtils;
 import blossom.project.towelove.common.utils.ThirdPartyLoginUtil;
-import blossom.project.towelove.framework.log.annotation.LoveLog;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
@@ -18,7 +16,6 @@ import java.net.URI;
  * @Author 苏佳
  * @Date 2023 11 08 10 22
  **/
-@LoveLog
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/v1/auth")

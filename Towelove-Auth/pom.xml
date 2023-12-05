@@ -81,10 +81,6 @@
             <artifactId>Towelove-Framework-Redis</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>blossom.project</groupId>
-            <artifactId>Towelove-Framework-Log</artifactId>
-        </dependency>
 
         <!--   引入公共类     -->
         <dependency>

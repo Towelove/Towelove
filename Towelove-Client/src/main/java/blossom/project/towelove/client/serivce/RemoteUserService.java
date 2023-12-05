@@ -3,8 +3,11 @@ package blossom.project.towelove.client.serivce;
 import blossom.project.towelove.client.fallback.RemoteMsgFallbackFactory;
 import blossom.project.towelove.client.fallback.RemoteUserFallbackFactory;
 import blossom.project.towelove.common.domain.dto.SysUser;
+import blossom.project.towelove.common.domain.dto.ThirdPartyLoginUser;
+import blossom.project.towelove.common.domain.dto.UserThirdParty;
 import blossom.project.towelove.common.page.PageResponse;
 import blossom.project.towelove.common.request.auth.AuthLoginRequest;
+import blossom.project.towelove.common.request.auth.ThirdPartyLoginRequest;
 import blossom.project.towelove.common.request.msg.MsgTaskPageRequest;
 import blossom.project.towelove.common.response.Result;
 import blossom.project.towelove.common.response.msg.MsgTaskResponse;
@@ -36,4 +39,10 @@ public interface RemoteUserService {
 
     @GetMapping("/v1/user/permission")
      Result<List<SysUserPermissionDto>> getUserPermissionByUserId(@RequestParam("userId") Long userId);
+
+    @GetMapping("/v1/user/thirdParty")
+    Result<Long> findUserIdByThirdPartyId(@RequestParam("socialUid") String socialUid);
+
+    @PostMapping("v1/user/thirdParty")
+    Result<String> saveThirdPartyUser(@RequestBody UserThirdParty userThirdParty);
 }

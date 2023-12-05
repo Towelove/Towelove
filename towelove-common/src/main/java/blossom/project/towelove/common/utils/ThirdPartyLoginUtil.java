@@ -1,7 +1,7 @@
 package blossom.project.towelove.common.utils;
 
 
-import blossom.project.towelove.common.config.ThirdPartyLoginConfig;
+import blossom.project.towelove.common.config.thirdParty.ThirdPartyLoginConfig;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 

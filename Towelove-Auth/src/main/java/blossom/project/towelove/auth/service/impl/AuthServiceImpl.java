@@ -5,14 +5,18 @@ import blossom.project.towelove.auth.strategy.UserRegisterStrategy;
 import blossom.project.towelove.auth.strategy.UserRegisterStrategyFactory;
 import blossom.project.towelove.client.serivce.RemoteCodeService;
 import blossom.project.towelove.client.serivce.RemoteUserService;
-import blossom.project.towelove.common.constant.UserConstants;
+import blossom.project.towelove.common.config.thirdParty.ThirdPartyLoginConfig;
 import blossom.project.towelove.common.domain.dto.SysUser;
+import blossom.project.towelove.common.domain.dto.ThirdPartyLoginUser;
+import blossom.project.towelove.common.domain.dto.UserThirdParty;
 import blossom.project.towelove.common.exception.ServiceException;
 import blossom.project.towelove.common.request.auth.AuthLoginRequest;
 import blossom.project.towelove.common.request.auth.AuthRegisterRequest;
 import blossom.project.towelove.common.request.auth.AuthVerifyCodeRequest;
+import blossom.project.towelove.common.request.auth.ThirdPartyLoginRequest;
 import blossom.project.towelove.common.response.Result;
-import blossom.project.towelove.framework.redis.service.RedisService;
+import blossom.project.towelove.common.response.user.SysUserVo;
+import blossom.project.towelove.common.utils.ThirdPartyLoginUtil;
 import cn.dev33.satoken.stp.StpUtil;
 import cn.hutool.core.lang.RegexPool;
 import cn.hutool.core.util.ReUtil;
@@ -20,10 +24,9 @@ import cn.hutool.core.util.StrUtil;
 import com.towelove.common.core.constant.HttpStatus;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.joda.time.DateTime;
-import org.joda.time.DateTimeFieldType;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import javax.validation.Valid;
 import java.util.Objects;
@@ -36,6 +39,12 @@ public class AuthServiceImpl implements AuthService {
     private final RemoteUserService remoteUserService;
 
     private final RemoteCodeService remoteCodeService;
+
+    private final RestTemplate restTemplate;
+
+    private ThirdPartyLoginConfig thirdPartyLoginConfig;
+
+
 
     @Override
     public String register(@Valid AuthRegisterRequest authLoginRequest) {
@@ -79,6 +88,84 @@ public class AuthServiceImpl implements AuthService {
         StpUtil.login(result.getData());
         return StpUtil.getTokenInfo().tokenValue;
     }
+
+    @Override
+    public String login(ThirdPartyLoginRequest thirdPartyLoginRequest) {
+        // 使用提供的code和type来获取第三方登录用户信息
+        ThirdPartyLoginUser thirdPartyLoginUser = ThirdPartyLoginUtil.getSocialUserInfo(
+                thirdPartyLoginConfig,
+                restTemplate,
+                thirdPartyLoginRequest.getType(),
+                thirdPartyLoginRequest.getCode(),
+                ThirdPartyLoginUser.class
+        );
+
+        if (thirdPartyLoginUser == null) {
+            throw new ServiceException("无法获取第三方用户信息");
+        }
+
+        // 根据第三方用户信息查询或创建本地用户
+        SysUser user = findOrCreateUser(thirdPartyLoginUser);
+
+        // 登录本地用户并生成令牌
+        StpUtil.login(user.getId());
+
+        // 返回令牌
+        return StpUtil.getTokenInfo().tokenValue;
+    }
+
+    /*实现根据第三方用户信息查询或创建本地用户的逻辑*/
+    private SysUser findOrCreateUser(ThirdPartyLoginUser thirdPartyLoginUser) {
+        // 检查用户是否已存在
+        Result<Long> uidResult = remoteUserService.findUserIdByThirdPartyId(thirdPartyLoginUser.getSocialUid());
+        log.info("调用user远程服务获取到的接口为: {}", uidResult);
+
+        if (Objects.isNull(uidResult) && uidResult.getData() != null) {
+            // 用户已存在，直接获取用户信息
+            Long userId = uidResult.getData();
+            Result<SysUserVo> userResult = remoteUserService.getUserById(userId);
+            if (Objects.isNull(userResult) && userResult.getData() != null) {
+                // 将SysUserVo转换为SysUser实体
+                SysUserVo sysUserVo = userResult.getData();
+                SysUser user = new SysUser();
+                BeanUtils.copyProperties(sysUserVo, user);
+                return user;
+            } else {
+                throw new ServiceException("获取用户信息失败");
+            }
+        } else {
+            // 用户不存在，创建新用户
+            SysUser user = new SysUser();
+            // 设置用户的属性
+            user.setNickName(thirdPartyLoginUser.getNickname());
+            user.setSex(thirdPartyLoginUser.getGender());
+            user.setAvatar(thirdPartyLoginUser.getFaceImg());
+            user.setLoginIp(thirdPartyLoginUser.getIp());
+
+            // 保存用户到sys_user表中
+            Result<String> saveUserResult = remoteUserService.saveUser(user);
+            if (Objects.isNull(saveUserResult) && saveUserResult.getData() != null) {
+                user.setId(Long.parseLong(saveUserResult.getData()));
+
+                // 创建第三方关联信息
+                UserThirdParty userThirdParty = new UserThirdParty();
+                userThirdParty.setUserId(user.getId());
+                userThirdParty.setThirdPartyId(thirdPartyLoginUser.getSocialUid());
+                userThirdParty.setProvider(thirdPartyLoginUser.getType());
+                // 保存第三方信息到user_third_party表中
+                remoteUserService.saveThirdPartyUser(userThirdParty);
+
+                return user;
+            } else {
+                throw new ServiceException("创建用户失败");
+            }
+        }
+    }
+
+
+
+
+
 
     @Override
     public String sendVerifyCode(AuthVerifyCodeRequest authVerifyCodeRequest) {

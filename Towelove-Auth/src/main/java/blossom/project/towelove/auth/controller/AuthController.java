@@ -4,6 +4,7 @@ import blossom.project.towelove.auth.service.AuthService;
 import blossom.project.towelove.common.request.auth.AuthLoginRequest;
 import blossom.project.towelove.common.request.auth.AuthRegisterRequest;
 import blossom.project.towelove.common.request.auth.AuthVerifyCodeRequest;
+import blossom.project.towelove.common.request.auth.ThirdPartyLoginRequest;
 import blossom.project.towelove.common.response.Result;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -38,6 +39,16 @@ public class AuthController {
     @PostMapping("/login")
     public Result<String> login(@Valid @RequestBody AuthLoginRequest authLoginRequest){
         return Result.ok(authService.login(authLoginRequest));
+    }
+
+    /**
+     * 第三方登录
+     * @param thirdPartyLoginRequest
+     * @return
+     */
+    @PostMapping("/login")
+    public Result<String> login(@Valid @RequestBody ThirdPartyLoginRequest thirdPartyLoginRequest){
+        return Result.ok(authService.login(thirdPartyLoginRequest));
     }
 
     /**
