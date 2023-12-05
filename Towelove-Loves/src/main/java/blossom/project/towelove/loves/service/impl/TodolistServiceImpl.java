@@ -2,6 +2,7 @@ package blossom.project.towelove.loves.service.impl;
 
 import blossom.project.towelove.common.request.todoList.InsertTodoRequest;
 import blossom.project.towelove.common.request.todoList.UpdateTodoRequest;
+import blossom.project.towelove.common.response.todoList.TodoListCalendarResponse;
 import blossom.project.towelove.common.response.todoList.TodoListResponse;
 import blossom.project.towelove.loves.convert.TodoListConvert;
 import blossom.project.towelove.loves.entity.TodoImages;
@@ -17,10 +18,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.time.LocalDate;
+import java.time.YearMonth;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -95,6 +97,21 @@ public class TodolistServiceImpl extends ServiceImpl<TodoListMapper, TodoList>
                 .filter(this::isTopLevelParent)
                 .map(todo -> buildTree(todo))
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<TodoListCalendarResponse> getTodoCalendar(Long userId, Date date) {
+        LocalDate localDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        LocalDate startDate = localDate.withDayOfMonth(1);
+        LocalDate endDate = localDate.withDayOfMonth(localDate.lengthOfMonth());
+
+        LambdaQueryWrapper<TodoList> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(TodoList::getUserId, userId)
+                .ge(TodoList::getDeadline, Date.from(startDate.atStartOfDay(ZoneId.systemDefault()).toInstant()))
+                .lt(TodoList::getDeadline, Date.from(endDate.plusDays(1).atStartOfDay(ZoneId.systemDefault()).toInstant()))
+                .eq(TodoList::getParentId, 0); // 只查询顶级父级
+
+        return TodoListConvert.INSTANCE.convert(todoListMapper.selectList(wrapper));
     }
 
     /**

@@ -2,10 +2,13 @@ package blossom.project.towelove.loves.convert;
 
 import blossom.project.towelove.common.request.todoList.InsertTodoRequest;
 import blossom.project.towelove.common.request.todoList.UpdateTodoRequest;
+import blossom.project.towelove.common.response.todoList.TodoListCalendarResponse;
 import blossom.project.towelove.common.response.todoList.TodoListResponse;
 import blossom.project.towelove.loves.entity.TodoList;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
+
+import java.util.List;
 
 /**
  * @author wangLele
@@ -40,4 +43,11 @@ public interface TodoListConvert {
      */
     TodoListResponse convert(TodoList todoList);
 
+    /**
+     * 将TodoList转换为TodoListCalendarResponse
+     *
+     * @param todoLists
+     * @return
+     */
+    List<TodoListCalendarResponse> convert(List<TodoList> todoLists);
 }
