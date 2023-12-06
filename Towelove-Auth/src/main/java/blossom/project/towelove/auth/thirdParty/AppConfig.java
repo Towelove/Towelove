@@ -1,4 +1,4 @@
-package blossom.project.towelove.common.config.thirdParty;
+package blossom.project.towelove.auth.thirdParty;
 
 /**
  * @Author SIK
@@ -13,8 +13,6 @@ public class AppConfig {
 
     @Bean
     public RestTemplate restTemplate() {
-        RestTemplate restTemplate = new RestTemplate();
-
-        return restTemplate;
+        return new RestTemplate();
     }
 }

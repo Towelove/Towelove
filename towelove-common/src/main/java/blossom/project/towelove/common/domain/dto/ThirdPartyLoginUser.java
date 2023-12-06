@@ -11,16 +11,25 @@ import lombok.Data;
 public class ThirdPartyLoginUser {
 
     private int code;
+
     private String msg;
+
     private String type;
+
     @JsonProperty("access_token")
     private String accessToken;
+
     @JsonProperty("social_uid")
     private String socialUid;
+
     @JsonProperty("faceimg")
-    private String faceImg;
-    private String nickname;
-    private String gender;
+    private String avatar;
+    @JsonProperty("nickname")
+    private String nickName;
+    @JsonProperty("gender")
+    private String sex;
+
     private String location;
+
     private String ip;
 }

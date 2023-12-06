@@ -6,32 +6,32 @@ mybatis-plus:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
   type-aliases-package: blossom.project.towelove.user.domain
-spring:
-  cloud:
-    nacos:
-      discovery:
-        server-addr: 123.249.111.175:8848
-      # 服务注册地址
-      #        server-addr: 127.0.0.1:8848
-      config:
-        # 配置中心地址
-        server-addr: 123.249.111.175:8848
-        # 配置文件格式
-        file-extension: yaml
-        #        extension-configs:
-        #          dataId: towelove-gateway-router.yml
-        #          group: DEFAULT_GROUP
-        #          refresh: true
-        # 共享配置
-        shared-configs[0]:
-          data-id: towelove-base-dev.yaml
-          refresh: true
-        shared-configs[1]:
-          data-id: towelove-redis-dev.yaml
-          refresh: true
-        shared-configs[2]:
-          data-id: towelove-mysql-dev.yaml
-          refresh: true
-        shared-configs[3]:
-          data-id: towelove-dynamic-threadpool-dev.yaml
-          refresh: true
+#spring:
+#  cloud:
+#    nacos:
+#      discovery:
+#        server-addr: 123.249.111.175:8848
+#      # 服务注册地址
+#      #        server-addr: 127.0.0.1:8848
+#      config:
+#        # 配置中心地址
+#        server-addr: 123.249.111.175:8848
+#        # 配置文件格式
+#        file-extension: yaml
+#        #        extension-configs:
+#        #          dataId: towelove-gateway-router.yml
+#        #          group: DEFAULT_GROUP
+#        #          refresh: true
+#        # 共享配置
+#        shared-configs[0]:
+#          data-id: towelove-base-dev.yaml
+#          refresh: true
+#        shared-configs[1]:
+#          data-id: towelove-redis-dev.yaml
+#          refresh: true
+#        shared-configs[2]:
+#          data-id: towelove-mysql-dev.yaml
+#          refresh: true
+#        shared-configs[3]:
+#          data-id: towelove-dynamic-threadpool-dev.yaml
+#          refresh: true

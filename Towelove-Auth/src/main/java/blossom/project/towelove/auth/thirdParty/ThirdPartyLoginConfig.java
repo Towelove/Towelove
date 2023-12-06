@@ -1,4 +1,4 @@
-package blossom.project.towelove.common.config.thirdParty;
+package blossom.project.towelove.auth.thirdParty;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

@@ -36,7 +36,30 @@
             </choose>
         </where>
         limit 1
-
+    </select>
+    <select id="selectByThirdPartyId"  resultType="blossom.project.towelove.user.domain.SysUser">
+        SELECT
+        su.id as id,
+        user_name,
+        nick_name,
+        `password`,
+        email,
+        smtp_code,
+        phonenumber,
+        sex,
+        avatar,
+        login_ip,
+        create_by,
+        create_time,
+        update_by,
+        update_time,
+        deleted,
+        remark,
+        status
+        FROM sys_user su
+            left join user_third_party utp
+                on su.id = utp.user_id
+        where  utp.third_party_id = #{socialUid}
     </select>
 
 

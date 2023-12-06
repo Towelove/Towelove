@@ -2,6 +2,7 @@ package blossom.project.towelove.client.serivce;
 
 import blossom.project.towelove.client.fallback.RemoteUserFallbackFactory;
 import blossom.project.towelove.common.domain.dto.SysUser;
+import blossom.project.towelove.common.domain.dto.ThirdPartyLoginUser;
 import blossom.project.towelove.common.domain.dto.UserThirdParty;
 import blossom.project.towelove.common.request.auth.AuthLoginRequest;
 import blossom.project.towelove.common.response.Result;
@@ -38,6 +39,9 @@ public interface RemoteUserService {
 
     @PostMapping("v1/user/thirdParty")
     Result<String> saveThirdPartyUser(@RequestBody UserThirdParty userThirdParty);
+
+    @PostMapping("/v1/user/thirdParty/access")
+    Result<Long> accessByThirdPartyAccount(@RequestBody ThirdPartyLoginUser thirdPartyLoginUser);
 
 
 }

@@ -17,13 +17,13 @@ public class UserRegisterStrategyFactory {
 
 
 
-    private static Map<String,UserRegisterStrategy> userRegisterStrategyMap = new HashMap<>();
+    private static Map<String, UserAccessStrategy> userRegisterStrategyMap = new HashMap<>();
 
-    public static UserRegisterStrategy userRegisterStrategy(String type){
+    public static UserAccessStrategy userRegisterStrategy(String type){
         return userRegisterStrategyMap.get(type);
     }
 
-    public static void register(String key,UserRegisterStrategy userRegisterStrategy){
-        userRegisterStrategyMap.put(key,userRegisterStrategy);
+    public static void register(String key, UserAccessStrategy userAccessStrategy){
+        userRegisterStrategyMap.put(key, userAccessStrategy);
     }
 }

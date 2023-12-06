@@ -1,12 +1,12 @@
 package blossom.project.towelove.auth.controller;
 
 import blossom.project.towelove.auth.service.AuthService;
-import blossom.project.towelove.common.config.thirdParty.ThirdPartyLoginConfig;
+import blossom.project.towelove.auth.thirdParty.ThirdPartyLoginConfig;
 import blossom.project.towelove.common.request.auth.AuthLoginRequest;
 import blossom.project.towelove.common.request.auth.AuthRegisterRequest;
 import blossom.project.towelove.common.request.auth.AuthVerifyCodeRequest;
 import blossom.project.towelove.common.response.Result;
-import blossom.project.towelove.common.utils.ThirdPartyLoginUtil;
+import blossom.project.towelove.auth.thirdParty.ThirdPartyLoginUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

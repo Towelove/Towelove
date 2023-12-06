@@ -1,8 +1,6 @@
 package blossom.project.towelove.user.service.impl;
 
-import blossom.project.towelove.common.annotaion.Transaction;
 import blossom.project.towelove.common.constant.TokenConstant;
-import blossom.project.towelove.common.constant.UserConstants;
 import blossom.project.towelove.common.exception.ServiceException;
 import blossom.project.towelove.common.page.PageResponse;
 import blossom.project.towelove.common.request.auth.AuthLoginRequest;
@@ -10,7 +8,6 @@ import blossom.project.towelove.common.request.user.InsertUserRequest;
 import blossom.project.towelove.common.request.user.UpdateUserRequest;
 import blossom.project.towelove.common.response.user.SysUserPermissionDto;
 import blossom.project.towelove.common.response.user.SysUserVo;
-import blossom.project.towelove.framework.redis.service.RedisService;
 import blossom.project.towelove.user.convert.SysUserConvert;
 import blossom.project.towelove.user.domain.SysUser;
 import blossom.project.towelove.user.domain.SysUserPermission;
@@ -18,35 +15,24 @@ import blossom.project.towelove.user.mapper.SysPermissionMapper;
 import blossom.project.towelove.user.mapper.SysUserMapper;
 import blossom.project.towelove.user.mapper.SysUserPermissionMapper;
 import blossom.project.towelove.user.service.SysUserService;
-import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.joda.time.DateTime;
-import org.joda.time.DateTimeField;
-import org.joda.time.DateTimeFieldType;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import java.text.DateFormat;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Calendar;
 import java.util.List;
 import java.util.Objects;
-import java.util.concurrent.ThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 @Slf4j
-public class SysUSerServiceImpl extends ServiceImpl<SysUserMapper, SysUser> implements SysUserService {
+public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> implements SysUserService {
 
     private final SysUserMapper sysUserMapper;
 
@@ -118,8 +104,8 @@ public class SysUSerServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         }
         return sysUser.getId().toString();
     }
-
-    private void addUserPermission(SysUser sysUser) {
+    @Override
+    public void addUserPermission(SysUser sysUser) {
         SysUserPermission sysUserPermission = new SysUserPermission();
         sysUserPermission.setUserId(sysUser.getId());
         sysUserPermission.setPermissionId(TokenConstant.USER_PERMISSION_CODE);
