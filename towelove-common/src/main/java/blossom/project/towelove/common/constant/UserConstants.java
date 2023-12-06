@@ -5,7 +5,7 @@ package blossom.project.towelove.common.constant;
  * @package: blossom.project.towelove.common.constant
  * @className: UserConstants
  * @author: Link Ji
- * @description: TODO
+ * @description:
  * @date: 2023/11/23 23:58
  * @version: 1.0
  */

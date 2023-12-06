@@ -7,11 +7,10 @@ import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
+
 @RequiredArgsConstructor
 @AutoConfiguration
 public class OssStrategyFactory implements BeanPostProcessor {
@@ -21,7 +20,7 @@ public class OssStrategyFactory implements BeanPostProcessor {
 
     private final MinioOssStrategy minioOssStrategy;
 
-    private final Map<Integer,FileUploadStrategy> map = new HashMap();
+    private final Map<Integer, OssServiceStrategy> map = new HashMap();
 
     private final OSSProperties ossProperties;
     /**
@@ -61,7 +60,7 @@ public class OssStrategyFactory implements BeanPostProcessor {
      * @param mulType 0：使用cf多线程上传 1：使用countdownlatch多文件上传
      * @return 文件所在oss服务中的路径
      */
-    public List<String> uploadFiles(List<MultipartFile> files,Integer ossType,Integer mulType){
+    public List<String> uploadFilesAsync(List<MultipartFile> files, Integer ossType, Integer mulType){
         try {
             return map.getOrDefault(ossType,map.get(ossProperties.getType()))
                     .uploadFiles(files,mulType);
@@ -79,4 +78,9 @@ public class OssStrategyFactory implements BeanPostProcessor {
         return map.getOrDefault(ossType,
                 map.get(ossProperties.getType())).getOssPathPrefix();
     }
+
+    public String removeFiles(String urls,Integer ossType){
+        return map.getOrDefault(ossType,map.get(ossProperties.getType())).removeFiles(urls);
+    }
+
 }

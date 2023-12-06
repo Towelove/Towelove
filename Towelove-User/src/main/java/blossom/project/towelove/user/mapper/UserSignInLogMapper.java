@@ -9,7 +9,7 @@ import org.apache.ibatis.annotations.Mapper;
  * @package: blossom.project.towelove.user.mapper
  * @className: UserSignInLogMapper
  * @author: Link Ji
- * @description: TODO
+ * @description:
  * @date: 2023/11/28 20:30
  * @version: 1.0
  */

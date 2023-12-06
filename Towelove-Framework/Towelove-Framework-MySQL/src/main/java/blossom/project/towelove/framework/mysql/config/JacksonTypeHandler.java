@@ -22,6 +22,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Map;
 import java.util.TimeZone;
 
+//@AutoConfiguration
 public class JacksonTypeHandler extends AbstractJsonTypeHandler<Object> {
     /** 默认日期时间格式 */
     public static final String DEFAULT_DATE_TIME_FORMAT = "yyyy-MM-dd HH:mm:ss";
@@ -72,7 +73,8 @@ public class JacksonTypeHandler extends AbstractJsonTypeHandler<Object> {
     @Override
     protected String toJson(Object obj) {
         try {
-            return objectMapper.writeValueAsString(obj).replace("\"", "");
+            return objectMapper.writeValueAsString(obj);
+            //return objectMapper.writeValueAsString(obj).replace("\"", "");
         } catch (Exception e) {
             throw new RuntimeException("JSON 序列化失败", e);
         }

@@ -32,18 +32,16 @@ import java.lang.annotation.Target;
 @Target({ElementType.TYPE, ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface LoveLog {
-    
+
     /**
-     * 入参打印
-     *
-     * @return 打印结果中是否包含入参，{@link Boolean#TRUE} 打印，{@link Boolean#FALSE} 不打印
+     * 是否打印入参
+     * @return true：打印 false：不打印
      */
-    boolean input() default true;
-    
+    boolean req() default true;
+
     /**
-     * 出参打印
-     *
-     * @return 打印结果中是否包含出参，{@link Boolean#TRUE} 打印，{@link Boolean#FALSE} 不打印
+     * 是否打印出参
+     * @return true：打印 false：不打印
      */
-    boolean output() default true;
+    boolean resp() default true;
 }

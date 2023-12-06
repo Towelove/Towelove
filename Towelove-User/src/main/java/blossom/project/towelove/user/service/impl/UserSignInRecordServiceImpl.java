@@ -37,7 +37,7 @@ import java.util.concurrent.TimeUnit;
  * @package: blossom.project.towelove.user.service.impl
  * @className: UserSignInRecordServiceImpl
  * @author: Link Ji
- * @description: TODO
+ * @description:
  * @date: 2023/11/27 23:29
  * @version: 1.0
  */

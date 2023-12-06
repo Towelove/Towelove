@@ -19,7 +19,11 @@
     <description>Towelove-Game休闲游戏模块</description>
 
     <dependencies>
-
+        <!--cloud项目必要依赖-->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-bootstrap</artifactId>
+        </dependency>
         <!-- SpringCloud Alibaba Nacos -->
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
@@ -46,20 +50,6 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
-        <!--springboot mail-->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-mail</artifactId>
-        </dependency>
-
-
-        <!-- Mysql Connector -->
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-        </dependency>
-
-
         <!-- mapStruct 对象转换 -->
         <dependency>
             <groupId>org.mapstruct</groupId>
@@ -81,9 +71,8 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>blossom.project</groupId>
-            <artifactId>Towelove-Framework-Redis</artifactId>
-            <version>${revision}</version>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
     </dependencies>

@@ -8,6 +8,7 @@ import blossom.project.towelove.common.utils.uuid.Seq;
 import blossom.project.towelove.common.exception.file.FileNameLengthLimitExceededException;
 import blossom.project.towelove.common.exception.file.FileSizeLimitExceededException;
 import blossom.project.towelove.common.exception.file.InvalidExtensionException;
+import cn.hutool.crypto.digest.MD5;
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -173,7 +174,8 @@ public class FileUploadUtil
     {
         //return StringUtils.format("{}/{}_{}", DateUtils.datePath(),
         return StringUtils.format("{}/{}_{}.{}", DateUtils.datePath(),
-                FilenameUtils.getBaseName(file.getOriginalFilename()), Seq.getId(Seq.uploadSeqType), FileTypeUtils.getExtension(file));
+                FilenameUtils.getBaseName(file.getOriginalFilename()), Seq.getId(Seq.uploadSeqType),
+                FileTypeUtils.getExtension(file));
                 //FilenameUtils.getBaseName(file.getOriginalFilename()), Seq.getId(Seq.uploadSeqType));
     }
 
