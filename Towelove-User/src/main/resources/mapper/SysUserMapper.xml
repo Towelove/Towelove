@@ -39,30 +39,5 @@
 
     </select>
 
-    <select id="selectByThirdPartyId"  resultType="blossom.project.towelove.user.domain.SysUser">
-        SELECT
-            id,
-            user_name,
-            nick_name,
-            `password`,
-            email,
-            smtp_code,
-            phonenumber,
-            sex,
-            avatar,
-            login_ip,
-            create_by,
-            create_time,
-            update_by,
-            update_time,
-            deleted,
-            remark,
-            status
-        FROM sys_user
-        <where>
-            deleted = 0
-            and third_party_id = #{thirdPartyId}
-        </where>
 
-    </select>
 </mapper>

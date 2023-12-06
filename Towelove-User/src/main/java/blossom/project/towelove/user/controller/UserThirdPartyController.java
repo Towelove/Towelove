@@ -22,23 +22,38 @@ public class UserThirdPartyController {
 
     private final UserThirdPartyService userThirdPartyService;
 
-    // 添加第三方用户信息
+    /**
+     * 保存第三方用户信息
+     * @param userThirdParty
+     * @return
+     */
     @PostMapping("")
-    public Result<?> addThirdPartyUser(@RequestBody UserThirdParty userThirdParty) {
+    public Result<?> saveThirdPartyUser(@RequestBody UserThirdParty userThirdParty) {
         boolean saved = userThirdPartyService.save(userThirdParty);
         return saved ? Result.ok() : Result.fail("保存第三方用户信息失败");
     }
 
-    // 根据用户ID查询所有关联的第三方登录信息
+    /**
+     * 根据第三方ID查询用户ID
+     * @param socialUid
+     * @return
+     */
+    @GetMapping("/exist")
+    public Result<?> findUserIdByThirdPartyId(@RequestParam String socialUid) {
+        return Result.ok(userThirdPartyService.getByThirdPartyId(socialUid).getUserId());
+    }
+
+    /**
+     * 根据用户ID查询第三方账户信息
+     * @param userId
+     * @return
+     */
     @GetMapping("/find")
     public Result<?> findThirdPartyAccountsByUserId(@RequestParam Long userId) {
         List<UserThirdParty> thirdPartyAccounts = userThirdPartyService.getByUserId(userId);
         return Result.ok(thirdPartyAccounts);
     }
 
-    @GetMapping("")
-    public Result<?> findUserIdByThirdPartyId(@RequestParam String socialUid) {
-        return Result.ok(userThirdPartyService.getByThirdPartyId(socialUid).getUserId());
-    }
+
 }
 

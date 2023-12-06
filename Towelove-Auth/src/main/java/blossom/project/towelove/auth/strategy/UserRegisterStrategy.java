@@ -15,5 +15,5 @@ import org.springframework.beans.factory.InitializingBean;
  */
 public interface UserRegisterStrategy extends InitializingBean {
 
-    boolean valid(AuthLoginRequest authLoginRequest);
+    boolean  valid(AuthLoginRequest authLoginRequest);
 }

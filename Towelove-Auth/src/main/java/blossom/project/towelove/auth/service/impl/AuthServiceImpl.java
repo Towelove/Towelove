@@ -1,11 +1,13 @@
 package blossom.project.towelove.auth.service.impl;
 
 import blossom.project.towelove.auth.service.AuthService;
+import blossom.project.towelove.auth.strategy.USER_TYPE;
 import blossom.project.towelove.auth.strategy.UserRegisterStrategy;
 import blossom.project.towelove.auth.strategy.UserRegisterStrategyFactory;
 import blossom.project.towelove.client.serivce.RemoteCodeService;
 import blossom.project.towelove.client.serivce.RemoteUserService;
 import blossom.project.towelove.common.config.thirdParty.ThirdPartyLoginConfig;
+import blossom.project.towelove.common.constant.RedisKeyConstant;
 import blossom.project.towelove.common.domain.dto.SysUser;
 import blossom.project.towelove.common.domain.dto.ThirdPartyLoginUser;
 import blossom.project.towelove.common.domain.dto.UserThirdParty;
@@ -13,10 +15,11 @@ import blossom.project.towelove.common.exception.ServiceException;
 import blossom.project.towelove.common.request.auth.AuthLoginRequest;
 import blossom.project.towelove.common.request.auth.AuthRegisterRequest;
 import blossom.project.towelove.common.request.auth.AuthVerifyCodeRequest;
-import blossom.project.towelove.common.request.auth.ThirdPartyLoginRequest;
 import blossom.project.towelove.common.response.Result;
 import blossom.project.towelove.common.response.user.SysUserVo;
+import blossom.project.towelove.common.utils.JsonUtils;
 import blossom.project.towelove.common.utils.ThirdPartyLoginUtil;
+import blossom.project.towelove.framework.redis.service.RedisService;
 import cn.dev33.satoken.stp.StpUtil;
 import cn.hutool.core.lang.RegexPool;
 import cn.hutool.core.util.ReUtil;
@@ -29,6 +32,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import javax.validation.Valid;
+import java.net.URI;
 import java.util.Objects;
 
 @Service
@@ -39,6 +43,8 @@ public class AuthServiceImpl implements AuthService {
     private final RemoteUserService remoteUserService;
 
     private final RemoteCodeService remoteCodeService;
+
+    private final RedisService redisService;
 
     private final RestTemplate restTemplate;
 
@@ -90,21 +96,25 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public String login(ThirdPartyLoginRequest thirdPartyLoginRequest) {
-        // 使用提供的code和type来获取第三方登录用户信息
-        ThirdPartyLoginUser thirdPartyLoginUser = ThirdPartyLoginUtil.getSocialUserInfo(
-                thirdPartyLoginConfig,
-                restTemplate,
-                thirdPartyLoginRequest.getType(),
-                thirdPartyLoginRequest.getCode(),
-                ThirdPartyLoginUser.class
-        );
+    public String thirdPartyRegister(AuthLoginRequest authLoginRequest) {
+        // 获取策略工厂中对应的注册策略
+        UserRegisterStrategy userRegisterStrategy = UserRegisterStrategyFactory.userRegisterStrategy(authLoginRequest.getType());
 
-        if (thirdPartyLoginUser == null) {
-            throw new ServiceException("无法获取第三方用户信息");
+        if (Objects.isNull(userRegisterStrategy)){
+            throw new ServiceException("非法请求，注册渠道错误");
         }
 
-        // 根据第三方用户信息查询或创建本地用户
+        if (userRegisterStrategy == null || !userRegisterStrategy.valid(authLoginRequest)) {
+            throw new ServiceException("无效的第三方登录类型或无法验证第三方登录请求");
+        }
+
+        // TODO: 看策略类的接口如何修改 这里我想到的就是使用redis来做缓存， 建议valid的返回类型 返回给到第三方登录用户信息可以避免对Redis的依赖
+        // 使用code码从redis中获取第三方登录用户信息
+        String json = (String) redisService.redisTemplate.opsForValue().get(RedisKeyConstant.VALIDATE_CODE+ authLoginRequest.getType() + ":" + authLoginRequest.getVerifyCode());
+        ThirdPartyLoginUser thirdPartyLoginUser = JsonUtils.jsonToPojo(json, ThirdPartyLoginUser.class);
+
+        System.err.println(JsonUtils.objectToJson(thirdPartyLoginUser));
+        // 验证成功，获取或创建用户
         SysUser user = findOrCreateUser(thirdPartyLoginUser);
 
         // 登录本地用户并生成令牌
@@ -184,7 +194,8 @@ public class AuthServiceImpl implements AuthService {
         return "发送验证码成功";
     }
 
-//    public void check (AuthLoginRequest authLoginRequest){
+
+    //    public void check (AuthLoginRequest authLoginRequest){
 //        String type = authLoginRequest.getType();
 //        if (PHONE.type.equals(type)){
 //

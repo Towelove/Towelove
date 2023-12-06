@@ -26,6 +26,7 @@ import java.util.List;
 @RequestMapping("/v1/user")
 public class SysUserController {
 
+
     private final SysUserService sysUserService;
 
     /**
@@ -59,6 +60,7 @@ public class SysUserController {
     public Result<String> findUserByPhoneOrEmail(@Validated @RequestBody AuthLoginRequest authLoginRequest) {
         return Result.ok(sysUserService.findUser(authLoginRequest));
     }
+
 
     /**
      * 获得用户信息

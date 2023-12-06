@@ -25,9 +25,4 @@ sa-token:
   is-log: true
 
 
-# 第三方登录配置(微信 QQ)
-third:
-  config:
-    appId: 2185
-    appKey: 99aa20b1d92e38345087e0c6789d0b2a
-    redirectUrl: https://www.mintac.cn/
+
