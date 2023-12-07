@@ -1,5 +1,6 @@
 package blossom.project.towelove.loves.entity;
 
+import blossom.project.towelove.framework.mysql.domain.BaseEntity;
 import com.baomidou.mybatisplus.annotation.*;
 import lombok.Data;
 
@@ -14,7 +15,7 @@ import java.util.Date;
  */
 @Data
 @TableName("todo_list")
-public class TodoList {
+public class TodoList extends BaseEntity {
     @TableId
     private Long id;
     //父级id
@@ -29,32 +30,9 @@ public class TodoList {
     private String description;
     //截止日期
     private Date deadline;
-    //完成状态
-    @TableField("completion_status")
-    private Integer completionStatus;
     //完成日期
     @TableField("completion_date")
     private Date completionDate;
-
-    @TableField(value = "create_by", fill = FieldFill.INSERT)
-    private String createBy;
-
-    @TableField(value = "create_time", fill = FieldFill.INSERT)
-    private LocalDateTime createTime;
-
-    @TableField(value = "update_by", fill = FieldFill.INSERT_UPDATE)
-    private String updateBy;
-
-    @TableField(value = "update_time", fill = FieldFill.INSERT_UPDATE)
-    private LocalDateTime updateTime;
-
-    @TableField("deleted")
-    @TableLogic(value = "0", delval = "1")
-    private int deleted;
-
-    @TableField(value = "remark", fill = FieldFill.INSERT)
-    private String remark;
-
 
 }
 
