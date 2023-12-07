@@ -39,6 +39,12 @@ spring:
           uri: lb://towelove-core
           predicates:
             - Path=/core/**
+        - id: towelove-user
+          uri: lb://towelove-user
+          predicates:
+            - Path=/user/**
+          filters:
+            - PrefixPath=/v1
     nacos:
       config:
         import-check:

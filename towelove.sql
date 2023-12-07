@@ -503,3 +503,13 @@ VALUES ('schedule_lock');
 
 commit;
 
+CREATE TABLE towelove.user_third_party
+(
+    id            BIGINT AUTO_INCREMENT PRIMARY KEY,
+    user_id       BIGINT NOT NULL COMMENT 'sys_user表的用户ID',
+    third_party_id VARCHAR(128) NOT NULL COMMENT '第三方平台用户唯一标识',
+    provider      VARCHAR(32) NOT NULL COMMENT '第三方平台名称（如qq, wechat）',
+    UNIQUE KEY unique_user_provider (user_id, provider),
+    FOREIGN KEY (user_id) REFERENCES sys_user (id) ON DELETE CASCADE
+) COMMENT '用户第三方登录关联表';
+

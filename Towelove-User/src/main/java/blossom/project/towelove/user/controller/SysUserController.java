@@ -26,6 +26,7 @@ import java.util.List;
 @RequestMapping("/v1/user")
 public class SysUserController {
 
+
     private final SysUserService sysUserService;
 
     /**
@@ -34,7 +35,7 @@ public class SysUserController {
      * @return
      */
     @PostMapping("")
-    public Result<String> saveUser(@RequestBody InsertUserRequest userRequest) {
+    public Result<SysUser> saveUser(@RequestBody InsertUserRequest userRequest) {
         return Result.ok(sysUserService.inserUser(userRequest));
     }
 
@@ -56,9 +57,10 @@ public class SysUserController {
      * @return
      */
     @PostMapping("/exist")
-    public Result<String> findUserByPhoneOrEmail(@Validated @RequestBody AuthLoginRequest authLoginRequest) {
+    public Result<SysUser> findUserByPhoneOrEmail(@Validated @RequestBody AuthLoginRequest authLoginRequest) {
         return Result.ok(sysUserService.findUser(authLoginRequest));
     }
+
 
     /**
      * 获得用户信息
@@ -101,4 +103,5 @@ public class SysUserController {
     public Result<List<SysUserPermissionDto>> getUserPermissionByUserId(@RequestParam("userId") Long userId){
         return Result.ok(sysUserService.getPermissionByUserId(userId));
     }
+
 }

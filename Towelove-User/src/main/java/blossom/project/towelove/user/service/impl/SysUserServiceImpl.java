@@ -1,8 +1,6 @@
 package blossom.project.towelove.user.service.impl;
 
-import blossom.project.towelove.common.annotaion.Transaction;
 import blossom.project.towelove.common.constant.TokenConstant;
-import blossom.project.towelove.common.constant.UserConstants;
 import blossom.project.towelove.common.exception.ServiceException;
 import blossom.project.towelove.common.page.PageResponse;
 import blossom.project.towelove.common.request.auth.AuthLoginRequest;
@@ -10,7 +8,6 @@ import blossom.project.towelove.common.request.user.InsertUserRequest;
 import blossom.project.towelove.common.request.user.UpdateUserRequest;
 import blossom.project.towelove.common.response.user.SysUserPermissionDto;
 import blossom.project.towelove.common.response.user.SysUserVo;
-import blossom.project.towelove.framework.redis.service.RedisService;
 import blossom.project.towelove.user.convert.SysUserConvert;
 import blossom.project.towelove.user.domain.SysUser;
 import blossom.project.towelove.user.domain.SysUserPermission;
@@ -18,35 +15,24 @@ import blossom.project.towelove.user.mapper.SysPermissionMapper;
 import blossom.project.towelove.user.mapper.SysUserMapper;
 import blossom.project.towelove.user.mapper.SysUserPermissionMapper;
 import blossom.project.towelove.user.service.SysUserService;
-import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.joda.time.DateTime;
-import org.joda.time.DateTimeField;
-import org.joda.time.DateTimeFieldType;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import java.text.DateFormat;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Calendar;
 import java.util.List;
 import java.util.Objects;
-import java.util.concurrent.ThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 @Slf4j
-public class SysUSerServiceImpl extends ServiceImpl<SysUserMapper, SysUser> implements SysUserService {
+public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> implements SysUserService {
 
     private final SysUserMapper sysUserMapper;
 
@@ -100,7 +86,7 @@ public class SysUSerServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
 
     @Transactional(propagation = Propagation.REQUIRED)
     @Override
-    public String inserUser(InsertUserRequest userRequest) {
+    public SysUser inserUser(InsertUserRequest userRequest) {
         String email = userRequest.getEmail();
         String phone = userRequest.getPhoneNumber();
         SysUser sysUserFromDB = sysUserMapper.selectByPhoneNumberOrEmail(phone, email);
@@ -116,10 +102,10 @@ public class SysUSerServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         } catch (Exception e) {
             throw new ServiceException("插入用户失败");
         }
-        return sysUser.getId().toString();
+        return sysUser;
     }
-
-    private void addUserPermission(SysUser sysUser) {
+    @Override
+    public void addUserPermission(SysUser sysUser) {
         SysUserPermission sysUserPermission = new SysUserPermission();
         sysUserPermission.setUserId(sysUser.getId());
         sysUserPermission.setPermissionId(TokenConstant.USER_PERMISSION_CODE);
@@ -129,20 +115,29 @@ public class SysUSerServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     }
 
     @Override
-    public String findUser(@Valid AuthLoginRequest authLoginRequest) {
+    public SysUser findUser(@Valid AuthLoginRequest authLoginRequest) {
         String phone = authLoginRequest.getPhoneNumber();
         String email = authLoginRequest.getEmail();
         SysUser sysUser = sysUserMapper.selectByPhoneNumberOrEmail(phone, email);
         if (Objects.isNull(sysUser)) {
-            throw new ServiceException("用户不存在");
+            //调用最小注册逻辑
+            sysUser =  SysUserConvert.INSTANCE.convert(authLoginRequest);
+            try {
+                save(sysUser);
+            } catch (Exception e) {
+                throw new ServiceException("用户不存在");
+            }
+            //这里不给用户权限，除非用户补充完毕信息，才能给对应的user权限
         }
-        return String.valueOf(sysUser.getId());
+        return sysUser;
     }
 
     @Override
     public List<SysUserPermissionDto> getPermissionByUserId(Long userId) {
         return sysPermissionMapper.selectUserPermissionByUserId(userId);
     }
+
+
 }
 
 
