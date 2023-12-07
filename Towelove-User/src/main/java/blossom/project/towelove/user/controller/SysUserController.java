@@ -35,7 +35,7 @@ public class SysUserController {
      * @return
      */
     @PostMapping("")
-    public Result<String> saveUser(@RequestBody InsertUserRequest userRequest) {
+    public Result<SysUser> saveUser(@RequestBody InsertUserRequest userRequest) {
         return Result.ok(sysUserService.inserUser(userRequest));
     }
 
@@ -57,7 +57,7 @@ public class SysUserController {
      * @return
      */
     @PostMapping("/exist")
-    public Result<String> findUserByPhoneOrEmail(@Validated @RequestBody AuthLoginRequest authLoginRequest) {
+    public Result<SysUser> findUserByPhoneOrEmail(@Validated @RequestBody AuthLoginRequest authLoginRequest) {
         return Result.ok(sysUserService.findUser(authLoginRequest));
     }
 

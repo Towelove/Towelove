@@ -36,7 +36,7 @@ public class RemoteUserFallbackFactory implements FallbackFactory<RemoteUserServ
         return new RemoteUserService() {
 
             @Override
-            public Result<String> saveUser(SysUser sysUser) {
+            public Result<SysUser> saveUser(SysUser sysUser) {
                 return Result.fail(null,MDC.get(SecurityConstant.REQUEST_ID));
             }
 
@@ -46,7 +46,7 @@ public class RemoteUserFallbackFactory implements FallbackFactory<RemoteUserServ
             }
 
             @Override
-            public Result<String> findUserByPhoneOrEmail(AuthLoginRequest authLoginRequest) {
+            public Result<SysUser> findUserByPhoneOrEmail(AuthLoginRequest authLoginRequest) {
                 return Result.fail(null,MDC.get(SecurityConstant.REQUEST_ID));
             }
 
@@ -68,7 +68,7 @@ public class RemoteUserFallbackFactory implements FallbackFactory<RemoteUserServ
             }
 
             @Override
-            public Result<Long> accessByThirdPartyAccount(ThirdPartyLoginUser thirdPartyLoginUser) {
+            public Result<SysUser> accessByThirdPartyAccount(ThirdPartyLoginUser thirdPartyLoginUser) {
                 log.error("调用远程服务 accessByThirdPartyAccount 失败: {}", throwable.getMessage());
                 return Result.fail("远程服务调用失败", MDC.get(SecurityConstant.REQUEST_ID));
             }

@@ -7,6 +7,7 @@ package blossom.project.towelove.user.service;
 
 import blossom.project.towelove.common.domain.dto.ThirdPartyLoginUser;
 import blossom.project.towelove.common.response.user.SysUserVo;
+import blossom.project.towelove.user.domain.SysUser;
 import blossom.project.towelove.user.domain.UserThirdParty;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -17,7 +18,7 @@ public interface UserThirdPartyService extends IService<UserThirdParty> {
 
     UserThirdParty getByThirdPartyId(String socialUid);
 
-    Long accessByThirdPartyAccount(ThirdPartyLoginUser thirdPartyLoginUser);
+    SysUser accessByThirdPartyAccount(ThirdPartyLoginUser thirdPartyLoginUser);
 
 }
 

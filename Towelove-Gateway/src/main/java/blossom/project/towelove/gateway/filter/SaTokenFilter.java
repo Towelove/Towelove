@@ -26,8 +26,8 @@ public class SaTokenFilter {
                     // 登录校验 -- 拦截所有路由，并排除/auth/** 用于开放登录
                     SaRouter.match("/**", "/auth/**", r -> StpUtil.checkLogin());
                     // 权限认证 -- 不同模块, 校验不同权限
-                    SaRouter.match("/user/**", r -> StpUtil.checkPermission("passenger"));
-                    SaRouter.match("/admin/**", r -> StpUtil.checkPermission("admin"));
+                    SaRouter.match("/user/**", r -> StpUtil.checkPermission("请完善用户信息"));
+                    SaRouter.match("/admin/**", r -> StpUtil.checkPermission("非法请求，管理员权限接口"));
 //                  SaRouter.match("/orders/**", r -> StpUtil.checkPermission("orders"));
 // 更多匹配 ...  */
                 })

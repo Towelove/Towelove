@@ -1,5 +1,6 @@
 package blossom.project.towelove.auth.strategy;
 
+import blossom.project.towelove.common.domain.dto.SysUser;
 import blossom.project.towelove.common.request.auth.AuthLoginRequest;
 import blossom.project.towelove.common.request.auth.AuthRegisterRequest;
 import org.springframework.beans.factory.InitializingBean;
@@ -20,12 +21,12 @@ public interface UserAccessStrategy extends InitializingBean {
      * @return String 返回值为token，失败则返回null
      */
 
-    String register(AuthRegisterRequest authRegisterRequest);
+    SysUser register(AuthRegisterRequest authRegisterRequest);
 
     /**
      * 登入策略
      * @param authLoginRequest 登入请求参数
      * @return String 返回值为token，失败则返回null
      */
-    String login(AuthLoginRequest authLoginRequest);
+    SysUser login(AuthLoginRequest authLoginRequest);
 }

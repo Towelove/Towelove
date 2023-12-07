@@ -22,5 +22,7 @@ public interface SysUserConvert {
 
     SysUser convert(ThirdPartyLoginUser thirdPartyLoginUser);
 
+    SysUser convert(AuthLoginRequest authLoginRequest);
+
 
 }

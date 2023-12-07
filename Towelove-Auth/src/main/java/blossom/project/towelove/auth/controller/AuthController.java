@@ -5,9 +5,12 @@ import blossom.project.towelove.auth.thirdParty.ThirdPartyLoginConfig;
 import blossom.project.towelove.common.request.auth.AuthLoginRequest;
 import blossom.project.towelove.common.request.auth.AuthRegisterRequest;
 import blossom.project.towelove.common.request.auth.AuthVerifyCodeRequest;
+import blossom.project.towelove.common.request.auth.RestockUserInfoRequest;
 import blossom.project.towelove.common.response.Result;
 import blossom.project.towelove.auth.thirdParty.ThirdPartyLoginUtil;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,6 +28,8 @@ public class AuthController {
 
     private final AuthService authService;
     private final RestTemplate restTemplate;
+
+    private final Logger log = LoggerFactory.getLogger(AuthService.class);
 
 
     @Resource
@@ -47,7 +52,7 @@ public class AuthController {
      */
     @PostMapping("/login")
     public Result<String> login(@Valid @RequestBody AuthLoginRequest authLoginRequest){
-        return Result.ok(authService.login(authLoginRequest));
+        return authService.login(authLoginRequest);
     }
 
     /**
@@ -57,10 +62,9 @@ public class AuthController {
      */
     @PostMapping("/thirdParty")
     public Result<URI> ThirdParty(@Valid @RequestBody AuthLoginRequest authLoginRequest){
-        System.err.println("跳转链接:"+ ThirdPartyLoginUtil.initiateLogin(thirdPartyLoginConfig,
-                                                                        restTemplate,
-                                                                        authLoginRequest.getType()));
-        return Result.ok(ThirdPartyLoginUtil.initiateLogin(thirdPartyLoginConfig, restTemplate, authLoginRequest.getType()));
+        URI uri = ThirdPartyLoginUtil.initiateLogin(thirdPartyLoginConfig, restTemplate, authLoginRequest.getType());
+        log.info("第三方跳转登入类型为：[{}],跳转链接为：[{}]",authLoginRequest.getType(),uri);
+        return Result.ok(uri);
     }
 
     /**
@@ -70,10 +74,8 @@ public class AuthController {
      */
     @PostMapping("/thirdPartyRegisterCallback")
     public Result<String> ThirdPartyRegisterCallback(@Valid @RequestBody AuthLoginRequest authLoginRequest){
-        return Result.ok(authService.thirdPartyRegister(authLoginRequest));
+        return authService.thirdPartyRegister(authLoginRequest);
     }
-
-
 
     /**
      * 发送验证码
@@ -83,5 +85,10 @@ public class AuthController {
     @PostMapping("/send-code")
     public Result<String> sendVerifyCode(@RequestBody AuthVerifyCodeRequest authVerifyCodeRequest){
         return Result.ok(authService.sendVerifyCode(authVerifyCodeRequest));
+    }
+
+    @PostMapping("/restock-info")
+    public Result<?> restockUserInfo(@RequestBody RestockUserInfoRequest restockUserInfoRequest){
+        return Result.ok(authService.restockUserInfo(restockUserInfoRequest));
     }
 }

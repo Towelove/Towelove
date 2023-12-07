@@ -7,6 +7,7 @@ package blossom.project.towelove.auth.strategy;
 
 import blossom.project.towelove.auth.thirdParty.ThirdPartyLoginConfig;
 import blossom.project.towelove.common.constant.RedisKeyConstant;
+import blossom.project.towelove.common.domain.dto.SysUser;
 import blossom.project.towelove.common.domain.dto.ThirdPartyLoginUser;
 import blossom.project.towelove.common.exception.ServiceException;
 import blossom.project.towelove.common.request.auth.AuthLoginRequest;
@@ -37,7 +38,7 @@ public class UserAccessByWeixin implements UserAccessStrategy {
     final TimeUnit TIME_UNIT = TimeUnit.MINUTES; // 时间单位
 
     @Override
-    public String register(AuthRegisterRequest authRegisterRequest) {
+    public SysUser register(AuthRegisterRequest authRegisterRequest) {
         // 使用授权码获取第三方登录用户信息
         ThirdPartyLoginUser thirdPartyLoginUser = ThirdPartyLoginUtil.getSocialUserInfo(
                 thirdPartyLoginConfig,
@@ -62,7 +63,7 @@ public class UserAccessByWeixin implements UserAccessStrategy {
     }
 
     @Override
-    public String login(AuthLoginRequest authLoginRequest) {
+    public SysUser login(AuthLoginRequest authLoginRequest) {
         return null;
     }
 

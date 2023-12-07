@@ -8,6 +8,7 @@ package blossom.project.towelove.auth.strategy;
 import blossom.project.towelove.auth.thirdParty.ThirdPartyLoginConfig;
 import blossom.project.towelove.client.serivce.RemoteUserService;
 import blossom.project.towelove.common.constant.RedisKeyConstant;
+import blossom.project.towelove.common.domain.dto.SysUser;
 import blossom.project.towelove.common.domain.dto.ThirdPartyLoginUser;
 import blossom.project.towelove.common.exception.ServiceException;
 import blossom.project.towelove.common.request.auth.AuthLoginRequest;
@@ -43,7 +44,7 @@ public class UserAccessByQQ implements UserAccessStrategy {
     final TimeUnit TIME_UNIT = TimeUnit.MINUTES; // 时间单位
 
     @Override
-    public String register(AuthRegisterRequest authRegisterRequest) {
+    public SysUser register(AuthRegisterRequest authRegisterRequest) {
         // 使用授权码获取第三方登录用户信息
         ThirdPartyLoginUser thirdPartyLoginUser = ThirdPartyLoginUtil.getSocialUserInfo(
                 thirdPartyLoginConfig,
@@ -68,7 +69,7 @@ public class UserAccessByQQ implements UserAccessStrategy {
     }
 
     @Override
-    public String login(AuthLoginRequest authLoginRequest) {
+    public SysUser login(AuthLoginRequest authLoginRequest) {
         // 使用授权码获取第三方登录用户信息
         ThirdPartyLoginUser thirdPartyLoginUser = ThirdPartyLoginUtil.getSocialUserInfo(
                 thirdPartyLoginConfig,
@@ -84,12 +85,11 @@ public class UserAccessByQQ implements UserAccessStrategy {
         }
 //        remoteUserService.findUserIdByThirdPartyId(thirdPartyLoginUser);
         // 验证成功，将第三方用户信息存储到 Redis 中，以授权码为键
-        Result<Long> sysUserVoResult = remoteUserService.accessByThirdPartyAccount(thirdPartyLoginUser);
+        Result<SysUser> sysUserVoResult = remoteUserService.accessByThirdPartyAccount(thirdPartyLoginUser);
         if (Objects.isNull(sysUserVoResult) || HttpStatus.SUCCESS != sysUserVoResult.getCode()){
             throw new ServiceException(sysUserVoResult.getMsg());
         }
-        StpUtil.login(sysUserVoResult.getData());
-        return StpUtil.getTokenInfo().tokenValue;
+        return sysUserVoResult.getData();
     }
 
     @Override

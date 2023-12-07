@@ -23,13 +23,13 @@ import java.util.List;
         contextId = "RemoteUserService")
 public interface RemoteUserService {
     @PostMapping("/v1/user")
-    Result<String> saveUser(@RequestBody SysUser sysUser);
+    Result<SysUser> saveUser(@RequestBody SysUser sysUser);
 
     @GetMapping("/v1/user")
     Result<SysUserVo> getUserById(@Valid @RequestParam("userId") @NotNull(message = "请求信息缺失") Long userId);
 
     @PostMapping("/v1/user/exist")
-     Result<String> findUserByPhoneOrEmail(@Valid @RequestBody AuthLoginRequest authLoginRequest);
+     Result<SysUser> findUserByPhoneOrEmail(@Valid @RequestBody AuthLoginRequest authLoginRequest);
 
     @GetMapping("/v1/user/permission")
      Result<List<SysUserPermissionDto>> getUserPermissionByUserId(@RequestParam("userId") Long userId);
@@ -41,7 +41,7 @@ public interface RemoteUserService {
     Result<String> saveThirdPartyUser(@RequestBody UserThirdParty userThirdParty);
 
     @PostMapping("/v1/user/thirdParty/access")
-    Result<Long> accessByThirdPartyAccount(@RequestBody ThirdPartyLoginUser thirdPartyLoginUser);
+    Result<SysUser> accessByThirdPartyAccount(@RequestBody ThirdPartyLoginUser thirdPartyLoginUser);
 
 
 }

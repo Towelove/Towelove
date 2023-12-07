@@ -41,7 +41,7 @@ public class UserAccessByEmail implements UserAccessStrategy {
     private final RemoteUserService remoteUserService;
 
     @Override
-    public String register(AuthRegisterRequest authRegisterRequest) {
+    public SysUser register(AuthRegisterRequest authRegisterRequest) {
         String email = authRegisterRequest.getEmail();
         String code = authRegisterRequest.getVerifyCode();
         log.info("校验验证码请求的邮箱号为：{},验证码为：{}",email,code);
@@ -55,19 +55,18 @@ public class UserAccessByEmail implements UserAccessStrategy {
             }
             SysUser sysUser = new SysUser();
             BeanUtils.copyProperties(authRegisterRequest,sysUser);
-            Result<String> result = remoteUserService.saveUser(sysUser);
+            Result<SysUser> result = remoteUserService.saveUser(sysUser);
             log.info("调用user远程服务获取到的接口为: {}",result);
             if (Objects.isNull(result) || result.getCode() != com.towelove.common.core.constant.HttpStatus.SUCCESS){
                 throw new ServiceException(result.getMsg());
             }
-            StpUtil.login(result.getData());
-            return StpUtil.getTokenInfo().tokenValue;
+            return result.getData();
         }
         return null;
     }
 
     @Override
-    public String login(AuthLoginRequest authLoginRequest) {
+    public SysUser login(AuthLoginRequest authLoginRequest) {
         String email = authLoginRequest.getEmail();
         String code = authLoginRequest.getVerifyCode();
         log.info("校验验证码请求的邮箱号为：{},验证码为：{}",email,code);
@@ -79,12 +78,11 @@ public class UserAccessByEmail implements UserAccessStrategy {
             if (!code.equals(codeFromSystem)){
                 throw new ServiceException("验证码校验失败，验证码错误");
             }
-            Result<String> result = remoteUserService.findUserByPhoneOrEmail(authLoginRequest);
+            Result<SysUser> result = remoteUserService.findUserByPhoneOrEmail(authLoginRequest);
             if (Objects.isNull(result) || HttpStatus.SUCCESS != result.getCode()){
-                throw new ServiceException("用户不存在，请注册");
+                throw new ServiceException("用户登入失败，请联系管理员");
             }
-            StpUtil.login(result.getData());
-            return StpUtil.getTokenInfo().tokenValue;
+            return result.getData();
         }
         return null;
     }

@@ -13,6 +13,7 @@ import blossom.project.towelove.common.exception.ServiceException;
 import blossom.project.towelove.common.request.auth.AuthLoginRequest;
 import blossom.project.towelove.common.request.auth.AuthRegisterRequest;
 import blossom.project.towelove.common.request.auth.AuthVerifyCodeRequest;
+import blossom.project.towelove.common.request.auth.RestockUserInfoRequest;
 import blossom.project.towelove.common.response.Result;
 import blossom.project.towelove.common.response.user.SysUserVo;
 import blossom.project.towelove.common.utils.JsonUtils;
@@ -21,6 +22,7 @@ import cn.dev33.satoken.stp.StpUtil;
 import cn.hutool.core.lang.RegexPool;
 import cn.hutool.core.util.ReUtil;
 import cn.hutool.core.util.StrUtil;
+import com.towelove.common.core.constant.HttpStatus;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
@@ -45,30 +47,29 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public String register(@Valid AuthRegisterRequest authRegisterRequest) {
         //校验手机号以及邮箱格式，校验验证码格式是否正确
-        UserAccessStrategy userAccessStrategy = UserRegisterStrategyFactory.userRegisterStrategy(authRegisterRequest.getType());
-        if (Objects.isNull(userAccessStrategy)){
-            throw new ServiceException("非法请求，注册渠道错误");
-        }
+        UserAccessStrategy userAccessStrategy = UserRegisterStrategyFactory.userAccessStrategy(authRegisterRequest.getType());
         //验证码校验
-        String token = userAccessStrategy.register(authRegisterRequest);
-        if (StrUtil.isBlank(token)) {
-            throw new ServiceException("验证码校验失败，请输入正确的验证码");
-        }
+//        String token = userAccessStrategy.register(authRegisterRequest);
+//        if (StrUtil.isBlank(token)) {
+//            throw new ServiceException("验证码校验失败，请输入正确的验证码");
+//        }
        return StpUtil.getTokenInfo().tokenValue;
     }
 
     @Override
-    public String login(AuthLoginRequest authLoginRequest) {
+    public Result<String> login(AuthLoginRequest authLoginRequest) {
+        Result<String> res = new Result<>();
         //校验手机号以及邮箱格式，校验验证码格式是否正确
-        UserAccessStrategy userAccessStrategy = UserRegisterStrategyFactory.userRegisterStrategy(authLoginRequest.getType());
-        if (Objects.isNull(userAccessStrategy)){
-            throw new ServiceException("非法请求，注册渠道错误");
-        }
+        UserAccessStrategy userAccessStrategy = UserRegisterStrategyFactory.userAccessStrategy(authLoginRequest.getType());
         //验证码校验
-        String token = userAccessStrategy.login(authLoginRequest);
-        if (StrUtil.isBlank(token)) {
-            throw new ServiceException("验证码校验失败，请输入正确的验证码");
+        SysUser sysUser = userAccessStrategy.login(authLoginRequest);
+        StpUtil.login(sysUser.getId());
+        if (StrUtil.isBlank(sysUser.getPassword())){
+            //需要用户补充信息，但依然是登入态
+            res.setCode(HttpStatus.CREATED);
+            res.setMsg("用户需要完善信息");
         }
+        res.setData(StpUtil.getTokenInfo().tokenValue);
 //        Result<String> result = remoteUserService.findUserByPhoneOrEmail(authLoginRequest);
 //        log.info("调用user远程服务获取到的接口为: {}",result);
 //        if (Objects.isNull(result) || result.getCode() != (HttpStatus.SUCCESS)){
@@ -76,22 +77,25 @@ public class AuthServiceImpl implements AuthService {
 //            throw new ServiceException("用户不存在，请重新注册");
 //        }
 //        StpUtil.login(result.getData());
-        return StpUtil.getTokenInfo().tokenValue;
+        return res;
     }
 
     @Override
-    public String thirdPartyRegister(AuthLoginRequest authLoginRequest) {
+    public Result<String> thirdPartyRegister(AuthLoginRequest authLoginRequest) {
+        Result<String> res = new Result<>();
         // 获取策略工厂中对应的注册策略
-        UserAccessStrategy userAccessStrategy = UserRegisterStrategyFactory.userRegisterStrategy(authLoginRequest.getType());
+        UserAccessStrategy userAccessStrategy = UserRegisterStrategyFactory.userAccessStrategy(authLoginRequest.getType());
 
-        if (Objects.isNull(userAccessStrategy)){
-            throw new ServiceException("非法请求，注册渠道错误");
+        SysUser sysUser = userAccessStrategy.login(authLoginRequest);
+        StpUtil.login(sysUser.getId());
+        if (StrUtil.isBlank(sysUser.getPassword())){
+            res.setCode(HttpStatus.CREATED);
+            res.setMsg("第三方登入用户未完善信息");
         }
-        String token = userAccessStrategy.login(authLoginRequest);
-        if (StrUtil.isBlank(token)) {
-            throw new ServiceException("无效的第三方登录类型或无法验证第三方登录请求");
-        }
-
+        res.setData(StpUtil.getTokenInfo().tokenValue);
+//        if (StrUtil.isBlank(token)) {
+//            throw new ServiceException("无效的第三方登录类型或无法验证第三方登录请求");
+//        }
         // TODO: 看策略类的接口如何修改 这里我想到的就是使用redis来做缓存， 建议valid的返回类型 返回给到第三方登录用户信息可以避免对Redis的依赖
         // 使用code码从redis中获取第三方登录用户信息
 //        String json = (String) redisService.redisTemplate.opsForValue().get(RedisKeyConstant.VALIDATE_CODE+ authLoginRequest.getType() + ":" + authLoginRequest.getVerifyCode());
@@ -105,9 +109,41 @@ public class AuthServiceImpl implements AuthService {
 //        StpUtil.login(user.getId());
 
         // 返回令牌
-        return token;
+        return res;
     }
 
+    @Override
+    public String sendVerifyCode(AuthVerifyCodeRequest authVerifyCodeRequest) {
+        if (StrUtil.isNotBlank(authVerifyCodeRequest.getPhone())){
+            checkPhoneByRegex(authVerifyCodeRequest.getPhone());
+            //TODO 调用远程验证码接口
+            remoteCodeService.sendValidateCodeByPhone(authVerifyCodeRequest.getPhone());
+        }
+        else if (StrUtil.isNotBlank(authVerifyCodeRequest.getEmail())){
+            checkEmailByRegex(authVerifyCodeRequest.getEmail());
+            //TODO 调用远程验证码接口
+            remoteCodeService.sendValidateCodeByEmail(authVerifyCodeRequest.getEmail());
+        }else {
+            throw new ServiceException("发送验证码失败，邮箱或手机号为空");
+        }
+        return "发送验证码成功";
+    }
+
+    @Override
+    public String restockUserInfo(RestockUserInfoRequest restockUserInfoRequest) {
+        return null;
+    }
+
+    public void checkPhoneByRegex(String phone){
+        if (!ReUtil.isMatch(RegexPool.MOBILE,phone)) {
+            throw new ServiceException("手机号格式错误");
+        }
+    }
+    public void checkEmailByRegex(String email){
+        if (!ReUtil.isMatch(RegexPool.EMAIL,email)) {
+            throw new ServiceException("邮箱格式错误");
+        }
+    }
     /*实现根据第三方用户信息查询或创建本地用户的逻辑*/
 //    private SysUser findOrCreateUser(ThirdPartyLoginUser thirdPartyLoginUser) {
 //        // 检查用户是否已存在
@@ -153,30 +189,14 @@ public class AuthServiceImpl implements AuthService {
 //            } else {
 //                throw new ServiceException("创建用户失败");
 //            }
+
 //        }
+
 //    }
 
 
 
 
-
-
-    @Override
-    public String sendVerifyCode(AuthVerifyCodeRequest authVerifyCodeRequest) {
-        if (StrUtil.isNotBlank(authVerifyCodeRequest.getPhone())){
-            checkPhoneByRegex(authVerifyCodeRequest.getPhone());
-            //TODO 调用远程验证码接口
-            remoteCodeService.sendValidateCodeByPhone(authVerifyCodeRequest.getPhone());
-        }
-        else if (StrUtil.isNotBlank(authVerifyCodeRequest.getEmail())){
-            checkEmailByRegex(authVerifyCodeRequest.getEmail());
-            //TODO 调用远程验证码接口
-            remoteCodeService.sendValidateCodeByEmail(authVerifyCodeRequest.getEmail());
-        }else {
-            throw new ServiceException("发送验证码失败，邮箱或手机号为空");
-        }
-        return "发送验证码成功";
-    }
 
 
     //    public void check (AuthLoginRequest authLoginRequest){
@@ -212,14 +232,4 @@ public class AuthServiceImpl implements AuthService {
 //        }
 //        return true;
 //    }
-    public void checkPhoneByRegex(String phone){
-        if (!ReUtil.isMatch(RegexPool.MOBILE,phone)) {
-            throw new ServiceException("手机号格式错误");
-        }
-    }
-    public void checkEmailByRegex(String email){
-        if (!ReUtil.isMatch(RegexPool.EMAIL,email)) {
-            throw new ServiceException("邮箱格式错误");
-        }
-    }
 }

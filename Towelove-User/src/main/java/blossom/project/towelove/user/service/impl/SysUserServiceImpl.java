@@ -86,7 +86,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
 
     @Transactional(propagation = Propagation.REQUIRED)
     @Override
-    public String inserUser(InsertUserRequest userRequest) {
+    public SysUser inserUser(InsertUserRequest userRequest) {
         String email = userRequest.getEmail();
         String phone = userRequest.getPhoneNumber();
         SysUser sysUserFromDB = sysUserMapper.selectByPhoneNumberOrEmail(phone, email);
@@ -102,7 +102,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         } catch (Exception e) {
             throw new ServiceException("插入用户失败");
         }
-        return sysUser.getId().toString();
+        return sysUser;
     }
     @Override
     public void addUserPermission(SysUser sysUser) {
@@ -115,14 +115,21 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     }
 
     @Override
-    public String findUser(@Valid AuthLoginRequest authLoginRequest) {
+    public SysUser findUser(@Valid AuthLoginRequest authLoginRequest) {
         String phone = authLoginRequest.getPhoneNumber();
         String email = authLoginRequest.getEmail();
         SysUser sysUser = sysUserMapper.selectByPhoneNumberOrEmail(phone, email);
         if (Objects.isNull(sysUser)) {
-            throw new ServiceException("用户不存在");
+            //调用最小注册逻辑
+            sysUser =  SysUserConvert.INSTANCE.convert(authLoginRequest);
+            try {
+                save(sysUser);
+            } catch (Exception e) {
+                throw new ServiceException("用户不存在");
+            }
+            //这里不给用户权限，除非用户补充完毕信息，才能给对应的user权限
         }
-        return String.valueOf(sysUser.getId());
+        return sysUser;
     }
 
     @Override

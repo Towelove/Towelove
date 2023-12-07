@@ -2,6 +2,7 @@ package blossom.project.towelove.auth.strategy;
 
 import blossom.project.towelove.client.serivce.RemoteUserService;
 import blossom.project.towelove.common.constant.RedisKeyConstant;
+import blossom.project.towelove.common.domain.dto.SysUser;
 import blossom.project.towelove.common.exception.ServiceException;
 import blossom.project.towelove.common.request.auth.AuthLoginRequest;
 import blossom.project.towelove.common.request.auth.AuthRegisterRequest;
@@ -35,7 +36,7 @@ public class UserAccessByPhone implements UserAccessStrategy {
 
     private final RemoteUserService remoteUserService;
     @Override
-    public String register(AuthRegisterRequest authRegisterRequest) {
+    public SysUser register(AuthRegisterRequest authRegisterRequest) {
         String phone = authRegisterRequest.getPhoneNumber();
         String code = authRegisterRequest.getVerifyCode();
         log.info("校验验证码请求的手机号为：{},验证码为：{}",phone,code);
@@ -50,11 +51,11 @@ public class UserAccessByPhone implements UserAccessStrategy {
                 throw new ServiceException("验证码校验失败，验证码错误");
             }
         }
-        return null;
+        return new SysUser();
     }
 
     @Override
-    public String login(AuthLoginRequest authLoginRequest) {
+    public SysUser login(AuthLoginRequest authLoginRequest) {
         String phone = authLoginRequest.getPhoneNumber();
         String code = authLoginRequest.getVerifyCode();
         log.info("校验验证码请求的手机号为：{},验证码为：{}",phone,code);
@@ -69,12 +70,11 @@ public class UserAccessByPhone implements UserAccessStrategy {
                 throw new ServiceException("验证码校验失败，验证码错误");
             }
         }
-        Result<String> userByPhoneOrEmail = remoteUserService.findUserByPhoneOrEmail(authLoginRequest);
+        Result<SysUser> userByPhoneOrEmail = remoteUserService.findUserByPhoneOrEmail(authLoginRequest);
         if (Objects.isNull(userByPhoneOrEmail) || HttpStatus.SUCCESS != userByPhoneOrEmail.getCode()){
             throw new ServiceException("用户不存在，请注册");
         }
-        StpUtil.login(userByPhoneOrEmail.getData());
-        return StpUtil.getTokenInfo().tokenValue;
+        return userByPhoneOrEmail.getData();
 
     }
 

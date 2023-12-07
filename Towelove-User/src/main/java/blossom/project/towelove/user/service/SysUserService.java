@@ -21,9 +21,9 @@ public interface SysUserService extends IService<SysUser> {
 
     PageResponse<SysUserVo> selectByPage(Integer pageNo, Integer pageSize);
 
-    String inserUser(InsertUserRequest sysUser);
+    SysUser inserUser(InsertUserRequest sysUser);
 
-    String findUser(AuthLoginRequest authLoginRequest);
+    SysUser findUser(AuthLoginRequest authLoginRequest);
 
     List<SysUserPermissionDto> getPermissionByUserId(Long userId);
 

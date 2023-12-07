@@ -58,7 +58,7 @@ public class UserThirdPartyController {
     }
 
     @PostMapping("/access")
-    public Result<Long> accessByThirdPartyAccount(@RequestBody ThirdPartyLoginUser thirdPartyLoginUser){
+    public Result<SysUser> accessByThirdPartyAccount(@RequestBody ThirdPartyLoginUser thirdPartyLoginUser){
         return Result.ok(userThirdPartyService.accessByThirdPartyAccount(thirdPartyLoginUser));
     }
 

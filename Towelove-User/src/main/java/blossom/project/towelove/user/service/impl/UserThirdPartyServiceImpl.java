@@ -54,10 +54,10 @@ public class UserThirdPartyServiceImpl extends ServiceImpl<UserThirdPartyMapper,
      */
     @Override
     @Transactional(propagation = Propagation.REQUIRED)
-    public Long accessByThirdPartyAccount(ThirdPartyLoginUser thirdPartyLoginUser) {
+    public SysUser accessByThirdPartyAccount(ThirdPartyLoginUser thirdPartyLoginUser) {
         SysUser sysUser = sysUserMapper.selectByThirdPartyId(thirdPartyLoginUser.getSocialUid());
         if (Objects.isNull(sysUser)){
-            //返回已经注册的用户信息
+            //第三方用户未注册，则新增用户
             sysUser = SysUserConvert.INSTANCE.convert(thirdPartyLoginUser);
             if (sysUserMapper.insert(sysUser) <= 0) {
                 throw new ServiceException("注册第三方登入用户失败，请联系管理员");
@@ -73,7 +73,7 @@ public class UserThirdPartyServiceImpl extends ServiceImpl<UserThirdPartyMapper,
                 throw new ServiceException("记录第三方用户信息失败，请联系管理员");
             }
         }
-        //第三方用户未注册，则新增用户
-        return sysUser.getId();
+        //返回已经注册的用户信息
+        return sysUser;
     }
 }
