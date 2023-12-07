@@ -20,7 +20,7 @@ public class TodoListResponse {
     //截止日期
     private Date deadline;
     //完成状态
-    private Integer completionStatus;
+    private Integer status;
     //完成日期
     private Date completionDate;
 

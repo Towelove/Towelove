@@ -9,6 +9,7 @@ import blossom.project.towelove.common.response.todoList.TodoListResponse;
 import blossom.project.towelove.framework.log.annotation.LoveLog;
 import blossom.project.towelove.loves.service.TodoImagesService;
 import blossom.project.towelove.loves.service.TodolistService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.validation.annotation.Validated;
@@ -26,14 +27,13 @@ import java.util.Optional;
  * @date 下午4:52 30/11/2023
  */
 @LoveLog
-@RestController()
+@RestController
+@RequiredArgsConstructor
 @RequestMapping("/v1/loves/todo-list")
 public class TodoListController {
 
-    @Autowired
-    private TodolistService todolistService;
-    @Autowired
-    private TodoImagesService todoImagesService;
+    private final TodolistService todolistService;
+    private final TodoImagesService todoImagesService;
 
     /**
      * 创建 待办事项

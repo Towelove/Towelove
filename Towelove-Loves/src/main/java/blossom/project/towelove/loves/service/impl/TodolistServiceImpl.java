@@ -14,6 +14,7 @@ import cn.hutool.core.collection.CollectionUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -31,13 +32,13 @@ import java.util.stream.Collectors;
 * @createDate 2023-11-30 17:10:50
 */
 @Service
+@RequiredArgsConstructor
 public class TodolistServiceImpl extends ServiceImpl<TodoListMapper, TodoList>
     implements TodolistService{
 
-    @Autowired
-    private TodoListMapper todoListMapper;
-    @Autowired
-    private TodoImagesMapper todoImagesMapper;
+
+    private final TodoListMapper todoListMapper;
+    private final TodoImagesMapper todoImagesMapper;
 
 
     @Override

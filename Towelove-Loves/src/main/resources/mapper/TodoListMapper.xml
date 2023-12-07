@@ -11,7 +11,7 @@
             <result property="title" column="title" jdbcType="VARCHAR"/>
             <result property="description" column="description" jdbcType="VARCHAR"/>
             <result property="deadline" column="deadline" jdbcType="DATE"/>
-            <result property="completionStatus" column="completion_status" jdbcType="TINYINT"/>
+            <result property="status" column="status" jdbcType="TINYINT"/>
             <result property="completionDate" column="completion_date" jdbcType="DATE"/>
             <result property="createBy" column="create_by" jdbcType="VARCHAR"/>
             <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
