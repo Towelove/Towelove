@@ -3,6 +3,7 @@ package blossom.project.towelove.auth.service.impl;
 import blossom.project.towelove.auth.service.AuthService;
 import blossom.project.towelove.auth.strategy.UserAccessStrategy;
 import blossom.project.towelove.auth.strategy.UserRegisterStrategyFactory;
+import blossom.project.towelove.auth.utils.VerifyCodeUtils;
 import blossom.project.towelove.client.serivce.RemoteCodeService;
 import blossom.project.towelove.client.serivce.RemoteUserService;
 import blossom.project.towelove.common.constant.RedisKeyConstant;
@@ -14,6 +15,7 @@ import blossom.project.towelove.common.request.auth.AuthLoginRequest;
 import blossom.project.towelove.common.request.auth.AuthRegisterRequest;
 import blossom.project.towelove.common.request.auth.AuthVerifyCodeRequest;
 import blossom.project.towelove.common.request.auth.RestockUserInfoRequest;
+import blossom.project.towelove.common.request.user.UpdateUserRequest;
 import blossom.project.towelove.common.response.Result;
 import blossom.project.towelove.common.response.user.SysUserVo;
 import blossom.project.towelove.common.utils.JsonUtils;
@@ -42,6 +44,7 @@ public class AuthServiceImpl implements AuthService {
 
     private final RedisService redisService;
 
+    private final VerifyCodeUtils verifyCodeUtils;
 
 
     @Override
@@ -53,7 +56,7 @@ public class AuthServiceImpl implements AuthService {
 //        if (StrUtil.isBlank(token)) {
 //            throw new ServiceException("验证码校验失败，请输入正确的验证码");
 //        }
-       return StpUtil.getTokenInfo().tokenValue;
+        return StpUtil.getTokenInfo().tokenValue;
     }
 
     @Override
@@ -64,7 +67,7 @@ public class AuthServiceImpl implements AuthService {
         //验证码校验
         SysUser sysUser = userAccessStrategy.login(authLoginRequest);
         StpUtil.login(sysUser.getId());
-        if (StrUtil.isBlank(sysUser.getPassword())){
+        if (StrUtil.isBlank(sysUser.getPassword())) {
             //需要用户补充信息，但依然是登入态
             res.setCode(HttpStatus.CREATED);
             res.setMsg("用户需要完善信息");
@@ -80,6 +83,13 @@ public class AuthServiceImpl implements AuthService {
         return res;
     }
 
+    /**
+     * 第三方用户登入
+     *
+     * @param authLoginRequest
+     * @return
+     */
+
     @Override
     public Result<String> thirdPartyRegister(AuthLoginRequest authLoginRequest) {
         Result<String> res = new Result<>();
@@ -88,7 +98,7 @@ public class AuthServiceImpl implements AuthService {
 
         SysUser sysUser = userAccessStrategy.login(authLoginRequest);
         StpUtil.login(sysUser.getId());
-        if (StrUtil.isBlank(sysUser.getPassword())){
+        if (StrUtil.isBlank(sysUser.getPassword())) {
             res.setCode(HttpStatus.CREATED);
             res.setMsg("第三方登入用户未完善信息");
         }
@@ -114,16 +124,15 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public String sendVerifyCode(AuthVerifyCodeRequest authVerifyCodeRequest) {
-        if (StrUtil.isNotBlank(authVerifyCodeRequest.getPhone())){
+        if (StrUtil.isNotBlank(authVerifyCodeRequest.getPhone())) {
             checkPhoneByRegex(authVerifyCodeRequest.getPhone());
             //TODO 调用远程验证码接口
             remoteCodeService.sendValidateCodeByPhone(authVerifyCodeRequest.getPhone());
-        }
-        else if (StrUtil.isNotBlank(authVerifyCodeRequest.getEmail())){
+        } else if (StrUtil.isNotBlank(authVerifyCodeRequest.getEmail())) {
             checkEmailByRegex(authVerifyCodeRequest.getEmail());
             //TODO 调用远程验证码接口
             remoteCodeService.sendValidateCodeByEmail(authVerifyCodeRequest.getEmail());
-        }else {
+        } else {
             throw new ServiceException("发送验证码失败，邮箱或手机号为空");
         }
         return "发送验证码成功";
@@ -131,16 +140,33 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public String restockUserInfo(RestockUserInfoRequest restockUserInfoRequest) {
-        return null;
+        String phone = restockUserInfoRequest.getPhone();
+        String email = restockUserInfoRequest.getEmail();
+        checkPhoneByRegex(phone);
+        checkEmailByRegex(email);
+        //验证验证码
+        if (!verifyCodeUtils.valid(RedisKeyConstant.VALIDATE_CODE,phone,restockUserInfoRequest.getPhoneVerifyCode())
+                || !verifyCodeUtils.valid(RedisKeyConstant.VALIDATE_CODE,phone,restockUserInfoRequest.getEmailVerifyCode())) {
+            //验证不通过
+            throw new ServiceException("验证码有误，请重新获取");
+        }
+        restockUserInfoRequest.setId(StpUtil.getLoginId(0L));
+        //调用远程服务更新用户信息
+        Result<String> result = remoteUserService.restockUserInfo(restockUserInfoRequest);
+        if (Objects.isNull(result) || HttpStatus.SUCCESS != result.getCode()){
+            throw new ServiceException("补充用户信息失败");
+        }
+        return "补充信息成功，可以访问系统啦！";
     }
 
-    public void checkPhoneByRegex(String phone){
-        if (!ReUtil.isMatch(RegexPool.MOBILE,phone)) {
+    public void checkPhoneByRegex(String phone) {
+        if (!ReUtil.isMatch(RegexPool.MOBILE, phone)) {
             throw new ServiceException("手机号格式错误");
         }
     }
-    public void checkEmailByRegex(String email){
-        if (!ReUtil.isMatch(RegexPool.EMAIL,email)) {
+
+    public void checkEmailByRegex(String email) {
+        if (!ReUtil.isMatch(RegexPool.EMAIL, email)) {
             throw new ServiceException("邮箱格式错误");
         }
     }
@@ -193,10 +219,6 @@ public class AuthServiceImpl implements AuthService {
 //        }
 
 //    }
-
-
-
-
 
 
     //    public void check (AuthLoginRequest authLoginRequest){

@@ -6,6 +6,8 @@ import blossom.project.towelove.common.domain.dto.SysUser;
 import blossom.project.towelove.common.domain.dto.ThirdPartyLoginUser;
 import blossom.project.towelove.common.domain.dto.UserThirdParty;
 import blossom.project.towelove.common.request.auth.AuthLoginRequest;
+import blossom.project.towelove.common.request.auth.RestockUserInfoRequest;
+import blossom.project.towelove.common.request.user.UpdateUserRequest;
 import blossom.project.towelove.common.response.Result;
 import blossom.project.towelove.common.response.mailaccount.MailAccountResponse;
 import blossom.project.towelove.common.response.user.SysUserPermissionDto;
@@ -17,6 +19,7 @@ import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.cloud.openfeign.FallbackFactory;
 import org.springframework.stereotype.Component;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
@@ -70,6 +73,12 @@ public class RemoteUserFallbackFactory implements FallbackFactory<RemoteUserServ
             @Override
             public Result<SysUser> accessByThirdPartyAccount(ThirdPartyLoginUser thirdPartyLoginUser) {
                 log.error("调用远程服务 accessByThirdPartyAccount 失败: {}", throwable.getMessage());
+                return Result.fail("远程服务调用失败", MDC.get(SecurityConstant.REQUEST_ID));
+            }
+
+            @Override
+            public Result<String> restockUserInfo(RestockUserInfoRequest restockUserInfoRequest) {
+                log.error("调用远程服务 restockUserInfo 失败: {}", throwable.getMessage());
                 return Result.fail("远程服务调用失败", MDC.get(SecurityConstant.REQUEST_ID));
             }
         };

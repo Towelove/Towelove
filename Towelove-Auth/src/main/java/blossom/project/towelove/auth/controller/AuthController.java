@@ -87,8 +87,13 @@ public class AuthController {
         return Result.ok(authService.sendVerifyCode(authVerifyCodeRequest));
     }
 
+    /**
+     * 补充用户信息
+     * @param restockUserInfoRequest
+     * @return
+     */
     @PostMapping("/restock-info")
-    public Result<?> restockUserInfo(@RequestBody RestockUserInfoRequest restockUserInfoRequest){
+    public Result<?> restockUserInfo(@Valid @RequestBody RestockUserInfoRequest restockUserInfoRequest){
         return Result.ok(authService.restockUserInfo(restockUserInfoRequest));
     }
 }

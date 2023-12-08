@@ -2,6 +2,7 @@ package blossom.project.towelove.user.convert;
 
 import blossom.project.towelove.common.domain.dto.ThirdPartyLoginUser;
 import blossom.project.towelove.common.request.auth.AuthLoginRequest;
+import blossom.project.towelove.common.request.auth.RestockUserInfoRequest;
 import blossom.project.towelove.common.request.user.InsertUserRequest;
 import blossom.project.towelove.common.request.user.UpdateUserRequest;
 import blossom.project.towelove.common.response.user.SysUserPermissionDto;
@@ -23,6 +24,8 @@ public interface SysUserConvert {
     SysUser convert(ThirdPartyLoginUser thirdPartyLoginUser);
 
     SysUser convert(AuthLoginRequest authLoginRequest);
+
+    SysUser convert(RestockUserInfoRequest restockUserInfoRequest);
 
 
 }

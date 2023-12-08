@@ -14,7 +14,11 @@ public class UpdateUserRequest {
 
     private String phoneNumber;
 
+    private String email;
+
     private String sex;
 
     private String avatar;
+
+    private String password;
 }

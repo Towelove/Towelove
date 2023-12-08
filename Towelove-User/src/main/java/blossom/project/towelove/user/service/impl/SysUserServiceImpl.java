@@ -4,6 +4,7 @@ import blossom.project.towelove.common.constant.TokenConstant;
 import blossom.project.towelove.common.exception.ServiceException;
 import blossom.project.towelove.common.page.PageResponse;
 import blossom.project.towelove.common.request.auth.AuthLoginRequest;
+import blossom.project.towelove.common.request.auth.RestockUserInfoRequest;
 import blossom.project.towelove.common.request.user.InsertUserRequest;
 import blossom.project.towelove.common.request.user.UpdateUserRequest;
 import blossom.project.towelove.common.response.user.SysUserPermissionDto;
@@ -22,6 +23,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -42,10 +45,11 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
 
     @Transactional
     @Override
-    public String updateUser(UpdateUserRequest request, HttpServletRequest httpServletRequest) {
+    public String updateUser(UpdateUserRequest request) {
         SysUser sysUser = SysUserConvert.INSTANCE.convert(request);
         //获取userId,
-        String userId = httpServletRequest.getHeader(TokenConstant.USER_ID_HEADER);
+        ServletRequestAttributes requestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+        String userId = requestAttributes.getRequest().getHeader(TokenConstant.USER_ID_HEADER);
         sysUser.setId(Long.parseLong(userId));
         if (!updateById(sysUser)) {
             throw new ServiceException("更新用户信息失败");
@@ -137,7 +141,19 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         return sysPermissionMapper.selectUserPermissionByUserId(userId);
     }
 
-
+    @Override
+    @Transactional
+    public String restockUserInfo(RestockUserInfoRequest restockUserInfoRequest) {
+        //更新用户信息
+        SysUser sysUser = SysUserConvert.INSTANCE.convert(restockUserInfoRequest);
+        try {
+            updateById(sysUser);
+            addUserPermission(sysUser);
+        } catch (ServiceException e) {
+            throw new ServiceException("补充用户信息失败");
+        }
+        return "补充用户信息成功";
+    }
 }
 
 

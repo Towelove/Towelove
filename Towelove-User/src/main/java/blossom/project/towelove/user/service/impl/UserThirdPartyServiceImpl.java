@@ -20,6 +20,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.context.request.RequestContextHolder;
 
 import java.util.List;
 import java.util.Objects;
@@ -62,8 +63,8 @@ public class UserThirdPartyServiceImpl extends ServiceImpl<UserThirdPartyMapper,
             if (sysUserMapper.insert(sysUser) <= 0) {
                 throw new ServiceException("注册第三方登入用户失败，请联系管理员");
             }
-            //添加用户权限
-            sysUserService.addUserPermission(sysUser);
+            //TODO:添加权限的逻辑应该在用户补充完毕个人信息后授予
+//            sysUserService.addUserPermission(sysUser);
             //关联的第三方登入表
             UserThirdParty userThirdParty = new UserThirdParty();
             userThirdParty.setUserId(sysUser.getId());

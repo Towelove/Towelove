@@ -2,6 +2,7 @@ package blossom.project.towelove.user.controller;
 
 import blossom.project.towelove.common.page.PageResponse;
 import blossom.project.towelove.common.request.auth.AuthLoginRequest;
+import blossom.project.towelove.common.request.auth.RestockUserInfoRequest;
 import blossom.project.towelove.common.request.user.InsertUserRequest;
 import blossom.project.towelove.common.request.user.UpdateUserRequest;
 import blossom.project.towelove.common.response.Result;
@@ -79,8 +80,8 @@ public class SysUserController {
      * @return
      */
     @PutMapping("")
-    public Result<String> updateUserById(@RequestBody UpdateUserRequest request, HttpServletRequest httpServletRequest) {
-        return Result.ok(sysUserService.updateUser(request, httpServletRequest));
+    public Result<String> updateUserById(@RequestBody UpdateUserRequest request) {
+        return Result.ok(sysUserService.updateUser(request));
     }
 
     /**
@@ -102,6 +103,11 @@ public class SysUserController {
     @GetMapping("/permission")
     public Result<List<SysUserPermissionDto>> getUserPermissionByUserId(@RequestParam("userId") Long userId){
         return Result.ok(sysUserService.getPermissionByUserId(userId));
+    }
+
+    @PutMapping("/restock")
+    public Result<String> restockUserInfo(@RequestBody RestockUserInfoRequest restockUserInfoRequest){
+        return Result.ok(sysUserService.restockUserInfo(restockUserInfoRequest));
     }
 
 }
