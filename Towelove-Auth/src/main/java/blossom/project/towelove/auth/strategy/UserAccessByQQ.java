@@ -68,6 +68,12 @@ public class UserAccessByQQ implements UserAccessStrategy {
         return null;
     }
 
+    /**
+     * QQ登入
+     * @param authLoginRequest 登入请求参数
+     * @return
+     */
+
     @Override
     public SysUser login(AuthLoginRequest authLoginRequest) {
         // 使用授权码获取第三方登录用户信息
@@ -84,7 +90,6 @@ public class UserAccessByQQ implements UserAccessStrategy {
             throw new ServiceException("无法验证第三方用户信息");
         }
 //        remoteUserService.findUserIdByThirdPartyId(thirdPartyLoginUser);
-        // 验证成功，将第三方用户信息存储到 Redis 中，以授权码为键
         Result<SysUser> sysUserVoResult = remoteUserService.accessByThirdPartyAccount(thirdPartyLoginUser);
         if (Objects.isNull(sysUserVoResult) || HttpStatus.SUCCESS != sysUserVoResult.getCode()){
             throw new ServiceException(sysUserVoResult.getMsg());
