@@ -2,13 +2,13 @@ HELP.md
 target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
-!**/src/test/**/target/
+!**/    ·   1           c   /test/**/target/
 logs
-./config
-### STS ###
+config
+·   ## STS ###
 .apt_generated
 .classpath
-.factorypath
+.factorypath·
 .project
 .settings
 .springBeans

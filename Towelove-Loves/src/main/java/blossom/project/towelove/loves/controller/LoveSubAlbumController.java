@@ -5,6 +5,7 @@ import blossom.project.towelove.common.page.PageResponse;
 import blossom.project.towelove.common.response.Result;
 import blossom.project.towelove.framework.log.annotation.LoveLog;
 import blossom.project.towelove.loves.service.LoveSubAlbumService;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -79,6 +80,7 @@ public class LoveSubAlbumController {
     updateLoveSubAlbum(@Validated @RequestBody LoveSubAlbumUpdateRequest updateRequest) {
         return Result.ok(loveSubAlbumService.updateLoveSubAlbum(updateRequest));
     }
+
 
 
 
