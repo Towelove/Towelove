@@ -6,25 +6,10 @@ spring:
     # 环境配置
     active: dev
   cloud:
-    inetutils:
-      preferred-networks:
-        - 123
-        - 114
     nacos:
       discovery:
-        server-addr: 123.249.111.175:8848
-      # 服务注册地址
-      #        server-addr: 127.0.0.1:8848
       config:
-        # 配置中心地址
-        #        server-addr: 127.0.0.1:8848
-        # 配置文件格式
         file-extension: yaml
-        #        extension-configs:
-        #          dataId: towelove-gateway-router.yml
-        #          group: DEFAULT_GROUP
-        #          refresh: true
-        server-addr: 123.249.111.175:8848
         # 共享配置
         shared-configs[0]:
           data-id: towelove-base-dev.yaml
@@ -36,51 +21,3 @@ spring:
           data-id: towelove-gateway-dev.yaml
           refresh: true
         prefix: application-${spring.profiles.active}.${spring.cloud.nacos.config.file-extension}
-#    sentinel:
-#      filter:
-#        enabled: false
-#      transport:
-#        dashboard: 127.0.0.1:8081
-#        port: 8719
-#      eager: true
-##      对于网关的限流规则与普通服务的限流规则有所不同
-##      网关限流中有一个resourceMode属性，判断是rotuesID or API分组ID。默认是routesID
-#      datasource:
-#        ds1:
-#          nacos:
-#            server-addr: 127.0.0.1:8848
-#            data-id: towelove-gateway-sentinel.json
-#            group-id: SENTINEL_GROUP
-#            rule-type: flow
-#            data-type: json
-
-
-
-
-
-
-
-
-
-#spring:
-#  profiles:
-#    # 环境配置
-#    active: dev
-#  cloud:
-#    sentinel:
-#      filter:
-#        enabled: false
-#      transport:
-#        dashboard: 127.0.0.1:8081
-#        port: 8719
-#      eager: true
-#      #      对于网关的限流规则与普通服务的限流规则有所不同
-#      #      网关限流中有一个resourceMode属性，判断是rotuesID or API分组ID。默认是routesID
-#      datasource:
-#        ds1:
-#          nacos:
-#            server-addr: 123.249.97.220:8848
-#            data-id: towelove-gateway-sentinel.json
-#            group-id: SENTINEL_GROUP
-#            rule-type: flow
-#            data-type: json
