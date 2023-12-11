@@ -1,52 +1,18 @@
-# Tomcat
-server:
-  port: 9200
 spring:
   cloud:
     gateway:
-      #      discovery:
-      #        locator:
-      #          enabled: false # 设定为true 会导致自定义的filter失效 只有Global的有效
       routes:
-        #        - id: validate-code # 应该把验证码的过滤器放在前面 放在后面会失效
-        #          uri: lb://towelove-gateway
-        #          predicates:
-        #            - Path=/auth/login,/auth/register
-        #          filters:
-        #            - ValidateCodeFilter
-        #          filters:
-        #            # 具体微服务限流位置
-        #            - name: RequestRateLimiter  #请求数限流 名字不能随便写
-        #              args:
-        #                key-resolver: "#{@ipKeyResolver}"  #指定限流的key
-        #                redis-rate-limiter.replenishRate: 1 # 允许每秒处理了多少个请求
-        #                redis-rate-limiter.burstCapacity: 1 # 令牌桶的容量（最高处理并发容量大小1）
-        - id: towelove-system
-          uri: lb://towelove-system
+        - id: my_route
+          uri: lb://my-service
           predicates:
-            - Path= /sys/**
-        - id: towelove-auth
-          uri: lb://towelove-auth
-          predicates:
-            - Path= /auth/**
+            - Path=/my-service/**
           filters:
-            - PrefixPath=/v1
-        - id: towelove-msg-task
-          uri: lb://towelove-msg-task
-          predicates:
-            - Path= /msg/**
-        - id: towelove-core
-          uri: lb://towelove-core
-          predicates:
-            - Path=/core/**
-    nacos:
-      config:
-        import-check:
-          enabled: false
-  redis:
-    host: 8.130.13.254
-    port: 6379
-    password: Venus20230829
+            - name: RequestRateLimiter
+              args:
+                redis-rate-limiter.replenishRate: 10
+                redis-rate-limiter.burstCapacity: 20
+                key-resolver: "#{@userKeyResolver}"
+
 
 sa-token:
   # token 名称（同时也是 cookie 名称）

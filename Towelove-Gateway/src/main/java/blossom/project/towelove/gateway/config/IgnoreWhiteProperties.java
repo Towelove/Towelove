@@ -1,4 +1,4 @@
-package blossom.project.towelove.gateway.config.properties;
+package blossom.project.towelove.gateway.config;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;

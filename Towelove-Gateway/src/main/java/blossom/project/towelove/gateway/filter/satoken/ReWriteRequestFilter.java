@@ -1,4 +1,4 @@
-package blossom.project.towelove.gateway.filter;
+package blossom.project.towelove.gateway.filter.satoken;
 
 import blossom.project.towelove.common.constant.TokenConstant;
 import cn.dev33.satoken.stp.StpUtil;
