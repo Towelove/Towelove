@@ -1,4 +1,4 @@
-package blossom.project.towelove.gateway.filter;
+package blossom.project.towelove.gateway.filter.satoken;
 
 import blossom.project.towelove.client.serivce.RemoteUserService;
 import blossom.project.towelove.common.exception.ServiceException;

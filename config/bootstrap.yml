@@ -3,9 +3,14 @@ spring:
     nacos:
       discovery:
         # 服务注册地址
-        server-addr: 123.249.111.175:8848
+        server-addr: asiayun-cn-fuzhou.towelove.cn:8848
         namespace: towelove
+        username: nacos
+        password: Venus20230829
       config:
         # 配置中心地址
-        server-addr: 123.249.111.175:8848
+        server-addr: asiayun-cn-fuzhou.towelove.cn:8848
         namespace: towelove
+        username: nacos
+        password: Venus20230829
+

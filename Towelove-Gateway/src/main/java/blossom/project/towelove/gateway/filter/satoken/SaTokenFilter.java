@@ -1,4 +1,4 @@
-package blossom.project.towelove.gateway.filter;
+package blossom.project.towelove.gateway.filter.satoken;
 
 import cn.dev33.satoken.reactor.filter.SaReactorFilter;
 import cn.dev33.satoken.router.SaRouter;

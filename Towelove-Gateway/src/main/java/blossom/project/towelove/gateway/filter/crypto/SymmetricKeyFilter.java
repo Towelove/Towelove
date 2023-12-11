@@ -1,4 +1,4 @@
-package blossom.project.towelove.gateway.filter;
+package blossom.project.towelove.gateway.filter.crypto;
 
 import blossom.project.towelove.gateway.config.SecurityConfig;
 import org.springframework.beans.factory.annotation.Autowired;
