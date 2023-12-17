@@ -46,4 +46,31 @@ public class TimeTest {
 //        System.out.println(lastDay);
 
     }
+
+    volatile int count = 0;
+    public final Object lock = new Object();
+    @Test
+    public void test1(){
+        for (int i = 0; i < 3; i++) {
+            new Thread(() -> {
+                while (count < 100) {
+                    synchronized (lock) {
+                        if (count % 3 != Integer.parseInt(Thread.currentThread().getName())) {
+                            try {
+                                lock.wait();
+                            } catch (InterruptedException e) {
+                                throw new RuntimeException(e);
+                            }
+                        } else {
+                            System.out.printf("【线程：%s】打印%s%n", Thread.currentThread().getName(), Integer.parseInt(Thread.currentThread().getName()) + 1);
+                            count++;
+                            //唤醒其他线程
+                            lock.notifyAll();
+                        }
+                    }
+                }
+            }, String.valueOf(i)).start();
+        }
+        while (true);
+    }
 }
