@@ -13,7 +13,15 @@ spring:
   cloud:
     nacos:
       discovery:
+        # 服务注册地址
+        server-addr: asiayun-cn-fuzhou.towelove.cn:8848
+        namespace: towelove
+        username: nacos
+        password: Venus20230829
       config:
+        server-addr: asiayun-cn-fuzhou.towelove.cn:8848
+        username: nacos
+        password: Venus20230829
         file-extension: yaml
         # 共享配置
         shared-configs[0]:
