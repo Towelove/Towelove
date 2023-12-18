@@ -1,5 +1,6 @@
 package blossom.project.towelove.framework.oss.strategy;
 
+import blossom.project.towelove.common.enums.OssType;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
@@ -45,6 +46,8 @@ public interface OssServiceStrategy {
      * @return
      */
     String removeFiles(String url);
+
+    OssType getOssType();
 
 
 }

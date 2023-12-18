@@ -1,5 +1,6 @@
 package blossom.project.towelove.framework.oss.strategy;
 
+import blossom.project.towelove.common.enums.OssType;
 import blossom.project.towelove.framework.oss.config.OSSProperties;
 import blossom.project.towelove.framework.oss.config.TencentOssProperties;
 import com.qcloud.cos.COSClient;
@@ -39,5 +40,10 @@ public class TencentOssStrategy implements OssServiceStrategy {
     @Override
     public String removeFiles(String url) {
         return null;
+    }
+
+    @Override
+    public OssType getOssType() {
+        return OssType.TENCENT;
     }
 }
