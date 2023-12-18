@@ -14,28 +14,25 @@ import java.util.Map;
 @RequiredArgsConstructor
 @AutoConfiguration
 public class OssStrategyFactory implements BeanPostProcessor {
-    private final TencentOssStrategy tencentOssStrategy;
-
-    private final AliyunOssStrategy aliyunOssStrategy;
-
-    private final MinioOssStrategy minioOssStrategy;
-
-    private final Map<Integer, OssServiceStrategy> map = new HashMap();
+    private final Map<Integer, OssServiceStrategy> map = new HashMap<>();
 
     private final OSSProperties ossProperties;
+
+
     /**
      * 初始化策略
-     * @param bean
-     * @param beanName
-     * @return
-     * @throws BeansException
+     * @param bean bean对象
+     * @param beanName bean名称
+     * @return bean对象
+     * @throws BeansException bean异常
      */
     @Override
-    public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
-        map.put(0,minioOssStrategy);
-        map.put(1,aliyunOssStrategy);
-        map.put(2,tencentOssStrategy);
-        return BeanPostProcessor.super.postProcessAfterInitialization(bean, beanName);
+    public Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {
+        if (!(bean instanceof OssServiceStrategy ossServiceStrategy)) {
+            return bean;
+        }
+        map.put(ossServiceStrategy.getOssType().getValue(), ossServiceStrategy);
+        return ossServiceStrategy;
     }
 
     /**

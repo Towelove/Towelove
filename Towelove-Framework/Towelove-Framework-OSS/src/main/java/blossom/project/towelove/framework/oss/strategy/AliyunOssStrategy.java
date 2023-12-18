@@ -1,5 +1,6 @@
 package blossom.project.towelove.framework.oss.strategy;
 
+import blossom.project.towelove.common.enums.OssType;
 import blossom.project.towelove.framework.oss.config.AliyunOssProperties;
 import blossom.project.towelove.framework.oss.config.OSSProperties;
 import com.aliyun.oss.OSS;
@@ -39,5 +40,10 @@ public class AliyunOssStrategy implements OssServiceStrategy {
     @Override
     public String removeFiles(String url) {
         return null;
+    }
+
+    @Override
+    public OssType getOssType() {
+        return OssType.ALIYUN;
     }
 }

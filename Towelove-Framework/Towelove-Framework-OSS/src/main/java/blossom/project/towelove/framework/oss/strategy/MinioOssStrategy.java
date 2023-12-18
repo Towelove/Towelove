@@ -1,6 +1,7 @@
 package blossom.project.towelove.framework.oss.strategy;
 
 
+import blossom.project.towelove.common.enums.OssType;
 import blossom.project.towelove.common.exception.ClientException;
 import blossom.project.towelove.common.exception.RemoteException;
 import blossom.project.towelove.common.exception.ServerException;
@@ -224,6 +225,11 @@ public class MinioOssStrategy implements OssServiceStrategy {
     @Override
     public String getOssPathPrefix() {
         return minioProperties.getUrl();
+    }
+
+    @Override
+    public OssType getOssType() {
+        return OssType.MINIO;
     }
 
 
