@@ -16,6 +16,7 @@
         <module>Towelove-User</module>
         <module>Towelove-Loves</module>
         <module>Towelove-Msg</module>
+        <module>Towelove-Test</module>
         <module>Towelove-Game</module>
         <module>Towelove-Society</module>
         <module>Towelove-Auth</module>
