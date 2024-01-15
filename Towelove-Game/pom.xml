@@ -12,8 +12,8 @@
     <artifactId>Towelove-Game</artifactId>
 
     <properties>
-        <maven.compiler.source>19</maven.compiler.source>
-        <maven.compiler.target>19</maven.compiler.target>
+        <maven.compiler.source>${java.version}</maven.compiler.source>
+        <maven.compiler.target>${java.version}</maven.compiler.target>
     </properties>
 
     <description>Towelove-Game休闲游戏模块</description>
@@ -121,8 +121,8 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.8.1</version>
                 <configuration>
-                    <source>18</source>
-                    <target>18</target>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
                     <compilerArgs>--enable-preview</compilerArgs>
                 </configuration>
             </plugin>

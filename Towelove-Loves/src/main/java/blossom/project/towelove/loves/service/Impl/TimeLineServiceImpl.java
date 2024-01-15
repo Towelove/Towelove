@@ -1,12 +1,11 @@
 package blossom.project.towelove.loves.service.Impl;
 
 
-import blossom.project.towelove.framework.oss.service.FileUploadService;
+import blossom.project.towelove.framework.oss.service.OssService;
 import blossom.project.towelove.loves.entity.TimeLine;
 import blossom.project.towelove.loves.mapper.TimeLineMapper;
 import blossom.project.towelove.loves.service.TimeLineService;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -26,7 +25,7 @@ import java.util.function.Function;
 @RequiredArgsConstructor
 public class TimeLineServiceImpl extends ServiceImpl<TimeLineMapper, TimeLine> implements TimeLineService {
 
-    private final FileUploadService fileUploadService;
+    private final OssService ossService;
     @Override
     public TimeLine createTimeLine(List<MultipartFile> images, TimeLine timeLine) {
         return null;
