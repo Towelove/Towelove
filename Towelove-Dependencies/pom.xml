@@ -19,9 +19,9 @@
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <revision>2.0</revision>
         <!-- 统一依赖管理 -->
-        <spring.boot.version>2.7.8</spring.boot.version>
-        <spring.cloud.version>2021.0.5</spring.cloud.version>
-        <spring.cloud.alibaba.version>2021.0.4.0</spring.cloud.alibaba.version>
+        <spring.boot.version>3.0.2</spring.boot.version>
+        <spring.cloud.version>2020.0.3</spring.cloud.version>
+        <spring.cloud.alibaba.version>2022.0.0.0</spring.cloud.alibaba.version>
         <!-- Web 相关 -->
         <servlet.versoin>2.5</servlet.versoin>
         <swagger.version>2.2.8</swagger.version>
