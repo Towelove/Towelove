@@ -5,7 +5,6 @@ import blossom.project.towelove.common.page.PageResponse;
 import blossom.project.towelove.common.response.Result;
 import blossom.project.towelove.framework.log.annotation.LoveLog;
 import blossom.project.towelove.loves.service.LoveSubAlbumService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
@@ -37,10 +36,11 @@ import javax.validation.constraints.NotNull;
 @LoveLog
 @RestController
 @RequestMapping("/v1/love/sub/album")
+@RequiredArgsConstructor
 public class LoveSubAlbumController {
 
-    @Autowired
-    private LoveSubAlbumService loveSubAlbumService;
+
+    private final LoveSubAlbumService loveSubAlbumService;
 
 
     /**

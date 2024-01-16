@@ -4,7 +4,6 @@ import blossom.project.towelove.common.response.Result;
 import blossom.project.towelove.framework.log.annotation.LoveLog;
 import blossom.project.towelove.framework.oss.service.OssService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -29,10 +28,10 @@ import java.util.stream.IntStream;
 @LoveLog
 @RestController
 @RequestMapping("/v1/love/oss")
+@RequiredArgsConstructor
 public class OssController {
 
-    @Autowired
-    private OssService ossService;
+    private final OssService ossService;
 
 
 
