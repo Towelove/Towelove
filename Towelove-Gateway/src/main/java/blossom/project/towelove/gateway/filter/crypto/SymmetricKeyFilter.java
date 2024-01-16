@@ -9,6 +9,7 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.server.reactive.ServerHttpResponse;
+import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
@@ -23,7 +24,7 @@ import java.util.Base64;
  * 当前过滤器首先会先获取请求头中的对称密钥
  * 如果有，那么获取对称密钥并且保存到Redis中
  */
-//@Component
+@Component
 public class SymmetricKeyFilter implements GlobalFilter, Ordered {
 
     @Autowired
