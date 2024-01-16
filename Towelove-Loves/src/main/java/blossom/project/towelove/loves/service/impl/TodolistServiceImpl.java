@@ -1,4 +1,4 @@
-package blossom.project.towelove.loves.service.impl;
+package blossom.project.towelove.loves.service.Impl;
 
 import blossom.project.towelove.common.request.todoList.InsertTodoRequest;
 import blossom.project.towelove.common.request.todoList.UpdateTodoRequest;
