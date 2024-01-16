@@ -158,7 +158,7 @@
             <artifactId>javax.servlet-api</artifactId>
         </dependency>
 
-
+        <!--工具包-->
         <dependency>
             <groupId>cn.hutool</groupId>
             <artifactId>hutool-all</artifactId>
@@ -170,7 +170,7 @@
             <version>31.1-jre</version>
         </dependency>
 
-
+        <!--http工具包-->
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpcore</artifactId>
@@ -194,6 +194,15 @@
             <artifactId>jackson-datatype-jsr310</artifactId>
         </dependency>
 
+        <!--jsoup-->
+        <dependency>
+            <groupId>org.jsoup</groupId>
+            <artifactId>jsoup</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.jsoup</groupId>
+            <artifactId>jsoup</artifactId>
+        </dependency>
     </dependencies>
 
 </project>

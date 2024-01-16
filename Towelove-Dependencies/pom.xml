@@ -185,6 +185,19 @@
                 <version>${pagehelper.version}</version>
             </dependency>
 
+
+            <!--jsoup-->
+            <dependency>
+                <groupId>org.jsoup</groupId>
+                <artifactId>jsoup</artifactId>
+                <version>1.16.1</version>
+            </dependency>
+            <dependency>
+                <groupId>org.jsoup</groupId>
+                <artifactId>jsoup</artifactId>
+                <version>1.13.1</version>
+            </dependency>
+
             <!-- DB 相关 -->
             <dependency>
                 <groupId>mysql</groupId>
