@@ -22,18 +22,20 @@ import java.util.Optional;
 
 /**
  * 待办事项
+ *
  * @author wangLele
  * @Mail 1819220754@qq.com
  * @date 下午4:52 30/11/2023
  */
 @LoveLog
 @RestController
-@RequiredArgsConstructor
 @RequestMapping("/v1/loves/todo-list")
 public class TodoListController {
 
-    private final TodolistService todolistService;
-    private final TodoImagesService todoImagesService;
+    @Autowired
+    private TodolistService todolistService;
+    @Autowired
+    private TodoImagesService todoImagesService;
 
     /**
      * 创建 待办事项
@@ -77,8 +79,8 @@ public class TodoListController {
      * @return
      */
     @GetMapping("")
-    public Result<List<TodoListResponse>> getTodo(@RequestParam("userId") Long userId,
-                                                  @RequestParam(name = "parentId", required = false, defaultValue = "0") Long parentId) {
+    public Result<List<TodoListResponse>> getTodo(@RequestParam("userId") Long userId, @RequestParam(name = "parentId"
+            , required = false, defaultValue = "0") Long parentId) {
         return Result.ok(todolistService.getList(userId, parentId));
     }
 
@@ -100,9 +102,8 @@ public class TodoListController {
      * @param date   日期 YYYY-MM
      */
     @GetMapping("/calendar")
-    public Result<List<TodoListCalendarResponse>> getTodoCalendar(
-            @RequestParam("userId") Long userId,
-            @RequestParam("date") @DateTimeFormat(pattern = "yyyy-MM") Date date) {
+    public Result<List<TodoListCalendarResponse>> getTodoCalendar(@RequestParam("userId") Long userId, @RequestParam(
+            "date") @DateTimeFormat(pattern = "yyyy-MM") Date date) {
         return Result.ok(todolistService.getTodoCalendar(userId, date));
     }
 

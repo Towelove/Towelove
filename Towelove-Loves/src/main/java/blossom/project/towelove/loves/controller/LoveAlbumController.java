@@ -10,6 +10,7 @@ import blossom.project.towelove.framework.log.annotation.LoveLog;
 import blossom.project.towelove.loves.service.LoveAlbumService;
 
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -43,10 +44,10 @@ import javax.validation.constraints.NotNull;
 @LoveLog
 @RestController
 @RequestMapping("/v1/love/album")
-@RequiredArgsConstructor
 public class LoveAlbumController {
 
-    private final LoveAlbumService loveAlbumService;
+    @Autowired
+    private LoveAlbumService loveAlbumService;
 
     /**
      * 创建相册

@@ -7,6 +7,7 @@ import blossom.project.towelove.loves.entity.TimeLine;
 import blossom.project.towelove.loves.service.TimeLineService;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -21,11 +22,10 @@ import java.util.List;
 @LoveLog
 @RestController
 @RequestMapping("/v1/love/timeline")
-@RequiredArgsConstructor
 public class TimeLineController {
 
-    private final TimeLineService timeLineService;
-
+    @Autowired
+    private TimeLineService timeLineService;
     /**
      * 创建时间线事件
      *
