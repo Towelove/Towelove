@@ -5,10 +5,10 @@ import java.util.Date;
 import java.io.Serializable;
 import java.util.Map;
 
-import blossom.project.towelove.framework.mysql.domain.BaseEntity;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import blossom.project.towelove.framework.mysql.domain.BaseEntity;
 import com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
