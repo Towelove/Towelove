@@ -13,6 +13,9 @@ import blossom.project.towelove.common.exception.errorcode.IErrorCode;
  */
 public class EntityNotFoundException extends AbstractException{
 
+    public EntityNotFoundException(String message, IErrorCode errorCode) {
+        super(message, null, errorCode);
+    }
     public EntityNotFoundException(String message, Throwable throwable, IErrorCode errorCode) {
         super(message, throwable, errorCode);
     }
