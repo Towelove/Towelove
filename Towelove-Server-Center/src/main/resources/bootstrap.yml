@@ -6,23 +6,13 @@ server:
 spring:
   application:
     # 应用名称
-    name: towelove-msg
+    name: towelove-server-center
   profiles:
     # 环境配置
     active: dev
   cloud:
     nacos:
-      discovery:
-        # 服务注册地址
-        server-addr: asiayun-cn-fuzhou.towelove.cn:8848
-        namespace: towelove
-        username: nacos
-        password: Venus20230829
       config:
-        server-addr: asiayun-cn-fuzhou.towelove.cn:8848
-        username: nacos
-        password: Venus20230829
-        file-extension: yaml
         # 共享配置
         shared-configs[0]:
           data-id: towelove-base-dev.yaml
@@ -48,4 +38,3 @@ spring:
         shared-configs[7]:
           data-id: towelove-oss-dev.yaml
           refresh: true
-        namespace: towelove
