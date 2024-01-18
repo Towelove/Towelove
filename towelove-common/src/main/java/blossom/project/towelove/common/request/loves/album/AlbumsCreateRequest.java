@@ -32,6 +32,10 @@ public class AlbumsCreateRequest  {
     @NotNull(message = "title can not be null!!!")
     private String title;
 
+    //相册封面url
+    private String coverUrl;
+
+
 }
 
 
