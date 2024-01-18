@@ -21,7 +21,8 @@ import java.util.Set;
 @Service
 @RequiredArgsConstructor
 public class SensitiveWordServiceImpl implements SensitiveWordService {
-    private AcMatcher acMatcher;
+
+    private final AcMatcher acMatcher;
     @Override
     public Result<String> addSensitiveWord(String word) {
         return null;

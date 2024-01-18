@@ -81,7 +81,7 @@ public class UserAccessByQQ implements UserAccessStrategy {
                 thirdPartyLoginConfig,
                 restTemplate,
                 USER_TYPE.QQ.getType(),
-                authLoginRequest.getVerifyCode(),
+                authLoginRequest.getThirdPartyCode(),
                 ThirdPartyLoginUser.class
         );
 

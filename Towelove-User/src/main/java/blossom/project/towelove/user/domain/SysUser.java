@@ -43,5 +43,4 @@ public class SysUser extends BaseEntity {
 
     @TableField("login_ip")
     private String loginIp;
-
 }

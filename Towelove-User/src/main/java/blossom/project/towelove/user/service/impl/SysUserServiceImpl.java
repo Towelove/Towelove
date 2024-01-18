@@ -102,7 +102,6 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
             save(sysUser);
             addUserPermission(sysUser);
             //增加用户权限，暂时只有user权限
-
         } catch (Exception e) {
             throw new ServiceException("插入用户失败");
         }

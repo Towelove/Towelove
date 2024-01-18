@@ -15,6 +15,7 @@ import cn.hutool.core.util.StrUtil;
 import com.towelove.common.core.constant.HttpStatus;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
 
 import java.util.Objects;
@@ -42,7 +43,6 @@ public class UserAccessByPhone implements UserAccessStrategy {
         log.info("校验验证码请求的手机号为：{},验证码为：{}",phone,code);
         if (StrUtil.isNotBlank(phone) && ReUtil.isMatch(RegexPool.MOBILE,phone)){
             //手机号校验通过，校验验证码
-            //TODO 等待验证码接口
             String codeFromSystem = (String) redisService.redisTemplate.opsForValue().get(RedisKeyConstant.VALIDATE_CODE + phone);
             if (StrUtil.isBlank(codeFromSystem)){
                 throw new ServiceException("验证码校验失败，未发送验证码");
@@ -51,7 +51,9 @@ public class UserAccessByPhone implements UserAccessStrategy {
                 throw new ServiceException("验证码校验失败，验证码错误");
             }
         }
-        return new SysUser();
+        SysUser sysUser = new SysUser();
+        BeanUtils.copyProperties(authRegisterRequest,sysUser);
+        return sysUser;
     }
 
     @Override
@@ -61,7 +63,6 @@ public class UserAccessByPhone implements UserAccessStrategy {
         log.info("校验验证码请求的手机号为：{},验证码为：{}",phone,code);
         if (StrUtil.isNotBlank(phone) && ReUtil.isMatch(RegexPool.MOBILE,phone)){
             //手机号校验通过，校验验证码
-            //TODO 等待验证码接口
             String codeFromSystem = (String) redisService.redisTemplate.opsForValue().get(RedisKeyConstant.VALIDATE_CODE + phone);
             if (StrUtil.isBlank(codeFromSystem)){
                 throw new ServiceException("验证码校验失败，未发送验证码");

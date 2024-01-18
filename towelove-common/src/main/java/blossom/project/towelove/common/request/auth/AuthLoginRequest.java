@@ -14,6 +14,10 @@ public class AuthLoginRequest {
 
     private String verifyCode;
 
+    private String thirdPartyCode;
+    /**
+     * qq wx phone email
+     */
     private String type;
 
 }

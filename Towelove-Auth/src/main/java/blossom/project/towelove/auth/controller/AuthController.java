@@ -2,15 +2,14 @@ package blossom.project.towelove.auth.controller;
 
 import blossom.project.towelove.auth.service.AuthService;
 import blossom.project.towelove.auth.thirdParty.ThirdPartyLoginConfig;
-import blossom.project.towelove.common.request.auth.AuthLoginRequest;
-import blossom.project.towelove.common.request.auth.AuthRegisterRequest;
-import blossom.project.towelove.common.request.auth.AuthVerifyCodeRequest;
-import blossom.project.towelove.common.request.auth.RestockUserInfoRequest;
+import blossom.project.towelove.common.domain.dto.ThirdPartyLoginUser;
+import blossom.project.towelove.common.request.auth.*;
 import blossom.project.towelove.common.response.Result;
 import blossom.project.towelove.auth.thirdParty.ThirdPartyLoginUtil;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -41,7 +40,7 @@ public class AuthController {
      * @return
      */
     @PostMapping("/register")
-    public Result<String> register( @RequestBody AuthRegisterRequest authRegisterRequest){
+    public Result<String> register( @Validated @RequestBody AuthRegisterRequest authRegisterRequest){
         return Result.ok(authService.register(authRegisterRequest));
     }
 
@@ -63,19 +62,20 @@ public class AuthController {
     @PostMapping("/thirdParty")
     public Result<URI> ThirdParty(@Valid @RequestBody AuthLoginRequest authLoginRequest){
         URI uri = ThirdPartyLoginUtil.initiateLogin(thirdPartyLoginConfig, restTemplate, authLoginRequest.getType());
+        //后续只需要返回后缀，前缀由前端保管即可
         log.info("第三方跳转登入类型为：[{}],跳转链接为：[{}]",authLoginRequest.getType(),uri);
         return Result.ok(uri);
     }
 
-    /**
-     * 获取第三方用户信息
-     * @param authLoginRequest
-     * @return
-     */
-    @PostMapping("/thirdPartyRegisterCallback")
-    public Result<String> ThirdPartyRegisterCallback(@Valid @RequestBody AuthLoginRequest authLoginRequest){
-        return authService.thirdPartyRegister(authLoginRequest);
-    }
+//    /**
+//     * 获取第三方用户信息
+//     * @param thirdPartyAccessRequest
+//     * @return
+//     */
+//    @PostMapping("/thirdPartyRegisterCallback")
+//    public Result<String> ThirdPartyRegisterCallback(@Valid @RequestBody ThirdPartyAccessRequest thirdPartyAccessRequest){
+//        return authService.thirdPartyRegister(thirdPartyAccessRequest);
+//    }
 
     /**
      * 发送验证码

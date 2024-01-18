@@ -5,7 +5,10 @@ import java.util.Date;
 import java.io.Serializable;
 import java.util.Map;
 
+import blossom.project.towelove.framework.mysql.domain.BaseEntity;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -26,7 +29,7 @@ import lombok.Builder;
 @NoArgsConstructor
 @Builder
 @TableName(value = "couples", autoResultMap = true)
-public class Couples {
+public class Couples extends BaseEntity {
     //主键,伴侣id@TableId
     private Long id;
 
@@ -34,22 +37,6 @@ public class Couples {
     private Long girlId;
     //男方id
     private Long boyId;
-    //账号状态（0正常 1分手 ...其他扩展状态）
-    private Integer status;
-    //创建人的用户id
-    private String createBy;
-    //创建时间
-    private Date createTime;
-    //更新人
-    private String updateBy;
-    //更新时间
-    private Date updateTime;
-    //删除标志（0代表未删除，1代表已删除）
-    private Integer deleted;
-    //备注
-    private String remark;
-    //json集合，存储额外数据
-    private Map<String, Object> jsonMap;
 
 }
 

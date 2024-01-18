@@ -11,17 +11,17 @@ import blossom.project.towelove.common.domain.dto.SysUser;
 import blossom.project.towelove.common.domain.dto.ThirdPartyLoginUser;
 import blossom.project.towelove.common.domain.dto.UserThirdParty;
 import blossom.project.towelove.common.exception.ServiceException;
-import blossom.project.towelove.common.request.auth.AuthLoginRequest;
-import blossom.project.towelove.common.request.auth.AuthRegisterRequest;
-import blossom.project.towelove.common.request.auth.AuthVerifyCodeRequest;
-import blossom.project.towelove.common.request.auth.RestockUserInfoRequest;
+import blossom.project.towelove.common.request.auth.*;
 import blossom.project.towelove.common.request.user.UpdateUserRequest;
 import blossom.project.towelove.common.response.Result;
 import blossom.project.towelove.common.response.user.SysUserVo;
 import blossom.project.towelove.common.utils.JsonUtils;
 import blossom.project.towelove.framework.redis.service.RedisService;
 import cn.dev33.satoken.stp.StpUtil;
+import cn.hutool.Hutool;
 import cn.hutool.core.lang.RegexPool;
+import cn.hutool.core.util.NumberUtil;
+import cn.hutool.core.util.RandomUtil;
 import cn.hutool.core.util.ReUtil;
 import cn.hutool.core.util.StrUtil;
 import com.towelove.common.core.constant.HttpStatus;
@@ -32,6 +32,8 @@ import org.springframework.stereotype.Service;
 
 import javax.validation.Valid;
 import java.util.Objects;
+import java.util.Random;
+import java.util.random.RandomGenerator;
 
 @Service
 @RequiredArgsConstructor
@@ -48,14 +50,17 @@ public class AuthServiceImpl implements AuthService {
 
 
     @Override
-    public String register(@Valid AuthRegisterRequest authRegisterRequest) {
+    public String register(AuthRegisterRequest authRegisterRequest) {
         //校验手机号以及邮箱格式，校验验证码格式是否正确
         UserAccessStrategy userAccessStrategy = UserRegisterStrategyFactory.userAccessStrategy(authRegisterRequest.getType());
-        //验证码校验
-//        String token = userAccessStrategy.register(authRegisterRequest);
-//        if (StrUtil.isBlank(token)) {
-//            throw new ServiceException("验证码校验失败，请输入正确的验证码");
-//        }
+        SysUser sysUser = userAccessStrategy.register(authRegisterRequest);
+        Result<SysUser> result = remoteUserService.saveUser(sysUser);
+        sysUser.setPassword(RandomUtil.randomString(10));
+        log.info("调用user远程服务获取到的接口为: {}",result);
+        if (Objects.isNull(result) || result.getCode() != com.towelove.common.core.constant.HttpStatus.SUCCESS){
+            throw new ServiceException(result.getMsg());
+        }
+        StpUtil.login(result.getData().getId());
         return StpUtil.getTokenInfo().tokenValue;
     }
 
@@ -64,63 +69,55 @@ public class AuthServiceImpl implements AuthService {
         Result<String> res = new Result<>();
         //校验手机号以及邮箱格式，校验验证码格式是否正确
         UserAccessStrategy userAccessStrategy = UserRegisterStrategyFactory.userAccessStrategy(authLoginRequest.getType());
-        //验证码校验
         SysUser sysUser = userAccessStrategy.login(authLoginRequest);
         StpUtil.login(sysUser.getId());
-        if (StrUtil.isBlank(sysUser.getPassword())) {
+        if (StrUtil.isBlank(sysUser.getEmail())) {
             //需要用户补充信息，但依然是登入态
             res.setCode(HttpStatus.CREATED);
             res.setMsg("用户需要完善信息");
         }
         res.setData(StpUtil.getTokenInfo().tokenValue);
-//        Result<String> result = remoteUserService.findUserByPhoneOrEmail(authLoginRequest);
-//        log.info("调用user远程服务获取到的接口为: {}",result);
-//        if (Objects.isNull(result) || result.getCode() != (HttpStatus.SUCCESS)){
-//            //用户不存在
-//            throw new ServiceException("用户不存在，请重新注册");
-//        }
-//        StpUtil.login(result.getData());
         return res;
     }
-
-    /**
-     * 第三方用户登入
-     *
-     * @param authLoginRequest
-     * @return
-     */
-
-    @Override
-    public Result<String> thirdPartyRegister(AuthLoginRequest authLoginRequest) {
-        Result<String> res = new Result<>();
-        // 获取策略工厂中对应的注册策略
-        UserAccessStrategy userAccessStrategy = UserRegisterStrategyFactory.userAccessStrategy(authLoginRequest.getType());
-
-        SysUser sysUser = userAccessStrategy.login(authLoginRequest);
-        StpUtil.login(sysUser.getId());
-        if (StrUtil.isBlank(sysUser.getPassword())) {
-            res.setCode(HttpStatus.CREATED);
-            res.setMsg("第三方登入用户未完善信息");
-        }
-        res.setData(StpUtil.getTokenInfo().tokenValue);
-//        if (StrUtil.isBlank(token)) {
-//            throw new ServiceException("无效的第三方登录类型或无法验证第三方登录请求");
+//
+//    /**
+//     * 第三方用户登入
+//     *
+//     * @param authLoginRequest
+//     * @return
+//     */
+//
+//    @Override
+//    public Result<String> thirdPartyRegister(ThirdPartyAccessRequest thirdPartyAccessRequest) {
+//        Result<String> res = new Result<>();
+//        // 获取策略工厂中对应的注册策略
+//        UserAccessStrategy userAccessStrategy = UserRegisterStrategyFactory.userAccessStrategy(thirdPartyAccessRequest.getType());
+//
+//        SysUser sysUser = userAccessStrategy.login(authLoginRequest);
+//        StpUtil.login(sysUser.getId());
+//        if (StrUtil.isBlank(sysUser.getPassword())) {
+//            res.setCode(HttpStatus.CREATED);
+//            res.setMsg("第三方登入用户未完善信息");
 //        }
-        // TODO: 看策略类的接口如何修改 这里我想到的就是使用redis来做缓存， 建议valid的返回类型 返回给到第三方登录用户信息可以避免对Redis的依赖
-        // 使用code码从redis中获取第三方登录用户信息
-//        String json = (String) redisService.redisTemplate.opsForValue().get(RedisKeyConstant.VALIDATE_CODE+ authLoginRequest.getType() + ":" + authLoginRequest.getVerifyCode());
-//        ThirdPartyLoginUser thirdPartyLoginUser = JsonUtils.jsonToPojo(json, ThirdPartyLoginUser.class);
+//        res.setData(StpUtil.getTokenInfo().tokenValue);
+////        if (StrUtil.isBlank(token)) {
+////            throw new ServiceException("无效的第三方登录类型或无法验证第三方登录请求");
+////        }
+//        // TODO: 看策略类的接口如何修改 这里我想到的就是使用redis来做缓存， 建议valid的返回类型 返回给到第三方登录用户信息可以避免对Redis的依赖
+//        // 使用code码从redis中获取第三方登录用户信息
+////        String json = (String) redisService.redisTemplate.opsForValue().get(RedisKeyConstant.VALIDATE_CODE+ authLoginRequest.getType() + ":" + authLoginRequest.getVerifyCode());
+////        ThirdPartyLoginUser thirdPartyLoginUser = JsonUtils.jsonToPojo(json, ThirdPartyLoginUser.class);
+////
+////        System.err.println(JsonUtils.objectToJson(thirdPartyLoginUser));
+////        // 验证成功，获取或创建用户
+////        SysUser user = findOrCreateUser(thirdPartyLoginUser);
+////
+////        // 登录本地用户并生成令牌
+////        StpUtil.login(user.getId());
 //
-//        System.err.println(JsonUtils.objectToJson(thirdPartyLoginUser));
-//        // 验证成功，获取或创建用户
-//        SysUser user = findOrCreateUser(thirdPartyLoginUser);
-//
-//        // 登录本地用户并生成令牌
-//        StpUtil.login(user.getId());
-
-        // 返回令牌
-        return res;
-    }
+//        // 返回令牌
+//        return res;
+//    }
 
     @Override
     public String sendVerifyCode(AuthVerifyCodeRequest authVerifyCodeRequest) {
