@@ -44,7 +44,7 @@ public class UserAccessByWeixin implements UserAccessStrategy {
                 thirdPartyLoginConfig,
                 restTemplate,
                 USER_TYPE.WEIXIN.getType(),
-                authRegisterRequest.getVerifyCode(),
+                authRegisterRequest.getThirdPartyCode(),
                 ThirdPartyLoginUser.class
         );
 

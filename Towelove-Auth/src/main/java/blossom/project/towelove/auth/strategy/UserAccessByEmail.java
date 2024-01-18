@@ -55,12 +55,7 @@ public class UserAccessByEmail implements UserAccessStrategy {
             }
             SysUser sysUser = new SysUser();
             BeanUtils.copyProperties(authRegisterRequest,sysUser);
-            Result<SysUser> result = remoteUserService.saveUser(sysUser);
-            log.info("调用user远程服务获取到的接口为: {}",result);
-            if (Objects.isNull(result) || result.getCode() != com.towelove.common.core.constant.HttpStatus.SUCCESS){
-                throw new ServiceException(result.getMsg());
-            }
-            return result.getData();
+           return sysUser;
         }
         return null;
     }

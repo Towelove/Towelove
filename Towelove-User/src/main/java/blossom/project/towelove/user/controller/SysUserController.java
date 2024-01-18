@@ -76,7 +76,7 @@ public class SysUserController {
     /**
      * 更新用户信息
      * @param request
-     * @param httpServletRequest
+     * @param
      * @return
      */
     @PutMapping("")
@@ -109,5 +109,7 @@ public class SysUserController {
     public Result<String> restockUserInfo(@RequestBody RestockUserInfoRequest restockUserInfoRequest){
         return Result.ok(sysUserService.restockUserInfo(restockUserInfoRequest));
     }
+
+
 
 }

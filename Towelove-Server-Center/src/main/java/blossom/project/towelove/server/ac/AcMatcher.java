@@ -11,11 +11,9 @@ package blossom.project.towelove.server.ac;
  */
 
 import blossom.project.towelove.common.exception.ServiceException;
-import blossom.project.towelove.framework.log.annotation.LoveLog;
 import blossom.project.towelove.server.Do.SensitiveWords;
 import blossom.project.towelove.server.mapper.SensitiveWordsMapper;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
@@ -48,7 +46,7 @@ public class AcMatcher implements ApplicationRunner {
         TireTree tireTree = new TireTree();
         tireTree.setRoot(root);
         try {
-            sensitiveWord.stream().forEach(tireTree::insert);
+            sensitiveWord.forEach(tireTree::insert);
         } catch (Exception e) {
             throw new ServiceException("构建TireTree失败");
         }
