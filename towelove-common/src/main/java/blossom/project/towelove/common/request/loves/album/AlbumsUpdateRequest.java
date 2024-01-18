@@ -37,6 +37,8 @@ public class AlbumsUpdateRequest  {
 
     private String photoUrls;
 
+    private String coverUrl;
+
 }
 
 
