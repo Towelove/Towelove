@@ -1,14 +1,12 @@
 package blossom.project.towelove.user.service.impl;
 
-import blossom.project.towelove.common.constant.TokenConstant;
-import blossom.project.towelove.common.constant.UserConstants;
+import blossom.project.towelove.common.constant.StringTemplateConstants;
 import blossom.project.towelove.common.response.Result;
+import blossom.project.towelove.user.entity.SysUser;
+import blossom.project.towelove.user.interceptor.UserInfoContextHolder;
 import blossom.project.towelove.user.service.UserInvitedService;
-import com.alibaba.nacos.common.http.handler.RequestHandler;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import org.springframework.web.context.request.RequestAttributes;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
 
 /**
  * @projectName: Towelove
@@ -20,14 +18,18 @@ import org.springframework.web.context.request.ServletRequestAttributes;
  * @version: 1.0
  */
 @Service
+@Slf4j
 public class UserInvitedServiceImpl implements UserInvitedService {
     @Override
     public Result invited(UserInvitedService userInvitedService) {
-        ServletRequestAttributes requestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
-        String userId = requestAttributes.getRequest().getHeader(TokenConstant.USER_ID_HEADER);
+        SysUser userInfo = UserInfoContextHolder.getUserInfo();
         //将userId转换为32进制
-        int invitedCode = Integer.parseInt(userId, 36);
+        Long userId = userInfo.getId();
+        String invitedCode = Long.toString(userId, 36);
+        String invitedTemplate = StringTemplateConstants.getInvitedTemplate(userInfo.getNickName(), "https://www.baidu.com?invitedCode=" + invitedCode);
+        //TODO:调用邮件服务发送邮件
+        log.info("用户：{}，发送邀请：{}",userId,invitedTemplate);
         //发送模板信息
-        return null;
+        return Result.ok(invitedTemplate);
     }
 }

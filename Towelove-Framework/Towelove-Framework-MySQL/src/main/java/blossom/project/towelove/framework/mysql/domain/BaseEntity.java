@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import lombok.Builder;
 import lombok.Data;
 
@@ -19,12 +21,14 @@ public class BaseEntity {
     private String createBy;
 
     @TableField(value = "create_time",fill = FieldFill.INSERT)
+    @JsonSerialize(using = LocalDateTimeSerializer.class)
     private LocalDateTime createTime;
 
     @TableField(value = "update_by",fill = FieldFill.INSERT_UPDATE)
     private String updateBy;
 
     @TableField(value = "update_time",fill = FieldFill.INSERT_UPDATE)
+    @JsonSerialize(using = LocalDateTimeSerializer.class)
     private LocalDateTime updateTime;
 
     @TableField("deleted")

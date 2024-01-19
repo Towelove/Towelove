@@ -1,4 +1,4 @@
-package blossom.project.towelove.user.domain;
+package blossom.project.towelove.user.entity;
 
 import blossom.project.towelove.common.domain.dto.BaseEntity;
 import com.baomidou.mybatisplus.annotation.IdType;

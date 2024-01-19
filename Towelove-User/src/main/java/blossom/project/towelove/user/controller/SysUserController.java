@@ -9,15 +9,13 @@ import blossom.project.towelove.common.response.Result;
 import blossom.project.towelove.common.response.user.SysUserPermissionDto;
 import blossom.project.towelove.common.response.user.SysUserVo;
 import blossom.project.towelove.framework.log.annotation.LoveLog;
-import blossom.project.towelove.user.domain.SysUser;
-import blossom.project.towelove.user.mapper.SysUserMapper;
+import blossom.project.towelove.user.entity.SysUser;
 import blossom.project.towelove.user.service.SysUserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 

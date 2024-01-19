@@ -15,7 +15,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
  */
 @SpringBootApplication
 @EnableFeignClients("blossom.project.towelove.client")
-public class ToweloveServerCenterApplication {
+public class ToweloveServerCenterApplication  {
     public static void main(String[] args) {
         SpringApplication.run(ToweloveServerCenterApplication.class,args);
 
