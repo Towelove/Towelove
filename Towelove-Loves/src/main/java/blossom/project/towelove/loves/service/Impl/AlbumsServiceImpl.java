@@ -1,11 +1,13 @@
 package blossom.project.towelove.loves.service.Impl;
 
+import blossom.project.towelove.common.constant.Constant;
 import blossom.project.towelove.common.exception.EntityNotFoundException;
 import blossom.project.towelove.common.exception.errorcode.BaseErrorCode;
 import blossom.project.towelove.common.exception.errorcode.IErrorCode;
 import blossom.project.towelove.common.page.PageResponse;
 import blossom.project.towelove.common.request.loves.album.AlbumsPageRequest;
 import blossom.project.towelove.common.response.love.album.AlbumsPageRespDTO;
+import blossom.project.towelove.common.utils.StringUtils;
 import blossom.project.towelove.loves.convert.AlbumConvert;
 import cn.hutool.core.collection.CollectionUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
@@ -50,6 +52,10 @@ public class AlbumsServiceImpl extends ServiceImpl<AlbumsMapper, Albums> impleme
             log.info("the album is null...");
             return null;
         }
+        if (!StringUtils.isBlank(createRequest.getPhotoUrls())) {
+            //设定图片数量
+            albums.setPhotoNums(StringUtils.countCharacter(createRequest.getPhotoUrls(), Constant.COMMA));
+        }
         albumsMapper.insert(albums);
         AlbumsRespDTO respDTO = AlbumConvert.INSTANCE.convert(albums);
         return respDTO;
@@ -89,6 +95,9 @@ public class AlbumsServiceImpl extends ServiceImpl<AlbumsMapper, Albums> impleme
         }
         try {
             Albums albums1 = AlbumConvert.INSTANCE.convert(updateRequest);
+            if (!StringUtils.isBlank(albums1.getPhotoUrls())) {
+                albums1.setPhotoNums(StringUtils.countCharacter(albums1.getPhotoUrls(), Constant.COMMA));
+            }
             albumsMapper.updateById(albums1);
             Albums resp = albumsMapper.selectById(albums.getId());
             AlbumsRespDTO respDTO = AlbumConvert.INSTANCE.convert(resp);

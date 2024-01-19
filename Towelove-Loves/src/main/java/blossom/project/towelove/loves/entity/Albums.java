@@ -48,6 +48,9 @@ public class Albums  {
     //相册照片url
     private String photoUrls;
 
+    //图片数量
+    private Long photoNums = 0L;
+
 
     @TableField(value = "create_time",fill = FieldFill.INSERT)
     private LocalDateTime createTime;
