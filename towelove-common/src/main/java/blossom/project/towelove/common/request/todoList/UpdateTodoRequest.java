@@ -19,7 +19,7 @@ public class UpdateTodoRequest {
 
     private Long parentId;
 
-    private Long userId;
+    private Long coupleId;
 
     private String title;
 
@@ -28,7 +28,6 @@ public class UpdateTodoRequest {
     private String deadline;
 
     private String priority;
-
 
     private List<String> images;
 

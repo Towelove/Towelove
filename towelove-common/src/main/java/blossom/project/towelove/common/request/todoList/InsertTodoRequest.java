@@ -13,7 +13,7 @@ public class InsertTodoRequest {
     //不传 默认值为0
     private Long parentId;
 
-    private Long userId;
+    private Long coupleId;
 
     @NotNull(message = "标题不能为空")
     private String title;
@@ -22,4 +22,10 @@ public class InsertTodoRequest {
 
     @NotNull(message = "截止日期不能为空")
     private Date deadline;
+
+    /**
+     * @Comment("是否提醒")
+     */
+    private Boolean reminder;
+
 }
