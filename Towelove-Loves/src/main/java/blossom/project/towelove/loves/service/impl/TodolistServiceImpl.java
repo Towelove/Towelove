@@ -124,7 +124,7 @@ public class TodolistServiceImpl extends ServiceImpl<TodoListMapper, TodoList>
         wrapper.eq(TodoList::getCoupleId, updateWidget.getCoupleId()).eq(TodoList::getWidget, Boolean.TRUE);
         List<TodoList> todoLists = todoListMapper.selectList(wrapper);
         if (todoLists.size() > WIDGET_MAX){
-            throw
+            throw new RuntimeException();
         }
         return null;
     }
