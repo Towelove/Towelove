@@ -13,7 +13,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
  * @github: https://github.com/ZhangBlossom
  * MsgApplicatiojn类
  */
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = "blossom.project.towelove")
 @EnableFeignClients("blossom.project.towelove.client")
 public class ToweloveServerCenterApplication {
     public static void main(String[] args) {

@@ -14,9 +14,9 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
  * @github: https://github.com/ZhangBlossom
  * ToweloveLovesApplication类
  */
-@SpringBootApplication(scanBasePackages = "blossom.project.towelove")
 @EnableDiscoveryClient
 @EnableFeignClients("blossom.project.towelove.client")
+@SpringBootApplication(scanBasePackages = "blossom.project.towelove")
 public class ToweloveLovesApplication {
     public static void main(String[] args) {
         SpringApplication.run(ToweloveLovesApplication.class,args);
