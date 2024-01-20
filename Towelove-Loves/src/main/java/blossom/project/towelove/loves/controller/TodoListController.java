@@ -2,6 +2,7 @@ package blossom.project.towelove.loves.controller;
 
 import blossom.project.towelove.common.request.todoList.InsertTodoRequest;
 import blossom.project.towelove.common.request.todoList.UpdateTodoRequest;
+import blossom.project.towelove.common.request.todoList.UpdateWidget;
 import blossom.project.towelove.common.response.Result;
 import blossom.project.towelove.common.response.todoList.TodoImagesResponse;
 import blossom.project.towelove.common.response.todoList.TodoListCalendarResponse;
@@ -72,14 +73,14 @@ public class TodoListController {
     /**
      * 获取 待办事项列表
      *
-     * @param userId   用户id
+     * @param coupleId   用户id
      * @param parentId 父级id
      * @return
      */
     @GetMapping("")
-    public Result<List<TodoListResponse>> getTodo(@RequestParam("userId") Long userId,
+    public Result<List<TodoListResponse>> getTodo(@RequestParam("coupleId") Long coupleId,
                                                   @RequestParam(name = "parentId", required = false, defaultValue = "0") Long parentId) {
-        return Result.ok(todolistService.getList(userId, parentId));
+        return Result.ok(todolistService.getList(coupleId, parentId));
     }
 
     /**
@@ -105,5 +106,13 @@ public class TodoListController {
             @RequestParam("date") @DateTimeFormat(pattern = "yyyy-MM") Date date) {
         return Result.ok(todolistService.getTodoCalendar(userId, date));
     }
+
+    @PutMapping("/update-widget")
+    public Result updateWidget(@RequestBody @Validated UpdateWidget updateWidget) {
+        List<Long> = todolistService.updateWidget(updateWidget);
+        return Result.ok();
+    }
+
+
 
 }

@@ -3,6 +3,7 @@ package blossom.project.towelove.loves.service;
 
 import blossom.project.towelove.common.request.todoList.InsertTodoRequest;
 import blossom.project.towelove.common.request.todoList.UpdateTodoRequest;
+import blossom.project.towelove.common.request.todoList.UpdateWidget;
 import blossom.project.towelove.common.response.todoList.TodoListCalendarResponse;
 import blossom.project.towelove.common.response.todoList.TodoListResponse;
 import blossom.project.towelove.loves.entity.TodoList;
@@ -43,11 +44,11 @@ public interface TodolistService extends IService<TodoList> {
     /**
      * 获取 待办事项列表
      *
-     * @param userId   用户id
+     * @param coupleId   用户id
      * @param parentId 父级id
      * @return
      */
-    List<TodoListResponse> getList(Long userId, Long parentId);
+    List<TodoListResponse> getList(Long coupleId, Long parentId);
 
     /**
      * 获取 某个月 待办事项日历
@@ -58,4 +59,5 @@ public interface TodolistService extends IService<TodoList> {
      */
     List<TodoListCalendarResponse> getTodoCalendar(Long userId, Date date);
 
+    List<Long> updateWidget(UpdateWidget updateWidget);
 }
