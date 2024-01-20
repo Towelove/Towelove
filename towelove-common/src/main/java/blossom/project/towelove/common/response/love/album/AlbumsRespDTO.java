@@ -27,6 +27,7 @@ public class AlbumsRespDTO  {
 
     private String photoUrls;
 
+    private Long photoNums;
     private LocalDateTime createTime;
 
 }
