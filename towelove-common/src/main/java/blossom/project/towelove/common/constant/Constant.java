@@ -9,6 +9,13 @@ package blossom.project.towelove.common.constant;
  */
 public class Constant
 {
+
+    /**
+     * 英文逗号
+     */
+    public static final char COMMA = ',';
+
+
     /**
      * UTF-8 字符集
      */

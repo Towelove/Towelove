@@ -26,6 +26,21 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils
     /** 下划线 */
     private static final char SEPARATOR = '_';
 
+    /** 英文逗号 */
+    private static final char COMMA = ',';
+
+    /**
+     * 计算字符串中某一字符的数量
+     * @param str 字符串
+     * @param ch 字符，比如英文逗号，
+     * @return
+     */
+    public static long countCharacter(String str, char ch) {
+        return str.chars().filter(c -> c == ch).count();
+    }
+
+
+
     /**
      * 获取参数不为空值
      * 
@@ -36,6 +51,9 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils
     {
         return value != null ? value : defaultValue;
     }
+
+
+
 
     /**
      * * 判断一个Collection是否为空， 包含List，Set，Queue
