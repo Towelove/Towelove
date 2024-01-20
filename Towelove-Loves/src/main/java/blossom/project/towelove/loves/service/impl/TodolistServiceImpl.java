@@ -2,6 +2,7 @@ package blossom.project.towelove.loves.service.Impl;
 
 import blossom.project.towelove.common.request.todoList.InsertTodoRequest;
 import blossom.project.towelove.common.request.todoList.UpdateTodoRequest;
+import blossom.project.towelove.common.request.todoList.UpdateWidget;
 import blossom.project.towelove.common.response.todoList.TodoListCalendarResponse;
 import blossom.project.towelove.common.response.todoList.TodoListResponse;
 import blossom.project.towelove.loves.convert.TodoListConvert;
@@ -15,14 +16,11 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
-import java.time.YearMonth;
 import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -36,6 +34,11 @@ import java.util.stream.Collectors;
 public class TodolistServiceImpl extends ServiceImpl<TodoListMapper, TodoList>
     implements TodolistService{
 
+
+    /**
+     * widget 最大数量
+     */
+    public static final int WIDGET_MAX = 2;
 
     private final TodoListMapper todoListMapper;
     private final TodoImagesMapper todoImagesMapper;
@@ -84,9 +87,9 @@ public class TodolistServiceImpl extends ServiceImpl<TodoListMapper, TodoList>
     }
 
     @Override
-    public List<TodoListResponse> getList(Long userId, Long parentId) {
+    public List<TodoListResponse> getList(Long coupleId, Long parentId) {
         LambdaQueryWrapper<TodoList> queryWrapper = new LambdaQueryWrapper<>();
-        Optional.ofNullable(userId).ifPresent(uid -> queryWrapper.eq(TodoList::getUserId, uid));
+        Optional.ofNullable(coupleId).ifPresent(uid -> queryWrapper.eq(TodoList::getCoupleId, uid));
         Optional.ofNullable(parentId).ifPresent(pid -> queryWrapper.eq(TodoList::getParentId, pid));
 
         List<TodoList> todoLists = todoListMapper.selectList(queryWrapper);
@@ -107,12 +110,23 @@ public class TodolistServiceImpl extends ServiceImpl<TodoListMapper, TodoList>
         LocalDate endDate = localDate.withDayOfMonth(localDate.lengthOfMonth());
 
         LambdaQueryWrapper<TodoList> wrapper = new LambdaQueryWrapper<>();
-        wrapper.eq(TodoList::getUserId, userId)
+        wrapper.eq(TodoList::getCoupleId, userId)
                 .ge(TodoList::getDeadline, Date.from(startDate.atStartOfDay(ZoneId.systemDefault()).toInstant()))
                 .lt(TodoList::getDeadline, Date.from(endDate.plusDays(1).atStartOfDay(ZoneId.systemDefault()).toInstant()))
                 .eq(TodoList::getParentId, 0); // 只查询顶级父级
 
         return TodoListConvert.INSTANCE.convert(todoListMapper.selectList(wrapper));
+    }
+
+    @Override
+    public List<Long> updateWidget(UpdateWidget updateWidget) {
+        LambdaQueryWrapper<TodoList> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(TodoList::getCoupleId, updateWidget.getCoupleId()).eq(TodoList::getWidget, Boolean.TRUE);
+        List<TodoList> todoLists = todoListMapper.selectList(wrapper);
+        if (todoLists.size() > WIDGET_MAX){
+            throw
+        }
+        return null;
     }
 
     /**

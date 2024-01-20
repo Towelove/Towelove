@@ -22,17 +22,27 @@ public class TodoList extends BaseEntity {
     @TableField("parent_id")
     private Long parentId;
     //用户id  user_id  loves_id
-    @TableField("user_id")
-    private Long userId;
+    @TableField("couple_id")
+    private Long coupleId;
     //标题
     private String title;
     //描述
     private String description;
     //截止日期
-    private Date deadline;
+    private LocalDateTime deadline;
     //完成日期
     @TableField("completion_date")
-    private Date completionDate;
+    private LocalDateTime completionDate;
+
+    /**
+     * @Comment("是否提醒")
+     */
+    private Boolean reminder;
+
+    /**
+     * @Comment("是否小組件")
+     */
+    private Boolean widget;
 
 }
 
