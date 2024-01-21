@@ -39,6 +39,9 @@ public class UserInfoInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+        if (StrUtil.isNotBlank(request.getHeader("invoke"))){
+            return true;
+        }
         String userId = request.getHeader(TokenConstant.USER_ID_HEADER);
         if (StrUtil.isBlank(userId)){
             log.info("请检查网关，用户服务请求头缺少X-User-Id");

@@ -1,5 +1,6 @@
 package blossom.project.towelove.client.serivce;
 
+import blossom.project.towelove.client.config.FeignMarkInterceptor;
 import blossom.project.towelove.client.fallback.RemoteUserFallbackFactory;
 import blossom.project.towelove.common.domain.dto.SysUser;
 import blossom.project.towelove.common.domain.dto.ThirdPartyLoginUser;
@@ -20,7 +21,8 @@ import java.util.List;
 
 @FeignClient(value = "towelove-user",
         fallbackFactory = RemoteUserFallbackFactory.class,
-        contextId = "RemoteUserService")
+        contextId = "RemoteUserService",
+        configuration = FeignMarkInterceptor.class)
 public interface RemoteUserService {
     @PostMapping("/v1/user")
     Result<SysUser> saveUser(@RequestBody SysUser sysUser);

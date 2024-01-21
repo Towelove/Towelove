@@ -1,6 +1,8 @@
 package blossom.project.towelove.common.entity.notification;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * @projectName: Towelove
@@ -12,8 +14,12 @@ import lombok.Data;
  * @version: 1.0
  */
 @Data
-public class Notification {
-    private String requestId;
+@AllArgsConstructor
+@NoArgsConstructor
+public class NoticeDTO {
 
-    private String message;
+    private Long userId;
+
+    private String content;
+
 }

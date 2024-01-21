@@ -1,5 +1,6 @@
 package blossom.project.towelove.user.service.impl;
 
+import blossom.project.towelove.common.entity.notification.NoticeDTO;
 import blossom.project.towelove.common.exception.ServiceException;
 import blossom.project.towelove.common.request.CouplesInvitedRequest;
 import blossom.project.towelove.common.request.user.CouplesCreateRequest;
@@ -7,6 +8,7 @@ import blossom.project.towelove.common.request.user.CouplesUpdateRequest;
 import blossom.project.towelove.common.response.Result;
 import blossom.project.towelove.common.response.user.CouplesRespDTO;
 import blossom.project.towelove.common.response.user.SysUserVo;
+import blossom.project.towelove.framework.redis.util.UserNotifyProduction;
 import blossom.project.towelove.user.entity.SysUser;
 import blossom.project.towelove.user.interceptor.UserInfoContextHolder;
 import blossom.project.towelove.user.service.SysUserService;
@@ -39,6 +41,8 @@ public class CouplesServiceImpl extends ServiceImpl<CouplesMapper, Couples> impl
     private final CouplesMapper couplesMapper;
 
     private final SysUserService sysUserService;
+
+    private final UserNotifyProduction userNotifyProduction;
 
     @Override
     public CouplesRespDTO getCouplesById(Long CouplesId) {
@@ -77,6 +81,9 @@ public class CouplesServiceImpl extends ServiceImpl<CouplesMapper, Couples> impl
         }
         SysUser userInfo = UserInfoContextHolder.getUserInfo();
         Long userId = userInfo.getId();
+        if (userId == invitedUserId){
+            throw new ServiceException("绑定请求非法，不能自己与自己绑定为情侣关系");
+        }
         Couples couples = new Couples();
         if ("男".equals(userInfo.getSex())){
             couples.setBoyId(userId);
@@ -93,6 +100,7 @@ public class CouplesServiceImpl extends ServiceImpl<CouplesMapper, Couples> impl
             throw new ServiceException("绑定情侣关系失败");
         }
         //TODO:发送消息告诉另外一方
+        userNotifyProduction.sendNotifyMessage(new NoticeDTO(invitedUserId,"【新通知，我们已经成为情侣啦】"));
         return Result.ok("绑定情侣关系成功");
     }
 }

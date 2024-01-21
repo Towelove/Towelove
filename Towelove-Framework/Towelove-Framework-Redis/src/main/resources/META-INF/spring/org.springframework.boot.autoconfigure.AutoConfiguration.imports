@@ -7,3 +7,4 @@ blossom.project.towelove.framework.redis.service.RedisService
 blossom.project.towelove.framework.redis.aspect.DoubleCacheAspect
 blossom.project.towelove.framework.redis.aspect.RedisDistributedLockAspect
 blossom.project.towelove.framework.redis.lock.RedisDistributedLockFactory
+blossom.project.towelove.framework.redis.util.UserNotifyProduction

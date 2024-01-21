@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="blossom.project.towelove.server.mapper.NoticeMapper">
+    <resultMap id="NoticeVO" type="blossom.project.towelove.server.dto.NoticeVO">
+        <result property="content" column="content" jdbcType="VARCHAR"></result>
+        <result property="type" column="type" jdbcType="TINYINT"></result>
+        <result property="json_map" column="json_map" typeHandler="blossom.project.towelove.framework.mysql.config.JacksonTypeHandler"></result>
+    </resultMap>
+    <select id="selectNoticeByUserId" resultMap="NoticeVO">
+        select
+            content,type,json_map
+        from
+            notice
+        where type = 0
+            union
+        select
+            content,type,json_map
+        from
+            notice
+        where
+            user_id = #{userId}
+    </select>
+</mapper>

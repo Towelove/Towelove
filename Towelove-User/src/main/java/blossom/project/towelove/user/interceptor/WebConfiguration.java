@@ -24,6 +24,7 @@ public class WebConfiguration implements WebMvcConfigurer {
     private final SysUserMapper sysUserMapper;
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(new UserInfoInterceptor(redisService,sysUserMapper));
+        registry.addInterceptor(new UserInfoInterceptor(redisService,sysUserMapper))
+                .addPathPatterns("/**").excludePathPatterns("/v1/user/**");
     }
 }
