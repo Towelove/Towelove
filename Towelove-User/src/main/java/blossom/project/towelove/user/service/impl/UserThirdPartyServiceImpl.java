@@ -6,21 +6,18 @@ package blossom.project.towelove.user.service.impl;
  **/
 import blossom.project.towelove.common.domain.dto.ThirdPartyLoginUser;
 import blossom.project.towelove.common.exception.ServiceException;
-import blossom.project.towelove.common.response.user.SysUserVo;
 import blossom.project.towelove.user.convert.SysUserConvert;
-import blossom.project.towelove.user.domain.SysUser;
+import blossom.project.towelove.user.entity.SysUser;
 import blossom.project.towelove.user.domain.UserThirdParty;
 import blossom.project.towelove.user.mapper.SysUserMapper;
 import blossom.project.towelove.user.mapper.UserThirdPartyMapper;
 import blossom.project.towelove.user.service.SysUserService;
 import blossom.project.towelove.user.service.UserThirdPartyService;
-import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.context.request.RequestContextHolder;
 
 import java.util.List;
 import java.util.Objects;

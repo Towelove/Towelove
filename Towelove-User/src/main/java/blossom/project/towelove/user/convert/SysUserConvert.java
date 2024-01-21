@@ -5,10 +5,8 @@ import blossom.project.towelove.common.request.auth.AuthLoginRequest;
 import blossom.project.towelove.common.request.auth.RestockUserInfoRequest;
 import blossom.project.towelove.common.request.user.InsertUserRequest;
 import blossom.project.towelove.common.request.user.UpdateUserRequest;
-import blossom.project.towelove.common.response.user.SysUserPermissionDto;
 import blossom.project.towelove.common.response.user.SysUserVo;
-import blossom.project.towelove.user.domain.SysUser;
-import blossom.project.towelove.user.mapper.SysUserMapper;
+import blossom.project.towelove.user.entity.SysUser;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 @Mapper

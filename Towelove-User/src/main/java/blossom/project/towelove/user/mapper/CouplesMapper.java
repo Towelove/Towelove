@@ -3,6 +3,9 @@ package blossom.project.towelove.user.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 import blossom.project.towelove.user.entity.Couples;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
  * @author: ZhangBlossom
@@ -15,6 +18,8 @@ import blossom.project.towelove.user.entity.Couples;
  */
 @Mapper
 public interface CouplesMapper extends BaseMapper<Couples> {
+
+    public List<Long> selectAllByBoyIdAndGirlIdLongs(@Param("boyId") Long boyId, @Param("girlId") Long girlId);
 
 }
 

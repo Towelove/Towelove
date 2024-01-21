@@ -6,9 +6,8 @@ package blossom.project.towelove.user.controller;
  **/
 
 import blossom.project.towelove.common.domain.dto.ThirdPartyLoginUser;
-import blossom.project.towelove.common.response.user.SysUserVo;
 import blossom.project.towelove.framework.log.annotation.LoveLog;
-import blossom.project.towelove.user.domain.SysUser;
+import blossom.project.towelove.user.entity.SysUser;
 import blossom.project.towelove.user.domain.UserThirdParty;
 import blossom.project.towelove.user.service.UserThirdPartyService;
 import blossom.project.towelove.common.response.Result;

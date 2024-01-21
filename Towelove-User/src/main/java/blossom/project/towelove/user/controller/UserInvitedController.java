@@ -5,10 +5,7 @@ import blossom.project.towelove.user.domain.InvitedCouplesRequest;
 import blossom.project.towelove.user.service.UserInvitedService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -22,7 +19,7 @@ import javax.validation.Valid;
  * @version: 1.0
  */
 @RestController
-@RequestMapping("/invited")
+@RequestMapping("/v1/invited")
 @RequiredArgsConstructor
 public class UserInvitedController {
 
@@ -33,8 +30,8 @@ public class UserInvitedController {
      * @param invitedCouplesRequest
      * @return
      */
-    @GetMapping("")
-    public Result invitedCouples(@Validated InvitedCouplesRequest invitedCouplesRequest){
+    @PostMapping("")
+    public Result invitedCouples(@Validated @RequestBody InvitedCouplesRequest invitedCouplesRequest){
         return userInvitedService.invited(userInvitedService);
     }
 

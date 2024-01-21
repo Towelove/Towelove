@@ -65,21 +65,22 @@ public class UserAccessByEmail implements UserAccessStrategy {
         String email = authLoginRequest.getEmail();
         String code = authLoginRequest.getVerifyCode();
         log.info("校验验证码请求的邮箱号为：{},验证码为：{}",email,code);
-        if (StrUtil.isNotBlank(email) && ReUtil.isMatch(RegexPool.EMAIL,email)){
-            String codeFromSystem = (String) redisService.redisTemplate.opsForValue().get(RedisKeyConstant.VALIDATE_CODE + email);
-            if (StrUtil.isBlank(codeFromSystem)){
-                throw new ServiceException("验证码校验失败，未发送验证码");
-            }
-            if (!code.equals(codeFromSystem)){
-                throw new ServiceException("验证码校验失败，验证码错误");
-            }
-            Result<SysUser> result = remoteUserService.findUserByPhoneOrEmail(authLoginRequest);
-            if (Objects.isNull(result) || HttpStatus.SUCCESS != result.getCode()){
-                throw new ServiceException("用户登入失败，请联系管理员");
-            }
-            return result.getData();
+        if (StrUtil.isBlank(email) || !ReUtil.isMatch(RegexPool.EMAIL,email)){
+           throw new ServiceException("请求非法，邮件为空或格式错误");
         }
-        return null;
+        String codeFromSystem = (String) redisService.redisTemplate.opsForValue().get(RedisKeyConstant.VALIDATE_CODE + email);
+        if (StrUtil.isBlank(codeFromSystem)){
+            throw new ServiceException("验证码校验失败，未发送验证码");
+        }
+        if (!code.equals(codeFromSystem)){
+            throw new ServiceException("验证码校验失败，验证码错误");
+        }
+        Result<SysUser> result = remoteUserService.findUserByPhoneOrEmail(authLoginRequest);
+        if (Objects.isNull(result) || HttpStatus.SUCCESS != result.getCode()){
+            throw new ServiceException("用户登入失败，请联系管理员");
+        }
+        return result.getData();
+
     }
 
 

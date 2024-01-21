@@ -2,7 +2,7 @@ import blossom.project.towelove.common.constant.UserConstants;
 import blossom.project.towelove.common.response.user.SysUserPermissionDto;
 import blossom.project.towelove.framework.redis.service.RedisService;
 import blossom.project.towelove.user.ToweloveUserApplication;
-import blossom.project.towelove.user.domain.SysUser;
+import blossom.project.towelove.user.entity.SysUser;
 import blossom.project.towelove.user.mapper.SysPermissionMapper;
 import blossom.project.towelove.user.mapper.SysUserMapper;
 import cn.hutool.core.util.StrUtil;
@@ -14,10 +14,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.data.redis.core.script.DefaultRedisScript;
 import org.springframework.scripting.support.ResourceScriptSource;
-import org.springframework.test.context.TestPropertySource;
 
 import javax.annotation.Resource;
-import java.util.Arrays;
 import java.util.List;
 
 @SpringBootTest(classes = ToweloveUserApplication.class)
