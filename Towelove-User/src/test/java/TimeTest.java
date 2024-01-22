@@ -73,4 +73,9 @@ public class TimeTest {
         }
         while (true);
     }
+
+    @Test
+    void test222(){
+        System.out.println(Long.parseLong("da3j2ua3wooy", 36));
+    }
 }

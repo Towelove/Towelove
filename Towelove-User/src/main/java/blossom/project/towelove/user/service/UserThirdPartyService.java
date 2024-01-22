@@ -6,8 +6,7 @@ package blossom.project.towelove.user.service;
  **/
 
 import blossom.project.towelove.common.domain.dto.ThirdPartyLoginUser;
-import blossom.project.towelove.common.response.user.SysUserVo;
-import blossom.project.towelove.user.domain.SysUser;
+import blossom.project.towelove.user.entity.SysUser;
 import blossom.project.towelove.user.domain.UserThirdParty;
 import com.baomidou.mybatisplus.extension.service.IService;
 

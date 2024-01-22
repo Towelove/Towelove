@@ -10,7 +10,7 @@ import blossom.project.towelove.common.request.user.UpdateUserRequest;
 import blossom.project.towelove.common.response.user.SysUserPermissionDto;
 import blossom.project.towelove.common.response.user.SysUserVo;
 import blossom.project.towelove.user.convert.SysUserConvert;
-import blossom.project.towelove.user.domain.SysUser;
+import blossom.project.towelove.user.entity.SysUser;
 import blossom.project.towelove.user.domain.SysUserPermission;
 import blossom.project.towelove.user.mapper.SysPermissionMapper;
 import blossom.project.towelove.user.mapper.SysUserMapper;
