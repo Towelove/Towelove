@@ -10,13 +10,11 @@ import blossom.project.towelove.common.response.todoList.TodoListResponse;
 import blossom.project.towelove.framework.log.annotation.LoveLog;
 import blossom.project.towelove.loves.service.TodoImagesService;
 import blossom.project.towelove.loves.service.TodolistService;
-import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -29,12 +27,12 @@ import java.util.Optional;
  */
 @LoveLog
 @RestController
-@RequiredArgsConstructor
+@AllArgsConstructor
 @RequestMapping("/v1/loves/todo-list")
 public class TodoListController {
 
-    private final TodolistService todolistService;
-    private final TodoImagesService todoImagesService;
+    private TodolistService todolistService;
+    private TodoImagesService todoImagesService;
 
     /**
      * 创建 待办事项
@@ -110,7 +108,19 @@ public class TodoListController {
     @PutMapping("/update-widget")
     public Result updateWidget(@RequestBody @Validated UpdateWidget updateWidget) {
         todolistService.updateWidget(updateWidget);
-        return Result.ok();
+        return Result.ok(res);
+    }
+
+
+    @PutMapping("/reminder/{id}")
+    public Result<TodoListResponse> reminder(@PathVariable("id") Long id, @RequestParam("isFlag") Boolean isFlag) {
+        return Result.ok(todolistService.reminder(id, isFlag));
+    }
+
+
+    @GetMapping("widget")
+    public Result<List<TodoListResponse>> getWidget(@RequestParam("coupleId") Long coupleId) {
+        return Result.ok(todolistService.widget(coupleId));
     }
 
 
