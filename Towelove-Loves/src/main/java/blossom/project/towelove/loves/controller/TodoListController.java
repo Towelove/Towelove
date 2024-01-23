@@ -1,15 +1,18 @@
 package blossom.project.towelove.loves.controller;
 
+import blossom.project.towelove.client.serivce.MsgTaskService;
 import blossom.project.towelove.common.request.todoList.InsertTodoRequest;
 import blossom.project.towelove.common.request.todoList.UpdateTodoRequest;
 import blossom.project.towelove.common.request.todoList.UpdateWidget;
 import blossom.project.towelove.common.response.Result;
+import blossom.project.towelove.common.response.msg.MsgTaskResponse;
 import blossom.project.towelove.common.response.todoList.TodoImagesResponse;
 import blossom.project.towelove.common.response.todoList.TodoListCalendarResponse;
 import blossom.project.towelove.common.response.todoList.TodoListResponse;
 import blossom.project.towelove.framework.log.annotation.LoveLog;
 import blossom.project.towelove.loves.service.TodoImagesService;
 import blossom.project.towelove.loves.service.TodolistService;
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -29,12 +32,12 @@ import java.util.Optional;
  */
 @LoveLog
 @RestController
-@RequiredArgsConstructor
+@AllArgsConstructor
 @RequestMapping("/v1/loves/todo-list")
 public class TodoListController {
 
-    private final TodolistService todolistService;
-    private final TodoImagesService todoImagesService;
+    private TodolistService todolistService;
+    private TodoImagesService todoImagesService;
 
     /**
      * 创建 待办事项
@@ -109,8 +112,20 @@ public class TodoListController {
 
     @PutMapping("/update-widget")
     public Result updateWidget(@RequestBody @Validated UpdateWidget updateWidget) {
-        List<Long> = todolistService.updateWidget(updateWidget);
-        return Result.ok();
+        List<Long> res = todolistService.updateWidget(updateWidget);
+        return Result.ok(res);
+    }
+
+
+    @PutMapping("/reminder/{id}")
+    public Result<TodoListResponse> reminder(@PathVariable("id") Long id , @RequestParam("isFlag") Boolean isFlag){
+        return Result.ok(todolistService.reminder(id,isFlag));
+    }
+
+
+    @GetMapping("widget")
+    public Result<List<TodoListResponse>> getWidget(@RequestParam("coupleId") Long coupleId){
+     return Result.ok(todolistService.widget(coupleId));
     }
 
 

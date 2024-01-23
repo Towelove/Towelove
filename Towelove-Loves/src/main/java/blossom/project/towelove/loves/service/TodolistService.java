@@ -60,4 +60,9 @@ public interface TodolistService extends IService<TodoList> {
     List<TodoListCalendarResponse> getTodoCalendar(Long userId, Date date);
 
     List<Long> updateWidget(UpdateWidget updateWidget);
+
+    TodoListResponse reminder(Long id, Boolean isFlag);
+
+    List<TodoListResponse> widget(Long coupleId);
+
 }

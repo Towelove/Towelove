@@ -24,6 +24,8 @@ public class TodoList extends BaseEntity {
     //用户id  user_id  loves_id
     @TableField("couple_id")
     private Long coupleId;
+    @TableField("msgTask_id")
+    private Long msgTaskId;
     //标题
     private String title;
     //描述
@@ -37,12 +39,17 @@ public class TodoList extends BaseEntity {
     /**
      * @Comment("是否提醒")
      */
-    private Boolean reminder;
+    private boolean reminder;
 
     /**
      * @Comment("是否小組件")
      */
-    private Boolean widget;
+    private boolean widget;
+
+
+    public boolean ongoing(){
+        return this.getStatus() == 0 && LocalDateTime.now().isBefore(deadline) && this.getDeleted() == 0;
+    }
 
 }
 

@@ -50,4 +50,6 @@ public interface TodoListConvert {
      * @return
      */
     List<TodoListCalendarResponse> convert(List<TodoList> todoLists);
+
+    List<TodoListResponse> convertTodoListResponse(List<TodoList> todoLists);
 }

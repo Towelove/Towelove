@@ -15,6 +15,7 @@ public class TodoListResponse {
     private Long id;
     private String title;
     private String content;
+    private Long coupleId;
     //描述
     private String description;
     //截止日期
