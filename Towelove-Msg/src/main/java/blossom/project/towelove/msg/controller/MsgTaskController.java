@@ -98,10 +98,9 @@ public class MsgTaskController {
      * @return
      */
     @PostMapping("")
-    public Result createMsgTask(@RequestBody @Valid MsgTaskCreateRequest createRequest){
+    public Result<MsgTaskResponse> createMsgTask(@RequestBody @Valid MsgTaskCreateRequest createRequest){
         return Result.ok(msgTaskService.createMsgTask(createRequest));
     }
-  
 }
 
 
