@@ -107,7 +107,7 @@ public class TodoListController {
 
     @PutMapping("/update-widget")
     public Result updateWidget(@RequestBody @Validated UpdateWidget updateWidget) {
-        todolistService.updateWidget(updateWidget);
+        List<Long> res = todolistService.updateWidget(updateWidget);
         return Result.ok(res);
     }
 
