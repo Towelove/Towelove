@@ -23,9 +23,5 @@ public class InsertTodoRequest {
     @NotNull(message = "截止日期不能为空")
     private Date deadline;
 
-    /**
-     * @Comment("是否提醒")
-     */
-    private Boolean reminder;
 
 }

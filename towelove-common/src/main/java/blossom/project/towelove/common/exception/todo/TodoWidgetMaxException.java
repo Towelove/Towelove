@@ -11,8 +11,8 @@ import blossom.project.towelove.common.exception.errorcode.IErrorCode;
  */
 public class TodoWidgetMaxException extends AbstractException {
 
-    public TodoWidgetMaxException(ErrorCode code) {
-        super(code.WIDGET_MAX_CODE.getMsg(), null, TodoErrCode.WIDGET_MAX_CODE.getCode());
+    public TodoWidgetMaxException(ToDoErrorCode errorCode) {
+        super(errorCode.message(), null, errorCode);
     }
 
 }
