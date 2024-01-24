@@ -7,7 +7,6 @@
     <resultMap id="BaseResultMap" type="blossom.project.towelove.loves.entity.TodoList">
             <id property="id" column="id" jdbcType="BIGINT"/>
             <result property="parentId" column="parent_id" jdbcType="BIGINT"/>
-            <result property="userId" column="user_id" jdbcType="BIGINT"/>
             <result property="title" column="title" jdbcType="VARCHAR"/>
             <result property="description" column="description" jdbcType="VARCHAR"/>
             <result property="deadline" column="deadline" jdbcType="DATE"/>
@@ -19,6 +18,7 @@
             <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
             <result property="deleted" column="deleted" jdbcType="INTEGER"/>
             <result property="remark" column="remark" jdbcType="VARCHAR"/>
+            <result property="widget" column="widget" jdbcType="TINYINT"/>
     </resultMap>
 
     <sql id="Base_Column_List">
@@ -28,6 +28,16 @@
         create_time,update_by,update_time,
         deleted,remark
     </sql>
+
+    <update id="updateWidgetBatch">
+        UPDATE todo_list
+        SET widget = #{status}
+        WHERE id IN
+        <foreach item="id" collection="ids" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </update>
+
     <select id="selectIdByPrentId" resultType="java.lang.Long">
         select id
         from todo_list

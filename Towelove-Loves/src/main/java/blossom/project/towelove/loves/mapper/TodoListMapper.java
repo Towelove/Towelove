@@ -24,6 +24,14 @@ public interface TodoListMapper extends BaseMapper<TodoList> {
      * @return
      */
     List<Long> selectIdByPrentId(@Param("parentId") Long parentId);
+
+
+    /**
+     * 批量修改操作
+     * @param status
+     * @param ids
+     */
+    void updateWidgetBatch(@Param("status") boolean status, @Param("ids") List<Long> ids);
 }
 
 

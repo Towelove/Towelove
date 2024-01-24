@@ -1,6 +1,6 @@
-package blossom.project.towelove.loves.service.impl;
+package blossom.project.towelove.loves.service.Impl;
 
-import blossom.project.towelove.client.serivce.MsgTaskService;
+import blossom.project.towelove.client.serivce.RemoteMsgTaskService;
 import blossom.project.towelove.common.constant.Constant;
 import blossom.project.towelove.common.exception.todo.ToDoErrorCode;
 import blossom.project.towelove.common.exception.todo.TodoNotFoundException;
@@ -54,8 +54,10 @@ public class TodolistServiceImpl extends ServiceImpl<TodoListMapper, TodoList>
     public static final String STRING = "ToweLove任务提醒";
 
     private final TodoListMapper todoListMapper;
+
     private final TodoImagesMapper todoImagesMapper;
-    private final MsgTaskService msgTaskService;
+
+    private final RemoteMsgTaskService remoteMsgTaskService;
 
 
     @Override
@@ -126,7 +128,8 @@ public class TodolistServiceImpl extends ServiceImpl<TodoListMapper, TodoList>
         LambdaQueryWrapper<TodoList> wrapper = new LambdaQueryWrapper<>();
         wrapper.eq(TodoList::getCoupleId, userId)
                 .ge(TodoList::getDeadline, Date.from(startDate.atStartOfDay(ZoneId.systemDefault()).toInstant()))
-                .lt(TodoList::getDeadline, Date.from(endDate.plusDays(1).atStartOfDay(ZoneId.systemDefault()).toInstant()))
+                .lt(TodoList::getDeadline,
+                        Date.from(endDate.plusDays(1).atStartOfDay(ZoneId.systemDefault()).toInstant()))
                 .eq(TodoList::getParentId, 0); // 只查询顶级父级
 
         return TodoListConvert.INSTANCE.convert(todoListMapper.selectList(wrapper));
@@ -150,10 +153,11 @@ public class TodolistServiceImpl extends ServiceImpl<TodoListMapper, TodoList>
         List<Long> trueIds = todoIdsMap.keySet().stream().filter(todoIdsMap::get).toList();
         List<Long> falseIds = todoIdsMap.keySet().stream().filter(id -> !todoIdsMap.get(id)).toList();
         if (CollectionUtil.isNotEmpty(trueIds)) {
-            todoListMapper.update(new LambdaUpdateWrapper<TodoList>().set(TodoList::isWidget, true).in(TodoList::getId, trueIds));
+            todoListMapper.updateWidgetBatch(
+                    true, trueIds);
         }
         if (CollectionUtil.isNotEmpty(falseIds)) {
-            todoListMapper.update(new LambdaUpdateWrapper<TodoList>().set(TodoList::isWidget, false).in(TodoList::getId, falseIds));
+            todoListMapper.updateWidgetBatch(false, falseIds);
         }
         return ids;
     }
@@ -241,11 +245,11 @@ public class TodolistServiceImpl extends ServiceImpl<TodoListMapper, TodoList>
         request.setSendTime(sendDate.toLocalTime());
         request.setMsgType(1);
 
-        Result<MsgTaskResponse> msgTask = msgTaskService.createMsgTask(request);
+        Result<MsgTaskResponse> msgTask = remoteMsgTaskService.createMsgTask(request);
         if (msgTask.getCode() != Constant.SUCCESS) {
             log.error("[待办 调用msgTask失败] code：{} msg: {}", msgTask.getCode(), msgTask.getMsg());
         }
-        todoListMapper.update(new LambdaUpdateWrapper<TodoList>()
+        todoListMapper.update(todoList, new LambdaUpdateWrapper<TodoList>()
                 .set(TodoList::getMsgTaskId, msgTask.getData().getId())
                 .set(TodoList::isReminder, Boolean.TRUE)
                 .eq(TodoList::getId, todoList.getId()));
@@ -257,11 +261,12 @@ public class TodolistServiceImpl extends ServiceImpl<TodoListMapper, TodoList>
         if (!todoList.isReminder()) {
             return;
         }
-        Result<Boolean> booleanResult = msgTaskService.batchDeleteMsgTask(CollectionUtil.newArrayList(todoList.getMsgTaskId()));
+        Result<Boolean> booleanResult =
+                remoteMsgTaskService.batchDeleteMsgTask(CollectionUtil.newArrayList(todoList.getMsgTaskId()));
         if (!booleanResult.getData()) {
             log.error("[待办 调用msgTask失败] code：{} msg: {}", booleanResult.getCode(), booleanResult.getMsg());
         }
-        todoListMapper.update(new LambdaUpdateWrapper<TodoList>()
+        todoListMapper.update(todoList, new LambdaUpdateWrapper<TodoList>()
                 .set(TodoList::getMsgTaskId, null)
                 .set(TodoList::isReminder, Boolean.FALSE)
                 .eq(TodoList::getId, todoList.getId()));

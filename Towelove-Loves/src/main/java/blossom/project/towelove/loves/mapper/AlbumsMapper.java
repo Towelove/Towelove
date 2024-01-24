@@ -3,6 +3,7 @@ package blossom.project.towelove.loves.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 import blossom.project.towelove.loves.entity.Albums;
+import org.springframework.stereotype.Component;
 
 /**
  * @author: ZhangBlossom

@@ -1,13 +1,12 @@
 package blossom.project.towelove.msg.controller;
 
+import blossom.project.towelove.common.request.todoList.TodoRemindRequest;
 import blossom.project.towelove.common.response.Result;
 import blossom.project.towelove.framework.log.annotation.LoveLog;
 import blossom.project.towelove.msg.service.EmailService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.constraints.NotBlank;
 
@@ -34,5 +33,10 @@ public class EmailController {
         return Result.ok(emailService.generateValidateCode(email));
     }
 
+    @PostMapping("/remind")
+
+    public Result<String> todoRemind(@Validated @RequestBody TodoRemindRequest request){
+        return Result.ok(emailService.todoRemind(request));
+    }
 
 }
