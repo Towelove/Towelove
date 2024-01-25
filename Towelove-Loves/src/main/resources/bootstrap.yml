@@ -6,7 +6,6 @@ spring:
     active: dev
   cloud:
     nacos:
-      discovery:
       config:
         file-extension: yaml
         shared-configs[0]:

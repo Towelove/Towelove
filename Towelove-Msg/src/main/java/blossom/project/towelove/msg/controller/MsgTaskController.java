@@ -29,6 +29,7 @@ import javax.validation.constraints.NotNull;
  * @author 张锦标
  * @since 2023-11-21 19:33:06
  * 当前模块用于提供给用户存放发送消息的信息
+ *
  */
 
 @LoveLog
@@ -39,7 +40,16 @@ public class MsgTaskController {
   
 
     private final MsgTaskService msgTaskService;
-  
+    /**
+     * 创建
+     * @param createRequest
+     * @return
+     */
+    @PostMapping("")
+    public Result<MsgTaskResponse> createMsgTask(@RequestBody @Valid MsgTaskCreateRequest createRequest){
+        return Result.ok(msgTaskService.createMsgTask(createRequest));
+    }
+
    /**
      * 按照ID查询
      * @param msgTaskId
@@ -92,15 +102,6 @@ public class MsgTaskController {
         return Result.ok(msgTaskService.batchDeleteMsgTask(ids));
     }
 
-    /**
-     * 创建
-     * @param createRequest
-     * @return
-     */
-    @PostMapping("")
-    public Result<MsgTaskResponse> createMsgTask(@RequestBody @Valid MsgTaskCreateRequest createRequest){
-        return Result.ok(msgTaskService.createMsgTask(createRequest));
-    }
 }
 
 

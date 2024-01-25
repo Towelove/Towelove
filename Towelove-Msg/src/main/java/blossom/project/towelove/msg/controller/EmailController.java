@@ -29,14 +29,15 @@ public class EmailController {
     private final EmailService emailService;
 
     @GetMapping("/code")
-    public Result<String> getValidateCode(@RequestParam("email") @NotBlank String email){
-        return Result.ok(emailService.generateValidateCode(email));
+    public Result<String> sendValidateCodeByEmail(@RequestParam("email") @NotBlank String email){
+        return Result.ok(emailService.generateAndSendValidateCode(email));
     }
 
     @PostMapping("/remind")
-
-    public Result<String> todoRemind(@Validated @RequestBody TodoRemindRequest request){
+    public Result<String> todoRemindByEmail(@Validated @RequestBody TodoRemindRequest request){
         return Result.ok(emailService.todoRemind(request));
     }
+
+
 
 }

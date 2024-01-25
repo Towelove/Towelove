@@ -4,36 +4,26 @@ import blossom.project.towelove.auth.service.AuthService;
 import blossom.project.towelove.auth.strategy.UserAccessStrategy;
 import blossom.project.towelove.auth.strategy.UserRegisterStrategyFactory;
 import blossom.project.towelove.auth.utils.VerifyCodeUtils;
-import blossom.project.towelove.client.serivce.RemoteCodeService;
+import blossom.project.towelove.client.serivce.RemoteEmailService;
+import blossom.project.towelove.client.serivce.RemoteSmsService;
 import blossom.project.towelove.client.serivce.RemoteUserService;
 import blossom.project.towelove.common.constant.RedisKeyConstant;
 import blossom.project.towelove.common.domain.dto.SysUser;
-import blossom.project.towelove.common.domain.dto.ThirdPartyLoginUser;
-import blossom.project.towelove.common.domain.dto.UserThirdParty;
 import blossom.project.towelove.common.exception.ServiceException;
 import blossom.project.towelove.common.request.auth.*;
-import blossom.project.towelove.common.request.user.UpdateUserRequest;
 import blossom.project.towelove.common.response.Result;
-import blossom.project.towelove.common.response.user.SysUserVo;
-import blossom.project.towelove.common.utils.JsonUtils;
 import blossom.project.towelove.framework.redis.service.RedisService;
 import cn.dev33.satoken.stp.StpUtil;
-import cn.hutool.Hutool;
 import cn.hutool.core.lang.RegexPool;
-import cn.hutool.core.util.NumberUtil;
 import cn.hutool.core.util.RandomUtil;
 import cn.hutool.core.util.ReUtil;
 import cn.hutool.core.util.StrUtil;
 import com.towelove.common.core.constant.HttpStatus;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
-import javax.validation.Valid;
 import java.util.Objects;
-import java.util.Random;
-import java.util.random.RandomGenerator;
 
 @Service
 @RequiredArgsConstructor
@@ -42,7 +32,9 @@ public class AuthServiceImpl implements AuthService {
 
     private final RemoteUserService remoteUserService;
 
-    private final RemoteCodeService remoteCodeService;
+    private final RemoteEmailService remoteEmailService;
+
+    private final RemoteSmsService remoteSmsService;
 
     private final RedisService redisService;
 
@@ -123,12 +115,10 @@ public class AuthServiceImpl implements AuthService {
     public String sendVerifyCode(AuthVerifyCodeRequest authVerifyCodeRequest) {
         if (StrUtil.isNotBlank(authVerifyCodeRequest.getPhone())) {
             checkPhoneByRegex(authVerifyCodeRequest.getPhone());
-            //TODO 调用远程验证码接口
-            remoteCodeService.sendValidateCodeByPhone(authVerifyCodeRequest.getPhone());
+            remoteSmsService.sendValidateCodeByPhone(authVerifyCodeRequest.getPhone());
         } else if (StrUtil.isNotBlank(authVerifyCodeRequest.getEmail())) {
             checkEmailByRegex(authVerifyCodeRequest.getEmail());
-            //TODO 调用远程验证码接口
-            remoteCodeService.sendValidateCodeByEmail(authVerifyCodeRequest.getEmail());
+            remoteEmailService.sendValidateCodeByEmail(authVerifyCodeRequest.getEmail());
         } else {
             throw new ServiceException("发送验证码失败，邮箱或手机号为空");
         }
