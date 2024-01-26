@@ -1,6 +1,5 @@
-package blossom.project.towelove.client.serivce;
+package blossom.project.towelove.client.serivce.msg;
 
-import blossom.project.towelove.client.fallback.RemoteEmailFallbackFactory;
 import blossom.project.towelove.client.fallback.RemoteSmsFallbackFactory;
 import blossom.project.towelove.common.response.Result;
 import org.springframework.cloud.openfeign.FeignClient;

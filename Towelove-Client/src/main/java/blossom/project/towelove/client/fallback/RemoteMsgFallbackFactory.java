@@ -1,6 +1,6 @@
 package blossom.project.towelove.client.fallback;
 
-import blossom.project.towelove.client.serivce.RemoteMsgService;
+import blossom.project.towelove.client.serivce.msg.RemoteMsgService;
 import blossom.project.towelove.common.constant.SecurityConstant;
 import blossom.project.towelove.common.page.PageResponse;
 import blossom.project.towelove.common.request.msg.MsgTaskPageRequest;

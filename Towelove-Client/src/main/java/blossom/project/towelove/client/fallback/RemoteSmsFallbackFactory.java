@@ -1,6 +1,6 @@
 package blossom.project.towelove.client.fallback;
 
-import blossom.project.towelove.client.serivce.RemoteSmsService;
+import blossom.project.towelove.client.serivce.msg.RemoteSmsService;
 import blossom.project.towelove.common.constant.SecurityConstant;
 import blossom.project.towelove.common.response.Result;
 import org.slf4j.Logger;

@@ -1,12 +1,11 @@
 package blossom.project.towelove.msg.executor;
 
-import blossom.project.towelove.client.serivce.RemoteUserService;
 import blossom.project.towelove.common.constant.MsgConstant;
+import blossom.project.towelove.common.entity.msg.OfficialMailInfo;
 import blossom.project.towelove.common.response.mailaccount.MailAccountResponse;
 import blossom.project.towelove.msg.cache.TaskCache;
 import blossom.project.towelove.msg.entity.CompletedMailMsgTask;
 import blossom.project.towelove.msg.entity.MsgTask;
-import blossom.project.towelove.common.entity.msg.OfficialMailInfo;
 import blossom.project.towelove.msg.service.EmailService;
 import blossom.project.towelove.msg.service.MsgTaskService;
 import cn.hutool.extra.mail.MailException;

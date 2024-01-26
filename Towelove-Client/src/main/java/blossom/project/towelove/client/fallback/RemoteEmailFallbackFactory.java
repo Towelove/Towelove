@@ -1,13 +1,10 @@
 package blossom.project.towelove.client.fallback;
 
-import blossom.project.towelove.client.serivce.RemoteEmailService;
-import blossom.project.towelove.client.serivce.RemoteSmsService;
-import blossom.project.towelove.common.constant.SecurityConstant;
+import blossom.project.towelove.client.serivce.msg.RemoteEmailService;
 import blossom.project.towelove.common.request.todoList.TodoRemindRequest;
 import blossom.project.towelove.common.response.Result;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.slf4j.MDC;
 import org.springframework.cloud.openfeign.FallbackFactory;
 import org.springframework.stereotype.Component;
 
