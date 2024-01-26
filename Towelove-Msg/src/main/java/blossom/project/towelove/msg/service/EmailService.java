@@ -15,7 +15,7 @@ import blossom.project.towelove.msg.entity.CompletedMailMsgTask;
 public interface EmailService {
     String sendCompletedMailMsg(CompletedMailMsgTask msgTask);
 
-    String generateValidateCode(String email);
+    String generateAndSendValidateCode(String email);
 
     String todoRemind(TodoRemindRequest request);
 }

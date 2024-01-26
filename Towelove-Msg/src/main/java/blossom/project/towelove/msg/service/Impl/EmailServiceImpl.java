@@ -42,29 +42,53 @@ public class EmailServiceImpl implements EmailService {
 
 
     private final ThreadPoolExecutor ioDynamicThreadPool;
+
+    /**
+     * 当前方法用于发送定时任务消息
+     * 功能用于情侣间为对方设定的定时爱意邮件
+     * 当前功能暂时没有web服务对应
+     *
+     * @param mail
+     * @return
+     */
     @Override
+    @Deprecated
     public String sendCompletedMailMsg(CompletedMailMsgTask mail) {
         log.info("接收到定时任务消息，并且准备发送给MQ：{}", mail);
         sendMailMsg(mail);
         return "没报错就是发送成功哈哈哈哈";
     }
 
+    /**
+     * 当前方法用于生成发送验证码
+     *
+     * @param email
+     * @return
+     */
     @Override
-    public String generateValidateCode(String email) {
+    public String generateAndSendValidateCode(String email) {
         String code = CodeGeneratorUtil.generateFourDigitCode();
         sendOfficalEmail(email, RedisKeyConstant.VALIDATE_CODE_SUBJECT, code, false, null);
         return "没报错就是发送成功哈哈哈哈";
     }
 
+    /**
+     * 当前方法用于提供小组件remind提醒消息
+     *
+     * @param request
+     * @return
+     */
     @Override
     public String todoRemind(TodoRemindRequest request) {
-        return null;
+        log.info("接收到提醒消息，内容为：{}", request);
+        sendOfficalEmail(request.getEmail(), RedisKeyConstant.REMIND_SUBJECT, request.getContent(), false, null);
+        return "发送提醒消息成功";
     }
 
 
     private void sendMailMsg(CompletedMailMsgTask mailMsg) {
         log.info("接收到任务消息消息: {}", mailMsg);
-        if (StringUtils.isBlank(mailMsg.getMail())){
+        if (StringUtils.isBlank(mailMsg.getMail())) {
             mailMsg.setMail(mailMsg.getUsername());
         }
 
@@ -110,7 +134,7 @@ public class EmailServiceImpl implements EmailService {
                 break;
             }
             case RedisKeyConstant.REMIND_SUBJECT: {
-
+                //TODO 数据库/redis操作
             }
             default: {
                 break;

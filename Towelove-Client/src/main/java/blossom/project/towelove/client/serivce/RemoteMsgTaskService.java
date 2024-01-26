@@ -20,7 +20,6 @@ import java.util.List;
  */
 
 @FeignClient(value="towelove-msg", path="towelove-msg")
-//@RequestMapping("/v1/msg-task")
 public interface RemoteMsgTaskService {
 
     /**

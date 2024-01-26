@@ -37,8 +37,6 @@ public class ScheduledSendMsgExecutor {
 
     private final OfficialMailInfo officialMailInfo;
 
-    private final RemoteUserService remoteUserService;
-
     private final MsgTaskService msgTaskService;
 
     private final EmailService emailService;
