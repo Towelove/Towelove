@@ -6,7 +6,8 @@ package blossom.project.towelove.auth.strategy;
  **/
 
 import blossom.project.towelove.auth.thirdParty.ThirdPartyLoginConfig;
-import blossom.project.towelove.client.serivce.RemoteUserService;
+import blossom.project.towelove.auth.thirdParty.ThirdPartyLoginUtil;
+import blossom.project.towelove.client.serivce.user.RemoteUserService;
 import blossom.project.towelove.common.constant.RedisKeyConstant;
 import blossom.project.towelove.common.domain.dto.SysUser;
 import blossom.project.towelove.common.domain.dto.ThirdPartyLoginUser;
@@ -14,11 +15,8 @@ import blossom.project.towelove.common.exception.ServiceException;
 import blossom.project.towelove.common.request.auth.AuthLoginRequest;
 import blossom.project.towelove.common.request.auth.AuthRegisterRequest;
 import blossom.project.towelove.common.response.Result;
-import blossom.project.towelove.common.response.user.SysUserVo;
 import blossom.project.towelove.common.utils.JsonUtils;
-import blossom.project.towelove.auth.thirdParty.ThirdPartyLoginUtil;
 import blossom.project.towelove.framework.redis.service.RedisService;
-import cn.dev33.satoken.stp.StpUtil;
 import com.towelove.common.core.constant.HttpStatus;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;

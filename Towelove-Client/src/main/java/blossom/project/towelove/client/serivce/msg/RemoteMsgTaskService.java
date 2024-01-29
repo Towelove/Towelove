@@ -1,4 +1,4 @@
-package blossom.project.towelove.client.serivce;
+package blossom.project.towelove.client.serivce.msg;
 
 import blossom.project.towelove.common.request.msg.MsgTaskCreateRequest;
 import blossom.project.towelove.common.response.Result;

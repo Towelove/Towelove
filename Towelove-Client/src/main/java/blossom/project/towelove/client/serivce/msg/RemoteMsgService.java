@@ -1,4 +1,4 @@
-package blossom.project.towelove.client.serivce;
+package blossom.project.towelove.client.serivce.msg;
 
 import blossom.project.towelove.client.fallback.RemoteMsgFallbackFactory;
 import blossom.project.towelove.common.page.PageResponse;

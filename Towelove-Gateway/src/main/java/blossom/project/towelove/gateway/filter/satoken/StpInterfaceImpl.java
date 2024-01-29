@@ -1,17 +1,13 @@
 package blossom.project.towelove.gateway.filter.satoken;
 
-import blossom.project.towelove.client.serivce.RemoteUserService;
-import blossom.project.towelove.common.exception.ServiceException;
+import blossom.project.towelove.client.serivce.user.RemoteUserService;
 import blossom.project.towelove.common.response.Result;
 import blossom.project.towelove.common.response.user.SysUserPermissionDto;
 import cn.dev33.satoken.stp.StpInterface;
-import cn.dev33.satoken.stp.StpUtil;
-import cn.hutool.core.collection.CollUtil;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
-import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.*;
 import java.util.stream.Collectors;

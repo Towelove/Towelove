@@ -1,4 +1,4 @@
-package blossom.project.towelove.client.serivce;
+package blossom.project.towelove.client.serivce.user;
 
 import blossom.project.towelove.client.config.FeignMarkInterceptor;
 import blossom.project.towelove.client.fallback.RemoteUserFallbackFactory;
@@ -7,14 +7,12 @@ import blossom.project.towelove.common.domain.dto.ThirdPartyLoginUser;
 import blossom.project.towelove.common.domain.dto.UserThirdParty;
 import blossom.project.towelove.common.request.auth.AuthLoginRequest;
 import blossom.project.towelove.common.request.auth.RestockUserInfoRequest;
-import blossom.project.towelove.common.request.user.UpdateUserRequest;
 import blossom.project.towelove.common.response.Result;
 import blossom.project.towelove.common.response.user.SysUserPermissionDto;
 import blossom.project.towelove.common.response.user.SysUserVo;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.List;
