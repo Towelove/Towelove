@@ -1,5 +1,5 @@
 spring:
   redis:
-    host: 116.204.108.216
+    host: 10.0.0.4:6379
     port: 6379
     password: Venus20230829

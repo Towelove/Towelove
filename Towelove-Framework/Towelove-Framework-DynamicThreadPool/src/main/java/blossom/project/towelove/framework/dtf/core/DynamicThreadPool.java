@@ -3,13 +3,13 @@ package blossom.project.towelove.framework.dtf.core;
 
 import blossom.project.towelove.framework.dtf.config.ThreadPoolProperty;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Primary;
 
 import java.time.LocalTime;
 import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
@@ -34,7 +34,6 @@ public class DynamicThreadPool {
     @Bean("ioDynamicThreadPool")
     @Primary
     public ThreadPoolExecutor ioIntensiveThreadPool() {
-        System.out.println(threadPoolProperty);
         ThreadPoolExecutor threadPoolExecutor = generateThreadPool(0);
         System.out.println(threadPoolExecutor);
         return threadPoolExecutor;
@@ -51,6 +50,13 @@ public class DynamicThreadPool {
         return threadPoolExecutor;
     }
 
+    @Bean("virtualThreadThreadPool")
+    public ThreadPoolExecutor virtualThreadThreadPool() {
+        return generateThreadPool(2);
+    }
+
+
+
 
     /**
      * 初始化线程池
@@ -65,6 +71,16 @@ public class DynamicThreadPool {
                         new ResizableCapacityLinkedBlockIngQueue<Runnable>(threadPoolProperty.getIoQueueCapacity()),
                         new NamedThreadFactory("io-thread-"), new ThreadPoolExecutor.DiscardPolicy());
 
+            }
+            case 2: {
+                ThreadFactory factory = Thread.ofVirtual().factory();
+                return new ThreadPoolExecutor(
+                        threadPoolProperty.getVirtualCorePoolSize(), threadPoolProperty.getVirtualCorePoolSize(),
+                        60, TimeUnit.SECONDS,
+                        new ResizableCapacityLinkedBlockIngQueue<>(threadPoolProperty.getVirtualQueueCapacity()),
+                        new NamedThreadFactory("virtual-thread-", factory),
+                        new ThreadPoolExecutor.DiscardPolicy()
+                );
             }
             default:{
                 return new ThreadPoolExecutor(threadPoolProperty.getCpuCorePoolSize(), threadPoolProperty.getCpuMaximumPoolSize(),
