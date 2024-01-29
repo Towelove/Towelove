@@ -1,20 +1,18 @@
-package blossom.project.towelove.loves.service.impl;
+package blossom.project.towelove.loves.service.Impl;
 
-import blossom.project.towelove.client.serivce.msg.RemoteEmailService;
 import blossom.project.towelove.client.serivce.msg.RemoteMsgTaskService;
-import blossom.project.towelove.client.serivce.user.RemoteUserService;
 import blossom.project.towelove.common.constant.Constant;
 import blossom.project.towelove.common.exception.todo.ToDoErrorCode;
 import blossom.project.towelove.common.exception.todo.TodoNotFoundException;
 import blossom.project.towelove.common.exception.todo.TodoWidgetMaxException;
+import blossom.project.towelove.common.request.msg.MsgTaskCreateRequest;
 import blossom.project.towelove.common.request.todoList.InsertTodoRequest;
-import blossom.project.towelove.common.request.todoList.TodoRemindRequest;
 import blossom.project.towelove.common.request.todoList.UpdateTodoRequest;
 import blossom.project.towelove.common.request.todoList.UpdateWidget;
 import blossom.project.towelove.common.response.Result;
+import blossom.project.towelove.common.response.msg.MsgTaskResponse;
 import blossom.project.towelove.common.response.todoList.TodoListCalendarResponse;
 import blossom.project.towelove.common.response.todoList.TodoListResponse;
-import blossom.project.towelove.common.response.user.SysUserVo;
 import blossom.project.towelove.loves.convert.TodoListConvert;
 import blossom.project.towelove.loves.entity.TodoImages;
 import blossom.project.towelove.loves.entity.TodoList;
@@ -32,6 +30,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -47,16 +46,18 @@ import java.util.stream.Collectors;
 public class TodolistServiceImpl extends ServiceImpl<TodoListMapper, TodoList>
         implements TodolistService {
 
+
     /**
      * widget 最大数量
      */
     public static final int WIDGET_MAX = 2;
     public static final String STRING = "ToweLove任务提醒";
+
     private final TodoListMapper todoListMapper;
+
     private final TodoImagesMapper todoImagesMapper;
-    private final RemoteEmailService remoteEmailService;
+
     private final RemoteMsgTaskService remoteMsgTaskService;
-    private final RemoteUserService remoteUserService;
 
 
     @Override
@@ -231,18 +232,25 @@ public class TodolistServiceImpl extends ServiceImpl<TodoListMapper, TodoList>
             return;
         }
 
-        Result<SysUserVo> user = remoteUserService.getUserById(todoList.getCoupleId());
-        TodoRemindRequest request = TodoRemindRequest.builder()
-                .build().setContent("😭😭😭😭😭 待办列表还未完成 " + todoList.getTitle() + "   \n    " + todoList.getDescription())
-                .setEmail(Optional.ofNullable(user).map(Result<SysUserVo>::getData).map(SysUserVo::getEmail).orElseThrow(() -> new RuntimeException("用户信息获取失败")))
-                .setRemindTime(todoList.getDeadline());
+        LocalDateTime sendDate = todoList.getDeadline().minusHours(1);
+        MsgTaskCreateRequest request = new MsgTaskCreateRequest();
+        request.setUserId(todoList.getCoupleId());
+        //TODO 需要对接 查询mailAccount信息
+//        request.setAccountId();
+//        request.setReceiveAccount();
+        request.setNickname(STRING);
+        request.setTitle(todoList.getTitle());
+        request.setContent("😭😭😭😭😭 待办列表还未完成 " + todoList.getTitle() + "   \n    " + todoList.getDescription());
+        request.setSendDate(sendDate.toLocalDate());
+        request.setSendTime(sendDate.toLocalTime());
+        request.setMsgType(1);
 
-        Result<String> msgTask = remoteEmailService.todoRemindByEmail(request);
+        Result<MsgTaskResponse> msgTask = remoteMsgTaskService.createMsgTask(request);
         if (msgTask.getCode() != Constant.SUCCESS) {
             log.error("[待办 调用msgTask失败] code：{} msg: {}", msgTask.getCode(), msgTask.getMsg());
         }
         todoListMapper.update(todoList, new LambdaUpdateWrapper<TodoList>()
-                .set(TodoList::getMsgTaskId, msgTask.getData())
+                .set(TodoList::getMsgTaskId, msgTask.getData().getId())
                 .set(TodoList::isReminder, Boolean.TRUE)
                 .eq(TodoList::getId, todoList.getId()));
 
