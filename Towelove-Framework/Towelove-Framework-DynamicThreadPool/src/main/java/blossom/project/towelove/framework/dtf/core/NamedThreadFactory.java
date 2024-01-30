@@ -11,6 +11,7 @@ import java.util.concurrent.ThreadFactory;
  */
 public class  NamedThreadFactory implements ThreadFactory {
     private String threadName;
+    private ThreadFactory factory;
     public NamedThreadFactory(){
 
     }
@@ -18,9 +19,18 @@ public class  NamedThreadFactory implements ThreadFactory {
         this.threadName=threadName;
     }
 
+    public NamedThreadFactory(String threadName, ThreadFactory factory) {
+        this.threadName = threadName;
+        this.factory = factory;
+
+    }
+
     @Override
     public Thread newThread(Runnable r) {
         Thread t = new Thread(r);
+        if (factory != null) {
+            return factory.newThread(r);
+        }
         t.setName(this.threadName);
         return t;
     }

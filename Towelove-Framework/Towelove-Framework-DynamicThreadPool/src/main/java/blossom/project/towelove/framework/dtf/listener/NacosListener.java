@@ -4,7 +4,6 @@ import blossom.project.towelove.framework.dtf.config.ThreadPoolProperty;
 import blossom.project.towelove.framework.dtf.core.DynamicThreadPool;
 import blossom.project.towelove.framework.dtf.core.ResizableCapacityLinkedBlockIngQueue;
 import blossom.project.towelove.framework.dtf.service.SendMailService;
-import com.alibaba.fastjson2.JSON;
 import com.alibaba.nacos.api.config.ConfigService;
 import com.alibaba.nacos.api.config.listener.Listener;
 import lombok.extern.slf4j.Slf4j;
@@ -14,7 +13,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
-import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 import java.util.concurrent.Executor;
@@ -42,6 +40,10 @@ public class NacosListener implements ApplicationRunner {
     private ThreadPoolExecutor cpuThreadPoolExecutor;
 
     @Autowired
+    @Qualifier("virtualThreadThreadPool")
+    private ThreadPoolExecutor virtualThreadPoolExecutor;
+
+    @Autowired
     private SendMailService sendMailService;
 
     @Autowired
@@ -62,6 +64,7 @@ public class NacosListener implements ApplicationRunner {
         configService.addListener(DATA_ID, groupId, new Listener() {
             @Override
             public void receiveConfigInfo(String configInfo) {
+                threadPoolProperty.updateConfig(configInfo);
                 System.out.println("-------改变之前---------");
                 System.out.println(ioThreadPoolExecutor);
                 System.out.println(cpuThreadPoolExecutor);
@@ -77,6 +80,12 @@ public class NacosListener implements ApplicationRunner {
                 ResizableCapacityLinkedBlockIngQueue<Runnable> queue2 =
                         (ResizableCapacityLinkedBlockIngQueue) cpuThreadPoolExecutor.getQueue();
                 queue2.setCapacity(threadPoolProperty.getCpuQueueCapacity());
+
+                virtualThreadPoolExecutor.setCorePoolSize(threadPoolProperty.getVirtualCorePoolSize());
+                virtualThreadPoolExecutor.setMaximumPoolSize(threadPoolProperty.getVirtualMaximumPoolSize());
+                ResizableCapacityLinkedBlockIngQueue<Runnable> queue3 =
+                        (ResizableCapacityLinkedBlockIngQueue) virtualThreadPoolExecutor.getQueue();
+                queue3.setCapacity(threadPoolProperty.getVirtualQueueCapacity());
 
                 System.out.println(ioThreadPoolExecutor);
                 System.out.println(cpuThreadPoolExecutor);
@@ -94,6 +103,7 @@ public class NacosListener implements ApplicationRunner {
             }
         });
     }
+
 
     /**
      * 向nacos发布内容

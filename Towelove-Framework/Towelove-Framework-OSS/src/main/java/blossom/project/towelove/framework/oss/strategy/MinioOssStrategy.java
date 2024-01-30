@@ -2,26 +2,23 @@ package blossom.project.towelove.framework.oss.strategy;
 
 
 import blossom.project.towelove.common.enums.OssType;
-import blossom.project.towelove.common.exception.ClientException;
-import blossom.project.towelove.common.exception.RemoteException;
 import blossom.project.towelove.common.exception.ServerException;
 import blossom.project.towelove.common.exception.errorcode.BaseErrorCode;
 import blossom.project.towelove.common.utils.file.FileUploadUtil;
 import blossom.project.towelove.framework.oss.config.MinioProperties;
 import cn.hutool.core.collection.CollectionUtil;
 import com.aliyun.oss.ServiceException;
-import io.minio.*;
-import io.minio.errors.*;
+import io.minio.BucketExistsArgs;
+import io.minio.MinioClient;
+import io.minio.PutObjectArgs;
+import io.minio.RemoveObjectArgs;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
 import java.io.InputStream;
-import java.security.InvalidKeyException;
-import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -42,8 +39,12 @@ public class MinioOssStrategy implements OssServiceStrategy {
     @Autowired
     private MinioClient minioClient;
 
+    /**
+     * 代码中，异步任务主要是进行文件的读取和上传
+     * 这属于 I/O 密集型的任务，所以使用虚拟线程池是合适的
+     */
     @Autowired
-    @Qualifier(value = "ioDynamicThreadPool")
+    @Qualifier(value = "virtualThreadThreadPool")
     private ThreadPoolExecutor threadPoolExecutor;
 
     @Autowired
