@@ -1,5 +1,6 @@
 package blossom.project.towelove.msg.executor;
 
+import blossom.project.towelove.client.serivce.user.RemoteUserService;
 import blossom.project.towelove.common.constant.MsgConstant;
 import blossom.project.towelove.common.entity.msg.OfficialMailInfo;
 import blossom.project.towelove.common.response.mailaccount.MailAccountResponse;
@@ -15,6 +16,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -39,6 +41,7 @@ public class ScheduledSendMsgExecutor {
     private final MsgTaskService msgTaskService;
 
     private final EmailService emailService;
+
     /**
      * 任务模块需要定时的去获取数据库中的用户消息任务
      * 那么这个模块就需要要求能远程调用和发送邮件相关的所有函数
@@ -59,6 +62,12 @@ public class ScheduledSendMsgExecutor {
         System.out.println("任务执行器被销毁");
     }
 
+    private CompletedMailMsgTask completeMsg = new CompletedMailMsgTask();
+
+    @PostConstruct
+    public void initCompleteMsg(){
+        BeanUtils.copyProperties(officialMailInfo, completeMsg);
+    }
 
     /**
      * @author: 张锦标
@@ -73,45 +82,17 @@ public class ScheduledSendMsgExecutor {
             //拿到十分钟后要发送的数据
             List<MsgTask> msgTaskList = msgTaskService.getMsgTaskList(0);
             System.out.println(msgTaskList);
+
             for (MsgTask msgTask : msgTaskList) {
-                CompletedMailMsgTask completeMsg = new CompletedMailMsgTask();
                 BeanUtils.copyProperties(msgTask, completeMsg);
-                MailAccountResponse mailAccount = new MailAccountResponse();
-                //MailAccountResponse mailAccount = remoteUserService.
-                //        getMailAccount(msgTask.getAccountId()).getData();
-                if (Objects.nonNull(mailAccount)) {
-                    //BeanUtils.copyProperties(mailAccount, completeMsg);
-                    BeanUtils.copyProperties(officialMailInfo,completeMsg);
-                    BeanUtils.copyProperties(msgTask, completeMsg);
-                    //将所有的任务放入到map中暂存
-                    //TODO 这里需要考虑如果用户更新了邮箱信息 那么这些东西都要失效
-                    //所以要去cache中查找是否已经缓存了记录
-                    TaskCache.getTaskMap().put(MsgConstant.MSG_PREFIX + completeMsg.getId(), completeMsg);
-                } else {
-                    throw new MailException("邮箱账户为空，出现异常！！！");
-                }
+                //将所有的任务放入到map中暂存
+                //TODO 这里需要考虑如果用户更新了邮箱信息 那么这些东西都要失效
+                //所以要去cache中查找是否已经缓存了记录
+                TaskCache.getTaskMap().put(MsgConstant.MSG_PREFIX + completeMsg.getId(), completeMsg);
             }
-            //TODO 多线程性能优化 需要考虑ForkJoinPool是公共线程池
-            //msgTaskList.parallelStream().peek(msgTask -> {
-            //    CompletedMailMsgTask msg = new CompletedMailMsgTask();
-            //    BeanUtils.copyProperties(msgTask, msg);
-            //    MailAccountRespVO mailAccount = remoteSysMailAccountService.
-            //            getMailAccount(msgTask.getAccountId()).getData();
-            //    if (Objects.nonNull(mailAccount)) {
-            //        BeanUtils.copyProperties(mailAccount, msg);
-            //        BeanUtils.copyProperties(msgTask, msg);
-            //        //将所有的任务放入到map中暂存
-            //        TaskCache.getTaskMap().put(MsgConstant.MSG_PREFIX + msg.getId(), msg);
-            //    } else {
-            //        throw new MailException("邮箱账户为空，出现异常！！！");
-            //    }
-            //});
-
-            //将获得到的消息任务绑定到mq队列中
-        }catch (Exception e){
-
-        }finally {
-            //将获得到的消息任务绑定mq队列中
+        } catch (Exception e) {
+            //TODO 可以使用retry工具了
+        } finally {
             for (Map.Entry<String, CompletedMailMsgTask> entry : TaskCache.getTaskMap().entrySet()) {
                 CompletedMailMsgTask CompletedMailMsgTask = entry.getValue();
                 System.out.println(CompletedMailMsgTask);
@@ -123,67 +104,5 @@ public class ScheduledSendMsgExecutor {
         }
     }
 
-    /**
-     * @author: 张锦标
-     * 当前方法用于获取今天的且只发送一次的消息
-     * 将每十分钟的任务暂存到map中
-     * 之后到快要发送消息的时候
-     * 再将消息推送到mq准备发送
-     */
-    @XxlJob(value = "sendMailOnceJobHandler", init = "initHandler", destroy = "destroyHandler")
-    public void sendMailOnce() {
-        try {
-            //拿到十分钟后要发送的数据
-            List<MsgTask> msgTaskList = msgTaskService.getMsgTaskList(1);
-            System.out.println(msgTaskList);
-            for (MsgTask msgTask : msgTaskList) {
-                CompletedMailMsgTask completeMsg = new CompletedMailMsgTask();
-                BeanUtils.copyProperties(msgTask, completeMsg);
-                MailAccountResponse mailAccount = new MailAccountResponse();
-                //MailAccountResponse mailAccount = remoteUserService.
-                //        getMailAccount(msgTask.getAccountId()).getData();
-                if (Objects.nonNull(mailAccount)) {
-                    //BeanUtils.copyProperties(mailAccount, completeMsg);
-                    BeanUtils.copyProperties(officialMailInfo,completeMsg);
-                    BeanUtils.copyProperties(msgTask, completeMsg);
-                    //将所有的任务放入到map中暂存
-                    //TODO 这里需要考虑如果用户更新了邮箱信息 那么这些东西都要失效
-                    //所以要去cache中查找是否已经缓存了记录
-                    TaskCache.getTaskMap().put(MsgConstant.MSG_PREFIX + completeMsg.getId(), completeMsg);
-                } else {
-                    throw new MailException("邮箱账户为空，出现异常！！！");
-                }
-            }
-            //TODO 多线程性能优化 需要考虑ForkJoinPool是公共线程池
-            //msgTaskList.parallelStream().peek(msgTask -> {
-            //    CompletedMailMsgTask msg = new CompletedMailMsgTask();
-            //    BeanUtils.copyProperties(msgTask, msg);
-            //    MailAccountRespVO mailAccount = remoteSysMailAccountService.
-            //            getMailAccount(msgTask.getAccountId()).getData();
-            //    if (Objects.nonNull(mailAccount)) {
-            //        BeanUtils.copyProperties(mailAccount, msg);
-            //        BeanUtils.copyProperties(msgTask, msg);
-            //        //将所有的任务放入到map中暂存
-            //        TaskCache.getTaskMap().put(MsgConstant.MSG_PREFIX + msg.getId(), msg);
-            //    } else {
-            //        throw new MailException("邮箱账户为空，出现异常！！！");
-            //    }
-            //});
-
-            //将获得到的消息任务绑定到mq队列中
-        }catch (Exception e){
-
-        }finally {
-            //将获得到的消息任务绑定mq队列中
-            for (Map.Entry<String, CompletedMailMsgTask> entry : TaskCache.getTaskMap().entrySet()) {
-                CompletedMailMsgTask CompletedMailMsgTask = entry.getValue();
-                System.out.println(CompletedMailMsgTask);
-                emailService.sendCompletedMailMsg(CompletedMailMsgTask);
-            }
-            //完成把消息放入到RocketMQ之后就需要清空一下Map集合了
-            TaskCache.getTaskMap().clear();
-            System.out.println("发送邮件给MQ成功");
-        }
-    }
 
 }
