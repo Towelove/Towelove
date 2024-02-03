@@ -5,6 +5,7 @@ import blossom.project.towelove.common.request.todoList.TodoRemindRequest;
 import blossom.project.towelove.common.request.user.InvitedEmailRequest;
 import blossom.project.towelove.common.response.Result;
 import blossom.project.towelove.framework.log.annotation.LoveLog;
+import blossom.project.towelove.msg.entity.UserFeedBack;
 import blossom.project.towelove.msg.service.EmailService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
@@ -45,6 +46,10 @@ public class EmailController {
         return Result.ok(emailService.sendInvitedEmail(request));
     }
 
+    @PostMapping("/user/feedback")
+    public Result<String> userFeedbackEmail(@RequestBody @Validated UserFeedBack userFeedBack){
+        return Result.ok(emailService.userFeedback(userFeedBack));
+    }
 
 
 }

@@ -8,8 +8,10 @@ import blossom.project.towelove.common.utils.StringUtils;
 import blossom.project.towelove.framework.redis.service.RedisService;
 import blossom.project.towelove.msg.entity.CompletedMailMsgTask;
 import blossom.project.towelove.common.entity.msg.OfficialMailInfo;
+import blossom.project.towelove.msg.entity.UserFeedBack;
 import blossom.project.towelove.msg.service.EmailService;
 import blossom.project.towelove.msg.service.MsgTaskService;
+import blossom.project.towelove.msg.service.UserFeedBackService;
 import cn.hutool.extra.mail.MailAccount;
 import cn.hutool.extra.mail.MailUtil;
 import lombok.RequiredArgsConstructor;
@@ -43,6 +45,8 @@ public class EmailServiceImpl implements EmailService {
 
 
     private final ThreadPoolExecutor ioDynamicThreadPool;
+
+    private final UserFeedBackService userFeedBackService;
 
     /**
      * 当前方法用于发送定时任务消息
@@ -157,4 +161,13 @@ public class EmailServiceImpl implements EmailService {
         return "send successfully...";
     }
 
+    @Override
+    public String userFeedback(UserFeedBack feedbackContent) {
+        sendOfficalEmail("460219753@qq.com", RedisKeyConstant.USER_FEEDBACK_SUBJECT,
+                feedbackContent.getContent(), false, null
+        );
+        //不太重要的业务 插入失败也无妨
+        userFeedBackService.save(feedbackContent);
+        return "send successfully...";
+    }
 }

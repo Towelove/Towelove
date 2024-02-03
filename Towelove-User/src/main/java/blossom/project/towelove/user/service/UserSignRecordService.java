@@ -18,4 +18,6 @@ public interface UserSignRecordService extends IService<UserSignInRecord> {
     Long getSignInTotally(Long userId);
 
     String singnInByUserId(Long userId);
+
+    Object getSignInMonth();
 }

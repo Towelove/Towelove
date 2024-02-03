@@ -86,6 +86,12 @@ public class UserSignInRecordServiceImpl extends ServiceImpl<UserSignInRecordMap
         return "签到成功";
     }
 
+
+    @Override
+    public Object getSignInMonth() {
+        return null;
+    }
+
     @Override
     public Long getSignInTotally(Long userId) {
         String userTotalSignInKey = getYearTotallyKey(userId);
