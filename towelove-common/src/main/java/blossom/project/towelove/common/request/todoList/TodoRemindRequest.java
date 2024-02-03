@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
@@ -26,7 +27,7 @@ public class TodoRemindRequest {
     /**
      * 接收方email
      */
-    @NotBlank(message = "the email can not be null!!!")
+    @Email
     private String email;
 
     /**

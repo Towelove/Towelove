@@ -1,6 +1,8 @@
 package blossom.project.towelove.msg.controller;
 
+import blossom.project.towelove.common.entity.msg.OfficialMailInfo;
 import blossom.project.towelove.common.request.todoList.TodoRemindRequest;
+import blossom.project.towelove.common.request.user.InvitedEmailRequest;
 import blossom.project.towelove.common.response.Result;
 import blossom.project.towelove.framework.log.annotation.LoveLog;
 import blossom.project.towelove.msg.service.EmailService;
@@ -36,6 +38,11 @@ public class EmailController {
     @PostMapping("/remind")
     public Result<String> todoRemindByEmail(@Validated @RequestBody TodoRemindRequest request){
         return Result.ok(emailService.todoRemind(request));
+    }
+
+    @PostMapping("/invited")
+    public Result<String> sendInvitedEmail(@Validated @RequestBody InvitedEmailRequest request){
+        return Result.ok(emailService.sendInvitedEmail(request));
     }
 
 

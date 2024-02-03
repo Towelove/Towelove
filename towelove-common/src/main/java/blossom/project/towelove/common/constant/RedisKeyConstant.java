@@ -19,7 +19,11 @@ public class RedisKeyConstant {
 
     public static final String VALIDATE_CODE = "validate:code:";
 
+    //----------------------------邮件标题------------------------------
+
     public static final String VALIDATE_CODE_SUBJECT = "Towelove<验证码>";
 
     public static final String REMIND_SUBJECT = "Towelove<提醒>";
+
+    public static final String INVITED_SUBJECT = "Towelove<邀请>";
 }

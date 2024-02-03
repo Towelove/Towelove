@@ -44,11 +44,11 @@ public class CouplesServiceImpl extends ServiceImpl<CouplesMapper, Couples> impl
 
     private final UserNotifyProduction userNotifyProduction;
 
+
     @Override
     public CouplesRespDTO getCouplesById(Long CouplesId) {
         return null;
     }
-
 
     @Override
     public CouplesRespDTO updateCouples(CouplesUpdateRequest updateRequest) {
@@ -102,6 +102,16 @@ public class CouplesServiceImpl extends ServiceImpl<CouplesMapper, Couples> impl
         //TODO:发送消息告诉另外一方
         userNotifyProduction.sendNotifyMessage(new NoticeDTO(invitedUserId,"【新通知，我们已经成为情侣啦】"));
         return Result.ok("绑定情侣关系成功");
+    }
+
+    /**
+     * 解绑方法
+     * @param coupleId
+     * @return
+     */
+    @Override
+    public Result<String> unbinding(Long coupleId) {
+        return null;
     }
 }
 

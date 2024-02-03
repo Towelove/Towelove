@@ -24,7 +24,7 @@ import java.util.List;
  */
 
 public interface CouplesService extends IService<Couples> {
-    
+
     CouplesRespDTO getCouplesById(Long CouplesId);
 
     CouplesRespDTO updateCouples(CouplesUpdateRequest updateRequest);
@@ -36,6 +36,8 @@ public interface CouplesService extends IService<Couples> {
     CouplesRespDTO createCouples(CouplesCreateRequest createRequest);
 
     Result<String> binding(CouplesInvitedRequest couplesInvitedRequest);
+
+    Result<String> unbinding(Long coupleId);
 }
 
 

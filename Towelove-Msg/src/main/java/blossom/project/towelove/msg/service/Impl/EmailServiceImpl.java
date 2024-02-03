@@ -2,6 +2,7 @@ package blossom.project.towelove.msg.service.Impl;
 
 import blossom.project.towelove.common.constant.RedisKeyConstant;
 import blossom.project.towelove.common.request.todoList.TodoRemindRequest;
+import blossom.project.towelove.common.request.user.InvitedEmailRequest;
 import blossom.project.towelove.common.utils.CodeGeneratorUtil;
 import blossom.project.towelove.common.utils.StringUtils;
 import blossom.project.towelove.framework.redis.service.RedisService;
@@ -115,6 +116,7 @@ public class EmailServiceImpl implements EmailService {
 
 
     @Async
+    @Override
     public void sendOfficalEmail(String email, String subject, String content, Boolean isHtml, File[] files) {
         //配置MailAccount对象 hutool提供的
         MailAccount mailAccount =
@@ -135,11 +137,24 @@ public class EmailServiceImpl implements EmailService {
             }
             case RedisKeyConstant.REMIND_SUBJECT: {
                 //TODO 数据库/redis操作
+                break;
+            }
+            case RedisKeyConstant.INVITED_SUBJECT: {
+                //TODO 数据库/redis操作
+                break;
             }
             default: {
                 break;
             }
         }
+    }
+
+    @Override
+    public String sendInvitedEmail(InvitedEmailRequest request) {
+        sendOfficalEmail(request.getEmail(), RedisKeyConstant.INVITED_SUBJECT,
+                request.getContent(), false, null
+        );
+        return "send successfully...";
     }
 
 }

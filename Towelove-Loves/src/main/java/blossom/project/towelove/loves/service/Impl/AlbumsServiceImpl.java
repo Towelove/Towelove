@@ -52,8 +52,8 @@ public class AlbumsServiceImpl extends ServiceImpl<AlbumsMapper, Albums> impleme
             return null;
         }
         if (!StringUtils.isBlank(createRequest.getPhotoUrls())) {
-            //设定图片数量
-            albums.setPhotoNums(StringUtils.countCharacter(createRequest.getPhotoUrls(), Constant.COMMA));
+            //设定图片数量 没有进来默认就是0
+            albums.setPhotoNums(StringUtils.countCharacter(createRequest.getPhotoUrls()+1, Constant.COMMA));
         }
         albumsMapper.insert(albums);
         AlbumsRespDTO respDTO = AlbumConvert.INSTANCE.convert(albums);

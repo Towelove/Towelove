@@ -57,9 +57,9 @@ public class Result<T> implements Serializable
         return restResult(data, SUCCESS, msg,requestId);
     }
 
-    public static <T> Result<T> fail(String requestId)
+    public static <T> Result<T> fail(String msg)
     {
-        return restResult(null, FAIL, null,requestId);
+        return restResult(null, FAIL, msg,null);
     }
 
     public static <T> Result<T> fail(String msg,String requestId)
