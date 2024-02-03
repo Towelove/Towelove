@@ -234,18 +234,15 @@ public class TodolistServiceImpl extends ServiceImpl<TodoListMapper, TodoList>
 
         LocalDateTime sendDate = todoList.getDeadline().minusHours(1);
         MsgTaskCreateRequest request = new MsgTaskCreateRequest();
-        request.setUserId(todoList.getCoupleId());
-        //TODO 需要对接 查询mailAccount信息
-//        request.setAccountId();
-//        request.setReceiveAccount();
         request.setNickname(RedisKeyConstant.REMIND_SUBJECT);
         request.setTitle(todoList.getTitle());
         request.setContent("😭😭😭😭😭 待办列表还未完成 " + todoList.getTitle() + "   \n    " + todoList.getDescription());
         request.setSendDate(sendDate.toLocalDate());
         request.setSendTime(sendDate.toLocalTime());
-        request.setMsgType(1);
-
+        //type=0表示只发送一次
+        request.setMsgType(0);
         Result<MsgTaskResponse> msgTask = remoteMsgTaskService.createMsgTask(request);
+
         if (msgTask.getCode() != Constant.SUCCESS) {
             log.error("[待办 调用msgTask失败] code：{} msg: {}", msgTask.getCode(), msgTask.getMsg());
         }

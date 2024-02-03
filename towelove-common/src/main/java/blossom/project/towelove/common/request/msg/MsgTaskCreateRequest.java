@@ -30,11 +30,9 @@ import javax.validation.constraints.NotNull;
 public class MsgTaskCreateRequest {
 
     //用户id
-    @NotNull(message = "userId can not be null!")
     private Long userId;
 
     //邮箱账号id
-    @NotNull(message = "accountId can not be null!")
     private Long accountId;
 
     //模板id
