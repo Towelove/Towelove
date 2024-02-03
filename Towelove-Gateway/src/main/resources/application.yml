@@ -12,6 +12,13 @@ spring:
                 redis-rate-limiter.replenishRate: 10
                 redis-rate-limiter.burstCapacity: 20
                 key-resolver: "#{@userKeyResolver}"
+        - id: user-service
+          uri: lb://towelove-user
+          predicates:
+            - Path=/user/**
+          filters:
+            - RewritePath=/user(?<segment>/?.*), /v1$\{segment}
+
 
 
 sa-token:
