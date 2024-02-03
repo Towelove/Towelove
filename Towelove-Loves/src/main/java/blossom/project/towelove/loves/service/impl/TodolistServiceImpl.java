@@ -2,6 +2,7 @@ package blossom.project.towelove.loves.service.Impl;
 
 import blossom.project.towelove.client.serivce.msg.RemoteMsgTaskService;
 import blossom.project.towelove.common.constant.Constant;
+import blossom.project.towelove.common.constant.RedisKeyConstant;
 import blossom.project.towelove.common.exception.todo.ToDoErrorCode;
 import blossom.project.towelove.common.exception.todo.TodoNotFoundException;
 import blossom.project.towelove.common.exception.todo.TodoWidgetMaxException;
@@ -51,7 +52,6 @@ public class TodolistServiceImpl extends ServiceImpl<TodoListMapper, TodoList>
      * widget 最大数量
      */
     public static final int WIDGET_MAX = 2;
-    public static final String STRING = "ToweLove任务提醒";
 
     private final TodoListMapper todoListMapper;
 
@@ -238,7 +238,7 @@ public class TodolistServiceImpl extends ServiceImpl<TodoListMapper, TodoList>
         //TODO 需要对接 查询mailAccount信息
 //        request.setAccountId();
 //        request.setReceiveAccount();
-        request.setNickname(STRING);
+        request.setNickname(RedisKeyConstant.REMIND_SUBJECT);
         request.setTitle(todoList.getTitle());
         request.setContent("😭😭😭😭😭 待办列表还未完成 " + todoList.getTitle() + "   \n    " + todoList.getDescription());
         request.setSendDate(sendDate.toLocalDate());
