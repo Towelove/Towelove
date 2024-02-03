@@ -2,10 +2,12 @@ package blossom.project.towelove.user;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
 @ComponentScan(basePackages = "blossom.project.towelove")
+@EnableFeignClients("blossom.project.towelove.client")
 public class ToweloveUserApplication {
     public static void main(String[] args) {
         SpringApplication.run(ToweloveUserApplication.class,args);

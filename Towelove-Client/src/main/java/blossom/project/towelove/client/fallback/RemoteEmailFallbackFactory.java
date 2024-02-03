@@ -2,6 +2,7 @@ package blossom.project.towelove.client.fallback;
 
 import blossom.project.towelove.client.serivce.msg.RemoteEmailService;
 import blossom.project.towelove.common.request.todoList.TodoRemindRequest;
+import blossom.project.towelove.common.request.user.InvitedEmailRequest;
 import blossom.project.towelove.common.response.Result;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,6 +37,11 @@ public class RemoteEmailFallbackFactory implements FallbackFactory<RemoteEmailSe
             public Result<String> todoRemindByEmail(TodoRemindRequest request) {
                 //同上
                 return Result.ok("提醒消息发送失败，过段时间重试");
+            }
+
+            @Override
+            public Result<String> sendInvitedEmail(InvitedEmailRequest request) {
+                return Result.ok("邀请消息发送失败，过段时间重试");
             }
         };
     }

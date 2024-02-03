@@ -93,10 +93,7 @@
             <groupId>blossom.project</groupId>
             <artifactId>Towelove-Framework-MySQL</artifactId>
         </dependency>
-<!--        <dependency>-->
-<!--            <groupId>blossom.project</groupId>-->
-<!--            <artifactId>Towelove-Framework-Web</artifactId>-->
-<!--        </dependency>-->
+
 
         <dependency>
             <groupId>blossom.project</groupId>
@@ -114,6 +111,14 @@
             <artifactId>Towelove-Common</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>blossom.project</groupId>
+            <artifactId>Towelove-Client</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>blossom.project</groupId>
+            <artifactId>Towelove-Client</artifactId>
+        </dependency>
 
     </dependencies>
 

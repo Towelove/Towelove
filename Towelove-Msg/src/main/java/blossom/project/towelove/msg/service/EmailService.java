@@ -1,7 +1,10 @@
 package blossom.project.towelove.msg.service;
 
 import blossom.project.towelove.common.request.todoList.TodoRemindRequest;
+import blossom.project.towelove.common.request.user.InvitedEmailRequest;
 import blossom.project.towelove.msg.entity.CompletedMailMsgTask;
+
+import java.io.File;
 
 /**
  * @author: ZhangBlossom
@@ -18,4 +21,21 @@ public interface EmailService {
     String generateAndSendValidateCode(String email);
 
     String todoRemind(TodoRemindRequest request);
+
+    /**
+     * 发送官方邮件
+     * @param email 接收方地址
+     * @param subject 邮件标题
+     * @param content 邮件内容
+     * @param isHtml 是否是html
+     * @param files 是否带有附件
+     */
+    void sendOfficalEmail(String email, String subject, String content, Boolean isHtml, File[] files);
+
+    /**
+     * 发送邀请伴侣的短信
+     * @param request
+     * @return
+     */
+    String sendInvitedEmail(InvitedEmailRequest request);
 }

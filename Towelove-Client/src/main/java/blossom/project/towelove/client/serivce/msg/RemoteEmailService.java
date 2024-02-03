@@ -2,6 +2,7 @@ package blossom.project.towelove.client.serivce.msg;
 
 import blossom.project.towelove.client.fallback.RemoteEmailFallbackFactory;
 import blossom.project.towelove.common.request.todoList.TodoRemindRequest;
+import blossom.project.towelove.common.request.user.InvitedEmailRequest;
 import blossom.project.towelove.common.response.Result;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.validation.annotation.Validated;
@@ -42,5 +43,9 @@ public interface RemoteEmailService {
      */
     @PostMapping("/v1/email/remind")
     Result<String> todoRemindByEmail(@Validated @RequestBody TodoRemindRequest request);
+
+    @PostMapping("/v1/email/invited")
+    Result<String> sendInvitedEmail(@Validated @RequestBody InvitedEmailRequest request);
+
 
 }
