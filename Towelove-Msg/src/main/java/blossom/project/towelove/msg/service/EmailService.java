@@ -3,6 +3,7 @@ package blossom.project.towelove.msg.service;
 import blossom.project.towelove.common.request.todoList.TodoRemindRequest;
 import blossom.project.towelove.common.request.user.InvitedEmailRequest;
 import blossom.project.towelove.msg.entity.CompletedMailMsgTask;
+import blossom.project.towelove.msg.entity.UserFeedBack;
 
 import java.io.File;
 
@@ -38,4 +39,11 @@ public interface EmailService {
      * @return
      */
     String sendInvitedEmail(InvitedEmailRequest request);
+
+    /**
+     * 信箱功能：用户建议与反馈信息
+     * @param feedbackContent
+     * @return
+     */
+    String userFeedback(UserFeedBack feedbackContent);
 }

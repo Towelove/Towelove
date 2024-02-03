@@ -51,4 +51,17 @@ public class UserSignInController {
     public Result<Long> getTotalSignInByMouth(@RequestParam("userId") Long userId){
         return Result.ok(userSignRecordService.getSignInByMouthTotally(userId));
     }
+
+
+    //TODO
+    /**
+     * 当前方法用于通过传递日期的方式，获得当前月份的签到情况
+     * 写的简单一点，只能看当前月的即可，之前月的就可以冷热分离放到冷库了
+     * @return
+     */
+    @GetMapping("/sign-in/{xxx}/{xxxx}/{xxxxx}")
+    public Result<String> getSignInMonth(){
+        return null;
+        //return Result.ok(userSignRecordService.getSignInMonth());
+    }
 }

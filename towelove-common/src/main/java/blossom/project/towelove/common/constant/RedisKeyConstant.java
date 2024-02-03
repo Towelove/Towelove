@@ -26,4 +26,5 @@ public class RedisKeyConstant {
     public static final String REMIND_SUBJECT = "Towelove<提醒>";
 
     public static final String INVITED_SUBJECT = "Towelove<邀请>";
+    public static final String USER_FEEDBACK_SUBJECT = "Towelove<用户反馈>";
 }

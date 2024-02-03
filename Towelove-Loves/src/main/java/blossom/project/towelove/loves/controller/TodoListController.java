@@ -105,19 +105,34 @@ public class TodoListController {
         return Result.ok(todolistService.getTodoCalendar(userId, date));
     }
 
+    /**
+     * 更新小组件
+     * @param updateWidget
+     * @return
+     */
     @PutMapping("/update-widget")
     public Result updateWidget(@RequestBody @Validated UpdateWidget updateWidget) {
         List<Long> res = todolistService.updateWidget(updateWidget);
         return Result.ok(res);
     }
 
-
+    /**
+     * 设定要提醒的
+     * @param id
+     * @param isFlag
+     * @return
+     */
     @PutMapping("/reminder/{id}")
     public Result<TodoListResponse> reminder(@PathVariable("id") Long id, @RequestParam("isFlag") Boolean isFlag) {
         return Result.ok(todolistService.reminder(id, isFlag));
     }
 
 
+    /**
+     * 获取小组件
+     * @param coupleId
+     * @return
+     */
     @GetMapping("widget")
     public Result<List<TodoListResponse>> getWidget(@RequestParam("coupleId") Long coupleId) {
         return Result.ok(todolistService.widget(coupleId));
