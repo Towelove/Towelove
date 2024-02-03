@@ -2,9 +2,16 @@ package blossom.project.towelove.user.controller;
 
 import blossom.project.towelove.common.response.Result;
 import blossom.project.towelove.framework.log.annotation.LoveLog;
+import blossom.project.towelove.user.domain.UserSignInVo;
 import blossom.project.towelove.user.service.UserSignRecordService;
+import com.alibaba.fastjson.annotation.JSONField;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 
 /**
  * @projectName: Towelove
@@ -18,50 +25,42 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @LoveLog
 @RequiredArgsConstructor
-@RequestMapping("/v1/user")
+@RequestMapping("/v1/sign-in")
 public class UserSignInController {
 
     private final UserSignRecordService userSignRecordService;
     /**
      * 用户签到
-     * @param userId
+     * @param
      * @return
      */
-    @PostMapping("/sign-in")
-    public Result<String> signInByUserId(@RequestParam("userId") Long userId){
-        return Result.ok(userSignRecordService.singnInByUserId(userId));
+    @PostMapping()
+    public Result<String> signInByUserId(){
+        return Result.ok(userSignRecordService.singnInByUserId());
     }
 
     /**
      * 获取用户签到总天数
-     * @param userId
+     * @param
      * @return
      */
-    @GetMapping("/sign-in")
-    public Result<Long> getTotalSignIn(@RequestParam("userId") Long userId){
-        return Result.ok(userSignRecordService.getSignInTotally(userId));
+    @GetMapping()
+    public Result<Long> getTotalSignIn(){
+        return Result.ok(userSignRecordService.getSignInTotally());
     }
 
     /**
      * 获取用户本月签到总天数
-     * @param userId
+     * @param
      * @return
      */
-    @GetMapping("/sign-in-mouth")
-    public Result<Long> getTotalSignInByMouth(@RequestParam("userId") Long userId){
-        return Result.ok(userSignRecordService.getSignInByMouthTotally(userId));
+    @GetMapping("/month")
+    public Result<UserSignInVo> getTotalSignInByMouth(@RequestParam("date") String date){
+        LocalDateTime localDateTime = LocalDateTime.parse(date, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+        return Result.ok(userSignRecordService.getSignInByMouthTotally(localDateTime));
     }
 
 
-    //TODO
-    /**
-     * 当前方法用于通过传递日期的方式，获得当前月份的签到情况
-     * 写的简单一点，只能看当前月的即可，之前月的就可以冷热分离放到冷库了
-     * @return
-     */
-    @GetMapping("/sign-in/{xxx}/{xxxx}/{xxxxx}")
-    public Result<String> getSignInMonth(){
-        return null;
-        //return Result.ok(userSignRecordService.getSignInMonth());
-    }
+
+
 }
