@@ -25,27 +25,47 @@ import javax.validation.constraints.NotBlank;
 
 @LoveLog
 @RestController
-@RequestMapping("/v1/email")
+@RequestMapping("/email")
 @RequiredArgsConstructor
 public class EmailController {
 
     private final EmailService emailService;
 
+    /**
+     * 邮箱获取验证码
+     * @param email
+     * @return
+     */
     @GetMapping("/code")
     public Result<String> sendValidateCodeByEmail(@RequestParam("email") @NotBlank String email){
         return Result.ok(emailService.generateAndSendValidateCode(email));
     }
 
+    /**
+     * 基于邮箱提醒
+     * @param request
+     * @return
+     */
     @PostMapping("/remind")
     public Result<String> todoRemindByEmail(@Validated @RequestBody TodoRemindRequest request){
         return Result.ok(emailService.todoRemind(request));
     }
 
+    /**
+     * 基于邮箱发送邀请
+     * @param request
+     * @return
+     */
     @PostMapping("/invited")
     public Result<String> sendInvitedEmail(@Validated @RequestBody InvitedEmailRequest request){
         return Result.ok(emailService.sendInvitedEmail(request));
     }
 
+    /**
+     * 基于邮箱发送用户反馈
+     * @param userFeedBack
+     * @return
+     */
     @PostMapping("/user/feedback")
     public Result<String> userFeedbackEmail(@RequestBody @Validated UserFeedBack userFeedBack){
         return Result.ok(emailService.userFeedback(userFeedBack));

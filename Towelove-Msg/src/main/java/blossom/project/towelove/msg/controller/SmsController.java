@@ -22,12 +22,17 @@ import javax.validation.constraints.NotBlank;
  */
 @LoveLog
 @RestController
-@RequestMapping("/v1/sms")
+@RequestMapping("/sms")
 @RequiredArgsConstructor
 public class SmsController {
 
     private final SmsService smsService;
 
+    /**
+     * 发送sms短信到手机号
+     * @param phoneNumber
+     * @return
+     */
     @GetMapping("")
     public Result<String> sendValidateCode(@NotBlank @RequestParam("phone")String phoneNumber){
         return Result.ok(smsService.sendValidateCode(phoneNumber));

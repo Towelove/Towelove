@@ -34,7 +34,7 @@ import javax.validation.constraints.NotNull;
 
 @LoveLog
 @RestController
-@RequestMapping("/v1/msg-task")
+@RequestMapping("/task")
 @RequiredArgsConstructor
 public class MsgTaskController {
   
