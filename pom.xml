@@ -36,7 +36,7 @@
     <properties>
         <revision>2.0</revision>
         <!-- Maven 相关 -->
-        <java.version>19</java.version>
+        <java.version>17</java.version>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <maven-surefire-plugin.version>3.0.0-M5</maven-surefire-plugin.version>
