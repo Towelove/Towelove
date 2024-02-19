@@ -1,18 +1,14 @@
 spring:
   application:
-    # 应用名称
     name: towelove-user
 
   profiles:
-    # 环境配置
     active: dev
   cloud:
     nacos:
-      discovery:
       config:
         file-extension: yaml
         namespace: towelove
-        # 共享配置
         shared-configs[0]:
           data-id: towelove-base-dev.yaml
           refresh: true
@@ -28,47 +24,3 @@ spring:
         shared-configs[4]:
           data-id: towelove-rocketmq-dev.yaml
           refresh: true
-
-
-#        prefix: application-${spring.profiles.active}.${spring.cloud.nacos.config.file-extension}
-#    sentinel:
-#      filter:
-#        enabled: false
-#      transport:
-#        dashboard: 127.0.0.1:8081
-#        port: 8719
-#      eager: true
-##      对于网关的限流规则与普通服务的限流规则有所不同
-##      网关限流中有一个resourceMode属性，判断是rotuesID or API分组ID。默认是routesID
-#      datasource:
-#        ds1:
-#          nacos:
-#            server-addr: 127.0.0.1:8848
-#            data-id: towelove-gateway-sentinel.json
-#            group-id: SENTINEL_GROUP
-#            rule-type: flow
-#            data-type: json
-
-
-#spring:
-#  profiles:
-#    # 环境配置
-#    active: dev
-#  cloud:
-#    sentinel:
-#      filter:
-#        enabled: false
-#      transport:
-#        dashboard: 127.0.0.1:8081
-#        port: 8719
-#      eager: true
-#      #      对于网关的限流规则与普通服务的限流规则有所不同
-#      #      网关限流中有一个resourceMode属性，判断是rotuesID or API分组ID。默认是routesID
-#      datasource:
-#        ds1:
-#          nacos:
-#            server-addr: 123.249.97.220:8848
-#            data-id: towelove-gateway-sentinel.json
-#            group-id: SENTINEL_GROUP
-#            rule-type: flow
-#            data-type: json

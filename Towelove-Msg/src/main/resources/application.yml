@@ -11,19 +11,19 @@ mybatis-plus:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 
-# 使用本地xxl-job
-#xxl:
+# Use local xxl-job
+# xxl:
 #  job:
-#    # 调度中心部署根地址
+#    # Address of the scheduling center
 #    admin:
-#      addresses: http://localhost:17777/xxl-job-admin  # 调度中心地址，用于执行器心跳注册和任务结果回调
-#    # 执行器通讯TOKEN
-#    accessToken: towelove # 非空时启用，用于执行器与调度中心的安全通信
-#    # 执行器配置
+#      addresses: http://localhost:17777/xxl-job-admin  # Address of the scheduling center, used for executor heartbeat registration and task result callback
+#    # Executor communication TOKEN
+#    accessToken: towelove # Enable security communication between the executor and the scheduling center when not empty
+#    # Executor configuration
 #    executor:
-#      appname: towelove-msg  # 执行器AppName，用于心跳注册分组依据
-#      address:  # 执行器注册地址，优先使用该配置作为注册地址
-#      ip:  # 执行器IP，多网卡时可手动设置指定IP
-#      port: 9999  # 执行器端口号，默认9999，单机部署多个执行器时需配置不同端口
-#      logpath: D:\desktop\Towelove\logs  # 执行器运行日志文件存储路径
-#      logretentiondays: 30  # 执行器日志文件保存天数，过期日志自动清理
+#      appname: towelove-msg  # Executor AppName, used for heartbeat registration grouping
+#      address:  # Executor registration address, used as the primary registration address
+#      ip:  # Executor IP, manually set a specific IP when there are multiple network cards
+#      port: 9999  # Executor port number, default is 9999, different ports should be configured for multiple executors on a single machine
+#      logpath: D:\desktop\Towelove\logs  # Path to store executor running log files
+#      logretentiondays: 30  # Number of days to keep executor log files, expired logs are automatically cleaned up

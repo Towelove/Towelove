@@ -1,4 +1,3 @@
-```yaml
 # Tomcat
 server:
   port: 8080
@@ -57,4 +56,3 @@ sa-token:
   token-style: uuid
   # Whether to output operation logs
   is-log: true
-  ```

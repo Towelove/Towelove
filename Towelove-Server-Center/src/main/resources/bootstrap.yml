@@ -1,15 +1,12 @@
 # Spring
 spring:
   application:
-    # 应用名称
     name: towelove-server-center
   profiles:
-    # 环境配置
     active: dev
   cloud:
     nacos:
       config:
-        # 共享配置
         shared-configs[0]:
           data-id: towelove-base-dev.yaml
           refresh: true
