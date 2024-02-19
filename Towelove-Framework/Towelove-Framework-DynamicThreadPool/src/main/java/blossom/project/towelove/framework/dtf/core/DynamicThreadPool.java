@@ -50,10 +50,10 @@ public class DynamicThreadPool {
         return threadPoolExecutor;
     }
 
-    @Bean("virtualThreadThreadPool")
-    public ThreadPoolExecutor virtualThreadThreadPool() {
-        return generateThreadPool(2);
-    }
+    //@Bean("virtualThreadThreadPool")
+    //public ThreadPoolExecutor virtualThreadThreadPool() {
+    //    return generateThreadPool(0);
+    //}
 
 
 
@@ -72,16 +72,16 @@ public class DynamicThreadPool {
                         new NamedThreadFactory("io-thread-"), new ThreadPoolExecutor.DiscardPolicy());
 
             }
-            case 2: {
-                ThreadFactory factory = Thread.ofVirtual().factory();
-                return new ThreadPoolExecutor(
-                        threadPoolProperty.getVirtualCorePoolSize(), threadPoolProperty.getVirtualCorePoolSize(),
-                        60, TimeUnit.SECONDS,
-                        new ResizableCapacityLinkedBlockIngQueue<>(threadPoolProperty.getVirtualQueueCapacity()),
-                        new NamedThreadFactory("virtual-thread-", factory),
-                        new ThreadPoolExecutor.DiscardPolicy()
-                );
-            }
+            //case 2: {
+            //    ThreadFactory factory = Thread.ofVirtual().factory();
+            //    return new ThreadPoolExecutor(
+            //            threadPoolProperty.getVirtualCorePoolSize(), threadPoolProperty.getVirtualCorePoolSize(),
+            //            60, TimeUnit.SECONDS,
+            //            new ResizableCapacityLinkedBlockIngQueue<>(threadPoolProperty.getVirtualQueueCapacity()),
+            //            new NamedThreadFactory("virtual-thread-", factory),
+            //            new ThreadPoolExecutor.DiscardPolicy()
+            //    );
+            //}
             default:{
                 return new ThreadPoolExecutor(threadPoolProperty.getCpuCorePoolSize(), threadPoolProperty.getCpuMaximumPoolSize(),
                         60, TimeUnit.SECONDS,

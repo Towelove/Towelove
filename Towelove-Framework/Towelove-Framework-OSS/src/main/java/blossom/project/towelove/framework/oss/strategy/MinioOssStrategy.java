@@ -44,7 +44,8 @@ public class MinioOssStrategy implements OssServiceStrategy {
      * 这属于 I/O 密集型的任务，所以使用虚拟线程池是合适的
      */
     @Autowired
-    @Qualifier(value = "virtualThreadThreadPool")
+    //@Qualifier(value = "virtualThreadThreadPool")
+    @Qualifier(value = "ioDynamicThreadPool")
     private ThreadPoolExecutor threadPoolExecutor;
 
     @Autowired
