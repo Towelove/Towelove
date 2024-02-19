@@ -9,7 +9,6 @@
     <packaging>pom</packaging>
     <modules>
         <module>Towelove-Client</module>
-        <module>Towelove-Common</module>
         <module>Towelove-Gateway</module>
         <module>Towelove-Framework</module>
         <module>Towelove-Dependencies</module>
@@ -21,8 +20,8 @@
     </modules>
 
     <name>${project.artifactId}</name>
-    <description>Venus项目</description>
-    <url>https://github.com/BlossomVenus/BlossomVenus</url>
+    <description>Towelove项目</description>
+    <url>https://github.com/Towelove/Towelove</url>
 
 
     <developers>
@@ -36,7 +35,7 @@
     <properties>
         <revision>2.0</revision>
         <!-- Maven 相关 -->
-        <java.version>19</java.version>
+        <java.version>17</java.version>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <maven-surefire-plugin.version>3.0.0-M5</maven-surefire-plugin.version>
