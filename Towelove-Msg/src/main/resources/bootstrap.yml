@@ -1,17 +1,13 @@
 # Spring
 spring:
   application:
-    # 应用名称
     name: towelove-msg
   profiles:
-    # 环境配置
     active: dev
   cloud:
     nacos:
-      discovery:
       config:
         file-extension: yaml
-        # 共享配置
         shared-configs[0]:
           data-id: towelove-base-dev.yaml
           refresh: true
@@ -36,4 +32,3 @@ spring:
         shared-configs[7]:
           data-id: towelove-oss-dev.yaml
           refresh: true
-        namespace: towelove
