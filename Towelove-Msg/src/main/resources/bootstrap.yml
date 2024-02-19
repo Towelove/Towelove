@@ -32,4 +32,3 @@ spring:
         shared-configs[7]:
           data-id: towelove-oss-dev.yaml
           refresh: true
-        namespace: towelove
