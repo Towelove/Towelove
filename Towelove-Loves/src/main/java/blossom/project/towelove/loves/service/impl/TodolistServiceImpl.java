@@ -63,6 +63,7 @@ public class TodolistServiceImpl extends ServiceImpl<TodoListMapper, TodoList>
     @Override
     public Long create(InsertTodoRequest insertTodoRequest) {
         TodoList todoList = TodoListConvert.INSTANCE.convert(insertTodoRequest);
+        this.save(todoList);
         return todoList.getId();
     }
 
