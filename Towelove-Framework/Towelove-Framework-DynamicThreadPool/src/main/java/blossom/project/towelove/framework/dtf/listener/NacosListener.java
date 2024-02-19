@@ -39,9 +39,9 @@ public class NacosListener implements ApplicationRunner {
     @Qualifier("cpuDynamicThreadPool")
     private ThreadPoolExecutor cpuThreadPoolExecutor;
 
-    @Autowired
-    @Qualifier("virtualThreadThreadPool")
-    private ThreadPoolExecutor virtualThreadPoolExecutor;
+    //@Autowired
+    //@Qualifier("virtualThreadThreadPool")
+    //private ThreadPoolExecutor virtualThreadPoolExecutor;
 
     @Autowired
     private SendMailService sendMailService;
@@ -81,11 +81,11 @@ public class NacosListener implements ApplicationRunner {
                         (ResizableCapacityLinkedBlockIngQueue) cpuThreadPoolExecutor.getQueue();
                 queue2.setCapacity(threadPoolProperty.getCpuQueueCapacity());
 
-                virtualThreadPoolExecutor.setCorePoolSize(threadPoolProperty.getVirtualCorePoolSize());
-                virtualThreadPoolExecutor.setMaximumPoolSize(threadPoolProperty.getVirtualMaximumPoolSize());
-                ResizableCapacityLinkedBlockIngQueue<Runnable> queue3 =
-                        (ResizableCapacityLinkedBlockIngQueue) virtualThreadPoolExecutor.getQueue();
-                queue3.setCapacity(threadPoolProperty.getVirtualQueueCapacity());
+                //virtualThreadPoolExecutor.setCorePoolSize(threadPoolProperty.getVirtualCorePoolSize());
+                //virtualThreadPoolExecutor.setMaximumPoolSize(threadPoolProperty.getVirtualMaximumPoolSize());
+                //ResizableCapacityLinkedBlockIngQueue<Runnable> queue3 =
+                //        (ResizableCapacityLinkedBlockIngQueue) virtualThreadPoolExecutor.getQueue();
+                //queue3.setCapacity(threadPoolProperty.getVirtualQueueCapacity());
 
                 System.out.println(ioThreadPoolExecutor);
                 System.out.println(cpuThreadPoolExecutor);
