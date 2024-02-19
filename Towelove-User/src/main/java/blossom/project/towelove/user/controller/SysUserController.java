@@ -22,7 +22,7 @@ import java.util.List;
 @LoveLog
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/v1/user")
+@RequestMapping("/sys")
 public class SysUserController {
 
 

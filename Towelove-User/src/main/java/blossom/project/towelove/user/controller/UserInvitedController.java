@@ -19,7 +19,7 @@ import javax.validation.Valid;
  * @version: 1.0
  */
 @RestController
-@RequestMapping("/v1/invited")
+@RequestMapping("/invited")
 @RequiredArgsConstructor
 public class UserInvitedController {
 

@@ -37,7 +37,7 @@ import javax.validation.constraints.NotNull;
 
 @LoveLog
 @RestController
-@RequestMapping("/v1/albums")
+@RequestMapping("/albums")
 @RequiredArgsConstructor
 public class AlbumsController {
   

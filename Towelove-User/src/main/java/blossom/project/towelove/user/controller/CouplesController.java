@@ -32,7 +32,7 @@ import java.util.List;
 
 @LoveLog
 @RestController
-@RequestMapping("/v1/couples")
+@RequestMapping("/couples")
 @RequiredArgsConstructor
 public class CouplesController {
 

@@ -7,7 +7,6 @@ spring:
     active: dev
   cloud:
     nacos:
-      discovery:
       config:
         file-extension: yaml
         # 共享配置
@@ -20,4 +19,3 @@ spring:
         shared-configs[2]:
           data-id: towelove-gateway-dev.yaml
           refresh: true
-        prefix: application-${spring.profiles.active}.${spring.cloud.nacos.config.file-extension}

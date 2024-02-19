@@ -19,7 +19,7 @@ import java.util.List;
 @LoveLog
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/v1/user/thirdParty")
+@RequestMapping("/third/party")
 public class UserThirdPartyController {
 
     private final UserThirdPartyService userThirdPartyService;

@@ -11,6 +11,7 @@ spring:
       discovery:
       config:
         file-extension: yaml
+        namespace: towelove
         # 共享配置
         shared-configs[0]:
           data-id: towelove-base-dev.yaml
@@ -21,13 +22,14 @@ spring:
         shared-configs[2]:
           data-id: towelove-mysql-dev.yaml
           refresh: true
-        namespace: towelove
         shared-configs[3]:
           data-id: towelove-user-dev.yaml
           refresh: true
         shared-configs[4]:
           data-id: towelove-rocketmq-dev.yaml
           refresh: true
+
+
 #        prefix: application-${spring.profiles.active}.${spring.cloud.nacos.config.file-extension}
 #    sentinel:
 #      filter:
@@ -46,13 +48,6 @@ spring:
 #            group-id: SENTINEL_GROUP
 #            rule-type: flow
 #            data-type: json
-
-
-
-
-
-
-
 
 
 #spring:

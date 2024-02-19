@@ -27,7 +27,7 @@ import java.util.stream.IntStream;
  */
 @LoveLog
 @RestController
-@RequestMapping("/v1/love/oss")
+@RequestMapping("/oss")
 @RequiredArgsConstructor
 public class OssController {
 

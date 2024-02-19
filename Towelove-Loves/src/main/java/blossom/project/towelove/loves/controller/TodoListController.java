@@ -28,7 +28,7 @@ import java.util.Optional;
 @LoveLog
 @RestController
 @AllArgsConstructor
-@RequestMapping("/v1/loves/todo-list")
+@RequestMapping("/todo-list")
 public class TodoListController {
 
     private TodolistService todolistService;
@@ -88,6 +88,7 @@ public class TodoListController {
      * @return
      */
     @GetMapping("/images")
+    @Deprecated
     public Result<List<TodoImagesResponse>> getTodoImagesById(@RequestParam("todoId") Long todoId) {
         return Result.ok(todoImagesService.getTodoImagesById(todoId));
     }

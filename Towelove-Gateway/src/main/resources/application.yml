@@ -1,38 +1,60 @@
+```yaml
+# Tomcat
+server:
+  port: 8080
+
 spring:
+  application:
+    # Application name
+    name: towelove-gateway
+  profiles:
+    # Environment configuration
+    active: dev
   cloud:
     gateway:
+      discovery:
+        locator:
+          enabled: false # Set to true to make custom filters ineffective, only Global filters will be effective
       routes:
-        - id: my_route
-          uri: lb://my-service
-          predicates:
-            - Path=/my-service/**
-          filters:
-            - name: RequestRateLimiter
-              args:
-                redis-rate-limiter.replenishRate: 10
-                redis-rate-limiter.burstCapacity: 20
-                key-resolver: "#{@userKeyResolver}"
-        - id: user-service
+        # towelove-user module path configuration
+        - id: towelove-user
           uri: lb://towelove-user
           predicates:
-            - Path=/user/**
-          filters:
-            - RewritePath=/user(?<segment>/?.*), /v1$\{segment}
-
-
+            - Path=/v1/user/**
+        # towelove-auth module path configuration
+        - id: towelove-auth
+          uri: lb://towelove-auth
+          predicates:
+            - Path=/v1/auth/**
+        # towelove-msg module path configuration
+        - id: towelove-msg
+          uri: lb://towelove-msg
+          predicates:
+            - Path=/v1/msg/**
+        # towelove-loves module path configuration
+        - id: towelove-loves
+          uri: lb://towelove-loves
+          predicates:
+            - Path=/v1/loves/**
+        # towelove-server-center module path configuration
+        - id: towelove-server-center
+          uri: lb://towelove-server-center
+          predicates:
+            - Path=/v1/server/center/**
 
 sa-token:
-  # token 名称（同时也是 cookie 名称）
+  # Token name (also the cookie name)
   token-name: Authorization
-  # token 有效期（单位：秒） 默认30天，-1 代表永久有效
+  # Token expiration time (in seconds) Default is 30 days, -1 represents permanent validity
   timeout: 2592000
-  # token 最低活跃频率（单位：秒），如果 token 超过此时间没有访问系统就会被冻结，默认-1 代表不限制，永不冻结
+  # Token minimum activity frequency (in seconds), if the token is not accessed for more than this time, it will be frozen. Default is -1, which means no restriction, never frozen.
   active-timeout: -1
-  # 是否允许同一账号多地同时登录 （为 true 时允许一起登录, 为 false 时新登录挤掉旧登录）
+  # Whether to allow concurrent logins for the same account (true allows concurrent logins, false allows only one login at a time)
   is-concurrent: true
-  # 在多人登录同一账号时，是否共用一个 token （为 true 时所有登录共用一个 token, 为 false 时每次登录新建一个 token）
+  # When multiple users log in to the same account, should they share the same token (true means all logins share one token, false means a new token is created for each login)
   is-share: true
-  # token 风格（默认可取值：uuid、simple-uuid、random-32、random-64、random-128、tik）
+  # Token style (default values: uuid, simple-uuid, random-32, random-64, random-128, tik)
   token-style: uuid
-  # 是否输出操作日志
+  # Whether to output operation logs
   is-log: true
+  ```
