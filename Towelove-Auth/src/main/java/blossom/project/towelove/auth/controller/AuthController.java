@@ -22,7 +22,7 @@ import java.net.URI;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/v1/auth")
+@RequestMapping("")
 public class AuthController {
 
     private final AuthService authService;

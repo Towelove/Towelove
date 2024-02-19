@@ -1,3 +1,5 @@
 # Tomcat
 server:
   port: 9203
+  servlet:
+    context-path: /v1/loves

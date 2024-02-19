@@ -1,17 +1,46 @@
+# Tomcat
+server:
+  port: 8080
 spring:
+  application:
+    # 应用名称
+    name: towelove-gateway
+  profiles:
+    # 环境配置
+    active: dev
   cloud:
     gateway:
+      discovery:
+        locator:
+          enabled: false # 设定为true 会导致自定义的filter失效 只有Global的有效
       routes:
-        - id: my_route
-          uri: lb://my-service
+        - id: towelove-user
+          uri: lb://towelove-user
           predicates:
-            - Path=/my-service/**
-          filters:
-            - name: RequestRateLimiter
-              args:
-                redis-rate-limiter.replenishRate: 10
-                redis-rate-limiter.burstCapacity: 20
-                key-resolver: "#{@userKeyResolver}"
+            - Path=/v1/user/**
+        #          filters:
+        #            # 具体微服务限流位置
+        #            - name: RequestRateLimiter  #请求数限流 名字不能随便写
+        #              args:
+        #                key-resolver: "#{@ipKeyResolver}"  #指定限流的key
+        #                redis-rate-limiter.replenishRate: 1 # 允许每秒处理了多少个请求
+        #                redis-rate-limiter.burstCapacity: 1 # 令牌桶的容量（最高处理并发容量大小1）
+        - id: towelove-auth
+          uri: lb://towelove-auth
+          predicates:
+            - Path=/v1/auth/**
+        - id: towelove-msg
+          uri: lb://towelove-msg
+          predicates:
+            - Path=/v1/msg/**
+        - id: towelove-loves
+          uri: lb://towelove-loves
+          predicates:
+            - Path=/v1/loves/**
+        - id: towelove-server-center
+          uri: lb://towelove-server-center
+          predicates:
+            - Path=/v1/server/center/**
 
 
 sa-token:

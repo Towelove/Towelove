@@ -19,7 +19,7 @@ import java.util.List;
  **/
 @LoveLog
 @RestController
-@RequestMapping("/v1/love/messages")
+@RequestMapping("/message/board")
 @RequiredArgsConstructor
 public class MessageController {
 

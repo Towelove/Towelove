@@ -1,3 +1,8 @@
+server:
+  # Port
+  port: 9201
+  servlet:
+    context-path: /v1/server/center
 # application.yml
 mybatis-plus:
   mapper-locations: classpath*:/mapper/**/*.xml

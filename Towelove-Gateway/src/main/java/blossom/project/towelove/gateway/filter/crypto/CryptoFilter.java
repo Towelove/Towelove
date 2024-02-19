@@ -23,7 +23,7 @@ import java.net.URISyntaxException;
  * 当前类用于解析参数 如果参数解密后和signature不一样则返回
  * 并且会重新设定路由路径
  */
-@Component
+//@Component
 public class CryptoFilter implements GlobalFilter, Ordered {
 
     @Autowired

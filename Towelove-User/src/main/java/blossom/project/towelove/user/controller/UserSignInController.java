@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @LoveLog
 @RequiredArgsConstructor
-@RequestMapping("/v1/user")
+@RequestMapping("/signin")
 public class UserSignInController {
 
     private final UserSignRecordService userSignRecordService;

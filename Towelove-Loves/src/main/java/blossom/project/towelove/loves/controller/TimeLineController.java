@@ -20,8 +20,9 @@ import java.util.List;
  */
 @LoveLog
 @RestController
-@RequestMapping("/v1/love/timeline")
+@RequestMapping("/timeline")
 @RequiredArgsConstructor
+@Deprecated
 public class TimeLineController {
 
     private final TimeLineService timeLineService;
