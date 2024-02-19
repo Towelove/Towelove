@@ -2,6 +2,7 @@ package blossom.project.towelove.loves.entity;
 
 import blossom.project.towelove.common.domain.dto.BaseEntity;
 import com.baomidou.mybatisplus.annotation.*;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -42,6 +43,7 @@ public class Message{
 
     // 创建时间
     @TableField(value = "create_time",fill = FieldFill.INSERT)
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createTime;
 
 }
