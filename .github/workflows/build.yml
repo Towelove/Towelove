@@ -1,0 +1,501 @@
+# This workflow will build a package using Maven and then publish it to GitHub packages when a release is created
+# For more information see: https://github.com/actions/setup-java/blob/main/docs/advanced-usage.md#apache-maven-with-a-settings-path
+
+name: Build Java And Docker Image
+
+on:
+  push:
+    # branches:
+    #   - 'master'
+    tags:
+      - 'v*'
+  # pull_request:
+  #   branches:
+  #     - 'master'
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Version tag for the Docker image (semver)"
+        required: true
+
+env:
+  VERSION: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.version || github.ref_name }}
+
+jobs:
+  # build-all-java-package:
+  #   runs-on: ubuntu-latest
+  #   permissions:
+  #     contents: read
+  #     packages: write
+  #   steps:
+  #   - name: Checkout repository
+  #     uses: actions/checkout@v4
+  #   - name: Set Timezone
+  #     run: |
+  #       export TZ='Asia/Shanghai'
+  #       echo "DATE_FILENAME=$(date +'%Y-%m-%d_%H-%M-%S')" >> $GITHUB_ENV
+  #   - name: Set up JDK 17
+  #     uses: actions/setup-java@v4.0.0
+  #     with:
+  #       java-version: '17'
+  #       distribution: 'temurin'
+  #       server-id: github # Value of the distributionManagement/repository/id field of the pom.xml
+  #       settings-path: ${{ github.workspace }} # location for the settings.xml file
+  #   - name: Build with Maven
+  #     run: mvn -B package --file pom.xml -DskipTests
+  #   - name: Copy Artifacts
+  #     run: |
+  #       mkdir staging && cp Towelove-*/target/*.jar staging
+  #   - name: Upload Artifacts
+  #     uses: actions/upload-artifact@v4
+  #     with:
+  #       name: Towelove-All-${{ env.DATE_FILENAME }}
+  #       path: staging
+  #   # - name: Publish to GitHub Packages Apache Maven
+  #   #   run: mvn --batch-mode deploy
+  #   #   env:
+  #   #     GITHUB_TOKEN: ${{ github.GITHUB_TOKEN }}
+
+  # Towelove-Gateway
+  Build-Docker-Towelove-Gateway:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+    - name: Set up Build Package 
+      run: |  
+        echo "IMAGE_NAME=falling42/towelove-gateway" >> $GITHUB_ENV
+        echo "JAR_NAME=Towelove-Gateway" >> $GITHUB_ENV    
+    - name: Set up JDK 17 
+      uses: actions/setup-java@v4.0.0
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+        server-id: github # Value of the distributionManagement/repository/id field of the pom.xml
+        settings-path: ${{ github.workspace }} # location for the settings.xml file
+    - name: Build with Maven
+      #run: mvn -B package --file pom.xml -DskipTests -pl ${{ env.JAR_NAME }}
+      run: mvn -B package --file pom.xml -DskipTests
+    - name: Copy Artifacts
+      run: |
+        mkdir staging && cp Towelove-*/target/*.jar staging
+    - name: Docker meta
+      id: meta
+      uses: docker/metadata-action@v5.5.1
+      with:
+        images: |
+          ghcr.io/${{ env.IMAGE_NAME }}
+        tags: |
+          type=semver,pattern={{version}}${{ github.event_name == 'workflow_dispatch' && format(',value={0}', github.event.inputs.version) || '' }}
+          type=semver,pattern={{major}}.{{minor}}${{ github.event_name == 'workflow_dispatch' && format(',value={0}', github.event.inputs.version) || '' }}
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3.0.0
+    - name: Log in to the Container registry
+      uses: docker/login-action@v3.0.0
+      with:
+        registry: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+    - name: Build and push Docker image
+      uses: docker/build-push-action@v5.1.0
+      with:
+        context: .
+        file: ./Docker-Build/${{ env.JAR_NAME }}/Dockerfile
+        platforms: linux/amd64
+        push: true
+        tags: ${{ steps.meta.outputs.tags }}
+        labels: ${{ steps.meta.outputs.labels }}
+        cache-from: type=gha
+        cache-to: type=gha,mode=max
+
+  # Towelove-Auth
+  Build-Docker-Towelove-Auth:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+    - name: Set up Build Package 
+      run: |  
+        echo "IMAGE_NAME=falling42/towelove-auth" >> $GITHUB_ENV
+        echo "JAR_NAME=Towelove-Auth" >> $GITHUB_ENV    
+    - name: Set up JDK 17 
+      uses: actions/setup-java@v4.0.0
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+        server-id: github # Value of the distributionManagement/repository/id field of the pom.xml
+        settings-path: ${{ github.workspace }} # location for the settings.xml file
+    - name: Build with Maven
+      run: mvn -B package --file pom.xml -DskipTests
+    - name: Copy Artifacts
+      run: |
+        mkdir staging && cp Towelove-*/target/*.jar staging
+        ls -al staging
+    - name: Docker meta
+      id: meta
+      uses: docker/metadata-action@v5.5.1
+      with:
+        images: |
+          ghcr.io/${{ env.IMAGE_NAME }}
+        tags: |
+          type=semver,pattern={{version}}${{ github.event_name == 'workflow_dispatch' && format(',value={0}', github.event.inputs.version) || '' }}
+          type=semver,pattern={{major}}.{{minor}}${{ github.event_name == 'workflow_dispatch' && format(',value={0}', github.event.inputs.version) || '' }}
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3.0.0
+    - name: Log in to the Container registry
+      uses: docker/login-action@v3.0.0
+      with:
+        registry: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+    - name: Check
+      run: |
+        pwd
+        ls -al
+        ls -al staging
+    - name: Build and push Docker image
+      uses: docker/build-push-action@v5.1.0
+      with:
+        context: .
+        file: ./Docker-Build/${{ env.JAR_NAME }}/Dockerfile
+        platforms: linux/amd64
+        push: true
+        tags: ${{ steps.meta.outputs.tags }}
+        labels: ${{ steps.meta.outputs.labels }}
+        cache-from: type=gha
+        cache-to: type=gha,mode=max
+  
+  # # Towelove-Client
+  # Build-Docker-Towelove-Client:
+  #   runs-on: ubuntu-latest
+  #   permissions:
+  #     contents: read
+  #     packages: write
+  #   steps:
+  #   - name: Checkout repository
+  #     uses: actions/checkout@v4
+  #   - name: Set up Build Package 
+  #     run: |  
+  #       echo "IMAGE_NAME=falling42/towelove-client" >> $GITHUB_ENV
+  #       echo "JAR_NAME=Towelove-Client" >> $GITHUB_ENV    
+  #   - name: Set up JDK 17 
+  #     uses: actions/setup-java@v4.0.0
+  #     with:
+  #       java-version: '17'
+  #       distribution: 'temurin'
+  #       server-id: github # Value of the distributionManagement/repository/id field of the pom.xml
+  #       settings-path: ${{ github.workspace }} # location for the settings.xml file
+  #   - name: Build with Maven
+  #     run: mvn -B package --file pom.xml -DskipTests
+  #   - name: Copy Artifacts
+  #     run: |
+  #       mkdir staging && cp Towelove-*/target/*.jar staging
+  #   - name: Docker meta
+  #     id: meta
+  #     uses: docker/metadata-action@v5.5.1
+  #     with:
+  #       images: |
+  #         ghcr.io/${{ env.IMAGE_NAME }}
+  #       tags: |
+  #         type=semver,pattern={{version}}${{ github.event_name == 'workflow_dispatch' && format(',value={0}', github.event.inputs.version) || '' }}
+  #         type=semver,pattern={{major}}.{{minor}}${{ github.event_name == 'workflow_dispatch' && format(',value={0}', github.event.inputs.version) || '' }}
+  #   - name: Set up Docker Buildx
+  #     uses: docker/setup-buildx-action@v3.0.0
+  #   - name: Log in to the Container registry
+  #     uses: docker/login-action@v3.0.0
+  #     with:
+  #       registry: ghcr.io
+  #       username: ${{ github.actor }}
+  #       password: ${{ secrets.GITHUB_TOKEN }}
+  #   - name: Build and push Docker image
+  #     uses: docker/build-push-action@v5.1.0
+  #     with:
+  #       context: .
+  #       file: ./Docker-Build/${{ env.JAR_NAME }}/Dockerfile
+  #       platforms: linux/amd64
+  #       push: true
+  #       tags: ${{ steps.meta.outputs.tags }}
+  #       labels: ${{ steps.meta.outputs.labels }}
+  #       cache-from: type=gha
+  #       cache-to: type=gha,mode=max
+  
+  # # Towelove-Common
+  # Build-Docker-Towelove-Common:
+  #   runs-on: ubuntu-latest
+  #   permissions:
+  #     contents: read
+  #     packages: write
+  #   steps:
+  #   - name: Checkout repository
+  #     uses: actions/checkout@v4
+  #   - name: Set up Build Package 
+  #     run: |  
+  #       echo "IMAGE_NAME=falling42/towelove-common" >> $GITHUB_ENV
+  #       echo "JAR_NAME=Towelove-Common" >> $GITHUB_ENV
+  #   - name: Set up JDK 17 
+  #     uses: actions/setup-java@v4.0.0
+  #     with:
+  #       java-version: '17'
+  #       distribution: 'temurin'
+  #       server-id: github # Value of the distributionManagement/repository/id field of the pom.xml
+  #       settings-path: ${{ github.workspace }} # location for the settings.xml file
+  #   - name: Build with Maven
+  #     run: mvn -B package --file pom.xml -DskipTests
+  #   - name: Copy Artifacts
+  #     run: |
+  #       mkdir staging && cp Towelove-*/target/*.jar staging
+  #   # - name: Upload Artifacts
+  #   #   uses: actions/upload-artifact@v4
+  #   #   with:
+  #   #     name: ${{ env.JAR_NAME }}
+  #   #     path: staging 
+  #   - name: Docker meta
+  #     id: meta
+  #     uses: docker/metadata-action@v5.5.1
+  #     with:
+  #       images: |
+  #         ghcr.io/${{ env.IMAGE_NAME }}
+  #       tags: |
+  #         type=semver,pattern={{version}}${{ github.event_name == 'workflow_dispatch' && format(',value={0}', github.event.inputs.version) || '' }}
+  #         type=semver,pattern={{major}}.{{minor}}${{ github.event_name == 'workflow_dispatch' && format(',value={0}', github.event.inputs.version) || '' }}
+  #   - name: Set up Docker Buildx
+  #     uses: docker/setup-buildx-action@v3.0.0
+  #   - name: Log in to the Container registry
+  #     uses: docker/login-action@v3.0.0
+  #     with:
+  #       registry: ghcr.io
+  #       username: ${{ github.actor }}
+  #       password: ${{ secrets.GITHUB_TOKEN }}
+  #   - name: Build and push Docker image
+  #     uses: docker/build-push-action@v5.1.0
+  #     with:
+  #       context: .
+  #       file: ./Docker-Build/${{ env.JAR_NAME }}/Dockerfile
+  #       platforms: linux/amd64
+  #       push: true
+  #       tags: ${{ steps.meta.outputs.tags }}
+  #       labels: ${{ steps.meta.outputs.labels }}
+  #       cache-from: type=gha
+  #       cache-to: type=gha,mode=max
+  
+  # Towelove-Loves
+  Build-Docker-Towelove-Loves:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+    - name: Set up Build Package 
+      run: |  
+        echo "IMAGE_NAME=falling42/towelove-loves" >> $GITHUB_ENV
+        echo "JAR_NAME=Towelove-Loves" >> $GITHUB_ENV
+    - name: Set up JDK 17 
+      uses: actions/setup-java@v4.0.0
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+        server-id: github # Value of the distributionManagement/repository/id field of the pom.xml
+        settings-path: ${{ github.workspace }} # location for the settings.xml file
+    - name: Build with Maven
+      run: mvn -B package --file pom.xml -DskipTests
+    - name: Copy Artifacts
+      run: |
+        mkdir staging && cp Towelove-*/target/*.jar staging
+    - name: Docker meta
+      id: meta
+      uses: docker/metadata-action@v5.5.1
+      with:
+        images: |
+          ghcr.io/${{ env.IMAGE_NAME }}
+        tags: |
+          type=semver,pattern={{version}}${{ github.event_name == 'workflow_dispatch' && format(',value={0}', github.event.inputs.version) || '' }}
+          type=semver,pattern={{major}}.{{minor}}${{ github.event_name == 'workflow_dispatch' && format(',value={0}', github.event.inputs.version) || '' }}
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3.0.0
+    - name: Log in to the Container registry
+      uses: docker/login-action@v3.0.0
+      with:
+        registry: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+    - name: Build and push Docker image
+      uses: docker/build-push-action@v5.1.0
+      with:
+        context: .
+        file: ./Docker-Build/${{ env.JAR_NAME }}/Dockerfile
+        platforms: linux/amd64
+        push: true
+        tags: ${{ steps.meta.outputs.tags }}
+        labels: ${{ steps.meta.outputs.labels }}
+        cache-from: type=gha
+        cache-to: type=gha,mode=max
+  
+  # Towelove-Msg
+  Build-Docker-Towelove-Msg:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+    - name: Set up Build Package 
+      run: |  
+        echo "IMAGE_NAME=falling42/towelove-msg" >> $GITHUB_ENV
+        echo "JAR_NAME=Towelove-Msg" >> $GITHUB_ENV    
+    - name: Set up JDK 17 
+      uses: actions/setup-java@v4.0.0
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+        server-id: github # Value of the distributionManagement/repository/id field of the pom.xml
+        settings-path: ${{ github.workspace }} # location for the settings.xml file
+    - name: Build with Maven
+      run: mvn -B package --file pom.xml -DskipTests
+    - name: Copy Artifacts
+      run: |
+        mkdir staging && cp Towelove-*/target/*.jar staging
+    - name: Docker meta
+      id: meta
+      uses: docker/metadata-action@v5.5.1
+      with:
+        images: |
+          ghcr.io/${{ env.IMAGE_NAME }}
+        tags: |
+          type=semver,pattern={{version}}${{ github.event_name == 'workflow_dispatch' && format(',value={0}', github.event.inputs.version) || '' }}
+          type=semver,pattern={{major}}.{{minor}}${{ github.event_name == 'workflow_dispatch' && format(',value={0}', github.event.inputs.version) || '' }}
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3.0.0
+    - name: Log in to the Container registry
+      uses: docker/login-action@v3.0.0
+      with:
+        registry: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+    - name: Build and push Docker image
+      uses: docker/build-push-action@v5.1.0
+      with:
+        context: .
+        file: ./Docker-Build/${{ env.JAR_NAME }}/Dockerfile
+        platforms: linux/amd64
+        push: true
+        tags: ${{ steps.meta.outputs.tags }}
+        labels: ${{ steps.meta.outputs.labels }}
+        cache-from: type=gha
+        cache-to: type=gha,mode=max
+  
+  # Towelove-Server-Center
+  Build-Docker-Towelove-Server-Center:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+    - name: Set up Build Package 
+      run: |  
+        echo "IMAGE_NAME=falling42/towelove-server-center" >> $GITHUB_ENV
+        echo "JAR_NAME=Towelove-Server-Center" >> $GITHUB_ENV
+    - name: Set up JDK 17 
+      uses: actions/setup-java@v4.0.0
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+        server-id: github # Value of the distributionManagement/repository/id field of the pom.xml
+        settings-path: ${{ github.workspace }} # location for the settings.xml file
+    - name: Build with Maven
+      run: mvn -B package --file pom.xml -DskipTests
+    - name: Copy Artifacts
+      run: |
+        mkdir staging && cp Towelove-*/target/*.jar staging
+    - name: Docker meta
+      id: meta
+      uses: docker/metadata-action@v5.5.1
+      with:
+        images: |
+          ghcr.io/${{ env.IMAGE_NAME }}
+        tags: |
+          type=semver,pattern={{version}}${{ github.event_name == 'workflow_dispatch' && format(',value={0}', github.event.inputs.version) || '' }}
+          type=semver,pattern={{major}}.{{minor}}${{ github.event_name == 'workflow_dispatch' && format(',value={0}', github.event.inputs.version) || '' }}
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3.0.0
+    - name: Log in to the Container registry
+      uses: docker/login-action@v3.0.0
+      with:
+        registry: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+    - name: Build and push Docker image
+      uses: docker/build-push-action@v5.1.0
+      with:
+        context: .
+        file: ./Docker-Build/${{ env.JAR_NAME }}/Dockerfile
+        platforms: linux/amd64
+        push: true
+        tags: ${{ steps.meta.outputs.tags }}
+        labels: ${{ steps.meta.outputs.labels }}
+        cache-from: type=gha
+        cache-to: type=gha,mode=max
+  
+  # Towelove-User
+  Build-Docker-Towelove-User:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+    - name: Set up Build Package 
+      run: |  
+        echo "IMAGE_NAME=falling42/towelove-user" >> $GITHUB_ENV
+        echo "JAR_NAME=Towelove-User" >> $GITHUB_ENV
+    - name: Set up JDK 17 
+      uses: actions/setup-java@v4.0.0
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+        server-id: github # Value of the distributionManagement/repository/id field of the pom.xml
+        settings-path: ${{ github.workspace }} # location for the settings.xml file
+    - name: Build with Maven
+      run: mvn -B package --file pom.xml -DskipTests
+    - name: Copy Artifacts
+      run: |
+        mkdir staging && cp Towelove-*/target/*.jar staging
+    - name: Docker meta
+      id: meta
+      uses: docker/metadata-action@v5.5.1
+      with:
+        images: |
+          ghcr.io/${{ env.IMAGE_NAME }}
+        tags: |
+          type=semver,pattern={{version}}${{ github.event_name == 'workflow_dispatch' && format(',value={0}', github.event.inputs.version) || '' }}
+          type=semver,pattern={{major}}.{{minor}}${{ github.event_name == 'workflow_dispatch' && format(',value={0}', github.event.inputs.version) || '' }}
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3.0.0
+    - name: Log in to the Container registry
+      uses: docker/login-action@v3.0.0
+      with:
+        registry: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+    - name: Build and push Docker image
+      uses: docker/build-push-action@v5.1.0
+      with:
+        context: .
+        file: ./Docker-Build/${{ env.JAR_NAME }}/Dockerfile
+        platforms: linux/amd64
+        push: true
+        tags: ${{ steps.meta.outputs.tags }}
+        labels: ${{ steps.meta.outputs.labels }}
+        cache-from: type=gha
+        cache-to: type=gha,mode=max
