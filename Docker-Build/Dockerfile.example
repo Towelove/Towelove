@@ -1,0 +1,33 @@
+FROM eclipse-temurin:17-jdk-jammy
+
+WORKDIR /Towelove
+
+RUN mkdir -p /Towelove/config
+COPY config/bootstrap.yml /Towelove/config
+
+#Towelove-Gateway
+
+RUN mkdir -p /Towelove/Towelove-Gateway
+COPY staging/Towelove-Gateway*.jar /Towelove/Towelove-Gateway/
+
+CMD [ "java", "-jar", "/Towelove/Towelove-Gateway/Towelove-Gateway.jar" ]
+
+# RUN mkdir -p /Towelove/Towelove-Auth
+# RUN mkdir -p /Towelove/Towelove-Client
+# RUN mkdir -p /Towelove/Towelove-Common
+# RUN mkdir -p /Towelove/Towelove-Gateway
+# RUN mkdir -p /Towelove/Towelove-Loves
+# RUN mkdir -p /Towelove/Towelove-Msg
+# RUN mkdir -p /Towelove/Towelove-Server-Center
+# RUN mkdir -p /Towelove/Towelove-User
+
+# EXPOSE 8080/tcp 9205/tcp 9204/tcp 9203/tcp 9202/tcp 9201/tcp
+
+# COPY staging/Towelove-Auth*.jar /Towelove/Towelove-Auth/
+# COPY staging/Towelove-Client*.jar /Towelove/Towelove-Client/
+# COPY staging/Towelove-Common*.jar /Towelove/Towelove-Common/
+# COPY staging/Towelove-Gateway*.jar /Towelove/Towelove-Gateway/
+# COPY staging/Towelove-Loves*.jar /Towelove/Towelove-Loves/
+# COPY staging/Towelove-Msg*.jar /Towelove/Towelove-Msg/
+# COPY staging/Towelove-Server-Center*.jar /Towelove/Towelove-Server-Center/
+# COPY staging/Towelove-User*.jar /Towelove/Towelove-User/
