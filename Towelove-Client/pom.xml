@@ -8,19 +8,54 @@
         <version>2.0</version>
     </parent>
     <packaging>jar</packaging>
+
+<!--    <build>-->
+<!--        <finalName>${project.artifactId}</finalName>-->
+<!--        <plugins>-->
+<!--            <plugin>-->
+<!--                <groupId>org.apache.maven.plugins</groupId>-->
+<!--                <artifactId>maven-compiler-plugin</artifactId>-->
+<!--                <configuration>-->
+<!--                    <source>${java.version}</source>-->
+<!--                    <target>${java.version}</target>-->
+<!--                    <compilerArgs>&#45;&#45;enable-preview</compilerArgs>-->
+<!--                </configuration>-->
+<!--            </plugin>-->
+<!--        </plugins>-->
+<!--    </build>-->
+
     <build>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.2.0</version> <!-- 确保使用最新版本 -->
                 <configuration>
-                    <source>${java.version}</source>
-                    <target>${java.version}</target>
-                    <compilerArgs>--enable-preview</compilerArgs>
+                    <archive>
+                        <manifest>
+                            <!-- 在这里可以添加需要的Manifest条目，但对于非可执行JAR，不包括Main-Class -->
+                            <addClasspath>true</addClasspath>
+                            <!-- 示例：指定Class-Path，如果需要的话 -->
+                            <classpathPrefix>lib/</classpathPrefix>
+                            <!-- 示例：自定义条目 -->
+                            <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                            <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+                        </manifest>
+                        <manifestEntries>
+                            <!-- 示例：添加自定义Manifest条目 -->
+                            <Built-By>ZhangBlossom</Built-By>
+                            <Created-By>Apache Maven</Created-By>
+                            <Build-Jdk>${java.version}</Build-Jdk>
+                        </manifestEntries>
+                    </archive>
                 </configuration>
             </plugin>
         </plugins>
     </build>
+
+
+
+
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>Towelove-Client</artifactId>
