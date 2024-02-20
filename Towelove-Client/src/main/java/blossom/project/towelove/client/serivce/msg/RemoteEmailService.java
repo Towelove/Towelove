@@ -32,7 +32,7 @@ public interface RemoteEmailService {
      * @param email
      * @return
      */
-    @GetMapping("/v1/email/code")
+    @GetMapping("/v1/msg/email/code")
     Result<String> sendValidateCodeByEmail(@RequestParam("email") @NotBlank String email);
 
 
@@ -41,10 +41,10 @@ public interface RemoteEmailService {
      * @param request
      * @return
      */
-    @PostMapping("/v1/email/remind")
+    @PostMapping("/v1/msg/email/remind")
     Result<String> todoRemindByEmail(@Validated @RequestBody TodoRemindRequest request);
 
-    @PostMapping("/v1/email/invited")
+    @PostMapping("/v1/msg/email/invited")
     Result<String> sendInvitedEmail(@Validated @RequestBody InvitedEmailRequest request);
 
 

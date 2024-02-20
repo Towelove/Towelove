@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="blossom.project.towelove.loves.mapper.LoveDiaryMapper">
+
+    <select id="getDiaryByCollectionId" resultType="java.lang.String">
+        select
+            `title`
+        from
+            love_diary
+        where
+            diary_id = #{collectionId} and status != 0;
+    </select>
+
+</mapper>

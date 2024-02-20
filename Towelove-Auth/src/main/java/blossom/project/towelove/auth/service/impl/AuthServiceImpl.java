@@ -25,6 +25,7 @@ import com.towelove.common.core.constant.HttpStatus;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
 
 import java.util.Objects;
 
@@ -66,7 +67,7 @@ public class AuthServiceImpl implements AuthService {
         UserAccessStrategy userAccessStrategy = UserRegisterStrategyFactory.userAccessStrategy(authLoginRequest.getType());
         SysUser sysUser = userAccessStrategy.login(authLoginRequest);
         StpUtil.login(sysUser.getId());
-        if (StrUtil.isBlank(sysUser.getEmail())) {
+        if (StrUtil.isBlank(sysUser.getEmail()) && StrUtil.isBlank(sysUser.getPhoneNumber())) {
             //需要用户补充信息，但依然是登入态
             res.setCode(HttpStatus.CREATED);
             res.setMsg("用户需要完善信息");
@@ -129,7 +130,7 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public String restockUserInfo(RestockUserInfoRequest restockUserInfoRequest) {
+    public String restockUserInfo(@Validated RestockUserInfoRequest restockUserInfoRequest) {
         String phone = restockUserInfoRequest.getPhone();
         String email = restockUserInfoRequest.getEmail();
         checkPhoneByRegex(phone);

@@ -18,7 +18,8 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 @RequestMapping("/sensitive/word")
 public class SensitiveWordController {
-    private SensitiveWordService sensitiveWordService;
+
+    private final SensitiveWordService sensitiveWordService;
 
     /**
      * 添加敏感词
