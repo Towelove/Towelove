@@ -5,6 +5,7 @@ import blossom.project.towelove.common.request.loves.diary.DiaryCollectionCreate
 import blossom.project.towelove.common.request.loves.diary.DiaryCollectionPageRequest;
 import blossom.project.towelove.common.response.Result;
 import blossom.project.towelove.common.response.love.diary.DiaryCollectionDTO;
+import blossom.project.towelove.common.response.love.diary.DiaryTitleDTO;
 import blossom.project.towelove.common.response.love.diary.LoveDiaryDTO;
 import blossom.project.towelove.framework.log.annotation.LoveLog;
 import blossom.project.towelove.loves.convert.DiaryCollectionConvert;
@@ -21,14 +22,15 @@ import java.util.List;
 /**
  * @projectName: Towelove
  * @package: blossom.project.towelove.loves.controller
- * @className: DiaryController
+ * @className: DiariesController
  * @author: Link Ji
  * @description: GOGO
  * @date: 2024/2/20 15:22
  * @version: 1.0
+ * 日记册相关
  */
 @RestController
-@RequestMapping("/diary")
+@RequestMapping("/diaries")
 @RequiredArgsConstructor
 @LoveLog
 public class DiaryCollectionController {
@@ -69,10 +71,9 @@ public class DiaryCollectionController {
     }
 
     @GetMapping("/{id}")
-    public Result<List<String>> getLoveDiaryByCollectionId(@PathVariable("id") Long collectionId){
+    public Result<List<DiaryTitleDTO>> getLoveDiaryByCollectionId(@PathVariable("id") Long collectionId){
         return Result.ok(diariesService.getLoveDirayByCollectionId(collectionId));
     }
-
 
 
 }

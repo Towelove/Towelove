@@ -46,18 +46,24 @@ public class AuthServiceImpl implements AuthService {
 
 
     @Override
-    public String register(AuthRegisterRequest authRegisterRequest) {
+    public Result<String> register(AuthRegisterRequest authRegisterRequest) {
+        Result<String> res = new Result<>();
         //校验手机号以及邮箱格式，校验验证码格式是否正确
         UserAccessStrategy userAccessStrategy = UserRegisterStrategyFactory.userAccessStrategy(authRegisterRequest.getType());
         SysUser sysUser = userAccessStrategy.register(authRegisterRequest);
-        Result<SysUser> result = remoteUserService.saveUser(sysUser);
         sysUser.setPassword(RandomUtil.randomString(10));
+        Result<SysUser> result = remoteUserService.saveUser(sysUser);
         log.info("调用user远程服务获取到的接口为: {}",result);
         if (Objects.isNull(result) || result.getCode() != com.towelove.common.core.constant.HttpStatus.SUCCESS){
             throw new ServiceException(result.getMsg());
         }
-        StpUtil.login(result.getData().getId());
-        return StpUtil.getTokenInfo().tokenValue;
+        SysUser sysUserFromSys = result.getData();
+        if (StrUtil.isBlank(sysUser.getEmail()) || StrUtil.isBlank(sysUser.getPhoneNumber())){
+            res.setCode(HttpStatus.CREATED);
+        }
+        StpUtil.login(sysUserFromSys.getId());
+        res.setData(StpUtil.getTokenInfo().tokenValue);
+        return res;
     }
 
     @Override
@@ -67,7 +73,7 @@ public class AuthServiceImpl implements AuthService {
         UserAccessStrategy userAccessStrategy = UserRegisterStrategyFactory.userAccessStrategy(authLoginRequest.getType());
         SysUser sysUser = userAccessStrategy.login(authLoginRequest);
         StpUtil.login(sysUser.getId());
-        if (StrUtil.isBlank(sysUser.getEmail()) && StrUtil.isBlank(sysUser.getPhoneNumber())) {
+        if (StrUtil.isBlank(sysUser.getEmail()) || StrUtil.isBlank(sysUser.getPhoneNumber())) {
             //需要用户补充信息，但依然是登入态
             res.setCode(HttpStatus.CREATED);
             res.setMsg("用户需要完善信息");

@@ -1,6 +1,7 @@
 package blossom.project.towelove.loves.entity;
 
 import blossom.project.towelove.common.domain.dto.BaseEntity;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
@@ -29,9 +30,12 @@ public class LoveDiary extends BaseEntity {
     /**
      * 日记合集编号
      */
-    private Long diary_id;
+    @TableField("diary_collection_id")
+    private Long diaryCollectionId;
+
 
     private String title;
+
 
     private String content;
 

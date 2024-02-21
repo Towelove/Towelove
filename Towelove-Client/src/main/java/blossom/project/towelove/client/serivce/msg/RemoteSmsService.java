@@ -14,7 +14,7 @@ import javax.validation.constraints.NotBlank;
 public interface RemoteSmsService {
 
 
-    @GetMapping("/v1/sms")
+    @GetMapping("/v1/msg/sms")
     Result<String> sendValidateCodeByPhone(@NotBlank @RequestParam("phone")String phoneNumber);
 
 }

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="blossom.project.towelove.loves.mapper.LoveDiaryImageMapper">
+
+
+    <select id="getDiaryImageByDiaryId" parameterType="long" resultType="string">
+        select
+            url
+        from
+            love_diary_image
+        where
+            diary_id = #{diaryId} and status = 0;
+    </select>
+
+    <insert id="insertBatch" parameterType="list">
+        insert into
+            `love_diary_image` (`id`,`diary_id`,`url`,`status`,`create_by`,`create_time`,`update_by`,`update_time`,`deleted`,`remark`)
+        values
+            <foreach collection="list" separator="," item="item">
+            (#{item.id},#{item.diaryId},#{item.url},#{item.status},#{item.createBy},#{item.createTime}
+            ,#{item.updateBy},#{item.updateTime},#{item.deleted},#{item.remark})
+            </foreach>
+    </insert>
+
+</mapper>

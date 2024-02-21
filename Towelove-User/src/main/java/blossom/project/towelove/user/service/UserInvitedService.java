@@ -1,6 +1,7 @@
 package blossom.project.towelove.user.service;
 
 import blossom.project.towelove.common.response.Result;
+import blossom.project.towelove.user.domain.InvitedCouplesRequest;
 
 /**
  * @projectName: Towelove
@@ -12,5 +13,5 @@ import blossom.project.towelove.common.response.Result;
  * @version: 1.0
  */
 public interface UserInvitedService {
-    Result invited(UserInvitedService userInvitedService);
+    Result invited(InvitedCouplesRequest invitedCouplesRequest);
 }

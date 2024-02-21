@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 /**
  * @projectName: Towelove
@@ -23,10 +24,12 @@ import javax.validation.constraints.NotBlank;
 @Builder
 public class DiaryCollectionCreateRequest {
 
-    @NotBlank
+    @NotNull(message = "coupleId could not be null")
     private Long coupleId;
 
+    @NotNull(message = "cover could not be null")
     private String cover;
 
     private String title;
+
 }

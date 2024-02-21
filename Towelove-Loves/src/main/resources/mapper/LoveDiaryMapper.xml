@@ -4,14 +4,19 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="blossom.project.towelove.loves.mapper.LoveDiaryMapper">
+    <resultMap id="diaryTitleDTO" type="blossom.project.towelove.common.response.love.diary.DiaryTitleDTO">
+        <result property="id" column="id" jdbcType="BIGINT"/>
+        <result property="title" column="title" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time"/>
+    </resultMap>
 
-    <select id="getDiaryByCollectionId" resultType="java.lang.String">
-        select
-            `title`
-        from
+    <select id="getDiaryByCollectionId" resultMap="diaryTitleDTO" parameterType="long">
+        SELECT
+            `id`,`title`,`create_time`
+        FROM
             love_diary
-        where
-            diary_id = #{collectionId} and status != 0;
+        WHERE
+            `diary_collection_id` = #{collectionId} and `status` = 0
     </select>
 
 </mapper>

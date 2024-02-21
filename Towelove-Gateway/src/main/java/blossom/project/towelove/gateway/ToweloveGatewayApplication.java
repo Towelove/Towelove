@@ -4,6 +4,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.cloud.openfeign.EnableFeignClients;
+import org.springframework.context.ConfigurableApplicationContext;
 
 /**
  * @author: 张锦标
@@ -15,7 +16,7 @@ scanBasePackages = "blossom.project.towelove")
 @EnableFeignClients("blossom.project.towelove.client")
 public class ToweloveGatewayApplication {
     public static void main(String[] args) {
-        SpringApplication.run(ToweloveGatewayApplication.class, args);
+        ConfigurableApplicationContext ioc = SpringApplication.run(ToweloveGatewayApplication.class, args);
         System.out.println("（づ￣3￣）づ╭❤～ Towelove网关模块启动成功  (o>ε(o>ｕ(≧∩≦)");
         System.out.println(
                 "   _____           _                                     \n" +
