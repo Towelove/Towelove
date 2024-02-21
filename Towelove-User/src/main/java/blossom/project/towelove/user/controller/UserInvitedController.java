@@ -32,7 +32,7 @@ public class UserInvitedController {
      */
     @PostMapping("")
     public Result invitedCouples(@Validated @RequestBody InvitedCouplesRequest invitedCouplesRequest){
-        return userInvitedService.invited(userInvitedService);
+        return userInvitedService.invited(invitedCouplesRequest);
     }
 
 }

@@ -6,6 +6,7 @@ import blossom.project.towelove.common.constant.StringTemplateConstants;
 import blossom.project.towelove.common.request.user.InvitedEmailRequest;
 import blossom.project.towelove.common.response.Result;
 import blossom.project.towelove.common.response.user.SysUserVo;
+import blossom.project.towelove.user.domain.InvitedCouplesRequest;
 import blossom.project.towelove.user.entity.SysUser;
 import blossom.project.towelove.user.interceptor.UserInfoContextHolder;
 import blossom.project.towelove.user.service.UserInvitedService;
@@ -35,7 +36,7 @@ public class UserInvitedServiceImpl implements UserInvitedService {
     private RemoteUserService userService;
 
     @Override
-    public Result invited(UserInvitedService userInvitedService) {
+    public Result invited(InvitedCouplesRequest invitedCouplesRequest) {
         SysUser userInfo = UserInfoContextHolder.getUserInfo();
         //将userId转换为32进制
         Long userId = userInfo.getId();
@@ -55,4 +56,5 @@ public class UserInvitedServiceImpl implements UserInvitedService {
         //发送模板信息
         return Result.ok(invitedTemplate);
     }
+
 }

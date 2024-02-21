@@ -1,24 +1,18 @@
 package blossom.project.towelove.loves.mapper;
 
-import blossom.project.towelove.common.response.love.diary.DiaryTitleDTO;
 import blossom.project.towelove.loves.entity.LoveDiary;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-
-import java.util.List;
-
 
 /**
  * @projectName: Towelove
  * @package: blossom.project.towelove.loves.mapper
- * @className: LoveDiaryMapper
+ * @className: DiaryMapper
  * @author: Link Ji
  * @description: GOGO
- * @date: 2024/2/20 18:01
+ * @date: 2024/2/21 15:43
  * @version: 1.0
  */
 @Mapper
-public interface LoveDiaryMapper extends BaseMapper<LoveDiary> {
-    List<DiaryTitleDTO> getDiaryByCollectionId(@Param("collectionId") Long collectionId);
+public interface DiaryMapper extends BaseMapper<LoveDiary> {
 }

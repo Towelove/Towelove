@@ -52,8 +52,10 @@ public class UserAccessByEmail implements UserAccessStrategy {
             if (!code.equals(codeFromSystem)){
                 throw new ServiceException("验证码校验失败，验证码错误");
             }
+            redisService.deleteObject(RedisKeyConstant.VALIDATE_CODE + email);
             SysUser sysUser = new SysUser();
             BeanUtils.copyProperties(authRegisterRequest,sysUser);
+            //删除验证码
            return sysUser;
         }
         return null;
@@ -78,6 +80,7 @@ public class UserAccessByEmail implements UserAccessStrategy {
         if (Objects.isNull(result) || HttpStatus.SUCCESS != result.getCode()){
             throw new ServiceException("用户登入失败，请联系管理员");
         }
+        redisService.deleteObject(RedisKeyConstant.VALIDATE_CODE + email);
         return result.getData();
 
     }

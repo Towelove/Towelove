@@ -24,10 +24,12 @@ public class SaTokenFilter {
                 // 鉴权方法：每次访问进入
                 .setAuth(obj -> {
                     // 登录校验 -- 拦截所有路由，并排除/auth/** 用于开放登录
-                    SaRouter.match("/**", "/auth/**", r -> StpUtil.checkLogin());
+                    SaRouter.match("/**", "/v1/auth/**", r -> StpUtil.checkLogin());
                     // 权限认证 -- 不同模块, 校验不同权限
-                    SaRouter.match("/user/**", r -> StpUtil.checkPermission("user"));
-                    SaRouter.match("/admin/**", r -> StpUtil.checkPermission("admin"));
+                    SaRouter.match("/v1/**","/v1/auth/**", r -> StpUtil.checkPermission("user"));
+//                    SaRouter.match("/server/**", r -> StpUtil.checkPermission("user"));
+//                    SaRouter.match("/lover/**", r -> StpUtil.checkPermission("user"));
+                    SaRouter.match("/admin/**", "/v1/auth/**",r -> StpUtil.checkPermission("admin"));
 //                  SaRouter.match("/orders/**", r -> StpUtil.checkPermission("orders"));
 // 更多匹配 ...  */
                 })

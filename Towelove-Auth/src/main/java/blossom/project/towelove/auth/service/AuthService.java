@@ -7,7 +7,7 @@ import javax.validation.Valid;
 import java.net.URI;
 
 public interface AuthService {
-    String register(AuthRegisterRequest authLoginRequest);
+    Result<String> register(AuthRegisterRequest authLoginRequest);
 
     Result<String> login(AuthLoginRequest authLoginRequest);
 

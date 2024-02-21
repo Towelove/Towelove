@@ -7,7 +7,7 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.ComponentScan;
 
-@SpringBootApplication(exclude = DataSourceAutoConfiguration.class)
+@SpringBootApplication(scanBasePackages = "blossom.project.towelove",exclude = DataSourceAutoConfiguration.class)
 @EnableFeignClients("blossom.project.towelove.client")
 @ComponentScan(basePackages = {"blossom.project.towelove"})
 public class ToweloveAuthApplication {

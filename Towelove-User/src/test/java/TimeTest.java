@@ -1,14 +1,17 @@
+import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.date.LocalDateTimeUtil;
 import com.alibaba.fastjson2.util.DateUtils;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeFieldType;
 import org.junit.jupiter.api.Test;
 
+import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalField;
 import java.util.Calendar;
+import java.util.Date;
 
 /**
  * @projectName: Towelove
@@ -44,7 +47,7 @@ public class TimeTest {
 //        int lastDay = mouth * 100 + calendar.get(Calendar.DAY_OF_MONTH);
 //        System.out.println(firstDay);
 //        System.out.println(lastDay);
-
+        System.out.println(DateUtil.format(Date.from(Instant.now()),"yyyy-MM-dd HH-mm-ss"));
     }
 
     volatile int count = 0;

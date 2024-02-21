@@ -17,4 +17,7 @@ spring:
         shared-configs[2]:
           data-id: towelove-auth-dev.yaml
           refresh: true
+        shared-configs[3]:
+          data-id: towelove-rocketmq-dev.yaml
+          refresh: true
 

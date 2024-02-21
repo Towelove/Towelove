@@ -41,7 +41,7 @@ public class AuthController {
      */
     @PostMapping("/register")
     public Result<String> register( @Validated @RequestBody AuthRegisterRequest authRegisterRequest){
-        return Result.ok(authService.register(authRegisterRequest));
+        return authService.register(authRegisterRequest);
     }
 
     /**

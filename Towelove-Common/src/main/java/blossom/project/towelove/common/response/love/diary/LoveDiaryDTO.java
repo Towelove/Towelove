@@ -1,6 +1,9 @@
 package blossom.project.towelove.common.response.love.diary;
 
+import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
+
+import java.util.List;
 
 /**
  * @projectName: Towelove
@@ -13,4 +16,30 @@ import lombok.Data;
  */
 @Data
 public class LoveDiaryDTO {
+
+    private Long id;
+
+    /**
+     * 日记合集编号
+     */
+    private Long diaryCollectionId;
+    /**
+     * 标题
+     */
+    private String title;
+
+    /**
+     * 内容
+     */
+    private String content;
+
+    /**
+     * 是否同步
+     */
+    private boolean synchronous;
+
+    /**
+     * 图片集合
+     */
+    private List<String> images;
 }

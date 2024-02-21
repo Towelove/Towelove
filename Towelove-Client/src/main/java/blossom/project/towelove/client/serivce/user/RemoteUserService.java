@@ -22,28 +22,28 @@ import java.util.List;
         contextId = "RemoteUserService",
         configuration = FeignMarkInterceptor.class)
 public interface RemoteUserService {
-    @PostMapping("/v1/user")
+    @PostMapping("/v1/user/sys")
     Result<SysUser> saveUser(@RequestBody SysUser sysUser);
 
-    @GetMapping("/v1/user")
+    @GetMapping("/v1/user/sys")
     Result<SysUserVo> getUserById(@Valid @RequestParam("userId") @NotNull(message = "请求信息缺失") Long userId);
 
-    @PostMapping("/v1/user/exist")
+    @PostMapping("/v1/user/sys/exist")
     Result<SysUser> findUserByPhoneOrEmail(@Valid @RequestBody AuthLoginRequest authLoginRequest);
 
-    @GetMapping("/v1/user/permission")
+    @GetMapping("/v1/user/sys/permission")
     Result<List<SysUserPermissionDto>> getUserPermissionByUserId(@RequestParam("userId") Long userId);
 
-    @GetMapping("/v1/user/thirdParty/exist")
+    @GetMapping("/v1/user/sys/thirdParty/exist")
     Result<Long> findUserIdByThirdPartyId(@RequestParam("socialUid") String socialUid);
 
-    @PostMapping("v1/user/thirdParty")
+    @PostMapping("v1/user/sys/thirdParty")
     Result<String> saveThirdPartyUser(@RequestBody UserThirdParty userThirdParty);
 
-    @PostMapping("/v1/user/thirdParty/access")
+    @PostMapping("/v1/user/sys/thirdParty/access")
     Result<SysUser> accessByThirdPartyAccount(@RequestBody ThirdPartyLoginUser thirdPartyLoginUser);
 
-    @PutMapping("/v1/user/restock")
+    @PutMapping("/v1/user/sys/restock")
     Result<String> restockUserInfo(@RequestBody RestockUserInfoRequest restockUserInfoRequest);
 
 }
