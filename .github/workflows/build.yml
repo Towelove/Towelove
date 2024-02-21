@@ -111,7 +111,8 @@ jobs:
         mv staging/Towelove staging/Towelove.zip
         ls -al staging/
         cd staging/
-        unzip Towelove.zip
+        sudo chmod 755 Towelove.zip
+        sudo unzip Towelove.zip
         ls -al staging/
 
     # - name: Docker meta
