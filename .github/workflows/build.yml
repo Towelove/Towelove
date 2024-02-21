@@ -110,7 +110,8 @@ jobs:
       run: |
         mv staging/Towelove staging/Towelove.zip
         ls -al staging/
-        unzip staging/Towelove.zip
+        cd staging/
+        unzip Towelove.zip
         ls -al staging/
 
     # - name: Docker meta
