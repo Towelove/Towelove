@@ -105,15 +105,11 @@ jobs:
     - name: Download Artifacts
       uses: actions/download-artifact@v4
       with:
-        path: staging/
+        path: .
     - name: Unzip
       run: |
-        mv staging/Towelove staging/Towelove.zip
-        ls -al staging/
-        cd staging/
-        sudo chmod 755 Towelove.zip
-        sudo unzip Towelove.zip
-        ls -al staging/
+        mv Towelove staging
+        ls -al staging
 
     # - name: Docker meta
     #   id: meta
