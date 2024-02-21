@@ -7,30 +7,12 @@ YELLOW='\033[1;33m'
 NC='\033[0m' # No Color
 
 # 日志函数
-# log() {
-#     local level=$1
-#     local message=$2
-
-#     case "$level" in
-#         INFO)
-#             echo -e "${GREEN}[INFO]${NC} $message"
-#             ;;
-#         WARNING)
-#             echo -e "${YELLOW}[WARNING]${NC} $message"
-#             ;;
-#         ERROR)
-#             echo -e "${RED}[ERROR]${NC} $message"
-#             ;;
-#         *)
-#             echo -e "[UNKNOWN] $message"
-#             ;;
-#     esac
-# }
-
 log() {
     local level=$1
     local message=$2
     local color=$NC
+    # 获取当前时间，格式为 2024-02-21 20:05:05.132
+    local timestamp=$(date "+%Y-%m-%d %H:%M:%S.%3N")
 
     case "$level" in
         INFO)
@@ -47,8 +29,8 @@ log() {
             ;;
     esac
 
-    # 整个消息都会以指定的颜色显示
-    echo -e "${color}[$level]${NC} ${color}$message${NC}"
+    # 输出带有时间戳的日志消息
+    echo -e "${color}[$timestamp] [$level]${NC} ${color}$message${NC}"
 }
 
 # 构建 docker run 命令公共函数
@@ -69,13 +51,21 @@ run_towelove_container() {
 
     if ! sudo docker image inspect "$full_name" > /dev/null 2>&1; then
         log INFO "Image $full_name does not exist locally. Pulling..."
-        if ! sudo docker pull "$full_name"; then
-            log ERROR "Failed to pull image $full_name."
+
+        # 使用命令替换和重定向来捕获 docker pull 命令的输出
+        local pull_output=$(sudo docker pull "$full_name" 2>&1)
+        local pull_exit_status=$?
+
+        if [ $pull_exit_status -ne 0 ]; then
+            log ERROR "Failed to pull image $full_name. Error Output: \n$pull_output"
             exit 1
+        else
+            log INFO "Successfully pulled image $full_name. Output: \n$pull_output"
         fi
     else
         log INFO "Image $full_name exists locally."
     fi
+
 
     local run_cmd="sudo docker run -d --restart=always --name ${service_name} --privileged=true \
 --net=venus --ip ${service_ip} -p ${service_port}:${service_port} \
@@ -89,10 +79,10 @@ ${full_name}"
     local cmd_exit_status=$?
     
     if [ $cmd_exit_status -ne 0 ]; then
-        log ERROR "Failed to execute: $run_cmd\nError Output: $cmd_output"
+        log ERROR "Failed to execute command. Error Output: $cmd_output"
         exit 1
     else
-        log INFO "Successfully executed: $run_cmd\nOutput: $cmd_output"
+        log INFO "Successfully executed command. Output: $cmd_output"
     fi
 }
 
@@ -135,33 +125,6 @@ run_user() {
     run_towelove_container "towelove-user" "10.0.0.26" "9205" "$image_version"
 }
 
-
-# operate_towelove_container() {
-#     local operation=$1
-#     local service_name=$2
-#     local container_name="${service_name}"
-
-#     # 根据操作执行相应的 Docker 命令并检查执行结果
-#     case $operation in
-#         "start"|"stop"|"restart")
-#             if ! sudo docker $operation $container_name > /dev/null 2>&1; then
-#                 echo "Warning: Failed to $operation container $container_name."
-#             fi
-#             ;;
-#         "remove")
-#             if ! sudo docker rm -f $container_name > /dev/null 2>&1; then
-#                 echo "Error: Failed to remove container $container_name."
-#                 exit 1
-#             fi
-#             ;;
-#         *)
-#             echo "Unknown operation: $operation"
-#             return 1
-#     esac
-
-#     echo "Operation $operation on $container_name completed."
-# }
-
 # 函数映射服务名到启动函数
 declare -A service_to_function_map=(
     ["towelove-gateway"]="run_gateway"
@@ -180,8 +143,14 @@ deploy_service() {
     local image_version=$2
     local service_name=$(echo "$original_service_name" | tr '[:upper:]' '[:lower:]')
 
+    local old_image_id=""
+
     if sudo docker ps -q -f name=^/${service_name}$ > /dev/null; then
         log WARNING "Container ${service_name} is running. Stopping and removing..."
+
+        # 获取旧容器使用的镜像ID
+        old_image_id=$(sudo docker inspect $(sudo docker ps -aq -f name=^/${service_name}$) --format='{{.Image}}' | sed 's/sha256://')
+
         if ! sudo docker rm -f ${service_name} > /dev/null 2>&1; then
             log ERROR "Failed to remove container ${service_name}."
             exit 1
@@ -199,13 +168,24 @@ deploy_service() {
     fi
 
     sleep 5  # 等待容器启动
+
     if ! sudo docker ps -q -f status=running -f name=^/${service_name}$ > /dev/null; then
         log ERROR "Failed to start container ${service_name}."
         exit 1
     else
         log INFO "Container ${service_name} has started successfully."
+        
+        # 如果有旧的镜像ID，尝试删除旧镜像
+        if [[ ! -z "$old_image_id" ]]; then
+            if sudo docker rmi "$old_image_id" > /dev/null 2>&1; then
+                log INFO "Successfully removed old image $old_image_id."
+            else
+                log WARNING "Failed to remove old image $old_image_id. It may be used by other containers."
+            fi
+        fi
     fi
 }
+
 
 main() {
     local original_service_name=$1
