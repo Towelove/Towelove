@@ -108,8 +108,10 @@ jobs:
         path: staging/
     - name: Unzip
       run: |
+        mv staging/Towelove staging/Towelove.zip
         ls -al staging/
         unzip staging/Towelove.zip
+        ls -al staging/
 
     # - name: Docker meta
     #   id: meta
