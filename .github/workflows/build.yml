@@ -132,7 +132,7 @@ jobs:
         ssh staging 'sudo ls -al'
         ssh staging 'sudo docker ps -a | grep towelove'
         ssh staging 'sudo docker ps -aq -f name="towelove'
-        ssh staging "/opt/ops/deploy.sh ${{ env.JAR_NAME }} ${{ steps.meta.outputs.tags }}"
+        ssh staging /opt/ops/deploy.sh ${{ env.JAR_NAME }} ${{ steps.meta.outputs.org.opencontainers.image.version }}
 
 
 
