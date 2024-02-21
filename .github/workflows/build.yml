@@ -83,6 +83,13 @@ jobs:
     - name: Copy Artifacts
       run: |
         mkdir staging && cp Towelove-*/target/*.jar staging
+        ls -al staging
+        tar -zcvf Towelove.tar.gz ./staging/*
+    - name: Upload Artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: Towelove.tar.gz
+        path: ./Towelove.tar.gz
     - name: Docker meta
       id: meta
       uses: docker/metadata-action@v5.5.1
@@ -232,6 +239,7 @@ jobs:
     - name: Copy Artifacts
       run: |
         mkdir staging && cp Towelove-*/target/*.jar staging
+        ls -al staging
     - name: Docker meta
       id: meta
       uses: docker/metadata-action@v5.5.1
@@ -306,6 +314,7 @@ jobs:
     - name: Copy Artifacts
       run: |
         mkdir staging && cp Towelove-*/target/*.jar staging
+        ls -al staging
     - name: Docker meta
       id: meta
       uses: docker/metadata-action@v5.5.1
@@ -380,6 +389,7 @@ jobs:
     - name: Copy Artifacts
       run: |
         mkdir staging && cp Towelove-*/target/*.jar staging
+        ls -al staging
     - name: Docker meta
       id: meta
       uses: docker/metadata-action@v5.5.1
@@ -454,6 +464,7 @@ jobs:
     - name: Copy Artifacts
       run: |
         mkdir staging && cp Towelove-*/target/*.jar staging
+        ls -al staging
     - name: Docker meta
       id: meta
       uses: docker/metadata-action@v5.5.1

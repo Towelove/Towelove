@@ -35,10 +35,10 @@ log() {
 
 # 构建 docker run 命令公共函数
 # 示例调用
-# run_towelove_container "towelove-gateway" "10.0.0.21" "8080" "0.2.0"
-run_towelove_container() {
+# run_container "towelove-gateway" "10.0.0.21" "8080" "0.2.0"
+run_container() {
     if [ -z "$1" ] || [ -z "$2" ] || [ -z "$3" ] || [ -z "$4" ]; then
-        log ERROR "Missing required arguments for run_towelove_container."
+        log ERROR "Missing required arguments for run_container."
         exit 1
     fi
 
@@ -69,7 +69,7 @@ run_towelove_container() {
 
     local run_cmd="sudo docker run -d --restart=always --name ${service_name} --privileged=true \
 --net=venus --ip ${service_ip} -p ${service_port}:${service_port} \
--v /etc/localtime:/etc/localtime -e TZ=Asia/Shanghai \
+-v /etc/localtime:/etc/localtime:ro -e TZ=Asia/Shanghai \
 ${full_name}"
 
     log INFO "Executing command: $run_cmd"
@@ -90,39 +90,39 @@ ${full_name}"
 # run_gateway "0.2.0"
 # 需要 image_version 参数
 run_gateway() {
-    local image_version=${1:-"0.1.5-test3"}
+    local image_version=${1:-"0.1.11-test3"}
     log INFO "Running towelove-gateway with image version $image_version"
-    run_towelove_container "towelove-gateway" "10.0.0.21" "8080" "$image_version"
+    run_container "towelove-gateway" "10.0.0.21" "8080" "$image_version"
 }
 
 run_auth() {
-    local image_version=${1:-"0.1.5-test3"}
+    local image_version=${1:-"0.1.11-test3"}
     log INFO "Running towelove-auth with image version $image_version"
-    run_towelove_container "towelove-auth" "10.0.0.22" "9204" "$image_version"
+    run_container "towelove-auth" "10.0.0.22" "9204" "$image_version"
 }
 
 run_loves() {
-    local image_version=${1:-"0.1.5-test3"}
+    local image_version=${1:-"0.1.11-test3"}
     log INFO "Running towelove-loves with image version $image_version"
-    run_towelove_container "towelove-loves" "10.0.0.23" "9203" "$image_version"
+    run_container "towelove-loves" "10.0.0.23" "9203" "$image_version"
 }
 
 run_msg() {
-    local image_version=${1:-"0.1.5-test3"}
+    local image_version=${1:-"0.1.11-test3"}
     log INFO "Running towelove-msg with image version $image_version"
-    run_towelove_container "towelove-msg" "10.0.0.24" "9202" "$image_version"
+    run_container "towelove-msg" "10.0.0.24" "9202" "$image_version"
 }
 
 run_server_center() {
-    local image_version=${1:-"0.1.5-test3"}
+    local image_version=${1:-"0.1.11-test3"}
     log INFO "Running towelove-server-center with image version $image_version"
-    run_towelove_container "towelove-server-center" "10.0.0.25" "9201" "$image_version"
+    run_container "towelove-server-center" "10.0.0.25" "9201" "$image_version"
 }
 
 run_user() {
-    local image_version=${1:-"0.1.5-test3"}
+    local image_version=${1:-"0.1.11-test3"}
     log INFO "Running towelove-user with image version $image_version"
-    run_towelove_container "towelove-user" "10.0.0.26" "9205" "$image_version"
+    run_container "towelove-user" "10.0.0.26" "9205" "$image_version"
 }
 
 # 函数映射服务名到启动函数
