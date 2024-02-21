@@ -129,7 +129,7 @@ jobs:
         SSH_HOST: ${{ secrets.SSH_HOST }}
     - name: Login Server And Deploy
       run: |
-        ssh staging 'sudo ls -al'
+        ssh staging 'sudo pwd'
         ssh staging 'sudo docker ps -a | grep towelove'
         ssh staging /opt/ops/deploy.sh ${{ env.JAR_NAME }} ${{ steps.meta.outputs.version }}
   # Towelove-Auth
@@ -204,7 +204,7 @@ jobs:
         SSH_HOST: ${{ secrets.SSH_HOST }}
     - name: Login Server And Deploy
       run: |
-        ssh staging 'sudo ls -al'
+        ssh staging 'sudo pwd'
         ssh staging 'sudo docker ps -a | grep towelove'
         ssh staging /opt/ops/deploy.sh ${{ env.JAR_NAME }} ${{ steps.meta.outputs.version }}
   # Towelove-Loves
@@ -278,7 +278,7 @@ jobs:
         SSH_HOST: ${{ secrets.SSH_HOST }}
     - name: Login Server And Deploy
       run: |
-        ssh staging 'sudo ls -al'
+        ssh staging 'sudo pwd'
         ssh staging 'sudo docker ps -a | grep towelove'
         ssh staging /opt/ops/deploy.sh ${{ env.JAR_NAME }} ${{ steps.meta.outputs.version }}
   # Towelove-Msg
@@ -352,7 +352,7 @@ jobs:
         SSH_HOST: ${{ secrets.SSH_HOST }}
     - name: Login Server And Deploy
       run: |
-        ssh staging 'sudo ls -al'
+        ssh staging 'sudo pwd'
         ssh staging 'sudo docker ps -a | grep towelove'
         ssh staging /opt/ops/deploy.sh ${{ env.JAR_NAME }} ${{ steps.meta.outputs.version }}
   # Towelove-Server-Center
@@ -426,7 +426,7 @@ jobs:
         SSH_HOST: ${{ secrets.SSH_HOST }}
     - name: Login Server And Deploy
       run: |
-        ssh staging 'sudo ls -al'
+        ssh staging 'sudo pwd'
         ssh staging 'sudo docker ps -a | grep towelove'
         ssh staging /opt/ops/deploy.sh ${{ env.JAR_NAME }} ${{ steps.meta.outputs.version }}
   # Towelove-User
@@ -500,7 +500,7 @@ jobs:
         SSH_HOST: ${{ secrets.SSH_HOST }}
     - name: Login Server And Deploy
       run: |
-        ssh staging 'sudo ls -al'
+        ssh staging 'sudo pwd'
         ssh staging 'sudo docker ps -a | grep towelove'
         ssh staging /opt/ops/deploy.sh ${{ env.JAR_NAME }} ${{ steps.meta.outputs.version }}
   
