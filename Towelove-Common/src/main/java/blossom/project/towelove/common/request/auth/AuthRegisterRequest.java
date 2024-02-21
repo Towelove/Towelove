@@ -9,8 +9,6 @@ import javax.validation.constraints.NotEmpty;
 @Data
 public class AuthRegisterRequest extends AuthLoginRequest{
 
-    @NotBlank
-    private String password;
 
     @NotBlank
     private String userName;

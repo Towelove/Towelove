@@ -35,4 +35,9 @@ public class CreateShortUrlRequest {
      */
     @NotNull(message = "statistics could not be null")
     private Boolean statistics = false;
+
+    /**
+     * 过期时间,默认时间为一个月
+     */
+    private Long expireTime = 100 * 60 * 60 * 24 * 30L;
 }

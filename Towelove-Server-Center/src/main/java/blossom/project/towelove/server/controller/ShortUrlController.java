@@ -44,7 +44,7 @@ public class ShortUrlController {
      * @param url
      * @return
      */
-    @GetMapping("/{url}")
+    @GetMapping("/twurl/{url}")
     public String mapping(@NotNull(message = "url could not be null") @PathVariable("url") String url){
         String sourceUrl =  shortUrlService.mappingToSourceUrl(url);
         return "redirect:" + sourceUrl;

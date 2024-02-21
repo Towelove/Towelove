@@ -49,6 +49,8 @@ public class ShortUrlServiceImpl implements ShortUrlService {
         String shortUrl = shortResponse.getShortUrl();
         if (request.getStatistics()) {
             // TODO:短链统计业务逻辑（待实现）
+            //需要持久化到数据库存储
+
         }
 
         return Result.ok(ShortUrlCacheConstants.getUrl(shortUrl));

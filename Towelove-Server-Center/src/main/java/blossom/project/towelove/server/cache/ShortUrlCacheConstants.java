@@ -17,7 +17,7 @@ public class ShortUrlCacheConstants {
      * redis 分片 HashKey，由hkey的hash值与HashKey数量取模得到
      */
     public final static String URL_MAPPING_FROM = "url_mapping:%s";
-    public final static String URL_PREFIX = "http://%s:9301/%s";
+    public final static String URL_PREFIX = "http://%s:9301/twurl/%s";
 
     /**
      * 获得短链url

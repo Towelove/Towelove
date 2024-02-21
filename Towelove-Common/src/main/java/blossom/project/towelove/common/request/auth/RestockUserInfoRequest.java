@@ -19,26 +19,27 @@ public class RestockUserInfoRequest {
 
     private Long Id;
 
-    @NotBlank
+    @NotBlank(message = "nickName could not be null")
     private String nickName;
 
-    @NotBlank
+    @NotBlank(message = "password could not be null")
     private String password;
 
-    @NotBlank
+    @NotBlank(message = "sex could not be null")
     private String sex;
 
-    @NotBlank
+    @NotBlank(message = "email could not be null")
     private String email;
 
-    @NotBlank
+    @NotBlank(message = "phone could not be null")
     private String phone;
 
-    @NotBlank
+    @NotBlank(message = "avatar could not be null")
     private String avatar;
 
-    @NotBlank
+    @NotBlank(message = "avatar could not be null")
     private String phoneVerifyCode;
-    @NotBlank
+
+    @NotBlank(message = "avatar could not be null")
     private String emailVerifyCode;
 }

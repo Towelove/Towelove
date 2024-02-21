@@ -75,7 +75,7 @@ public class AlbumsServiceImpl extends ServiceImpl<AlbumsMapper, Albums> impleme
     public PageResponse<AlbumsPageRespDTO> pageQueryAlbums(AlbumsPageRequest pageRequest) {
         LambdaQueryWrapper<Albums> lqw = new LambdaQueryWrapper<>();
         lqw.eq(Albums::getCoupleId, pageRequest.getCoupleId());
-        Page<Albums> page = new Page(pageRequest.getPageNo() - 1, pageRequest.getPageSize());
+        Page<Albums> page = new Page<>(pageRequest.getPageNo() - 1, pageRequest.getPageSize());
         Page<Albums> albumsPage = albumsMapper.selectPage(page, lqw);
         if (CollectionUtil.isEmpty(albumsPage.getRecords())) {
             return new PageResponse<>(pageRequest.getPageNo(), pageRequest.getPageSize(), Collections.emptyList());
