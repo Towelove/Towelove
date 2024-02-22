@@ -10,9 +10,4 @@ import javax.validation.constraints.NotEmpty;
 public class AuthRegisterRequest extends AuthLoginRequest{
 
 
-    @NotBlank
-    private String userName;
-
-    @NotBlank
-    private String sex;
 }

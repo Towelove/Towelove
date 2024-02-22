@@ -120,6 +120,11 @@
             <artifactId>Towelove-Client</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>blossom.project</groupId>
+            <artifactId>Towelove-Framework-USER</artifactId>
+        </dependency>
+
     </dependencies>
 
     <build>
