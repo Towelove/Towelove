@@ -21,6 +21,7 @@ import cn.hutool.core.lang.RegexPool;
 import cn.hutool.core.util.RandomUtil;
 import cn.hutool.core.util.ReUtil;
 import cn.hutool.core.util.StrUtil;
+import com.alibaba.fastjson2.JSON;
 import com.towelove.common.core.constant.HttpStatus;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -61,7 +62,7 @@ public class AuthServiceImpl implements AuthService {
         if (StrUtil.isBlank(sysUser.getEmail()) || StrUtil.isBlank(sysUser.getPhoneNumber())){
             res.setCode(HttpStatus.CREATED);
         }
-        StpUtil.login(sysUserFromSys.getId());
+        StpUtil.login(JSON.toJSONString(sysUserFromSys));
         res.setData(StpUtil.getTokenInfo().tokenValue);
         return res;
     }
@@ -72,7 +73,7 @@ public class AuthServiceImpl implements AuthService {
         //校验手机号以及邮箱格式，校验验证码格式是否正确
         UserAccessStrategy userAccessStrategy = UserRegisterStrategyFactory.userAccessStrategy(authLoginRequest.getType());
         SysUser sysUser = userAccessStrategy.login(authLoginRequest);
-        StpUtil.login(sysUser.getId());
+        StpUtil.login(JSON.toJSONString(sysUser));
         if (StrUtil.isBlank(sysUser.getEmail()) || StrUtil.isBlank(sysUser.getPhoneNumber())) {
             //需要用户补充信息，但依然是登入态
             res.setCode(HttpStatus.CREATED);

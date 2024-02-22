@@ -9,8 +9,8 @@ import blossom.project.towelove.common.response.Result;
 import blossom.project.towelove.common.response.user.CouplesRespDTO;
 import blossom.project.towelove.common.response.user.SysUserVo;
 import blossom.project.towelove.framework.redis.util.UserNotifyProduction;
+import blossom.project.towelove.framework.user.core.UserInfoContextHolder;
 import blossom.project.towelove.user.entity.SysUser;
-import blossom.project.towelove.user.interceptor.UserInfoContextHolder;
 import blossom.project.towelove.user.service.SysUserService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.RequiredArgsConstructor;
@@ -79,13 +79,12 @@ public class CouplesServiceImpl extends ServiceImpl<CouplesMapper, Couples> impl
         if (Objects.isNull(sysUserVo)){
             throw new ServiceException("绑定请求非法，邀请方不存在");
         }
-        SysUser userInfo = UserInfoContextHolder.getUserInfo();
-        Long userId = userInfo.getId();
+        Long userId = UserInfoContextHolder.getUserId();
         if (userId == invitedUserId){
             throw new ServiceException("绑定请求非法，不能自己与自己绑定为情侣关系");
         }
         Couples couples = new Couples();
-        if ("男".equals(userInfo.getSex())){
+        if ("男".equals(UserInfoContextHolder.getSex())){
             couples.setBoyId(userId);
             couples.setGirlId(invitedUserId);
         }else {

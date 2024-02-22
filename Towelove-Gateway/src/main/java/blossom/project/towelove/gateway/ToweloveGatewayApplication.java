@@ -11,8 +11,7 @@ import org.springframework.context.ConfigurableApplicationContext;
  * @date: 2023/2/23 18:46
  * Description:
  */
-@SpringBootApplication(exclude = {DataSourceAutoConfiguration.class },
-scanBasePackages = "blossom.project.towelove")
+@SpringBootApplication(exclude = {DataSourceAutoConfiguration.class }, scanBasePackages = "blossom.project.towelove")
 @EnableFeignClients("blossom.project.towelove.client")
 public class ToweloveGatewayApplication {
     public static void main(String[] args) {

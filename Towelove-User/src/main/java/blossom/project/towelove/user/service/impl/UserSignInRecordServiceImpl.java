@@ -3,13 +3,13 @@ package blossom.project.towelove.user.service.impl;
 import blossom.project.towelove.common.constant.UserConstants;
 import blossom.project.towelove.common.exception.ServiceException;
 import blossom.project.towelove.framework.redis.service.RedisService;
+import blossom.project.towelove.framework.user.core.UserInfoContextHolder;
 import blossom.project.towelove.user.constants.SignInConstants;
 import blossom.project.towelove.user.constants.UserSignInTotalType;
 import blossom.project.towelove.user.domain.UserSignInLog;
 import blossom.project.towelove.user.domain.UserSignInRecord;
 import blossom.project.towelove.user.domain.UserSignInVo;
 import blossom.project.towelove.user.entity.SysUser;
-import blossom.project.towelove.user.interceptor.UserInfoContextHolder;
 import blossom.project.towelove.user.mapper.UserSignInRecordMapper;
 import blossom.project.towelove.user.service.UserSignLogService;
 import blossom.project.towelove.user.service.UserSignRecordService;
@@ -63,8 +63,7 @@ public class UserSignInRecordServiceImpl extends ServiceImpl<UserSignInRecordMap
     @Transactional
     @Override
     public String singnInByUserId() {
-        SysUser userInfo = UserInfoContextHolder.getUserInfo();
-        Long userId = userInfo.getId();
+        Long userId = UserInfoContextHolder.getUserId();
         log.info("用户：{} 发起签到请求",userId);
         String userSignInKey = getUserSignInKey(userId,LocalDateTime.now());
         //获取当天的偏移量
@@ -97,8 +96,7 @@ public class UserSignInRecordServiceImpl extends ServiceImpl<UserSignInRecordMap
 
     @Override
     public Long getSignInTotally() {
-        SysUser userInfo = UserInfoContextHolder.getUserInfo();
-        Long userId = userInfo.getId();
+        Long userId = UserInfoContextHolder.getUserId();
         Long bitByRange = getUserSignInTotallyByType(userId,UserSignInTotalType.YEAR);
         log.info("用户：{}查询年签到记录，查询结果为：{}",userId,bitByRange);
         return bitByRange;
@@ -107,8 +105,7 @@ public class UserSignInRecordServiceImpl extends ServiceImpl<UserSignInRecordMap
     @Override
     public UserSignInVo getSignInByMouthTotally(LocalDateTime localDateTime) {
         UserSignInVo userSignInVo = new UserSignInVo();
-        SysUser userInfo = UserInfoContextHolder.getUserInfo();
-        Long userId = userInfo.getId();
+        Long userId = UserInfoContextHolder.getUserId();
         String userSignInKey = getUserSignInKey(userId,localDateTime);
 //        log.info("用户：{}查询月签到记录构建key为：{}",userId,userTotalSignInByMouthKey);
 //        Object userSignINTotally = redisService.redisTemplate.opsForValue().get(userTotalSignInByMouthKey);

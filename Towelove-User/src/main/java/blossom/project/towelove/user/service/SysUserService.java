@@ -15,6 +15,8 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 public interface SysUserService extends IService<SysUser> {
+    SysUserVo selectByUserId();
+
     SysUserVo selectByUserId(Long userId);
 
     String updateUser(UpdateUserRequest request);

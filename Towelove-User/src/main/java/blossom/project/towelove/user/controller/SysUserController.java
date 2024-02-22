@@ -63,12 +63,12 @@ public class SysUserController {
 
     /**
      * 获得用户信息
-     * @param userId
+     * @param
      * @return
      */
     @GetMapping("")
-    public Result<SysUserVo> getUserById(@Validated @RequestParam("userId") @NotNull(message = "请求信息缺失") Long userId) {
-        return Result.ok(sysUserService.selectByUserId(userId));
+    public Result<SysUserVo> getUserById() {
+        return Result.ok(sysUserService.selectByUserId());
     }
 
     /**

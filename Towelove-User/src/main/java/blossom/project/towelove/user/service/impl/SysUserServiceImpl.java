@@ -9,6 +9,7 @@ import blossom.project.towelove.common.request.user.InsertUserRequest;
 import blossom.project.towelove.common.request.user.UpdateUserRequest;
 import blossom.project.towelove.common.response.user.SysUserPermissionDto;
 import blossom.project.towelove.common.response.user.SysUserVo;
+import blossom.project.towelove.framework.user.core.UserInfoContextHolder;
 import blossom.project.towelove.user.convert.SysUserConvert;
 import blossom.project.towelove.user.entity.SysUser;
 import blossom.project.towelove.user.domain.SysUserPermission;
@@ -58,6 +59,15 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     }
 
     @Override
+    public SysUserVo selectByUserId() {
+        Long userId = UserInfoContextHolder.getUserId();
+        SysUser sysUser = getById(userId);
+        if (Objects.isNull(sysUser)) {
+            throw new ServiceException("用户数据不存在");
+        }
+        return SysUserConvert.INSTANCE.convert(sysUser);
+    }
+
     public SysUserVo selectByUserId(Long userId) {
         SysUser sysUser = getById(userId);
         if (Objects.isNull(sysUser)) {
