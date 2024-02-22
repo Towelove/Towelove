@@ -7,12 +7,15 @@ import blossom.project.towelove.common.request.auth.AuthLoginRequest;
 import blossom.project.towelove.common.request.auth.RestockUserInfoRequest;
 import blossom.project.towelove.common.request.user.InsertUserRequest;
 import blossom.project.towelove.common.request.user.UpdateUserRequest;
+import blossom.project.towelove.common.response.user.CouplesRespDTO;
+import blossom.project.towelove.common.response.user.SysUserDTO;
 import blossom.project.towelove.common.response.user.SysUserPermissionDto;
 import blossom.project.towelove.common.response.user.SysUserVo;
 import blossom.project.towelove.framework.user.core.UserInfoContextHolder;
 import blossom.project.towelove.user.convert.SysUserConvert;
 import blossom.project.towelove.user.entity.SysUser;
 import blossom.project.towelove.user.domain.SysUserPermission;
+import blossom.project.towelove.user.mapper.CouplesMapper;
 import blossom.project.towelove.user.mapper.SysPermissionMapper;
 import blossom.project.towelove.user.mapper.SysUserMapper;
 import blossom.project.towelove.user.mapper.SysUserPermissionMapper;
@@ -44,6 +47,8 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
 
     private final SysUserPermissionMapper sysUserPermissionMapper;
 
+    private final CouplesMapper couplesMapper;
+
     @Transactional
     @Override
     public String updateUser(UpdateUserRequest request) {
@@ -59,13 +64,19 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     }
 
     @Override
-    public SysUserVo selectByUserId() {
+    public SysUserDTO selectByUserId() {
         Long userId = UserInfoContextHolder.getUserId();
+        String sex = UserInfoContextHolder.getSex();
         SysUser sysUser = getById(userId);
         if (Objects.isNull(sysUser)) {
             throw new ServiceException("用户数据不存在");
         }
-        return SysUserConvert.INSTANCE.convert(sysUser);
+        CouplesRespDTO  couplesRespDTO = couplesMapper.selectCoupleIdByUserId(userId,sex);
+        SysUserDTO sysUserDTO = SysUserConvert.INSTANCE.convert2DTO(sysUser);
+        sysUserDTO.setCoupleId(couplesRespDTO.getId());
+        sysUserDTO.setBoy_id(couplesRespDTO.getBoyId());
+        sysUserDTO.setGirl_id(couplesRespDTO.getGirlId());
+        return sysUserDTO;
     }
 
     public SysUserVo selectByUserId(Long userId) {

@@ -19,7 +19,12 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
+import javax.servlet.ServletRequest;
+import javax.servlet.http.HttpServletRequest;
 import java.net.URI;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 
 @Component
 @RequiredArgsConstructor
@@ -35,32 +40,47 @@ public class ReWriteRequestFilter implements GlobalFilter , Ordered {
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
         ServerHttpRequest request = exchange.getRequest();
-        URI uri = request.getURI();
         //判断白名单
-        if (!uri.getPath().contains("/v1/auth")) {
-            SysUser sysUser = null;
-            try{
-                sysUser = JSON.parseObject(StpUtil.getLoginIdAsString(), SysUser.class);
-            }catch (Exception e){
-                //如果请求没有loginId就报错并且直接返回原因
-                //设定返回内容和返回状态码
-                DataBuffer dataBuffer =exchange.getResponse().bufferFactory().wrap(e.getMessage().getBytes());
-                exchange.getResponse().setStatusCode(HttpStatus.NON_AUTHORITATIVE_INFORMATION);
-                return exchange.getResponse().writeWith(Mono.just(dataBuffer));
-            }
-            //从Redis中获取用户信息
-//        redisService.getCacheObject(TokenConstant.)
-            //重写请求
-            ServerHttpRequest requst = request
-                    .mutate()
-                    .header(TokenConstant.USER_ID_HEADER, String.valueOf(sysUser.getId()))
-                    .header(TokenConstant.USER_NAME_HEADER,sysUser.getUserName())
-                    .header(TokenConstant.USER_NICK_HEADER,sysUser.getNickName())
-                    .header(TokenConstant.USER_SEX,sysUser.getSex())
-                    .header(TokenConstant.USER_TOKEN,StpUtil.getTokenValue())
-                    .build();
+        if (judgeWhite(request)) {
+            return chain.filter(exchange.mutate().request(request).build());
         }
+        SysUser sysUser = null;
+        try{
+            sysUser = JSON.parseObject(StpUtil.getLoginIdAsString(), SysUser.class);
+        }catch (Exception e){
+            //解析用户信息失败
+            return dealException(exchange,e);
+        }
+        //重写请求
+        reBuildRequest(sysUser,request);
         return chain.filter(exchange.mutate().request(request).build());
+    }
+
+    public boolean judgeWhite(ServerHttpRequest request){
+        URI uri = request.getURI();
+        return uri.getPath().contains("/v1/auth");
+    }
+
+
+    public Mono<Void> dealException(ServerWebExchange exchange,Exception e){
+        //如果请求没有loginId就报错并且直接返回原因
+        //设定返回内容和返回状态码
+        DataBuffer dataBuffer =exchange.getResponse().bufferFactory().wrap(e.getMessage().getBytes());
+        exchange.getResponse().setStatusCode(HttpStatus.NON_AUTHORITATIVE_INFORMATION);
+        return exchange.getResponse().writeWith(Mono.just(dataBuffer));
+    }
+
+    public void reBuildRequest(SysUser sysUser,ServerHttpRequest request){
+        String userName = sysUser.getUserName();
+        String nickName = sysUser.getNickName();
+        String sex = sysUser.getSex();
+        request.mutate()
+                .header(TokenConstant.USER_ID_HEADER, String.valueOf(sysUser.getId()))
+                .header(TokenConstant.USER_NAME_HEADER, URLEncoder.encode(userName, StandardCharsets.UTF_8))
+                .header(TokenConstant.USER_NICK_HEADER,URLEncoder.encode(nickName,StandardCharsets.UTF_8))
+                .header(TokenConstant.USER_SEX,URLEncoder.encode(sex,StandardCharsets.UTF_8))
+                .header(TokenConstant.USER_TOKEN,StpUtil.getTokenValue())
+                .build();
     }
 
     @Override
