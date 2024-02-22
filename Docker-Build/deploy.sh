@@ -6,6 +6,9 @@ GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
 NC='\033[0m' # No Color
 
+# 定义日志文件路径
+LOG_FILE="/opt/ops/logs/deploy.log"
+
 # 日志函数
 log() {
     local level=$1
@@ -29,10 +32,18 @@ log() {
             ;;
     esac
 
-    # 输出带有时间戳的日志消息
-    echo -e "${color}[$timestamp] [$level]${NC} ${color}$message${NC}"
+    # 构建日志消息
+    local log_message="${color}[$timestamp] [$level]${NC} ${color}$message${NC}"
+    
+    # 输出带有时间戳的日志消息到终端
+    echo -e "$log_message"
+    # 确保日志文件存在
+    if [ ! -f "$LOG_FILE" ]; then
+        touch "$LOG_FILE"
+    fi
+    # 追加日志消息到日志文件
+    echo -e "$log_message" >> "$LOG_FILE"
 }
-
 # 构建 docker run 命令公共函数
 # 示例调用
 # run_container "towelove-gateway" "10.0.0.21" "8080" "0.2.0"
