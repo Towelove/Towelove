@@ -176,7 +176,7 @@ jobs:
       run: |
         ssh staging sudo docker ps -a | grep towelove
         ssh staging sudo screen -dmS deploy_session
-        ssh staging sudo screen -S deploy_session -X stuff'/opt/ops/deploy.sh ${{ needs.Build-Docker-Gateway.outputs.name }} ${{ needs.Build-Docker-Gateway.outputs.version }} && exit^M'
+        ssh staging "sudo screen -S deploy_session -X stuff $'printf \"/opt/ops/deploy.sh ${{ needs.Build-Docker-Gateway.outputs.name }} ${{ needs.Build-Docker-Gateway.outputs.version }} && exit\\r\"'"
 
   # # Towelove-Auth
   # Build-Docker-Towelove-Auth:
