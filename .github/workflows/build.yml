@@ -171,7 +171,7 @@ jobs:
       run: |
         ssh staging 'sudo pwd'
         ssh staging 'sudo docker ps -a | grep towelove'
-        ssh staging nohup /opt/ops/deploy.sh ${{ needs.Build-Docker-Gateway.outputs.name }} ${{ needs.Build-Docker-Gateway.outputs.version }} > /opt/ops/logs/deploy-${{ needs.Build-Docker-Gateway.outputs.name }}.log 2>&1 &
+        ssh staging sudo nohup /opt/ops/deploy.sh ${{ needs.Build-Docker-Gateway.outputs.name }} ${{ needs.Build-Docker-Gateway.outputs.version }} > /opt/ops/logs/deploy-${{ needs.Build-Docker-Gateway.outputs.name }}.log 2>&1 &
  
   # # Towelove-Auth
   # Build-Docker-Towelove-Auth:
