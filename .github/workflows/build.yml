@@ -106,61 +106,72 @@ jobs:
       uses: actions/download-artifact@v4
       with:
         path: .
-    - name: Unzip
+    - name: Copy Artifacts
       run: |
-        ls -al Towelove/*
+        ls -al ./Towelove/*
         mv Towelove/* staging
-        ls -al staging
-
-    # - name: Docker meta
-    #   id: meta
-    #   uses: docker/metadata-action@v5.5.1
-    #   with:
-    #     images: |
-    #       ghcr.io/${{ env.IMAGE_NAME }}
-    #     tags: |
-    #       type=semver,pattern={{version}}${{ github.event_name == 'workflow_dispatch' && format(',value={0}', github.event.inputs.version) || '' }}
-    #       type=semver,pattern={{major}}.{{minor}}${{ github.event_name == 'workflow_dispatch' && format(',value={0}', github.event.inputs.version) || '' }}
-    # - name: Set up Docker Buildx
-    #   uses: docker/setup-buildx-action@v3.0.0
-    # - name: Log in to the Container registry
-    #   uses: docker/login-action@v3.0.0
-    #   with:
-    #     registry: ghcr.io
-    #     username: ${{ github.actor }}
-    #     password: ${{ secrets.GITHUB_TOKEN }}
-    # - name: Build and push Docker image
-    #   uses: docker/build-push-action@v5.1.0
-    #   with:
-    #     context: .
-    #     file: ./Docker-Build/${{ env.JAR_NAME }}/Dockerfile
-    #     platforms: linux/amd64
-    #     push: true
-    #     tags: ${{ steps.meta.outputs.tags }}
-    #     labels: ${{ steps.meta.outputs.labels }}
-    #     cache-from: type=gha
-    #     cache-to: type=gha,mode=max
-    # - name: Configure SSH
-    #   run: |
-    #     mkdir -p ~/.ssh/
-    #     echo "$SSH_PRIVATE_KEY" > ~/.ssh/staging.key
-    #     chmod 600 ~/.ssh/staging.key
-    #     cat >>~/.ssh/config <<END
-    #       Host staging
-    #       HostName $SSH_HOST
-    #       User $SSH_USER
-    #       IdentityFile ~/.ssh/staging.key
-    #       StrictHostKeyChecking no
-    #     END
-    #   env:
-    #     SSH_USER: ${{ secrets.SSH_USER }}
-    #     SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-    #     SSH_HOST: ${{ secrets.SSH_HOST }}
-    # - name: Login Server And Deploy
-    #   run: |
-    #     ssh staging 'sudo pwd'
-    #     ssh staging 'sudo docker ps -a | grep towelove'
-    #     ssh staging /opt/ops/deploy.sh ${{ env.JAR_NAME }} ${{ steps.meta.outputs.version }}
+        ls -al ./staging/*
+    - name: Configure Docker Meta
+      id: meta
+      uses: docker/metadata-action@v5.5.1
+      with:
+        images: |
+          ghcr.io/${{ env.IMAGE_NAME }}
+        tags: |
+          type=semver,pattern={{version}}${{ github.event_name == 'workflow_dispatch' && format(',value={0}', github.event.inputs.version) || '' }}
+          type=semver,pattern={{major}}.{{minor}}${{ github.event_name == 'workflow_dispatch' && format(',value={0}', github.event.inputs.version) || '' }}
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3.0.0
+    - name: Log in to the Container registry
+      uses: docker/login-action@v3.0.0
+      with:
+        registry: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+    - name: Build and push Docker image
+      uses: docker/build-push-action@v5.1.0
+      with:
+        context: .
+        file: ./Docker-Build/${{ env.JAR_NAME }}/Dockerfile
+        platforms: linux/amd64
+        push: true
+        tags: ${{ steps.meta.outputs.tags }}
+        labels: ${{ steps.meta.outputs.labels }}
+        cache-from: type=gha
+        cache-to: type=gha,mode=max
+  Depoly-Docker-Towelove-Gateway:
+    runs-on: ubuntu-latest
+    needs: Build-Docker-Towelove-Gateway
+    permissions:
+      contents: read
+      packages: write
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4       
+    - name: Set up Build Package 
+      run: |  
+        echo "JAR_NAME=Towelove-Gateway" >> $GITHUB_ENV
+    - name: Configure SSH
+      run: |
+        mkdir -p ~/.ssh/
+        echo "$SSH_PRIVATE_KEY" > ~/.ssh/staging.key
+        chmod 600 ~/.ssh/staging.key
+        cat >>~/.ssh/config <<END
+          Host staging
+          HostName $SSH_HOST
+          User $SSH_USER
+          IdentityFile ~/.ssh/staging.key
+          StrictHostKeyChecking no
+        END
+      env:
+        SSH_USER: ${{ secrets.SSH_USER }}
+        SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+        SSH_HOST: ${{ secrets.SSH_HOST }}
+    - name: Login Server And Deploy
+      run: |
+        ssh staging 'sudo pwd'
+        ssh staging 'sudo docker ps -a | grep towelove'
+        ssh staging nohup /opt/ops/deploy.sh ${{env.JAR_NAME}} ${{steps.meta.outputs.version}} > /opt/ops/logs/deploy.log 2>&1 &
  
   # # Towelove-Auth
   # Build-Docker-Towelove-Auth:
@@ -188,7 +199,7 @@ jobs:
   #     run: |
   #       mkdir staging && cp Towelove-*/target/*.jar staging
   #       ls -al staging
-  #   - name: Docker meta
+  #   - name: Configure Docker Meta
   #     id: meta
   #     uses: docker/metadata-action@v5.5.1
   #     with:
@@ -263,7 +274,7 @@ jobs:
   #     run: |
   #       mkdir staging && cp Towelove-*/target/*.jar staging
   #       ls -al staging
-  #   - name: Docker meta
+  #   - name: Configure Docker Meta
   #     id: meta
   #     uses: docker/metadata-action@v5.5.1
   #     with:
@@ -338,7 +349,7 @@ jobs:
   #     run: |
   #       mkdir staging && cp Towelove-*/target/*.jar staging
   #       ls -al staging
-  #   - name: Docker meta
+  #   - name: Configure Docker Meta
   #     id: meta
   #     uses: docker/metadata-action@v5.5.1
   #     with:
@@ -413,7 +424,7 @@ jobs:
   #     run: |
   #       mkdir staging && cp Towelove-*/target/*.jar staging
   #       ls -al staging
-  #   - name: Docker meta
+  #   - name: Configure Docker Meta
   #     id: meta
   #     uses: docker/metadata-action@v5.5.1
   #     with:
@@ -488,7 +499,7 @@ jobs:
   #     run: |
   #       mkdir staging && cp Towelove-*/target/*.jar staging
   #       ls -al staging
-  #   - name: Docker meta
+  #   - name: Configure Docker Meta
   #     id: meta
   #     uses: docker/metadata-action@v5.5.1
   #     with:
@@ -566,7 +577,7 @@ jobs:
   #   - name: Copy Artifacts
   #     run: |
   #       mkdir staging && cp Towelove-*/target/*.jar staging
-  #   - name: Docker meta
+  #   - name: Configure Docker Meta
   #     id: meta
   #     uses: docker/metadata-action@v5.5.1
   #     with:
@@ -624,7 +635,7 @@ jobs:
   #   #   with:
   #   #     name: ${{ env.JAR_NAME }}
   #   #     path: staging 
-  #   - name: Docker meta
+  #   - name: Configure Docker Meta
   #     id: meta
   #     uses: docker/metadata-action@v5.5.1
   #     with:
