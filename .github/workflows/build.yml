@@ -94,6 +94,9 @@ jobs:
     permissions:
       contents: read
       packages: write
+    outputs:
+        version: ${{ steps.meta.outputs.version }}
+        name: ${{ env.JAR_NAME }}
     steps:
     - name: Checkout repository
       uses: actions/checkout@v4
@@ -147,10 +150,7 @@ jobs:
       packages: write
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v4       
-    - name: Set up Build Package 
-      run: |  
-        echo "JAR_NAME=Towelove-Gateway" >> $GITHUB_ENV
+      uses: actions/checkout@v4    
     - name: Configure SSH
       run: |
         mkdir -p ~/.ssh/
@@ -171,7 +171,7 @@ jobs:
       run: |
         ssh staging 'sudo pwd'
         ssh staging 'sudo docker ps -a | grep towelove'
-        ssh staging nohup /opt/ops/deploy.sh ${{env.JAR_NAME}} ${{steps.meta.outputs.version}} > /opt/ops/logs/deploy-${{env.JAR_NAME}}.log 2>&1 &
+        ssh staging nohup /opt/ops/deploy.sh ${{ needs.Build-Docker-Towelove-Gateway.outputs.name }} ${{ needs.Build-Docker-Towelove-Gateway.outputs.name }} > /opt/ops/logs/deploy-${{env.JAR_NAME}}.log 2>&1 &
  
   # # Towelove-Auth
   # Build-Docker-Towelove-Auth:
