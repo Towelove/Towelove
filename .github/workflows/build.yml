@@ -153,6 +153,7 @@ jobs:
       uses: actions/checkout@v4    
     - name: Configure SSH
       run: |
+        echo "SCREEN_TIME=$(date +'%Y%m%d%H%M%S')" >> $GITHUB_ENV
         mkdir -p ~/.ssh/
         echo "$SSH_PRIVATE_KEY" > ~/.ssh/staging.key
         chmod 600 ~/.ssh/staging.key
@@ -175,9 +176,10 @@ jobs:
     - name: Login Server And Deploy
       run: |
         ssh staging sudo docker ps -a | grep towelove
-        ssh staging sudo screen -dmS deploy_session
-        ssh staging "sudo screen -S deploy_session -X stuff $'printf \"/opt/ops/deploy.sh ${{ needs.Build-Docker-Gateway.outputs.name }} ${{ needs.Build-Docker-Gateway.outputs.version }} && exit\\r\"'"
-
+        ssh staging sudo screen -dmS deploy_session_${{ env.SCREEN_TIME }}
+        ssh staging "sudo bash -c 'sudo screen -S deploy_session_${{ env.SCREEN_TIME }} -X stuff \"printf \\\"sudo /opt/ops/deploy.sh T ${{ needs.Build-Docker-Gateway.outputs.name }} ${{ needs.Build-Docker-Gateway.outputs.version }} && exit\\r\\\"\"'"
+  
+  # staging "sudo screen -S deploy_session_${{ env.SCREEN_TIME }} -X stuff $'printf \"/opt/ops/deploy.sh ${{ needs.Build-Docker-Gateway.outputs.name }} ${{ needs.Build-Docker-Gateway.outputs.version }} && exit\\r\"'"
   # # Towelove-Auth
   # Build-Docker-Towelove-Auth:
   #   runs-on: ubuntu-latest
