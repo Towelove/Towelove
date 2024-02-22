@@ -174,11 +174,9 @@ jobs:
     #     ssh staging sudo nohup /opt/ops/deploy.sh ${{ needs.Build-Docker-Gateway.outputs.name }} ${{ needs.Build-Docker-Gateway.outputs.version }} > /opt/ops/logs/deploy-${{ needs.Build-Docker-Gateway.outputs.name }}.log 2>&1 &
     - name: Login Server And Deploy
       run: |
-        ssh staging
-        sudo pwd
-        sudo docker ps -a | grep towelove
-        sudo screen -dmS deploy_session
-        sudo screen -S deploy_session -X stuff'/opt/ops/deploy.sh ${{ needs.Build-Docker-Gateway.outputs.name }} ${{ needs.Build-Docker-Gateway.outputs.version }} && exit^M'
+        ssh staging sudo docker ps -a | grep towelove
+        ssh staging sudo screen -dmS deploy_session
+        ssh staging sudo screen -S deploy_session -X stuff'/opt/ops/deploy.sh ${{ needs.Build-Docker-Gateway.outputs.name }} ${{ needs.Build-Docker-Gateway.outputs.version }} && exit^M'
 
   # # Towelove-Auth
   # Build-Docker-Towelove-Auth:
