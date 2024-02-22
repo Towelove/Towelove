@@ -25,7 +25,7 @@ import java.util.Date;
 @RestController
 @LoveLog
 @RequiredArgsConstructor
-@RequestMapping("/v1/sign-in")
+@RequestMapping("/sign-in")
 public class UserSignInController {
 
     private final UserSignRecordService userSignRecordService;

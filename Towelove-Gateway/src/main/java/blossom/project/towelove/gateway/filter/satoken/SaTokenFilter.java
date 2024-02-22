@@ -21,6 +21,7 @@ public class SaTokenFilter {
                 .addInclude("/**")    /* 拦截全部path */
                 // 开放地址
                 .addExclude("/favicon.ico")
+                .addExclude("/v1/")
                 // 鉴权方法：每次访问进入
                 .setAuth(obj -> {
                     // 登录校验 -- 拦截所有路由，并排除/auth/** 用于开放登录
@@ -30,6 +31,7 @@ public class SaTokenFilter {
 //                    SaRouter.match("/server/**", r -> StpUtil.checkPermission("user"));
 //                    SaRouter.match("/lover/**", r -> StpUtil.checkPermission("user"));
                     SaRouter.match("/admin/**", "/v1/auth/**",r -> StpUtil.checkPermission("admin"));
+
 //                  SaRouter.match("/orders/**", r -> StpUtil.checkPermission("orders"));
 // 更多匹配 ...  */
                 })
