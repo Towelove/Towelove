@@ -41,8 +41,8 @@ log() {
     if [ ! -f "$LOG_FILE" ]; then
         touch "$LOG_FILE"
     fi
-    # 追加日志消息到日志文件
-    echo -e "$log_message" >> "$LOG_FILE"
+    # 追加日志消息到日志文件，移除颜色代码以便于文件阅读
+    echo -e "[$timestamp] [$level] $message" >> "$LOG_FILE"
 }
 # 构建 docker run 命令公共函数
 # 示例调用
