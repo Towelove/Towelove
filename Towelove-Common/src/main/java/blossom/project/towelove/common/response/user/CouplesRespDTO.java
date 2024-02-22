@@ -23,8 +23,11 @@ import lombok.NoArgsConstructor;
 public class CouplesRespDTO {
 
     private Long id;
+
     private Long girlId;
+
     private Long boyId;
+
     private Integer status;
 
 }

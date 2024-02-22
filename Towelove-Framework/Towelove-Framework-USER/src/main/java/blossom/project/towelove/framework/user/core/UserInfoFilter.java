@@ -37,6 +37,9 @@ public class UserInfoFilter implements Filter {
             if (StrUtil.isNotBlank(userName)){
                 userName = URLDecoder.decode(userName,StandardCharsets.UTF_8);
             }
+            if (StrUtil.isNotBlank(sex)){
+                sex = URLDecoder.decode(sex,StandardCharsets.UTF_8);
+            }
             //构建UserInfoDTO
             UserInfoDTO userInfoDTO = UserInfoDTO.builder()
                     .id(Long.valueOf(userId))

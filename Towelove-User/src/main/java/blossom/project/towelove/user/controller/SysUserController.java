@@ -6,6 +6,7 @@ import blossom.project.towelove.common.request.auth.RestockUserInfoRequest;
 import blossom.project.towelove.common.request.user.InsertUserRequest;
 import blossom.project.towelove.common.request.user.UpdateUserRequest;
 import blossom.project.towelove.common.response.Result;
+import blossom.project.towelove.common.response.user.SysUserDTO;
 import blossom.project.towelove.common.response.user.SysUserPermissionDto;
 import blossom.project.towelove.common.response.user.SysUserVo;
 import blossom.project.towelove.framework.log.annotation.LoveLog;
@@ -67,7 +68,7 @@ public class SysUserController {
      * @return
      */
     @GetMapping("")
-    public Result<SysUserVo> getUserById() {
+    public Result<SysUserDTO> getUserById() {
         return Result.ok(sysUserService.selectByUserId());
     }
 
