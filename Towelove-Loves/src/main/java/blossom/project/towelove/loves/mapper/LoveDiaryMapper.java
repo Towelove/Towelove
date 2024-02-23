@@ -21,4 +21,6 @@ import java.util.List;
 @Mapper
 public interface LoveDiaryMapper extends BaseMapper<LoveDiary> {
     List<DiaryTitleDTO> getDiaryByCollectionId(@Param("collectionId") Long collectionId);
+
+    List<DiaryTitleDTO> getDiaryBySynchronous(@Param("coupleId") Long coupleId);
 }

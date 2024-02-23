@@ -29,7 +29,15 @@ public class UserInfoFilterAutoConfiguration {
         registrationBean.setFilter(filter);
         registrationBean.addUrlPatterns("/*");
         registrationBean.setOrder(100);
-        log.info("[ToweLove-USER] UserInfo Filter Register Successfully!!!");
+        log.info("\n" +
+                "  _    _  _____ ______ _____         _____ ____  _   _ _______ ________   _________ \n" +
+                " | |  | |/ ____|  ____|  __ \\       / ____/ __ \\| \\ | |__   __|  ____\\ \\ / /__   __|\n" +
+                " | |  | | (___ | |__  | |__) |_____| |   | |  | |  \\| |  | |  | |__   \\ V /   | |   \n" +
+                " | |  | |\\___ \\|  __| |  _  /______| |   | |  | | . ` |  | |  |  __|   > <    | |   \n" +
+                " | |__| |____) | |____| | \\ \\      | |___| |__| | |\\  |  | |  | |____ / . \\   | |   \n" +
+                "  \\____/|_____/|______|_|  \\_\\      \\_____\\____/|_| \\_|  |_|  |______/_/ \\_\\  |_|   \n" +
+                "                                                                                    \n" +
+                "                                                                                    \n");
         return registrationBean;
     }
 }

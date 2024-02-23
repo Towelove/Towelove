@@ -5,10 +5,11 @@ import blossom.project.towelove.common.page.PageResponse;
 import blossom.project.towelove.common.request.loves.diary.DiaryCollectionCreateRequest;
 import blossom.project.towelove.common.request.loves.diary.DiaryCollectionPageRequest;
 import blossom.project.towelove.common.request.loves.diary.DiaryCreateRequest;
+import blossom.project.towelove.common.request.loves.diary.QuickWriterDiaryRequest;
 import blossom.project.towelove.common.response.Result;
-import blossom.project.towelove.common.response.love.diary.DiaryCollectionDTO;
-import blossom.project.towelove.common.response.love.diary.DiaryTitleDTO;
-import blossom.project.towelove.common.response.love.diary.LoveDiaryDTO;
+import blossom.project.towelove.common.response.love.diary.*;
+import blossom.project.towelove.framework.mysql.config.JacksonTypeHandler;
+import blossom.project.towelove.framework.user.core.UserInfoContextHolder;
 import blossom.project.towelove.loves.convert.DiaryCollectionConvert;
 import blossom.project.towelove.loves.convert.DiaryConvert;
 import blossom.project.towelove.loves.entity.LoveDiary;
@@ -32,6 +33,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.text.DateFormat;
 import java.time.Instant;
 import java.util.Date;
 import java.util.List;
@@ -59,12 +61,17 @@ public class DiariesServiceImpl extends ServiceImpl<DiariesMapper,LoveDiaryColle
 
     private final LoveDiaryImageMapper diaryImageMapper;
 
+
+    private final String QUICK_WRITE_DIARY_TITLE = "小记一下";
+    private final String QUICK_WRITE_DIARY_COVER = "小记一下";
+
 //    private final DiaryService diaryService;
 
     @Override
-    public List<DiaryCollectionDTO> getDiaryCollectionById(Long coupleId) {
+    public List<DiaryCollectionDTO> getDiaryCollectionById() {
+        Long userId = UserInfoContextHolder.getUserId();
         LambdaQueryWrapper<LoveDiaryCollection> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper.eq(Objects.nonNull(coupleId),LoveDiaryCollection::getCoupleId,coupleId);
+        queryWrapper.eq(Objects.nonNull(userId),LoveDiaryCollection::getUserId,userId);
         List<LoveDiaryCollection> loveDiaryCollections = diariesMapper.selectList(queryWrapper);
         return DiaryCollectionConvert.INSTANCE.convert(loveDiaryCollections);
     }
@@ -91,10 +98,16 @@ public class DiariesServiceImpl extends ServiceImpl<DiariesMapper,LoveDiaryColle
         if (Objects.isNull(loveDiaryCollection)){
             throw new ServiceException("入参有误");
         }
-        if (diariesMapper.insert(loveDiaryCollection) == 0) {
+        Long userId = UserInfoContextHolder.getUserId();
+        Long coupleId = UserInfoContextHolder.getCoupleId();
+        loveDiaryCollection.setUserId(userId);
+        loveDiaryCollection.setCoupleId(coupleId);
+        try {
+            diariesMapper.insert(loveDiaryCollection);
+        } catch (Exception e) {
             throw new ServiceException("创建日记失败");
         }
-        return DiaryCollectionConvert.INSTANCE.convert2DTO(request);
+        return DiaryCollectionConvert.INSTANCE.convert(loveDiaryCollection);
     }
 
     @Override
@@ -156,10 +169,73 @@ public class DiariesServiceImpl extends ServiceImpl<DiariesMapper,LoveDiaryColle
 
     @Override
     public Boolean fetchSynchronous(Long id,Boolean synchronous) {
+        Long coupleId = UserInfoContextHolder.getCoupleId();
+        if (Objects.isNull(coupleId)){
+            throw new ServiceException("没有情侣关系");
+        }
         LoveDiary entity = LoveDiary.builder()
                 .id(id)
                 .synchronous(synchronous)
                 .build();
-        return loveDiaryMapper.updateById(entity) > 0;
+        if (loveDiaryMapper.updateById(entity) < 1) {
+            throw new ServiceException("更新同步状态异常");
+        }
+        return synchronous;
+    }
+
+    @Override
+    public List<DiaryTitleDTO> getLoveDirayBySynchronous() {
+        //先判断是否有情侣关系
+        Long coupleId = UserInfoContextHolder.getCoupleId();
+        if (Objects.isNull(coupleId)){
+            throw new ServiceException("请求非法，没有情侣关系");
+        }
+        List<DiaryTitleDTO> diaryTitleDTOS = loveDiaryMapper.getDiaryBySynchronous(coupleId);
+        return diaryTitleDTOS;
+    }
+
+    @Override
+    public LoveDiaryVO getLoveDiaryById(Long id) {
+        LoveDiary loveDiary = loveDiaryMapper.selectById(id);
+        if (Objects.isNull(loveDiary)){
+            throw new ServiceException("请求非法，日记不存在");
+        }
+        List<DiaryImageDto> diaryImageDtos = diaryImageMapper.getImageUrlByDiaryId(id);
+        //获取对应图片
+        LoveDiaryVO loveDiaryVO = DiaryConvert.INSTANCE.convert2Vo(loveDiary);
+        loveDiaryVO.setImages(diaryImageDtos);
+        return loveDiaryVO;
+    }
+
+
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED)
+    public String quickWrite(QuickWriterDiaryRequest request) {
+        Long userId = UserInfoContextHolder.getUserId();
+        //快速创建日记
+        //先判断速记日记本是否存在
+        Long quickWriteCollectionId = diariesMapper.findQuickWriteCollection(userId,QUICK_WRITE_DIARY_TITLE);
+        if (Objects.isNull(quickWriteCollectionId)) {
+            //不存在则快速创建
+            LoveDiaryCollection collection = LoveDiaryCollection.builder()
+                    .userId(userId)
+                    .coupleId(null)
+                    .title(QUICK_WRITE_DIARY_TITLE)
+                    .cover(QUICK_WRITE_DIARY_COVER)
+                    .build();
+            diariesMapper.insert(collection);
+            quickWriteCollectionId = collection.getId();
+        }
+        //正常记录
+        LoveDiary loveDiary = LoveDiary.builder()
+                .diaryCollectionId(quickWriteCollectionId)
+                .title(DateUtil.format(Date.from(Instant.now()), JacksonTypeHandler.DEFAULT_DATE_FORMAT))
+                .synchronous(false)
+                .content(request.getContent())
+                .build();
+        if (loveDiaryMapper.insert(loveDiary) < 1) {
+            throw new ServiceException("小记一下失败");
+        }
+        return request.getContent();
     }
 }

@@ -7,16 +7,25 @@
     <resultMap id="diaryTitleDTO" type="blossom.project.towelove.common.response.love.diary.DiaryTitleDTO">
         <result property="id" column="id" jdbcType="BIGINT"/>
         <result property="title" column="title" jdbcType="VARCHAR"/>
-        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
     </resultMap>
 
     <select id="getDiaryByCollectionId" resultMap="diaryTitleDTO" parameterType="long">
         SELECT
-            `id`,`title`,`create_time`
+            `id`,`title`,`update_time`
         FROM
             love_diary
         WHERE
             `diary_collection_id` = #{collectionId} and `status` = 0
+    </select>
+
+
+    <select id="getDiaryBySynchronous" parameterType="long" resultType="blossom.project.towelove.common.response.love.diary.DiaryTitleDTO">
+        select
+            ld.id, ld.title, ld.update_time
+        from love_diary_collection ldc
+                 LEFT JOIN love_diary ld on ldc.id = ld.diary_collection_id
+        where ld.synchronous = 1 and ldc.couple_id = #{coupleId}
     </select>
 
 </mapper>

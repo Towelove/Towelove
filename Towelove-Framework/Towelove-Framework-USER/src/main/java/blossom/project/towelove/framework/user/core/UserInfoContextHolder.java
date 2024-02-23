@@ -51,6 +51,12 @@ public class UserInfoContextHolder {
                 .orElse(null);
     }
 
+    public static Long getCoupleId(){
+        UserInfoDTO userInfoDTO = USER_INFO_THREAD_LOCAL.get();
+        return Optional.ofNullable(userInfoDTO).map(UserInfoDTO::getCoupleId)
+                .orElse(null);
+    }
+
     public static void clean(){
         USER_INFO_THREAD_LOCAL.remove();
     }

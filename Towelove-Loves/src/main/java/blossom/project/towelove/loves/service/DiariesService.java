@@ -4,10 +4,12 @@ import blossom.project.towelove.common.page.PageResponse;
 import blossom.project.towelove.common.request.loves.diary.DiaryCollectionCreateRequest;
 import blossom.project.towelove.common.request.loves.diary.DiaryCollectionPageRequest;
 import blossom.project.towelove.common.request.loves.diary.DiaryCreateRequest;
+import blossom.project.towelove.common.request.loves.diary.QuickWriterDiaryRequest;
 import blossom.project.towelove.common.response.Result;
 import blossom.project.towelove.common.response.love.diary.DiaryCollectionDTO;
 import blossom.project.towelove.common.response.love.diary.DiaryTitleDTO;
 import blossom.project.towelove.common.response.love.diary.LoveDiaryDTO;
+import blossom.project.towelove.common.response.love.diary.LoveDiaryVO;
 import blossom.project.towelove.loves.entity.LoveDiaryCollection;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -23,7 +25,7 @@ import java.util.List;
  * @version: 1.0
  */
 public interface DiariesService extends IService<LoveDiaryCollection>{
-    List<DiaryCollectionDTO> getDiaryCollectionById(Long coupleId);
+    List<DiaryCollectionDTO> getDiaryCollectionById();
 
     PageResponse<DiaryCollectionDTO> getDiaryCollectionByPage(DiaryCollectionPageRequest request);
 
@@ -37,4 +39,11 @@ public interface DiariesService extends IService<LoveDiaryCollection>{
     LoveDiaryDTO createDiary(DiaryCreateRequest request);
 
     Boolean fetchSynchronous(Long id,Boolean synchronous);
+
+    List<DiaryTitleDTO> getLoveDirayBySynchronous();
+
+
+    LoveDiaryVO getLoveDiaryById(Long id);
+
+    String quickWrite(QuickWriterDiaryRequest request);
 }

@@ -25,4 +25,17 @@
             </foreach>
     </insert>
 
+
+    <select id="getImageUrlByDiaryId" parameterType="long" resultType="blossom.project.towelove.common.response.love.diary.DiaryImageDto">
+        select
+            id,url,create_time
+        from
+            love_diary_image
+        where
+            diary_id = ${diaryId}
+    </select>
+
+
+
+
 </mapper>

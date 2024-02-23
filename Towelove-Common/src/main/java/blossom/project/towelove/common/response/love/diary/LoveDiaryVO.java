@@ -1,55 +1,48 @@
 package blossom.project.towelove.common.response.love.diary;
 
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
  * @projectName: Towelove
  * @package: blossom.project.towelove.common.response.love.diary
- * @className: DiaryCollectionDTO
+ * @className: LoveDiaryVO
  * @author: Link Ji
  * @description: GOGO
- * @date: 2024/2/20 16:41
+ * @date: 2024/2/23 14:58
  * @version: 1.0
  */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class DiaryCollectionDTO {
-
+public class LoveDiaryVO {
 
     private Long id;
-
-
-    /**
-     * 用户id
-     */
-    private Long userId;
-
-
-    /**
-     * 情侣id
-     */
-    private Long coupleId;
-
-    /**
-     * 封面
-     */
-
-    private String cover;
 
     /**
      * 标题
      */
-
     private String title;
 
+    /**
+     * 内容
+     */
+    private String content;
 
-    private Integer status;
+    /**
+     * 是否同步
+     */
+    private boolean synchronous;
+
+    /**
+     * 图片集合
+     */
+    private List<DiaryImageDto> images;
+
+
+    private LocalDateTime updateTime;
 }

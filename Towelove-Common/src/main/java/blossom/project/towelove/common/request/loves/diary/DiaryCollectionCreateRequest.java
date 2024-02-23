@@ -24,8 +24,6 @@ import javax.validation.constraints.NotNull;
 @Builder
 public class DiaryCollectionCreateRequest {
 
-    @NotNull(message = "coupleId could not be null")
-    private Long coupleId;
 
     @NotNull(message = "cover could not be null")
     private String cover;

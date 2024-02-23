@@ -27,5 +27,7 @@ public class UserInfoDTO {
 
     private String sex;
 
+    private Long coupleId;
+
     private String token;
 }
