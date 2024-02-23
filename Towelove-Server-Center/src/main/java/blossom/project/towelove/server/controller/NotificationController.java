@@ -31,7 +31,7 @@ public class NotificationController {
     private final NotificationService notificationService;
     @GetMapping("")
     public DeferredResult<Result<?>> pullNotice(@RequestParam(required = true) Long userId
-            , PullNotifyRequest pullNotifyRequest
+            , @Validated PullNotifyRequest pullNotifyRequest
             , @RequestParam(required = false,defaultValue = "10000") @Validated @Max(value = 60000L,message = "拉取消息延时必须小于60秒") Long timeOut){
         return notificationService.pullNotify(userId,pullNotifyRequest,timeOut);
     }

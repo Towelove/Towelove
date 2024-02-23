@@ -9,6 +9,7 @@ import blossom.project.towelove.server.entity.Notice;
 import blossom.project.towelove.server.mapper.NoticeMapper;
 import blossom.project.towelove.server.redisMQ.UserNotifyDeferredCache;
 import blossom.project.towelove.server.service.NotificationService;
+import com.towelove.common.core.constant.HttpStatus;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
@@ -41,7 +42,7 @@ public class NotificationServiceImpl implements NotificationService {
             //从MAP中删除
             userNotifyDeferredCache.remove(userId);
             Result result = new Result();
-            result.setCode(206);
+            result.setCode(HttpStatus.SUCCESS);
             result.setMsg("暂无新消息通知");
             deferredResult.setResult(result);
         });

@@ -38,14 +38,13 @@ public class DiaryCollectionController {
     private final DiariesService diariesService;
 
     /**
-     * 得到全部日记册信息
-     * @param coupleId
+     * 得到当前用户全部日记册信息
+     * @param
      * @return
      */
     @GetMapping("")
-    public Result<List<DiaryCollectionDTO>> getDiaryById(@Validated @RequestParam("coupleId")
-                                                               @NotNull(message = "coupleId could not be null") Long coupleId){
-        return Result.ok(diariesService.getDiaryCollectionById(coupleId));
+    public Result<List<DiaryCollectionDTO>> getDiaryById(){
+        return Result.ok(diariesService.getDiaryCollectionById());
     }
 
     /**
@@ -73,6 +72,15 @@ public class DiaryCollectionController {
     @GetMapping("/{id}")
     public Result<List<DiaryTitleDTO>> getLoveDiaryByCollectionId(@PathVariable("id") Long collectionId){
         return Result.ok(diariesService.getLoveDirayByCollectionId(collectionId));
+    }
+
+    /**
+     * 获取情侣共享日记缩略信息
+     * @return
+     */
+    @GetMapping("/synchronous")
+    public Result<List<DiaryTitleDTO>> getLoveDiaryBySynchronous(){
+        return Result.ok(diariesService.getLoveDirayBySynchronous());
     }
 
 

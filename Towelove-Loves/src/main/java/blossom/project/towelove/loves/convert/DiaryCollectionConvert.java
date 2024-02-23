@@ -27,7 +27,6 @@ public interface DiaryCollectionConvert {
 
     LoveDiaryCollection convert(DiaryCollectionCreateRequest diaryCollectionCreateRequest);
 
-    DiaryCollectionDTO convert2DTO(DiaryCollectionCreateRequest diaryCollectionDTO);
 
 
 }

@@ -1,11 +1,14 @@
 package blossom.project.towelove.loves.controller;
 
 import blossom.project.towelove.common.request.loves.diary.DiaryCreateRequest;
+import blossom.project.towelove.common.request.loves.diary.QuickWriterDiaryRequest;
 import blossom.project.towelove.common.response.Result;
 import blossom.project.towelove.common.response.love.diary.LoveDiaryDTO;
+import blossom.project.towelove.common.response.love.diary.LoveDiaryVO;
 import blossom.project.towelove.framework.log.annotation.LoveLog;
 import blossom.project.towelove.loves.entity.LoveDiary;
 import blossom.project.towelove.loves.service.DiariesService;
+import com.thoughtworks.xstream.core.util.QuickWriter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -50,5 +53,26 @@ public class DiaryController {
    public Result<Boolean> fetchSynchronous(@Validated @NotNull(message = "id could not be null") @RequestParam("id") Long id
            ,@RequestParam("synchronous") Boolean synchronous){
         return Result.ok(diariesService.fetchSynchronous(id,synchronous));
+   }
+
+    /**
+     * 根据日记Id获取日记详情
+     * @param id
+     * @return
+     */
+   @GetMapping("")
+    public Result<LoveDiaryVO> getLoveDiaryById(@Validated @NotNull(message = "id could not be null")
+                                                   @RequestParam(required = true,name = "id") Long id){
+       return Result.ok(diariesService.getLoveDiaryById(id));
+   }
+
+    /**
+     * 小记一下
+     * @param request
+     * @return
+     */
+   @PostMapping("/quick")
+    public Result<String> quickWriteDiary(@RequestBody @Validated QuickWriterDiaryRequest request){
+        return Result.ok(diariesService.quickWrite(request));
    }
 }

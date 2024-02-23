@@ -30,6 +30,7 @@ public class UserInfoFilter implements Filter {
             String userName = request.getHeader(TokenConstant.USER_NAME_HEADER);
             String sex = request.getHeader(TokenConstant.USER_SEX);
             String token = request.getHeader(TokenConstant.USER_TOKEN);
+            String coupleId = request.getHeader(TokenConstant.USER_COUPLE_ID);
             //用户名与昵称可能为中文 所以需要转化为UTF8编码
             if (StrUtil.isNotBlank(nickName)){
                 nickName = URLDecoder.decode(nickName, StandardCharsets.UTF_8);
@@ -46,7 +47,9 @@ public class UserInfoFilter implements Filter {
                     .nickName(nickName)
                     .userName(userName)
                     .sex(sex)
-                    .token(token).build();
+                    .token(token)
+                    .build();
+            if (StrUtil.isNotBlank(coupleId)) userInfoDTO.setCoupleId(Long.valueOf(coupleId));
             UserInfoContextHolder.set(userInfoDTO);
         }
         try {

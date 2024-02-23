@@ -2,6 +2,7 @@ package blossom.project.towelove.loves.convert;
 
 import blossom.project.towelove.common.request.loves.diary.DiaryCreateRequest;
 import blossom.project.towelove.common.response.love.diary.LoveDiaryDTO;
+import blossom.project.towelove.common.response.love.diary.LoveDiaryVO;
 import blossom.project.towelove.loves.entity.LoveDiary;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
@@ -22,4 +23,6 @@ public interface DiaryConvert {
     LoveDiary convert(DiaryCreateRequest request);
 
     LoveDiaryDTO convert(LoveDiary loveDiary);
+
+    LoveDiaryVO convert2Vo(LoveDiary loveDiary);
 }

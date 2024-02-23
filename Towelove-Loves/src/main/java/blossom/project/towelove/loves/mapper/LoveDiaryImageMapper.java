@@ -1,5 +1,6 @@
 package blossom.project.towelove.loves.mapper;
 
+import blossom.project.towelove.common.response.love.diary.DiaryImageDto;
 import blossom.project.towelove.loves.entity.LoveDiary;
 import blossom.project.towelove.loves.entity.LoveDiaryImage;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
@@ -22,4 +23,6 @@ public interface LoveDiaryImageMapper extends BaseMapper<LoveDiaryImage> {
     List<String> getDiaryImageByDiaryId(@Param("diaryId") Long diaryId);
 
     void insertBatch(List<LoveDiaryImage> loveDiaryImages);
+
+    List<DiaryImageDto> getImageUrlByDiaryId(@Param("diaryId") Long diaryId);
 }

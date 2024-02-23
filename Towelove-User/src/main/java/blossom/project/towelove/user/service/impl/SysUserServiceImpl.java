@@ -20,6 +20,7 @@ import blossom.project.towelove.user.mapper.SysPermissionMapper;
 import blossom.project.towelove.user.mapper.SysUserMapper;
 import blossom.project.towelove.user.mapper.SysUserPermissionMapper;
 import blossom.project.towelove.user.service.SysUserService;
+import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.RequiredArgsConstructor;
@@ -54,9 +55,8 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     public String updateUser(UpdateUserRequest request) {
         SysUser sysUser = SysUserConvert.INSTANCE.convert(request);
         //获取userId,
-        ServletRequestAttributes requestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
-        String userId = requestAttributes.getRequest().getHeader(TokenConstant.USER_ID_HEADER);
-        sysUser.setId(Long.parseLong(userId));
+        Long userId = UserInfoContextHolder.getUserId();
+        sysUser.setId(userId);
         if (!updateById(sysUser)) {
             throw new ServiceException("更新用户信息失败");
         }
@@ -74,8 +74,8 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         CouplesRespDTO  couplesRespDTO = couplesMapper.selectCoupleIdByUserId(userId,sex);
         SysUserDTO sysUserDTO = SysUserConvert.INSTANCE.convert2DTO(sysUser);
         sysUserDTO.setCoupleId(couplesRespDTO.getId());
-        sysUserDTO.setBoy_id(couplesRespDTO.getBoyId());
-        sysUserDTO.setGirl_id(couplesRespDTO.getGirlId());
+        sysUserDTO.setBoyId(couplesRespDTO.getBoyId());
+        sysUserDTO.setGirlId(couplesRespDTO.getGirlId());
         return sysUserDTO;
     }
 
@@ -153,6 +153,14 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
             }
             //这里不给用户权限，除非用户补充完毕信息，才能给对应的user权限
         }
+
+//        SysUserDTO sysUserDTO = SysUserConvert.INSTANCE.convert2DTO(sysUser);
+//        if (StrUtil.isNotBlank(sysUser.getEmail()) && StrUtil.isNotBlank(sysUser.getPhoneNumber())){
+//            CouplesRespDTO couplesRespDTO = couplesMapper.selectCoupleIdByUserId(sysUser.getId(), sysUser.getSex());
+//            sysUserDTO.setCoupleId(couplesRespDTO.getId());
+//            sysUserDTO.setBoyId(couplesRespDTO.getBoyId());
+//            sysUserDTO.setg
+//        }
         return sysUser;
     }
 

@@ -29,10 +29,15 @@ public class LoveDiaryCollection extends BaseEntity {
     @TableId
     private Long id;
 
+    @TableField("user_id")
+    private Long userId;
+
     @TableField("couple_id")
     private Long coupleId;
 
+
     private String cover;
+
 
     private String title;
 

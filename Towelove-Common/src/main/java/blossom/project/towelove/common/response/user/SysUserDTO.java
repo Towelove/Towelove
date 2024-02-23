@@ -19,7 +19,7 @@ public class SysUserDTO {
 
     private Long coupleId;
 
-    private Long boy_id;
+    private Long boyId;
 
-    private Long girl_id;
+    private Long girlId;
 }

@@ -24,12 +24,14 @@ public class TokenConstant
      */
     public final static String SECRET = "abcdefghijklmnopqrstuvwxyz";
 
-    public final static String USER_ID_HEADER = "X-User-Id";
-    public final static String USER_NAME_HEADER = "X-User-NAME";
+    public final static String USER_ID_HEADER = "X-USER-Id";
+    public final static String USER_NAME_HEADER = "X-USER-NAME";
     public final static String USER_NICK_HEADER = "X-NICK-NAME";
 
     public final static String USER_TOKEN = "Authorization";
-    public final static String USER_SEX = "sex";
+    public final static String USER_SEX = "X-USER-SEX";
+
+    public final static String USER_COUPLE_ID = "X-USER-COUPLE";
     public final static Long USER_PERMISSION_CODE = 1L;
     public final static Long ADMIN_PERMISSION_CODE = 2L;
 
