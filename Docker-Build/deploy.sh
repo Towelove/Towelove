@@ -88,11 +88,15 @@ run_container() {
         log INFO "Image $full_name exists locally."
     fi
 
-
     local run_cmd="sudo docker run -d --restart=always --name ${service_name} --privileged=true \
---net=venus --ip ${service_ip} -p ${service_port}:${service_port} \
+--net=venus --ip ${service_ip}  \
 -v /etc/localtime:/etc/localtime:ro -e TZ=Asia/Shanghai \
 ${full_name}"
+
+#     local run_cmd="sudo docker run -d --restart=always --name ${service_name} --privileged=true \
+# --net=venus --ip ${service_ip} -p ${service_port}:${service_port} \
+# -v /etc/localtime:/etc/localtime:ro -e TZ=Asia/Shanghai \
+# ${full_name}"
 
     log INFO "Executing command: $run_cmd"
     # 使用命令替换和管道捕获命令的输出和错误
