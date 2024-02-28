@@ -58,26 +58,6 @@
     </build>
 
 
-    <profiles>
-        <!--开发环境-->
-        <profile>
-            <id>dev</id>
-            <!--默认环境-->
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-            <properties>
-                <profile.active>dev</profile.active>
-            </properties>
-        </profile>
-        <!--生产环境-->
-        <profile>
-            <id>pro</id>
-            <properties>
-                <profile.active>prod</profile.active>
-            </properties>
-        </profile>
-    </profiles>
 
 
 
