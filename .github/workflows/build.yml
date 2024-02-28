@@ -39,7 +39,7 @@ jobs:
         server-id: github # Value of the distributionManagement/repository/id field of the pom.xml
         settings-path: ${{ github.workspace }} # location for the settings.xml file
     - name: Build with Maven
-      run: mvn -B package --file pom.xml -DskipTests
+      run: mvn -B package --file pom.xml -DskipTests -P pro
     - name: Copy Artifacts
       run: |
         mkdir staging && cp Towelove-*/target/*.jar staging
@@ -597,7 +597,7 @@ jobs:
   #       server-id: github # Value of the distributionManagement/repository/id field of the pom.xml
   #       settings-path: ${{ github.workspace }} # location for the settings.xml file
   #   - name: Build with Maven
-  #     run: mvn -B package --file pom.xml -DskipTests
+  #     run: mvn -B package --file pom.xml -DskipTests -P pro
   #   - name: Copy Artifacts
   #     run: |
   #       mkdir staging && cp Towelove-*/target/*.jar staging
@@ -650,7 +650,7 @@ jobs:
   #       server-id: github # Value of the distributionManagement/repository/id field of the pom.xml
   #       settings-path: ${{ github.workspace }} # location for the settings.xml file
   #   - name: Build with Maven
-  #     run: mvn -B package --file pom.xml -DskipTests
+  #     run: mvn -B package --file pom.xml -DskipTests -P pro
   #   - name: Copy Artifacts
   #     run: |
   #       mkdir staging && cp Towelove-*/target/*.jar staging
