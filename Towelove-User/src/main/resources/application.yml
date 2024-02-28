@@ -8,3 +8,6 @@ mybatis-plus:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
   type-aliases-package: blossom.project.towelove.user.domain
+spring:
+  profiles:
+    active: @activeProperties@

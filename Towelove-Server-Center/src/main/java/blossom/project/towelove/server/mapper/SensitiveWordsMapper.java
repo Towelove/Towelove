@@ -1,6 +1,6 @@
 package blossom.project.towelove.server.mapper;
 
-import blossom.project.towelove.server.Do.SensitiveWords;
+import blossom.project.towelove.server.ac.SensitiveWords;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 

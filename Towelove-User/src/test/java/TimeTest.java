@@ -84,6 +84,7 @@ public class TimeTest {
 
     @Test
     void test222(){
-        System.out.println(Long.parseLong("da3j2ua3wooy", 36));
+        String word = "00000000000000000000000000100";
+        System.out.println(word.length());
     }
 }

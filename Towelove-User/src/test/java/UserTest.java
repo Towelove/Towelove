@@ -19,8 +19,8 @@ import javax.annotation.Resource;
 import java.util.List;
 
 @SpringBootTest(classes = ToweloveUserApplication.class)
-//@TestPropertySource("classpath: config/bootstrap.yml")
-//@TestPropertySource("classpath:bootstrap.yml")
+//@TestPropertySource("classpath: config/bootstrap-prod.yml")
+//@TestPropertySource("classpath:bootstrap-prod.yml")
 public class UserTest {
     @Resource
     private SysUserMapper userMapper;

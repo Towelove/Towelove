@@ -6,9 +6,6 @@ spring:
   application:
     # Application name
     name: towelove-gateway
-  profiles:
-    # Environment configuration
-    active: dev
   cloud:
     gateway:
       discovery:
