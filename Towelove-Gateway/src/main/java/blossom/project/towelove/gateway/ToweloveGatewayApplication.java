@@ -16,6 +16,7 @@ import org.springframework.context.ConfigurableApplicationContext;
 public class ToweloveGatewayApplication {
     public static void main(String[] args) {
         ConfigurableApplicationContext ioc = SpringApplication.run(ToweloveGatewayApplication.class, args);
+
         System.out.println("（づ￣3￣）づ╭❤～ Towelove网关模块启动成功  (o>ε(o>ｕ(≧∩≦)");
         System.out.println(
                 "   _____           _                                     \n" +

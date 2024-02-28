@@ -177,7 +177,9 @@ public class DiariesServiceImpl extends ServiceImpl<DiariesMapper,LoveDiaryColle
                 .id(id)
                 .synchronous(synchronous)
                 .build();
-        if (loveDiaryMapper.updateById(entity) < 1) {
+        try {
+            loveDiaryMapper.updateById(entity);
+        } catch (Exception e) {
             throw new ServiceException("更新同步状态异常");
         }
         return synchronous;

@@ -11,7 +11,6 @@ package blossom.project.towelove.server.ac;
  */
 
 import blossom.project.towelove.common.exception.ServiceException;
-import blossom.project.towelove.server.Do.SensitiveWords;
 import blossom.project.towelove.server.mapper.SensitiveWordsMapper;
 import lombok.Getter;
 import org.springframework.boot.ApplicationArguments;

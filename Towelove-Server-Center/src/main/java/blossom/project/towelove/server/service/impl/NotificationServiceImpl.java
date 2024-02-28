@@ -41,10 +41,7 @@ public class NotificationServiceImpl implements NotificationService {
         deferredResult.onTimeout(()->{
             //从MAP中删除
             userNotifyDeferredCache.remove(userId);
-            Result result = new Result();
-            result.setCode(HttpStatus.SUCCESS);
-            result.setMsg("暂无新消息通知");
-            deferredResult.setResult(result);
+            deferredResult.setResult(Result.ok("暂无最新消息"));
         });
         userNotifyDeferredCache.save(userId,deferredResult::setResult);
         return deferredResult;

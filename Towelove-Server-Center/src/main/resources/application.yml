@@ -4,7 +4,7 @@ server:
   servlet:
     context-path: /v1/server/center
 
-# application.yml
+# application-prod.yml
 mybatis-plus:
   mapper-locations: classpath*:/mapper/**/*.xml
   type-aliases-package: blossom.project.towelove.msg.entity

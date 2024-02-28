@@ -1,6 +1,6 @@
 package blossom.project.towelove.msg;
 
-import blossom.project.towelove.server.Do.SensitiveWords;
+import blossom.project.towelove.server.ac.SensitiveWords;
 import blossom.project.towelove.server.ToweloveServerCenterApplication;
 import blossom.project.towelove.server.mapper.SensitiveWordsMapper;
 import org.apache.ibatis.session.SqlSession;

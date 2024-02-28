@@ -61,8 +61,43 @@
     </dependencyManagement>
 
     <build>
+<!--        <resources>-->
+<!--            <resource>-->
+<!--                <directory>src/main/resources</directory>-->
+<!--                &lt;!&ndash; 跳过目录 &ndash;&gt;-->
+<!--                <excludes>-->
+<!--                    <exclude>dev/*</exclude>-->
+<!--                    <exclude>test/*</exclude>-->
+<!--                    <exclude>prod/*</exclude>-->
+<!--                </excludes>-->
+<!--            </resource>-->
+<!--            <resource>-->
+<!--                <directory>src/main/resources/${dev.environment}</directory>-->
+<!--                <targetPath>WEB-INF/classes</targetPath>-->
+<!--            </resource>-->
+<!--        </resources>-->
+<!--        <resources>-->
+<!--            <resource>-->
+<!--                <directory>src/main/resource</directory>-->
+<!--                <filtering>true</filtering>-->
+<!--            </resource>-->
+<!--        </resources>-->
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
         <pluginManagement>
             <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-resources-plugin</artifactId>
+                    <configuration>
+                        <delimiters>@</delimiters>
+                        <useDefaultDelimiters>false</useDefaultDelimiters>
+                    </configuration>
+                </plugin>
                 <!-- maven-surefire-plugin 插件，用于运行单元测试。 -->
                 <!-- 注意，需要使用 3.0.X+，因为要支持 Junit 5 版本 -->
                 <plugin>
@@ -103,6 +138,32 @@
             </plugins>
         </pluginManagement>
     </build>
+
+    <profiles>
+        <!--开发环境-->
+        <profile>
+            <id>dev</id>
+            <!--默认环境-->
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <activeProperties>dev</activeProperties>
+                <nacosNamespace>towelove-dev</nacosNamespace>
+                <nacosAddress>10.0.0.6:8848</nacosAddress>
+            </properties>
+        </profile>
+        <!--生产环境-->
+        <profile>
+            <id>pro</id>
+            <properties>
+                <activeProperties>prod</activeProperties>
+                <nacosNamespace>towelove</nacosNamespace>
+                <nacosAddress>10.0.0.6:8848</nacosAddress>
+            </properties>
+        </profile>
+    </profiles>
+
 
     <!-- 使用 aliyun 的 Maven 源，提升下载速度 -->
     <repositories>

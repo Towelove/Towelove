@@ -4,9 +4,14 @@ spring:
     name: towelove-gateway
   profiles:
     # environment active
-    active: dev
+    active: @activeProperties@
   cloud:
     nacos:
+      discovery:
+        server-addr: @nacosAddress@
+        namespace: @nacosNamespace@
+        username: nacos
+        password: Venus20230829
       config:
         file-extension: yaml
         # shared configs
@@ -19,3 +24,7 @@ spring:
         shared-configs[2]:
           data-id: towelove-gateway-dev.yaml
           refresh: true
+        server-addr: @nacosAddress@
+        namespace: @nacosNamespace@
+        username: nacos
+        password: Venus20230829

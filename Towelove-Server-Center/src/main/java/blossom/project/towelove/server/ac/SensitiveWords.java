@@ -1,4 +1,4 @@
-package blossom.project.towelove.server.Do;
+package blossom.project.towelove.server.ac;
 
 import blossom.project.towelove.framework.mysql.domain.BaseEntity;
 import com.baomidou.mybatisplus.annotation.TableName;

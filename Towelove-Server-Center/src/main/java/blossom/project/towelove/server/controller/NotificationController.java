@@ -22,7 +22,7 @@ import java.util.List;
  * @description: GOGO
  * @date: 2024/1/19 18:09
  * @version: 1.0
- * 邮箱提醒功能
+ * 系统消息提醒
  */
 @RestController
 @RequestMapping("/notify")

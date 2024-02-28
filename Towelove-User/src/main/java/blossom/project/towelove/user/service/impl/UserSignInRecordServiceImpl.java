@@ -69,7 +69,7 @@ public class UserSignInRecordServiceImpl extends ServiceImpl<UserSignInRecordMap
         //获取当天的偏移量
         long offset = Long
                 .parseLong(LocalDateTime.now()
-                        .format(DateTimeFormatter.ofPattern("dd")));
+                        .format(DateTimeFormatter.ofPattern("dd"))) - 1;
         if (redisService.getBit(userSignInKey,offset)) {
             throw new ServiceException("用户已经签到了");
         }
@@ -122,7 +122,7 @@ public class UserSignInRecordServiceImpl extends ServiceImpl<UserSignInRecordMap
                 -> cbk.bitField(userSignInKey.getBytes(),
                 BitFieldSubCommands.create()
                         .get(BitFieldSubCommands.BitFieldType.unsigned(localDateTime.getMonth().maxLength())).valueAt(0))).get(0);
-        StringBuffer signInfo = new StringBuffer();
+        StringBuilder signInfo = new StringBuilder();
         int signInContinuous = 0;
         for (int i = 0; i < localDateTime.getMonth().maxLength(); i++){
             if ((data & 1) == 1){

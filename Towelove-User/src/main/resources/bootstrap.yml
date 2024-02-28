@@ -3,12 +3,20 @@ spring:
     name: towelove-user
 
   profiles:
-    active: dev
+    active: @activeProperties@
   cloud:
     nacos:
+      discovery:
+        server-addr: @nacosAddress@
+        namespace: @nacosNamespace@
+        username: nacos
+        password: Venus20230829
       config:
+        server-addr: @nacosAddress@
+        namespace: @nacosNamespace@
+        username: nacos
+        password: Venus20230829
         file-extension: yaml
-        namespace: towelove
         shared-configs[0]:
           data-id: towelove-base-dev.yaml
           refresh: true
