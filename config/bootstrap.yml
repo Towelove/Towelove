@@ -1,16 +1,16 @@
-spring:
-  cloud:
-    nacos:
-      discovery:
-        # 服务注册地址
-        server-addr: @nacosAddress@
-        namespace: @nacosNamespace@
-        username: nacos
-        password: Venus20230829
-      config:
-        # 配置中心地址
-        server-addr: @nacosAddress@
-        namespace: @nacosNamespace@
-        username: nacos
-        password: Venus20230829
-
+#spring:
+#  cloud:
+#    nacos:
+#      discovery:
+#        # 服务注册地址
+#        server-addr: @nacosAddress@
+#        namespace: @nacosNamespace@
+#        username: nacos
+#        password: Venus20230829
+#      config:
+#        # 配置中心地址
+#        server-addr: @nacosAddress@
+#        namespace: @nacosNamespace@
+#        username: nacos
+#        password: Venus20230829
+#
