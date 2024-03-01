@@ -90,6 +90,7 @@
         </resources>
         <pluginManagement>
             <plugins>
+                <!--解析子工程配置文件中的@@取值标签-->
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-resources-plugin</artifactId>

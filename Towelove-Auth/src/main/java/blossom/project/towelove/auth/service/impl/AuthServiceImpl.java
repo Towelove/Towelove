@@ -6,6 +6,7 @@ import blossom.project.towelove.auth.strategy.UserRegisterStrategyFactory;
 import blossom.project.towelove.auth.utils.VerifyCodeUtils;
 import blossom.project.towelove.client.serivce.msg.RemoteEmailService;
 import blossom.project.towelove.client.serivce.msg.RemoteSmsService;
+import blossom.project.towelove.client.serivce.msg.RemoteValidateService;
 import blossom.project.towelove.client.serivce.user.RemoteUserService;
 import blossom.project.towelove.common.constant.RedisKeyConstant;
 import blossom.project.towelove.common.domain.dto.SysUser;
@@ -14,6 +15,7 @@ import blossom.project.towelove.common.request.auth.AuthLoginRequest;
 import blossom.project.towelove.common.request.auth.AuthRegisterRequest;
 import blossom.project.towelove.common.request.auth.AuthVerifyCodeRequest;
 import blossom.project.towelove.common.request.auth.RestockUserInfoRequest;
+import blossom.project.towelove.common.request.msg.ValidateCodeRequest;
 import blossom.project.towelove.common.response.Result;
 import blossom.project.towelove.framework.redis.service.RedisService;
 import cn.dev33.satoken.stp.StpUtil;
@@ -22,12 +24,14 @@ import cn.hutool.core.util.RandomUtil;
 import cn.hutool.core.util.ReUtil;
 import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson2.JSON;
+import com.alibaba.nacos.api.naming.pojo.healthcheck.impl.Http;
 import com.towelove.common.core.constant.HttpStatus;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
+import java.util.List;
 import java.util.Objects;
 
 @Service
@@ -41,10 +45,7 @@ public class AuthServiceImpl implements AuthService {
 
     private final RemoteSmsService remoteSmsService;
 
-    private final RedisService redisService;
-
-    private final VerifyCodeUtils verifyCodeUtils;
-
+    private final RemoteValidateService remoteValidateService;
 
     @Override
     public Result<String> register(AuthRegisterRequest authRegisterRequest) {
@@ -52,7 +53,6 @@ public class AuthServiceImpl implements AuthService {
         //校验手机号以及邮箱格式，校验验证码格式是否正确
         UserAccessStrategy userAccessStrategy = UserRegisterStrategyFactory.userAccessStrategy(authRegisterRequest.getType());
         SysUser sysUser = userAccessStrategy.register(authRegisterRequest);
-        sysUser.setPassword(RandomUtil.randomString(10));
         Result<SysUser> result = remoteUserService.saveUser(sysUser);
         log.info("调用user远程服务获取到的接口为: {}",result);
         if (Objects.isNull(result) || result.getCode() != com.towelove.common.core.constant.HttpStatus.SUCCESS){
@@ -70,6 +70,7 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public Result<String> login(AuthLoginRequest authLoginRequest) {
         Result<String> res = new Result<>();
+        res.setCode(HttpStatus.SUCCESS);
         //校验手机号以及邮箱格式，校验验证码格式是否正确
         UserAccessStrategy userAccessStrategy = UserRegisterStrategyFactory.userAccessStrategy(authLoginRequest.getType());
         SysUser sysUser = userAccessStrategy.login(authLoginRequest);
@@ -124,37 +125,54 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public String sendVerifyCode(AuthVerifyCodeRequest authVerifyCodeRequest) {
+        if (StrUtil.isBlank(authVerifyCodeRequest.getEmail()) && StrUtil.isBlank(authVerifyCodeRequest.getPhone())){
+            throw new ServiceException("发送验证码失败，邮箱或手机号为空");
+        }
         if (StrUtil.isNotBlank(authVerifyCodeRequest.getPhone())) {
             checkPhoneByRegex(authVerifyCodeRequest.getPhone());
-            remoteSmsService.sendValidateCodeByPhone(authVerifyCodeRequest.getPhone());
-        } else if (StrUtil.isNotBlank(authVerifyCodeRequest.getEmail())) {
-            checkEmailByRegex(authVerifyCodeRequest.getEmail());
-            remoteEmailService.sendValidateCodeByEmail(authVerifyCodeRequest.getEmail());
+            Result<String> result = remoteSmsService.sendValidateCodeByPhone(authVerifyCodeRequest.getPhone());
+            if (Objects.isNull(result) || HttpStatus.SUCCESS != result.getCode()){
+                throw new ServiceException(result.getMsg());
+            }
         } else {
-            throw new ServiceException("发送验证码失败，邮箱或手机号为空");
+            checkEmailByRegex(authVerifyCodeRequest.getEmail());
+            Result<String> result = remoteEmailService.sendValidateCodeByEmail(authVerifyCodeRequest.getEmail());
+            if (Objects.isNull(result) || HttpStatus.SUCCESS != result.getCode()){
+                throw new ServiceException(result.getMsg());
+            }
         }
         return "发送验证码成功";
     }
 
+
     @Override
     public String restockUserInfo(@Validated RestockUserInfoRequest restockUserInfoRequest) {
+
         String phone = restockUserInfoRequest.getPhone();
         String email = restockUserInfoRequest.getEmail();
         checkPhoneByRegex(phone);
         checkEmailByRegex(email);
-        //验证验证码
-        if (!verifyCodeUtils.valid(RedisKeyConstant.VALIDATE_CODE,phone,restockUserInfoRequest.getPhoneVerifyCode())
-                || !verifyCodeUtils.valid(RedisKeyConstant.VALIDATE_CODE,phone,restockUserInfoRequest.getEmailVerifyCode())) {
-            //验证不通过
-            throw new ServiceException("验证码有误，请重新获取");
+        String loginIdAsString = StpUtil.getLoginIdAsString();
+        SysUser sysUser = JSON.parseObject(loginIdAsString, SysUser.class);
+        List<ValidateCodeRequest> validateCodeRequests = buildCheckValidateRequests(email
+                ,restockUserInfoRequest.getEmailVerifyCode()
+                ,phone,restockUserInfoRequest.getPhoneVerifyCode());
+        Result<String> validateMulti = remoteValidateService.validateMulti(validateCodeRequests);
+        if (Objects.isNull(validateMulti) || HttpStatus.SUCCESS != validateMulti.getCode()){
+            throw new ServiceException(validateMulti.getMsg());
         }
-        restockUserInfoRequest.setId(StpUtil.getLoginId(0L));
+        restockUserInfoRequest.setId(sysUser.getId());
         //调用远程服务更新用户信息
         Result<String> result = remoteUserService.restockUserInfo(restockUserInfoRequest);
         if (Objects.isNull(result) || HttpStatus.SUCCESS != result.getCode()){
             throw new ServiceException("补充用户信息失败");
         }
         return "补充信息成功，可以访问系统啦！";
+    }
+
+    private List<ValidateCodeRequest> buildCheckValidateRequests(String email, String emailVerifyCode, String phone, String phoneVerifyCode) {
+        return List.of(ValidateCodeRequest.builder().number(email).code(emailVerifyCode).type("email").build()
+                ,ValidateCodeRequest.builder().number(phone).code(phoneVerifyCode).type("phone").build());
     }
 
     public void checkPhoneByRegex(String phone) {

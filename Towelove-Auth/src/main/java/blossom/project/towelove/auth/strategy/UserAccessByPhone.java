@@ -1,16 +1,19 @@
 package blossom.project.towelove.auth.strategy;
 
+import blossom.project.towelove.client.serivce.msg.RemoteValidateService;
 import blossom.project.towelove.client.serivce.user.RemoteUserService;
 import blossom.project.towelove.common.constant.RedisKeyConstant;
 import blossom.project.towelove.common.domain.dto.SysUser;
 import blossom.project.towelove.common.exception.ServiceException;
 import blossom.project.towelove.common.request.auth.AuthLoginRequest;
 import blossom.project.towelove.common.request.auth.AuthRegisterRequest;
+import blossom.project.towelove.common.request.msg.ValidateCodeRequest;
 import blossom.project.towelove.common.response.Result;
 import blossom.project.towelove.framework.redis.service.RedisService;
 import cn.hutool.core.lang.RegexPool;
 import cn.hutool.core.util.ReUtil;
 import cn.hutool.core.util.StrUtil;
+import com.alibaba.nacos.api.naming.pojo.healthcheck.impl.Http;
 import com.towelove.common.core.constant.HttpStatus;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -35,6 +38,8 @@ public class UserAccessByPhone implements UserAccessStrategy {
     private final RedisService redisService;
 
     private final RemoteUserService remoteUserService;
+
+    private final RemoteValidateService remoteValidateService;
     @Override
     public SysUser register(AuthRegisterRequest authRegisterRequest) {
         String phone = authRegisterRequest.getPhoneNumber();
@@ -42,12 +47,14 @@ public class UserAccessByPhone implements UserAccessStrategy {
         log.info("校验验证码请求的手机号为：{},验证码为：{}",phone,code);
         if (StrUtil.isNotBlank(phone) && ReUtil.isMatch(RegexPool.MOBILE,phone)){
             //手机号校验通过，校验验证码
-            String codeFromSystem = (String) redisService.redisTemplate.opsForValue().get(RedisKeyConstant.VALIDATE_CODE + phone);
-            if (StrUtil.isBlank(codeFromSystem)){
-                throw new ServiceException("验证码校验失败，未发送验证码");
-            }
-            if (!code.equals(codeFromSystem)){
-                throw new ServiceException("验证码校验失败，验证码错误");
+            ValidateCodeRequest validateCodeRequest = ValidateCodeRequest.builder()
+                    .number(phone)
+                    .code(code)
+                    .type(authRegisterRequest.getType())
+                    .build();
+            Result<String> validate = remoteValidateService.validate(validateCodeRequest);
+            if (Objects.isNull(validate) || validate.getCode() != HttpStatus.SUCCESS){
+                throw new ServiceException(validate.getMsg());
             }
         }
         SysUser sysUser = new SysUser();
@@ -62,12 +69,14 @@ public class UserAccessByPhone implements UserAccessStrategy {
         log.info("校验验证码请求的手机号为：{},验证码为：{}",phone,code);
         if (StrUtil.isNotBlank(phone) && ReUtil.isMatch(RegexPool.MOBILE,phone)){
             //手机号校验通过，校验验证码
-            String codeFromSystem = (String) redisService.redisTemplate.opsForValue().get(RedisKeyConstant.VALIDATE_CODE + phone);
-            if (StrUtil.isBlank(codeFromSystem)){
-                throw new ServiceException("验证码校验失败，未发送验证码");
-            }
-            if (!code.equals(codeFromSystem)){
-                throw new ServiceException("验证码校验失败，验证码错误");
+            ValidateCodeRequest validateCodeRequest = ValidateCodeRequest.builder()
+                    .number(phone)
+                    .code(code)
+                    .type(authLoginRequest.getType())
+                    .build();
+            Result<String> validate = remoteValidateService.validate(validateCodeRequest);
+            if (Objects.isNull(validate) || validate.getCode() != HttpStatus.SUCCESS){
+                throw new ServiceException(validate.getMsg());
             }
         }
         Result<SysUser> userByPhoneOrEmail = remoteUserService.findUserByPhoneOrEmail(authLoginRequest);

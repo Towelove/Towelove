@@ -64,10 +64,10 @@
             <groupId>blossom.project</groupId>
             <artifactId>Towelove-Framework-RocketMQ</artifactId>
         </dependency>
-        <dependency>
-            <groupId>blossom.project</groupId>
-            <artifactId>Towelove-Common</artifactId>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>blossom.project</groupId>-->
+<!--            <artifactId>Towelove-Common</artifactId>-->
+<!--        </dependency>-->
     </dependencies>
 
 </project>

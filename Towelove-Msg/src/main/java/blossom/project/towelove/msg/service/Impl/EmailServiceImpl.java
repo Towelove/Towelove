@@ -1,6 +1,7 @@
 package blossom.project.towelove.msg.service.Impl;
 
 import blossom.project.towelove.common.constant.RedisKeyConstant;
+import blossom.project.towelove.common.exception.ServiceException;
 import blossom.project.towelove.common.request.todoList.TodoRemindRequest;
 import blossom.project.towelove.common.request.user.InvitedEmailRequest;
 import blossom.project.towelove.common.utils.CodeGeneratorUtil;
@@ -21,7 +22,9 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
+import java.util.Objects;
 import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author: ZhangBlossom
@@ -72,6 +75,9 @@ public class EmailServiceImpl implements EmailService {
      */
     @Override
     public String generateAndSendValidateCode(String email) {
+        if (Objects.nonNull(redisService.getCacheObject(RedisKeyConstant.VALIDATE_CODE + email))){
+            throw new ServiceException("请勿重复发送验证码");
+        }
         String code = CodeGeneratorUtil.generateFourDigitCode();
         sendOfficalEmail(email, RedisKeyConstant.VALIDATE_CODE_SUBJECT, code, false, null);
         return "没报错就是发送成功哈哈哈哈";
@@ -136,7 +142,7 @@ public class EmailServiceImpl implements EmailService {
         switch (subject) {
             //当前是一个验证码消息
             case RedisKeyConstant.VALIDATE_CODE_SUBJECT: {
-                redisService.setCacheObject(RedisKeyConstant.VALIDATE_CODE + email, content);
+                redisService.setCacheObject(RedisKeyConstant.VALIDATE_CODE + email, content,5L, TimeUnit.MINUTES);
                 break;
             }
             case RedisKeyConstant.REMIND_SUBJECT: {
