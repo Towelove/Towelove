@@ -1,8 +1,8 @@
 package blossom.project.towelove.framework.log.aspect;
 
-import blossom.project.towelove.common.constant.SecurityConstant;
 import blossom.project.towelove.framework.log.annotation.LoveLog;
 import blossom.project.towelove.framework.log.client.LoveLogClient;
+import blossom.project.towelove.framework.log.handler.SecurityConstant;
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.date.SystemClock;

@@ -15,8 +15,6 @@ public class SysUser extends BaseEntity {
     @TableField("nick_name")
     private String nickName;
 
-    @TableField("password")
-    private String password;
 
     @TableField("email")
     private String email;

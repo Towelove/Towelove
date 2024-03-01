@@ -83,5 +83,10 @@
             <artifactId>Towelove-Common</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>blossom.project</groupId>
+            <artifactId>Towelove-Framework-Log</artifactId>
+        </dependency>
+
     </dependencies>
 </project>

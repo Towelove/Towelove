@@ -1,11 +1,13 @@
 package blossom.project.towelove.auth.strategy;
 
+import blossom.project.towelove.client.serivce.msg.RemoteValidateService;
 import blossom.project.towelove.client.serivce.user.RemoteUserService;
 import blossom.project.towelove.common.constant.RedisKeyConstant;
 import blossom.project.towelove.common.domain.dto.SysUser;
 import blossom.project.towelove.common.exception.ServiceException;
 import blossom.project.towelove.common.request.auth.AuthLoginRequest;
 import blossom.project.towelove.common.request.auth.AuthRegisterRequest;
+import blossom.project.towelove.common.request.msg.ValidateCodeRequest;
 import blossom.project.towelove.common.response.Result;
 import blossom.project.towelove.framework.redis.service.RedisService;
 import cn.hutool.core.lang.RegexPool;
@@ -39,23 +41,25 @@ public class UserAccessByEmail implements UserAccessStrategy {
 
     private final RemoteUserService remoteUserService;
 
+    private final RemoteValidateService remoteValidateService;
+
     @Override
     public SysUser register(AuthRegisterRequest authRegisterRequest) {
         String email = authRegisterRequest.getEmail();
         String code = authRegisterRequest.getVerifyCode();
         log.info("校验验证码请求的邮箱号为：{},验证码为：{}",email,code);
         if (StrUtil.isNotBlank(email) && ReUtil.isMatch(RegexPool.EMAIL,email)){
-            String codeFromSystem = (String) redisService.redisTemplate.opsForValue().get(RedisKeyConstant.VALIDATE_CODE + email);
-            if (StrUtil.isBlank(codeFromSystem)){
-                throw new ServiceException("验证码校验失败，未发送验证码");
+            ValidateCodeRequest validateCodeRequest = ValidateCodeRequest.builder()
+                    .number(email)
+                    .code(code)
+                    .type(authRegisterRequest.getType())
+                    .build();
+            Result<String> validate = remoteValidateService.validate(validateCodeRequest);
+            if (Objects.isNull(validate) || validate.getCode() != HttpStatus.SUCCESS){
+                throw new ServiceException(validate.getMsg());
             }
-            if (!code.equals(codeFromSystem)){
-                throw new ServiceException("验证码校验失败，验证码错误");
-            }
-            redisService.deleteObject(RedisKeyConstant.VALIDATE_CODE + email);
             SysUser sysUser = new SysUser();
             BeanUtils.copyProperties(authRegisterRequest,sysUser);
-            //删除验证码
            return sysUser;
         }
         return null;
@@ -69,12 +73,14 @@ public class UserAccessByEmail implements UserAccessStrategy {
         if (StrUtil.isBlank(email) || !ReUtil.isMatch(RegexPool.EMAIL,email)){
            throw new ServiceException("请求非法，邮件为空或格式错误");
         }
-        String codeFromSystem = (String) redisService.redisTemplate.opsForValue().get(RedisKeyConstant.VALIDATE_CODE + email);
-        if (StrUtil.isBlank(codeFromSystem)){
-            throw new ServiceException("验证码校验失败，未发送验证码");
-        }
-        if (!code.equals(codeFromSystem)){
-            throw new ServiceException("验证码校验失败，验证码错误");
+        ValidateCodeRequest validateCodeRequest = ValidateCodeRequest.builder()
+                .number(email)
+                .code(code)
+                .type(authLoginRequest.getType())
+                .build();
+        Result<String> validate = remoteValidateService.validate(validateCodeRequest);
+        if (Objects.isNull(validate) || validate.getCode() != HttpStatus.SUCCESS){
+            throw new ServiceException(validate.getMsg());
         }
         Result<SysUser> result = remoteUserService.findUserByPhoneOrEmail(authLoginRequest);
         if (Objects.isNull(result) || HttpStatus.SUCCESS != result.getCode()){

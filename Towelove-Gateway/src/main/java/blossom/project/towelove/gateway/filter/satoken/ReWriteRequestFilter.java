@@ -31,7 +31,6 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ReWriteRequestFilter implements GlobalFilter , Ordered {
 
-    private final RedisService redisService;
     /**
      * 重写request 携带userId分发到后续请求
      * @param exchange the current server exchange

@@ -1,6 +1,7 @@
 package blossom.project.towelove.user.service.impl;
 
 import blossom.project.towelove.common.constant.TokenConstant;
+import blossom.project.towelove.common.constant.UserConstants;
 import blossom.project.towelove.common.exception.ServiceException;
 import blossom.project.towelove.common.page.PageResponse;
 import blossom.project.towelove.common.request.auth.AuthLoginRequest;
@@ -11,6 +12,7 @@ import blossom.project.towelove.common.response.user.CouplesRespDTO;
 import blossom.project.towelove.common.response.user.SysUserDTO;
 import blossom.project.towelove.common.response.user.SysUserPermissionDto;
 import blossom.project.towelove.common.response.user.SysUserVo;
+import blossom.project.towelove.framework.redis.service.RedisService;
 import blossom.project.towelove.framework.user.core.UserInfoContextHolder;
 import blossom.project.towelove.user.convert.SysUserConvert;
 import blossom.project.towelove.user.entity.SysUser;
@@ -35,6 +37,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Objects;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 @Service
@@ -49,6 +52,8 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     private final SysUserPermissionMapper sysUserPermissionMapper;
 
     private final CouplesMapper couplesMapper;
+
+    private final RedisService redisService;
 
     @Transactional
     @Override
@@ -166,7 +171,20 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
 
     @Override
     public List<SysUserPermissionDto> getPermissionByUserId(Long userId) {
-        return sysPermissionMapper.selectUserPermissionByUserId(userId);
+        //查询缓存中是否有用户权限信息
+        Object cacheObject = redisService.getCacheObject(String.format(UserConstants.USER_PERMISSION_KEY, userId));
+        if (Objects.nonNull(cacheObject)){
+            //直接返回
+            return (List<SysUserPermissionDto>) cacheObject;
+        }
+        //从数据库中查询
+        List<SysUserPermissionDto> sysUserPermissionDtos = sysPermissionMapper.selectUserPermissionByUserId(userId);
+        if (sysUserPermissionDtos.isEmpty()){
+            return null;
+        }
+        //存入缓存中
+        redisService.setCacheObject(String.format(UserConstants.USER_PERMISSION_KEY,userId),sysUserPermissionDtos,2L, TimeUnit.HOURS);
+        return (List<SysUserPermissionDto>) cacheObject;
     }
 
     @Override

@@ -16,6 +16,9 @@ public class UserConstants {
     public static final String USER_SIGN_IN_KEY = "user_sign_in_%s_%s:%s";
 
     public static final String USER_TOTAL_SIGN_IN_KEY = "user_total_sign_%s:%s";
+
+    public static final String USER_PERMISSION_KEY = "user_permission:%s";
+
     public static final String USER_TOTAL_SIGN_IN_BY_MOUTH_KEY = "user_total_sign_month_%s_%s:%s";
 
     public static final String USER_TYPE_PHONE = "1";

@@ -22,8 +22,6 @@ public class RestockUserInfoRequest {
     @NotBlank(message = "nickName could not be null")
     private String nickName;
 
-    @NotBlank(message = "password could not be null")
-    private String password;
 
     @NotBlank(message = "sex could not be null")
     private String sex;

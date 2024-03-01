@@ -1,2 +1,3 @@
 blossom.project.towelove.client.fallback.RemoteUserFallbackFactory
 blossom.project.towelove.client.fallback.RemoteMsgFallbackFactory
+blossom.project.towelove.client.fallback.RemoteValidateFallbackFactory

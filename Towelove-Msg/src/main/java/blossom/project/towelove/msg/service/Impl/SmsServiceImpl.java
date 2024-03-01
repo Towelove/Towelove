@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -29,9 +30,13 @@ public class SmsServiceImpl implements SmsService {
     private final RedisService redisService;
     @Override
     public String sendValidateCode(String phoneNumber) {
+        //查询是否已经存在验证码
+        if (Objects.nonNull(redisService.getCacheObject(RedisKeyConstant.VALIDATE_CODE + phoneNumber))){
+            throw new ServiceException("请勿重复发送验证码");
+        }
         String code = CodeGeneratorUtil.generateFourDigitCode();
         try {
-            redisService.setCacheObject(RedisKeyConstant.VALIDATE_CODE + phoneNumber, code);
+            redisService.setCacheObject(RedisKeyConstant.VALIDATE_CODE + phoneNumber, code,5L,TimeUnit.MINUTES);
         } catch (Exception e) {
             throw new ServiceException("发送邀请码失败");
         }

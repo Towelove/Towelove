@@ -20,5 +20,4 @@ public class UpdateUserRequest {
 
     private String avatar;
 
-    private String password;
 }

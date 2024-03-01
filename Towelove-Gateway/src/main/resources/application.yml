@@ -1,7 +1,6 @@
 # Tomcat
 server:
   port: 8080
-
 spring:
   application:
     # Application name
@@ -53,3 +52,4 @@ sa-token:
   token-style: uuid
   # Whether to output operation logs
   is-log: true
+
