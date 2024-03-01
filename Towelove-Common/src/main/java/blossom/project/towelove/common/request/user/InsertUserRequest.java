@@ -12,8 +12,6 @@ public class InsertUserRequest {
 
     private String nickName;
 
-    @NotBlank
-    private String password;
 
     private String email;
 
