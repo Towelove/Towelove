@@ -18,4 +18,6 @@ public interface AuthService {
     String restockUserInfo(RestockUserInfoRequest restockUserInfoRequest);
 
     String uploadAvatar(MultipartFile file);
+
+    String logout();
 }

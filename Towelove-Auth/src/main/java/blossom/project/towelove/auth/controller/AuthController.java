@@ -107,4 +107,13 @@ public class AuthController {
     public Result<String> uploadAvatar(MultipartFile file){
         return Result.ok(authService.uploadAvatar(file));
     }
+
+    /**
+     * 退出登入
+     * @return
+     */
+    @PostMapping("/logout")
+    public Result<String> logout(){
+        return Result.ok(authService.logout());
+    }
 }

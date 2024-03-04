@@ -217,6 +217,17 @@ public class AuthServiceImpl implements AuthService {
         return result.getData();
     }
 
+    @Override
+    public String logout() {
+        try {
+            StpUtil.logout();
+        } catch (Exception e) {
+            log.error("退出登入失败");
+            return "fail";
+        }
+        return "success";
+    }
+
     private boolean isPicture(MultipartFile file) {
         String suffix = FileNameUtil.getSuffix(file.getOriginalFilename());
         if (suffix != null) {

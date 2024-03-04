@@ -26,18 +26,17 @@ public class RestockUserInfoRequest {
     @NotBlank(message = "sex could not be null")
     private String sex;
 
-    @NotBlank(message = "email could not be null")
+
     private String email;
 
-    @NotBlank(message = "phone could not be null")
+
     private String phone;
+
 
     @NotBlank(message = "avatar could not be null")
     private String avatar;
 
-    @NotBlank(message = "avatar could not be null")
     private String phoneVerifyCode;
 
-    @NotBlank(message = "avatar could not be null")
     private String emailVerifyCode;
 }
