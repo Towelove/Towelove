@@ -20,3 +20,10 @@ sa-token:
   token-style: uuid
   # Whether to output operation logs
   is-log: true
+spring:
+  servlet:
+    multipart:
+#      MultipartFile Max Size
+      max-file-size: 3MB
+#      请求最大容量
+      max-request-size: 10MB
