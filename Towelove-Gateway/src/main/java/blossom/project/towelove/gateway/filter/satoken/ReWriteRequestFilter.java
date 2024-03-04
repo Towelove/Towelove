@@ -80,6 +80,8 @@ public class ReWriteRequestFilter implements GlobalFilter , Ordered {
                 .header(TokenConstant.USER_NICK_HEADER,URLEncoder.encode(nickName,StandardCharsets.UTF_8))
                 .header(TokenConstant.USER_SEX,URLEncoder.encode(sex,StandardCharsets.UTF_8))
                 .header(TokenConstant.USER_TOKEN,StpUtil.getTokenValue())
+                .header(TokenConstant.USER_EMAIL,sysUser.getEmail())
+                .header(TokenConstant.USER_PHONE,sysUser.getEmail())
                 .build();
     }
 

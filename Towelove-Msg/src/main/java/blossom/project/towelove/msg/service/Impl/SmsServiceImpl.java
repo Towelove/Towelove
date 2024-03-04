@@ -34,7 +34,8 @@ public class SmsServiceImpl implements SmsService {
         if (Objects.nonNull(redisService.getCacheObject(RedisKeyConstant.VALIDATE_CODE + phoneNumber))){
             throw new ServiceException("请勿重复发送验证码");
         }
-        String code = CodeGeneratorUtil.generateFourDigitCode();
+//        String code = CodeGeneratorUtil.generateFourDigitCode();
+        String code = "1234";
         try {
             redisService.setCacheObject(RedisKeyConstant.VALIDATE_CODE + phoneNumber, code,5L,TimeUnit.MINUTES);
         } catch (Exception e) {

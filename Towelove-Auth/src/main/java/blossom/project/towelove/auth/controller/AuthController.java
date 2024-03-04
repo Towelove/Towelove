@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import javax.validation.Valid;
@@ -95,5 +96,15 @@ public class AuthController {
     @PostMapping("/restock-info")
     public Result<?> restockUserInfo(@Valid @RequestBody RestockUserInfoRequest restockUserInfoRequest){
         return Result.ok(authService.restockUserInfo(restockUserInfoRequest));
+    }
+
+    /**
+     * 补充信息上传头像
+     * @param file
+     * @return
+     */
+    @PostMapping("/upload-avatar")
+    public Result<String> uploadAvatar(MultipartFile file){
+        return Result.ok(authService.uploadAvatar(file));
     }
 }

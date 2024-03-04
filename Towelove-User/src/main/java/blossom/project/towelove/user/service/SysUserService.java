@@ -34,6 +34,6 @@ public interface SysUserService extends IService<SysUser> {
 
     void addUserPermission(SysUser sysUser);
 
-    String restockUserInfo(RestockUserInfoRequest restockUserInfoRequest);
+    SysUser restockUserInfo(RestockUserInfoRequest restockUserInfoRequest);
 }
 
