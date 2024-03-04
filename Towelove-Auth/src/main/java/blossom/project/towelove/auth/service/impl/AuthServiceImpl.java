@@ -4,6 +4,7 @@ import blossom.project.towelove.auth.service.AuthService;
 import blossom.project.towelove.auth.strategy.UserAccessStrategy;
 import blossom.project.towelove.auth.strategy.UserRegisterStrategyFactory;
 import blossom.project.towelove.auth.utils.VerifyCodeUtils;
+import blossom.project.towelove.client.serivce.file.RemoteFileUploadService;
 import blossom.project.towelove.client.serivce.msg.RemoteEmailService;
 import blossom.project.towelove.client.serivce.msg.RemoteSmsService;
 import blossom.project.towelove.client.serivce.msg.RemoteValidateService;
@@ -19,6 +20,9 @@ import blossom.project.towelove.common.request.msg.ValidateCodeRequest;
 import blossom.project.towelove.common.response.Result;
 import blossom.project.towelove.framework.redis.service.RedisService;
 import cn.dev33.satoken.stp.StpUtil;
+import cn.hutool.core.io.FileTypeUtil;
+import cn.hutool.core.io.FileUtil;
+import cn.hutool.core.io.file.FileNameUtil;
 import cn.hutool.core.lang.RegexPool;
 import cn.hutool.core.util.RandomUtil;
 import cn.hutool.core.util.ReUtil;
@@ -30,7 +34,9 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.lang.reflect.Array;
 import java.util.List;
 import java.util.Objects;
 
@@ -46,6 +52,10 @@ public class AuthServiceImpl implements AuthService {
     private final RemoteSmsService remoteSmsService;
 
     private final RemoteValidateService remoteValidateService;
+
+    private final RemoteFileUploadService fileUploadService;
+
+    private final String PICTURE_TYPE = "jpg jpeg png";
 
     @Override
     public Result<String> register(AuthRegisterRequest authRegisterRequest) {
@@ -148,26 +158,82 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public String restockUserInfo(@Validated RestockUserInfoRequest restockUserInfoRequest) {
 
-        String phone = restockUserInfoRequest.getPhone();
-        String email = restockUserInfoRequest.getEmail();
-        checkPhoneByRegex(phone);
-        checkEmailByRegex(email);
+
+
         String loginIdAsString = StpUtil.getLoginIdAsString();
         SysUser sysUser = JSON.parseObject(loginIdAsString, SysUser.class);
-        List<ValidateCodeRequest> validateCodeRequests = buildCheckValidateRequests(email
-                ,restockUserInfoRequest.getEmailVerifyCode()
-                ,phone,restockUserInfoRequest.getPhoneVerifyCode());
-        Result<String> validateMulti = remoteValidateService.validateMulti(validateCodeRequests);
+        ValidateCodeRequest validateCodeRequests = null;
+        if (StrUtil.isNotBlank(sysUser.getEmail())){
+            //需要补充手机号信息
+            String phone = restockUserInfoRequest.getPhone();
+            checkPhoneByRegex(phone);
+            validateCodeRequests = ValidateCodeRequest
+                    .builder()
+                    .number(phone)
+                    .code(restockUserInfoRequest.getPhoneVerifyCode())
+                    .type("phone")
+                    .build();
+        }else {
+            String email = restockUserInfoRequest.getEmail();
+            checkEmailByRegex(email);
+            validateCodeRequests = ValidateCodeRequest
+                    .builder()
+                    .number(email)
+                    .code(restockUserInfoRequest.getEmailVerifyCode())
+                    .type("email")
+                    .build();
+        }
+        Result<String> validateMulti = remoteValidateService.validate(validateCodeRequests);
         if (Objects.isNull(validateMulti) || HttpStatus.SUCCESS != validateMulti.getCode()){
             throw new ServiceException(validateMulti.getMsg());
         }
         restockUserInfoRequest.setId(sysUser.getId());
         //调用远程服务更新用户信息
-        Result<String> result = remoteUserService.restockUserInfo(restockUserInfoRequest);
+        Result<SysUser> result = remoteUserService.restockUserInfo(restockUserInfoRequest);
         if (Objects.isNull(result) || HttpStatus.SUCCESS != result.getCode()){
             throw new ServiceException("补充用户信息失败");
         }
-        return "补充信息成功，可以访问系统啦！";
+        StpUtil.login(JSON.toJSONString(result.getData()));
+        return StpUtil.getTokenValue();
+    }
+
+
+    @Override
+    public String uploadAvatar(MultipartFile file) {
+        //判断如果不是图片类型全部拒绝
+        if (!isPicture(file)){
+            throw new ServiceException("只支持" + PICTURE_TYPE  + "类型文件");
+        }
+        Result<String> result = null;
+        try {
+            result = fileUploadService.upload(file);
+            if (Objects.isNull(result) || HttpStatus.SUCCESS != result.getCode()){
+                log.info("上传头像失败,失败原因为:{}",result.getMsg());
+                throw new ServiceException("上传头像失败");
+            }
+        } catch (Exception e) {
+            throw new ServiceException("上传头像失败");
+        }
+        return result.getData();
+    }
+
+    @Override
+    public String logout() {
+        try {
+            StpUtil.logout();
+        } catch (Exception e) {
+            log.error("退出登入失败");
+            return "fail";
+        }
+        return "success";
+    }
+
+    private boolean isPicture(MultipartFile file) {
+        String suffix = FileNameUtil.getSuffix(file.getOriginalFilename());
+        if (suffix != null) {
+            return PICTURE_TYPE.contains(suffix);
+        }
+        return false;
     }
 
     private List<ValidateCodeRequest> buildCheckValidateRequests(String email, String emailVerifyCode, String phone, String phoneVerifyCode) {

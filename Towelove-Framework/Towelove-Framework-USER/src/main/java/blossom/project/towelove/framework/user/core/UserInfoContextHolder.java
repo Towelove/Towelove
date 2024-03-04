@@ -56,6 +56,15 @@ public class UserInfoContextHolder {
         return Optional.ofNullable(userInfoDTO).map(UserInfoDTO::getCoupleId)
                 .orElse(null);
     }
+    public static String getPhone(){
+        UserInfoDTO userInfoDTO = USER_INFO_THREAD_LOCAL.get();
+        return Optional.ofNullable(userInfoDTO).map(UserInfoDTO::getPhone)
+                .orElse(null);
+    }public static String getEmail(){
+        UserInfoDTO userInfoDTO = USER_INFO_THREAD_LOCAL.get();
+        return Optional.ofNullable(userInfoDTO).map(UserInfoDTO::getEmail)
+                .orElse(null);
+    }
 
     public static void clean(){
         USER_INFO_THREAD_LOCAL.remove();

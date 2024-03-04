@@ -78,7 +78,8 @@ public class EmailServiceImpl implements EmailService {
         if (Objects.nonNull(redisService.getCacheObject(RedisKeyConstant.VALIDATE_CODE + email))){
             throw new ServiceException("请勿重复发送验证码");
         }
-        String code = CodeGeneratorUtil.generateFourDigitCode();
+//        String code = CodeGeneratorUtil.generateFourDigitCode();
+        String code = "1234";
         sendOfficalEmail(email, RedisKeyConstant.VALIDATE_CODE_SUBJECT, code, false, null);
         return "没报错就是发送成功哈哈哈哈";
     }

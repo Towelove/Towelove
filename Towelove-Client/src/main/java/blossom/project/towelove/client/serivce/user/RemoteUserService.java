@@ -44,6 +44,6 @@ public interface RemoteUserService {
     Result<SysUser> accessByThirdPartyAccount(@RequestBody ThirdPartyLoginUser thirdPartyLoginUser);
 
     @PutMapping("/v1/user/sys/restock")
-    Result<String> restockUserInfo(@RequestBody RestockUserInfoRequest restockUserInfoRequest);
+    Result<SysUser> restockUserInfo(@RequestBody RestockUserInfoRequest restockUserInfoRequest);
 
 }

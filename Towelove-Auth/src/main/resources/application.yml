@@ -9,7 +9,7 @@ sa-token:
   # Token name (also the cookie name)
   token-name: Authorization
   # Token expiration time (in seconds) Default is 30 days, -1 represents permanent validity
-  timeout: -1
+  timeout: 43200
   # Token minimum activity frequency (in seconds), if the token is not accessed for more than this time, it will be frozen. Default is -1, which means no restriction, never frozen.
   active-timeout: -1
   # Whether to allow concurrent logins for the same account (true allows concurrent logins, false allows only one login at a time)
