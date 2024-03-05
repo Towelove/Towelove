@@ -41,7 +41,7 @@ public class StpInterfaceImpl implements StpInterface {
         );
         Result<List<SysUserPermissionDto>> result = null;
         try {
-             result =  future.get(3,TimeUnit.SECONDS);
+             result =  future.get(5,TimeUnit.SECONDS);
             if (Objects.isNull(result) || Objects.isNull(result.getData())){
                 log.info("[{}]用户查询权限为空",sysUser.getId());
                 return List.of();
