@@ -1,0 +1,694 @@
+# This workflow will build a package using Maven and then publish it to GitHub packages when a release is created
+# For more information see: https://github.com/actions/setup-java/blob/main/docs/advanced-usage.md#apache-maven-with-a-settings-path
+
+name: Build Java And Docker Image
+
+on:
+  push:
+    # branches:
+    #   - 'master'
+    tags:
+      - 'v*'
+  # pull_request:
+  #   branches:
+  #     - 'master'
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Version tag for the Docker image (semver)"
+        required: true
+
+env:
+  VERSION: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.version || github.ref_name }}
+
+jobs:
+  # Build-All-Java-Package
+  Build-All-Java-Package:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4  
+    - name: Set up JDK 17 
+      uses: actions/setup-java@v4
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+        server-id: github # Value of the distributionManagement/repository/id field of the pom.xml
+        settings-path: ${{ github.workspace }} # location for the settings.xml file
+    - name: Build with Maven
+      run: mvn -B package --file pom.xml -DskipTests -P pro
+    - name: Copy Artifacts
+      run: |
+        mkdir staging && cp Towelove-*/target/*.jar staging
+        ls -al staging
+    - name: Upload Artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: Towelove
+        path: staging/
+        retention-days: 1
+
+  # Towelove-Gateway
+  Build-Docker-Gateway:
+    runs-on: ubuntu-latest
+    needs: Build-All-Java-Package
+    permissions:
+      contents: read
+      packages: write
+    outputs:
+        version: ${{ steps.meta.outputs.version }}
+        name: ${{ env.JAR_NAME }}
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+    - name: Set up Build Package 
+      run: |  
+        echo "IMAGE_NAME=towelove/towelove-gateway" >> $GITHUB_ENV
+        echo "JAR_NAME=Towelove-Gateway" >> $GITHUB_ENV
+    - name: Download Artifacts
+      uses: actions/download-artifact@v4
+      with:
+        path: .
+    - name: Copy Artifacts
+      run: |
+        mkdir staging
+        ls -al ./Towelove/*
+        mv Towelove/* staging
+        ls -al ./staging/*
+    - name: Configure Docker Meta
+      id: meta
+      uses: docker/metadata-action@v5.5.1
+      with:
+        images: |
+          ${{ env.IMAGE_NAME }}
+        tags: |
+          type=semver,pattern={{version}}${{ github.event_name == 'workflow_dispatch' && format(',value={0}', github.event.inputs.version) || '' }}
+          type=semver,pattern={{major}}.{{minor}}${{ github.event_name == 'workflow_dispatch' && format(',value={0}', github.event.inputs.version) || '' }}
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3.0.0
+    - name: Log in to the Container registry
+      uses: docker/login-action@v3.0.0
+      with:
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_TOKEN }}
+    - name: Build and push Docker image
+      uses: docker/build-push-action@v5.1.0
+      with:
+        context: .
+        file: ./Docker-Build/Dockerfile
+        build-args: SERVICE_NAME=${{ env.JAR_NAME }}
+        platforms: linux/amd64
+        push: true
+        tags: ${{ steps.meta.outputs.tags }}
+        labels: ${{ steps.meta.outputs.labels }}
+        cache-from: type=gha
+        cache-to: type=gha,mode=max
+  # Depoly-Docker-Gateway:
+  #   runs-on: ubuntu-latest
+  #   needs: Build-Docker-Gateway
+  #   permissions:
+  #     contents: read
+  #     packages: write
+  #   steps:
+  #   - name: Checkout repository
+  #     uses: actions/checkout@v4    
+  #   - name: Configure SSH
+  #     run: |
+  #       echo "SCREEN_TIME=$(date +'%Y%m%d%H%M%S')" >> $GITHUB_ENV
+  #       mkdir -p ~/.ssh/
+  #       echo "$SSH_PRIVATE_KEY" > ~/.ssh/staging.key
+  #       chmod 600 ~/.ssh/staging.key
+  #       cat >>~/.ssh/config <<END
+  #         Host staging
+  #         HostName $SSH_HOST
+  #         User $SSH_USER
+  #         IdentityFile ~/.ssh/staging.key
+  #         StrictHostKeyChecking no
+  #       END
+  #     env:
+  #       SSH_USER: ${{ secrets.SSH_USER }}
+  #       SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+  #       SSH_HOST: ${{ secrets.SSH_HOST }}
+  #   - name: Login Server And Deploy
+  #     run: |
+  #       ssh staging sudo docker ps -a | grep towelove
+  #       ssh staging sudo screen -dmS ${{ needs.Build-Docker-Gateway.outputs.name }}_${{ needs.Build-Docker-Gateway.outputs.version }}_${{ env.SCREEN_TIME }}
+  #       ssh staging "sudo screen -S ${{ needs.Build-Docker-Gateway.outputs.name }}_${{ needs.Build-Docker-Gateway.outputs.version }}_${{ env.SCREEN_TIME }} -X stuff $'sudo /opt/ops/deploy.sh ${{ needs.Build-Docker-Gateway.outputs.name }} ${{ needs.Build-Docker-Gateway.outputs.version }} && exit\n' "
+  
+  # # Towelove-Auth
+  # Build-Docker-Auth:
+  #   runs-on: ubuntu-latest
+  #   needs: Build-All-Java-Package
+  #   permissions:
+  #     contents: read
+  #     packages: write
+  #   outputs:
+  #       version: ${{ steps.meta.outputs.version }}
+  #       name: ${{ env.JAR_NAME }}
+  #   steps:
+  #   - name: Checkout repository
+  #     uses: actions/checkout@v4
+  #   - name: Set up Build Package 
+  #     run: |  
+  #       echo "IMAGE_NAME=towelove/towelove-auth" >> $GITHUB_ENV
+  #       echo "JAR_NAME=Towelove-Auth" >> $GITHUB_ENV    
+  #   - name: Download Artifacts
+  #     uses: actions/download-artifact@v4
+  #     with:
+  #       path: .
+  #   - name: Copy Artifacts
+  #     run: |
+  #       mkdir staging
+  #       ls -al ./Towelove/*
+  #       mv Towelove/* staging
+  #       ls -al ./staging/*
+  #   - name: Configure Docker Meta
+  #     id: meta
+  #     uses: docker/metadata-action@v5.5.1
+  #     with:
+  #       images: |
+  #         ghcr.io/${{ env.IMAGE_NAME }}
+  #       tags: |
+  #         type=semver,pattern={{version}}${{ github.event_name == 'workflow_dispatch' && format(',value={0}', github.event.inputs.version) || '' }}
+  #         type=semver,pattern={{major}}.{{minor}}${{ github.event_name == 'workflow_dispatch' && format(',value={0}', github.event.inputs.version) || '' }}
+  #   - name: Set up Docker Buildx
+  #     uses: docker/setup-buildx-action@v3.0.0
+  #   - name: Log in to the Container registry
+  #     uses: docker/login-action@v3.0.0
+  #     with:
+  #       registry: ghcr.io
+  #       username: ${{ github.actor }}
+  #       password: ${{ secrets.GITHUB_TOKEN }}
+  #   - name: Build and push Docker image
+  #     uses: docker/build-push-action@v5.1.0
+  #     with:
+  #       context: .
+  #       file: ./Docker-Build/Dockerfile
+  #       build-args: SERVICE_NAME=${{ env.JAR_NAME }}
+  #       platforms: linux/amd64
+  #       push: true
+  #       tags: ${{ steps.meta.outputs.tags }}
+  #       labels: ${{ steps.meta.outputs.labels }}
+  #       cache-from: type=gha
+  #       cache-to: type=gha,mode=max
+  # Depoly-Docker-Auth:
+  #   runs-on: ubuntu-latest
+  #   needs: Build-Docker-Auth
+  #   permissions:
+  #     contents: read
+  #     packages: write
+  #   steps:
+  #   - name: Checkout repository
+  #     uses: actions/checkout@v4    
+  #   - name: Configure SSH
+  #     run: |
+  #       echo "SCREEN_TIME=$(date +'%Y%m%d%H%M%S')" >> $GITHUB_ENV
+  #       mkdir -p ~/.ssh/
+  #       echo "$SSH_PRIVATE_KEY" > ~/.ssh/staging.key
+  #       chmod 600 ~/.ssh/staging.key
+  #       cat >>~/.ssh/config <<END
+  #         Host staging
+  #         HostName $SSH_HOST
+  #         User $SSH_USER
+  #         IdentityFile ~/.ssh/staging.key
+  #         StrictHostKeyChecking no
+  #       END
+  #     env:
+  #       SSH_USER: ${{ secrets.SSH_USER }}
+  #       SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+  #       SSH_HOST: ${{ secrets.SSH_HOST }}
+  #   - name: Login Server And Deploy
+  #     run: |
+  #       ssh staging sudo docker ps -a | grep towelove
+  #       ssh staging sudo screen -dmS ${{ needs.Build-Docker-Auth.outputs.name }}_${{ needs.Build-Docker-Auth.outputs.version }}_${{ env.SCREEN_TIME }}
+  #       ssh staging "sudo screen -S ${{ needs.Build-Docker-Auth.outputs.name }}_${{ needs.Build-Docker-Auth.outputs.version }}_${{ env.SCREEN_TIME }} -X stuff $'sudo /opt/ops/deploy.sh ${{ needs.Build-Docker-Auth.outputs.name }} ${{ needs.Build-Docker-Auth.outputs.version }} && exit\n' "
+  
+  # # Towelove-Loves
+  # Build-Docker-Loves:
+  #   runs-on: ubuntu-latest
+  #   needs: Build-All-Java-Package
+  #   permissions:
+  #     contents: read
+  #     packages: write
+  #   outputs:
+  #       version: ${{ steps.meta.outputs.version }}
+  #       name: ${{ env.JAR_NAME }}
+  #   steps:
+  #   - name: Checkout repository
+  #     uses: actions/checkout@v4
+  #   - name: Set up Build Package 
+  #     run: |  
+  #       echo "IMAGE_NAME=towelove/towelove-loves" >> $GITHUB_ENV
+  #       echo "JAR_NAME=Towelove-Loves" >> $GITHUB_ENV
+  #   - name: Download Artifacts
+  #     uses: actions/download-artifact@v4
+  #     with:
+  #       path: .
+  #   - name: Copy Artifacts
+  #     run: |
+  #       mkdir staging
+  #       ls -al ./Towelove/*
+  #       mv Towelove/* staging
+  #       ls -al ./staging/*
+  #   - name: Configure Docker Meta
+  #     id: meta
+  #     uses: docker/metadata-action@v5.5.1
+  #     with:
+  #       images: |
+  #         ghcr.io/${{ env.IMAGE_NAME }}
+  #       tags: |
+  #         type=semver,pattern={{version}}${{ github.event_name == 'workflow_dispatch' && format(',value={0}', github.event.inputs.version) || '' }}
+  #         type=semver,pattern={{major}}.{{minor}}${{ github.event_name == 'workflow_dispatch' && format(',value={0}', github.event.inputs.version) || '' }}
+  #   - name: Set up Docker Buildx
+  #     uses: docker/setup-buildx-action@v3.0.0
+  #   - name: Log in to the Container registry
+  #     uses: docker/login-action@v3.0.0
+  #     with:
+  #       registry: ghcr.io
+  #       username: ${{ github.actor }}
+  #       password: ${{ secrets.GITHUB_TOKEN }}
+  #   - name: Build and push Docker image
+  #     uses: docker/build-push-action@v5.1.0
+  #     with:
+  #       context: .
+  #       file: ./Docker-Build/Dockerfile
+  #       build-args: SERVICE_NAME=${{ env.JAR_NAME }}
+  #       platforms: linux/amd64
+  #       push: true
+  #       tags: ${{ steps.meta.outputs.tags }}
+  #       labels: ${{ steps.meta.outputs.labels }}
+  #       cache-from: type=gha
+  #       cache-to: type=gha,mode=max
+  # Depoly-Docker-Loves:
+  #   runs-on: ubuntu-latest
+  #   needs: Build-Docker-Loves
+  #   permissions:
+  #     contents: read
+  #     packages: write
+  #   steps:
+  #   - name: Checkout repository
+  #     uses: actions/checkout@v4    
+  #   - name: Configure SSH
+  #     run: |
+  #       echo "SCREEN_TIME=$(date +'%Y%m%d%H%M%S')" >> $GITHUB_ENV
+  #       mkdir -p ~/.ssh/
+  #       echo "$SSH_PRIVATE_KEY" > ~/.ssh/staging.key
+  #       chmod 600 ~/.ssh/staging.key
+  #       cat >>~/.ssh/config <<END
+  #         Host staging
+  #         HostName $SSH_HOST
+  #         User $SSH_USER
+  #         IdentityFile ~/.ssh/staging.key
+  #         StrictHostKeyChecking no
+  #       END
+  #     env:
+  #       SSH_USER: ${{ secrets.SSH_USER }}
+  #       SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+  #       SSH_HOST: ${{ secrets.SSH_HOST }}
+  #   - name: Login Server And Deploy
+  #     run: |
+  #       ssh staging sudo docker ps -a | grep towelove
+  #       ssh staging sudo screen -dmS ${{ needs.Build-Docker-Loves.outputs.name }}_${{ needs.Build-Docker-Loves.outputs.version }}_${{ env.SCREEN_TIME }}
+  #       ssh staging "sudo screen -S ${{ needs.Build-Docker-Loves.outputs.name }}_${{ needs.Build-Docker-Loves.outputs.version }}_${{ env.SCREEN_TIME }} -X stuff $'sudo /opt/ops/deploy.sh ${{ needs.Build-Docker-Loves.outputs.name }} ${{ needs.Build-Docker-Loves.outputs.version }} && exit\n' "
+  
+  # # Towelove-Msg
+  # Build-Docker-Msg:
+  #   runs-on: ubuntu-latest
+  #   needs: Build-All-Java-Package
+  #   permissions:
+  #     contents: read
+  #     packages: write
+  #   outputs:
+  #       version: ${{ steps.meta.outputs.version }}
+  #       name: ${{ env.JAR_NAME }}
+  #   steps:
+  #   - name: Checkout repository
+  #     uses: actions/checkout@v4
+  #   - name: Set up Build Package 
+  #     run: |  
+  #       echo "IMAGE_NAME=towelove/towelove-msg" >> $GITHUB_ENV
+  #       echo "JAR_NAME=Towelove-Msg" >> $GITHUB_ENV    
+  #   - name: Download Artifacts
+  #     uses: actions/download-artifact@v4
+  #     with:
+  #       path: .
+  #   - name: Copy Artifacts
+  #     run: |
+  #       mkdir staging
+  #       ls -al ./Towelove/*
+  #       mv Towelove/* staging
+  #       ls -al ./staging/*
+  #   - name: Configure Docker Meta
+  #     id: meta
+  #     uses: docker/metadata-action@v5.5.1
+  #     with:
+  #       images: |
+  #         ghcr.io/${{ env.IMAGE_NAME }}
+  #       tags: |
+  #         type=semver,pattern={{version}}${{ github.event_name == 'workflow_dispatch' && format(',value={0}', github.event.inputs.version) || '' }}
+  #         type=semver,pattern={{major}}.{{minor}}${{ github.event_name == 'workflow_dispatch' && format(',value={0}', github.event.inputs.version) || '' }}
+  #   - name: Set up Docker Buildx
+  #     uses: docker/setup-buildx-action@v3.0.0
+  #   - name: Log in to the Container registry
+  #     uses: docker/login-action@v3.0.0
+  #     with:
+  #       registry: ghcr.io
+  #       username: ${{ github.actor }}
+  #       password: ${{ secrets.GITHUB_TOKEN }}
+  #   - name: Build and push Docker image
+  #     uses: docker/build-push-action@v5.1.0
+  #     with:
+  #       context: .
+  #       file: ./Docker-Build/Dockerfile
+  #       build-args: SERVICE_NAME=${{ env.JAR_NAME }}
+  #       platforms: linux/amd64
+  #       push: true
+  #       tags: ${{ steps.meta.outputs.tags }}
+  #       labels: ${{ steps.meta.outputs.labels }}
+  #       cache-from: type=gha
+  #       cache-to: type=gha,mode=max
+  # Depoly-Docker-Msg:
+  #   runs-on: ubuntu-latest
+  #   needs: Build-Docker-Msg
+  #   permissions:
+  #     contents: read
+  #     packages: write
+  #   steps:
+  #   - name: Checkout repository
+  #     uses: actions/checkout@v4    
+  #   - name: Configure SSH
+  #     run: |
+  #       echo "SCREEN_TIME=$(date +'%Y%m%d%H%M%S')" >> $GITHUB_ENV
+  #       mkdir -p ~/.ssh/
+  #       echo "$SSH_PRIVATE_KEY" > ~/.ssh/staging.key
+  #       chmod 600 ~/.ssh/staging.key
+  #       cat >>~/.ssh/config <<END
+  #         Host staging
+  #         HostName $SSH_HOST
+  #         User $SSH_USER
+  #         IdentityFile ~/.ssh/staging.key
+  #         StrictHostKeyChecking no
+  #       END
+  #     env:
+  #       SSH_USER: ${{ secrets.SSH_USER }}
+  #       SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+  #       SSH_HOST: ${{ secrets.SSH_HOST }}
+  #   - name: Login Server And Deploy
+  #     run: |
+  #       ssh staging sudo docker ps -a | grep towelove
+  #       ssh staging sudo screen -dmS ${{ needs.Build-Docker-Msg.outputs.name }}_${{ needs.Build-Docker-Msg.outputs.version }}_${{ env.SCREEN_TIME }}
+  #       ssh staging "sudo screen -S ${{ needs.Build-Docker-Msg.outputs.name }}_${{ needs.Build-Docker-Msg.outputs.version }}_${{ env.SCREEN_TIME }} -X stuff $'sudo /opt/ops/deploy.sh ${{ needs.Build-Docker-Msg.outputs.name }} ${{ needs.Build-Docker-Msg.outputs.version }} && exit\n' "
+  
+  # # Towelove-Server-Center
+  # Build-Docker-Server-Center:
+  #   runs-on: ubuntu-latest
+  #   needs: Build-All-Java-Package
+  #   permissions:
+  #     contents: read
+  #     packages: write
+  #   outputs:
+  #       version: ${{ steps.meta.outputs.version }}
+  #       name: ${{ env.JAR_NAME }}
+  #   steps:
+  #   - name: Checkout repository
+  #     uses: actions/checkout@v4
+  #   - name: Set up Build Package 
+  #     run: |  
+  #       echo "IMAGE_NAME=towelove/towelove-server-center" >> $GITHUB_ENV
+  #       echo "JAR_NAME=Towelove-Server-Center" >> $GITHUB_ENV
+  #   - name: Download Artifacts
+  #     uses: actions/download-artifact@v4
+  #     with:
+  #       path: .
+  #   - name: Copy Artifacts
+  #     run: |
+  #       mkdir staging
+  #       ls -al ./Towelove/*
+  #       mv Towelove/* staging
+  #       ls -al ./staging/*
+  #   - name: Configure Docker Meta
+  #     id: meta
+  #     uses: docker/metadata-action@v5.5.1
+  #     with:
+  #       images: |
+  #         ghcr.io/${{ env.IMAGE_NAME }}
+  #       tags: |
+  #         type=semver,pattern={{version}}${{ github.event_name == 'workflow_dispatch' && format(',value={0}', github.event.inputs.version) || '' }}
+  #         type=semver,pattern={{major}}.{{minor}}${{ github.event_name == 'workflow_dispatch' && format(',value={0}', github.event.inputs.version) || '' }}
+  #   - name: Set up Docker Buildx
+  #     uses: docker/setup-buildx-action@v3.0.0
+  #   - name: Log in to the Container registry
+  #     uses: docker/login-action@v3.0.0
+  #     with:
+  #       registry: ghcr.io
+  #       username: ${{ github.actor }}
+  #       password: ${{ secrets.GITHUB_TOKEN }}
+  #   - name: Build and push Docker image
+  #     uses: docker/build-push-action@v5.1.0
+  #     with:
+  #       context: .
+  #       file: ./Docker-Build/Dockerfile
+  #       build-args: SERVICE_NAME=${{ env.JAR_NAME }}
+  #       platforms: linux/amd64
+  #       push: true
+  #       tags: ${{ steps.meta.outputs.tags }}
+  #       labels: ${{ steps.meta.outputs.labels }}
+  #       cache-from: type=gha
+  #       cache-to: type=gha,mode=max
+  # Depoly-Docker-Server-Center:
+  #   runs-on: ubuntu-latest
+  #   needs: Build-Docker-Server-Center
+  #   permissions:
+  #     contents: read
+  #     packages: write
+  #   steps:
+  #   - name: Checkout repository
+  #     uses: actions/checkout@v4    
+  #   - name: Configure SSH
+  #     run: |
+  #       echo "SCREEN_TIME=$(date +'%Y%m%d%H%M%S')" >> $GITHUB_ENV
+  #       mkdir -p ~/.ssh/
+  #       echo "$SSH_PRIVATE_KEY" > ~/.ssh/staging.key
+  #       chmod 600 ~/.ssh/staging.key
+  #       cat >>~/.ssh/config <<END
+  #         Host staging
+  #         HostName $SSH_HOST
+  #         User $SSH_USER
+  #         IdentityFile ~/.ssh/staging.key
+  #         StrictHostKeyChecking no
+  #       END
+  #     env:
+  #       SSH_USER: ${{ secrets.SSH_USER }}
+  #       SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+  #       SSH_HOST: ${{ secrets.SSH_HOST }}
+  #   - name: Login Server And Deploy
+  #     run: |
+  #       ssh staging sudo docker ps -a | grep towelove
+  #       ssh staging sudo screen -dmS ${{ needs.Build-Docker-Server-Center.outputs.name }}_${{ needs.Build-Docker-Server-Center.outputs.version }}_${{ env.SCREEN_TIME }}
+  #       ssh staging "sudo screen -S ${{ needs.Build-Docker-Server-Center.outputs.name }}_${{ needs.Build-Docker-Server-Center.outputs.version }}_${{ env.SCREEN_TIME }} -X stuff $'sudo /opt/ops/deploy.sh ${{ needs.Build-Docker-Server-Center.outputs.name }} ${{ needs.Build-Docker-Server-Center.outputs.version }} && exit\n' "
+  
+  # # Towelove-User
+  # Build-Docker-User:
+  #   runs-on: ubuntu-latest
+  #   needs: Build-All-Java-Package
+  #   permissions:
+  #     contents: read
+  #     packages: write
+  #   outputs:
+  #       version: ${{ steps.meta.outputs.version }}
+  #       name: ${{ env.JAR_NAME }}
+  #   steps:
+  #   - name: Checkout repository
+  #     uses: actions/checkout@v4
+  #   - name: Set up Build Package 
+  #     run: |  
+  #       echo "IMAGE_NAME=towelove/towelove-user" >> $GITHUB_ENV
+  #       echo "JAR_NAME=Towelove-User" >> $GITHUB_ENV
+  #   - name: Download Artifacts
+  #     uses: actions/download-artifact@v4
+  #     with:
+  #       path: .
+  #   - name: Copy Artifacts
+  #     run: |
+  #       mkdir staging
+  #       ls -al ./Towelove/*
+  #       mv Towelove/* staging
+  #       ls -al ./staging/*
+  #   - name: Configure Docker Meta
+  #     id: meta
+  #     uses: docker/metadata-action@v5.5.1
+  #     with:
+  #       images: |
+  #         ghcr.io/${{ env.IMAGE_NAME }}
+  #       tags: |
+  #         type=semver,pattern={{version}}${{ github.event_name == 'workflow_dispatch' && format(',value={0}', github.event.inputs.version) || '' }}
+  #         type=semver,pattern={{major}}.{{minor}}${{ github.event_name == 'workflow_dispatch' && format(',value={0}', github.event.inputs.version) || '' }}
+  #   - name: Set up Docker Buildx
+  #     uses: docker/setup-buildx-action@v3.0.0
+  #   - name: Log in to the Container registry
+  #     uses: docker/login-action@v3.0.0
+  #     with:
+  #       registry: ghcr.io
+  #       username: ${{ github.actor }}
+  #       password: ${{ secrets.GITHUB_TOKEN }}
+  #   - name: Build and push Docker image
+  #     uses: docker/build-push-action@v5.1.0
+  #     with:
+  #       context: .
+  #       file: ./Docker-Build/Dockerfile
+  #       build-args: SERVICE_NAME=${{ env.JAR_NAME }}
+  #       platforms: linux/amd64
+  #       push: true
+  #       tags: ${{ steps.meta.outputs.tags }}
+  #       labels: ${{ steps.meta.outputs.labels }}
+  #       cache-from: type=gha
+  #       cache-to: type=gha,mode=max
+  # Depoly-Docker-User:
+  #   runs-on: ubuntu-latest
+  #   needs: Build-Docker-User
+  #   permissions:
+  #     contents: read
+  #     packages: write
+  #   steps:
+  #   - name: Checkout repository
+  #     uses: actions/checkout@v4    
+  #   - name: Configure SSH
+  #     run: |
+  #       echo "SCREEN_TIME=$(date +'%Y%m%d%H%M%S')" >> $GITHUB_ENV
+  #       mkdir -p ~/.ssh/
+  #       echo "$SSH_PRIVATE_KEY" > ~/.ssh/staging.key
+  #       chmod 600 ~/.ssh/staging.key
+  #       cat >>~/.ssh/config <<END
+  #         Host staging
+  #         HostName $SSH_HOST
+  #         User $SSH_USER
+  #         IdentityFile ~/.ssh/staging.key
+  #         StrictHostKeyChecking no
+  #       END
+  #     env:
+  #       SSH_USER: ${{ secrets.SSH_USER }}
+  #       SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+  #       SSH_HOST: ${{ secrets.SSH_HOST }}
+  #   - name: Login Server And Deploy
+  #     run: |
+  #       ssh staging sudo docker ps -a | grep towelove
+  #       ssh staging sudo screen -dmS ${{ needs.Build-Docker-User.outputs.name }}_${{ needs.Build-Docker-User.outputs.version }}_${{ env.SCREEN_TIME }}
+  #       ssh staging "sudo screen -S ${{ needs.Build-Docker-User.outputs.name }}_${{ needs.Build-Docker-User.outputs.version }}_${{ env.SCREEN_TIME }} -X stuff $'sudo /opt/ops/deploy.sh ${{ needs.Build-Docker-User.outputs.name }} ${{ needs.Build-Docker-User.outputs.version }} && exit\n' "
+  
+
+
+
+  # # Towelove-Client
+  # Build-Docker-Towelove-Client:
+  #   runs-on: ubuntu-latest
+  #   permissions:
+  #     contents: read
+  #     packages: write
+  #   steps:
+  #   - name: Checkout repository
+  #     uses: actions/checkout@v4
+  #   - name: Set up Build Package 
+  #     run: |  
+  #       echo "IMAGE_NAME=towelove/towelove-client" >> $GITHUB_ENV
+  #       echo "JAR_NAME=Towelove-Client" >> $GITHUB_ENV    
+  #   - name: Set up JDK 17 
+  #     uses: actions/setup-java@v4.0.0
+  #     with:
+  #       java-version: '17'
+  #       distribution: 'temurin'
+  #       server-id: github # Value of the distributionManagement/repository/id field of the pom.xml
+  #       settings-path: ${{ github.workspace }} # location for the settings.xml file
+  #   - name: Build with Maven
+  #     run: mvn -B package --file pom.xml -DskipTests -P pro
+  #   - name: Copy Artifacts
+  #     run: |
+  #       mkdir staging && cp Towelove-*/target/*.jar staging
+  #   - name: Configure Docker Meta
+  #     id: meta
+  #     uses: docker/metadata-action@v5.5.1
+  #     with:
+  #       images: |
+  #         ghcr.io/${{ env.IMAGE_NAME }}
+  #       tags: |
+  #         type=semver,pattern={{version}}${{ github.event_name == 'workflow_dispatch' && format(',value={0}', github.event.inputs.version) || '' }}
+  #         type=semver,pattern={{major}}.{{minor}}${{ github.event_name == 'workflow_dispatch' && format(',value={0}', github.event.inputs.version) || '' }}
+  #   - name: Set up Docker Buildx
+  #     uses: docker/setup-buildx-action@v3.0.0
+  #   - name: Log in to the Container registry
+  #     uses: docker/login-action@v3.0.0
+  #     with:
+  #       registry: ghcr.io
+  #       username: ${{ github.actor }}
+  #       password: ${{ secrets.GITHUB_TOKEN }}
+  #   - name: Build and push Docker image
+  #     uses: docker/build-push-action@v5.1.0
+  #     with:
+  #       context: .
+  #       file: ./Docker-Build/${{ env.JAR_NAME }}/Dockerfile
+  #       platforms: linux/amd64
+  #       push: true
+  #       tags: ${{ steps.meta.outputs.tags }}
+  #       labels: ${{ steps.meta.outputs.labels }}
+  #       cache-from: type=gha
+  #       cache-to: type=gha,mode=max
+  # # Towelove-Common
+  # Build-Docker-Towelove-Common:
+  #   runs-on: ubuntu-latest
+  #   permissions:
+  #     contents: read
+  #     packages: write
+  #   steps:
+  #   - name: Checkout repository
+  #     uses: actions/checkout@v4
+  #   - name: Set up Build Package 
+  #     run: |  
+  #       echo "IMAGE_NAME=towelove/towelove-common" >> $GITHUB_ENV
+  #       echo "JAR_NAME=Towelove-Common" >> $GITHUB_ENV
+  #   - name: Set up JDK 17 
+  #     uses: actions/setup-java@v4.0.0
+  #     with:
+  #       java-version: '17'
+  #       distribution: 'temurin'
+  #       server-id: github # Value of the distributionManagement/repository/id field of the pom.xml
+  #       settings-path: ${{ github.workspace }} # location for the settings.xml file
+  #   - name: Build with Maven
+  #     run: mvn -B package --file pom.xml -DskipTests -P pro
+  #   - name: Copy Artifacts
+  #     run: |
+  #       mkdir staging && cp Towelove-*/target/*.jar staging
+  #   # - name: Upload Artifacts
+  #   #   uses: actions/upload-artifact@v4
+  #   #   with:
+  #   #     name: ${{ env.JAR_NAME }}
+  #   #     path: staging 
+  #   - name: Configure Docker Meta
+  #     id: meta
+  #     uses: docker/metadata-action@v5.5.1
+  #     with:
+  #       images: |
+  #         ghcr.io/${{ env.IMAGE_NAME }}
+  #       tags: |
+  #         type=semver,pattern={{version}}${{ github.event_name == 'workflow_dispatch' && format(',value={0}', github.event.inputs.version) || '' }}
+  #         type=semver,pattern={{major}}.{{minor}}${{ github.event_name == 'workflow_dispatch' && format(',value={0}', github.event.inputs.version) || '' }}
+  #   - name: Set up Docker Buildx
+  #     uses: docker/setup-buildx-action@v3.0.0
+  #   - name: Log in to the Container registry
+  #     uses: docker/login-action@v3.0.0
+  #     with:
+  #       registry: ghcr.io
+  #       username: ${{ github.actor }}
+  #       password: ${{ secrets.GITHUB_TOKEN }}
+  #   - name: Build and push Docker image
+  #     uses: docker/build-push-action@v5.1.0
+  #     with:
+  #       context: .
+  #       file: ./Docker-Build/${{ env.JAR_NAME }}/Dockerfile
+  #       platforms: linux/amd64
+  #       push: true
+  #       tags: ${{ steps.meta.outputs.tags }}
+  #       labels: ${{ steps.meta.outputs.labels }}
+  #       cache-from: type=gha
+  #       cache-to: type=gha,mode=max
