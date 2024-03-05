@@ -80,7 +80,7 @@ public class CouplesServiceImpl extends ServiceImpl<CouplesMapper, Couples> impl
             throw new ServiceException("绑定请求非法，邀请方不存在");
         }
         Long userId = UserInfoContextHolder.getUserId();
-        if (userId == invitedUserId){
+        if (userId.equals(invitedUserId)){
             throw new ServiceException("绑定请求非法，不能自己与自己绑定为情侣关系");
         }
         Couples couples = new Couples();

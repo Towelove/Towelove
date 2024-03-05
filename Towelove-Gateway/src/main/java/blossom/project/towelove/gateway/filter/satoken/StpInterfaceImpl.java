@@ -28,7 +28,9 @@ public class StpInterfaceImpl implements StpInterface {
 
     Logger log = LoggerFactory.getLogger(StpInterfaceImpl.class);
 
-    ExecutorService singleThreadPool = Executors.newSingleThreadExecutor();
+    ExecutorService singleThreadPool = new ThreadPoolExecutor(5,
+            10,3,
+            TimeUnit.SECONDS,new ArrayBlockingQueue<>(100),new ThreadPoolExecutor.AbortPolicy());
 
     @Override
     public List<String> getPermissionList(Object loginId, String loginType) {
