@@ -142,20 +142,16 @@ public class EmailServiceImpl implements EmailService {
 
         switch (subject) {
             //当前是一个验证码消息
-            case RedisKeyConstant.VALIDATE_CODE_SUBJECT: {
-                redisService.setCacheObject(RedisKeyConstant.VALIDATE_CODE + email, content,5L, TimeUnit.MINUTES);
-                break;
+            case RedisKeyConstant.VALIDATE_CODE_SUBJECT -> {
+                redisService.setCacheObject(RedisKeyConstant.VALIDATE_CODE + email, content, 5L, TimeUnit.MINUTES);
             }
-            case RedisKeyConstant.REMIND_SUBJECT: {
+            case RedisKeyConstant.REMIND_SUBJECT -> {
                 //TODO 数据库/redis操作
-                break;
             }
-            case RedisKeyConstant.INVITED_SUBJECT: {
+            case RedisKeyConstant.INVITED_SUBJECT -> {
                 //TODO 数据库/redis操作
-                break;
             }
-            default: {
-                break;
+            default -> {
             }
         }
     }

@@ -56,6 +56,7 @@ public class UserInfoContextHolder {
         return Optional.ofNullable(userInfoDTO).map(UserInfoDTO::getCoupleId)
                 .orElse(null);
     }
+
     public static String getPhone(){
         UserInfoDTO userInfoDTO = USER_INFO_THREAD_LOCAL.get();
         return Optional.ofNullable(userInfoDTO).map(UserInfoDTO::getPhone)

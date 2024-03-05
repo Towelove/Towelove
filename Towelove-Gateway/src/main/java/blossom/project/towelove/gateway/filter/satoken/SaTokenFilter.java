@@ -1,5 +1,7 @@
 package blossom.project.towelove.gateway.filter.satoken;
 
+import blossom.project.towelove.common.response.AjaxResult;
+import blossom.project.towelove.common.response.Result;
 import cn.dev33.satoken.reactor.filter.SaReactorFilter;
 import cn.dev33.satoken.router.SaRouter;
 import cn.dev33.satoken.stp.StpUtil;
@@ -9,6 +11,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
 import org.springframework.boot.autoconfigure.http.HttpMessageConverters;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageConverter;
 
 import java.util.stream.Collectors;
@@ -36,9 +39,7 @@ public class SaTokenFilter {
 // 更多匹配 ...  */
                 })
                 // 异常处理方法：每次setAuth函数出现异常时进入
-                .setError(e -> {
-                    return SaResult.error(e.getMessage());
-                });
+                .setError(e -> AjaxResult.error(HttpStatus.FORBIDDEN.value(),e.getMessage()));
     }
 
     /**
