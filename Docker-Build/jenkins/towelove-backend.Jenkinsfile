@@ -21,6 +21,7 @@ pipeline {
                     sh 'mvn -v'
                     sh 'git --version'
                     sh 'docker buildx --help'
+                    echo ${env.TAG}
                 }
             }
         }
