@@ -78,9 +78,11 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         }
         CouplesRespDTO  couplesRespDTO = couplesMapper.selectCoupleIdByUserId(userId,sex);
         SysUserDTO sysUserDTO = SysUserConvert.INSTANCE.convert2DTO(sysUser);
-        sysUserDTO.setCoupleId(couplesRespDTO.getId());
-        sysUserDTO.setBoyId(couplesRespDTO.getBoyId());
-        sysUserDTO.setGirlId(couplesRespDTO.getGirlId());
+        if(Objects.nonNull(couplesRespDTO)){
+            sysUserDTO.setCoupleId(couplesRespDTO.getId());
+            sysUserDTO.setBoyId(couplesRespDTO.getBoyId());
+            sysUserDTO.setGirlId(couplesRespDTO.getGirlId());
+        }
         return sysUserDTO;
     }
 
