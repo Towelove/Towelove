@@ -1,13 +1,10 @@
-# 基础镜像
 FROM eclipse-temurin:17-jdk-jammy
 
-# 构建参数
 ARG SERVICE_NAME
-
+ENV SERVICE_NAME=$SERVICE_NAME
 ENV TZ=Asia/Shanghai \
     DEBIAN_FRONTEND=noninteractive
 
-# 安装时区数据
 RUN apt-get update && apt-get install -y tzdata \
     && ln -fs /usr/share/zoneinfo/$TZ /etc/localtime \
     && echo $TZ > /etc/timezone \
@@ -17,7 +14,6 @@ RUN apt-get update && apt-get install -y tzdata \
 
 WORKDIR /Towelove
 
-# 创建服务目录并复制JAR文件
 COPY staging/${SERVICE_NAME}.jar /Towelove/${SERVICE_NAME}/${SERVICE_NAME}.jar
 #COPY config/bootstrap.yml /Towelove/config/
 
@@ -26,5 +22,7 @@ COPY staging/${SERVICE_NAME}.jar /Towelove/${SERVICE_NAME}/${SERVICE_NAME}.jar
 #     && chown -R towelove:towelove /Towelove
 # USER towelove
 
-ENTRYPOINT ["java"]
-CMD ["-Xmx2048m", "-Xms1024m", "-jar", "/Towelove/${SERVICE_NAME}/${SERVICE_NAME}.jar"]
+COPY Docker-Build/entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+
+ENTRYPOINT ["/entrypoint.sh"]
