@@ -7,6 +7,10 @@ inputs:
   build_args:
     description: 'build arguments for Docker'
     required: false
+  context:
+    description: 'build context for Docker'
+    required: false
+    default: .
   push:
     description: 'whether to push the image'
     required: false
@@ -26,6 +30,13 @@ inputs:
   registry:
     description: 'Container registry (Optional). '
     required: false
+  dockerhub_username:
+    description: 'DockerHub Username'
+    required: true
+  dockerhub_token:
+    description: 'DockerHub Token'
+    required: true
+
   
 runs:
   using: 'composite'
@@ -37,8 +48,8 @@ runs:
       uses: docker/login-action@v3.0.0
       with:
         registry: ${{ inputs.registry }}
-        username: ${{ secrets.DOCKERHUB_USERNAME }}
-        password: ${{ secrets.DOCKERHUB_TOKEN }}
+        username: ${{ inputs.dockerhub_username }}
+        password: ${{ inputs.dockerhub_token }}
 
     # - name: Log in to ghcr.io
     #   uses: docker/login-action@v3.0.0
@@ -50,7 +61,7 @@ runs:
     - name: Build and push
       uses: docker/build-push-action@v5.1.0
       with:
-        context: .
+        context: ${{ inputs.context }}
         file: ${{ inputs.dockerfile_path }}
         tags: ${{ inputs.image_name }}
         build-args: ${{ inputs.build_args }}
