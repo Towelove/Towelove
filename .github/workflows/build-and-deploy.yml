@@ -1,5 +1,5 @@
 
-name: Test
+name: Build And Deploy to Docker Hub
 
 on:
   push:
