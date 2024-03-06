@@ -21,7 +21,7 @@ env:
 
 jobs:
   # Build-All-Java-Package
-  Build-All-Java-Package:
+  Build-And-Deploy:
     runs-on: ubuntu-latest
     permissions:
       contents: read
