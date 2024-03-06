@@ -1,30 +1,51 @@
 name: 'Build and Push Docker'
 description: 'Builds and pushes Docker images to a registry'
 inputs:
-  image_name:
-    description: 'Docker image name'
-    required: true
   dockerfile_path:
-    description: 'Path to the Dockerfile'
+    description: 'path to the Dockerfile'
     required: true
   build_args:
-    description: 'Build arguments for Docker'
+    description: 'build arguments for Docker'
     required: false
   push:
-    description: 'Whether to push the image'
+    description: 'whether to push the image'
     required: false
     default: 'true'
+  platforms:
+    description: 'platforms for Docker Buildx'
+    default: 'linux/amd64'
+  lables:
+    description: 'lables for Docker Buildx'
+    required: false
+  cache-from: 
+    description: 'cache-from for Docker Buildx'
+    required: false
+  cache-to: 
+    description: 'cache-to for Docker Buildx'
+    required: false
+  registry:
+    description: 'Container registry (Optional). '
+    required: false
+  
 runs:
   using: 'composite'
   steps:
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v3.0.0
 
-    - name: Log in to DockerHub
+    - name: Log in to Docker Hub
       uses: docker/login-action@v3.0.0
       with:
+        registry: ${{ inputs.registry }}
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+    # - name: Log in to ghcr.io
+    #   uses: docker/login-action@v3.0.0
+    #   with:
+    #     registry: ghcr.io
+    #     username: ${{ github.actor }}
+    #     password: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Build and push
       uses: docker/build-push-action@v5.1.0
@@ -34,3 +55,7 @@ runs:
         tags: ${{ inputs.image_name }}
         build-args: ${{ inputs.build_args }}
         push: ${{ inputs.push }}
+        platforms: ${{ inputs.platforms }}
+        labels: ${{ inputs.labels }}
+        cache-from: ${{ inputs.cache-from }}
+        cache-to: ${{ inputs.cache-to }}

@@ -39,5 +39,11 @@ runs:
 
     - name: Execute Deployment Script via SSH
       run: |
-        ssh staging "sudo bash -s" -- < ${{ inputs.deploy_script }} ${{ inputs.service_name }} ${{ inputs.service_version }}
+        TIMESTAMP=$(date +'%Y%m%d%H%M%S')
+        SCREEN_NAME="${{ inputs.service_name }}_${{ inputs.service_version }}_${TIMESTAMP}"
+        SSH_CMD="ssh staging"
+        DEPLOY_CMD="sudo screen -S $SCREEN_NAME -X stuff \$'sudo ${{ inputs.deploy_script }} ${{ inputs.service_name }} ${{ inputs.service_version }} && exit\n'"
+        FINAL_CMD="$SSH_CMD \"$DEPLOY_CMD\""
+        echo "Executing command: $FINAL_CMD"
+        eval $FINAL_CMD
       shell: bash
