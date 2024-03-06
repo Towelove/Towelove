@@ -13,7 +13,12 @@ public class SysUserDTO {
 
     private String smtpCode;
 
+
     private String sex;
+
+
+    private String phoneNumber;
+
 
     private String avatar;
 

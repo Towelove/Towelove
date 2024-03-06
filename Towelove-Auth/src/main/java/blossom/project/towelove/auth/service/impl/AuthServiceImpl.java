@@ -164,6 +164,7 @@ public class AuthServiceImpl implements AuthService {
         SysUser sysUser = JSON.parseObject(loginIdAsString, SysUser.class);
         ValidateCodeRequest validateCodeRequests = null;
         if (StrUtil.isNotBlank(sysUser.getEmail())){
+            restockUserInfoRequest.setEmail(sysUser.getEmail());
             //需要补充手机号信息
             String phone = restockUserInfoRequest.getPhone();
             checkPhoneByRegex(phone);
@@ -174,6 +175,7 @@ public class AuthServiceImpl implements AuthService {
                     .type("phone")
                     .build();
         }else {
+            sysUser.setPhoneNumber(sysUser.getPhoneNumber());
             String email = restockUserInfoRequest.getEmail();
             checkEmailByRegex(email);
             validateCodeRequests = ValidateCodeRequest

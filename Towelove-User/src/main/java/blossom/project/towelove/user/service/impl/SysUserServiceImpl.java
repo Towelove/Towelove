@@ -186,7 +186,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         }
         //存入缓存中
         redisService.setCacheObject(String.format(UserConstants.USER_PERMISSION_KEY,userId),sysUserPermissionDtos,2L, TimeUnit.HOURS);
-        return (List<SysUserPermissionDto>) cacheObject;
+        return sysUserPermissionDtos;
     }
 
     @Override
