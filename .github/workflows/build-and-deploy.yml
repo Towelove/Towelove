@@ -3,13 +3,13 @@ name: Build And Deploy to Docker Hub
 
 on:
   push:
-    # branches:
-    #   - 'master'
+    branches:
+      - 'master'
     tags:
       - 'v*'
-  # pull_request:
-  #   branches:
-  #     - 'master'
+  pull_request:
+    branches:
+      - 'master'
   workflow_dispatch:
     inputs:
       version:
@@ -17,7 +17,8 @@ on:
         required: true
 
 env:
-  VERSION: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.version || github.ref_name }}
+  VERSION: ${{ github.event_name == 'push' && '0.1.0-' || github.event_name == 'pull_request' && '0.1.0-' || github.event_name == 'workflow_dispatch' && github.event.inputs.version || github.ref_name }}
+  UNIQUE_TAG: ${{ github.sha }}
 
 jobs:
   # Build-All-Java-Package
@@ -65,8 +66,10 @@ jobs:
         images: |
           towelove/towelove-${{ matrix.service }}
         tags: |
+          type=raw,value=0.1.0-${{ github.sha }}
           type=semver,pattern={{version}}${{ github.event_name == 'workflow_dispatch' && format(',value={0}', github.event.inputs.version) || '' }}
           type=semver,pattern={{major}}.{{minor}}${{ github.event_name == 'workflow_dispatch' && format(',value={0}', github.event.inputs.version) || '' }}
+          type=ref,event=branch
     - name: Build and push Docker image
       uses: ./.github/actions/build-and-push-docker
       with:
