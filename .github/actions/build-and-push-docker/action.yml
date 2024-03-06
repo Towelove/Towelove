@@ -1,10 +1,10 @@
 name: 'Build and Push Docker'
 description: 'Builds and pushes Docker images to a registry'
 inputs:
-  dockerfile_path:
+  file:
     description: 'path to the Dockerfile'
     required: true
-  build_args:
+  build-args:
     description: 'build arguments for Docker'
     required: false
   context:
@@ -66,9 +66,9 @@ runs:
       uses: docker/build-push-action@v5.1.0
       with:
         context: ${{ inputs.context }}
-        file: ${{ inputs.dockerfile_path }}
+        file: ${{ inputs.file }}
         tags: ${{ inputs.tags }}
-        build-args: ${{ inputs.build_args }}
+        build-args: ${{ inputs.build-args }}
         push: ${{ inputs.push }}
         platforms: ${{ inputs.platforms }}
         labels: ${{ inputs.labels }}
