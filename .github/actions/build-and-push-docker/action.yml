@@ -22,7 +22,7 @@ inputs:
   platforms:
     description: 'platforms for Docker Buildx'
     default: 'linux/amd64'
-  lables:
+  labels:
     description: 'lables for Docker Buildx'
     required: false
   cache-from: 

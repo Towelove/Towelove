@@ -26,6 +26,22 @@ jobs:
     permissions:
       contents: read
       packages: write
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - service: 'gateway'
+            jarName: 'Towelove-Gateway'
+          - service: 'auth'
+            jarName: 'Towelove-Auth'
+          - service: 'user'
+            jarName: 'Towelove-User'
+          - service: 'loves'
+            jarName: 'Towelove-Loves'
+          - service: 'msg'
+            jarName: 'Towelove-Msg'
+          - service: 'server-center'
+            jarName: 'Towelove-Server-Center'
     steps:
     - name: Checkout repository
       uses: actions/checkout@v4  
@@ -42,31 +58,27 @@ jobs:
       run: |
         mkdir staging && cp Towelove-*/target/*.jar staging
         ls -al staging
-
-    - name: Set up Gateway Meta
-      id: gateway
-      env:
-        IMAGE_NAME: towelove/towelove-gateway
-        JAR_NAME: Towelove-Gateway
+    - name: Set up Docker Meta
+      id: meta
       uses: docker/metadata-action@v5.5.1
       with:
         images: |
-          ${{ steps.gateway.env.IMAGE_NAME }}
+          towelove/towelove-${{ matrix.service }}
         tags: |
           type=semver,pattern={{version}}${{ github.event_name == 'workflow_dispatch' && format(',value={0}', github.event.inputs.version) || '' }}
           type=semver,pattern={{major}}.{{minor}}${{ github.event_name == 'workflow_dispatch' && format(',value={0}', github.event.inputs.version) || '' }}
-    - name: Build and push Docker Gateway
+    - name: Build and push Docker image
       uses: ./.github/actions/build-and-push-docker
       with:
         dockerhub_username: ${{ secrets.DOCKERHUB_USERNAME }}
         dockerhub_token: ${{ secrets.DOCKERHUB_TOKEN }}
         context: .
         file: ./Docker-Build/Dockerfile
-        build-args: SERVICE_NAME=${{ steps.gateway.env.JAR_NAME }}
+        build-args: SERVICE_NAME=${{ matrix.jarName }}
         platforms: linux/amd64
         push: true
-        tags: ${{ steps.gateway.outputs.tags }}
-        labels: ${{ steps.gateway.outputs.labels }}
+        tags: ${{ steps.meta.outputs.tags }}
+        labels: ${{ steps.meta.outputs.labels }}
         cache-from: type=gha
         cache-to: type=gha,mode=max
     - name: SSH Deploy
@@ -76,5 +88,5 @@ jobs:
         ssh_user: ${{ secrets.SSH_USER }}
         ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
         deploy_script: '/opt/ops/deploy.sh'
-        service_name: ${{ steps.gateway.env.JAR_NAME }}
-        service_version: ${{ steps.gateway.outputs.version }}
+        service_name: ${{ matrix.jarName }}
+        service_version: ${{ steps.meta.outputs.version }}
