@@ -58,6 +58,8 @@ jobs:
     - name: Build and push Docker Gateway
       uses: ./.github/actions/build-and-push-docker
       with:
+        dockerhub_username: ${{ secrets.DOCKERHUB_USERNAME }}
+        dockerhub_token: ${{ secrets.DOCKERHUB_TOKEN }}
         context: .
         file: ./Docker-Build/Dockerfile
         build-args: SERVICE_NAME=${{ steps.gateway.env.JAR_NAME }}
@@ -76,3 +78,4 @@ jobs:
         deploy_script: '/opt/ops/deploy.sh'
         service_name: ${{ steps.gateway.env.JAR_NAME }}
         service_version: ${{ steps.gateway.outputs.version }}
+        
