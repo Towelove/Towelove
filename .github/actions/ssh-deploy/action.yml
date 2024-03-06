@@ -1,0 +1,43 @@
+name: 'SSH Deploy'
+description: 'Deploys application using SSH'
+inputs:
+  ssh_host:
+    description: 'SSH Host'
+    required: true
+  ssh_user:
+    description: 'SSH User'
+    required: true
+  ssh_private_key:
+    description: 'SSH Private Key'
+    required: true
+  deploy_script:
+    description: 'Path to the deployment script on the remote server'
+    required: true
+  service_name:
+    description: 'The service name to deploy'
+    required: true
+  service_version:
+    description: 'The service version to deploy'
+    required: true
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Setup SSH Key and Known Hosts
+      run: |
+        mkdir -p ~/.ssh/
+        echo "${{ inputs.ssh_private_key }}" > ~/.ssh/staging.key
+        chmod 600 ~/.ssh/staging.key
+        cat >>~/.ssh/config <<END
+          Host staging
+          HostName ${{ inputs.ssh_host}}
+          User ${{ inputs.ssh_user }}
+          IdentityFile ~/.ssh/staging.key
+          StrictHostKeyChecking no
+        END
+      shell: bash
+
+    - name: Execute Deployment Script via SSH
+      run: |
+        ssh staging "sudo bash -s" -- < ${{ inputs.deploy_script }} ${{ inputs.service_name }} ${{ inputs.service_version }}
+      shell: bash
