@@ -50,8 +50,8 @@ public class GlobalGatewayExceptionHandler implements ErrorWebExceptionHandler {
         //这里只是做个最简单的同一的异常结果输出，实际业务可根据throwable不同的异常处理不同的逻辑
         Result<Object> result = Result.fail(throwable.getMessage(), SecurityConstant.REQUEST_ID);
 //        threadLocal.set(result);
-        exchange.getResponse().setStatusCode(org.springframework.http.HttpStatus.BAD_REQUEST);
-        exchange.getResponse().getHeaders().setContentType(MediaType.APPLICATION_JSON);
+//        exchange.getResponse().setStatusCode(org.springframework.http.HttpStatus.BAD_REQUEST);
+//        exchange.getResponse().getHeaders().setContentType(MediaType.APPLICATION_JSON);
 //        ServerRequest newRequest = ServerRequest.create(exchange, this.messageReaders);
 //        return RouterFunctions.route(RequestPredicates.all(), this::renderErrorResponse).route(newRequest)
 //                .switchIfEmpty(Mono.error(throwable))
@@ -60,7 +60,7 @@ public class GlobalGatewayExceptionHandler implements ErrorWebExceptionHandler {
         return exchange.getResponse()
                 .writeWith(Mono.just(exchange.getResponse().bufferFactory().wrap(result.toString().getBytes())));
     }
-//
+
 //    /**
 //     * 统一返回指定异常信息(指定json格式输出)
 //     * @param request

@@ -1,9 +1,13 @@
 package blossom.project.towelove.gateway.filter.satoken;
 
 import blossom.project.towelove.client.serivce.user.RemoteUserService;
+import blossom.project.towelove.common.constant.SecurityConstant;
 import blossom.project.towelove.common.domain.dto.SysUser;
+import blossom.project.towelove.common.exception.ServiceException;
 import blossom.project.towelove.common.response.Result;
 import blossom.project.towelove.common.response.user.SysUserPermissionDto;
+import cn.dev33.satoken.context.SaHolder;
+import cn.dev33.satoken.exception.BackResultException;
 import cn.dev33.satoken.stp.StpInterface;
 import cn.dev33.satoken.stp.StpUtil;
 import com.alibaba.fastjson2.JSON;
@@ -46,10 +50,12 @@ public class StpInterfaceImpl implements StpInterface {
              result =  future.get(5,TimeUnit.SECONDS);
             if (Objects.isNull(result) || Objects.isNull(result.getData())){
                 log.info("[{}]用户查询权限为空",sysUser.getId());
-                return List.of();
+                //需要自行设置响应头
+                SaHolder.getResponse().setHeader("Content-Type", "application/json;charset=UTF-8");
+                throw new BackResultException(JSON.toJSONString(Result.fail(HttpStatus.FORBIDDEN.getReasonPhrase(),HttpStatus.FORBIDDEN.value(),"无权限",SecurityConstant.REQUEST_ID)));
             }
         } catch (InterruptedException | ExecutionException | TimeoutException e) {
-            return List.of();
+            throw new BackResultException(JSON.toJSONString(Result.fail(HttpStatus.FORBIDDEN.getReasonPhrase(),HttpStatus.FORBIDDEN.value(),"无权限",SecurityConstant.REQUEST_ID)));
         }
         return result.getData().stream().map(SysUserPermissionDto::getPermission).toList();
     }
