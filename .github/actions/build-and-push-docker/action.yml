@@ -11,6 +11,10 @@ inputs:
     description: 'build context for Docker'
     required: false
     default: .
+  tags:
+    description: 'build tag for Docker'
+    required: false
+    default: .
   push:
     description: 'whether to push the image'
     required: false
@@ -63,7 +67,7 @@ runs:
       with:
         context: ${{ inputs.context }}
         file: ${{ inputs.dockerfile_path }}
-        tags: ${{ inputs.image_name }}
+        tags: ${{ inputs.tags }}
         build-args: ${{ inputs.build_args }}
         push: ${{ inputs.push }}
         platforms: ${{ inputs.platforms }}
