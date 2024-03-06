@@ -65,8 +65,8 @@ jobs:
         build-args: SERVICE_NAME=${{ steps.gateway.env.JAR_NAME }}
         platforms: linux/amd64
         push: true
-        tags: ${{ steps.meta.outputs.tags }}
-        labels: ${{ steps.meta.outputs.labels }}
+        tags: ${{ steps.gateway.outputs.tags }}
+        labels: ${{ steps.gateway.outputs.labels }}
         cache-from: type=gha
         cache-to: type=gha,mode=max
     - name: SSH Deploy
@@ -78,4 +78,3 @@ jobs:
         deploy_script: '/opt/ops/deploy.sh'
         service_name: ${{ steps.gateway.env.JAR_NAME }}
         service_version: ${{ steps.gateway.outputs.version }}
-        
