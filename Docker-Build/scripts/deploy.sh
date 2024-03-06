@@ -8,8 +8,9 @@ NC='\033[0m' # No Color
 
 # 定义日志文件路径
 LOG_FILE="/opt/ops/logs/deploy.log"
-REGISTRY_URL="harbor.towelove.cn"
-DEFAULT_IMAGE_VERSION="0.1.52-test3"  # 假设这是你的默认版本号
+# eg: REGISTRY_URL="ghcr.nju.cn/"
+REGISTRY_URL=""
+DEFAULT_IMAGE_VERSION="0.1.0"  # 假设这是你的默认版本号
 
 # 日志函数
 log() {
@@ -70,12 +71,13 @@ run_container() {
     local service_ip=$2
     local service_port=$3
     local image_version=$4
-    local image_base="${REGISTRY_URL}/towelove"
+    local image_base="${REGISTRY_URL}towelove"
     local full_name="${image_base}/${service_name}:${image_version}"
 
     local run_cmd="sudo docker run -d --restart=always --name ${service_name} --privileged=true \
 --net=venus --ip ${service_ip}  \
 -v /etc/localtime:/etc/localtime:ro -e TZ=Asia/Shanghai \
+-v /opt/docker_data/towelove/logs:/Towelove/logs -e TZ=Asia/Shanghai \
 ${full_name}"
 
 #     local run_cmd="sudo docker run -d --restart=always --name ${service_name} --privileged=true \
@@ -175,7 +177,7 @@ deploy_service() {
     local service_name=$(echo "$original_service_name" | tr '[:upper:]' '[:lower:]')
 
     # 构建新镜像的完整名称
-    local image_base="${REGISTRY_URL}/towelove"
+    local image_base="${REGISTRY_URL}towelove"
     local full_name="${image_base}/${service_name}:${image_version}"
 
     # 检查服务名称是否存在于映射中
