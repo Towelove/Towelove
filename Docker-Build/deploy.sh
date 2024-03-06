@@ -76,6 +76,7 @@ run_container() {
     local run_cmd="sudo docker run -d --restart=always --name ${service_name} --privileged=true \
 --net=venus --ip ${service_ip}  \
 -v /etc/localtime:/etc/localtime:ro -e TZ=Asia/Shanghai \
+-v /opt/docker_data/towelove/logs:/Towelove/logs -e TZ=Asia/Shanghai \
 ${full_name}"
 
 #     local run_cmd="sudo docker run -d --restart=always --name ${service_name} --privileged=true \
