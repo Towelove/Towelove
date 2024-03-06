@@ -71,7 +71,8 @@ jobs:
           type=raw,value=0.1.0-${{ steps.shortsha.outputs.SHORT_SHA }}
           type=semver,pattern={{version}}${{ github.event_name == 'workflow_dispatch' && format(',value={0}', github.event.inputs.version) || '' }}
           type=semver,pattern={{major}}.{{minor}}${{ github.event_name == 'workflow_dispatch' && format(',value={0}', github.event.inputs.version) || '' }}
-          type=ref,event=branch
+          
+#type=ref,event=branch
     - name: Build and push Docker image
       uses: ./.github/actions/build-and-push-docker
       with:
