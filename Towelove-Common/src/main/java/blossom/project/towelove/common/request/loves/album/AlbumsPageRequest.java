@@ -23,9 +23,6 @@ import javax.validation.constraints.NotNull;
 @Builder
 public class AlbumsPageRequest extends PageRequest {
 
-    @NotNull(message = "coupleId can not be null!!!")
-    private Long coupleId;
-
     private Long pageSize = 14L;
 
 }

@@ -24,9 +24,6 @@ public class AlbumsUpdateRequest  {
     @NotNull(message = "id can not be null!!!")
     private Long id;
 
-    @NotNull(message = "coupleId can not be null!!!")
-    private Long coupleId;
-
 
     @NotNull(message = "create time can not be null!!!")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")

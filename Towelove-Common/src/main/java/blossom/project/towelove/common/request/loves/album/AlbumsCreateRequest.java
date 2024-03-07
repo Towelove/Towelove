@@ -22,10 +22,6 @@ import javax.validation.constraints.NotNull;
 public class AlbumsCreateRequest  {
 
 
-    //情侣组id
-    @NotNull(message = "coupleId can not be null!!!")
-    private Long coupleId;
-
 
     //相册创建时间
     @NotNull(message = "create time can not be null!!!")

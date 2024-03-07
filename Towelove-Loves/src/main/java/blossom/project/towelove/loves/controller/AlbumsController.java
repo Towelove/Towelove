@@ -74,7 +74,7 @@ public class AlbumsController {
      * @return
      */
     @PostMapping("/page")
-    public Result<PageResponse<AlbumsPageRespDTO>> pageQueryAlbums(@RequestBody @Validated AlbumsPageRequest pageRequest) {
+    public Result<PageResponse<AlbumsPageRespDTO>> pageQueryAlbums(@RequestBody AlbumsPageRequest pageRequest) {
         return Result.ok(albumsService.pageQueryAlbums(pageRequest));
     }
 

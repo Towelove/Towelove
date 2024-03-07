@@ -1,4 +1,4 @@
-package blossom.project.towelove.loves.service.impl;
+package blossom.project.towelove.loves.service.Impl;
 
 import blossom.project.towelove.common.constant.Constant;
 import blossom.project.towelove.common.exception.EntityNotFoundException;
@@ -10,6 +10,7 @@ import blossom.project.towelove.common.request.loves.album.AlbumsUpdateRequest;
 import blossom.project.towelove.common.response.love.album.AlbumsPageRespDTO;
 import blossom.project.towelove.common.response.love.album.AlbumsRespDTO;
 import blossom.project.towelove.common.utils.StringUtils;
+import blossom.project.towelove.framework.user.core.UserInfoContextHolder;
 import blossom.project.towelove.loves.convert.AlbumConvert;
 import blossom.project.towelove.loves.entity.Albums;
 import blossom.project.towelove.loves.mapper.AlbumsMapper;
@@ -55,6 +56,11 @@ public class AlbumsServiceImpl extends ServiceImpl<AlbumsMapper, Albums> impleme
             //设定图片数量 没有进来默认就是0
             albums.setPhotoNums(StringUtils.countCharacter(createRequest.getPhotoUrls()+1, Constant.COMMA));
         }
+        Long coupleId = UserInfoContextHolder.getCoupleId();
+        if (coupleId == null){
+            throw new RuntimeException("coupleId can not be null!!!");
+        }
+        albums.setCoupleId(coupleId);
         albumsMapper.insert(albums);
         AlbumsRespDTO respDTO = AlbumConvert.INSTANCE.convert(albums);
         return respDTO;
@@ -73,8 +79,9 @@ public class AlbumsServiceImpl extends ServiceImpl<AlbumsMapper, Albums> impleme
 
     @Override
     public PageResponse<AlbumsPageRespDTO> pageQueryAlbums(AlbumsPageRequest pageRequest) {
+        Long coupleId = UserInfoContextHolder.getCoupleId();
         LambdaQueryWrapper<Albums> lqw = new LambdaQueryWrapper<>();
-        lqw.eq(Albums::getCoupleId, pageRequest.getCoupleId());
+        lqw.eq(Albums::getCoupleId, coupleId);
         Page<Albums> page = new Page<>(pageRequest.getPageNo() - 1, pageRequest.getPageSize());
         Page<Albums> albumsPage = albumsMapper.selectPage(page, lqw);
         if (CollectionUtil.isEmpty(albumsPage.getRecords())) {
