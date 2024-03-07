@@ -55,6 +55,7 @@ public class StpInterfaceImpl implements StpInterface {
                 throw new BackResultException(JSON.toJSONString(Result.fail(HttpStatus.FORBIDDEN.getReasonPhrase(),HttpStatus.FORBIDDEN.value(),"无权限",SecurityConstant.REQUEST_ID)));
             }
         } catch (InterruptedException | ExecutionException | TimeoutException e) {
+            SaHolder.getResponse().setHeader("Content-Type", "application/json;charset=UTF-8");
             throw new BackResultException(JSON.toJSONString(Result.fail(HttpStatus.FORBIDDEN.getReasonPhrase(),HttpStatus.FORBIDDEN.value(),"无权限",SecurityConstant.REQUEST_ID)));
         }
         return result.getData().stream().map(SysUserPermissionDto::getPermission).toList();

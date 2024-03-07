@@ -6,6 +6,7 @@ import blossom.project.towelove.common.domain.dto.SysUser;
 import blossom.project.towelove.common.domain.dto.ThirdPartyLoginUser;
 import blossom.project.towelove.common.domain.dto.UserThirdParty;
 import blossom.project.towelove.common.request.auth.AuthLoginRequest;
+import blossom.project.towelove.common.request.auth.RestockUserInfoDTO;
 import blossom.project.towelove.common.request.auth.RestockUserInfoRequest;
 import blossom.project.towelove.common.response.Result;
 import blossom.project.towelove.common.response.user.SysUserPermissionDto;
@@ -73,7 +74,7 @@ public class RemoteUserFallbackFactory implements FallbackFactory<RemoteUserServ
             }
 
             @Override
-            public Result<SysUser> restockUserInfo(RestockUserInfoRequest restockUserInfoRequest) {
+            public Result<SysUser> restockUserInfo(RestockUserInfoDTO restockUserInfoDTO) {
                 log.error("调用远程服务 restockUserInfo 失败: {}", throwable.getMessage());
                 return Result.fail("远程服务调用失败", MDC.get(SecurityConstant.REQUEST_ID));
             }

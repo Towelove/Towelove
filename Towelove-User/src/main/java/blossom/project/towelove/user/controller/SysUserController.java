@@ -2,6 +2,7 @@ package blossom.project.towelove.user.controller;
 
 import blossom.project.towelove.common.page.PageResponse;
 import blossom.project.towelove.common.request.auth.AuthLoginRequest;
+import blossom.project.towelove.common.request.auth.RestockUserInfoDTO;
 import blossom.project.towelove.common.request.auth.RestockUserInfoRequest;
 import blossom.project.towelove.common.request.user.InsertUserRequest;
 import blossom.project.towelove.common.request.user.UpdateUserRequest;
@@ -105,8 +106,8 @@ public class SysUserController {
     }
 
     @PutMapping("/restock")
-    public Result<SysUser> restockUserInfo(@RequestBody RestockUserInfoRequest restockUserInfoRequest){
-        return Result.ok(sysUserService.restockUserInfo(restockUserInfoRequest));
+    public Result<SysUser> restockUserInfo(@RequestBody RestockUserInfoDTO restockUserInfoDTO){
+        return Result.ok(sysUserService.restockUserInfo(restockUserInfoDTO));
     }
 
 

@@ -3,6 +3,7 @@ package blossom.project.towelove.user.service;
 
 import blossom.project.towelove.common.page.PageResponse;
 import blossom.project.towelove.common.request.auth.AuthLoginRequest;
+import blossom.project.towelove.common.request.auth.RestockUserInfoDTO;
 import blossom.project.towelove.common.request.auth.RestockUserInfoRequest;
 import blossom.project.towelove.common.request.user.InsertUserRequest;
 import blossom.project.towelove.common.request.user.UpdateUserRequest;
@@ -34,6 +35,6 @@ public interface SysUserService extends IService<SysUser> {
 
     void addUserPermission(SysUser sysUser);
 
-    SysUser restockUserInfo(RestockUserInfoRequest restockUserInfoRequest);
+    SysUser restockUserInfo(RestockUserInfoDTO restockUserInfoDTO);
 }
 

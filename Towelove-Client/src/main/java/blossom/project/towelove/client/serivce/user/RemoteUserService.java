@@ -6,6 +6,7 @@ import blossom.project.towelove.common.domain.dto.SysUser;
 import blossom.project.towelove.common.domain.dto.ThirdPartyLoginUser;
 import blossom.project.towelove.common.domain.dto.UserThirdParty;
 import blossom.project.towelove.common.request.auth.AuthLoginRequest;
+import blossom.project.towelove.common.request.auth.RestockUserInfoDTO;
 import blossom.project.towelove.common.request.auth.RestockUserInfoRequest;
 import blossom.project.towelove.common.response.Result;
 import blossom.project.towelove.common.response.user.SysUserPermissionDto;
@@ -44,6 +45,6 @@ public interface RemoteUserService {
     Result<SysUser> accessByThirdPartyAccount(@RequestBody ThirdPartyLoginUser thirdPartyLoginUser);
 
     @PutMapping("/v1/user/sys/restock")
-    Result<SysUser> restockUserInfo(@RequestBody RestockUserInfoRequest restockUserInfoRequest);
+    Result<SysUser> restockUserInfo(@RequestBody RestockUserInfoDTO restockUserInfoDTO);
 
 }

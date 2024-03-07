@@ -53,7 +53,15 @@ public class ReWriteRequestFilter implements GlobalFilter , Ordered {
         }
         //重写请求
         reBuildRequest(sysUser,request);
+        judgeRefreshToken();
         return chain.filter(exchange.mutate().request(request).build());
+    }
+
+    private void judgeRefreshToken() {
+        long tokenActiveTimeout = StpUtil.getTokenActiveTimeout();
+        if (tokenActiveTimeout < 60 * 60L){
+            StpUtil.updateLastActiveToNow();//刷新token有效期
+        }
     }
 
     public boolean judgeWhite(ServerHttpRequest request){

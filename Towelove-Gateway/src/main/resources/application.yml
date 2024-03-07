@@ -41,15 +41,14 @@ sa-token:
   # Token name (also the cookie name)
   token-name: Authorization
   # Token expiration time (in seconds) Default is 30 days, -1 represents permanent validity
-  timeout: 2592000
+  timeout: 259200
   # Token minimum activity frequency (in seconds), if the token is not accessed for more than this time, it will be frozen. Default is -1, which means no restriction, never frozen.
-  active-timeout: -1
+  active-timeout: 43200
   # Whether to allow concurrent logins for the same account (true allows concurrent logins, false allows only one login at a time)
-  is-concurrent: true
+  is-concurrent: false
   # When multiple users log in to the same account, should they share the same token (true means all logins share one token, false means a new token is created for each login)
   is-share: true
-  # Token style (default values: uuid, simple-uuid, random-32, random-64, random-128, tik)
+  # Token style
   token-style: uuid
   # Whether to output operation logs
   is-log: true
-

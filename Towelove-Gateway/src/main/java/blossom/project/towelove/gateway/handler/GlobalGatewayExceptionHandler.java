@@ -2,6 +2,7 @@ package blossom.project.towelove.gateway.handler;
 
 import blossom.project.towelove.common.constant.SecurityConstant;
 import blossom.project.towelove.common.response.Result;
+import com.alibaba.fastjson2.JSON;
 import com.towelove.common.core.constant.HttpStatus;
 import lombok.Getter;
 import lombok.Setter;
@@ -58,7 +59,7 @@ public class GlobalGatewayExceptionHandler implements ErrorWebExceptionHandler {
 //                .flatMap((handler) -> handler.handle(newRequest))
 //                .flatMap((response) -> write(exchange, response));
         return exchange.getResponse()
-                .writeWith(Mono.just(exchange.getResponse().bufferFactory().wrap(result.toString().getBytes())));
+                .writeWith(Mono.just(exchange.getResponse().bufferFactory().wrap(JSON.toJSONString(result).getBytes())));
     }
 
 //    /**
