@@ -12,10 +12,7 @@ import blossom.project.towelove.client.serivce.user.RemoteUserService;
 import blossom.project.towelove.common.constant.RedisKeyConstant;
 import blossom.project.towelove.common.domain.dto.SysUser;
 import blossom.project.towelove.common.exception.ServiceException;
-import blossom.project.towelove.common.request.auth.AuthLoginRequest;
-import blossom.project.towelove.common.request.auth.AuthRegisterRequest;
-import blossom.project.towelove.common.request.auth.AuthVerifyCodeRequest;
-import blossom.project.towelove.common.request.auth.RestockUserInfoRequest;
+import blossom.project.towelove.common.request.auth.*;
 import blossom.project.towelove.common.request.msg.ValidateCodeRequest;
 import blossom.project.towelove.common.response.Result;
 import blossom.project.towelove.framework.redis.service.RedisService;
@@ -157,14 +154,36 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public String restockUserInfo(@Validated RestockUserInfoRequest restockUserInfoRequest) {
+        SysUser sysUser = validateCode(restockUserInfoRequest);
+        restockUserInfoRequest.setId(sysUser.getId());
+        //调用远程服务更新用户信息
+        RestockUserInfoDTO restockUserInfoDTO = RestockUserInfoDTO.builder()
+                .Id(restockUserInfoRequest.getId())
+                .avatar(restockUserInfoRequest.getAvatar())
+                .sex(restockUserInfoRequest.getSex())
+                .nickName(restockUserInfoRequest.getNickName())
+                .phoneNumber(restockUserInfoRequest.getPhone())
+                .email(restockUserInfoRequest.getEmail())
+                .build();
+        Result<SysUser> result = remoteUserService.restockUserInfo(restockUserInfoDTO);
+        if (Objects.isNull(result) || HttpStatus.SUCCESS != result.getCode()){
+            throw new ServiceException("补充用户信息失败");
+        }
+        StpUtil.login(JSON.toJSONString(result.getData()));
+        return StpUtil.getTokenValue();
+    }
 
-
-
+    /**
+     * 处理校验验证码
+     * @param restockUserInfoRequest
+     * @return
+     */
+    private SysUser validateCode(RestockUserInfoRequest restockUserInfoRequest) {
         String loginIdAsString = StpUtil.getLoginIdAsString();
         SysUser sysUser = JSON.parseObject(loginIdAsString, SysUser.class);
         ValidateCodeRequest validateCodeRequests = null;
         if (StrUtil.isNotBlank(sysUser.getEmail())){
-            restockUserInfoRequest.setEmail(sysUser.getEmail());
+//            restockUserInfoRequest.setEmail(sysUser.getEmail());
             //需要补充手机号信息
             String phone = restockUserInfoRequest.getPhone();
             checkPhoneByRegex(phone);
@@ -175,7 +194,6 @@ public class AuthServiceImpl implements AuthService {
                     .type("phone")
                     .build();
         }else {
-            sysUser.setPhoneNumber(sysUser.getPhoneNumber());
             String email = restockUserInfoRequest.getEmail();
             checkEmailByRegex(email);
             validateCodeRequests = ValidateCodeRequest
@@ -189,14 +207,7 @@ public class AuthServiceImpl implements AuthService {
         if (Objects.isNull(validateMulti) || HttpStatus.SUCCESS != validateMulti.getCode()){
             throw new ServiceException(validateMulti.getMsg());
         }
-        restockUserInfoRequest.setId(sysUser.getId());
-        //调用远程服务更新用户信息
-        Result<SysUser> result = remoteUserService.restockUserInfo(restockUserInfoRequest);
-        if (Objects.isNull(result) || HttpStatus.SUCCESS != result.getCode()){
-            throw new ServiceException("补充用户信息失败");
-        }
-        StpUtil.login(JSON.toJSONString(result.getData()));
-        return StpUtil.getTokenValue();
+        return sysUser;
     }
 
 

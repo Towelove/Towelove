@@ -5,6 +5,7 @@ import blossom.project.towelove.common.constant.UserConstants;
 import blossom.project.towelove.common.exception.ServiceException;
 import blossom.project.towelove.common.page.PageResponse;
 import blossom.project.towelove.common.request.auth.AuthLoginRequest;
+import blossom.project.towelove.common.request.auth.RestockUserInfoDTO;
 import blossom.project.towelove.common.request.auth.RestockUserInfoRequest;
 import blossom.project.towelove.common.request.user.InsertUserRequest;
 import blossom.project.towelove.common.request.user.UpdateUserRequest;
@@ -37,6 +38,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
@@ -137,6 +139,12 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     }
     @Override
     public void addUserPermission(SysUser sysUser) {
+        //判断用户是否已经有权限信息
+        LambdaQueryWrapper<SysUserPermission> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(SysUserPermission::getUserId,sysUser.getId());
+        if (sysUserPermissionMapper.exists(wrapper)) {
+            throw new ServiceException("请勿重复添加权限");
+        }
         SysUserPermission sysUserPermission = new SysUserPermission();
         sysUserPermission.setUserId(sysUser.getId());
         sysUserPermission.setPermissionId(TokenConstant.USER_PERMISSION_CODE);
@@ -191,10 +199,11 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
 
     @Override
     @Transactional
-    public SysUser restockUserInfo(RestockUserInfoRequest restockUserInfoRequest) {
+    public SysUser restockUserInfo(RestockUserInfoDTO restockUserInfoDTO) {
         //更新用户信息
-        SysUser sysUser = SysUserConvert.INSTANCE.convert(restockUserInfoRequest);
+        SysUser sysUser = SysUserConvert.INSTANCE.convert(restockUserInfoDTO);
         try {
+//            Optional.ofNullable(restockUserInfoRequest.getPhone())
             updateById(sysUser);
             addUserPermission(sysUser);
             sysUser = sysUserMapper.selectById(sysUser.getId());

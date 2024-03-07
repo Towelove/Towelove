@@ -1,11 +1,15 @@
 package blossom.project.towelove.gateway.filter.satoken;
 
+import blossom.project.towelove.common.constant.SecurityConstant;
 import blossom.project.towelove.common.response.AjaxResult;
 import blossom.project.towelove.common.response.Result;
+import cn.dev33.satoken.context.SaHolder;
+import cn.dev33.satoken.exception.BackResultException;
 import cn.dev33.satoken.reactor.filter.SaReactorFilter;
 import cn.dev33.satoken.router.SaRouter;
 import cn.dev33.satoken.stp.StpUtil;
 import cn.dev33.satoken.util.SaResult;
+import com.alibaba.fastjson2.JSON;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.http.HttpMessageConverters;
@@ -28,7 +32,13 @@ public class SaTokenFilter {
                 // 鉴权方法：每次访问进入
                 .setAuth(obj -> {
                     // 登录校验 -- 拦截所有路由，并排除/auth/** 用于开放登录
-                    SaRouter.match("/**", "/v1/auth/**", r -> StpUtil.checkLogin());
+                    SaRouter.match("/**", "/v1/auth/**", r -> {
+                        try {
+                            StpUtil.checkLogin();
+                        }catch (Exception e){
+                            throw new BackResultException(JSON.toJSONString(Result.fail("token无效,请重新登入",HttpStatus.UNAUTHORIZED.value(),"token无效,请重新登入",null)));
+                        }
+                    });
                     // 权限认证 -- 不同模块, 校验不同权限
                     SaRouter.match("/v1/**","/v1/auth/**", r -> StpUtil.checkPermission("user"));
 //                    SaRouter.match("/server/**", r -> StpUtil.checkPermission("user"));
