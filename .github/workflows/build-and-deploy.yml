@@ -56,7 +56,9 @@ jobs:
         server-id: github # Value of the distributionManagement/repository/id field of the pom.xml
         settings-path: ${{ github.workspace }} # location for the settings.xml file
     - name: Build with Maven
-      run: mvn -B package --file pom.xml -DskipTests -P pro
+      run: mvn -B package --file pom.xml -DskipTests -P pro --settings ./settings.xml
+      env:
+        MAVEN_OPTS: "-Dmaven.repo.local=.m2/repository -DmirrorUrl=https://maven.aliyun.com/repository/central"
     - name: Copy Artifacts
       run: |
         mkdir staging && cp Towelove-*/target/*.jar staging
