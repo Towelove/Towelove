@@ -67,11 +67,8 @@ jobs:
           <offline/>
           <pluginGroups/>
           <servers/>
-
           <mirrors/>
-
           <proxies/>
-
           <profiles>
             <profile>
               <id>extra-repos</id>
@@ -83,7 +80,24 @@ jobs:
                   <releases><enabled>true</enabled></releases>
                   <snapshots><enabled>true</enabled></snapshots>
                 </repository>
-
+                <repository>
+                    <id>spring-plugins-repo</id>
+                    <url>https://repo.spring.io/plugins-release/</url>
+                    <releases><enabled>true</enabled></releases>
+                    <snapshots><enabled>true</enabled></snapshots>
+                </repository>
+                <repository>
+                    <id>apache-maven-repo</id>
+                    <url>https://repository.apache.org/content/repositories/releases/</url>
+                    <releases><enabled>true</enabled></releases>
+                    <snapshots><enabled>true</enabled></snapshots>
+                </repository>
+                <repository>
+                    <id>sonatype-ossrh</id>
+                    <url>https://oss.sonatype.org/content/repositories/releases/</url>
+                    <releases><enabled>true</enabled></releases>
+                    <snapshots><enabled>true</enabled></snapshots>
+                </repository>
                 <!-- JCenter repository -->
                 <repository>
                   <id>jcenter</id>
@@ -94,14 +108,13 @@ jobs:
               </repositories>
             </profile>
           </profiles>
-
           <activeProfiles>
             <activeProfile>extra-repos</activeProfile>
           </activeProfiles>
         </settings>
         EOF
     - name: Build with Maven
-      run: mvn clean -X -B package --file pom.xml -DskipTests -P pro --settings ./settings.xml
+      run: mvn clean  -B package --file pom.xml -DskipTests -P pro --settings ./settings.xml
     - name: Copy Artifacts
       run: |
         mkdir staging && cp Towelove-*/target/*.jar staging
