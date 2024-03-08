@@ -101,7 +101,7 @@ jobs:
         </settings>
         EOF
     - name: Build with Maven
-      run: mvn -X -B package --file pom.xml -DskipTests -P pro --settings ./settings.xml
+      run: mvn clean -X -B package --file pom.xml -DskipTests -P pro --settings ./settings.xml
     - name: Copy Artifacts
       run: |
         mkdir staging && cp Towelove-*/target/*.jar staging
