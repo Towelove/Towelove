@@ -59,82 +59,15 @@ jobs:
       run: |
         cat <<EOF > ${{ github.workspace }}/settings.xml
         <settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
-          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-          xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 https://maven.apache.org/xsd/settings-1.0.0.xsd">
-          <localRepository/>
-          <interactiveMode/>
-          <usePluginRegistry/>
-          <offline/>
-          <pluginGroups/>
-          <servers/>
-          <mirrors/>
-          <proxies/>
-          <profiles>
-            <profile>
-              <id>extra-repos</id>
-              <repositories>
-                <!-- Google's Maven repository -->
-                <repository>
-                  <id>google</id>
-                  <url>https://maven.google.com/</url>
-                  <releases><enabled>true</enabled></releases>
-                  <snapshots><enabled>true</enabled></snapshots>
-                </repository>
-                <repository>
-                    <id>spring-plugins-repo</id>
-                    <url>https://repo.spring.io/plugins-release/</url>
-                    <releases><enabled>true</enabled></releases>
-                    <snapshots><enabled>true</enabled></snapshots>
-                </repository>
-                <repository>
-                    <id>apache-maven-repo</id>
-                    <url>https://repository.apache.org/content/repositories/releases/</url>
-                    <releases><enabled>true</enabled></releases>
-                    <snapshots><enabled>true</enabled></snapshots>
-                </repository>
-                <repository>
-                    <id>sonatype-ossrh</id>
-                    <url>https://oss.sonatype.org/content/repositories/releases/</url>
-                    <releases><enabled>true</enabled></releases>
-                    <snapshots><enabled>true</enabled></snapshots>
-                </repository>
-                <!-- JCenter repository -->
-                <repository>
-                  <id>jcenter</id>
-                  <url>https://jcenter.bintray.com/</url>
-                  <releases><enabled>true</enabled></releases>
-                  <snapshots><enabled>true</enabled></snapshots>
-                </repository>
-            <repository>
-                <id>clojars</id>
-                <url>https://clojars.org/repo/</url>
-                <releases><enabled>true</enabled></releases>
-                <snapshots><enabled>true</enabled></snapshots>
-            </repository>
-            <repository>
-                <id>jitpack.io</id>
-                <url>https://jitpack.io</url>
-                <releases><enabled>true</enabled></releases>
-                <snapshots><enabled>true</enabled></snapshots>
-            </repository>
-            <repository>
-                <id>atlassian</id>
-                <url>https://packages.atlassian.com/maven-public/</url>
-                <releases><enabled>true</enabled></releases>
-                <snapshots><enabled>true</enabled></snapshots>
-            </repository>
-            <repository>
-                <id>vaadin-addons</id>
-                <url>https://maven.vaadin.com/vaadin-addons</url>
-                <releases><enabled>true</enabled></releases>
-                <snapshots><enabled>true</enabled></snapshots>
-            </repository>
-              </repositories>
-            </profile>
-          </profiles>
-          <activeProfiles>
-            <activeProfile>extra-repos</activeProfile>
-          </activeProfiles>
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 https://maven.apache.org/xsd/settings-1.0.0.xsd">
+          <mirrors>
+            <mirror>
+              <id>aliyun-public</id>
+              <mirrorOf>*</mirrorOf>
+              <url>https://maven.aliyun.com/repository/public</url>
+            </mirror>
+          </mirrors>
         </settings>
         EOF
     - name: Build with Maven
