@@ -41,7 +41,6 @@ public class QrCodeGenerator {
     public QrCodeGenerator() {
         qrConfig = new QrConfig(300, 300);
         qrConfig.setBackColor(Color.CYAN);
-        qrConfig.setForeColor(Color.CYAN);
         try {
             URL url = new URL("https://oss.towelove.cn/towelove-images/2024/03/08/微信图片_20240308182109_20240308182349A003.jpg");
             BufferedImage image = ImageIO.read(url);
