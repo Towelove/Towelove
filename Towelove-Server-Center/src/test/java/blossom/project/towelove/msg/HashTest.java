@@ -7,6 +7,7 @@ import cn.hutool.core.net.NetUtil;
 import cn.hutool.core.util.HashUtil;
 import cn.hutool.core.util.RandomUtil;
 import cn.hutool.extra.qrcode.QrCodeUtil;
+import cn.hutool.http.HttpUtil;
 import com.aliyuncs.utils.IOUtils;
 import org.junit.jupiter.api.Test;
 
@@ -15,7 +16,9 @@ import java.awt.image.BufferedImage;
 import java.io.BufferedOutputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.IOException;
 import java.math.BigInteger;
+import java.net.URL;
 import java.util.Random;
 
 /**
@@ -79,8 +82,11 @@ public class HashTest {
 
     }
     @Test
-    void test111(){
-        File file = new File("src/main/resource/logo.jpg");
-        System.out.println(file);
+    void test111() throws IOException {
+        URL url = new URL("https://oss.towelove.cn/towelove-images/2024/03/08/微信图片_20240308182109_20240308182349A003.jpg");
+        BufferedImage read = ImageIO.read(url);
+        File file = File.createTempFile("logo", ".jpg");
+        ImageIO.write(read,"jpg",file);
+        System.out.println(file.isFile());
     }
 }
