@@ -51,7 +51,7 @@ public class RemoteUserFallbackFactory implements FallbackFactory<RemoteUserServ
             }
 
             @Override
-            public Result<List<SysUserPermissionDto>> getUserPermissionByUserId(Long userId) {
+            public Result<SysUserPermissionDto> getUserPermissionByUserId(Long userId) {
                 return Result.fail(null,MDC.get(SecurityConstant.REQUEST_ID));
             }
 

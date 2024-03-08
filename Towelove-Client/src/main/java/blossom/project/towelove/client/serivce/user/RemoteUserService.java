@@ -33,7 +33,7 @@ public interface RemoteUserService {
     Result<SysUser> findUserByPhoneOrEmail(@Valid @RequestBody AuthLoginRequest authLoginRequest);
 
     @GetMapping("/v1/user/sys/permission")
-    Result<List<SysUserPermissionDto>> getUserPermissionByUserId(@RequestParam("userId") Long userId);
+    Result<SysUserPermissionDto> getUserPermissionByUserId(@RequestParam("userId") Long userId);
 
     @GetMapping("/v1/user/sys/thirdParty/exist")
     Result<Long> findUserIdByThirdPartyId(@RequestParam("socialUid") String socialUid);

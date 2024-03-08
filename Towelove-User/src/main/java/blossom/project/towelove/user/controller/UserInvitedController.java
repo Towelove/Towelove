@@ -35,4 +35,13 @@ public class UserInvitedController {
         return userInvitedService.invited(invitedCouplesRequest);
     }
 
+    /**
+     * 生成伴侣邀请二维码
+     * @return
+     */
+    @PostMapping("/qr")
+    public Result<String> inviteCoupleByQrCode(){
+        return Result.ok(userInvitedService.invitedByQrCode());
+    }
+
 }

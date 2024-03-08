@@ -48,11 +48,7 @@ public class UserTest {
         SysUser sysUser = userMapper.selectByPhoneNumberOrEmail("78",null);
     }
 
-    @Test
-    void test04(){
-        List<SysUserPermissionDto> sysUserPermissionDtos = sysPermissionMapper.selectUserPermissionByUserId(1727556093546999809L);
-        System.out.println(sysUserPermissionDtos);
-    }
+
     @Resource
     private RedisService redisService;
     @Test

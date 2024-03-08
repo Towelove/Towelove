@@ -31,7 +31,7 @@ public interface SysUserService extends IService<SysUser> {
 
     SysUser findUser(AuthLoginRequest authLoginRequest);
 
-    List<SysUserPermissionDto> getPermissionByUserId(Long userId);
+    SysUserPermissionDto getPermissionByUserId(Long userId);
 
     void addUserPermission(SysUser sysUser);
 
