@@ -42,10 +42,10 @@ public class StpInterfaceImpl implements StpInterface {
         //从user模块获得用户权限信息
         String loginIdAsString = StpUtil.getLoginIdAsString();
         SysUser sysUser = JSON.parseObject(loginIdAsString, SysUser.class);
-        Future< Result<List<SysUserPermissionDto>>> future = singleThreadPool.submit(() ->
+        Future< Result<SysUserPermissionDto>> future = singleThreadPool.submit(() ->
                 userService.getUserPermissionByUserId(sysUser.getId())
         );
-        Result<List<SysUserPermissionDto>> result = null;
+        Result<SysUserPermissionDto> result = null;
         try {
              result =  future.get(5,TimeUnit.SECONDS);
             if (Objects.isNull(result) || Objects.isNull(result.getData())){
@@ -58,7 +58,7 @@ public class StpInterfaceImpl implements StpInterface {
             SaHolder.getResponse().setHeader("Content-Type", "application/json;charset=UTF-8");
             throw new BackResultException(JSON.toJSONString(Result.fail(HttpStatus.FORBIDDEN.getReasonPhrase(),HttpStatus.FORBIDDEN.value(),"无权限",SecurityConstant.REQUEST_ID)));
         }
-        return result.getData().stream().map(SysUserPermissionDto::getPermission).toList();
+        return List.of(result.getData().getPermission());
     }
 
     /**

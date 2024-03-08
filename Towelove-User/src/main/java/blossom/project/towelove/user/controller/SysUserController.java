@@ -101,7 +101,7 @@ public class SysUserController {
      * @return
      */
     @GetMapping("/permission")
-    public Result<List<SysUserPermissionDto>> getUserPermissionByUserId(@RequestParam("userId") Long userId){
+    public Result<SysUserPermissionDto> getUserPermissionByUserId(@RequestParam("userId") Long userId){
         return Result.ok(sysUserService.getPermissionByUserId(userId));
     }
 

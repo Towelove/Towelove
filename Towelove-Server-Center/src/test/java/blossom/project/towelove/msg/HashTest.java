@@ -1,10 +1,22 @@
 package blossom.project.towelove.msg;
 
+import blossom.project.towelove.common.exception.ServiceException;
+import cn.hutool.core.codec.Base64;
+import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.net.NetUtil;
 import cn.hutool.core.util.HashUtil;
+import cn.hutool.core.util.RandomUtil;
+import cn.hutool.extra.qrcode.QrCodeUtil;
+import com.aliyuncs.utils.IOUtils;
 import org.junit.jupiter.api.Test;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.BufferedOutputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.math.BigInteger;
+import java.util.Random;
 
 /**
  * @projectName: Towelove
@@ -43,5 +55,32 @@ public class HashTest {
     void netTest(){
         byte[] localHardwareAddress = NetUtil.getLocalHardwareAddress();
 
+    }
+
+
+    @Test
+    void qrTest(){
+        String invitedCode = RandomUtil.randomString(5);
+        String path = "D:\\qrCode\\";
+        if (!FileUtil.exist(path)) {
+            FileUtil.mkdir(path);
+        }
+        try {
+            BufferedImage image = QrCodeUtil.generate("https://web.towelove.cn/?invitedCode=" + invitedCode, 300, 300);
+            ByteArrayOutputStream outputStream  = new ByteArrayOutputStream();
+            ImageIO.write(image,"png",outputStream);
+            byte[] qrCodeByte = outputStream.toByteArray();
+            String encode = Base64.encode(qrCodeByte);
+            System.out.println(encode);
+        }catch (Exception e){
+            throw new ServiceException("生成二维码失败");
+        }
+
+
+    }
+    @Test
+    void test111(){
+        File file = new File("src/main/resource/logo.jpg");
+        System.out.println(file);
     }
 }

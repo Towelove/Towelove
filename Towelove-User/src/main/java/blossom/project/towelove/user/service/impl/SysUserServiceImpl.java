@@ -180,21 +180,21 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     }
 
     @Override
-    public List<SysUserPermissionDto> getPermissionByUserId(Long userId) {
+    public SysUserPermissionDto getPermissionByUserId(Long userId) {
         //查询缓存中是否有用户权限信息
          Object cacheObject = redisService.getCacheObject(String.format(UserConstants.USER_PERMISSION_KEY, userId));
         if (Objects.nonNull(cacheObject)){
             //直接返回
-            return (List<SysUserPermissionDto>) cacheObject;
+            return (SysUserPermissionDto) cacheObject;
         }
         //从数据库中查询
-        List<SysUserPermissionDto> sysUserPermissionDtos = sysPermissionMapper.selectUserPermissionByUserId(userId);
-        if (sysUserPermissionDtos.isEmpty()){
+        SysUserPermissionDto sysUserPermissionDto = sysPermissionMapper.selectUserPermissionByUserId(userId);
+        if (Objects.isNull(sysUserPermissionDto)){
             return null;
         }
         //存入缓存中
-        redisService.setCacheObject(String.format(UserConstants.USER_PERMISSION_KEY,userId),sysUserPermissionDtos,2L, TimeUnit.HOURS);
-        return sysUserPermissionDtos;
+        redisService.setCacheObject(String.format(UserConstants.USER_PERMISSION_KEY,userId),sysUserPermissionDto,2L, TimeUnit.HOURS);
+        return sysUserPermissionDto;
     }
 
     @Override

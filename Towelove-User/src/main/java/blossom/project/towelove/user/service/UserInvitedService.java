@@ -14,4 +14,6 @@ import blossom.project.towelove.user.domain.InvitedCouplesRequest;
  */
 public interface UserInvitedService {
     Result invited(InvitedCouplesRequest invitedCouplesRequest);
+
+    String invitedByQrCode();
 }

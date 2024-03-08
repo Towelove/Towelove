@@ -14,6 +14,6 @@
         from sys_user_permission up
                  LEFT JOIN sys_user u on up.user_id = u.id
                  LEFT JOIN sys_permission p on up.permission_id = p.id
-        WHERE user_id = #{userId}
+        WHERE user_id = #{userId} limit 1
     </select>
 </mapper>
