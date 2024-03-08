@@ -59,15 +59,45 @@ jobs:
       run: |
         cat <<EOF > ${{ github.workspace }}/settings.xml
         <settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
-                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-                  xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 https://maven.apache.org/xsd/settings-1.0.0.xsd">
-          <mirrors>
-            <mirror>
-              <id>aliyun-public</id>
-              <mirrorOf>*</mirrorOf>
-              <url>https://maven.aliyun.com/repository/public</url>
-            </mirror>
-          </mirrors>
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 https://maven.apache.org/xsd/settings-1.0.0.xsd">
+          <localRepository/>
+          <interactiveMode/>
+          <usePluginRegistry/>
+          <offline/>
+          <pluginGroups/>
+          <servers/>
+
+          <mirrors/>
+
+          <proxies/>
+
+          <profiles>
+            <profile>
+              <id>extra-repos</id>
+              <repositories>
+                <!-- Google's Maven repository -->
+                <repository>
+                  <id>google</id>
+                  <url>https://maven.google.com/</url>
+                  <releases><enabled>true</enabled></releases>
+                  <snapshots><enabled>true</enabled></snapshots>
+                </repository>
+
+                <!-- JCenter repository -->
+                <repository>
+                  <id>jcenter</id>
+                  <url>https://jcenter.bintray.com/</url>
+                  <releases><enabled>true</enabled></releases>
+                  <snapshots><enabled>true</enabled></snapshots>
+                </repository>
+              </repositories>
+            </profile>
+          </profiles>
+
+          <activeProfiles>
+            <activeProfile>extra-repos</activeProfile>
+          </activeProfiles>
         </settings>
         EOF
     - name: Build with Maven
