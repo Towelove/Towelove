@@ -105,6 +105,30 @@ jobs:
                   <releases><enabled>true</enabled></releases>
                   <snapshots><enabled>true</enabled></snapshots>
                 </repository>
+            <repository>
+                <id>clojars</id>
+                <url>https://clojars.org/repo/</url>
+                <releases><enabled>true</enabled></releases>
+                <snapshots><enabled>true</enabled></snapshots>
+            </repository>
+            <repository>
+                <id>jitpack.io</id>
+                <url>https://jitpack.io</url>
+                <releases><enabled>true</enabled></releases>
+                <snapshots><enabled>true</enabled></snapshots>
+            </repository>
+            <repository>
+                <id>atlassian</id>
+                <url>https://packages.atlassian.com/maven-public/</url>
+                <releases><enabled>true</enabled></releases>
+                <snapshots><enabled>true</enabled></snapshots>
+            </repository>
+            <repository>
+                <id>vaadin-addons</id>
+                <url>https://maven.vaadin.com/vaadin-addons</url>
+                <releases><enabled>true</enabled></releases>
+                <snapshots><enabled>true</enabled></snapshots>
+            </repository>
               </repositories>
             </profile>
           </profiles>
