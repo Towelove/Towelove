@@ -53,49 +53,61 @@ jobs:
       with:
         java-version: '17'
         distribution: 'temurin'
-        server-id: aliyunmaven # Value of the distributionManagement/repository/id field of the pom.xml
-        #settings-path: ${{ github.workspace }} # location for the settings.xml file
-    - name: Test
+        #server-id: github # Value of the distributionManagement/repository/id field of the pom.xml
+        settings-path: ${{ github.workspace }} # location for the settings.xml file
+    - name: Create Maven settings.xml with Aliyun public mirror
       run: |
-        cat /home/runner/.m2/settings.xml
-#     - name: Build with Maven
-#       run: mvn -B package --file pom.xml -DskipTests -P pro
-#     - name: Copy Artifacts
-#       run: |
-#         mkdir staging && cp Towelove-*/target/*.jar staging
-#         ls -al staging
-#     - name: Set up Docker Meta
-#       id: meta
-#       uses: docker/metadata-action@v5.5.1
-#       with:
-#         images: |
-#           towelove/towelove-${{ matrix.service }}
-#         tags: |
-#           type=raw,value=0.1.0-${{ steps.shortsha.outputs.SHORT_SHA }}
-#           type=semver,pattern={{version}}${{ github.event_name == 'workflow_dispatch' && format(',value={0}', github.event.inputs.version) || '' }}
-#           type=semver,pattern={{major}}.{{minor}}${{ github.event_name == 'workflow_dispatch' && format(',value={0}', github.event.inputs.version) || '' }}
+        cat <<EOF > ${{ github.workspace }}/settings.xml
+        <settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 https://maven.apache.org/xsd/settings-1.0.0.xsd">
+          <mirrors>
+            <mirror>
+              <id>aliyun-public</id>
+              <mirrorOf>*</mirrorOf>
+              <url>https://maven.aliyun.com/repository/public</url>
+            </mirror>
+          </mirrors>
+        </settings>
+        EOF
+    - name: Build with Maven
+      run: mvn -B package --file pom.xml -DskipTests -P pro --settings ./settings.xml
+    - name: Copy Artifacts
+      run: |
+        mkdir staging && cp Towelove-*/target/*.jar staging
+        ls -al staging
+    - name: Set up Docker Meta
+      id: meta
+      uses: docker/metadata-action@v5.5.1
+      with:
+        images: |
+          towelove/towelove-${{ matrix.service }}
+        tags: |
+          type=raw,value=0.1.0-${{ steps.shortsha.outputs.SHORT_SHA }}
+          type=semver,pattern={{version}}${{ github.event_name == 'workflow_dispatch' && format(',value={0}', github.event.inputs.version) || '' }}
+          type=semver,pattern={{major}}.{{minor}}${{ github.event_name == 'workflow_dispatch' && format(',value={0}', github.event.inputs.version) || '' }}
           
-# #type=ref,event=branch
-#     - name: Build and push Docker image
-#       uses: ./.github/actions/build-and-push-docker
-#       with:
-#         dockerhub_username: ${{ secrets.DOCKERHUB_USERNAME }}
-#         dockerhub_token: ${{ secrets.DOCKERHUB_TOKEN }}
-#         context: .
-#         file: ./Docker-Build/Dockerfile
-#         build-args: SERVICE_NAME=${{ matrix.jarName }}
-#         platforms: linux/amd64
-#         push: true
-#         tags: ${{ steps.meta.outputs.tags }}
-#         labels: ${{ steps.meta.outputs.labels }}
-#         cache-from: type=gha
-#         cache-to: type=gha,mode=max
-#     - name: SSH Deploy
-#       uses: ./.github/actions/ssh-deploy
-#       with:
-#         ssh_host: ${{ secrets.SSH_HOST }}
-#         ssh_user: ${{ secrets.SSH_USER }}
-#         ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
-#         deploy_script: '/opt/ops/deploy.sh'
-#         service_name: ${{ matrix.jarName }}
-#         service_version: ${{ steps.meta.outputs.version }}
+#type=ref,event=branch
+    - name: Build and push Docker image
+      uses: ./.github/actions/build-and-push-docker
+      with:
+        dockerhub_username: ${{ secrets.DOCKERHUB_USERNAME }}
+        dockerhub_token: ${{ secrets.DOCKERHUB_TOKEN }}
+        context: .
+        file: ./Docker-Build/Dockerfile
+        build-args: SERVICE_NAME=${{ matrix.jarName }}
+        platforms: linux/amd64
+        push: true
+        tags: ${{ steps.meta.outputs.tags }}
+        labels: ${{ steps.meta.outputs.labels }}
+        cache-from: type=gha
+        cache-to: type=gha,mode=max
+    - name: SSH Deploy
+      uses: ./.github/actions/ssh-deploy
+      with:
+        ssh_host: ${{ secrets.SSH_HOST }}
+        ssh_user: ${{ secrets.SSH_USER }}
+        ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
+        deploy_script: '/opt/ops/deploy.sh'
+        service_name: ${{ matrix.jarName }}
+        service_version: ${{ steps.meta.outputs.version }}
