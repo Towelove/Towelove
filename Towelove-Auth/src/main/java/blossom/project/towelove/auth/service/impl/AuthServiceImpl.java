@@ -87,6 +87,10 @@ public class AuthServiceImpl implements AuthService {
             res.setCode(HttpStatus.CREATED);
             res.setMsg("用户需要完善信息");
         }
+        String tokenValue = StpUtil.getTokenInfo().tokenValue;
+        if (StrUtil.isBlank(tokenValue)){
+            throw new ServiceException("An exception occurred while generating the token...");
+        }
         res.setData(StpUtil.getTokenInfo().tokenValue);
         return res;
     }

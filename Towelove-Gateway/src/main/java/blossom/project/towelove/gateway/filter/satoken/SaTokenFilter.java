@@ -5,10 +5,12 @@ import blossom.project.towelove.common.response.AjaxResult;
 import blossom.project.towelove.common.response.Result;
 import cn.dev33.satoken.context.SaHolder;
 import cn.dev33.satoken.exception.BackResultException;
+import cn.dev33.satoken.exception.NotLoginException;
 import cn.dev33.satoken.reactor.filter.SaReactorFilter;
 import cn.dev33.satoken.router.SaRouter;
 import cn.dev33.satoken.stp.StpUtil;
 import cn.dev33.satoken.util.SaResult;
+import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson2.JSON;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -35,7 +37,15 @@ public class SaTokenFilter {
                     SaRouter.match("/**", "/v1/auth/**", r -> {
                         try {
                             StpUtil.checkLogin();
-                        }catch (Exception e){
+                        }catch(NotLoginException notLoginException){
+                            //TODO 当前请求时notlogin exception
+                            //TODO 返回-2代表尚未通过二级认证
+                            if ( StrUtil.isNotBlank(notLoginException.getType())
+                            && notLoginException.getType().equals("-2")){
+                                //TODO 异常处理
+                            }
+                        }
+                        catch (Exception e){
                             throw new BackResultException(JSON.toJSONString(Result.fail("token无效,请重新登入",HttpStatus.UNAUTHORIZED.value(),"token无效,请重新登入",null)));
                         }
                     });

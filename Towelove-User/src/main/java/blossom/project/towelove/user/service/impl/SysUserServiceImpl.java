@@ -73,6 +73,9 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     @Override
     public SysUserDTO selectByUserId() {
         Long userId = UserInfoContextHolder.getUserId();
+        if (Objects.isNull(userId)){
+            throw new ServiceException("try to get UserId from Header failed...");
+        }
         String sex = UserInfoContextHolder.getSex();
         SysUser sysUser = getById(userId);
         if (Objects.isNull(sysUser)) {
