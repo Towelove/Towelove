@@ -16,17 +16,12 @@
     </select>
 
     <select id="selectCoupleIdByUserId" parameterType="long" resultType="blossom.project.towelove.common.response.user.CouplesRespDTO">
-        select
-            id,girl_id,boy_id,status
-        from
-            couples
-        where
-            1 = 1
-        <if test='sex == "男"'>
-            and boy_id = #{userId}
-        </if>
-        <if test='sex == "女"'>
-            and girl_id = ${userId}
-        </if>
+        SELECT id, girl_id, boy_id, status
+        FROM `couples`
+        WHERE girl_id = #{userId}
+        union
+        SELECT id, girl_id, boy_id, status
+        FROM `couples`
+        WHERE boy_id = #{userId}
     </select>
 </mapper>

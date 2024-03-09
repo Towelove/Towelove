@@ -81,7 +81,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         if (Objects.isNull(sysUser)) {
             throw new ServiceException("用户数据不存在");
         }
-        CouplesRespDTO  couplesRespDTO = couplesMapper.selectCoupleIdByUserId(userId,sex);
+        CouplesRespDTO  couplesRespDTO = couplesMapper.selectCoupleIdByUserId(userId);
         SysUserDTO sysUserDTO = SysUserConvert.INSTANCE.convert2DTO(sysUser);
         if(Objects.nonNull(couplesRespDTO)){
             sysUserDTO.setCoupleId(couplesRespDTO.getId());

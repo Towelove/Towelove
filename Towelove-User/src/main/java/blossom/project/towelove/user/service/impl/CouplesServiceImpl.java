@@ -72,10 +72,24 @@ public class CouplesServiceImpl extends ServiceImpl<CouplesMapper, Couples> impl
 
     @Override
     public Result<String> binding(CouplesInvitedRequest couplesInvitedRequest) {
-        //被邀请的用户id
+        //邀请方的用户id
         long invitedUserId = Long.parseLong(couplesInvitedRequest.getInvitedCode(), 36);
-        //先查询对方是否存在
+        //先查询邀请方是否存在
         SysUserVo sysUserVo = sysUserService.selectByUserId(invitedUserId);
+        Couples couples = getCouples(sysUserVo, invitedUserId);
+        //查看couples表中是否有这两个人
+        if (!couplesMapper.selectAllByBoyIdAndGirlIdLongs(couples.getBoyId(),couples.getGirlId()).isEmpty()) {
+            throw new ServiceException("双方已经有绑定的情侣关系，请解绑后重新操作");
+        }
+        if (couplesMapper.insert(couples) < 1) {
+            throw new ServiceException("绑定情侣关系失败");
+        }
+        //TODO:发送消息告诉另外一方
+        userNotifyProduction.sendNotifyMessage(new NoticeDTO(invitedUserId,"【新通知，我们已经成为情侣啦】"));
+        return Result.ok("绑定情侣关系成功");
+    }
+
+    private static Couples getCouples(SysUserVo sysUserVo, long invitedUserId) {
         if (Objects.isNull(sysUserVo)){
             throw new ServiceException("绑定请求非法，邀请方不存在");
         }
@@ -91,16 +105,7 @@ public class CouplesServiceImpl extends ServiceImpl<CouplesMapper, Couples> impl
             couples.setBoyId(invitedUserId);
             couples.setGirlId(userId);
         }
-        //查看couples表中是否有这两个人
-        if (!couplesMapper.selectAllByBoyIdAndGirlIdLongs(couples.getBoyId(),couples.getGirlId()).isEmpty()) {
-            throw new ServiceException("双方已经有绑定的情侣关系，请解绑后重新操作");
-        }
-        if (couplesMapper.insert(couples) < 1) {
-            throw new ServiceException("绑定情侣关系失败");
-        }
-        //TODO:发送消息告诉另外一方
-        userNotifyProduction.sendNotifyMessage(new NoticeDTO(invitedUserId,"【新通知，我们已经成为情侣啦】"));
-        return Result.ok("绑定情侣关系成功");
+        return couples;
     }
 
     /**
