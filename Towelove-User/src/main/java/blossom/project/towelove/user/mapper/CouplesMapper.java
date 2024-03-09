@@ -20,9 +20,9 @@ import java.util.List;
 @Mapper
 public interface CouplesMapper extends BaseMapper<Couples> {
 
-    public List<Long> selectAllByBoyIdAndGirlIdLongs(@Param("boyId") Long boyId, @Param("girlId") Long girlId);
+     List<Long> selectAllByBoyIdAndGirlIdLongs(@Param("boyId") Long boyId, @Param("girlId") Long girlId);
 
-    CouplesRespDTO selectCoupleIdByUserId(@Param("userId") Long userId,@Param("sex") String sex);
+    CouplesRespDTO selectCoupleIdByUserId(@Param("userId") Long userId);
 }
 
 
