@@ -186,11 +186,20 @@ public class AuthServiceImpl implements AuthService {
         String loginIdAsString = StpUtil.getLoginIdAsString();
         SysUser sysUser = JSON.parseObject(loginIdAsString, SysUser.class);
         ValidateCodeRequest validateCodeRequests = null;
+        if (StrUtil.isNotBlank(sysUser.getEmail()) && StrUtil.isNotBlank(sysUser.getPhoneNumber())){
+            throw new ServiceException("请求非法！你是哪来的猴子");
+        }
         if (StrUtil.isNotBlank(sysUser.getEmail())){
+            //查看邮箱是否被使用
+
 //            restockUserInfoRequest.setEmail(sysUser.getEmail());
             //需要补充手机号信息
             String phone = restockUserInfoRequest.getPhone();
             checkPhoneByRegex(phone);
+            Result<Boolean> byEmailOrPhone = remoteUserService.findByEmailOrPhone(phone, null);
+            if (Objects.isNull(byEmailOrPhone) || byEmailOrPhone.getData()){
+                throw new ServiceException("手机号已经被绑定，请使用其他手机号");
+            }
             validateCodeRequests = ValidateCodeRequest
                     .builder()
                     .number(phone)
@@ -200,6 +209,10 @@ public class AuthServiceImpl implements AuthService {
         }else {
             String email = restockUserInfoRequest.getEmail();
             checkEmailByRegex(email);
+            Result<Boolean> byEmailOrPhone = remoteUserService.findByEmailOrPhone(null, email);
+            if (Objects.isNull(byEmailOrPhone) || byEmailOrPhone.getData()){
+                throw new ServiceException("邮箱已经被绑定，请使用其他邮箱号");
+            }
             validateCodeRequests = ValidateCodeRequest
                     .builder()
                     .number(email)

@@ -110,5 +110,12 @@ public class SysUserController {
         return Result.ok(sysUserService.restockUserInfo(restockUserInfoDTO));
     }
 
+    @GetMapping("/findByEmailOrPhone")
+    public Result<Boolean> findByEmailOrPhone(@RequestParam(value = "phone",required = false) String phone,
+                                              @RequestParam(value = "email",required = false) String email){
+        return Result.ok(sysUserService.findByPhoneOrEmail(phone,email));
+
+    }
+
 
 }

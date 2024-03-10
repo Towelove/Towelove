@@ -47,4 +47,8 @@ public interface RemoteUserService {
     @PutMapping("/v1/user/sys/restock")
     Result<SysUser> restockUserInfo(@RequestBody RestockUserInfoDTO restockUserInfoDTO);
 
+    @GetMapping("/v1/user/sys/findByEmailOrPhone")
+    Result<Boolean> findByEmailOrPhone(@RequestParam(value = "phone",required = false) String phone
+            , @RequestParam(value = "email",required = false) String email);
+
 }
