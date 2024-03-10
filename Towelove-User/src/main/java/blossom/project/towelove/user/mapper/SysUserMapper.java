@@ -12,4 +12,6 @@ public interface SysUserMapper extends BaseMapper<SysUser> {
 
     SysUser selectByThirdPartyId(@Param("socialUid") String socialUid);
 
+
+
 }

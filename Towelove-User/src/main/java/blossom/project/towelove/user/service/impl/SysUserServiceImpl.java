@@ -216,6 +216,15 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
 
         return sysUser;
     }
+
+
+    @Override
+    public Boolean findByPhoneOrEmail(String phone, String email) {
+        LambdaQueryWrapper<SysUser> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(StrUtil.isNotBlank(phone),SysUser::getPhoneNumber,phone);
+        queryWrapper.eq(StrUtil.isNotBlank(email),SysUser::getEmail,email);
+        return sysUserMapper.exists(queryWrapper);
+    }
 }
 
 

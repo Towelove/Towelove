@@ -78,6 +78,11 @@ public class RemoteUserFallbackFactory implements FallbackFactory<RemoteUserServ
                 log.error("调用远程服务 restockUserInfo 失败: {}", throwable.getMessage());
                 return Result.fail("远程服务调用失败", MDC.get(SecurityConstant.REQUEST_ID));
             }
+
+            @Override
+            public Result<Boolean> findByEmailOrPhone(String phone, String email) {
+                return Result.fail("远程服务调用失败", MDC.get(SecurityConstant.REQUEST_ID));
+            }
         };
     }
 }
