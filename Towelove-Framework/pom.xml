@@ -21,7 +21,7 @@
         <module>Towelove-Framework-RocketMQ</module>
         <module>Towelove-Framework-OSS</module>
         <module>Towelove-Framework-DynamicThreadPool</module>
-        <module>Towelove-Framework-USER</module>
+        <module>Towelove-Framework-User</module>
     </modules>
 
 

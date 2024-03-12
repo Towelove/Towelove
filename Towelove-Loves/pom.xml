@@ -74,7 +74,7 @@
 
         <dependency>
             <groupId>blossom.project</groupId>
-            <artifactId>Towelove-Framework-USER</artifactId>
+            <artifactId>Towelove-Framework-User</artifactId>
         </dependency>
         <dependency>
             <groupId>junit</groupId>

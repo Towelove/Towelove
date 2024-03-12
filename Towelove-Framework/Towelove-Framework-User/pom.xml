@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>Towelove-Framework-USER</artifactId>
+    <artifactId>Towelove-Framework-User</artifactId>
 
     <description>Towelove-Framework-USER 跨服务用户信息容器</description>
     <build>
