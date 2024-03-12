@@ -22,6 +22,7 @@
         <module>Towelove-Framework-OSS</module>
         <module>Towelove-Framework-DynamicThreadPool</module>
         <module>Towelove-Framework-User</module>
+        <module>Towelove-Framework-FlowFunExecutor</module>
     </modules>
 
 

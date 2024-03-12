@@ -1,5 +1,6 @@
 package blossom.project.towelove.framework.flower.annotation;
 
+import blossom.project.towelove.framework.flower.enums.TemplateTypeEnum;
 import org.springframework.stereotype.Component;
 
 import java.lang.annotation.ElementType;

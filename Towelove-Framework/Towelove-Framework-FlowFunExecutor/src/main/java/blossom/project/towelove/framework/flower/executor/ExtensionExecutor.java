@@ -2,7 +2,9 @@ package blossom.project.towelove.framework.flower.executor;
 
 import blossom.project.towelove.framework.flower.enums.TemplateTypeEnum;
 import blossom.project.towelove.framework.flower.model.ExtensionRequest;
+import blossom.project.towelove.framework.flower.register.ExtensionRegister;
 import org.apache.commons.lang3.StringUtils;
+
 
 public class ExtensionExecutor {
     public ExtensionExecutor() {
@@ -19,7 +21,7 @@ public class ExtensionExecutor {
             throw new RuntimeException("执行扩展点时,业务身份不能为空");
         } else {
             String key = extensionCode + ":" + TemplateTypeEnum.BIZ.getCode() + ":" + bizCode;
-            ExtensionInvoker extensionInvoker = (ExtensionInvoker)ExtensionRegister.EXTENSION_INVOKER_MAP.get(key);
+            ExtensionInvoker extensionInvoker = (ExtensionInvoker) ExtensionRegister.EXTENSION_INVOKER_MAP.get(key);
             if (extensionInvoker == null) {
                 key = extensionCode + ":" + TemplateTypeEnum.DEFAULT.getCode() + ":";
                 extensionInvoker = (ExtensionInvoker)ExtensionRegister.EXTENSION_INVOKER_MAP.get(key);

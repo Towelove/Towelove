@@ -1,5 +1,7 @@
 package blossom.project.towelove.framework.flower.enums;
 
+import lombok.Data;
+
 public enum TemplateTypeEnum {
     DEFAULT(0, "默认实现"),
     BIZ(1, "业务实现");
