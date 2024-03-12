@@ -23,7 +23,6 @@ public class DefaultDBFieldHandler implements MetaObjectHandler {
         this.setFieldValByName("updateTime",LocalDateTime.now(),metaObject);
         this.setFieldValByName("createBy","Love",metaObject);
         this.setFieldValByName("updateBy","You",metaObject);
-        this.setFieldValByName("status",0,metaObject);
         this.setFieldValByName("remark","",metaObject);
     }
 
