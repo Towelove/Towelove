@@ -46,4 +46,6 @@ public interface DiariesService extends IService<LoveDiaryCollection>{
     LoveDiaryVO getLoveDiaryById(Long id);
 
     String quickWrite(QuickWriterDiaryRequest request);
+
+    DiaryCollectionDTO getLoveDiariesBySyn();
 }

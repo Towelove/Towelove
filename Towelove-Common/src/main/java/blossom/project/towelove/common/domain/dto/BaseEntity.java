@@ -9,6 +9,8 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 
@@ -41,6 +43,6 @@ public class BaseEntity {
     private String remark;
 
     @TableField(value = "status",fill = FieldFill.INSERT)
-    private Integer status;
+    private Integer status = 0;
 
 }

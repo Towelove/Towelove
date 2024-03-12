@@ -69,6 +69,11 @@ public class DiaryCollectionController {
         return Result.ok(diariesService.deleteById(id));
     }
 
+    /**
+     * 根据日记册id获得日记缩略信息
+     * @param collectionId
+     * @return
+     */
     @GetMapping("/{id}")
     public Result<List<DiaryTitleDTO>> getLoveDiaryByCollectionId(@PathVariable("id") Long collectionId){
         return Result.ok(diariesService.getLoveDirayByCollectionId(collectionId));
@@ -82,6 +87,16 @@ public class DiaryCollectionController {
     public Result<List<DiaryTitleDTO>> getLoveDiaryBySynchronous(){
         return Result.ok(diariesService.getLoveDirayBySynchronous());
     }
+
+    /**
+     * 获取情侣共享日记册信息
+     * @return
+     */
+    @GetMapping("/syn-collection")
+    public Result<DiaryCollectionDTO> getLoveDiaryCollectionBySyn(){
+        return Result.ok(diariesService.getLoveDiariesBySyn());
+    }
+
 
 
 }

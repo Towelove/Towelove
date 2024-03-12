@@ -39,6 +39,6 @@ public class BaseEntity {
     private String remark;
 
     @TableField(value = "status",fill = FieldFill.INSERT)
-    private Integer status;
+    private Integer status = 0;
 
 }
