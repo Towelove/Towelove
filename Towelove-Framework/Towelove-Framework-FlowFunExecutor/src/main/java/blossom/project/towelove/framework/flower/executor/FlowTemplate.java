@@ -3,6 +3,9 @@ package blossom.project.towelove.framework.flower.executor;
 import blossom.project.towelove.framework.flower.model.FlowBizContext;
 import blossom.project.towelove.framework.flower.model.service.FlowSerivce;
 import blossom.project.towelove.framework.flower.register.FlowServiceRegister;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
@@ -24,6 +27,7 @@ import java.util.List;
  * 流水线函数执行器模版
  * 存储了实际要执行的方法类，并实际进行执行
  */
+@Data
 public class FlowTemplate extends AbstractFlowTemplate {
     private static final Logger log = LoggerFactory.getLogger(FlowTemplate.class);
 
@@ -33,14 +37,14 @@ public class FlowTemplate extends AbstractFlowTemplate {
     @Override
     public void execute(final FlowBizContext flowBizContext) {
         final List<FlowSerivce> executedList = new ArrayList();
-        List<FlowSerivce> beforeList = FlowServiceRegister.buildActivityInstance(this.beforeTrans);
-        final List<FlowSerivce> transList = FlowServiceRegister.buildActivityInstance(this.trans);
-        List<FlowSerivce> afterList = FlowServiceRegister.buildActivityInstance(this.afterTrans);
+        List<FlowSerivce> beforeList = FlowServiceRegister.buildFlowServiceInstance(this.beforeExecutor);
+        final List<FlowSerivce> transList = FlowServiceRegister.buildFlowServiceInstance(this.executor);
+        List<FlowSerivce> afterList = FlowServiceRegister.buildFlowServiceInstance(this.afterExecutor);
 
         try {
-            this.executeActivity(beforeList, flowBizContext, executedList, false);
+            this.executeFlowService(beforeList, flowBizContext, executedList, false);
             TransactionTemplate transactionTemplate = null;
-            if (this.transEnable) {
+            if (this.executorEnable) {
                 try {
                     transactionTemplate = (TransactionTemplate)this.applicationContext.getBean(TransactionTemplate.class);
                 } catch (NoSuchBeanDefinitionException var8) {
@@ -52,44 +56,44 @@ public class FlowTemplate extends AbstractFlowTemplate {
                 transactionTemplate.execute(new TransactionCallbackWithoutResult() {
                     @Override
                     protected void doInTransactionWithoutResult(TransactionStatus transactionStatus) {
-                        FlowTemplate.this.executeActivity(transList, flowBizContext, executedList, false);
+                        FlowTemplate.this.executeFlowService(transList, flowBizContext, executedList, false);
                     }
                 });
             } else {
-                this.executeActivity(transList, flowBizContext, executedList, false);
+                this.executeFlowService(transList, flowBizContext, executedList, false);
             }
 
-            this.executeActivity(afterList, flowBizContext, executedList, true);
+            this.executeFlowService(afterList, flowBizContext, executedList, true);
         } catch (Exception var9) {
-            this.rollbackActivity(executedList, flowBizContext);
+            this.rollbackFlowService(executedList, flowBizContext);
             throw var9;
         }
     }
 
-    private void executeActivity(List<FlowSerivce> activities, FlowBizContext flowBizContext, List<FlowSerivce> executedList, boolean catchExp) {
+    private void executeFlowService(List<FlowSerivce> activities, FlowBizContext flowBizContext, List<FlowSerivce> executedList, boolean catchExp) {
         if (!CollectionUtils.isEmpty(activities)) {
-            activities.forEach((iActivity) -> {
-                executedList.add(iActivity);
+            activities.forEach((iFlowService) -> {
+                executedList.add(iFlowService);
 
                 try {
-                    iActivity.execute(flowBizContext);
+                    iFlowService.execute(flowBizContext);
                 } catch (Exception var5) {
                     if (!catchExp) {
                         throw var5;
                     }
 
-                    log.error("执行流程节点异常, activity = {}", iActivity.getClass().getName(), var5);
+                    log.error("执行流程节点异常, FlowService = {}", iFlowService.getClass().getName(), var5);
                 }
 
             });
         }
     }
 
-    private void rollbackActivity(List<FlowSerivce> rollbackList, FlowBizContext flowBizContext) {
+    private void rollbackFlowService(List<FlowSerivce> rollbackList, FlowBizContext flowBizContext) {
         if (!CollectionUtils.isEmpty(rollbackList)) {
-            rollbackList.forEach((iActivity) -> {
+            rollbackList.forEach((iFlowService) -> {
                 try {
-                    iActivity.rollback(flowBizContext);
+                    iFlowService.rollback(flowBizContext);
                 } catch (Exception var3) {
                     log.error("执行acitivty滚回失败", var3);
                 }

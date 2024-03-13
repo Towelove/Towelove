@@ -18,7 +18,7 @@ import java.util.function.Supplier;
  * @contact: WX:qczjhczs0114
  * @blog: https://blog.csdn.net/Zhangsama1
  * @github: https://github.com/ZhangBlossom
- * 流水线执行业务上下文对象
+ * 流水线执行业务上下文对象，是基类对象
  * 标识当前要执行的方法的类型/编码/业务标志
  */
 
@@ -26,9 +26,23 @@ import java.util.function.Supplier;
 @AllArgsConstructor
 @NoArgsConstructor
 public abstract class FlowBizContext {
+
+    /**
+     * 变量参数表
+     */
     protected Map<String, Object> variables = new ConcurrentHashMap();
+
+    /**
+     * 流水线编码
+     */
     protected String flowCode;
+    /**
+     * 业务编码
+     */
     protected String bizCode;
+    /**
+     * 业务环境标签，比如pre/pro/uat等
+     */
     protected String bizTag;
 
     public void setVariable(String key, Object value) {

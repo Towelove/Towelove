@@ -7,12 +7,27 @@ import blossom.project.towelove.framework.flower.model.service.FlowSerivce;
 
 import java.util.LinkedList;
 
+
 /**
- *
+ * @author: ZhangBlossom
+ * @date: 2024/3/13 19:38
+ * @contact: QQ:4602197553
+ * @contact: WX:qczjhczs0114
+ * @blog: https://blog.csdn.net/Zhangsama1
+ * @github: https://github.com/ZhangBlossom
+ * 还在开发ing
  */
-@FlowService(name = "towelove组件")
+@FlowService(name = "towelove流水线服务测试组件",
+code = "towelove_flow_service_test_component",
+desc = "towelove流水线服务测试组件")
 public class ToweloveComponent implements FlowSerivce {
 
+    /**
+     * 具体要执行的流水线函数
+     * 这里面要做的就是对流水线业务上下文进行处理
+     *
+     * @param flowBizContext
+     */
     @Override
     public void execute(FlowBizContext flowBizContext) {
 

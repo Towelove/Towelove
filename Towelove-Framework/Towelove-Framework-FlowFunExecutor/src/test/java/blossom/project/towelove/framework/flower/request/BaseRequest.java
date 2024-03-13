@@ -9,7 +9,7 @@ import java.util.HashMap;
 
 /**
  * @author zhangblossom
- * 请求基类
+ * rpc请求基类
  */
 @Data
 @NoArgsConstructor

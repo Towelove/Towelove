@@ -25,14 +25,14 @@ public class BatchFlowTemplate extends AbstractFlowTemplate {
     public void execute(FlowBizContext flowBizContext) {
         final BatchFlowBizContext batchFlowBizContext = (BatchFlowBizContext)flowBizContext;
         final List<BatchFlowService> executedList = new ArrayList();
-        List<BatchFlowService> beforeList = FlowServiceRegister.buildBatchActivityInstance(this.beforeTrans);
-        final List<BatchFlowService> transList = FlowServiceRegister.buildBatchActivityInstance(this.trans);
-        List<BatchFlowService> afterList = FlowServiceRegister.buildBatchActivityInstance(this.afterTrans);
+        List<BatchFlowService> beforeList = FlowServiceRegister.buildBatchFlowServiceInstance(this.beforeExecutor);
+        final List<BatchFlowService> transList = FlowServiceRegister.buildBatchFlowServiceInstance(this.executor);
+        List<BatchFlowService> afterList = FlowServiceRegister.buildBatchFlowServiceInstance(this.afterExecutor);
 
         try {
-            this.executeActivity(beforeList, batchFlowBizContext, executedList, false);
+            this.executeFlowService(beforeList, batchFlowBizContext, executedList, false);
             TransactionTemplate transactionTemplate = null;
-            if (this.transEnable) {
+            if (this.executorEnable) {
                 try {
                     transactionTemplate = (TransactionTemplate)this.applicationContext.getBean(TransactionTemplate.class);
                 } catch (NoSuchBeanDefinitionException var9) {
@@ -44,44 +44,44 @@ public class BatchFlowTemplate extends AbstractFlowTemplate {
                 transactionTemplate.execute(new TransactionCallbackWithoutResult() {
                     @Override
                     protected void doInTransactionWithoutResult(TransactionStatus transactionStatus) {
-                        BatchFlowTemplate.this.executeActivity(transList, batchFlowBizContext, executedList, false);
+                        BatchFlowTemplate.this.executeFlowService(transList, batchFlowBizContext, executedList, false);
                     }
                 });
             } else {
-                this.executeActivity(transList, batchFlowBizContext, executedList, false);
+                this.executeFlowService(transList, batchFlowBizContext, executedList, false);
             }
 
-            this.executeActivity(afterList, batchFlowBizContext, executedList, true);
+            this.executeFlowService(afterList, batchFlowBizContext, executedList, true);
         } catch (Exception var10) {
-            this.rollbackActivity(executedList, batchFlowBizContext);
+            this.rollbackFlowService(executedList, batchFlowBizContext);
             throw var10;
         }
     }
 
-    private void executeActivity(List<BatchFlowService> batchActivities, BatchFlowBizContext batchFlowBizContext, List<BatchFlowService> executedList, boolean catchExp) {
+    private void executeFlowService(List<BatchFlowService> batchActivities, BatchFlowBizContext batchFlowBizContext, List<BatchFlowService> executedList, boolean catchExp) {
         if (!CollectionUtils.isEmpty(batchActivities)) {
-            batchActivities.forEach((batchActivity) -> {
-                executedList.add(batchActivity);
+            batchActivities.forEach((batchFlowService) -> {
+                executedList.add(batchFlowService);
 
                 try {
-                    batchActivity.execute(batchFlowBizContext);
+                    batchFlowService.execute(batchFlowBizContext);
                 } catch (Exception var5) {
                     if (!catchExp) {
                         throw var5;
                     }
 
-                    log.error("执行流程节点异常, activity = {}", batchActivity.getClass().getName(), var5);
+                    log.error("执行流程节点异常, FlowService = {}", batchFlowService.getClass().getName(), var5);
                 }
 
             });
         }
     }
 
-    private void rollbackActivity(List<BatchFlowService> rollbackList, BatchFlowBizContext batchFlowBizContext) {
+    private void rollbackFlowService(List<BatchFlowService> rollbackList, BatchFlowBizContext batchFlowBizContext) {
         if (!CollectionUtils.isEmpty(rollbackList)) {
-            rollbackList.forEach((iActivity) -> {
+            rollbackList.forEach((iFlowService) -> {
                 try {
-                    iActivity.rollback(batchFlowBizContext);
+                    iFlowService.rollback(batchFlowBizContext);
                 } catch (Exception var3) {
                     log.error("执行acitivty滚回失败", var3);
                 }

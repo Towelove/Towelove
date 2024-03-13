@@ -17,6 +17,7 @@ import java.lang.annotation.Target;
  * 流水线编排执行函数定义注解
  * 使用当前注解的作用是定义当前类的作用是
  * 1. 定义当前类是流水线编排执行函数
+ * 2. 标注这个流水线接口的业务场景
  */
 @Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)

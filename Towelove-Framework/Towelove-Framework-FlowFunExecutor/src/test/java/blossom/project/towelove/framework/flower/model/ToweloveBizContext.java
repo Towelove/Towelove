@@ -6,7 +6,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 /**
  * @author: ZhangBlossom
- * @date: 2024/1/23 19:20
+ * @date: 2024/3/13 19:20
  * @contact: QQ:4602197553
  * @contact: WX:qczjhczs0114
  * @blog: https://blog.csdn.net/Zhangsama1
@@ -40,6 +40,8 @@ public class ToweloveBizContext extends FlowBizContext
 
     /**
      * 构造rpc入口的context
+     * 由于rpc的特殊性，所以这里需要根据rpc接口的要求
+     * 来定义这个方法
      * @param baseRequest
      * @param clazz clazz为null时，会使用当前系统默认的bizcontext对象，比如towelovebizcontext
      * @param <T>
@@ -56,14 +58,14 @@ public class ToweloveBizContext extends FlowBizContext
             clazz = (Class<T>) ToweloveBizContext.class;
         }
 
-        T matchPlatformBizContext;
+        T toweloveBizContext;
         try {
-            matchPlatformBizContext = clazz.newInstance();
+            toweloveBizContext = clazz.newInstance();
         } catch (InstantiationException | IllegalAccessException e) {
             throw new RuntimeException("can not create instance of " + clazz.getName(), e);
         }
-        matchPlatformBizContext.setBizCode(baseRequest.getBizCode());
-        matchPlatformBizContext.setBizRole(baseRequest.getBizRole());
-        return matchPlatformBizContext;
+        toweloveBizContext.setBizCode(baseRequest.getBizCode());
+        toweloveBizContext.setBizRole(baseRequest.getBizRole());
+        return toweloveBizContext;
     }
 }

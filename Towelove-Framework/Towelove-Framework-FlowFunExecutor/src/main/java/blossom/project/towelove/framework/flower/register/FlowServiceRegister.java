@@ -31,7 +31,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 public class FlowServiceRegister implements ApplicationListener<ContextRefreshedEvent>, ApplicationContextAware {
     private static final Logger log = LoggerFactory.getLogger(FlowServiceRegister.class);
     private ApplicationContext applicationContext;
-    public static final Map<String, FlowSerivce> ACTIVITY_MAP = new ConcurrentHashMap();
+    public static final Map<String, FlowSerivce> FLOWSERVICE_MAP = new ConcurrentHashMap();
     private AtomicBoolean isRegisted = new AtomicBoolean(false);
 
     public FlowServiceRegister() {
@@ -51,7 +51,7 @@ public class FlowServiceRegister implements ApplicationListener<ContextRefreshed
                     assert flowSerivce != null;
 
                     String code = StringUtils.isBlank(flowSerivce.code()) ? beanName : flowSerivce.code();
-                    if (ACTIVITY_MAP.putIfAbsent(code, flowService) != null) {
+                    if (FLOWSERVICE_MAP.putIfAbsent(code, flowService) != null) {
                         throw new RuntimeException("业务活动组件名重复定义:" + flowSerivce);
                     }
                 }
@@ -64,15 +64,15 @@ public class FlowServiceRegister implements ApplicationListener<ContextRefreshed
         this.applicationContext = applicationContext;
     }
 
-    public static List<FlowSerivce> buildActivityInstance(List<String> activities) {
+    public static List<FlowSerivce> buildFlowServiceInstance(List<String> serviceList) {
         List<FlowSerivce> list = new ArrayList();
-        if (CollectionUtils.isEmpty(activities)) {
+        if (CollectionUtils.isEmpty(serviceList)) {
             return list;
         } else {
-            activities.forEach((activityName) -> {
-                FlowSerivce flowSerivce = (FlowSerivce)ACTIVITY_MAP.get(activityName);
+            serviceList.forEach((FlowServiceName) -> {
+                FlowSerivce flowSerivce = (FlowSerivce) FLOWSERVICE_MAP.get(FlowServiceName);
                 if (flowSerivce == null) {
-                    throw new RuntimeException("Activity不存在，activityName = " + activityName);
+                    throw new RuntimeException("FlowService不存在，ServiceName = " + FlowServiceName);
                 } else {
                     list.add(flowSerivce);
                 }
@@ -81,17 +81,17 @@ public class FlowServiceRegister implements ApplicationListener<ContextRefreshed
         }
     }
 
-    public static List<BatchFlowService> buildBatchActivityInstance(List<String> activities) {
+    public static List<BatchFlowService> buildBatchFlowServiceInstance(List<String> activities) {
         List<BatchFlowService> list = new ArrayList();
         if (CollectionUtils.isEmpty(activities)) {
             return list;
         } else {
-            activities.forEach((activityName) -> {
-                FlowSerivce flowSerivce = (FlowSerivce)ACTIVITY_MAP.get(activityName);
+            activities.forEach((FlowServiceName) -> {
+                FlowSerivce flowSerivce = (FlowSerivce) FLOWSERVICE_MAP.get(FlowServiceName);
                 if (flowSerivce == null) {
-                    throw new RuntimeException("Activity不存在，activityName = " + activityName);
+                    throw new RuntimeException("FlowService不存在，FlowServiceName = " + FlowServiceName);
                 } else if (!(flowSerivce instanceof BatchFlowService)) {
-                    throw new RuntimeException("Activity不支持批处理，activityName = " + activityName);
+                    throw new RuntimeException("FlowService不支持批处理，FlowServiceName = " + FlowServiceName);
                 } else {
                     list.add((BatchFlowService)flowSerivce);
                 }
