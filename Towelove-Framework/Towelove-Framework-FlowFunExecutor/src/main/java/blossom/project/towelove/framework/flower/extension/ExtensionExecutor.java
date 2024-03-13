@@ -1,4 +1,4 @@
-package blossom.project.towelove.framework.flower.executor;
+package blossom.project.towelove.framework.flower.extension;
 
 import blossom.project.towelove.framework.flower.enums.TemplateTypeEnum;
 import blossom.project.towelove.framework.flower.model.ExtensionRequest;
