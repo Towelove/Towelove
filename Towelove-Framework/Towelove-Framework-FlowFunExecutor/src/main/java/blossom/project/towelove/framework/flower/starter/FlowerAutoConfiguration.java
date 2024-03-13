@@ -2,7 +2,7 @@ package blossom.project.towelove.framework.flower.starter;
 
 import blossom.project.towelove.framework.flower.executor.FlowExecutor;
 import blossom.project.towelove.framework.flower.extension.ExtensionExecutor;
-import blossom.project.towelove.framework.flower.register.ActivityRegister;
+import blossom.project.towelove.framework.flower.register.FlowServiceRegister;
 import blossom.project.towelove.framework.flower.register.ExtensionRegister;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,9 +31,9 @@ public class FlowerAutoConfiguration {
     }
 
     @Bean
-    @ConditionalOnMissingBean({ActivityRegister.class})
-    public ActivityRegister initActivityRegister() {
-        return new ActivityRegister();
+    @ConditionalOnMissingBean({FlowServiceRegister.class})
+    public FlowServiceRegister initActivityRegister() {
+        return new FlowServiceRegister();
     }
 
     @Bean

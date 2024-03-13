@@ -1,10 +1,9 @@
 package blossom.project.towelove.framework.flower.executor;
 
-import blossom.project.towelove.framework.flower.executor.AbstractFlowTemplate;
 import blossom.project.towelove.framework.flower.model.BatchFlowBizContext;
 import blossom.project.towelove.framework.flower.model.FlowBizContext;
-import blossom.project.towelove.framework.flower.model.IBatchActivity;
-import blossom.project.towelove.framework.flower.register.ActivityRegister;
+import blossom.project.towelove.framework.flower.model.service.BatchFlowService;
+import blossom.project.towelove.framework.flower.register.FlowServiceRegister;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
@@ -25,10 +24,10 @@ public class BatchFlowTemplate extends AbstractFlowTemplate {
     @Override
     public void execute(FlowBizContext flowBizContext) {
         final BatchFlowBizContext batchFlowBizContext = (BatchFlowBizContext)flowBizContext;
-        final List<IBatchActivity> executedList = new ArrayList();
-        List<IBatchActivity> beforeList = ActivityRegister.buildBatchActivityInstance(this.beforeTrans);
-        final List<IBatchActivity> transList = ActivityRegister.buildBatchActivityInstance(this.trans);
-        List<IBatchActivity> afterList = ActivityRegister.buildBatchActivityInstance(this.afterTrans);
+        final List<BatchFlowService> executedList = new ArrayList();
+        List<BatchFlowService> beforeList = FlowServiceRegister.buildBatchActivityInstance(this.beforeTrans);
+        final List<BatchFlowService> transList = FlowServiceRegister.buildBatchActivityInstance(this.trans);
+        List<BatchFlowService> afterList = FlowServiceRegister.buildBatchActivityInstance(this.afterTrans);
 
         try {
             this.executeActivity(beforeList, batchFlowBizContext, executedList, false);
@@ -59,7 +58,7 @@ public class BatchFlowTemplate extends AbstractFlowTemplate {
         }
     }
 
-    private void executeActivity(List<IBatchActivity> batchActivities, BatchFlowBizContext batchFlowBizContext, List<IBatchActivity> executedList, boolean catchExp) {
+    private void executeActivity(List<BatchFlowService> batchActivities, BatchFlowBizContext batchFlowBizContext, List<BatchFlowService> executedList, boolean catchExp) {
         if (!CollectionUtils.isEmpty(batchActivities)) {
             batchActivities.forEach((batchActivity) -> {
                 executedList.add(batchActivity);
@@ -78,7 +77,7 @@ public class BatchFlowTemplate extends AbstractFlowTemplate {
         }
     }
 
-    private void rollbackActivity(List<IBatchActivity> rollbackList, BatchFlowBizContext batchFlowBizContext) {
+    private void rollbackActivity(List<BatchFlowService> rollbackList, BatchFlowBizContext batchFlowBizContext) {
         if (!CollectionUtils.isEmpty(rollbackList)) {
             rollbackList.forEach((iActivity) -> {
                 try {

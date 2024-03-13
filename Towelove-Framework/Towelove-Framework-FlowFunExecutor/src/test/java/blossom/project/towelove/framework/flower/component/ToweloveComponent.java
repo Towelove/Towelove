@@ -1,23 +1,17 @@
 package blossom.project.towelove.framework.flower.component;
 
-import blossom.project.towelove.framework.flower.annotation.Activity;
+import blossom.project.towelove.framework.flower.annotation.FlowService;
 import blossom.project.towelove.framework.flower.entity.ToweloveAlbumShowContext;
 import blossom.project.towelove.framework.flower.model.FlowBizContext;
-import blossom.project.towelove.framework.flower.model.IActivity;
-import blossom.project.towelove.framework.flower.model.ToweloveBizContext;
-import org.springframework.util.CollectionUtils;
+import blossom.project.towelove.framework.flower.model.service.FlowSerivce;
 
 import java.util.LinkedList;
 
 /**
- * <p>司机起终点规划路线召回原子组件 </p>
  *
- * @Copyright HelloBike
- * @Author: zhangjian
- * @Date: 2022/4/22
  */
-@Activity(name = "司机起终点规划路线召回原子组件")
-public class ToweloveComponent implements IActivity {
+@FlowService(name = "towelove组件")
+public class ToweloveComponent implements FlowSerivce {
 
     @Override
     public void execute(FlowBizContext flowBizContext) {

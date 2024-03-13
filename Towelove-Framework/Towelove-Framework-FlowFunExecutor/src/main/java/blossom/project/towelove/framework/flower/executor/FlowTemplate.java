@@ -1,8 +1,8 @@
 package blossom.project.towelove.framework.flower.executor;
 
 import blossom.project.towelove.framework.flower.model.FlowBizContext;
-import blossom.project.towelove.framework.flower.model.IActivity;
-import blossom.project.towelove.framework.flower.register.ActivityRegister;
+import blossom.project.towelove.framework.flower.model.service.FlowSerivce;
+import blossom.project.towelove.framework.flower.register.FlowServiceRegister;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
@@ -21,6 +21,8 @@ import java.util.List;
  * @blog: https://blog.csdn.net/Zhangsama1
  * @github: https://github.com/ZhangBlossom
  * @description:
+ * 流水线函数执行器模版
+ * 存储了实际要执行的方法类，并实际进行执行
  */
 public class FlowTemplate extends AbstractFlowTemplate {
     private static final Logger log = LoggerFactory.getLogger(FlowTemplate.class);
@@ -30,10 +32,10 @@ public class FlowTemplate extends AbstractFlowTemplate {
 
     @Override
     public void execute(final FlowBizContext flowBizContext) {
-        final List<IActivity> executedList = new ArrayList();
-        List<IActivity> beforeList = ActivityRegister.buildActivityInstance(this.beforeTrans);
-        final List<IActivity> transList = ActivityRegister.buildActivityInstance(this.trans);
-        List<IActivity> afterList = ActivityRegister.buildActivityInstance(this.afterTrans);
+        final List<FlowSerivce> executedList = new ArrayList();
+        List<FlowSerivce> beforeList = FlowServiceRegister.buildActivityInstance(this.beforeTrans);
+        final List<FlowSerivce> transList = FlowServiceRegister.buildActivityInstance(this.trans);
+        List<FlowSerivce> afterList = FlowServiceRegister.buildActivityInstance(this.afterTrans);
 
         try {
             this.executeActivity(beforeList, flowBizContext, executedList, false);
@@ -64,7 +66,7 @@ public class FlowTemplate extends AbstractFlowTemplate {
         }
     }
 
-    private void executeActivity(List<IActivity> activities, FlowBizContext flowBizContext, List<IActivity> executedList, boolean catchExp) {
+    private void executeActivity(List<FlowSerivce> activities, FlowBizContext flowBizContext, List<FlowSerivce> executedList, boolean catchExp) {
         if (!CollectionUtils.isEmpty(activities)) {
             activities.forEach((iActivity) -> {
                 executedList.add(iActivity);
@@ -83,7 +85,7 @@ public class FlowTemplate extends AbstractFlowTemplate {
         }
     }
 
-    private void rollbackActivity(List<IActivity> rollbackList, FlowBizContext flowBizContext) {
+    private void rollbackActivity(List<FlowSerivce> rollbackList, FlowBizContext flowBizContext) {
         if (!CollectionUtils.isEmpty(rollbackList)) {
             rollbackList.forEach((iActivity) -> {
                 try {

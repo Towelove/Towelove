@@ -1,5 +1,16 @@
 package blossom.project.towelove.framework.flower.model;
 
+
+/**
+ * @author: ZhangBlossom
+ * @date: 2024/3/12 14:28
+ * @contact: QQ:4602197553
+ * @contact: WX:qczjhczs0114
+ * @blog: https://blog.csdn.net/Zhangsama1
+ * @github: https://github.com/ZhangBlossom
+ * 还在开发ing
+ */
+@Deprecated
 public class ExtensionRequest {
     private String extensionCode;
     private String bizCode;

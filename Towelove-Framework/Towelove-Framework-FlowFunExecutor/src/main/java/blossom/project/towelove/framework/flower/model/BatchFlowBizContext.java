@@ -1,13 +1,29 @@
 package blossom.project.towelove.framework.flower.model;
 
+import blossom.project.towelove.framework.flower.model.service.BatchFlowService;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * @author: ZhangBlossom
+ * @date: 2024/3/12 14:28
+ * @contact: QQ:4602197553
+ * @contact: WX:qczjhczs0114
+ * @blog: https://blog.csdn.net/Zhangsama1
+ * @github: https://github.com/ZhangBlossom
+ *
+ */
+@Data
+@AllArgsConstructor
 public class BatchFlowBizContext extends FlowBizContext {
     protected List<FlowBizContext> flowBizContextList = new ArrayList();
-    protected Map<IBatchActivity, Integer> executeIndexMap = new HashMap();
+    protected Map<BatchFlowService, Integer> executeIndexMap = new HashMap();
 
     public BatchFlowBizContext() {
     }
@@ -24,76 +40,20 @@ public class BatchFlowBizContext extends FlowBizContext {
         this.flowBizContextList = flowBizContextList;
     }
 
-    public Integer getExecuteIndex(IBatchActivity batchActivity) {
+    public Integer getExecuteIndex(BatchFlowService batchActivity) {
         return (Integer)this.executeIndexMap.get(batchActivity);
     }
 
-    public void setExecuteIndex(IBatchActivity batchActivity, Integer executeIndex) {
+    public void setExecuteIndex(BatchFlowService batchActivity, Integer executeIndex) {
         this.executeIndexMap.put(batchActivity, executeIndex);
     }
 
-    public Map<IBatchActivity, Integer> getExecuteIndexMap() {
+    public Map<BatchFlowService, Integer> getExecuteIndexMap() {
         return this.executeIndexMap;
     }
 
-    public void setExecuteIndexMap(Map<IBatchActivity, Integer> executeIndexMap) {
+    public void setExecuteIndexMap(Map<BatchFlowService, Integer> executeIndexMap) {
         this.executeIndexMap = executeIndexMap;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (o == this) {
-            return true;
-        } else if (!(o instanceof BatchFlowBizContext)) {
-            return false;
-        } else {
-            BatchFlowBizContext other = (BatchFlowBizContext)o;
-            if (!other.canEqual(this)) {
-                return false;
-            } else {
-                Object this$flowBizContextList = this.getFlowBizContextList();
-                Object other$flowBizContextList = other.getFlowBizContextList();
-                if (this$flowBizContextList == null) {
-                    if (other$flowBizContextList != null) {
-                        return false;
-                    }
-                } else if (!this$flowBizContextList.equals(other$flowBizContextList)) {
-                    return false;
-                }
-
-                Object this$executeIndexMap = this.getExecuteIndexMap();
-                Object other$executeIndexMap = other.getExecuteIndexMap();
-                if (this$executeIndexMap == null) {
-                    if (other$executeIndexMap != null) {
-                        return false;
-                    }
-                } else if (!this$executeIndexMap.equals(other$executeIndexMap)) {
-                    return false;
-                }
-
-                return true;
-            }
-        }
-    }
-
-    @Override
-    protected boolean canEqual(Object other) {
-        return other instanceof BatchFlowBizContext;
-    }
-
-    @Override
-    public int hashCode() {
-        int PRIME = 1;
-        int result = 1;
-        Object $flowBizContextList = this.getFlowBizContextList();
-        result = result * 59 + ($flowBizContextList == null ? 43 : $flowBizContextList.hashCode());
-        Object $executeIndexMap = this.getExecuteIndexMap();
-        result = result * 59 + ($executeIndexMap == null ? 43 : $executeIndexMap.hashCode());
-        return result;
-    }
-
-    @Override
-    public String toString() {
-        return "BatchFlowBizContext(flowBizContextList=" + this.getFlowBizContextList() + ", executeIndexMap=" + this.getExecuteIndexMap() + ")";
-    }
 }

@@ -13,9 +13,9 @@ import java.lang.annotation.Target;
  * @contact: WX:qczjhczs0114
  * @blog: https://blog.csdn.net/Zhangsama1
  * @github: https://github.com/ZhangBlossom
- *
+ * 还在开发ing
  */
-
+@Deprecated
 @Target({ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Extension {

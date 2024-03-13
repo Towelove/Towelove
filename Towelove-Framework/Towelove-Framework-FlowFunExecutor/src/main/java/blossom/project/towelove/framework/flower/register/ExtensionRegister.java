@@ -31,6 +31,16 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 
+/**
+ * @author: ZhangBlossom
+ * @date: 2024/3/13 17:28
+ * @contact: QQ:4602197553
+ * @contact: WX:qczjhczs0114
+ * @blog: https://blog.csdn.net/Zhangsama1
+ * @github: https://github.com/ZhangBlossom
+ * 还在开发ing
+ */
+@Deprecated
 public class ExtensionRegister implements ApplicationListener<ContextRefreshedEvent>, ApplicationContextAware {
     private static final Logger log = LoggerFactory.getLogger(ExtensionRegister.class);
     private ApplicationContext applicationContext;
