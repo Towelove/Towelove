@@ -40,10 +40,11 @@ public class SaTokenFilter {
                         }catch(NotLoginException notLoginException){
                             //TODO 当前请求时notlogin exception
                             //TODO 返回-2代表尚未通过二级认证
-                            if ( StrUtil.isNotBlank(notLoginException.getType())
-                            && notLoginException.getType().equals("-2")){
-                                //TODO 异常处理
-                            }
+//                            if ( StrUtil.isNotBlank(notLoginException.getType())
+//                            && notLoginException.getType().equals("-2")){
+//                                //TODO 异常处理
+//                            }
+                            throw new BackResultException(JSON.toJSONString(Result.fail("token无效,请重新登入",HttpStatus.UNAUTHORIZED.value(),"token无效,请重新登入",null)));
                         }
                         catch (Exception e){
                             throw new BackResultException(JSON.toJSONString(Result.fail("token无效,请重新登入",HttpStatus.UNAUTHORIZED.value(),"token无效,请重新登入",null)));

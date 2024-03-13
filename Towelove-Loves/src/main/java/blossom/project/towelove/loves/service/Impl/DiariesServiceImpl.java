@@ -59,11 +59,12 @@ public class DiariesServiceImpl extends ServiceImpl<DiariesMapper,LoveDiaryColle
     private final LoveDiaryMapper loveDiaryMapper;
 
 
+
     private final LoveDiaryImageMapper diaryImageMapper;
 
 
-    private final String QUICK_WRITE_DIARY_TITLE = "小记一下";
-    private final String QUICK_WRITE_DIARY_COVER = "小记一下";
+    public final String QUICK_WRITE_DIARY_TITLE = "小记一下";
+    public final String QUICK_WRITE_DIARY_COVER = "https://oss.towelove.cn/towelove-images/2024/03/12/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20240308182109_20240312132621A044.jpg";
 
 //    private final DiaryService diaryService;
 
@@ -72,14 +73,17 @@ public class DiariesServiceImpl extends ServiceImpl<DiariesMapper,LoveDiaryColle
         Long userId = UserInfoContextHolder.getUserId();
         LambdaQueryWrapper<LoveDiaryCollection> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(Objects.nonNull(userId),LoveDiaryCollection::getUserId,userId);
+        queryWrapper.orderByAsc(LoveDiaryCollection::getCreateTime);
         List<LoveDiaryCollection> loveDiaryCollections = diariesMapper.selectList(queryWrapper);
         return DiaryCollectionConvert.INSTANCE.convert(loveDiaryCollections);
     }
 
     @Override
     public PageResponse<DiaryCollectionDTO> getDiaryCollectionByPage(DiaryCollectionPageRequest request) {
+        Long userId = UserInfoContextHolder.getUserId();
         LambdaQueryWrapper<LoveDiaryCollection> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper.eq(Objects.nonNull(request.getCoupleId()), LoveDiaryCollection::getCoupleId, request.getCoupleId());
+        queryWrapper.eq(Objects.nonNull(userId),LoveDiaryCollection::getUserId,userId);
+        queryWrapper.orderByAsc(LoveDiaryCollection::getCreateBy);
         Page<LoveDiaryCollection> page = new Page<>(request.getPageNo() - 1,request.getPageSize());
         page = diariesMapper.selectPage(page, queryWrapper);
         List<DiaryCollectionDTO> result = DiaryCollectionConvert.INSTANCE.convert(page.getRecords());
@@ -123,14 +127,14 @@ public class DiariesServiceImpl extends ServiceImpl<DiariesMapper,LoveDiaryColle
 
     @Override
     public List<DiaryTitleDTO> getLoveDirayByCollectionId(Long collectionId) {
-        List<DiaryTitleDTO> diaryByCollectionId = null;
+        List<DiaryTitleDTO> diaryByCollectionDtos = null;
         try {
-            diaryByCollectionId = loveDiaryMapper.getDiaryByCollectionId(collectionId);
+            diaryByCollectionDtos = loveDiaryMapper.getDiaryByCollectionId(collectionId);
         } catch (Exception e) {
             log.error(e.getMessage());
             throw new ServiceException("查询日记结果失败");
         }
-        return diaryByCollectionId;
+        return diaryByCollectionDtos;
     }
 
     /**
@@ -151,12 +155,13 @@ public class DiariesServiceImpl extends ServiceImpl<DiariesMapper,LoveDiaryColle
         try {
             loveDiaryMapper.insert(entity);
             //获取图片集合
-            List<LoveDiaryImage> loveDiaryImages = request.getImages().stream().map((url) -> {
-                return LoveDiaryImage.builder()
+            if (!request.getImages().isEmpty()){
+                List<LoveDiaryImage> loveDiaryImages = request.getImages().stream().map((url) -> LoveDiaryImage.builder()
                         .diaryId(entity.getId())
-                        .url(url).build();
-            }).toList();
-            diaryImageMapper.insertBatch(loveDiaryImages);
+                        .url(url)
+                        .build()).toList();
+                diaryImageMapper.insertBatch(loveDiaryImages);
+            }
         } catch (Exception e) {
             log.error(String.format("日记册：%s创建日记失败,失败原因为：%s",request.getDiaryCollectionId(),e.getMessage()));
             throw new ServiceException("创建日记失败");
@@ -168,10 +173,30 @@ public class DiariesServiceImpl extends ServiceImpl<DiariesMapper,LoveDiaryColle
     }
 
     @Override
+    @Transactional(propagation = Propagation.REQUIRED)
     public Boolean fetchSynchronous(Long id,Boolean synchronous) {
         Long coupleId = UserInfoContextHolder.getCoupleId();
         if (Objects.isNull(coupleId)){
             throw new ServiceException("没有情侣关系");
+        }
+        //判断是否两人已经拥有同步日记册
+        LambdaQueryWrapper<LoveDiaryCollection> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(LoveDiaryCollection::getCoupleId,coupleId);
+        queryWrapper.eq(LoveDiaryCollection::getStatus,1);
+        if (!diariesMapper.exists(queryWrapper)) {
+            //不存在，则创建一条
+            LoveDiaryCollection collection = LoveDiaryCollection.builder()
+                    .userId(null)
+                    .coupleId(coupleId)
+                    .title("我们的日记")
+                    .cover(QUICK_WRITE_DIARY_COVER)
+                    .build();
+            collection.setStatus(1);
+            try {
+                diariesMapper.insert(collection);
+            } catch (Exception e) {
+                throw new ServiceException("新建同步日记册失败");
+            }
         }
         LoveDiary entity = LoveDiary.builder()
                 .id(id)
@@ -239,5 +264,21 @@ public class DiariesServiceImpl extends ServiceImpl<DiariesMapper,LoveDiaryColle
             throw new ServiceException("小记一下失败");
         }
         return request.getContent();
+    }
+
+    @Override
+    public DiaryCollectionDTO getLoveDiariesBySyn() {
+        Long coupleId = UserInfoContextHolder.getCoupleId();
+        if (Objects.isNull(coupleId)){
+            return null;
+        }
+        LambdaQueryWrapper<LoveDiaryCollection> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(LoveDiaryCollection::getCoupleId,coupleId);
+        queryWrapper.eq(LoveDiaryCollection::getStatus,1);
+        List<LoveDiaryCollection> loveDiaryCollections = diariesMapper.selectList(queryWrapper);
+        if (loveDiaryCollections.isEmpty()){
+            return null;
+        }
+        return DiaryCollectionConvert.INSTANCE.convert(loveDiaryCollections.get(0));
     }
 }
