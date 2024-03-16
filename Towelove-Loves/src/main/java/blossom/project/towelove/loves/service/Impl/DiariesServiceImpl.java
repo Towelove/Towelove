@@ -217,8 +217,7 @@ public class DiariesServiceImpl extends ServiceImpl<DiariesMapper,LoveDiaryColle
         if (Objects.isNull(coupleId)){
             throw new ServiceException("请求非法，没有情侣关系");
         }
-        List<DiaryTitleDTO> diaryTitleDTOS = loveDiaryMapper.getDiaryBySynchronous(coupleId);
-        return diaryTitleDTOS;
+        return loveDiaryMapper.getDiaryBySynchronous(coupleId);
     }
 
     @Override
@@ -276,9 +275,6 @@ public class DiariesServiceImpl extends ServiceImpl<DiariesMapper,LoveDiaryColle
         queryWrapper.eq(LoveDiaryCollection::getCoupleId,coupleId);
         queryWrapper.eq(LoveDiaryCollection::getStatus,1);
         List<LoveDiaryCollection> loveDiaryCollections = diariesMapper.selectList(queryWrapper);
-        if (loveDiaryCollections.isEmpty()){
-            return null;
-        }
-        return DiaryCollectionConvert.INSTANCE.convert(loveDiaryCollections.get(0));
+        return loveDiaryCollections.isEmpty() ? null : DiaryCollectionConvert.INSTANCE.convert(loveDiaryCollections.get(0));
     }
 }

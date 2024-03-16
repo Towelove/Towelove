@@ -15,6 +15,6 @@ import lombok.Data;
 @Data
 public class DiaryCollectionPageRequest extends PageRequest {
 
-    private Long coupleId;
+
 
 }

@@ -12,6 +12,8 @@ import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalField;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @projectName: Towelove
@@ -86,5 +88,10 @@ public class TimeTest {
     void test222(){
         String word = "00000000000000000000000000100";
         System.out.println(word.length());
+
+        Map<Integer,Integer> map = new HashMap<>();
+        map.put(1,2);
+        Integer i = map.putIfAbsent(1, 1);
+        System.out.println(map.get(1));
     }
 }
