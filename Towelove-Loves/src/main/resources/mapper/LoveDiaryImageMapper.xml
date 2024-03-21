@@ -35,6 +35,15 @@
             diary_id = ${diaryId}
     </select>
 
+    <select id="selectImageUrlByDiaryId" parameterType="long" resultType="string">
+        select
+            url
+        from
+            love_diary_image
+        where
+            diary_id = #{diaryId}
+    </select>
+
 
 
 

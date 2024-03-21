@@ -95,15 +95,6 @@ public class SysUserController {
         return Result.ok(sysUserService.deleteById(userId, httpServletRequest));
     }
 
-    /**
-     * 获得用户权限
-     * @param userId
-     * @return
-     */
-    @GetMapping("/permission")
-    public Result<SysUserPermissionDto> getUserPermissionByUserId(@RequestParam("userId") Long userId){
-        return Result.ok(sysUserService.getPermissionByUserId(userId));
-    }
 
     @PutMapping("/restock")
     public Result<SysUser> restockUserInfo(@RequestBody RestockUserInfoDTO restockUserInfoDTO){

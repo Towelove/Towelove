@@ -1,6 +1,7 @@
 package blossom.project.towelove.loves.convert;
 
 import blossom.project.towelove.common.request.loves.diary.DiaryCreateRequest;
+import blossom.project.towelove.common.request.loves.diary.UpdateDiaryRequest;
 import blossom.project.towelove.common.response.love.diary.LoveDiaryDTO;
 import blossom.project.towelove.common.response.love.diary.LoveDiaryVO;
 import blossom.project.towelove.loves.entity.LoveDiary;
@@ -25,4 +26,6 @@ public interface DiaryConvert {
     LoveDiaryDTO convert(LoveDiary loveDiary);
 
     LoveDiaryVO convert2Vo(LoveDiary loveDiary);
+
+    LoveDiary convert(UpdateDiaryRequest updateDiaryRequest);
 }

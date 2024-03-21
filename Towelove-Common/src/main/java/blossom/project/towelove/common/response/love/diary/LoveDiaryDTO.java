@@ -1,5 +1,6 @@
 package blossom.project.towelove.common.response.love.diary;
 
+import blossom.project.towelove.common.request.loves.diary.DiaryImageRequest;
 import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
 
@@ -41,5 +42,5 @@ public class LoveDiaryDTO {
     /**
      * 图片集合
      */
-    private List<String> images;
+    private List<DiaryImageRequest> images;
 }

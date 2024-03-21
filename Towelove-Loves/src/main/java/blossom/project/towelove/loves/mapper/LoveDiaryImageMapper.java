@@ -25,4 +25,6 @@ public interface LoveDiaryImageMapper extends BaseMapper<LoveDiaryImage> {
     void insertBatch(List<LoveDiaryImage> loveDiaryImages);
 
     List<DiaryImageDto> getImageUrlByDiaryId(@Param("diaryId") Long diaryId);
+
+    List<String> selectImageUrlByDiaryId(@Param("diaryId") Long id);
 }

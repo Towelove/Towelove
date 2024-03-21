@@ -1,10 +1,7 @@
 package blossom.project.towelove.loves.service;
 
 import blossom.project.towelove.common.page.PageResponse;
-import blossom.project.towelove.common.request.loves.diary.DiaryCollectionCreateRequest;
-import blossom.project.towelove.common.request.loves.diary.DiaryCollectionPageRequest;
-import blossom.project.towelove.common.request.loves.diary.DiaryCreateRequest;
-import blossom.project.towelove.common.request.loves.diary.QuickWriterDiaryRequest;
+import blossom.project.towelove.common.request.loves.diary.*;
 import blossom.project.towelove.common.response.Result;
 import blossom.project.towelove.common.response.love.diary.DiaryCollectionDTO;
 import blossom.project.towelove.common.response.love.diary.DiaryTitleDTO;
@@ -48,4 +45,6 @@ public interface DiariesService extends IService<LoveDiaryCollection>{
     String quickWrite(QuickWriterDiaryRequest request);
 
     DiaryCollectionDTO getLoveDiariesBySyn();
+
+    String updateDiary(UpdateDiaryRequest updateDiaryRequest);
 }

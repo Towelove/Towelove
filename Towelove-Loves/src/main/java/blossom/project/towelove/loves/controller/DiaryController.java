@@ -2,13 +2,12 @@ package blossom.project.towelove.loves.controller;
 
 import blossom.project.towelove.common.request.loves.diary.DiaryCreateRequest;
 import blossom.project.towelove.common.request.loves.diary.QuickWriterDiaryRequest;
+import blossom.project.towelove.common.request.loves.diary.UpdateDiaryRequest;
 import blossom.project.towelove.common.response.Result;
 import blossom.project.towelove.common.response.love.diary.LoveDiaryDTO;
 import blossom.project.towelove.common.response.love.diary.LoveDiaryVO;
 import blossom.project.towelove.framework.log.annotation.LoveLog;
-import blossom.project.towelove.loves.entity.LoveDiary;
 import blossom.project.towelove.loves.service.DiariesService;
-import com.thoughtworks.xstream.core.util.QuickWriter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -74,5 +73,15 @@ public class DiaryController {
    @PostMapping("/quick")
     public Result<String> quickWriteDiary(@RequestBody @Validated QuickWriterDiaryRequest request){
         return Result.ok(diariesService.quickWrite(request));
+   }
+
+    /**
+     * 更新日记
+     * @param updateDiaryRequest
+     * @return
+     */
+    @PostMapping("/update")
+    public Result<String> updateDiaryById(@Validated @RequestBody UpdateDiaryRequest updateDiaryRequest){
+       return Result.ok(diariesService.updateDiary(updateDiaryRequest));
    }
 }
