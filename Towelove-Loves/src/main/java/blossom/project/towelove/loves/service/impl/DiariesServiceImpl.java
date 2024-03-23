@@ -11,13 +11,12 @@ import blossom.project.towelove.loves.convert.DiaryCollectionConvert;
 import blossom.project.towelove.loves.convert.DiaryConvert;
 import blossom.project.towelove.loves.entity.LoveDiary;
 import blossom.project.towelove.loves.entity.LoveDiaryCollection;
-import blossom.project.towelove.loves.entity.LoveDiaryImage;
 import blossom.project.towelove.loves.mapper.DiariesMapper;
-import blossom.project.towelove.loves.mapper.LoveDiaryImageMapper;
 import blossom.project.towelove.loves.mapper.LoveDiaryMapper;
 import blossom.project.towelove.loves.service.DiariesService;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.StrUtil;
+import com.alibaba.fastjson2.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -51,7 +50,6 @@ public class DiariesServiceImpl extends ServiceImpl<DiariesMapper, LoveDiaryColl
     private final LoveDiaryMapper loveDiaryMapper;
 
 
-    private final LoveDiaryImageMapper diaryImageMapper;
 
     private final Logger log = LoggerFactory.getLogger(DiariesService.class);
 
@@ -145,23 +143,12 @@ public class DiariesServiceImpl extends ServiceImpl<DiariesMapper, LoveDiaryColl
         if (!diariesMapper.exists(queryWrapper)) {
             throw new ServiceException("非法请求！日记册不存在");
         }
-        LoveDiary entity = DiaryConvert.INSTANCE.convert(request);
-        try {
-            loveDiaryMapper.insert(entity);
-            //获取图片集合
-            if (!request.getImages().isEmpty()) {
-                List<LoveDiaryImage> loveDiaryImages = request.getImages().stream().map((image) -> LoveDiaryImage.builder()
-                        .diaryId(entity.getId())
-                        .url(image.getUrl())
-                        .build()).toList();
-                diaryImageMapper.insertBatch(loveDiaryImages);
-            }
-        } catch (Exception e) {
-            log.error(String.format("日记册：%s创建日记失败,失败原因为：%s", request.getDiaryCollectionId(), e.getMessage()));
-            throw new ServiceException("创建日记失败");
-        }
-
-        LoveDiaryDTO result = DiaryConvert.INSTANCE.convert(entity);
+        LoveDiary loveDiary = DiaryConvert.INSTANCE.convert(request);
+        loveDiary.setImageUrls(JSON.toJSONString(request.getImages()));
+        LoveDiaryDTO result = DiaryConvert.INSTANCE.convert(loveDiary);
+        loveDiary.setCoupleId(UserInfoContextHolder.getCoupleId());
+        loveDiaryMapper.insert(loveDiary);
+        result.setId(loveDiary.getId());
         result.setImages(request.getImages());
         return result;
     }
@@ -175,29 +162,33 @@ public class DiariesServiceImpl extends ServiceImpl<DiariesMapper, LoveDiaryColl
         }
         //判断是否两人已经拥有同步日记册
         LambdaQueryWrapper<LoveDiaryCollection> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper.eq(LoveDiaryCollection::getCoupleId, coupleId);
+        queryWrapper.eq(LoveDiaryCollection::getCoupleId,coupleId);
         queryWrapper.eq(LoveDiaryCollection::getStatus, 1);
         if (!diariesMapper.exists(queryWrapper)) {
-            //不存在，则创建一条
+            //不存在，则创建两条
             LoveDiaryCollection collection = LoveDiaryCollection.builder()
                     .userId(null)
-                    .coupleId(coupleId)
                     .title("我们的日记")
                     .cover(QUICK_WRITE_DIARY_COVER)
+                    .coupleId(coupleId)
                     .build();
             collection.setStatus(1);
             try {
+                //创建两方的同步日记册
                 diariesMapper.insert(collection);
             } catch (Exception e) {
                 throw new ServiceException("新建同步日记册失败");
             }
         }
-        LoveDiary entity = LoveDiary.builder()
+        LoveDiary loveDiary = LoveDiary.builder()
                 .id(id)
+                .coupleId(coupleId)
                 .synchronous(synchronous)
                 .build();
         try {
-            loveDiaryMapper.updateById(entity);
+            if (loveDiaryMapper.updateById(loveDiary) < 1) {
+                throw new ServiceException("日记不存在");
+            }
         } catch (Exception e) {
             throw new ServiceException("更新同步状态异常");
         }
@@ -220,10 +211,9 @@ public class DiariesServiceImpl extends ServiceImpl<DiariesMapper, LoveDiaryColl
         if (Objects.isNull(loveDiary)) {
             throw new ServiceException("请求非法，日记不存在");
         }
-        List<DiaryImageDto> diaryImageDtos = diaryImageMapper.getImageUrlByDiaryId(id);
         //获取对应图片
         LoveDiaryVO loveDiaryVO = DiaryConvert.INSTANCE.convert2Vo(loveDiary);
-        loveDiaryVO.setImages(diaryImageDtos);
+        loveDiaryVO.setImages(JSON.parseObject(loveDiary.getImageUrls(),List.class));
         return loveDiaryVO;
     }
 
@@ -292,28 +282,9 @@ public class DiariesServiceImpl extends ServiceImpl<DiariesMapper, LoveDiaryColl
     public String updateDiary(UpdateDiaryRequest updateDiaryRequest) {
         //更新日记册
         LoveDiary updateLoveDiaryDo = DiaryConvert.INSTANCE.convert(updateDiaryRequest);
+        updateLoveDiaryDo.setImageUrls(JSON.toJSONString(updateDiaryRequest.getImages()));
         try {
             loveDiaryMapper.updateById(updateLoveDiaryDo);
-            if (Objects.nonNull(updateDiaryRequest.getImages()) && !updateDiaryRequest.getImages().isEmpty()) {
-                //查询当前日记的照片集合
-                List<String> imagesFromDB = diaryImageMapper.selectImageUrlByDiaryId(updateDiaryRequest.getId());
-                //两个集合取差集
-                List<String> imageFromRequest = updateDiaryRequest.getImages()
-                        .stream()
-                        .map(DiaryImageRequest::getUrl)
-                        .toList();
-                //得到需要插入数据库的数据
-                List<LoveDiaryImage> updateImageToDB = imageFromRequest
-                        .stream()
-                        .filter(imagesFromDB::contains)
-                        .map(ele -> LoveDiaryImage.builder()
-                                .diaryId(updateDiaryRequest.getId())
-                                .url(ele)
-                                .build()).toList();
-                if (!updateImageToDB.isEmpty()) {
-                    diaryImageMapper.insertBatch(updateImageToDB);
-                }
-            }
         } catch (Exception e) {
             throw new ServiceException("更新日记册失败");
         }

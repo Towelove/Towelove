@@ -16,16 +16,17 @@
         FROM
             love_diary
         WHERE
-            `diary_collection_id` = #{collectionId} and `status` = 0
+            `diary_collection_id` = #{collectionId}
     </select>
 
 
     <select id="getDiaryBySynchronous" parameterType="long" resultType="blossom.project.towelove.common.response.love.diary.DiaryTitleDTO">
-        select
-            ld.id, ld.title, ld.update_time
-        from love_diary_collection ldc
-                 LEFT JOIN love_diary ld on ldc.id = ld.diary_collection_id
-        where ld.synchronous = 1 and ldc.couple_id = #{coupleId}
+        select `id`,
+               `title`,
+               `update_time`
+        FROM love_diary
+        where
+            `couple_id` = #{coupleId} and `synchronous` = 1
     </select>
 
 </mapper>

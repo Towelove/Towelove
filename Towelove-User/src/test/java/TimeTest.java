@@ -10,10 +10,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalField;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @projectName: Towelove
@@ -93,5 +90,14 @@ public class TimeTest {
         map.put(1,2);
         Integer i = map.putIfAbsent(1, 1);
         System.out.println(map.get(1));
+    }
+
+    @Test
+    void t(){
+        List<String> list  = new ArrayList<>();
+        list.add("1");
+        list.add("2");
+        list.add("3");
+        System.out.println(list.toString());
     }
 }

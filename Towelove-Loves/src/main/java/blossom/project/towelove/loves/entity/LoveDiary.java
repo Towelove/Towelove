@@ -34,10 +34,18 @@ public class LoveDiary extends BaseEntity {
     private Long diaryCollectionId;
 
 
+    @TableField("couple_id")
+    private Long coupleId;
+
     private String title;
 
 
     private String content;
+
+    @TableField("image_urls")
+    private String imageUrls;
+
+
 
     /**
      * 是否同步
