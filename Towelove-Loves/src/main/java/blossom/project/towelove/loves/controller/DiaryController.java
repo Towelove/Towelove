@@ -34,54 +34,70 @@ public class DiaryController {
 
     /**
      * 创建日记
+     *
      * @param request
      * @return
      */
     @PostMapping("")
-    public Result<LoveDiaryDTO> createDiary(@Validated @RequestBody DiaryCreateRequest request){
+    public Result<LoveDiaryDTO> createDiary(@Validated @RequestBody DiaryCreateRequest request) {
         return Result.ok(diariesService.createDiary(request));
-   }
+    }
 
     /**
      * 日记同步开关
+     *
      * @param id
      * @param synchronous
      * @return
      */
-   @PostMapping("/sync")
-   public Result<Boolean> fetchSynchronous(@Validated @NotNull(message = "id could not be null") @RequestParam("id") Long id
-           ,@RequestParam("synchronous") Boolean synchronous){
-        return Result.ok(diariesService.fetchSynchronous(id,synchronous));
-   }
+    @PostMapping("/sync")
+    public Result<Boolean> fetchSynchronous(@Validated @NotNull(message = "id could not be null") @RequestParam("id") Long id
+            , @RequestParam("synchronous") Boolean synchronous) {
+        return Result.ok(diariesService.fetchSynchronous(id, synchronous));
+    }
 
     /**
      * 根据日记Id获取日记详情
+     *
      * @param id
      * @return
      */
-   @GetMapping("")
+    @GetMapping("")
     public Result<LoveDiaryVO> getLoveDiaryById(@Validated @NotNull(message = "id could not be null")
-                                                   @RequestParam(required = true,name = "id") Long id){
-       return Result.ok(diariesService.getLoveDiaryById(id));
-   }
+                                                @RequestParam(required = true, name = "id") Long id) {
+        return Result.ok(diariesService.getLoveDiaryById(id));
+    }
 
     /**
      * 小记一下
+     *
      * @param request
      * @return
      */
-   @PostMapping("/quick")
-    public Result<String> quickWriteDiary(@RequestBody @Validated QuickWriterDiaryRequest request){
+    @PostMapping("/quick")
+    public Result<String> quickWriteDiary(@RequestBody @Validated QuickWriterDiaryRequest request) {
         return Result.ok(diariesService.quickWrite(request));
-   }
+    }
 
     /**
      * 更新日记
+     *
      * @param updateDiaryRequest
      * @return
      */
     @PostMapping("/update")
-    public Result<String> updateDiaryById(@Validated @RequestBody UpdateDiaryRequest updateDiaryRequest){
-       return Result.ok(diariesService.updateDiary(updateDiaryRequest));
-   }
+    public Result<String> updateDiaryById(@Validated @RequestBody UpdateDiaryRequest updateDiaryRequest) {
+        return Result.ok(diariesService.updateDiary(updateDiaryRequest));
+    }
+
+    /**
+     * 删除日记
+     * @param id
+     * @return
+     */
+    @DeleteMapping("")
+    public Result<Boolean> deleted(@Validated @NotNull(message = "id could not be null")
+                                   @RequestParam(required = true, name = "id") Long id) {
+        return Result.ok(diariesService.deleteById(id));
+    }
 }

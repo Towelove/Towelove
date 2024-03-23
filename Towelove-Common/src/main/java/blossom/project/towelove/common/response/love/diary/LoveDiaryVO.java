@@ -1,5 +1,6 @@
 package blossom.project.towelove.common.response.love.diary;
 
+import blossom.project.towelove.common.request.loves.diary.DiaryImageRequest;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -41,7 +42,7 @@ public class LoveDiaryVO {
     /**
      * 图片集合
      */
-    private List<DiaryImageDto> images;
+    private List<DiaryImageRequest> images;
 
 
     private LocalDateTime updateTime;

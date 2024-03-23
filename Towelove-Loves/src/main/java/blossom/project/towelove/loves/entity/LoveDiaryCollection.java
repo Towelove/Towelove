@@ -36,6 +36,7 @@ public class LoveDiaryCollection extends BaseEntity {
     private Long coupleId;
 
 
+
     private String cover;
 
 

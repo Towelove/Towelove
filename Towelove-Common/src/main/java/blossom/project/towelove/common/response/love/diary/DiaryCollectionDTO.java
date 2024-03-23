@@ -40,10 +40,6 @@ public class DiaryCollectionDTO {
     private Long userId;
 
 
-    /**
-     * 情侣id
-     */
-    private Long coupleId;
 
     /**
      * 封面
