@@ -234,9 +234,6 @@ public class DiariesServiceImpl extends ServiceImpl<DiariesMapper, LoveDiaryColl
                     .title(QUICK_WRITE_DIARY_TITLE)
                     .cover(QUICK_WRITE_DIARY_COVER)
                     .build();
-            if (Objects.nonNull(collection)) {
-                collection.setCoupleId(coupleId);
-            }
             try {
                 diariesMapper.insert(collection);
             } catch (Exception e) {
@@ -249,6 +246,7 @@ public class DiariesServiceImpl extends ServiceImpl<DiariesMapper, LoveDiaryColl
         LoveDiary loveDiary = LoveDiary.builder()
                 .diaryCollectionId(quickWriteCollectionId)
                 .title(DateUtil.format(Date.from(Instant.now()), JacksonTypeHandler.DEFAULT_DATE_FORMAT))
+                .coupleId(coupleId)
                 .synchronous(false)
                 .content(request.getContent())
                 .build();
