@@ -1,9 +1,6 @@
 package blossom.project.towelove.loves.service.impl;
 
 import blossom.project.towelove.client.serivce.msg.RemoteMsgTaskService;
-import blossom.project.towelove.common.constant.Constant;
-import blossom.project.towelove.common.constant.RedisKeyConstant;
-import blossom.project.towelove.common.constant.SecurityConstant;
 import blossom.project.towelove.common.exception.RemoteException;
 import blossom.project.towelove.common.exception.ServerException;
 import blossom.project.towelove.common.request.msg.MsgTaskCreateRequest;
@@ -24,14 +21,14 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.MDC;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.*;
 
-import static blossom.project.towelove.common.exception.errorcode.BaseErrorCode.EMAIL_EMPTY_ERROR;
-import static blossom.project.towelove.common.exception.errorcode.BaseErrorCode.REMOTE_ERROR;
+import static blossom.project.towelove.common.exception.errorcode.BaseErrorCode.*;
 
 /**
  * @author: 张锦标
@@ -47,7 +44,11 @@ import static blossom.project.towelove.common.exception.errorcode.BaseErrorCode.
 public class TodoListServiceImpl extends ServiceImpl<TodoListMapper, TodoList>
         implements TodoListService {
 
-
+    /**
+     * 是否开启消息推送
+     */
+    @Value("${open.msg.task:false}")
+    private boolean openMsgTask;
     /**
      * widget 最大数量
      */
@@ -61,11 +62,20 @@ public class TodoListServiceImpl extends ServiceImpl<TodoListMapper, TodoList>
     @Override
     @Transactional
     public TodoListRespDTO create(TodoListCreateRequest todoListCreateRequest) {
+        Long coupleId = UserInfoContextHolder.getCoupleId();
+        if (Objects.isNull(coupleId)){
+            throw new ServerException(COUPLEID_EMPTY_ERROR.message(), null, COUPLEID_EMPTY_ERROR);
+        }
+        //当前代办要设定为小组件切之前已经设定过两个了
+        if (todoListCreateRequest.getReminder() &&
+                todoListMapper.selectWidgetCounts(todoListCreateRequest.getCoupleId()) >= WIDGET_MAX){
+            throw new ServerException("widget数量已达到最大值", null, WIDGET_UPPER_MAX_ERROR);
+        }
         TodoList todoList = TodoListConvert.INSTANCE.convert(todoListCreateRequest);
-        if (todoList.isReminder()) {
+        if (openMsgTask && todoList.isReminder()) {
             String email = UserInfoContextHolder.getEmail();
             if (StringUtils.isBlank(email)) {
-                throw new ServerException(EMAIL_EMPTY_ERROR.message(),null, EMAIL_EMPTY_ERROR);
+                throw new ServerException(EMAIL_EMPTY_ERROR.message(), null, EMAIL_EMPTY_ERROR);
             }
             MsgTaskCreateRequest msgTaskCreateRequest = MsgTaskCreateRequest.builder()
                     .content("你设定的待办事项还未执行，别忘记了哦～")
@@ -84,8 +94,8 @@ public class TodoListServiceImpl extends ServiceImpl<TodoListMapper, TodoList>
                 this.save(todoList);
             } catch (RemoteException e) {
                 throw new RemoteException("远程调用创建定时提醒任务失败", e, REMOTE_ERROR);
-            }catch (Exception e){
-                throw new RuntimeException("创建待办列表失败",e);
+            } catch (Exception e) {
+                throw new RuntimeException("创建待办列表失败", e);
             }
         }
         TodoListRespDTO todoListRespDTO = TodoListConvert.INSTANCE.convert(todoList);
@@ -97,74 +107,91 @@ public class TodoListServiceImpl extends ServiceImpl<TodoListMapper, TodoList>
     @Transactional
     public TodoListRespDTO updateById(TodoListUpdateRequest todoListUpdateRequest) {
         TodoList todoList = TodoListConvert.INSTANCE.convert(todoListUpdateRequest);
+        TodoList dbToDoList = this.getById(todoList.getId());
+        //当前代办要设定为小组件切之前已经设定过两个了
+        if (todoListUpdateRequest.getReminder() &&
+                todoListMapper.selectWidgetCounts(todoListUpdateRequest.getCoupleId()) >= WIDGET_MAX){
+            throw new ServerException("widget数量已达到最大值", null, WIDGET_UPPER_MAX_ERROR);
+        }
+        //判断是否提醒
+        if (openMsgTask && todoList.isReminder()) {
+            String email = UserInfoContextHolder.getEmail();
+            if (StringUtils.isBlank(email)) {
+                throw new ServerException(EMAIL_EMPTY_ERROR.message(), null, EMAIL_EMPTY_ERROR);
+            }
+            MsgTaskCreateRequest msgTaskCreateRequest = MsgTaskCreateRequest.builder()
+                    .content("你设定的待办事项还未执行，别忘记了哦～")
+                    .nickname("Towelove待办事项提醒")
+                    .receiveAccount(email)
+                    .sendDate(todoList.getDeadline().toLocalDate())
+                    .sendTime(todoList.getDeadline().toLocalTime().plusHours(-3))
+                    .build();
+            try {
+                Result<MsgTaskResponse> msgTask = remoteMsgTaskService.createMsgTask(msgTaskCreateRequest);
+                //远程调用基本判断逻辑
+                if (Objects.isNull(msgTask) && msgTask.isError(msgTask)) {
+                    throw new RemoteException("远程调用创建定时提醒任务失败", null, REMOTE_ERROR);
+                }
+                todoList.setMsgTaskId(msgTask.getData().getId());
+                //删除原有的提醒信息
+                if (Objects.nonNull(dbToDoList.getMsgTaskId())) {
+                    remoteMsgTaskService.batchDeleteMsgTask(
+                            Collections.singletonList(dbToDoList.getMsgTaskId()));
+                }
+            } catch (RemoteException e) {
+                throw new RemoteException("远程调用定时提醒任务失败", e, REMOTE_ERROR);
+            } catch (Exception e) {
+                throw new RuntimeException("其他异常。。。", e);
+            }
+        }
         this.updateById(todoList);
-        return TodoListConvert.INSTANCE.convert(todoList);
+        TodoListRespDTO todoListRespDTO = TodoListConvert.INSTANCE.convert(todoList);
+        return todoListRespDTO;
     }
 
     @Override
     @Transactional
     public Boolean deleteById(Long todoId) {
-        return this.deleteById(todoId);
+        TodoList dbToDoList = this.getById(todoId);
+
+        //判断是否提醒
+        if (dbToDoList.isReminder()) {
+            try {
+                //删除原有的提醒信息
+                remoteMsgTaskService.batchDeleteMsgTask(
+                        Collections.singletonList(dbToDoList.getMsgTaskId()));
+                this.deleteById(todoId);
+            } catch (RemoteException e) {
+                throw new RemoteException("远程调用定时提醒任务失败", e, REMOTE_ERROR);
+            } catch (Exception e) {
+                throw new RuntimeException("其他异常。。。", e);
+            }
+        }
+        return Boolean.TRUE;
     }
 
     @Override
     public List<TodoListRespDTO> pageTodoList(Long coupleId) {
-        return null;
+        List<TodoList> todoLists = todoListMapper.selectAllByCoupleId(coupleId);
+        if (CollectionUtil.isEmpty(todoLists)){
+            return Collections.emptyList();
+        }
+        List<TodoListRespDTO> todoListRespDTOS = TodoListConvert.INSTANCE.convertTodoListResponse(todoLists);
+        return todoListRespDTOS;
     }
-
-    @Override
-    public TodoListRespDTO getTodoListDetailById(Long todoId) {
-        return null;
-    }
-
 
     /**
-     * 创建  提醒
-     *
-     * @param todoList
+     * 获取详细信息
+     * @param todoId
      * @return
      */
-    private void createMsgTask(TodoList todoList) {
-        if (todoList.isReminder() && todoList.getDeadline() == null) {
-            return;
+    @Override
+    public TodoListRespDTO getTodoListDetailById(Long todoId) {
+        TodoList todoList = this.getById(todoId);
+        if (Objects.nonNull(todoList)) {
+            return TodoListConvert.INSTANCE.convert(todoList);
         }
-
-        LocalDateTime sendDate = todoList.getDeadline().minusHours(1);
-        MsgTaskCreateRequest request = new MsgTaskCreateRequest();
-        request.setNickname(RedisKeyConstant.REMIND_SUBJECT);
-        request.setTitle(todoList.getTitle());
-        request.setContent("😭😭😭😭😭 待办列表还未完成 " + todoList.getTitle() + "   \n    " + todoList.getDescription());
-        request.setSendDate(sendDate.toLocalDate());
-        request.setSendTime(sendDate.toLocalTime());
-        //type=0表示只发送一次
-        request.setMsgType(0);
-        Result<MsgTaskResponse> msgTask = remoteMsgTaskService.createMsgTask(request);
-
-        if (msgTask.getCode() != Constant.SUCCESS) {
-            log.error("[待办 调用msgTask失败] code：{} msg: {}", msgTask.getCode(), msgTask.getMsg());
-        }
-        todoListMapper.update(todoList, new LambdaUpdateWrapper<TodoList>()
-                .set(TodoList::getMsgTaskId, msgTask.getData().getId())
-                .set(TodoList::isReminder, Boolean.TRUE)
-                .eq(TodoList::getId, todoList.getId()));
-
+        return null;
     }
-
-
-    private void deleteMsgTask(TodoList todoList) {
-        if (!todoList.isReminder()) {
-            return;
-        }
-        Result<Boolean> booleanResult =
-                remoteMsgTaskService.batchDeleteMsgTask(CollectionUtil.newArrayList(todoList.getMsgTaskId()));
-        if (!booleanResult.getData()) {
-            log.error("[待办 调用msgTask失败] code：{} msg: {}", booleanResult.getCode(), booleanResult.getMsg());
-        }
-        todoListMapper.update(todoList, new LambdaUpdateWrapper<TodoList>()
-                .set(TodoList::getMsgTaskId, null)
-                .set(TodoList::isReminder, Boolean.FALSE)
-                .eq(TodoList::getId, todoList.getId()));
-    }
-
 
 }

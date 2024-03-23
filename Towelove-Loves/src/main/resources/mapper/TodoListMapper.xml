@@ -5,42 +5,46 @@
 <mapper namespace="blossom.project.towelove.loves.mapper.TodoListMapper">
 
     <resultMap id="BaseResultMap" type="blossom.project.towelove.loves.entity.TodoList">
-            <id property="id" column="id" jdbcType="BIGINT"/>
-            <result property="parentId" column="parent_id" jdbcType="BIGINT"/>
-            <result property="title" column="title" jdbcType="VARCHAR"/>
-            <result property="description" column="description" jdbcType="VARCHAR"/>
-            <result property="deadline" column="deadline" jdbcType="DATE"/>
-            <result property="status" column="status" jdbcType="TINYINT"/>
-            <result property="completionDate" column="completion_date" jdbcType="DATE"/>
-            <result property="createBy" column="create_by" jdbcType="VARCHAR"/>
-            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
-            <result property="updateBy" column="update_by" jdbcType="VARCHAR"/>
-            <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
-            <result property="deleted" column="deleted" jdbcType="INTEGER"/>
-            <result property="remark" column="remark" jdbcType="VARCHAR"/>
-            <result property="widget" column="widget" jdbcType="TINYINT"/>
+        <id property="id" column="id" jdbcType="BIGINT"/>
+        <result property="title" column="title" jdbcType="VARCHAR"/>
+        <result property="description" column="description" jdbcType="VARCHAR"/>
+        <result property="deadline" column="deadline" jdbcType="DATE"/>
+        <result property="status" column="status" jdbcType="TINYINT"/>
+        <result property="createBy" column="create_by" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateBy" column="update_by" jdbcType="VARCHAR"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="deleted" column="deleted" jdbcType="INTEGER"/>
+        <result property="remark" column="remark" jdbcType="VARCHAR"/>
+        <result property="reminder" column="reminder" jdbcType="BOOLEAN"/>
+        <result property="widget" column="widget" jdbcType="BOOLEAN"/>
+        <result property="completionDate" column="completion_date" jdbcType="TIMESTAMP"/>
     </resultMap>
 
     <sql id="Base_Column_List">
-        id,parent_id,user_id,
+        id
+        ,user_id,
         title,description,deadline,
         completion_status,completion_date,create_by,
         create_time,update_by,update_time,
         deleted,remark
     </sql>
 
-    <update id="updateWidgetBatch">
-        UPDATE todo_list
-        SET widget = #{status}
-        WHERE id IN
-        <foreach item="id" collection="ids" open="(" separator="," close=")">
-            #{id}
-        </foreach>
-    </update>
 
-    <select id="selectIdByPrentId" resultType="java.lang.Long">
-        select id
+    <select id="selectAllByCoupleId" resultType="blossom.project.towelove.loves.entity.TodoList">
+        select `id`,
+               `title`,
+               `description`,
+               `deadline`,
+               `widget`,
+               `reminder`,
+               `deadline`,
+               `completion_date`
         from todo_list
-        where parent_id = #{parentId}
+        where couple_id = #{coupleId}
+    </select>
+    <select id="selectWidgetCounts" resultType="java.lang.Integer">
+        select count(1) from todo_list
+        where `couple_id` = #{coupleId}
     </select>
 </mapper>

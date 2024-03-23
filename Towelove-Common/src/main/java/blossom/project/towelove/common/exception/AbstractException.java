@@ -1,8 +1,10 @@
 package blossom.project.towelove.common.exception;
 
+import blossom.project.towelove.common.constant.SecurityConstant;
 import blossom.project.towelove.common.exception.errorcode.IErrorCode;
 import com.google.common.base.Strings;
 import lombok.Getter;
+import org.slf4j.MDC;
 
 import java.util.Optional;
 
@@ -20,8 +22,17 @@ public abstract class AbstractException extends RuntimeException {
     public final String errorCode;
     
     public final String errorMessage;
+
+    public final String requestId = MDC.get(SecurityConstant.REQUEST_ID);
+
     
     public AbstractException(String message, Throwable throwable, IErrorCode errorCode) {
+        super(message, throwable);
+        this.errorCode = errorCode.code();
+        this.errorMessage = Optional.ofNullable(Strings.emptyToNull(message)).orElse(errorCode.message());
+    }
+
+    public AbstractException(String message, Throwable throwable, IErrorCode errorCode,String requestId) {
         super(message, throwable);
         this.errorCode = errorCode.code();
         this.errorMessage = Optional.ofNullable(Strings.emptyToNull(message)).orElse(errorCode.message());

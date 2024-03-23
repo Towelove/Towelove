@@ -17,21 +17,9 @@ import java.util.List;
 @Mapper
 public interface TodoListMapper extends BaseMapper<TodoList> {
 
-    /**
-     * 根据父id查询所有子id
-     *
-     * @param parentId 父id
-     * @return
-     */
-    List<Long> selectIdByPrentId(@Param("parentId") Long parentId);
+    List<TodoList> selectAllByCoupleId(@Param("coupleId")Long coupleId);
 
-
-    /**
-     * 批量修改操作
-     * @param status
-     * @param ids
-     */
-    void updateWidgetBatch(@Param("status") boolean status, @Param("ids") List<Long> ids);
+    int selectWidgetCounts(@Param("coupleId") Long coupleId);
 }
 
 

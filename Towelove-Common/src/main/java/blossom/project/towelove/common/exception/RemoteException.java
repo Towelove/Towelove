@@ -34,6 +34,10 @@ public class RemoteException extends AbstractException {
     public RemoteException(String message, Throwable throwable, IErrorCode errorCode) {
         super(message, throwable, errorCode);
     }
+
+    public RemoteException(String message, Throwable throwable, IErrorCode errorCode,String requestId){
+        super(message,throwable, errorCode,requestId);
+    }
     
     @Override
     public String toString() {

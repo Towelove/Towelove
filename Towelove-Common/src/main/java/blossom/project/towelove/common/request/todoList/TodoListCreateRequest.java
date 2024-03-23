@@ -26,5 +26,5 @@ public class TodoListCreateRequest {
     /**
      * 是否需要提醒
      */
-    private Boolean remind;
+    private Boolean reminder;
 }

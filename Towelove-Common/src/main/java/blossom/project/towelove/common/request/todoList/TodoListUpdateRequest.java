@@ -1,8 +1,10 @@
 package blossom.project.towelove.common.request.todoList;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 import javax.validation.constraints.NotNull;
+import java.time.LocalDateTime;
 
 /**
  * @author wangLele
@@ -22,8 +24,17 @@ public class TodoListUpdateRequest {
 
     private String description;
 
-    private String deadline;
+    //截止日期
+    @JsonFormat( pattern="yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime deadline;
 
+    //完成日期
+    @JsonFormat( pattern="yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime completionDate;
+    /**
+     * @Comment("是否提醒")
+     */
+    private Boolean reminder;
     /**
      * 是否是小组件
      */
