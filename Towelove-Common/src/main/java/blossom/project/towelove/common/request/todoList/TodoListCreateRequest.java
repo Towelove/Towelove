@@ -1,20 +1,17 @@
 package blossom.project.towelove.common.request.todoList;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 //import io.swagger.annotations.ApiModel;
 //import io.swagger.annotations.ApiModelProperty;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
-import java.util.Date;
 
-//@ApiModel(description = "Request body for inserting Todo")
+@AllArgsConstructor
+@NotNull
 @Data
-public class InsertTodoRequest {
-
-    //不传 默认值为0
-    private Long parentId;
-
+public class TodoListCreateRequest {
     private Long coupleId;
 
     @NotNull(message = "标题不能为空")
@@ -26,5 +23,8 @@ public class InsertTodoRequest {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime deadline;
 
-
+    /**
+     * 是否需要提醒
+     */
+    private Boolean remind;
 }

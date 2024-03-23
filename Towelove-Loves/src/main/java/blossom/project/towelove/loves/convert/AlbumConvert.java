@@ -2,15 +2,9 @@ package blossom.project.towelove.loves.convert;
 
 import blossom.project.towelove.common.request.loves.album.AlbumsCreateRequest;
 import blossom.project.towelove.common.request.loves.album.AlbumsUpdateRequest;
-import blossom.project.towelove.common.request.todoList.InsertTodoRequest;
-import blossom.project.towelove.common.request.todoList.UpdateTodoRequest;
 import blossom.project.towelove.common.response.love.album.AlbumsPageRespDTO;
 import blossom.project.towelove.common.response.love.album.AlbumsRespDTO;
-import blossom.project.towelove.common.response.todoList.TodoListCalendarResponse;
-import blossom.project.towelove.common.response.todoList.TodoListResponse;
 import blossom.project.towelove.loves.entity.Albums;
-import blossom.project.towelove.loves.entity.TodoList;
-import org.aspectj.weaver.ast.Var;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 

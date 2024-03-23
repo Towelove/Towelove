@@ -1,9 +1,8 @@
 package blossom.project.towelove.loves.convert;
 
-import blossom.project.towelove.common.request.todoList.InsertTodoRequest;
-import blossom.project.towelove.common.request.todoList.UpdateTodoRequest;
-import blossom.project.towelove.common.response.todoList.TodoListCalendarResponse;
-import blossom.project.towelove.common.response.todoList.TodoListResponse;
+import blossom.project.towelove.common.request.todoList.TodoListCreateRequest;
+import blossom.project.towelove.common.request.todoList.TodoListUpdateRequest;
+import blossom.project.towelove.common.response.todoList.TodoListRespDTO;
 import blossom.project.towelove.loves.entity.TodoList;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
@@ -22,18 +21,18 @@ public interface TodoListConvert {
     /**
      * 将InsertTodoRequest转换为TodoList
      *
-     * @param insertTodoRequest
+     * @param todoListCreateRequest
      * @return
      */
-    TodoList convert(InsertTodoRequest insertTodoRequest);
+    TodoList convert(TodoListCreateRequest todoListCreateRequest);
 
     /**
      * 将UpdateTodoRequest转换为TodoList
      *
-     * @param updateTodoRequest
+     * @param todoListUpdateRequest
      * @return
      */
-    TodoList convert(UpdateTodoRequest updateTodoRequest);
+    TodoList convert(TodoListUpdateRequest todoListUpdateRequest);
 
     /**
      * 将TodoList转换为TodoListResponse
@@ -41,15 +40,8 @@ public interface TodoListConvert {
      * @param todoList
      * @return
      */
-    TodoListResponse convert(TodoList todoList);
+    TodoListRespDTO convert(TodoList todoList);
 
-    /**
-     * 将TodoList转换为TodoListCalendarResponse
-     *
-     * @param todoLists
-     * @return
-     */
-    List<TodoListCalendarResponse> convert(List<TodoList> todoLists);
 
-    List<TodoListResponse> convertTodoListResponse(List<TodoList> todoLists);
+    List<TodoListRespDTO> convertTodoListResponse(List<TodoList> todoLists);
 }

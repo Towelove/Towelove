@@ -1,144 +1,93 @@
 package blossom.project.towelove.loves.controller;
 
-import blossom.project.towelove.common.request.todoList.InsertTodoRequest;
-import blossom.project.towelove.common.request.todoList.UpdateTodoRequest;
-import blossom.project.towelove.common.request.todoList.UpdateWidget;
+
+import blossom.project.towelove.common.constant.SecurityConstant;
+import blossom.project.towelove.common.request.todoList.TodoListCreateRequest;
+import blossom.project.towelove.common.request.todoList.TodoListUpdateRequest;
 import blossom.project.towelove.common.response.Result;
-import blossom.project.towelove.common.response.todoList.TodoImagesResponse;
-import blossom.project.towelove.common.response.todoList.TodoListCalendarResponse;
-import blossom.project.towelove.common.response.todoList.TodoListResponse;
+import blossom.project.towelove.common.response.todoList.TodoListRespDTO;
 import blossom.project.towelove.framework.log.annotation.LoveLog;
-import blossom.project.towelove.loves.service.TodoImagesService;
-import blossom.project.towelove.loves.service.TodolistService;
-import lombok.AllArgsConstructor;
-import org.springframework.format.annotation.DateTimeFormat;
+import blossom.project.towelove.framework.user.core.UserInfoContextHolder;
+import blossom.project.towelove.loves.service.TodoListService;
+import org.slf4j.MDC;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Date;
+import javax.validation.constraints.NotNull;
 import java.util.List;
-import java.util.Optional;
+import java.util.Objects;
 
 /**
- * 待办事项
- * @author wangLele
- * @Mail 1819220754@qq.com
- * @date 下午4:52 30/11/2023
+ * @author: 张锦标
+ * @date: 2024/3/23 10:09 AM
+ * TodoListController类
  */
+
 @LoveLog
 @RestController
-@AllArgsConstructor
-@RequestMapping("/todo-list")
+@RequestMapping("/todo")
 public class TodoListController {
-
-    private TodolistService todolistService;
-    private TodoImagesService todoImagesService;
+    
+    @Autowired
+    private TodoListService todolistService;
 
     /**
-     * 创建 待办事项
-     *
-     * @param insertTodoRequest
+     * 创建
+     * @param createRequest
      * @return
      */
     @PostMapping("")
-    public Result<Long> saveTodo(@RequestBody @Validated InsertTodoRequest insertTodoRequest) {
-        return Result.ok(todolistService.create(insertTodoRequest));
+    public Result<TodoListRespDTO> create(@RequestBody @Validated TodoListCreateRequest createRequest){
+        return Result.ok(todolistService.create(createRequest));
     }
 
-    /**
-     * 更新 待办事项
-     *
-     * @param updateTodoRequest
-     */
-    @PutMapping("")
-    public Result<Long> updateTodo(@RequestBody @Validated UpdateTodoRequest updateTodoRequest) {
-        todolistService.updateById(updateTodoRequest);
-        Optional.ofNullable(updateTodoRequest.getImages()).ifPresent(images -> todoImagesService.saveBatch(updateTodoRequest.getId(), images));
-        return Result.ok();
-    }
 
     /**
-     * 删除 待办事项
-     *
-     * @param id
-     */
-    @DeleteMapping("/{id}")
-    public Result<Long> deleteTodoById(@PathVariable("id") Long id) {
-        todolistService.deleteById(id);
-        return Result.ok();
-    }
-
-    /**
-     * 获取 待办事项列表
-     *
-     * @param coupleId   用户id
-     * @param parentId 父级id
+     * 按照ID查询相册详情信息
+     * @param todoId
      * @return
      */
     @GetMapping("")
-    public Result<List<TodoListResponse>> getTodo(@RequestParam("coupleId") Long coupleId,
-                                                  @RequestParam(name = "parentId", required = false, defaultValue = "0") Long parentId) {
-        return Result.ok(todolistService.getList(coupleId, parentId));
+    public Result<TodoListRespDTO> getTodoListDetailById(@Validated @RequestParam(name = "todoId")
+                                                     @NotNull(message = "todoId Can not be null") Long todoId) {
+        TodoListRespDTO result = todolistService.getTodoListDetailById(todoId);
+        return Result.ok(result);
     }
 
+
     /**
-     * 获取 待办事项图片
-     *
-     * @param todoId 待办事项id
+     * 分页查询 获取情侣的小组件
      * @return
      */
-    @GetMapping("/images")
-    @Deprecated
-    public Result<List<TodoImagesResponse>> getTodoImagesById(@RequestParam("todoId") Long todoId) {
-        return Result.ok(todoImagesService.getTodoImagesById(todoId));
+    @GetMapping("/page")
+    public Result<List<TodoListRespDTO>> pageQuerytodo(){
+        Long coupleId = UserInfoContextHolder.getCoupleId();
+        if (Objects.isNull(coupleId)){
+            return Result.fail("coupleId is null", MDC.get(SecurityConstant.REQUEST_ID));
+        }
+        return Result.ok(todolistService.pageTodoList(coupleId));
     }
 
     /**
-     * 获取 某个月 待办事项日历
-     *
-     * @param userId 用户id
-     * @param date   日期 YYYY-MM
-     */
-    @GetMapping("/calendar")
-    public Result<List<TodoListCalendarResponse>> getTodoCalendar(
-            @RequestParam("userId") Long userId,
-            @RequestParam("date") @DateTimeFormat(pattern = "yyyy-MM") Date date) {
-        return Result.ok(todolistService.getTodoCalendar(userId, date));
-    }
-
-    /**
-     * 更新小组件
-     * @param updateWidget
+     * 基于ID修改
+     * @param updateRequest
      * @return
      */
-    @PutMapping("/update-widget")
-    public Result updateWidget(@RequestBody @Validated UpdateWidget updateWidget) {
-        List<Long> res = todolistService.updateWidget(updateWidget);
-        return Result.ok(res);
+    @PutMapping("")
+    public Result<TodoListRespDTO> update
+    (@Validated @RequestBody TodoListUpdateRequest updateRequest){
+        return Result.ok(todolistService.updateById(updateRequest));
     }
 
     /**
-     * 设定要提醒的
-     * @param id
-     * @param isFlag
+     * 基于ID删除
+     * @param todoId
      * @return
      */
-    @PutMapping("/reminder/{id}")
-    public Result<TodoListResponse> reminder(@PathVariable("id") Long id, @RequestParam("isFlag") Boolean isFlag) {
-        return Result.ok(todolistService.reminder(id, isFlag));
+    @DeleteMapping("")
+    public Result<Boolean> deleteTodoListById(@RequestParam @Validated Long todoId){
+        return Result.ok(todolistService.deleteById(todoId));
     }
-
-
-    /**
-     * 获取小组件
-     * @param coupleId
-     * @return
-     */
-    @GetMapping("widget")
-    public Result<List<TodoListResponse>> getWidget(@RequestParam("coupleId") Long coupleId) {
-        return Result.ok(todolistService.widget(coupleId));
-    }
-
-
 
 }
