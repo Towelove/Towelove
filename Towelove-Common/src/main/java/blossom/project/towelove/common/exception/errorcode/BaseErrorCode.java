@@ -48,6 +48,7 @@ public enum BaseErrorCode implements IErrorCode {
 
     
     // ========== 一级宏观错误码 调用第三方服务出错 ==========
+    EMAIL_EMPTY_ERROR("C000002", "邮箱不能为空"),
     REMOTE_ERROR("C000001", "调用第三方服务出错"),
     BUCKET_NOT_FOUND("C000404","MinIO桶没有找到" );
     

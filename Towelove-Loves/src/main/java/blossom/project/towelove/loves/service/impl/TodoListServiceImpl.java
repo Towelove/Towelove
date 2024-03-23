@@ -3,12 +3,17 @@ package blossom.project.towelove.loves.service.impl;
 import blossom.project.towelove.client.serivce.msg.RemoteMsgTaskService;
 import blossom.project.towelove.common.constant.Constant;
 import blossom.project.towelove.common.constant.RedisKeyConstant;
+import blossom.project.towelove.common.constant.SecurityConstant;
+import blossom.project.towelove.common.exception.RemoteException;
+import blossom.project.towelove.common.exception.ServerException;
 import blossom.project.towelove.common.request.msg.MsgTaskCreateRequest;
 import blossom.project.towelove.common.request.todoList.TodoListCreateRequest;
 import blossom.project.towelove.common.request.todoList.TodoListUpdateRequest;
 import blossom.project.towelove.common.response.Result;
 import blossom.project.towelove.common.response.msg.MsgTaskResponse;
 import blossom.project.towelove.common.response.todoList.TodoListRespDTO;
+import blossom.project.towelove.common.utils.StringUtils;
+import blossom.project.towelove.framework.user.core.UserInfoContextHolder;
 import blossom.project.towelove.loves.convert.TodoListConvert;
 import blossom.project.towelove.loves.entity.TodoList;
 import blossom.project.towelove.loves.mapper.TodoListMapper;
@@ -18,16 +23,23 @@ import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.slf4j.MDC;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.*;
 
+import static blossom.project.towelove.common.exception.errorcode.BaseErrorCode.EMAIL_EMPTY_ERROR;
+import static blossom.project.towelove.common.exception.errorcode.BaseErrorCode.REMOTE_ERROR;
+
 /**
- * @author 29097
- * @description 针对表【todolist】的数据库操作Service实现
- * @createDate 2023-11-30 17:10:50
+ * @author: 张锦标
+ * @date: 2024/3/23 13:06
+ * @contact: QQ:4602197553
+ * @contact: WX:qczjhczs0114
+ * @blog: https://blog.csdn.net/Zhangsama1
+ * @github: https://github.com/ZhangBlossom
  */
 @Slf4j
 @Service
@@ -50,7 +62,32 @@ public class TodoListServiceImpl extends ServiceImpl<TodoListMapper, TodoList>
     @Transactional
     public TodoListRespDTO create(TodoListCreateRequest todoListCreateRequest) {
         TodoList todoList = TodoListConvert.INSTANCE.convert(todoListCreateRequest);
-        this.save(todoList);
+        if (todoList.isReminder()) {
+            String email = UserInfoContextHolder.getEmail();
+            if (StringUtils.isBlank(email)) {
+                throw new ServerException(EMAIL_EMPTY_ERROR.message(),null, EMAIL_EMPTY_ERROR);
+            }
+            MsgTaskCreateRequest msgTaskCreateRequest = MsgTaskCreateRequest.builder()
+                    .content("你设定的待办事项还未执行，别忘记了哦～")
+                    .nickname("Towelove待办事项提醒")
+                    .receiveAccount(email)
+                    .sendDate(todoList.getDeadline().toLocalDate())
+                    .sendTime(todoList.getDeadline().toLocalTime().plusHours(-3))
+                    .build();
+            try {
+                Result<MsgTaskResponse> msgTask = remoteMsgTaskService.createMsgTask(msgTaskCreateRequest);
+                //远程调用基本判断逻辑
+                if (Objects.isNull(msgTask) && msgTask.isError(msgTask)) {
+                    throw new RemoteException("远程调用创建定时提醒任务失败", null, REMOTE_ERROR);
+                }
+                todoList.setMsgTaskId(msgTask.getData().getId());
+                this.save(todoList);
+            } catch (RemoteException e) {
+                throw new RemoteException("远程调用创建定时提醒任务失败", e, REMOTE_ERROR);
+            }catch (Exception e){
+                throw new RuntimeException("创建待办列表失败",e);
+            }
+        }
         TodoListRespDTO todoListRespDTO = TodoListConvert.INSTANCE.convert(todoList);
         return todoListRespDTO;
     }
@@ -72,11 +109,6 @@ public class TodoListServiceImpl extends ServiceImpl<TodoListMapper, TodoList>
 
     @Override
     public List<TodoListRespDTO> pageTodoList(Long coupleId) {
-        return null;
-    }
-
-    @Override
-    public List<TodoListRespDTO> widget(Long coupleId) {
         return null;
     }
 
@@ -136,7 +168,3 @@ public class TodoListServiceImpl extends ServiceImpl<TodoListMapper, TodoList>
 
 
 }
-
-
-
-

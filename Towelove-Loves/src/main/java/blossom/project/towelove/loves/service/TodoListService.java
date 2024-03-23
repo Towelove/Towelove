@@ -46,12 +46,6 @@ public interface TodoListService extends IService<TodoList> {
      */
     List<TodoListRespDTO> pageTodoList(Long coupleId);
 
-    /**
-     * 返回所有小组件信息
-     * @param coupleId
-     * @return
-     */
-    List<TodoListRespDTO> widget(Long coupleId);
 
     TodoListRespDTO getTodoListDetailById(Long todoId);
 }
