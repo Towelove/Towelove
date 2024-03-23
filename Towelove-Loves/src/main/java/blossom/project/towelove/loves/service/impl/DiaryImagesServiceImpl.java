@@ -1,8 +1,6 @@
-package blossom.project.towelove.loves.service.Impl;
+package blossom.project.towelove.loves.service.impl;
 
-import blossom.project.towelove.loves.entity.LoveDiary;
 import blossom.project.towelove.loves.entity.LoveDiaryImage;
-import blossom.project.towelove.loves.mapper.DiaryMapper;
 import blossom.project.towelove.loves.mapper.LoveDiaryImageMapper;
 import blossom.project.towelove.loves.service.DiaryImageService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;

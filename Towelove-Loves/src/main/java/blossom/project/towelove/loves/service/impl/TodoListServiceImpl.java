@@ -1,4 +1,4 @@
-package blossom.project.towelove.loves.service.Impl;
+package blossom.project.towelove.loves.service.impl;
 
 import blossom.project.towelove.client.serivce.msg.RemoteMsgTaskService;
 import blossom.project.towelove.common.constant.Constant;
