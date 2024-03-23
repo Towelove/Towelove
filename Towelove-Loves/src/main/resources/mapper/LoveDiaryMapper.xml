@@ -16,7 +16,7 @@
         FROM
             love_diary
         WHERE
-            `diary_collection_id` = #{collectionId}
+            `diary_collection_id` = #{collectionId} and deleted = 0
     </select>
 
 
@@ -26,7 +26,7 @@
                `update_time`
         FROM love_diary
         where
-            `couple_id` = #{coupleId} and `synchronous` = 1
+            `couple_id` = #{coupleId} and `synchronous` = 1 and `deleted` = 0
     </select>
 
 </mapper>
