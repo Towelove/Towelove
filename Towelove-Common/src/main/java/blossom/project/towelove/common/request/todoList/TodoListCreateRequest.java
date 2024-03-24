@@ -3,13 +3,14 @@ package blossom.project.towelove.common.request.todoList;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 //import io.swagger.annotations.ApiModel;
 //import io.swagger.annotations.ApiModelProperty;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 @AllArgsConstructor
-@NotNull
+@NoArgsConstructor
 @Data
 public class TodoListCreateRequest {
     private Long coupleId;

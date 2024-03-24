@@ -14,6 +14,7 @@ import blossom.project.towelove.loves.entity.LoveDiaryCollection;
 import blossom.project.towelove.loves.mapper.DiariesMapper;
 import blossom.project.towelove.loves.mapper.LoveDiaryMapper;
 import blossom.project.towelove.loves.service.DiariesService;
+import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson2.JSON;
@@ -28,9 +29,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
-import java.util.Date;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 /**
  * @projectName: Towelove
@@ -249,6 +248,7 @@ public class DiariesServiceImpl extends ServiceImpl<DiariesMapper, LoveDiaryColl
                 .coupleId(coupleId)
                 .synchronous(false)
                 .content(request.getContent())
+                .imageUrls(JSON.toJSONString(new ArrayList<>()))
                 .build();
         if (loveDiaryMapper.insert(loveDiary) < 1) {
             throw new ServiceException("小记一下失败");

@@ -17,6 +17,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.*;
@@ -40,25 +41,26 @@ public class StpInterfaceImpl implements StpInterface {
     public List<String> getPermissionList(Object loginId, String loginType) {
         //WebFlux调用Feign必须使用线程池
         //从user模块获得用户权限信息
-        String loginIdAsString = StpUtil.getLoginIdAsString();
-        SysUser sysUser = JSON.parseObject(loginIdAsString, SysUser.class);
-        Future< Result<SysUserPermissionDto>> future = singleThreadPool.submit(() ->
-                userService.getUserPermissionByUserId(sysUser.getId())
-        );
-        Result<SysUserPermissionDto> result = null;
-        try {
-             result =  future.get(5,TimeUnit.SECONDS);
-            if (Objects.isNull(result) || Objects.isNull(result.getData())){
-                log.info("[{}]用户查询权限为空",sysUser.getId());
-                //需要自行设置响应头
-                SaHolder.getResponse().setHeader("Content-Type", "application/json;charset=UTF-8");
-                throw new BackResultException(JSON.toJSONString(Result.fail(HttpStatus.FORBIDDEN.getReasonPhrase(),HttpStatus.FORBIDDEN.value(),"无权限",SecurityConstant.REQUEST_ID)));
-            }
-        } catch (InterruptedException | ExecutionException | TimeoutException e) {
-            SaHolder.getResponse().setHeader("Content-Type", "application/json;charset=UTF-8");
-            throw new BackResultException(JSON.toJSONString(Result.fail(HttpStatus.FORBIDDEN.getReasonPhrase(),HttpStatus.FORBIDDEN.value(),"无权限",SecurityConstant.REQUEST_ID)));
-        }
-        return List.of(result.getData().getPermission());
+//        String loginIdAsString = StpUtil.getLoginIdAsString();
+//        SysUser sysUser = JSON.parseObject(loginIdAsString, SysUser.class);
+//        Future< Result<SysUserPermissionDto>> future = singleThreadPool.submit(() ->
+//                userService.getUserPermissionByUserId(sysUser.getId())
+//        );
+//        Result<SysUserPermissionDto> result = null;
+//        try {
+//             result =  future.get(5,TimeUnit.SECONDS);
+//            if (Objects.isNull(result) || Objects.isNull(result.getData())){
+//                log.info("[{}]用户查询权限为空",sysUser.getId());
+//                //需要自行设置响应头
+//                SaHolder.getResponse().setHeader("Content-Type", "application/json;charset=UTF-8");
+//                throw new BackResultException(JSON.toJSONString(Result.fail(HttpStatus.FORBIDDEN.getReasonPhrase(),HttpStatus.FORBIDDEN.value(),"无权限",SecurityConstant.REQUEST_ID)));
+//            }
+//        } catch (InterruptedException | ExecutionException | TimeoutException e) {
+//            SaHolder.getResponse().setHeader("Content-Type", "application/json;charset=UTF-8");
+//            throw new BackResultException(JSON.toJSONString(Result.fail(HttpStatus.FORBIDDEN.getReasonPhrase(),HttpStatus.FORBIDDEN.value(),"无权限",SecurityConstant.REQUEST_ID)));
+//        }
+//        return List.of(result.getData().getPermission());
+        return List.of("user");
     }
 
     /**
