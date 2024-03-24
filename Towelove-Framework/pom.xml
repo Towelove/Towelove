@@ -23,6 +23,7 @@
         <module>Towelove-Framework-DynamicThreadPool</module>
         <module>Towelove-Framework-User</module>
         <module>Towelove-Framework-FlowFunExecutor</module>
+        <module>Towelove-Framework-RateLimit</module>
     </modules>
 
 

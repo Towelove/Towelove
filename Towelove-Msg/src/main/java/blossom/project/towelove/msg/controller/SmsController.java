@@ -2,6 +2,7 @@ package blossom.project.towelove.msg.controller;
 
 import blossom.project.towelove.common.response.Result;
 import blossom.project.towelove.framework.log.annotation.LoveLog;
+import blossom.project.towelove.framework.rateLimit.annotation.LoveRateLimiter;
 import blossom.project.towelove.msg.service.SmsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,6 +35,7 @@ public class SmsController {
      * @return
      */
     @GetMapping("")
+    @LoveRateLimiter(qps = 20)
     public Result<String> sendValidateCode(@NotBlank @RequestParam("phone")String phoneNumber){
         return Result.ok(smsService.sendValidateCode(phoneNumber));
     }
