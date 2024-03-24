@@ -108,6 +108,12 @@
 
         <dependency>
             <groupId>blossom.project</groupId>
+            <artifactId>Towelove-Framework-RateLimit</artifactId>
+            <version>2.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>blossom.project</groupId>
             <artifactId>Towelove-Client</artifactId>
             <exclusions>
                 <exclusion>
