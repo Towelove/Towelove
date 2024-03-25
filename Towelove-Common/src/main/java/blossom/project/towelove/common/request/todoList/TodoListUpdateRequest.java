@@ -18,7 +18,6 @@ public class TodoListUpdateRequest {
     @NotNull(message = "id不能为空")
     private Long id;
 
-    private Long coupleId;
 
     private String title;
 
@@ -39,5 +38,10 @@ public class TodoListUpdateRequest {
      * 是否是小组件
      */
     private Boolean weight;
+
+    /**
+     * 完成状态  1完成 0未完成
+     */
+    private Integer status;
 
 }

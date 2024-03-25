@@ -46,13 +46,12 @@ public class TodoListController {
 
     /**
      * 按照ID查询相册详情信息
-     *
      * @param todoId
      * @return
      */
     @GetMapping("")
     public Result<TodoListRespDTO> getTodoListDetailById(@Validated @RequestParam(name = "todoId")
-                                                         @NotNull(message = "todoId Can not be null") Long todoId) {
+                                                     @NotNull(message = "todoId Can not be null") Long todoId) {
         TodoListRespDTO result = todolistService.getTodoListDetailById(todoId);
         return Result.ok(result);
     }
@@ -60,13 +59,12 @@ public class TodoListController {
 
     /**
      * 分页查询 获取情侣的小组件
-     *
      * @return
      */
     @GetMapping("/page")
-    public Result<List<TodoListRespDTO>> pageQuerytodo() {
+    public Result<List<TodoListRespDTO>> pageQuerytodo(){
         Long coupleId = UserInfoContextHolder.getCoupleId();
-        if (Objects.isNull(coupleId)) {
+        if (Objects.isNull(coupleId)){
             return Result.fail("coupleId is null", MDC.get(SecurityConstant.REQUEST_ID));
         }
         return Result.ok(todolistService.pageTodoList(coupleId));
@@ -74,23 +72,21 @@ public class TodoListController {
 
     /**
      * 基于ID修改
-     *
      * @param updateRequest
      * @return
      */
     @PutMapping("")
-    public Result<TodoListRespDTO> update(@Validated @RequestBody TodoListUpdateRequest updateRequest) {
+    public Result<TodoListRespDTO> update(@Validated @RequestBody TodoListUpdateRequest updateRequest){
         return Result.ok(todolistService.updateById(updateRequest));
     }
 
     /**
      * 基于ID删除
-     *
      * @param todoId
      * @return
      */
     @DeleteMapping("")
-    public Result<Boolean> deleteTodoListById(@RequestParam @Validated Long todoId) {
+    public Result<Boolean> deleteTodoListById(@RequestParam @Validated Long todoId){
         return Result.ok(todolistService.deleteById(todoId));
     }
 

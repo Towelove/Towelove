@@ -52,6 +52,6 @@ public class TodoListRespDTO {
      */
     private boolean widget;
 
-    //todo实体完成状态，如果完成，为3，否则为2
+    //todo实体完成状态，如果完成，为1，否则为0
     private Integer status;
 }
