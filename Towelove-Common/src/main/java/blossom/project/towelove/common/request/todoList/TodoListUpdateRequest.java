@@ -39,4 +39,5 @@ public class TodoListUpdateRequest {
      * 是否是小组件
      */
     private Boolean weight;
+
 }

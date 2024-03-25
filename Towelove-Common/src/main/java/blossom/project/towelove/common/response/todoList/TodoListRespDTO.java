@@ -51,4 +51,7 @@ public class TodoListRespDTO {
      * @Comment("是否小組件")
      */
     private boolean widget;
+
+    //todo实体完成状态，如果完成，为3，否则为2
+    private Integer status;
 }

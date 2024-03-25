@@ -13,7 +13,6 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Data
 public class TodoListCreateRequest {
-    private Long coupleId;
 
     @NotNull(message = "标题不能为空")
     private String title;
