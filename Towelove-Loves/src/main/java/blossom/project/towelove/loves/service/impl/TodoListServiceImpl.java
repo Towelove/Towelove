@@ -111,11 +111,15 @@ public class TodoListServiceImpl extends ServiceImpl<TodoListMapper, TodoList>
     @Override
     @Transactional
     public TodoListRespDTO updateById(TodoListUpdateRequest todoListUpdateRequest) {
+        Long coupleId = UserInfoContextHolder.getCoupleId();
+        if (Objects.isNull(coupleId)) {
+            throw new ServerException(COUPLEID_EMPTY_ERROR.message(), null, COUPLEID_EMPTY_ERROR);
+        }
         TodoList todoList = TodoListConvert.INSTANCE.convert(todoListUpdateRequest);
         TodoList dbToDoList = this.getById(todoList.getId());
         //当前代办要设定为小组件切之前已经设定过两个了
         if (todoListUpdateRequest.getReminder() &&
-                todoListMapper.selectWidgetCounts(todoListUpdateRequest.getCoupleId()) >= WIDGET_MAX) {
+                todoListMapper.selectWidgetCounts(coupleId) >= WIDGET_MAX) {
             throw new ServerException("widget数量已达到最大值", null, WIDGET_UPPER_MAX_ERROR);
         }
         //判断是否提醒
