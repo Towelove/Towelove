@@ -114,7 +114,7 @@ public class TodoListServiceImpl extends ServiceImpl<TodoListMapper, TodoList>
         }
         TodoList todoList = TodoListConvert.INSTANCE.convert(todoListUpdateRequest);
         todoList.setCoupleId(coupleId);
-        todoList.setStatus(todoList.getStatus());
+        todoList.setStatus(todoListUpdateRequest.getStatus());
         //判断是否提醒
         if (openMsgTask && todoList.isReminder()) {
             TodoList dbToDoList = this.getById(todoList.getId());
@@ -148,7 +148,10 @@ public class TodoListServiceImpl extends ServiceImpl<TodoListMapper, TodoList>
             }
         }
         try {
-            this.updateById(todoList);
+            boolean success = this.updateById(todoList);
+            if (!success){
+                throw new RuntimeException("更新数据失败");
+            }
         } catch (Exception e) {
             throw new RuntimeException("更新数据失败", e);
         }
