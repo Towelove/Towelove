@@ -99,6 +99,7 @@ public class TodoListServiceImpl extends ServiceImpl<TodoListMapper, TodoList>
             }
         }
         try {
+            todoList.setCoupleId(coupleId);
             this.save(todoList);
         } catch (Exception e) {
             throw new RuntimeException("创建待办列表失败", e);
@@ -116,6 +117,7 @@ public class TodoListServiceImpl extends ServiceImpl<TodoListMapper, TodoList>
             throw new ServerException(COUPLEID_EMPTY_ERROR.message(), null, COUPLEID_EMPTY_ERROR);
         }
         TodoList todoList = TodoListConvert.INSTANCE.convert(todoListUpdateRequest);
+        todoList.setCoupleId(coupleId);
         TodoList dbToDoList = this.getById(todoList.getId());
         //当前代办要设定为小组件切之前已经设定过两个了
         if (todoListUpdateRequest.getReminder() &&
