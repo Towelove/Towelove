@@ -46,7 +46,8 @@ public class ReWriteRequestFilter implements GlobalFilter , Ordered {
         if (judgeWhite(request)) {
             return chain.filter(exchange.mutate().request(request).build());
         }
-        LoginUserResponse sysUser = UserContextHolder.getUserInfo();
+//        LoginUserResponse sysUser = UserContextHolder.getUserInfo();
+        LoginUserResponse sysUser = (LoginUserResponse) StpUtil.getLoginId();
         //重写请求
         reBuildRequest(sysUser,request);
 //        judgeRefreshToken();
