@@ -52,7 +52,10 @@ public class SaTokenFilter {
 // 更多匹配 ...  */
                 })
                 // 异常处理方法：每次setAuth函数出现异常时进入
-                .setError(e -> AjaxResult.error(HttpStatus.FORBIDDEN.value(),e.getMessage()));
+                .setError((error)->{
+                    SaHolder.getResponse().setHeader("Content-Type", "application/json;charset=UTF-8");
+                    throw new BackResultException(JSON.toJSONString(Result.fail(HttpStatus.FORBIDDEN.getReasonPhrase(),HttpStatus.FORBIDDEN.value(),"无权限",SecurityConstant.REQUEST_ID)));
+                });
     }
 
     /**
