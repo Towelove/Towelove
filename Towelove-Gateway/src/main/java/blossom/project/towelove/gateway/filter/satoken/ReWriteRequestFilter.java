@@ -3,6 +3,7 @@ package blossom.project.towelove.gateway.filter.satoken;
 import blossom.project.towelove.common.constant.TokenConstant;
 import blossom.project.towelove.common.constant.UserConstants;
 import blossom.project.towelove.common.domain.dto.SysUser;
+import blossom.project.towelove.common.exception.ServiceException;
 import blossom.project.towelove.common.response.user.LoginUserResponse;
 import blossom.project.towelove.framework.redis.service.RedisService;
 import blossom.project.towelove.gateway.config.UserContextHolder;
@@ -46,8 +47,13 @@ public class ReWriteRequestFilter implements GlobalFilter , Ordered {
         if (judgeWhite(request)) {
             return chain.filter(exchange.mutate().request(request).build());
         }
-//        LoginUserResponse sysUser = UserContextHolder.getUserInfo();
-        LoginUserResponse sysUser = JSON.parseObject(StpUtil.getLoginIdAsString(), LoginUserResponse.class);
+        String loginIdAsString = null;
+        try {
+            loginIdAsString = StpUtil.getLoginIdAsString();
+        } catch (Exception e) {
+            throw new ServiceException("从SaToken获取用户信息失败");
+        }
+        LoginUserResponse sysUser = JSON.parseObject(loginIdAsString, LoginUserResponse.class);
         //重写请求
         reBuildRequest(sysUser,request);
 //        judgeRefreshToken();
