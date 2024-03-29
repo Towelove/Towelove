@@ -52,11 +52,11 @@ public class TodoList extends BaseEntity {
     /**
      * @Comment("是否提醒")
      */
-    private boolean reminder;
+    private boolean reminder = false;
 
     /**
      * @Comment("是否小組件")
      */
-    private boolean widget;
+    private boolean widget = false;
 }
 

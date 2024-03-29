@@ -3,6 +3,7 @@ package blossom.project.towelove.loves.service.impl;
 import blossom.project.towelove.client.serivce.msg.RemoteMsgTaskService;
 import blossom.project.towelove.common.exception.RemoteException;
 import blossom.project.towelove.common.exception.ServerException;
+import blossom.project.towelove.common.exception.errorcode.BaseErrorCode;
 import blossom.project.towelove.common.request.msg.MsgTaskCreateRequest;
 import blossom.project.towelove.common.request.todoList.TodoListCreateRequest;
 import blossom.project.towelove.common.request.todoList.TodoListUpdateRequest;
@@ -63,13 +64,8 @@ public class TodoListServiceImpl extends ServiceImpl<TodoListMapper, TodoList>
     @Transactional
     public TodoListRespDTO create(TodoListCreateRequest todoListCreateRequest) {
         Long coupleId = UserInfoContextHolder.getCoupleId();
-        if (Objects.isNull(coupleId)){
+        if (Objects.isNull(coupleId)) {
             throw new ServerException(COUPLEID_EMPTY_ERROR.message(), null, COUPLEID_EMPTY_ERROR);
-        }
-        //当前代办要设定为小组件切之前已经设定过两个了
-        if (todoListCreateRequest.getReminder() &&
-                todoListMapper.selectWidgetCounts(todoListCreateRequest.getCoupleId()) >= WIDGET_MAX){
-            throw new ServerException("widget数量已达到最大值", null, WIDGET_UPPER_MAX_ERROR);
         }
         TodoList todoList = TodoListConvert.INSTANCE.convert(todoListCreateRequest);
         if (openMsgTask && todoList.isReminder()) {
@@ -91,12 +87,18 @@ public class TodoListServiceImpl extends ServiceImpl<TodoListMapper, TodoList>
                     throw new RemoteException("远程调用创建定时提醒任务失败", null, REMOTE_ERROR);
                 }
                 todoList.setMsgTaskId(msgTask.getData().getId());
-                this.save(todoList);
             } catch (RemoteException e) {
                 throw new RemoteException("远程调用创建定时提醒任务失败", e, REMOTE_ERROR);
             } catch (Exception e) {
                 throw new RuntimeException("创建待办列表失败", e);
             }
+        }
+        try {
+            todoList.setStatus(0);
+            todoList.setCoupleId(coupleId);
+            this.save(todoList);
+        } catch (Exception e) {
+            throw new RuntimeException("创建待办列表失败", e);
         }
         TodoListRespDTO todoListRespDTO = TodoListConvert.INSTANCE.convert(todoList);
         return todoListRespDTO;
@@ -106,15 +108,16 @@ public class TodoListServiceImpl extends ServiceImpl<TodoListMapper, TodoList>
     @Override
     @Transactional
     public TodoListRespDTO updateById(TodoListUpdateRequest todoListUpdateRequest) {
-        TodoList todoList = TodoListConvert.INSTANCE.convert(todoListUpdateRequest);
-        TodoList dbToDoList = this.getById(todoList.getId());
-        //当前代办要设定为小组件切之前已经设定过两个了
-        if (todoListUpdateRequest.getReminder() &&
-                todoListMapper.selectWidgetCounts(todoListUpdateRequest.getCoupleId()) >= WIDGET_MAX){
-            throw new ServerException("widget数量已达到最大值", null, WIDGET_UPPER_MAX_ERROR);
+        Long coupleId = UserInfoContextHolder.getCoupleId();
+        if (Objects.isNull(coupleId)) {
+            throw new ServerException(COUPLEID_EMPTY_ERROR.message(), null, COUPLEID_EMPTY_ERROR);
         }
+        TodoList todoList = TodoListConvert.INSTANCE.convert(todoListUpdateRequest);
+        todoList.setCoupleId(coupleId);
+        todoList.setStatus(todoListUpdateRequest.getStatus());
         //判断是否提醒
         if (openMsgTask && todoList.isReminder()) {
+            TodoList dbToDoList = this.getById(todoList.getId());
             String email = UserInfoContextHolder.getEmail();
             if (StringUtils.isBlank(email)) {
                 throw new ServerException(EMAIL_EMPTY_ERROR.message(), null, EMAIL_EMPTY_ERROR);
@@ -144,7 +147,14 @@ public class TodoListServiceImpl extends ServiceImpl<TodoListMapper, TodoList>
                 throw new RuntimeException("其他异常。。。", e);
             }
         }
-        this.updateById(todoList);
+        try {
+            boolean success = this.updateById(todoList);
+            if (!success){
+                throw new RuntimeException("更新数据失败");
+            }
+        } catch (Exception e) {
+            throw new RuntimeException("更新数据失败", e);
+        }
         TodoListRespDTO todoListRespDTO = TodoListConvert.INSTANCE.convert(todoList);
         return todoListRespDTO;
     }
@@ -153,27 +163,40 @@ public class TodoListServiceImpl extends ServiceImpl<TodoListMapper, TodoList>
     @Transactional
     public Boolean deleteById(Long todoId) {
         TodoList dbToDoList = this.getById(todoId);
-
+        if (Objects.isNull(dbToDoList)) {
+            throw new ServerException("待办不存在，对应id为：" + todoId, null, ENTITY_NOT_FOUNT);
+        }
         //判断是否提醒
-        if (dbToDoList.isReminder()) {
+        if (openMsgTask && dbToDoList.isReminder()) {
             try {
                 //删除原有的提醒信息
                 remoteMsgTaskService.batchDeleteMsgTask(
                         Collections.singletonList(dbToDoList.getMsgTaskId()));
-                this.deleteById(todoId);
             } catch (RemoteException e) {
                 throw new RemoteException("远程调用定时提醒任务失败", e, REMOTE_ERROR);
             } catch (Exception e) {
                 throw new RuntimeException("其他异常。。。", e);
             }
         }
+        try {
+            baseMapper.deleteById(todoId);
+        } catch (Exception e) {
+            throw new RuntimeException("删除数据失败", e);
+        }
         return Boolean.TRUE;
     }
 
+    /**
+     * 列表分页查询
+     *
+     * @param coupleId 用户id
+     * @return
+     */
     @Override
     public List<TodoListRespDTO> pageTodoList(Long coupleId) {
+        //返回所有未被删除的数据
         List<TodoList> todoLists = todoListMapper.selectAllByCoupleId(coupleId);
-        if (CollectionUtil.isEmpty(todoLists)){
+        if (CollectionUtil.isEmpty(todoLists)) {
             return Collections.emptyList();
         }
         List<TodoListRespDTO> todoListRespDTOS = TodoListConvert.INSTANCE.convertTodoListResponse(todoLists);
@@ -182,6 +205,7 @@ public class TodoListServiceImpl extends ServiceImpl<TodoListMapper, TodoList>
 
     /**
      * 获取详细信息
+     *
      * @param todoId
      * @return
      */

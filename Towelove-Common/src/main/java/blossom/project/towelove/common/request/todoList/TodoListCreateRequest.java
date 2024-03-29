@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 //import io.swagger.annotations.ApiModel;
 //import io.swagger.annotations.ApiModelProperty;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
@@ -13,11 +14,11 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Data
 public class TodoListCreateRequest {
-    private Long coupleId;
 
-    @NotNull(message = "标题不能为空")
+    @NotBlank(message = "标题不能为空")
     private String title;
 
+    @NotBlank(message = "描述不能为空")
     private String description;
 
     @NotNull(message = "截止日期不能为空")
@@ -28,4 +29,9 @@ public class TodoListCreateRequest {
      * 是否需要提醒
      */
     private Boolean reminder;
+
+    /**
+     * 是否小组件
+     */
+    private Boolean widget;
 }

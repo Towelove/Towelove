@@ -10,6 +10,7 @@
         <result property="description" column="description" jdbcType="VARCHAR"/>
         <result property="deadline" column="deadline" jdbcType="DATE"/>
         <result property="status" column="status" jdbcType="TINYINT"/>
+        <result property="completionStatus" column="completion_status" jdbcType="TINYINT"/>
         <result property="createBy" column="create_by" jdbcType="VARCHAR"/>
         <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
         <result property="updateBy" column="update_by" jdbcType="VARCHAR"/>
@@ -32,19 +33,24 @@
 
 
     <select id="selectAllByCoupleId" resultType="blossom.project.towelove.loves.entity.TodoList">
-        select `id`,
+        SELECT `id`,
                `title`,
                `description`,
                `deadline`,
                `widget`,
                `reminder`,
-               `deadline`,
-               `completion_date`
-        from todo_list
-        where couple_id = #{coupleId}
+               `completion_date`,
+               `status`
+        FROM todo_list
+        WHERE `couple_id` = #{coupleId}
+          AND `deleted` = 0
+        ORDER BY `status` ASC LIMIT 10;
+
+
     </select>
+
     <select id="selectWidgetCounts" resultType="java.lang.Integer">
         select count(1) from todo_list
-        where `couple_id` = #{coupleId}
+        where `couple_id` = #{coupleId} and `widget` = 1 and `deleted` = 0`
     </select>
 </mapper>

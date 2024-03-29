@@ -28,17 +28,18 @@ import java.util.Objects;
 @RestController
 @RequestMapping("/todo")
 public class TodoListController {
-    
+
     @Autowired
     private TodoListService todolistService;
 
     /**
      * 创建
+     *
      * @param createRequest
      * @return
      */
     @PostMapping("")
-    public Result<TodoListRespDTO> create(@RequestBody @Validated TodoListCreateRequest createRequest){
+    public Result<TodoListRespDTO> create(@RequestBody @Validated TodoListCreateRequest createRequest) {
         return Result.ok(todolistService.create(createRequest));
     }
 
@@ -75,8 +76,7 @@ public class TodoListController {
      * @return
      */
     @PutMapping("")
-    public Result<TodoListRespDTO> update
-    (@Validated @RequestBody TodoListUpdateRequest updateRequest){
+    public Result<TodoListRespDTO> update(@Validated @RequestBody TodoListUpdateRequest updateRequest){
         return Result.ok(todolistService.updateById(updateRequest));
     }
 
