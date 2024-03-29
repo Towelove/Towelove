@@ -12,6 +12,8 @@ import cn.hutool.core.util.URLUtil;
 import cn.hutool.system.UserInfo;
 import com.alibaba.fastjson2.JSON;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.core.Ordered;
@@ -34,6 +36,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ReWriteRequestFilter implements GlobalFilter , Ordered {
 
+    private final Logger log = LoggerFactory.getLogger(ReWriteRequestFilter.class);
     /**
      * 重写request 携带userId分发到后续请求
      * @param exchange the current server exchange
@@ -51,6 +54,8 @@ public class ReWriteRequestFilter implements GlobalFilter , Ordered {
         try {
             loginIdAsString = StpUtil.getLoginIdAsString();
         } catch (Exception e) {
+            log.error("获取用户信息失败,失败原因为：{}",e.getMessage());
+            e.printStackTrace();
             throw new ServiceException("从SaToken获取用户信息失败");
         }
         LoginUserResponse sysUser = JSON.parseObject(loginIdAsString, LoginUserResponse.class);
