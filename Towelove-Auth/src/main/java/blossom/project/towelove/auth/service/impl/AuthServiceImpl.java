@@ -174,7 +174,7 @@ public class AuthServiceImpl implements AuthService {
         if (Objects.isNull(result) || HttpStatus.SUCCESS != result.getCode()){
             throw new ServiceException("补充用户信息失败");
         }
-        StpUtil.login(JSON.toJSONString(result.getData()));
+        StpUtil.login(result.getData());
         return StpUtil.getTokenValue();
     }
 
@@ -183,9 +183,8 @@ public class AuthServiceImpl implements AuthService {
      * @param restockUserInfoRequest
      * @return
      */
-    private SysUser validateCode(RestockUserInfoRequest restockUserInfoRequest) {
-        String loginIdAsString = StpUtil.getLoginIdAsString();
-        SysUser sysUser = JSON.parseObject(loginIdAsString, SysUser.class);
+    private Long validateCode(RestockUserInfoRequest restockUserInfoRequest) {
+        LoginUserResponse sysUser = (LoginUserResponse) StpUtil.getLoginId();
         ValidateCodeRequest validateCodeRequests = null;
         if (StrUtil.isNotBlank(sysUser.getEmail()) && StrUtil.isNotBlank(sysUser.getPhoneNumber())){
             throw new ServiceException("请求非法！你是哪来的猴子");
@@ -225,7 +224,7 @@ public class AuthServiceImpl implements AuthService {
         if (Objects.isNull(validateMulti) || HttpStatus.SUCCESS != validateMulti.getCode()){
             throw new ServiceException(validateMulti.getMsg());
         }
-        return sysUser;
+        return sysUser.getId();
     }
 
 

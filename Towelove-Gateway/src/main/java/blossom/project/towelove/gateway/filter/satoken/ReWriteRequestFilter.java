@@ -51,7 +51,6 @@ public class ReWriteRequestFilter implements GlobalFilter , Ordered {
         //重写请求
         reBuildRequest(sysUser,request);
 //        judgeRefreshToken();
-        UserContextHolder.clean();
         return chain.filter(exchange.mutate().request(request).build());
     }
 

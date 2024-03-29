@@ -54,7 +54,7 @@ public class StpInterfaceImpl implements StpInterface {
 //        } catch (InterruptedException | ExecutionException | TimeoutException e) {
 
 //        }
-        LoginUserResponse loginUserResponse = JSON.parseObject(StpUtil.getLoginIdAsString(), LoginUserResponse.class);
+        LoginUserResponse loginUserResponse = (LoginUserResponse) StpUtil.getLoginId();
         List<String> userPermission = loginUserResponse.getUserPermission();
         if (Objects.isNull(userPermission) || userPermission.isEmpty()){
             SaHolder.getResponse().setHeader("Content-Type", "application/json;charset=UTF-8");
