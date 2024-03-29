@@ -7,7 +7,6 @@ import blossom.project.towelove.common.exception.ServiceException;
 import blossom.project.towelove.common.response.user.LoginUserResponse;
 import blossom.project.towelove.framework.redis.service.RedisService;
 import blossom.project.towelove.gateway.config.UserContextHolder;
-import cn.dev33.satoken.stp.StpUtil;
 import cn.hutool.core.util.URLUtil;
 import cn.hutool.system.UserInfo;
 import com.alibaba.fastjson2.JSON;
@@ -18,6 +17,7 @@ import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.core.Ordered;
 import org.springframework.core.io.buffer.DataBuffer;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.stereotype.Component;
@@ -37,6 +37,9 @@ import java.util.List;
 public class ReWriteRequestFilter implements GlobalFilter , Ordered {
 
     private final Logger log = LoggerFactory.getLogger(ReWriteRequestFilter.class);
+
+    private final RedisTemplate<String,String> redisTemplate;
+
     /**
      * 重写request 携带userId分发到后续请求
      * @param exchange the current server exchange
@@ -46,20 +49,21 @@ public class ReWriteRequestFilter implements GlobalFilter , Ordered {
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
         ServerHttpRequest request = exchange.getRequest();
+        String token = request.getHeaders().get(TokenConstant.AUTHENTICATION).get(0);
         //判断白名单
         if (judgeWhite(request)) {
             return chain.filter(exchange.mutate().request(request).build());
         }
         String loginIdAsString = null;
         try {
-            loginIdAsString = StpUtil.getLoginIdAsString();
+            loginIdAsString = redisTemplate.opsForValue().get(TokenConstant.AUTHENTICATION_ON_REDIS + token);
         } catch (Exception e) {
             log.error("获取用户信息失败,失败原因为：{}",e.getMessage());
             e.printStackTrace();
             throw new ServiceException("从SaToken获取用户信息失败");
         }
         LoginUserResponse sysUser = JSON.parseObject(loginIdAsString, LoginUserResponse.class);
-        //重写请求
+//        重写请求
         reBuildRequest(sysUser,request);
 //        judgeRefreshToken();
         return chain.filter(exchange.mutate().request(request).build());
@@ -88,12 +92,13 @@ public class ReWriteRequestFilter implements GlobalFilter , Ordered {
         String userName = sysUser.getUserName();
         String nickName = sysUser.getNickName();
         String sex = sysUser.getSex();
+        String token = request.getHeaders().get(TokenConstant.AUTHENTICATION).get(0);
         request.mutate()
                 .header(TokenConstant.USER_ID_HEADER, String.valueOf(sysUser.getId()))
                 .header(TokenConstant.USER_NAME_HEADER, URLEncoder.encode(userName, StandardCharsets.UTF_8))
                 .header(TokenConstant.USER_NICK_HEADER,URLEncoder.encode(nickName,StandardCharsets.UTF_8))
                 .header(TokenConstant.USER_SEX,URLEncoder.encode(sex,StandardCharsets.UTF_8))
-                .header(TokenConstant.USER_TOKEN,StpUtil.getTokenValue())
+                .header(TokenConstant.USER_TOKEN,token)
                 .header(TokenConstant.USER_EMAIL,sysUser.getEmail())
                 .header(TokenConstant.USER_PHONE,sysUser.getEmail())
                 .build();

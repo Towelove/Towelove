@@ -1,5 +1,7 @@
 package blossom.project.towelove.gateway.config;
 
+import cn.dev33.satoken.spring.SaBeanInject;
+import org.springframework.boot.LazyInitializationExcludeFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;
@@ -51,4 +53,8 @@ public class GatewayConfig
     //{
     //    return new SentinelFallbackHandler();
     //}
+    @Bean
+    LazyInitializationExcludeFilter integrationLazyInitExcludeFilter() {
+        return LazyInitializationExcludeFilter.forBeanTypes(SaBeanInject.class);
+    }
 }

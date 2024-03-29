@@ -14,6 +14,8 @@ public class TokenConstant
      */
     public static final String AUTHENTICATION = "Authorization";
 
+    public static final String AUTHENTICATION_ON_REDIS = "Authorization:login:token:";
+
     /**
      * 令牌前缀
      */
