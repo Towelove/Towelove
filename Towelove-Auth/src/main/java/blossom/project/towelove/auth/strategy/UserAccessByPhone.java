@@ -9,6 +9,7 @@ import blossom.project.towelove.common.request.auth.AuthLoginRequest;
 import blossom.project.towelove.common.request.auth.AuthRegisterRequest;
 import blossom.project.towelove.common.request.msg.ValidateCodeRequest;
 import blossom.project.towelove.common.response.Result;
+import blossom.project.towelove.common.response.user.LoginUserResponse;
 import blossom.project.towelove.framework.redis.service.RedisService;
 import cn.hutool.core.lang.RegexPool;
 import cn.hutool.core.util.ReUtil;
@@ -63,7 +64,7 @@ public class UserAccessByPhone implements UserAccessStrategy {
     }
 
     @Override
-    public SysUser login(AuthLoginRequest authLoginRequest) {
+    public LoginUserResponse login(AuthLoginRequest authLoginRequest) {
         String phone = authLoginRequest.getPhoneNumber();
         String code = authLoginRequest.getVerifyCode();
         log.info("校验验证码请求的手机号为：{},验证码为：{}",phone,code);
@@ -79,7 +80,7 @@ public class UserAccessByPhone implements UserAccessStrategy {
                 throw new ServiceException(validate.getMsg());
             }
         }
-        Result<SysUser> userByPhoneOrEmail = remoteUserService.findUserByPhoneOrEmail(authLoginRequest);
+        Result<LoginUserResponse> userByPhoneOrEmail = remoteUserService.findUserByPhoneOrEmail(authLoginRequest);
         if (Objects.isNull(userByPhoneOrEmail) || HttpStatus.SUCCESS != userByPhoneOrEmail.getCode()){
             throw new ServiceException("用户不存在，请注册");
         }

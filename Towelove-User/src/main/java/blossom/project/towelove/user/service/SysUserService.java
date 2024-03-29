@@ -7,6 +7,7 @@ import blossom.project.towelove.common.request.auth.RestockUserInfoDTO;
 import blossom.project.towelove.common.request.auth.RestockUserInfoRequest;
 import blossom.project.towelove.common.request.user.InsertUserRequest;
 import blossom.project.towelove.common.request.user.UpdateUserRequest;
+import blossom.project.towelove.common.response.user.LoginUserResponse;
 import blossom.project.towelove.common.response.user.SysUserDTO;
 import blossom.project.towelove.common.response.user.SysUserPermissionDto;
 import blossom.project.towelove.common.response.user.SysUserVo;
@@ -29,7 +30,7 @@ public interface SysUserService extends IService<SysUser> {
 
     SysUser inserUser(InsertUserRequest sysUser);
 
-    SysUser findUser(AuthLoginRequest authLoginRequest);
+    LoginUserResponse findUser(AuthLoginRequest authLoginRequest);
 
     SysUserPermissionDto getPermissionByUserId(Long userId);
 

@@ -3,6 +3,7 @@ package blossom.project.towelove.gateway.filter.satoken;
 import blossom.project.towelove.common.constant.TokenConstant;
 import blossom.project.towelove.common.constant.UserConstants;
 import blossom.project.towelove.common.domain.dto.SysUser;
+import blossom.project.towelove.common.response.user.LoginUserResponse;
 import blossom.project.towelove.framework.redis.service.RedisService;
 import cn.dev33.satoken.stp.StpUtil;
 import cn.hutool.core.util.URLUtil;
@@ -44,9 +45,9 @@ public class ReWriteRequestFilter implements GlobalFilter , Ordered {
         if (judgeWhite(request)) {
             return chain.filter(exchange.mutate().request(request).build());
         }
-        SysUser sysUser = null;
+        LoginUserResponse sysUser = null;
         try{
-            sysUser = JSON.parseObject(StpUtil.getLoginIdAsString(), SysUser.class);
+            sysUser = JSON.parseObject(StpUtil.getLoginIdAsString(), LoginUserResponse.class);
         }catch (Exception e){
             //解析用户信息失败
             return dealException(exchange,e);
@@ -78,7 +79,7 @@ public class ReWriteRequestFilter implements GlobalFilter , Ordered {
         return exchange.getResponse().writeWith(Mono.just(dataBuffer));
     }
 
-    public void reBuildRequest(SysUser sysUser,ServerHttpRequest request){
+    public void reBuildRequest(LoginUserResponse sysUser,ServerHttpRequest request){
         String userName = sysUser.getUserName();
         String nickName = sysUser.getNickName();
         String sex = sysUser.getSex();

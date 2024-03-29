@@ -4,6 +4,21 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="blossom.project.towelove.user.mapper.SysUserMapper">
+    <resultMap id="loginUserMap" type="blossom.project.towelove.common.response.user.LoginUserResponse">
+        <id property="id" column="id"/>
+        <result property="userName" column="user_name"/>
+        <result property="nickName" column="nick_name"/>
+        <result property="email" column="email"/>
+        <result property="smtpCode" column="smtp_code"/>
+        <result property="phoneNumber" column="phoneNumber"/>
+        <result property="sex" column="sex"/>
+        <result property="avatar" column="avatar"/>
+        <result property="loginIp" column="login_ip"/>
+<!--        <result property="userPermission" column="permission"/>-->
+        <collection property="userPermission" ofType="string" javaType="ArrayList">
+            <result column="permission"  javaType="string"/>
+        </collection>
+    </resultMap>
     <select id="selectByPhoneNumberOrEmail"  resultType="blossom.project.towelove.user.entity.SysUser">
         SELECT
             id,
@@ -60,6 +75,26 @@
         where  utp.third_party_id = #{socialUid}
     </select>
 
+    <select id="selectUserWithPermission" resultMap="loginUserMap">
+        SELECT
+            u.id,
+            u.user_name,
+            u.nick_name,
+            u.email,
+            u.smtp_code,
+            u.phonenumber,
+            u.sex,
+            u.avatar,
+            u.login_ip,
+            sp.permission
+        FROM
+            sys_user u
+                LEFT JOIN sys_user_permission p ON u.id = p.user_id
+                LEFT JOIN sys_permission sp ON p.permission_id = sp.id
+        WHERE
+            u.id = #{id}
+
+    </select>
 
 
 </mapper>

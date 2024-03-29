@@ -9,6 +9,7 @@ import blossom.project.towelove.common.request.auth.AuthLoginRequest;
 import blossom.project.towelove.common.request.auth.RestockUserInfoDTO;
 import blossom.project.towelove.common.request.auth.RestockUserInfoRequest;
 import blossom.project.towelove.common.response.Result;
+import blossom.project.towelove.common.response.user.LoginUserResponse;
 import blossom.project.towelove.common.response.user.SysUserPermissionDto;
 import blossom.project.towelove.common.response.user.SysUserVo;
 import org.springframework.cloud.openfeign.FeignClient;
@@ -30,7 +31,7 @@ public interface RemoteUserService {
     Result<SysUserVo> getUserById(@Valid @RequestParam("userId") @NotNull(message = "请求信息缺失") Long userId);
 
     @PostMapping("/v1/user/sys/exist")
-    Result<SysUser> findUserByPhoneOrEmail(@Valid @RequestBody AuthLoginRequest authLoginRequest);
+    Result<LoginUserResponse> findUserByPhoneOrEmail(@Valid @RequestBody AuthLoginRequest authLoginRequest);
 
     @GetMapping("/v1/user/sys/permission")
     Result<SysUserPermissionDto> getUserPermissionByUserId(@RequestParam("userId") Long userId);

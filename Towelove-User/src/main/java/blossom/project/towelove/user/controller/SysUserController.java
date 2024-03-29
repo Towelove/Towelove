@@ -7,6 +7,7 @@ import blossom.project.towelove.common.request.auth.RestockUserInfoRequest;
 import blossom.project.towelove.common.request.user.InsertUserRequest;
 import blossom.project.towelove.common.request.user.UpdateUserRequest;
 import blossom.project.towelove.common.response.Result;
+import blossom.project.towelove.common.response.user.LoginUserResponse;
 import blossom.project.towelove.common.response.user.SysUserDTO;
 import blossom.project.towelove.common.response.user.SysUserPermissionDto;
 import blossom.project.towelove.common.response.user.SysUserVo;
@@ -58,7 +59,7 @@ public class SysUserController {
      * @return
      */
     @PostMapping("/exist")
-    public Result<SysUser> findUserByPhoneOrEmail(@Validated @RequestBody AuthLoginRequest authLoginRequest) {
+    public Result<LoginUserResponse> findUserByPhoneOrEmail(@Validated @RequestBody AuthLoginRequest authLoginRequest) {
         return Result.ok(sysUserService.findUser(authLoginRequest));
     }
 

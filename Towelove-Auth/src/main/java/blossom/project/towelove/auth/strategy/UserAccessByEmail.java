@@ -9,6 +9,7 @@ import blossom.project.towelove.common.request.auth.AuthLoginRequest;
 import blossom.project.towelove.common.request.auth.AuthRegisterRequest;
 import blossom.project.towelove.common.request.msg.ValidateCodeRequest;
 import blossom.project.towelove.common.response.Result;
+import blossom.project.towelove.common.response.user.LoginUserResponse;
 import blossom.project.towelove.framework.redis.service.RedisService;
 import cn.hutool.core.lang.RegexPool;
 import cn.hutool.core.util.ReUtil;
@@ -66,7 +67,7 @@ public class UserAccessByEmail implements UserAccessStrategy {
     }
 
     @Override
-    public SysUser login(AuthLoginRequest authLoginRequest) {
+    public LoginUserResponse login(AuthLoginRequest authLoginRequest) {
         String email = authLoginRequest.getEmail();
         String code = authLoginRequest.getVerifyCode();
         log.info("校验验证码请求的邮箱号为：{},验证码为：{}",email,code);
@@ -82,7 +83,7 @@ public class UserAccessByEmail implements UserAccessStrategy {
         if (Objects.isNull(validate) || validate.getCode() != HttpStatus.SUCCESS){
             throw new ServiceException(validate.getMsg());
         }
-        Result<SysUser> result = remoteUserService.findUserByPhoneOrEmail(authLoginRequest);
+        Result<LoginUserResponse> result = remoteUserService.findUserByPhoneOrEmail(authLoginRequest);
         if (Objects.isNull(result) || HttpStatus.SUCCESS != result.getCode()){
             throw new ServiceException("用户登入失败，请联系管理员");
         }

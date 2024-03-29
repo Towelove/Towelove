@@ -35,15 +35,15 @@ public class AuthController {
     @Resource
     private ThirdPartyLoginConfig thirdPartyLoginConfig;
 
-    /**
-     * 注册
-     * @param authRegisterRequest
-     * @return
-     */
-    @PostMapping("/register")
-    public Result<String> register( @Validated @RequestBody AuthRegisterRequest authRegisterRequest){
-        return authService.register(authRegisterRequest);
-    }
+//    /**
+//     * 注册
+//     * @param authRegisterRequest
+//     * @return
+//     */
+//    @PostMapping("/register")
+//    public Result<String> register( @Validated @RequestBody AuthRegisterRequest authRegisterRequest){
+//        return authService.register(authRegisterRequest);
+//    }
 
     /**
      * 登入

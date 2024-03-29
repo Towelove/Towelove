@@ -9,10 +9,7 @@ import blossom.project.towelove.common.request.auth.RestockUserInfoDTO;
 import blossom.project.towelove.common.request.auth.RestockUserInfoRequest;
 import blossom.project.towelove.common.request.user.InsertUserRequest;
 import blossom.project.towelove.common.request.user.UpdateUserRequest;
-import blossom.project.towelove.common.response.user.CouplesRespDTO;
-import blossom.project.towelove.common.response.user.SysUserDTO;
-import blossom.project.towelove.common.response.user.SysUserPermissionDto;
-import blossom.project.towelove.common.response.user.SysUserVo;
+import blossom.project.towelove.common.response.user.*;
 import blossom.project.towelove.framework.redis.service.RedisService;
 import blossom.project.towelove.framework.user.core.UserInfoContextHolder;
 import blossom.project.towelove.user.convert.SysUserConvert;
@@ -157,7 +154,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     }
 
     @Override
-    public SysUser findUser(@Valid AuthLoginRequest authLoginRequest) {
+    public LoginUserResponse findUser(@Valid AuthLoginRequest authLoginRequest) {
         String phone = authLoginRequest.getPhoneNumber();
         String email = authLoginRequest.getEmail();
         SysUser sysUser = sysUserMapper.selectByPhoneNumberOrEmail(phone, email);
@@ -171,6 +168,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
             }
             //这里不给用户权限，除非用户补充完毕信息，才能给对应的user权限
         }
+        LoginUserResponse loginUserResponse = sysUserMapper.selectUserWithPermission(sysUser.getId());
 
 //        SysUserDTO sysUserDTO = SysUserConvert.INSTANCE.convert2DTO(sysUser);
 //        if (StrUtil.isNotBlank(sysUser.getEmail()) && StrUtil.isNotBlank(sysUser.getPhoneNumber())){
@@ -179,7 +177,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
 //            sysUserDTO.setBoyId(couplesRespDTO.getBoyId());
 //            sysUserDTO.setg
 //        }
-        return sysUser;
+        return loginUserResponse;
     }
 
     @Override

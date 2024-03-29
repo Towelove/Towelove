@@ -12,6 +12,7 @@ import blossom.project.towelove.common.domain.dto.ThirdPartyLoginUser;
 import blossom.project.towelove.common.exception.ServiceException;
 import blossom.project.towelove.common.request.auth.AuthLoginRequest;
 import blossom.project.towelove.common.request.auth.AuthRegisterRequest;
+import blossom.project.towelove.common.response.user.LoginUserResponse;
 import blossom.project.towelove.common.utils.JsonUtils;
 import blossom.project.towelove.auth.thirdParty.ThirdPartyLoginUtil;
 import blossom.project.towelove.framework.redis.service.RedisService;
@@ -63,7 +64,7 @@ public class UserAccessByWeixin implements UserAccessStrategy {
     }
 
     @Override
-    public SysUser login(AuthLoginRequest authLoginRequest) {
+    public LoginUserResponse login(AuthLoginRequest authLoginRequest) {
         return null;
     }
 

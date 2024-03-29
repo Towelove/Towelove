@@ -9,6 +9,7 @@ import blossom.project.towelove.common.request.auth.AuthLoginRequest;
 import blossom.project.towelove.common.request.auth.RestockUserInfoDTO;
 import blossom.project.towelove.common.request.auth.RestockUserInfoRequest;
 import blossom.project.towelove.common.response.Result;
+import blossom.project.towelove.common.response.user.LoginUserResponse;
 import blossom.project.towelove.common.response.user.SysUserPermissionDto;
 import blossom.project.towelove.common.response.user.SysUserVo;
 import org.slf4j.Logger;
@@ -46,7 +47,7 @@ public class RemoteUserFallbackFactory implements FallbackFactory<RemoteUserServ
             }
 
             @Override
-            public Result<SysUser> findUserByPhoneOrEmail(AuthLoginRequest authLoginRequest) {
+            public Result<LoginUserResponse> findUserByPhoneOrEmail(AuthLoginRequest authLoginRequest) {
                 return Result.fail(null,MDC.get(SecurityConstant.REQUEST_ID));
             }
 

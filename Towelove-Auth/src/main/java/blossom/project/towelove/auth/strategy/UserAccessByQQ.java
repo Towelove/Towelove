@@ -15,6 +15,7 @@ import blossom.project.towelove.common.exception.ServiceException;
 import blossom.project.towelove.common.request.auth.AuthLoginRequest;
 import blossom.project.towelove.common.request.auth.AuthRegisterRequest;
 import blossom.project.towelove.common.response.Result;
+import blossom.project.towelove.common.response.user.LoginUserResponse;
 import blossom.project.towelove.common.utils.JsonUtils;
 import blossom.project.towelove.framework.redis.service.RedisService;
 import com.towelove.common.core.constant.HttpStatus;
@@ -73,7 +74,7 @@ public class UserAccessByQQ implements UserAccessStrategy {
      */
 
     @Override
-    public SysUser login(AuthLoginRequest authLoginRequest) {
+    public LoginUserResponse login(AuthLoginRequest authLoginRequest) {
         // 使用授权码获取第三方登录用户信息
         ThirdPartyLoginUser thirdPartyLoginUser = ThirdPartyLoginUtil.getSocialUserInfo(
                 thirdPartyLoginConfig,
@@ -92,7 +93,7 @@ public class UserAccessByQQ implements UserAccessStrategy {
         if (Objects.isNull(sysUserVoResult) || HttpStatus.SUCCESS != sysUserVoResult.getCode()){
             throw new ServiceException(sysUserVoResult.getMsg());
         }
-        return sysUserVoResult.getData();
+        return null;
     }
 
     @Override

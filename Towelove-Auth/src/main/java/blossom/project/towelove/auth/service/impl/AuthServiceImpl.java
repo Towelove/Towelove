@@ -15,6 +15,7 @@ import blossom.project.towelove.common.exception.ServiceException;
 import blossom.project.towelove.common.request.auth.*;
 import blossom.project.towelove.common.request.msg.ValidateCodeRequest;
 import blossom.project.towelove.common.response.Result;
+import blossom.project.towelove.common.response.user.LoginUserResponse;
 import blossom.project.towelove.framework.redis.service.RedisService;
 import cn.dev33.satoken.stp.StpUtil;
 import cn.hutool.core.io.FileTypeUtil;
@@ -80,9 +81,9 @@ public class AuthServiceImpl implements AuthService {
         res.setCode(HttpStatus.SUCCESS);
         //校验手机号以及邮箱格式，校验验证码格式是否正确
         UserAccessStrategy userAccessStrategy = UserRegisterStrategyFactory.userAccessStrategy(authLoginRequest.getType());
-        SysUser sysUser = userAccessStrategy.login(authLoginRequest);
+        LoginUserResponse sysUser = userAccessStrategy.login(authLoginRequest);
         StpUtil.login(JSON.toJSONString(sysUser));
-        if (StrUtil.isBlank(sysUser.getEmail()) || StrUtil.isBlank(sysUser.getPhoneNumber())) {
+        if (Objects.isNull(sysUser.getUserPermission()) || sysUser.getUserPermission().isEmpty()) {
             //需要用户补充信息，但依然是登入态
             res.setCode(HttpStatus.CREATED);
             res.setMsg("用户需要完善信息");
@@ -91,7 +92,7 @@ public class AuthServiceImpl implements AuthService {
         if (StrUtil.isBlank(tokenValue)){
             throw new ServiceException("An exception occurred while generating the token...");
         }
-        res.setData(StpUtil.getTokenInfo().tokenValue);
+        res.setData(tokenValue);
         return res;
     }
 //
