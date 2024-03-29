@@ -200,19 +200,19 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
 
     @Override
     @Transactional
-    public SysUser restockUserInfo(RestockUserInfoDTO restockUserInfoDTO) {
+    public LoginUserResponse restockUserInfo(RestockUserInfoDTO restockUserInfoDTO) {
         //更新用户信息
         SysUser sysUser = SysUserConvert.INSTANCE.convert(restockUserInfoDTO);
         try {
 //            Optional.ofNullable(restockUserInfoRequest.getPhone())
             updateById(sysUser);
             addUserPermission(sysUser);
-            sysUser = sysUserMapper.selectById(sysUser.getId());
         } catch (ServiceException e) {
             throw new ServiceException("补充用户信息失败");
         }
+        LoginUserResponse loginUserResponse = sysUserMapper.selectUserWithPermission(sysUser.getId());
 
-        return sysUser;
+        return loginUserResponse;
     }
 
 

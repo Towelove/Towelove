@@ -36,7 +36,7 @@ public interface SysUserService extends IService<SysUser> {
 
     void addUserPermission(SysUser sysUser);
 
-    SysUser restockUserInfo(RestockUserInfoDTO restockUserInfoDTO);
+    LoginUserResponse restockUserInfo(RestockUserInfoDTO restockUserInfoDTO);
 
     Boolean findByPhoneOrEmail(String phone, String email);
 }

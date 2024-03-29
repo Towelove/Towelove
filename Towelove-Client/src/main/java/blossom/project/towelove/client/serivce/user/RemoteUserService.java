@@ -46,7 +46,7 @@ public interface RemoteUserService {
     Result<SysUser> accessByThirdPartyAccount(@RequestBody ThirdPartyLoginUser thirdPartyLoginUser);
 
     @PutMapping("/v1/user/sys/restock")
-    Result<SysUser> restockUserInfo(@RequestBody RestockUserInfoDTO restockUserInfoDTO);
+    Result<LoginUserResponse> restockUserInfo(@RequestBody RestockUserInfoDTO restockUserInfoDTO);
 
     @GetMapping("/v1/user/sys/findByEmailOrPhone")
     Result<Boolean> findByEmailOrPhone(@RequestParam(value = "phone",required = false) String phone

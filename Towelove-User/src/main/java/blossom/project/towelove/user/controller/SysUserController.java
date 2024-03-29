@@ -98,7 +98,7 @@ public class SysUserController {
 
 
     @PutMapping("/restock")
-    public Result<SysUser> restockUserInfo(@RequestBody RestockUserInfoDTO restockUserInfoDTO){
+    public Result<LoginUserResponse> restockUserInfo(@RequestBody RestockUserInfoDTO restockUserInfoDTO){
         return Result.ok(sysUserService.restockUserInfo(restockUserInfoDTO));
     }
 

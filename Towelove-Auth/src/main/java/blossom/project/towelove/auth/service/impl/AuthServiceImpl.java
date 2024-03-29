@@ -170,11 +170,11 @@ public class AuthServiceImpl implements AuthService {
                 .phoneNumber(restockUserInfoRequest.getPhone())
                 .email(restockUserInfoRequest.getEmail())
                 .build();
-        Result<SysUser> result = remoteUserService.restockUserInfo(restockUserInfoDTO);
+        Result<LoginUserResponse> result = remoteUserService.restockUserInfo(restockUserInfoDTO);
         if (Objects.isNull(result) || HttpStatus.SUCCESS != result.getCode()){
             throw new ServiceException("补充用户信息失败");
         }
-        StpUtil.login(result.getData());
+        StpUtil.login(JSON.toJSONString(result.getData()));
         return StpUtil.getTokenValue();
     }
 
@@ -184,7 +184,7 @@ public class AuthServiceImpl implements AuthService {
      * @return
      */
     private Long validateCode(RestockUserInfoRequest restockUserInfoRequest) {
-        LoginUserResponse sysUser = (LoginUserResponse) StpUtil.getLoginId();
+        LoginUserResponse sysUser = JSON.parseObject(StpUtil.getLoginIdAsString(), LoginUserResponse.class);
         ValidateCodeRequest validateCodeRequests = null;
         if (StrUtil.isNotBlank(sysUser.getEmail()) && StrUtil.isNotBlank(sysUser.getPhoneNumber())){
             throw new ServiceException("请求非法！你是哪来的猴子");

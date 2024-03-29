@@ -75,7 +75,7 @@ public class RemoteUserFallbackFactory implements FallbackFactory<RemoteUserServ
             }
 
             @Override
-            public Result<SysUser> restockUserInfo(RestockUserInfoDTO restockUserInfoDTO) {
+            public Result<LoginUserResponse> restockUserInfo(RestockUserInfoDTO restockUserInfoDTO) {
                 log.error("调用远程服务 restockUserInfo 失败: {}", throwable.getMessage());
                 return Result.fail("远程服务调用失败", MDC.get(SecurityConstant.REQUEST_ID));
             }
