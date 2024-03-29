@@ -49,11 +49,11 @@ public class ReWriteRequestFilter implements GlobalFilter , Ordered {
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
         ServerHttpRequest request = exchange.getRequest();
-        String token = request.getHeaders().get(TokenConstant.AUTHENTICATION).get(0);
         //判断白名单
         if (judgeWhite(request)) {
             return chain.filter(exchange.mutate().request(request).build());
         }
+        String token = request.getHeaders().get(TokenConstant.AUTHENTICATION).get(0);
         String loginIdAsString = null;
         try {
             loginIdAsString = redisTemplate.opsForValue().get(TokenConstant.AUTHENTICATION_ON_REDIS + token);
