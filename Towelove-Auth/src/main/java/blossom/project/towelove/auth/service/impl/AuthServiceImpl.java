@@ -159,8 +159,8 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public String restockUserInfo(@Validated RestockUserInfoRequest restockUserInfoRequest) {
-        SysUser sysUser = validateCode(restockUserInfoRequest);
-        restockUserInfoRequest.setId(sysUser.getId());
+        Long id = validateCode(restockUserInfoRequest);
+        restockUserInfoRequest.setId(id);
         //调用远程服务更新用户信息
         RestockUserInfoDTO restockUserInfoDTO = RestockUserInfoDTO.builder()
                 .Id(restockUserInfoRequest.getId())
