@@ -7,6 +7,7 @@ import blossom.project.towelove.common.exception.ServiceException;
 import blossom.project.towelove.common.response.Result;
 import blossom.project.towelove.common.response.user.LoginUserResponse;
 import blossom.project.towelove.common.response.user.SysUserPermissionDto;
+import blossom.project.towelove.gateway.config.UserContextHolder;
 import cn.dev33.satoken.context.SaHolder;
 import cn.dev33.satoken.exception.BackResultException;
 import cn.dev33.satoken.stp.StpInterface;
@@ -29,14 +30,8 @@ import java.util.stream.Collectors;
  */
 @Component
 public class StpInterfaceImpl implements StpInterface {
-    @Resource
-    private RemoteUserService userService;
-
     Logger log = LoggerFactory.getLogger(StpInterfaceImpl.class);
 
-    ExecutorService singleThreadPool = new ThreadPoolExecutor(5,
-            10,3,
-            TimeUnit.SECONDS,new ArrayBlockingQueue<>(100),new ThreadPoolExecutor.AbortPolicy());
 
     @Override
     public List<String> getPermissionList(Object loginId, String loginType) {
@@ -65,6 +60,7 @@ public class StpInterfaceImpl implements StpInterface {
             SaHolder.getResponse().setHeader("Content-Type", "application/json;charset=UTF-8");
             throw new BackResultException(JSON.toJSONString(Result.fail(HttpStatus.FORBIDDEN.getReasonPhrase(),HttpStatus.FORBIDDEN.value(),"无权限",SecurityConstant.REQUEST_ID)));
         }
+        UserContextHolder.setUserInfo(loginUserResponse);
         return userPermission;
     }
 

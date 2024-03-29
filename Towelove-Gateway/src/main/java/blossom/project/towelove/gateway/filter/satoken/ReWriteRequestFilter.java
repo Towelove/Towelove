@@ -5,6 +5,7 @@ import blossom.project.towelove.common.constant.UserConstants;
 import blossom.project.towelove.common.domain.dto.SysUser;
 import blossom.project.towelove.common.response.user.LoginUserResponse;
 import blossom.project.towelove.framework.redis.service.RedisService;
+import blossom.project.towelove.gateway.config.UserContextHolder;
 import cn.dev33.satoken.stp.StpUtil;
 import cn.hutool.core.util.URLUtil;
 import cn.hutool.system.UserInfo;
@@ -45,25 +46,20 @@ public class ReWriteRequestFilter implements GlobalFilter , Ordered {
         if (judgeWhite(request)) {
             return chain.filter(exchange.mutate().request(request).build());
         }
-        LoginUserResponse sysUser = null;
-        try{
-            sysUser = JSON.parseObject(StpUtil.getLoginIdAsString(), LoginUserResponse.class);
-        }catch (Exception e){
-            //解析用户信息失败
-            return dealException(exchange,e);
-        }
+        LoginUserResponse sysUser = UserContextHolder.getUserInfo();
         //重写请求
         reBuildRequest(sysUser,request);
-        judgeRefreshToken();
+//        judgeRefreshToken();
+        UserContextHolder.clean();
         return chain.filter(exchange.mutate().request(request).build());
     }
 
-    private void judgeRefreshToken() {
-        long tokenActiveTimeout = StpUtil.getTokenActiveTimeout();
-        if (tokenActiveTimeout < 60 * 60L){
-            StpUtil.updateLastActiveToNow();//刷新token有效期
-        }
-    }
+//    private void judgeRefreshToken() {
+//        long tokenActiveTimeout = StpUtil.getTokenActiveTimeout();
+//        if (tokenActiveTimeout < 60 * 60L){
+//            StpUtil.updateLastActiveToNow();//刷新token有效期
+//        }
+//    }
 
     public boolean judgeWhite(ServerHttpRequest request){
         URI uri = request.getURI();
@@ -72,9 +68,7 @@ public class ReWriteRequestFilter implements GlobalFilter , Ordered {
 
 
     public Mono<Void> dealException(ServerWebExchange exchange,Exception e){
-        //如果请求没有loginId就报错并且直接返回原因
-        //设定返回内容和返回状态码
-        DataBuffer dataBuffer =exchange.getResponse().bufferFactory().wrap(e.getMessage().getBytes());
+        DataBuffer dataBuffer = exchange.getResponse().bufferFactory().wrap(e.getMessage().getBytes());
         exchange.getResponse().setStatusCode(HttpStatus.NON_AUTHORITATIVE_INFORMATION);
         return exchange.getResponse().writeWith(Mono.just(dataBuffer));
     }
