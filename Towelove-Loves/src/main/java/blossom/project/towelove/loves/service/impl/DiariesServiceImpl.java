@@ -142,10 +142,15 @@ public class DiariesServiceImpl extends ServiceImpl<DiariesMapper, LoveDiaryColl
         if (!diariesMapper.exists(queryWrapper)) {
             throw new ServiceException("非法请求！日记册不存在");
         }
+        Long coupleId = UserInfoContextHolder.getCoupleId();
+        if (request.isSynchronous()){
+            //检查同步日记册是否存在
+            fetchSynchronousDiaryCollectionIfAbsent(coupleId);
+        }
         LoveDiary loveDiary = DiaryConvert.INSTANCE.convert(request);
         loveDiary.setImageUrls(JSON.toJSONString(request.getImages()));
         LoveDiaryDTO result = DiaryConvert.INSTANCE.convert(loveDiary);
-        loveDiary.setCoupleId(UserInfoContextHolder.getCoupleId());
+        loveDiary.setCoupleId(coupleId);
         loveDiaryMapper.insert(loveDiary);
         result.setId(loveDiary.getId());
         result.setImages(request.getImages());
@@ -159,6 +164,35 @@ public class DiariesServiceImpl extends ServiceImpl<DiariesMapper, LoveDiaryColl
         if (Objects.isNull(coupleId)) {
             throw new ServiceException("没有情侣关系");
         }
+        fetchSynchronousDiaryCollectionIfAbsent(coupleId);
+        LoveDiary loveDiary = LoveDiary.builder()
+                .id(id)
+                .coupleId(coupleId)
+                .synchronous(synchronous)
+                .build();
+        try {
+            if (loveDiaryMapper.updateById(loveDiary) < 1) {
+                throw new ServiceException("日记不存在");
+            }
+        } catch (Exception e) {
+            throw new ServiceException("更新同步状态异常");
+        }
+        return synchronous;
+    }
+
+    /**
+     * Spring事务隔离级别：
+     * Require(Default): 如果当前存在事务则加入事务，否则创建新事务
+     * Require_New: 每次都会创建新事务
+     * Support: 如果当前存在事务则加入事务，否则以没有事务的形式进行
+     * Not_Support: 以没有事务的形式进行，如果有事务则被挂起
+     * MANDATORY: 强制有事务，如果没有事务则抛出异常
+     * NEVER:强制没有事务，如果有事务则抛出异常
+     * NESTED：嵌套到事务中，与Require的区别是当前事务发送异常只会回滚子事务而不会回滚父事务
+     * @param coupleId
+     */
+    @Transactional(propagation = Propagation.SUPPORTS)
+    public void fetchSynchronousDiaryCollectionIfAbsent(Long coupleId) {
         //判断是否两人已经拥有同步日记册
         LambdaQueryWrapper<LoveDiaryCollection> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(LoveDiaryCollection::getCoupleId,coupleId);
@@ -179,19 +213,6 @@ public class DiariesServiceImpl extends ServiceImpl<DiariesMapper, LoveDiaryColl
                 throw new ServiceException("新建同步日记册失败");
             }
         }
-        LoveDiary loveDiary = LoveDiary.builder()
-                .id(id)
-                .coupleId(coupleId)
-                .synchronous(synchronous)
-                .build();
-        try {
-            if (loveDiaryMapper.updateById(loveDiary) < 1) {
-                throw new ServiceException("日记不存在");
-            }
-        } catch (Exception e) {
-            throw new ServiceException("更新同步状态异常");
-        }
-        return synchronous;
     }
 
     @Override
