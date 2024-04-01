@@ -1,7 +1,11 @@
 package blossom.project.towelove.server.executor;
 
+import blossom.project.towelove.common.exception.ServerException;
 import blossom.project.towelove.common.exception.ServiceException;
+import blossom.project.towelove.common.exception.errorcode.BaseErrorCode;
+import blossom.project.towelove.common.exception.errorcode.IErrorCode;
 import cn.hutool.core.codec.Base64;
+import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.io.resource.ResourceUtil;
 import cn.hutool.extra.qrcode.QrCodeUtil;
 import cn.hutool.extra.qrcode.QrConfig;
@@ -36,19 +40,23 @@ import java.util.Optional;
 public class QrCodeGenerator {
 
     private final String QRCODE_PREFIX = "data:image/jpg;Base64,%s";
-    private QrConfig qrConfig;
+    private final QrConfig qrConfig;
 
     public QrCodeGenerator() {
         qrConfig = new QrConfig(300, 300);
-        qrConfig.setBackColor(Color.CYAN);
+        qrConfig.setBackColor(Color.LIGHT_GRAY);
+        File file = null;
         try {
+            file = File.createTempFile("logo", ".jpg");
             URL url = new URL("https://oss.towelove.cn/towelove-images/2024/03/08/微信图片_20240308182109_20240308182349A003.jpg");
             BufferedImage image = ImageIO.read(url);
-            File file = File.createTempFile("logo", ".jpg");
             ImageIO.write(image, "jpg", file);
             qrConfig.setImg(file);
         } catch (IOException e) {
             log.error("启动二维码生成策略时，获取logo图失败");
+            throw new ServerException("启动二维码生成策略时，获取logo图失败", BaseErrorCode.SERVICE_ERROR);
+        }finally {
+            FileUtil.del(file);
         }
     }
 //                .setImg("");;
@@ -56,13 +64,14 @@ public class QrCodeGenerator {
     public String generateQrCode(String data, String type) throws IOException {
         type = Optional.ofNullable(type).orElse("png");
         BufferedImage image = QrCodeUtil.generate(data, qrConfig);
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        if (!ImageIO.write(image, type, outputStream)) {
-            throw new ServiceException("写入数据失败");
+        try (ByteArrayOutputStream outputStream = new ByteArrayOutputStream()){
+            if (!ImageIO.write(image, type, outputStream)) {
+                throw new ServiceException("写入数据失败");
+            }
+            //获得字节数据，转化BASE64编码
+            byte[] byteArray = outputStream.toByteArray();
+            return String.format(QRCODE_PREFIX, Base64.encode(byteArray));
         }
-        //获得字节数据，转化BASE64编码
-        byte[] byteArray = outputStream.toByteArray();
-        return String.format(QRCODE_PREFIX, Base64.encode(byteArray));
     }
 
     /**

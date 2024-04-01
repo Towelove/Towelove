@@ -299,6 +299,11 @@ public class DiariesServiceImpl extends ServiceImpl<DiariesMapper, LoveDiaryColl
     @Override
     @Transactional(propagation = Propagation.REQUIRED)
     public String updateDiary(UpdateDiaryRequest updateDiaryRequest) {
+        //先查询日记册是否存在
+        LoveDiary loveDiary = loveDiaryMapper.selectById(updateDiaryRequest.getId());
+        if (Objects.isNull(loveDiary)){
+            throw new ServiceException("请求非法，日记不存在");
+        }
         //更新日记册
         LoveDiary updateLoveDiaryDo = DiaryConvert.INSTANCE.convert(updateDiaryRequest);
         updateLoveDiaryDo.setImageUrls(JSON.toJSONString(updateDiaryRequest.getImages()));

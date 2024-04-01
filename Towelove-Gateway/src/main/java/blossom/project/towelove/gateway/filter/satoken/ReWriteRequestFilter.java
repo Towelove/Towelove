@@ -1,5 +1,6 @@
 package blossom.project.towelove.gateway.filter.satoken;
 
+import blossom.project.towelove.common.constant.SecurityConstant;
 import blossom.project.towelove.common.constant.TokenConstant;
 import blossom.project.towelove.common.constant.UserConstants;
 import blossom.project.towelove.common.domain.dto.SysUser;
@@ -31,6 +32,8 @@ import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 
 @Component
 @RequiredArgsConstructor
@@ -93,6 +96,11 @@ public class ReWriteRequestFilter implements GlobalFilter , Ordered {
         String nickName = sysUser.getNickName();
         String sex = sysUser.getSex();
         String token = request.getHeaders().get(TokenConstant.AUTHENTICATION).get(0);
+        List<String> requestId = request.getHeaders().get(SecurityConstant.REQUEST_ID);
+        String requestIdStr = "";
+        if (Objects.nonNull(requestId) && !requestId.isEmpty()){
+            requestIdStr = Optional.ofNullable(requestId.get(0)).orElseGet(() -> "test");
+        }
         request.mutate()
                 .header(TokenConstant.USER_ID_HEADER, String.valueOf(sysUser.getId()))
                 .header(TokenConstant.USER_NAME_HEADER, URLEncoder.encode(userName, StandardCharsets.UTF_8))
@@ -101,6 +109,7 @@ public class ReWriteRequestFilter implements GlobalFilter , Ordered {
                 .header(TokenConstant.USER_TOKEN,token)
                 .header(TokenConstant.USER_EMAIL,sysUser.getEmail())
                 .header(TokenConstant.USER_PHONE,sysUser.getEmail())
+                .header(SecurityConstant.REQUEST_ID,requestIdStr)
                 .build();
     }
 
