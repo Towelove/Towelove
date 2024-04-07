@@ -6,6 +6,9 @@ import blossom.project.towelove.framework.log.handler.SecurityConstant;
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.date.SystemClock;
+import cn.hutool.core.lang.UUID;
+import cn.hutool.core.lang.generator.UUIDGenerator;
+import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.JSONObject;
 import lombok.AllArgsConstructor;
@@ -65,7 +68,8 @@ public class LoveLogAspect {
                 (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         //TODO 要求前端发送请求的时候带上一个request_id
         //使用MDC设定全局请求id
-        requestId = servletRequestAttributes.getRequest().getHeader(SecurityConstant.REQUEST_ID);
+        requestId = StrUtil.isBlank(servletRequestAttributes.getRequest().getHeader(SecurityConstant.REQUEST_ID)) ?
+                UUID.fastUUID().toString(false) : servletRequestAttributes.getRequest().getHeader(SecurityConstant.REQUEST_ID);
         Result r = new Result();
         MDC.put(SecurityConstant.REQUEST_ID, requestId);
         try {
