@@ -17,7 +17,8 @@ public class ShortUrlCacheConstants {
      * redis 分片 HashKey，由hkey的hash值与HashKey数量取模得到
      */
     public final static String URL_MAPPING_FROM = "url_mapping:%s";
-    public final static String URL_PREFIX = "http://%s:9201/v1/server/center/twurl/%s";
+    public final static String URL_FORMAT_DEV = "http://localhost:8080/surl/%s";
+    public final static String URL_FORMAT_PROD = "https://web.towelove.cn/api/surl/%s";
 
     /**
      * 获得短链url
@@ -28,7 +29,7 @@ public class ShortUrlCacheConstants {
      */
     public static String getUrl(String shortUrl){
         return FileUtil.isWindows() ?
-                String.format(URL_PREFIX,NetUtil.LOCAL_IP,shortUrl)
-                : String.format(URL_PREFIX,NetUtil.getLocalhost().getHostAddress(),shortUrl);
+                String.format(URL_FORMAT_DEV,shortUrl)
+                : String.format(URL_FORMAT_PROD,shortUrl);
     }
 }

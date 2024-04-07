@@ -21,4 +21,5 @@ import lombok.NoArgsConstructor;
 public class QuickWriterDiaryRequest {
 
     private String content;
+
 }
