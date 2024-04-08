@@ -52,8 +52,13 @@ public enum BaseErrorCode implements IErrorCode {
     REMOTE_ERROR("C000001", "调用第三方服务出错"),
     COUPLEID_EMPTY_ERROR("C000010", "情侣ID不能为空"),
     WIDGET_UPPER_MAX_ERROR("C000011", "卡片数量不能超过2个"),
-    BUCKET_NOT_FOUND("C000404","MinIO桶没有找到" );
-    
+    BUCKET_NOT_FOUND("C000404","MinIO桶没有找到" ),
+
+    BURYING_POINT_ERROR("D000001", "埋点错误"),
+
+    // ========== 二级宏观错误码 埋点错误 ==========
+    BURYING_POINT_ERROR_PARAM_ERROR("D000100", "埋点参数错误");
+
     private final String code;
     
     private final String message;
