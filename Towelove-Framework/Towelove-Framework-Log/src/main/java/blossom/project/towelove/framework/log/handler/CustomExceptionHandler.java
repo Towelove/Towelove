@@ -34,7 +34,7 @@ public class CustomExceptionHandler {
     @ResponseBody
     public Object handleException(Exception ex) {
         log.warn("[Handled] Exception ", ex);
-        return Result.fail(ex.getCause(),500,
+        return Result.fail("error",500,
                 ex.getMessage(), MDC.get(SecurityConstant.REQUEST_ID));
     }
 
