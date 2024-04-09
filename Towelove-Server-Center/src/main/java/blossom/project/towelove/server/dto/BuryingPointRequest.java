@@ -60,4 +60,9 @@ public class BuryingPointRequest {
      */
     private Integer source;
 
+    /**
+     * 浏览器指纹
+     */
+    private String fingerprint;
+
 }

@@ -2,6 +2,8 @@ package blossom.project.towelove.msg;
 
 import blossom.project.towelove.server.ac.SensitiveWords;
 import blossom.project.towelove.server.ToweloveServerCenterApplication;
+import blossom.project.towelove.server.entity.BuryingPoint;
+import blossom.project.towelove.server.mapper.BuryingPointMapper;
 import blossom.project.towelove.server.mapper.SensitiveWordsMapper;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -46,6 +48,17 @@ public class SpringTest {
         list.forEach(sensitiveWordsMapper::insert);
         sqlSession.commit();
         sqlSession.close();
+    }
+
+    @Resource
+    private BuryingPointMapper buryingPointMapper;
+
+    @Test
+    void tes1t(){
+        BuryingPoint buryingPoint = new BuryingPoint();
+        buryingPoint.setEventId(1);
+        buryingPoint.setElementId("test");
+        buryingPointMapper.insert(buryingPoint);
     }
 
 }
