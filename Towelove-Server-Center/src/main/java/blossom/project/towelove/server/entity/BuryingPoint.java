@@ -57,6 +57,11 @@ public class BuryingPoint {
      */
     private Integer source;
 
+    /**
+     * 浏览器指纹
+     */
+    private String fingerprint;
+
 
     @TableField(value = "create_time",fill = FieldFill.INSERT)
     @JsonSerialize(using = LocalDateTimeSerializer.class)
