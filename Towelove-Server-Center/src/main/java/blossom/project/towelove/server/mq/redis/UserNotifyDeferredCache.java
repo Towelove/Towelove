@@ -1,9 +1,7 @@
-package blossom.project.towelove.server.redisMQ;
+package blossom.project.towelove.server.mq.redis;
 
 import blossom.project.towelove.common.response.Result;
-import blossom.project.towelove.framework.redis.service.RedisService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.stereotype.Component;
 
 import java.util.Map;

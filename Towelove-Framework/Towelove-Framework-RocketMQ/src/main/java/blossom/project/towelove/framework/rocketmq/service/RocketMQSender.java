@@ -9,8 +9,8 @@ import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.support.MessageBuilder;
 
-@AutoConfiguration
-public class RocketMQService {
+//@AutoConfiguration
+public class RocketMQSender {
 
     @Autowired
     private RocketMQTemplate rocketMQTemplate;

@@ -1,4 +1,4 @@
-package blossom.project.towelove.server.redisMQ;
+package blossom.project.towelove.server.mq.redis;
 
 import blossom.project.towelove.common.entity.notification.NoticeDTO;
 import blossom.project.towelove.framework.redis.core.UserNotifyConstants;
