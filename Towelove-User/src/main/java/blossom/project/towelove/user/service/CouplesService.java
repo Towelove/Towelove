@@ -38,6 +38,9 @@ public interface CouplesService extends IService<Couples> {
     Result<String> binding(CouplesInvitedRequest couplesInvitedRequest);
 
     Result<String> unbinding(Long coupleId);
+
+    Long getTogetherCouples();
+
 }
 
 

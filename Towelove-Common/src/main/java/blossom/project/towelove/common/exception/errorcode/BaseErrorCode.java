@@ -52,6 +52,7 @@ public enum BaseErrorCode implements IErrorCode {
     REMOTE_ERROR("C000001", "调用第三方服务出错"),
     COUPLEID_EMPTY_ERROR("C000010", "情侣ID不能为空"),
     WIDGET_UPPER_MAX_ERROR("C000011", "卡片数量不能超过2个"),
+    COUPLEID_VALIDATE_ERROR("C000012", "情侣ID非法,没有情侣信息"),
     BUCKET_NOT_FOUND("C000404","MinIO桶没有找到" ),
 
     BURYING_POINT_ERROR("D000001", "埋点错误"),
