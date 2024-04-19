@@ -1,7 +1,9 @@
 package blossom.project.towelove.user.service.impl;
 
 import blossom.project.towelove.common.entity.notification.NoticeDTO;
+import blossom.project.towelove.common.exception.ServerException;
 import blossom.project.towelove.common.exception.ServiceException;
+import blossom.project.towelove.common.exception.errorcode.BaseErrorCode;
 import blossom.project.towelove.common.request.CouplesInvitedRequest;
 import blossom.project.towelove.common.request.user.CouplesCreateRequest;
 import blossom.project.towelove.common.request.user.CouplesUpdateRequest;
@@ -12,6 +14,7 @@ import blossom.project.towelove.framework.redis.util.UserNotifyProduction;
 import blossom.project.towelove.framework.user.core.UserInfoContextHolder;
 import blossom.project.towelove.user.entity.SysUser;
 import blossom.project.towelove.user.service.SysUserService;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -20,6 +23,8 @@ import blossom.project.towelove.user.entity.Couples;
 import blossom.project.towelove.user.mapper.CouplesMapper;
 import blossom.project.towelove.user.service.CouplesService;
 
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Objects;
 
@@ -116,6 +121,27 @@ public class CouplesServiceImpl extends ServiceImpl<CouplesMapper, Couples> impl
     @Override
     public Result<String> unbinding(Long coupleId) {
         return null;
+    }
+
+    @Override
+    public Long getTogetherCouples() {
+        //判断是否有情侣
+        if(Objects.isNull(UserInfoContextHolder.getCoupleId())){
+            throw new ServerException("你还没有情侣，请先绑定情侣", BaseErrorCode.COUPLEID_EMPTY_ERROR);
+        }
+        //查询最早绑定日期
+        LambdaQueryWrapper<Couples> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.select(Couples::getCreateTime)
+                        .eq(Couples::getId,UserInfoContextHolder.getCoupleId());
+        Couples couples = couplesMapper.selectOne(queryWrapper);
+        if (Objects.isNull(couples) || Objects.isNull(couples.getCreateTime())){
+            throw new ServerException("查询情侣信息失败", BaseErrorCode.COUPLEID_VALIDATE_ERROR);
+        }
+        LocalDateTime firstBindingTime = couples.getCreateTime();
+        LocalDateTime now = LocalDateTime.now();
+        //计算两个时间的差值
+        long between = ChronoUnit.DAYS.between(firstBindingTime, now);
+        return between;
     }
 }
 

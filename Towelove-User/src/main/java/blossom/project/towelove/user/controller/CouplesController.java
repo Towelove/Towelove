@@ -102,6 +102,15 @@ public class CouplesController {
         return couplesService.binding(couplesInvitedRequest);
     }
 
+    /**
+     * 获得两个情侣在一起的总时间
+     * @return
+     */
+    @GetMapping("/together")
+    public Result<Long> togetherCouples(){
+        return Result.ok(couplesService.getTogetherCouples());
+    }
+
 
 
 }

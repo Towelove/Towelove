@@ -13,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.util.NumberUtils;
 
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -65,5 +66,10 @@ public class BuryingPointServiceImpl implements BuryingPointService {
         if (buryingPointMapper.insert(buryingPoint) < 1) {
             throw new ServerException("save bp data error", BaseErrorCode.BURYING_POINT_ERROR);
         }
+    }
+
+    @Override
+    public List<BuryingPoint> getBpDataTotal() {
+        return buryingPointMapper.selectList(null);
     }
 }

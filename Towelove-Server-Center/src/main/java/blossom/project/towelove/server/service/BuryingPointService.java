@@ -1,6 +1,9 @@
 package blossom.project.towelove.server.service;
 
 import blossom.project.towelove.server.dto.BuryingPointRequest;
+import blossom.project.towelove.server.entity.BuryingPoint;
+
+import java.util.List;
 
 /**
  * @projectName: Towelove
@@ -13,5 +16,7 @@ import blossom.project.towelove.server.dto.BuryingPointRequest;
  */
 public interface BuryingPointService {
     void saveBpData(BuryingPointRequest buryingPointRequest);
+
+    List<BuryingPoint> getBpDataTotal();
 
 }
