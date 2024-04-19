@@ -5,11 +5,6 @@ import blossom.project.towelove.framework.flower.enums.FlowCodeEnum;
 import blossom.project.towelove.framework.flower.executor.FlowExecutor;
 import blossom.project.towelove.framework.flower.factory.ToweloveAlbumContextFactory;
 import blossom.project.towelove.framework.flower.request.ToweloveAlbumRequest;
-import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-
-import javax.annotation.Resource;
 
 /**
  * @author: 张锦标
