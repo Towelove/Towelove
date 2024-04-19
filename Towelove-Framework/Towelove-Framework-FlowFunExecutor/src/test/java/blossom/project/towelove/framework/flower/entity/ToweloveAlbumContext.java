@@ -1,7 +1,5 @@
 package blossom.project.towelove.framework.flower.entity;
 
-import blossom.project.towelove.framework.flower.iface.ToweloveBizIface;
-
 import java.util.function.Supplier;
 
 /**
@@ -9,7 +7,7 @@ import java.util.function.Supplier;
  * @date: 2024/3/13 3:27 PM
  * ToweloveAlbumShowContext类
  */
-public class ToweloveAlbumShowContext extends AbstractToweloveAlbumContext implements
+public class ToweloveAlbumContext extends AbstractToweloveAlbumContext implements
         Supplier
 {
 

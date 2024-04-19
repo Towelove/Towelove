@@ -4,15 +4,11 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd">
 
     <!--顺风车司机查找附近乘客聚合信息-->
-    <bean id="hitch_driver_nearby_passenger_aggregation:hello.hitch.passenger"
+    <bean id="towelove_test_flow_executor:towelove.test.flow.template"
           class="blossom.project.towelove.framework.flower.executor.FlowTemplate">
         <property name="beforeExecutor">
             <list>
-                <value>blackListFillComponent</value>
-                <value>driverInfoFillComponent</value>
-                <!--围栏场景下，引擎入参组装-->
-                <value>fenceDriverMatchPassengerParamBuildComponent</value>
-                <value>driverMatchNearbyAggregationComponent</value>
+                <value>toweloveComponent</value>
             </list>
         </property>
         <property name="executor">
