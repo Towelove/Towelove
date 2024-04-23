@@ -27,4 +27,8 @@ public class SysUserDTO {
     private Long boyId;
 
     private Long girlId;
+
+    private String coupleName;
+
+    private String coupleAvatar;
 }

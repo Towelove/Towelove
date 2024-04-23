@@ -13,6 +13,7 @@ import blossom.project.towelove.common.response.user.*;
 import blossom.project.towelove.framework.redis.service.RedisService;
 import blossom.project.towelove.framework.user.core.UserInfoContextHolder;
 import blossom.project.towelove.user.convert.SysUserConvert;
+import blossom.project.towelove.user.entity.Couples;
 import blossom.project.towelove.user.entity.SysUser;
 import blossom.project.towelove.user.domain.SysUserPermission;
 import blossom.project.towelove.user.mapper.CouplesMapper;
@@ -73,17 +74,25 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         if (Objects.isNull(userId)){
             throw new ServiceException("try to get UserId from Header failed...");
         }
-        String sex = UserInfoContextHolder.getSex();
         SysUser sysUser = getById(userId);
         if (Objects.isNull(sysUser)) {
             throw new ServiceException("用户数据不存在");
         }
-        CouplesRespDTO  couplesRespDTO = couplesMapper.selectCoupleIdByUserId(userId);
         SysUserDTO sysUserDTO = SysUserConvert.INSTANCE.convert2DTO(sysUser);
-        if(Objects.nonNull(couplesRespDTO)){
-            sysUserDTO.setCoupleId(couplesRespDTO.getId());
-            sysUserDTO.setBoyId(couplesRespDTO.getBoyId());
-            sysUserDTO.setGirlId(couplesRespDTO.getGirlId());
+        //判断一下是否有情侣信息
+        CouplesRespDTO couplesRespDTO = couplesMapper.selectCoupleIdByUserId(userId);
+        if (Objects.nonNull(couplesRespDTO) && Objects.nonNull(couplesRespDTO.getId())){
+            //查询对象的信息
+            Long couplesUserId = "女".equals(sysUser.getUserName()) ? couplesRespDTO.getBoyId()
+                    : couplesRespDTO.getGirlId();
+            CouplesInfoDto couplesInfoDto = sysUserMapper.selectCouplesInfo(couplesUserId);
+            if(Objects.nonNull(couplesRespDTO)){
+                sysUserDTO.setCoupleId(couplesRespDTO.getId());
+                sysUserDTO.setBoyId(couplesRespDTO.getBoyId());
+                sysUserDTO.setGirlId(couplesRespDTO.getGirlId());
+                sysUserDTO.setCoupleAvatar(couplesInfoDto.getCoupleAvatar());
+                sysUserDTO.setCoupleName(couplesInfoDto.getCoupleName());
+            }
         }
         return sysUserDTO;
     }

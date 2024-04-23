@@ -106,7 +106,6 @@ public class SysUserController {
     public Result<Boolean> findByEmailOrPhone(@RequestParam(value = "phone",required = false) String phone,
                                               @RequestParam(value = "email",required = false) String email){
         return Result.ok(sysUserService.findByPhoneOrEmail(phone,email));
-
     }
 
 

@@ -1,6 +1,8 @@
 package blossom.project.towelove.user.mapper;
 
 
+import blossom.project.towelove.common.response.user.CouplesInfoDto;
+import blossom.project.towelove.common.response.user.CouplesRespDTO;
 import blossom.project.towelove.common.response.user.LoginUserResponse;
 import blossom.project.towelove.user.entity.SysUser;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
@@ -16,4 +18,6 @@ public interface SysUserMapper extends BaseMapper<SysUser> {
 
 
     LoginUserResponse selectUserWithPermission(@Param("id") Long id);
+
+    CouplesInfoDto selectCouplesInfo(@Param("userId") Long couplesUserId);
 }
