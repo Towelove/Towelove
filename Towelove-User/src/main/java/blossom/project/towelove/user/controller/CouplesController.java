@@ -6,6 +6,7 @@ import blossom.project.towelove.common.request.user.CouplesCreateRequest;
 import blossom.project.towelove.common.request.user.CouplesUpdateRequest;
 import blossom.project.towelove.common.response.Result;
 import blossom.project.towelove.common.response.user.CouplesRespDTO;
+import blossom.project.towelove.common.response.user.CouplesTogetherResponse;
 import blossom.project.towelove.framework.log.annotation.LoveLog;
 import blossom.project.towelove.user.service.CouplesService;
 

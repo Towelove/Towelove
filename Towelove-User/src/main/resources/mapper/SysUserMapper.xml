@@ -96,5 +96,10 @@
 
     </select>
 
+    <select id="selectCouplesInfo" resultType="blossom.project.towelove.common.response.user.CouplesInfoDto">
+        select u.avatar as coupleAvatar,u.nick_name as coupleName
+        from sys_user u
+        where u.id = #{userId}
+    </select>
 
 </mapper>

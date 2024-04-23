@@ -24,11 +24,13 @@ public class CouplesRespDTO {
 
     private Long id;
 
-    private Long girlId;
-
     private Long boyId;
 
+    private Long girlId;
+
     private Integer status;
+
+
 
 }
 

@@ -24,4 +24,17 @@
         FROM `couples`
         WHERE boy_id = #{userId}
     </select>
+
+    <select id="selectTogetherCouples" resultType="blossom.project.towelove.common.response.user.CouplesTogetherDto">
+        select u.avatar, c.create_time
+        from couples c
+        <if test="sex == '男'">
+            join sys_user u on u.id = c.boy_id
+        </if>
+        <if test="sex == '女'">
+            join sys_user u on u.id = c.girl_id
+        </if>
+        where c.id = #{coupleId}
+    </select>
+
 </mapper>
