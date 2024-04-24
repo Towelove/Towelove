@@ -19,7 +19,7 @@ import java.util.concurrent.*;
 /**
  * @projectName: Towelove
  * @package: blossom.project.towelove.server.redisMQ
- * @className: RedisListener
+ * @className: RedisNotifyListener
  * @author: Link Ji
  * @description: GOGO
  * @date: 2024/1/19 18:38
@@ -28,7 +28,7 @@ import java.util.concurrent.*;
 @Component
 @RequiredArgsConstructor
 @Slf4j
-public class RedisListener implements InitializingBean {
+public class RedisNotifyListener implements InitializingBean {
 
     @Getter
     private final StringRedisTemplate redisTemplate;
