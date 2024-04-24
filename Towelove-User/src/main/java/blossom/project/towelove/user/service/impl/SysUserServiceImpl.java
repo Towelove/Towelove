@@ -83,16 +83,14 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         CouplesRespDTO couplesRespDTO = couplesMapper.selectCoupleIdByUserId(userId);
         if (Objects.nonNull(couplesRespDTO) && Objects.nonNull(couplesRespDTO.getId())){
             //查询对象的信息
-            Long couplesUserId = "女".equals(sysUser.getUserName()) ? couplesRespDTO.getBoyId()
+            Long couplesUserId = userId.equals(couplesRespDTO.getGirlId()) ? couplesRespDTO.getBoyId()
                     : couplesRespDTO.getGirlId();
             CouplesInfoDto couplesInfoDto = sysUserMapper.selectCouplesInfo(couplesUserId);
-            if(Objects.nonNull(couplesRespDTO)){
-                sysUserDTO.setCoupleId(couplesRespDTO.getId());
-                sysUserDTO.setBoyId(couplesRespDTO.getBoyId());
-                sysUserDTO.setGirlId(couplesRespDTO.getGirlId());
-                sysUserDTO.setCoupleAvatar(couplesInfoDto.getCoupleAvatar());
-                sysUserDTO.setCoupleName(couplesInfoDto.getCoupleName());
-            }
+            sysUserDTO.setCoupleId(couplesRespDTO.getId());
+            sysUserDTO.setBoyId(couplesRespDTO.getBoyId());
+            sysUserDTO.setGirlId(couplesRespDTO.getGirlId());
+            sysUserDTO.setCoupleAvatar(couplesInfoDto.getCoupleAvatar());
+            sysUserDTO.setCoupleName(couplesInfoDto.getCoupleName());
         }
         return sysUserDTO;
     }
