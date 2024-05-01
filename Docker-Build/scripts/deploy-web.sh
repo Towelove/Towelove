@@ -10,11 +10,11 @@ log() {
     echo -e "\033[${color}[${1}] $(date +'%Y-%m-%d %H:%M:%S') - ${2}\033[0m"
 }
 
-# 检查 /home/git/www 目录下是否存在 web.tar.gz
-if [ -f "/home/git/www/web.tar.gz" ]; then
+# 检查 /home/ops/www 目录下是否存在 web.tar.gz
+if [ -f "/home/ops/www/web.tar.gz" ]; then
     log INFO "web.tar.gz found. Proceeding with the script."
 else
-    log ERROR "web.tar.gz does not exist in /home/git/www. Exiting."
+    log ERROR "web.tar.gz does not exist in /home/ops/www. Exiting."
     exit 1
 fi
 
@@ -28,7 +28,7 @@ else
 fi
 
 # 复制 web.tar.gz 到 /opt/www/ 目录下
-cp /home/git/www/web.tar.gz /opt/www/
+cp /home/ops/www/web.tar.gz /opt/www/
 if [ "$?" -eq 0 ]; then
     log INFO "web.tar.gz copied to /opt/www/ successfully."
 else
@@ -58,6 +58,6 @@ chmod -R 755 /opt/www/web.towelove.cn
 log INFO "Permissions set to 755 for /opt/www/web.towelove.cn."
 
 # 删除原始的 web.tar.gz 文件
-rm /home/git/www/web.tar.gz
-log INFO "Original web.tar.gz deleted from /home/git/www/."
+rm /home/ops/www/web.tar.gz
+log INFO "Original web.tar.gz deleted from /home/ops/www/."
 
