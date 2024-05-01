@@ -235,14 +235,14 @@ main() {
     local image_version=$2
 
     # 脚本开始执行的提示和分隔线
-    log INFO "==================== Script Start ===================="
+    log INFO "==================== Deploy Script Start ===================="
     log INFO "Script execution begins at $(date '+%Y-%m-%d %H:%M:%S')"
 
     deploy_service "${original_service_name}" "${image_version}"
 
     # 脚本结束执行的提示和分隔线
     log INFO "Script execution ends at $(date '+%Y-%m-%d %H:%M:%S')"
-    log INFO "==================== Script   End ===================="
+    log INFO "==================== Deploy  Script  End ===================="
 
 }
 
