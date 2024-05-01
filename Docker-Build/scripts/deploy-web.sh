@@ -3,7 +3,7 @@
 # 定义日志文件路径
 log_file="/opt/ops/logs/deploy-web.log"
 
-tmp_dir="/home/ops/www"
+tmp_dir="/home/ops"
 tmp_file="web.tar.gz"
 parent_dir="/opt/www"
 web_dir="web.towelove.cn"
