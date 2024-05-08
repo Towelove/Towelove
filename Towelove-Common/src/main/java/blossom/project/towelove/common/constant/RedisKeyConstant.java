@@ -27,4 +27,8 @@ public class RedisKeyConstant {
 
     public static final String INVITED_SUBJECT = "Towelove<邀请>";
     public static final String USER_FEEDBACK_SUBJECT = "Towelove<用户反馈>";
+
+    //-------------------------redis和lua脚本的路径映射关系--------------
+    public static final String STR_LUA = "redis/str.lua";
+    public static final String LIST_LUA = "redis.list.lua";
 }
