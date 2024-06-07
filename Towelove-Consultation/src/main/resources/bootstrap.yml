@@ -1,0 +1,33 @@
+spring:
+  application:
+    name: towelove-consultation
+
+  profiles:
+    active: @activeProperties@
+  cloud:
+    nacos:
+      discovery:
+        server-addr: @nacosAddress@
+        namespace: @nacosNamespace@
+        username: nacos
+        password: Venus20230829
+        # for reference only
+        # Please import only the required configuration as you use it
+      config:
+        server-addr: @nacosAddress@
+        namespace: @nacosNamespace@
+        username: nacos
+        password: Venus20230829
+        file-extension: yaml
+        shared-configs[0]:
+          data-id: towelove-base-dev.yaml
+          refresh: true
+        shared-configs[1]:
+          data-id: towelove-redis-dev.yaml
+          refresh: true
+        shared-configs[2]:
+          data-id: towelove-mysql-dev.yaml
+          refresh: true
+        shared-configs[3]:
+          data-id: towelove-rocketmq-dev.yaml
+          refresh: true

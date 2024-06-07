@@ -8,15 +8,21 @@
     <version>2.0</version>
     <packaging>pom</packaging>
     <modules>
+        <!--Public service module-->
         <module>Towelove-Common</module>
         <module>Towelove-Client</module>
         <module>Towelove-Gateway</module>
         <module>Towelove-Framework</module>
         <module>Towelove-Dependencies</module>
-        <module>Towelove-User</module>
-        <module>Towelove-Loves</module>
+        <!--Functional service module-->
         <module>Towelove-Msg</module>
         <module>Towelove-Auth</module>
+        <module>Towelove-User</module>
+        <module>Towelove-Loves</module>
+        <module>Towelove-PostBar</module>
+        <module>Towelove-TreeHole</module>
+        <module>Towelove-Community</module>
+        <module>Towelove-Consultation</module>
         <module>Towelove-Server-Center</module>
     </modules>
 
