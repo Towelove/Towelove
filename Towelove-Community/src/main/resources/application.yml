@@ -12,3 +12,7 @@ mybatis-plus:
 spring:
   profiles:
     active: @activeProperties@
+
+
+  main:
+    allow-bean-definition-overriding: true

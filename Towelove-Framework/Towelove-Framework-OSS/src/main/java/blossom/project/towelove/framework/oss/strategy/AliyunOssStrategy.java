@@ -10,7 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.annotation.Resource;
 import java.util.List;
 
-@AutoConfiguration
+//@AutoConfiguration
 public class AliyunOssStrategy implements OssServiceStrategy {
 
     @Resource
