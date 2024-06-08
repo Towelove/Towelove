@@ -1,9 +1,11 @@
 package blossom.project.towelove.community.entity;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 import java.io.Serializable;
 
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -26,15 +28,19 @@ import lombok.Builder;
 @Builder
 @TableName(value = "comment_likes",autoResultMap = true)
 public class CommentLikes {
-    //点赞ID@TableId
+    //点赞ID
+    @TableId
     private Long id;
 
     //用户ID
     private Long userId;
+
     //评论ID
     private Long commentId;
+
     //点赞时间
-    private Date createTime;
+    private LocalDateTime createTime;
+
     //点赞状态（1代表点赞，0代表取消点赞）
     private Integer status;
 

@@ -1,10 +1,12 @@
 package blossom.project.towelove.community.entity;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
-import java.io.Serializable;
+import java.util.Map;
 
-import blossom.project.towelove.framework.mysql.domain.BaseEntity;
+import com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -27,27 +29,37 @@ import lombok.Builder;
 @Builder
 @TableName(value = "comments", autoResultMap = true)
 public class Comments  {
-    //评论ID@TableId
+    //评论ID
+    @TableId
     private Long id;
 
     //用户ID
     private Long userId;
+
     //文章ID
     private Long postId;
+
     //评论内容
     private String content;
+
     //父评论ID，用于支持评论的回复
     private Long parentId;
+
     //评论时间
-    private Date createTime;
+    private LocalDateTime createTime;
+
     //评论更新时间
-    private Date updateTime;
+    private LocalDateTime updateTime;
+
     //删除标志（0代表未删除，1代表已删除）
     private Integer deleted;
+
     //备注
     private String remark;
+
     //json集合，存储额外数据
-    private String jsonMap;
+    @TableField(value = "json_map",typeHandler = JacksonTypeHandler.class)
+    private Map<String, Object> jsonMap;
 
 }
 

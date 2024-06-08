@@ -2,7 +2,6 @@ package blossom.project.towelove.community;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.ComponentScan;
 
@@ -15,8 +14,7 @@ import org.springframework.context.annotation.ComponentScan;
  * @github: https://github.com/ZhangBlossom
  * @description:
  */
-@SpringBootApplication(scanBasePackages = "blossom.project.towelove",
-        exclude = DataSourceAutoConfiguration.class)
+@SpringBootApplication(scanBasePackages = "blossom.project.towelove")
 @EnableFeignClients("blossom.project.towelove.client")
 @ComponentScan(basePackages = {"blossom.project.towelove"})
 public class ToweloveCommunityApplication {

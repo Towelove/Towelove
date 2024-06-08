@@ -3,6 +3,7 @@ package blossom.project.towelove.community.entity;
 
 import java.io.Serializable;
 
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -16,19 +17,20 @@ import lombok.Builder;
  * @contact: WX:zhangblossom0114
  * @blog: https://blog.csdn.net/Zhangsama1
  * @github: https://github.com/ZhangBlossom
- * @description: 
+ * @description:
  */
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@TableName(value = "post_tags",autoResultMap = true)
-public class PostTags  {
-//文章ID@TableId
+@TableName(value = "post_tags", autoResultMap = true)
+public class PostTags {
+    //文章ID
+    @TableId
     private Long postId;
 
-//标签内容
+    //标签内容
     private String tagsContent;
 
 }

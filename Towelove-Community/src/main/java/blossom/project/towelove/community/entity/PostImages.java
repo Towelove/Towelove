@@ -3,6 +3,7 @@ package blossom.project.towelove.community.entity;
 
 import java.io.Serializable;
 
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -25,10 +26,11 @@ import lombok.Builder;
 @Builder
 @TableName(value = "post_images",autoResultMap = true)
 public class PostImages{
-//关联的文章ID@TableId
+//关联的文章ID
+    @TableId
     private Long postId;
 
-//图片的URL地址，不能为空
+    //图片的URL地址，不能为空
     private String imageUrls;
 
 }
