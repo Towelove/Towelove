@@ -23,7 +23,8 @@ public class ToweloveCommunityApplication {
     public static void main(String[] args) {
         SpringApplication.run(ToweloveCommunityApplication.class,args);
         System.out.println("（づ￣3￣）づ╭❤～ Towelove社区模块启动成功  (o>ε(o>ｕ(≧∩≦)");
-        System.out.println("  _____                                      _ _         \n" +
+        System.out.println(
+                "  _____                                      _ _         \n" +
                 " / ____|                                    (_) |        \n" +
                 "| |     ___  _ __ ___  _ __ ___  _   _ _ __  _| |_ _   _ \n" +
                 "| |    / _ \\| '_ ` _ \\| '_ ` _ \\| | | | '_ \\| | __| | | |\n" +
