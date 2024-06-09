@@ -8,7 +8,7 @@
         <result property="postId" column="post_id" jdbcType="BIGINT"/>
         <result property="actionType" column="action_type"
                 typeHandler="org.apache.ibatis.type.EnumTypeHandler"
-                javaType="blossom.project.towelove.community.entity.ActionType"/>
+                javaType="blossom.project.towelove.community.enums.ActionType"/>
         <result property="actionTime" column="action_time" jdbcType="TIMESTAMP"/>
         <result property="status" column="status" jdbcType="TINYINT"/>
         <result property="deleted" column="deleted" jdbcType="TINYINT"/>

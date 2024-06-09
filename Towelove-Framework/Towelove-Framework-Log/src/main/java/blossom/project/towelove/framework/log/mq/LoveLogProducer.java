@@ -19,7 +19,7 @@ import org.springframework.messaging.support.MessageBuilder;
  * @date: 2023/9/30 13:55
  * LogProducer类
  */
-@AutoConfiguration
+//@AutoConfiguration
 public class LoveLogProducer {
 
     private static final Logger logger = LoggerFactory.getLogger(LoveLogProducer.class);

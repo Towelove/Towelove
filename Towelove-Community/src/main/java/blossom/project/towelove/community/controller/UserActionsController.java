@@ -1,11 +1,12 @@
 package blossom.project.towelove.community.controller;
 
 
+import blossom.project.towelove.common.page.PageResponse;
 import blossom.project.towelove.community.entity.UserActions;
 import blossom.project.towelove.community.service.UserActionsService;
 
 
-
+import blossom.project.towelove.framework.log.annotation.LoveLog;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import blossom.project.towelove.common.response.Result;
@@ -38,7 +39,7 @@ import java.util.concurrent.Executors;
  * @description: 
  */
 
-@VLog
+@LoveLog
 @RestController
 @RequestMapping("/v1/userActions")
 @RequiredArgsConstructor

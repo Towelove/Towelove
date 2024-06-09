@@ -12,7 +12,8 @@
         <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
         <result property="deleted" column="deleted" jdbcType="TINYINT"/>
         <result property="remark" column="remark" jdbcType="VARCHAR"/>
-        <result property="jsonMap" column="json_map" jdbcType="VARCHAR"/>
+      <result property="jsonMap" column="json_map" typeHandler="com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler"/>
+
     </resultMap>
 
     <!-- 基本字段 -->

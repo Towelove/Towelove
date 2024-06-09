@@ -9,9 +9,9 @@ import blossom.project.towelove.framework.mysql.domain.BaseEntity;
 import java.io.Serializable;
 import java.util.Map;
 
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -40,19 +40,23 @@ public class UserPreferences extends BaseEntity {
     //用户偏好，以JSON格式存储
     private String preferences;
 
-    //创建时间
-    private LocalDateTime createdTime;
+    @TableField(value = "create_time",fill = FieldFill.INSERT)
+    @JsonSerialize(using = LocalDateTimeSerializer.class)
+    private LocalDateTime createTime;
 
-    //更新时间
-    private LocalDateTime updatedTime;
+    @TableField(value = "update_time",fill = FieldFill.INSERT_UPDATE)
+    @JsonSerialize(using = LocalDateTimeSerializer.class)
+    private LocalDateTime updateTime;
 
-    //用户行为状态（留用扩展）
-    private Integer status;
+    @TableField("deleted")
+    @TableLogic(value = "0", delval = "1")
+    private int deleted;
 
-    //删除标志（0代表未删除，1代表已删除）
-    private Integer deleted;
-    //备注
+    @TableField(value = "remark",fill = FieldFill.INSERT)
     private String remark;
+
+    @TableField(value = "status",fill = FieldFill.INSERT)
+    private Integer status = 0;
     
     //json集合，存储额外数据
     @TableField(value = "json_map",typeHandler = JacksonTypeHandler.class)

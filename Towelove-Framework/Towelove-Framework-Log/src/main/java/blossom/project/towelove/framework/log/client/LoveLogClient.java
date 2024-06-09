@@ -11,8 +11,8 @@ import org.springframework.boot.autoconfigure.AutoConfiguration;
  */
 @AutoConfiguration
 public class LoveLogClient {
-    @Autowired
-    private LoveLogProducer loveLogProducer;
+    //@Autowired
+    //private LoveLogProducer loveLogProducer;
 
     public void info(String requestId,String logJson){
         //loveLogProducer.sendNormalLog(requestId,logJson);
