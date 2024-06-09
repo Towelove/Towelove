@@ -12,8 +12,14 @@ package blossom.project.towelove.community.enums;
  */
 
 public enum ActionType {
+
+    //浏览
     VIEW("view"),
+    //喜欢
     LIKE("like"),
+    //收藏
+    FAVORITE("favorite"),
+    //评论
     COMMENT("comment");
 
     private final String value;
