@@ -26,8 +26,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
-import java.util.List;
-import java.util.concurrent.Executors;
 
 
 /**
@@ -42,7 +40,7 @@ import java.util.concurrent.Executors;
 
 @LoveLog
 @RestController
-@RequestMapping("/v1/comments")
+@RequestMapping("/comments")
 @RequiredArgsConstructor
 public class CommentsController {
 

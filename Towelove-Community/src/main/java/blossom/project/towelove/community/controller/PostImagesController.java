@@ -42,7 +42,7 @@ import java.util.concurrent.Executors;
 
 @LoveLog
 @RestController
-@RequestMapping("/v1/postImages")
+@RequestMapping("/post/images")
 @RequiredArgsConstructor
 public class PostImagesController {
 

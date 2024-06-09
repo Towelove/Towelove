@@ -1,4 +1,5 @@
 package blossom.project.towelove.community.service.impl;
+
 import blossom.project.towelove.common.exception.EntityNotFoundException;
 import blossom.project.towelove.common.exception.errorcode.BaseErrorCode;
 import blossom.project.towelove.common.page.PageResponse;
@@ -17,6 +18,7 @@ import blossom.project.towelove.community.dto.PostsRespDTO;
 import blossom.project.towelove.community.req.PostsCreateRequest;
 import blossom.project.towelove.community.req.PostsPageRequest;
 import blossom.project.towelove.community.req.PostsUpdateRequest;
+
 import java.util.List;
 import java.util.Objects;
 
@@ -27,7 +29,7 @@ import java.util.Objects;
  * @contact: WX:zhangblossom0114
  * @blog: https://blog.csdn.net/Zhangsama1
  * @github: https://github.com/ZhangBlossom
- * @description: 
+ * @description:
  */
 @Service
 @Slf4j
@@ -45,13 +47,19 @@ public class PostsServiceImpl extends ServiceImpl<PostsMapper, Posts> implements
             return null;
         }
         postsMapper.insert(posts);
-        PostsRespDTO respDTO = PostsConvert.INSTANCE.convert(posts);
+        PostsRespDTO respDTO = getPostsById(posts.getId());
         return respDTO;
     }
 
     @Override
-    public PostsRespDTO getPostsById(Long PostsId) {
-        return null;
+    public PostsRespDTO getPostsById(Long postsId) {
+        Posts posts = postsMapper.selectById(postsId);
+        if (Objects.isNull(posts)) {
+            throw new EntityNotFoundException(BaseErrorCode.ENTITY_NOT_FOUNT.message(),
+                    BaseErrorCode.ENTITY_NOT_FOUNT);
+        }
+        PostsRespDTO respDTO = PostsConvert.INSTANCE.convert(posts);
+        return respDTO;
     }
 
     @Override
@@ -68,24 +76,23 @@ public class PostsServiceImpl extends ServiceImpl<PostsMapper, Posts> implements
     @Override
     public PageResponse<PostsRespDTO> pageQueryPosts(PostsPageRequest pageRequest) {
         LambdaQueryWrapper<Posts> lqw = new LambdaQueryWrapper<>();
+        //TODO 基于用户userId增加推荐算法
         Page<Posts> page = new Page(pageRequest.getPageNo(), pageRequest.getPageSize());
         Page<Posts> postsPage = postsMapper.selectPage(page, lqw);
         List<PostsRespDTO> respDTOList = null;
-        if (CollectionUtil.isEmpty(postsPage.getRecords())) {
+        if (CollectionUtil.isNotEmpty(postsPage.getRecords())) {
             respDTOList = PostsConvert.INSTANCE.convert(postsPage.getRecords());
         }
-        return new PageResponse<>(pageRequest.getPageNo(), pageRequest.getPageSize(), respDTOList);
+        return new PageResponse<>(
+                pageRequest.getPageNo(),
+                pageRequest.getPageSize(),
+                respDTOList);
     }
 
     @Override
     public PostsRespDTO updatePosts(PostsUpdateRequest updateRequest) {
-        Posts posts = postsMapper.selectById(updateRequest.getId());
-        if (Objects.isNull(posts)) {
-            log.error("the album is null");
-            throw new EntityNotFoundException("can not find posts whick id is: " + updateRequest.getId()
-                    , BaseErrorCode.ENTITY_NOT_FOUNT);
-        }
         try {
+            Posts posts = PostsConvert.INSTANCE.convert(updateRequest);
             postsMapper.updateById(posts);
             Posts resp = postsMapper.selectById(posts.getId());
             PostsRespDTO respDTO = PostsConvert.INSTANCE.convert(resp);
@@ -93,7 +100,6 @@ public class PostsServiceImpl extends ServiceImpl<PostsMapper, Posts> implements
         } catch (Exception e) {
             throw e;
         }
-
     }
 
     @Override

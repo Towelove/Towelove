@@ -42,7 +42,7 @@ import java.util.concurrent.Executors;
 
 @LoveLog
 @RestController
-@RequestMapping("/v1/postTags")
+@RequestMapping("/post/tags")
 @RequiredArgsConstructor
 public class PostTagsController {
 

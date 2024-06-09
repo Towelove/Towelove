@@ -3,11 +3,14 @@ package blossom.project.towelove.community.req;
 import java.util.Date;
 
 import java.io.Serializable;
+import java.util.Map;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.Builder;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -26,9 +29,18 @@ import javax.validation.constraints.NotNull;
 @Builder
 public class PostsCreateRequest  {
 
-    
     @NotNull
+    private Long userId;
+
+    @NotBlank
+    private String title;
+
+    @NotBlank
     private String content;
+
+    private String remark;
+
+    private Map<String,Object> jsonMap;
 }
 
 

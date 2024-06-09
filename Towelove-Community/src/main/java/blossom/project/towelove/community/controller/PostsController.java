@@ -42,12 +42,12 @@ import java.util.concurrent.Executors;
 
 @LoveLog
 @RestController
-@RequestMapping("/v1/posts")
+@RequestMapping("/posts")
 @RequiredArgsConstructor
 public class PostsController {
 
 
-    PostsService postsService;
+    private final PostsService postsService;
 
     /**
      * 按照ID查询
@@ -56,20 +56,24 @@ public class PostsController {
      * @return
      */
     @GetMapping("")
-    public Result<PostsRespDTO> getPostsById(@Validated @RequestParam(name = "postsId") @NotNull(message = "postsId " +
-            "Can not be null") Long postsId) {
+    public Result<PostsRespDTO> getPostsById(@Validated
+                                             @RequestParam(name = "postsId")
+                                             @NotNull(message = "postsId Can not be null")
+                                             Long postsId) {
         PostsRespDTO result = postsService.getPostsById(postsId);
         return Result.ok(result);
     }
 
     /**
      * 带条件分页查询
+     * TODO 基于用户偏好查询
      *
      * @param requestParam
      * @return
      */
     @GetMapping("/page")
-    public Result<PageResponse<PostsRespDTO>> pageQueryPosts(@Validated PostsPageRequest requestParam) {
+    public Result<PageResponse<PostsRespDTO>> pageQueryPosts(
+            @Validated PostsPageRequest requestParam) {
         return Result.ok(postsService.pageQueryPosts(requestParam));
     }
 
@@ -80,7 +84,9 @@ public class PostsController {
      * @return
      */
     @PutMapping("")
-    public Result<PostsRespDTO> updatePosts(@Validated @RequestBody PostsUpdateRequest updateRequest) {
+    public Result<PostsRespDTO> updatePosts(@Validated
+                                            @RequestBody
+                                            PostsUpdateRequest updateRequest) {
         return Result.ok(postsService.updatePosts(updateRequest));
     }
 
@@ -113,7 +119,9 @@ public class PostsController {
      * @return
      */
     @PostMapping("")
-    public Result<PostsRespDTO> createPosts(@RequestBody @Valid PostsCreateRequest createRequest) {
+    public Result<PostsRespDTO> createPosts(@RequestBody
+                                            @Valid
+                                            PostsCreateRequest createRequest) {
         return Result.ok(postsService.createPosts(createRequest));
 
     }

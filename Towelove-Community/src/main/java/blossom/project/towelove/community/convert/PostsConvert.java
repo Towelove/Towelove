@@ -4,7 +4,9 @@ package blossom.project.towelove.community.convert;
 import blossom.project.towelove.community.dto.PostsRespDTO;
 import blossom.project.towelove.community.entity.Posts;
 import blossom.project.towelove.community.req.PostsCreateRequest;
+import blossom.project.towelove.community.req.PostsUpdateRequest;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
 import java.util.List;
@@ -16,19 +18,26 @@ import java.util.List;
  * @contact: WX:zhangblossom0114
  * @blog: https://blog.csdn.net/Zhangsama1
  * @github: https://github.com/ZhangBlossom
- * @description: 
+ * @description:
  */
 
 @Mapper
 public interface PostsConvert {
-      PostsConvert INSTANCE = Mappers.getMapper(PostsConvert.class);
+    PostsConvert INSTANCE = Mappers.getMapper(PostsConvert.class);
 
-Posts convert(PostsCreateRequest createRequest);
-PostsRespDTO convert(Posts lists);
+    @Mapping(source = "userId", target = "userId")
+    @Mapping(source = "title", target = "title")
+    @Mapping(source = "content", target = "content")
+    @Mapping(source = "remark", target = "remark")
+    @Mapping(source = "jsonMap", target = "jsonMap")
+    Posts convert(PostsCreateRequest createRequest);
 
-List<PostsRespDTO> convert(List<Posts> records);
+    PostsRespDTO convert(Posts lists);
 
-  
+    List<PostsRespDTO> convert(List<Posts> records);
+
+
+    Posts convert(PostsUpdateRequest updateRequest);
 }
 
 

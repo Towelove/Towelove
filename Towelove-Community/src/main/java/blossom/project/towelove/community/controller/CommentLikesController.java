@@ -37,7 +37,7 @@ import javax.validation.constraints.NotNull;
 
 @LoveLog
 @RestController
-@RequestMapping("/v1/commentLikes")
+@RequestMapping("/comment/likes")
 @RequiredArgsConstructor
 public class CommentLikesController {
 

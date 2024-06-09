@@ -41,7 +41,7 @@ import java.util.concurrent.Executors;
 
 @LoveLog
 @RestController
-@RequestMapping("/v1/userActions")
+@RequestMapping("/user/actions")
 @RequiredArgsConstructor
 public class UserActionsController {
   

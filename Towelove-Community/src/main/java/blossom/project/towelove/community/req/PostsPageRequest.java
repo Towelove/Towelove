@@ -24,7 +24,7 @@ import blossom.project.towelove.common.page.PageRequest;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class PostsPageRequest  extends PageRequest {
+public class PostsPageRequest extends PageRequest {
 
     //用户id
     @NotNull

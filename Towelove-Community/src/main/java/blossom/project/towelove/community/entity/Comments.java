@@ -4,10 +4,10 @@ import java.time.LocalDateTime;
 
 import java.util.Map;
 
+import com.baomidou.mybatisplus.annotation.*;
 import com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -46,12 +46,17 @@ public class Comments  {
     private Long parentId;
 
     //评论时间
+    @TableField(value = "create_time",fill = FieldFill.INSERT)
+    @JsonSerialize(using = LocalDateTimeSerializer.class)
     private LocalDateTime createTime;
 
     //评论更新时间
+    @TableField(value = "update_time",fill = FieldFill.INSERT_UPDATE)
+    @JsonSerialize(using = LocalDateTimeSerializer.class)
     private LocalDateTime updateTime;
 
     //删除标志（0代表未删除，1代表已删除）
+    @TableLogic(value = "0",delval = "1")
     private Integer deleted;
 
     //备注
