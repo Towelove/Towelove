@@ -4,6 +4,8 @@ import blossom.project.towelove.common.exception.EntityNotFoundException;
 import blossom.project.towelove.common.exception.errorcode.BaseErrorCode;
 import blossom.project.towelove.common.page.PageResponse;
 import blossom.project.towelove.community.convert.PostsConvert;
+import blossom.project.towelove.community.entity.Comments;
+import blossom.project.towelove.framework.redis.service.RedisService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -19,8 +21,11 @@ import blossom.project.towelove.community.req.PostsCreateRequest;
 import blossom.project.towelove.community.req.PostsPageRequest;
 import blossom.project.towelove.community.req.PostsUpdateRequest;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * @author: ZhangBlossom
@@ -38,6 +43,7 @@ public class PostsServiceImpl extends ServiceImpl<PostsMapper, Posts> implements
 
     private final PostsMapper postsMapper;
 
+    private final RedisService redisService;
 
     @Override
     public PostsRespDTO createPosts(PostsCreateRequest createRequest) {
@@ -64,14 +70,62 @@ public class PostsServiceImpl extends ServiceImpl<PostsMapper, Posts> implements
 
     @Override
     public PostsRespDTO getPostsDetailById(Long postsId) {
-        Posts posts = postsMapper.selectById(postsId);
+        Posts posts = postsMapper.getPostsDetailById(postsId);
         if (Objects.isNull(posts)) {
             log.info("the posts is null...");
             return null;
         }
+
+        //TODO 获取 Redis 中的点赞和收藏数据
+
+        // 将评论处理成树状结构
+        List<Comments> comments = buildCommentTree(posts.getComments());
+        posts.setComments(comments);
+
+        // 转换为 DTO
         PostsRespDTO respDTO = PostsConvert.INSTANCE.convert(posts);
         return respDTO;
     }
+
+    private List<Comments> buildCommentTree(List<Comments> comments) {
+        if (comments == null) {
+            return new ArrayList<>();
+        }
+
+        // 将评论列表转换为 Map，以 id 作为键
+        Map<Long, Comments> commentMap = comments.stream()
+                .collect(Collectors.toMap(Comments::getId, comment -> comment));
+
+        // 存储根评论
+        List<Comments> rootComments = new ArrayList<>();
+
+        // 构建树状结构
+        for (Comments comment : comments) {
+            if (comment.getParentId() == null) {
+                rootComments.add(comment);
+            } else {
+                Comments parentComment = commentMap.get(comment.getParentId());
+                if (parentComment != null) {
+                    if (parentComment.getReplies() == null) {
+                        parentComment.setReplies(new ArrayList<>());
+                    }
+                    parentComment.getReplies().add(comment);
+                }
+            }
+        }
+
+        // 将置顶评论放在最前面
+        List<Comments> pinnedComments = rootComments.stream()
+                .filter(comment -> comment.getPinned() == 1)
+                .collect(Collectors.toList());
+        List<Comments> nonPinnedComments = rootComments.stream()
+                .filter(comment -> comment.getPinned() == 0)
+                .collect(Collectors.toList());
+
+        pinnedComments.addAll(nonPinnedComments);
+        return pinnedComments;
+    }
+
 
     @Override
     public PageResponse<PostsRespDTO> pageQueryPosts(PostsPageRequest pageRequest) {

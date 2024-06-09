@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="blossom.project.towelove.community.mapper.PostsMapper">
+
     <!-- 结果集 -->
-    <resultMap type="blossom.project.towelove.community.entity.Posts" id="PostsMap">
-        <result property="id" column="id" jdbcType="BIGINT"/>
+    <resultMap id="PostsMap" type="blossom.project.towelove.community.entity.Posts">
+        <id property="id" column="id" jdbcType="BIGINT"/>
         <result property="title" column="title" jdbcType="VARCHAR"/>
         <result property="content" column="content" jdbcType="VARCHAR"/>
         <result property="userId" column="user_id" jdbcType="BIGINT"/>
@@ -12,18 +13,61 @@
         <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
         <result property="deleted" column="deleted" jdbcType="TINYINT"/>
         <result property="remark" column="remark" jdbcType="VARCHAR"/>
-      <result property="jsonMap" column="json_map" typeHandler="com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler"/>
+        <result property="jsonMap" column="json_map"
+                typeHandler="com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler"/>
+        <result property="likesNum" column="likes_num" jdbcType="INTEGER"/>
+        <result property="favoriteNum" column="favorite_num" jdbcType="INTEGER"/>
+        <result property="pv" column="pv" jdbcType="INTEGER"/>
+        <result property="uv" column="uv" jdbcType="INTEGER"/>
 
+        <!-- 嵌套结果集 -->
+        <!--
+        property="comments"：指定 Posts 类中的 comments 属性。
+        column="id"：使用 Posts 表中的 id 列的值作为参数传递给 selectCommentsByPostId 查询。
+        select="selectCommentsByPostId"：指定用于查询 Comments 集合的 SQL 映射语句的 ID。
+        -->
+        <association property="postTags" column="id" select="selectTagsByPostId"/>
+        <association property="postImages" column="id" select="selectImagesByPostId"/>
+        <collection property="comments" column="id" select="selectCommentsByPostId"/>
     </resultMap>
 
-    <!-- 基本字段 -->
-    <sql id="Base_Column_List">
-        #allSqlColumn
-        ()
-    </sql>
+    <!-- 查询帖子详情 -->
+    <select id="getPostsDetailById" resultMap="PostsMap">
+        SELECT
+            p.*,
+            (SELECT COUNT(*) FROM post_likes pl WHERE pl.post_id = p.id AND pl.status = 1) AS likes_num,
+            (SELECT COUNT(*) FROM post_favorites pf WHERE pf.post_id = p.id AND pf.status = 1) AS favorite_num
+        FROM posts p
+        WHERE p.id = #{postsId}
+    </select>
+
+    <!-- 查询标签 -->
+    <select id="selectTagsByPostId" resultType="blossom.project.towelove.community.entity.PostTags">
+        SELECT post_id, tags_content
+        FROM post_tags
+        WHERE post_id = #{postId}
+    </select>
+
+    <!-- 查询图片 -->
+    <select id="selectImagesByPostId" resultType="blossom.project.towelove.community.entity.PostImages">
+        SELECT post_id, image_urls
+        FROM post_images
+        WHERE post_id = #{postId}
+    </select>
+
+    <!-- 查询评论 -->
+    <select id="selectCommentsByPostId" resultType="blossom.project.towelove.community.entity.Comments">
+        SELECT id,
+               user_id,
+               post_id,
+               content,
+               parent_id,
+               create_time,
+               likes_num,
+               pinned
+        FROM comments
+        WHERE post_id = #{postId}
+        ORDER BY pinned DESC, create_time ASC
+    </select>
 
 </mapper>
-
-
-
-

@@ -2,6 +2,7 @@ package blossom.project.towelove.community.entity;
 
 import java.time.LocalDateTime;
 
+import java.util.List;
 import java.util.Map;
 
 import blossom.project.towelove.framework.mysql.config.JacksonTypeHandler;
@@ -50,11 +51,13 @@ public class Posts {
 
     @TableField(value = "create_time",fill = FieldFill.INSERT)
     @JsonSerialize(using = LocalDateTimeSerializer.class)
+    @JsonFormat( pattern="yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createTime;
 
     //更新时间
     @TableField(value = "update_time",fill = FieldFill.INSERT_UPDATE)
     @JsonSerialize(using = LocalDateTimeSerializer.class)
+    @JsonFormat( pattern="yyyy-MM-dd HH:mm:ss")
     private LocalDateTime updateTime;
 
     //删除标志（0代表未删除，1代表已删除）
@@ -68,6 +71,30 @@ public class Posts {
     @TableField(value = "json_map", typeHandler = JacksonTypeHandler.class)
     private Map<String, Object> jsonMap;
 
+    //点赞数量
+    @TableField(value = "likes_num")
+    private Integer likesNum;
+
+    //收藏数量
+    @TableField(value = "favorite_num")
+    private Integer favoriteNum;
+
+    //页面访问量
+    @TableField(value = "pv")
+    private Integer pv;
+
+    //单一用户访问量
+    @TableField(value = "uv")
+    private Integer uv;
+
+    @TableField(exist = false)
+    private List<Comments> comments;
+
+    @TableField(exist = false)
+    private PostTags postTags;
+
+    @TableField(exist = false)
+    private PostImages postImages;
 }
 
 

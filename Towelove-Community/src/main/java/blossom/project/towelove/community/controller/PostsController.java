@@ -56,11 +56,11 @@ public class PostsController {
      * @return
      */
     @GetMapping("")
-    public Result<PostsRespDTO> getPostsById(@Validated
+    public Result<PostsRespDTO> getPostsDetailById(@Validated
                                              @RequestParam(name = "postsId")
                                              @NotNull(message = "postsId Can not be null")
                                              Long postsId) {
-        PostsRespDTO result = postsService.getPostsById(postsId);
+        PostsRespDTO result = postsService.getPostsDetailById(postsId);
         return Result.ok(result);
     }
 

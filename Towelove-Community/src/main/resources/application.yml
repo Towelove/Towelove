@@ -16,3 +16,10 @@ spring:
 
   main:
     allow-bean-definition-overriding: true
+  jackson:
+    # Use @JsonFormat annotation on fields that require a different
+    # format to override the global default format.
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: UTC
+    serialization:
+      write-dates-as-timestamps: false

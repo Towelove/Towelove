@@ -32,7 +32,24 @@ public interface PostsConvert {
     @Mapping(source = "jsonMap", target = "jsonMap")
     Posts convert(PostsCreateRequest createRequest);
 
-    PostsRespDTO convert(Posts lists);
+    @Mapping(source = "id", target = "id")
+    @Mapping(source = "title", target = "title")
+    @Mapping(source = "content", target = "content")
+    @Mapping(source = "userId", target = "userId")
+    @Mapping(source = "status", target = "status")
+    @Mapping(source = "createTime", target = "createTime")
+    @Mapping(source = "updateTime", target = "updateTime")
+    @Mapping(source = "deleted", target = "deleted")
+    @Mapping(source = "remark", target = "remark")
+    @Mapping(source = "jsonMap", target = "jsonMap")
+    @Mapping(source = "likesNum", target = "likesNum")
+    @Mapping(source = "favoriteNum", target = "favoriteNum")
+    @Mapping(source = "pv", target = "pv")
+    @Mapping(source = "uv", target = "uv")
+    @Mapping(source = "comments", target = "comments")
+    @Mapping(source = "postTags", target = "postTags")
+    @Mapping(source = "postImages", target = "postImages")
+    PostsRespDTO convert(Posts posts);
 
     List<PostsRespDTO> convert(List<Posts> records);
 
