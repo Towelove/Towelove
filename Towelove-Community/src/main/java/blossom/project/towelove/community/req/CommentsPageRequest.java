@@ -26,9 +26,9 @@ import blossom.project.towelove.common.page.PageRequest;
 @Builder
 public class CommentsPageRequest  extends PageRequest {
 
-    //用户id
+    //文章id
     @NotNull
-    private Long userId;
+    private Long postId;
 
 
 }

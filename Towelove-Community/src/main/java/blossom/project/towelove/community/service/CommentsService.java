@@ -23,7 +23,7 @@ import java.util.List;
  */
 
 public interface CommentsService extends IService<Comments> {
-    
+
     CommentsRespDTO getCommentsById(Long CommentsId);
     
     CommentsRespDTO getCommentsDetailById(Long commentsId);

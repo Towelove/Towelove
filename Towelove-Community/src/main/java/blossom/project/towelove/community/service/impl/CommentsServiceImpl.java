@@ -19,6 +19,7 @@ import blossom.project.towelove.community.req.CommentsPageRequest;
 import blossom.project.towelove.community.req.CommentsUpdateRequest;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * @author: ZhangBlossom
@@ -37,6 +38,39 @@ public class CommentsServiceImpl extends
 
     private final CommentsMapper commentsMapper;
 
+    @Override
+    public PageResponse<CommentsRespDTO> pageQueryComments(CommentsPageRequest requestParam) {
+        LambdaQueryWrapper<Comments> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(Comments::getPostId, requestParam.getPostId())
+                .orderByDesc(Comments::getPinned)
+                .orderByAsc(Comments::getCreateTime);
+
+        Page<Comments> page = new Page<>(requestParam.getPageNo(), requestParam.getPageSize());
+        Page<Comments> commentsPage = commentsMapper.selectPage(page, queryWrapper);
+
+        List<CommentsRespDTO> commentsList = commentsPage.getRecords().stream()
+                .map(comment -> {
+                    CommentsRespDTO dto = new CommentsRespDTO();
+                    // 这里可以使用 MapStruct 或手动进行转换
+                    dto.setId(comment.getId());
+                    dto.setUserId(comment.getUserId());
+                    dto.setPostId(comment.getPostId());
+                    dto.setContent(comment.getContent());
+                    dto.setParentId(comment.getParentId());
+                    dto.setCreateTime(comment.getCreateTime());
+                    dto.setLikesNum(comment.getLikesNum());
+                    dto.setPinned(comment.getPinned());
+                    return dto;
+                })
+                .collect(Collectors.toList());
+
+        return new PageResponse<>(
+                commentsPage.getCurrent(),
+                commentsPage.getSize(),
+                commentsPage.getTotal(),
+                commentsList
+        );
+    }
 
     @Override
     public CommentsRespDTO createComments(CommentsCreateRequest createRequest) {
@@ -64,18 +98,6 @@ public class CommentsServiceImpl extends
         }
         CommentsRespDTO respDTO = CommentsConvert.INSTANCE.convert(comments);
         return respDTO;
-    }
-
-    @Override
-    public PageResponse<CommentsRespDTO> pageQueryComments(CommentsPageRequest pageRequest) {
-        LambdaQueryWrapper<Comments> lqw = new LambdaQueryWrapper<>();
-        Page<Comments> page = new Page(pageRequest.getPageNo(), pageRequest.getPageSize());
-        Page<Comments> commentsPage = commentsMapper.selectPage(page, lqw);
-        List<CommentsRespDTO> respDTOList = null;
-        if (CollectionUtil.isEmpty(commentsPage.getRecords())) {
-            respDTOList = CommentsConvert.INSTANCE.convert(commentsPage.getRecords());
-        }
-        return new PageResponse<>(pageRequest.getPageNo(), pageRequest.getPageSize(), respDTOList);
     }
 
     @Override
