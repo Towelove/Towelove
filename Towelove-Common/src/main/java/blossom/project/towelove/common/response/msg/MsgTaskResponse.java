@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableLogic;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -62,6 +63,7 @@ public class MsgTaskResponse {
     //备注
     private String remark;
     //是否删除
+    @TableLogic(value = "0",delval = "1")
     private Integer deleted;
 
     //参数数组(自动根据内容生成)

@@ -1,17 +1,11 @@
 package blossom.project.towelove.loves.entity;
 
-import java.util.Date;
-
-import java.io.Serializable;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
 
 import blossom.project.towelove.common.domain.dto.BaseEntity;
-import com.baomidou.mybatisplus.annotation.TableField;
+
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

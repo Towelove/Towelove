@@ -14,8 +14,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Data
-@AutoConfiguration
-@ConfigurationProperties(prefix = "oss.tencent")
+//@AutoConfiguration
+//@ConfigurationProperties(prefix = "oss.tencent")
 public class TencentOssProperties {
     private String secretId;
     private String secretKey;

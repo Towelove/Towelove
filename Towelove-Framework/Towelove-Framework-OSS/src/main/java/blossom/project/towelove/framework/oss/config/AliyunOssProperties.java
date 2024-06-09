@@ -9,8 +9,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Data
-@AutoConfiguration
-@ConfigurationProperties(prefix = "oss.aliyun")
+//@AutoConfiguration
+//@ConfigurationProperties(prefix = "oss.aliyun")
 public class AliyunOssProperties {
     private String accessKey;
     private String accessSecret;

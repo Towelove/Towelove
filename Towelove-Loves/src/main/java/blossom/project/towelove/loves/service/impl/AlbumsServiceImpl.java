@@ -97,7 +97,7 @@ public class AlbumsServiceImpl extends ServiceImpl<AlbumsMapper, Albums> impleme
         if (Objects.isNull(albums)) {
             log.error("the album is null");
             throw new EntityNotFoundException("can not find album whick id is: " + updateRequest.getId()
-                    , BaseErrorCode.ENTITY_NOT_FOUNT);
+                    , BaseErrorCode.ENTITY_NOT_FOUND);
         }
         try {
             Albums albums1 = AlbumConvert.INSTANCE.convert(updateRequest);

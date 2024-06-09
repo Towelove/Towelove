@@ -3,7 +3,6 @@ package blossom.project.towelove.loves.service.impl;
 import blossom.project.towelove.client.serivce.msg.RemoteMsgTaskService;
 import blossom.project.towelove.common.exception.RemoteException;
 import blossom.project.towelove.common.exception.ServerException;
-import blossom.project.towelove.common.exception.errorcode.BaseErrorCode;
 import blossom.project.towelove.common.request.msg.MsgTaskCreateRequest;
 import blossom.project.towelove.common.request.todoList.TodoListCreateRequest;
 import blossom.project.towelove.common.request.todoList.TodoListUpdateRequest;
@@ -17,16 +16,13 @@ import blossom.project.towelove.loves.entity.TodoList;
 import blossom.project.towelove.loves.mapper.TodoListMapper;
 import blossom.project.towelove.loves.service.TodoListService;
 import cn.hutool.core.collection.CollectionUtil;
-import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.MDC;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDateTime;
 import java.util.*;
 
 import static blossom.project.towelove.common.exception.errorcode.BaseErrorCode.*;
@@ -164,7 +160,7 @@ public class TodoListServiceImpl extends ServiceImpl<TodoListMapper, TodoList>
     public Boolean deleteById(Long todoId) {
         TodoList dbToDoList = this.getById(todoId);
         if (Objects.isNull(dbToDoList)) {
-            throw new ServerException("待办不存在，对应id为：" + todoId, null, ENTITY_NOT_FOUNT);
+            throw new ServerException("待办不存在，对应id为：" + todoId, null, ENTITY_NOT_FOUND);
         }
         //判断是否提醒
         if (openMsgTask && dbToDoList.isReminder()) {

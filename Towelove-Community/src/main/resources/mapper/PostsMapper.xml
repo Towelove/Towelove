@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="blossom.project.towelove.community.mapper.PostsMapper">
+
+    <!-- 结果集 -->
+    <resultMap id="PostsMap" type="blossom.project.towelove.community.entity.posts.Posts">
+        <id property="id" column="id" jdbcType="BIGINT"/>
+        <result property="title" column="title" jdbcType="VARCHAR"/>
+        <result property="content" column="content" jdbcType="VARCHAR"/>
+        <result property="imageList" column="image_list"
+                typeHandler="com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler"/>
+        <result property="tagList" column="tag_list"
+                typeHandler="com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler"/>
+        <result property="userInfo" column="user_info"
+                typeHandler="com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler"/>
+        <result property="interactInfo" column="interact_info"
+                typeHandler="com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler"/>
+        <result property="status" column="status" jdbcType="TINYINT"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="deleted" column="deleted" jdbcType="TINYINT"/>
+        <result property="jsonMap" column="json_map"
+                typeHandler="com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler"/>
+        <result property="pv" column="pv" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <!-- 查询帖子详情 -->
+    <select id="getPostsDetailById" resultMap="PostsMap">
+        SELECT
+            p.*,
+            (SELECT COUNT(*) FROM post_likes pl WHERE pl.post_id = p.id AND pl.status = 1) AS likes_num,
+            (SELECT COUNT(*) FROM post_favorites pf WHERE pf.post_id = p.id AND pf.status = 1) AS favorite_num
+        FROM posts p
+        WHERE p.id = #{postsId}
+    </select>
+
+
+    <!-- 分页查询 -->
+    <select id="pageQueryPosts" resultMap="PostsMap">
+        SELECT
+        p.id,
+        p.title,
+        p.content,
+        JSON_UNQUOTE(JSON_EXTRACT(p.image_list, '$[0].url')) AS image,
+        p.tag_list,
+        JSON_UNQUOTE(JSON_EXTRACT(p.user_info, '$.avatar')) AS avatar,
+        JSON_UNQUOTE(JSON_EXTRACT(p.interact_info, '$.likedCount')) AS liked_count
+        FROM posts p
+        WHERE
+        <if test="title != null">
+            p.title LIKE CONCAT('%', #{title}, '%') AND
+        </if>
+        <if test="nickName != null">
+            JSON_UNQUOTE(JSON_EXTRACT(p.user_info, '$.nickname')) like  CONCAT('%', #{nickName}, '%') AND
+        </if>
+        <if test="content != null">
+            p.content LIKE CONCAT('%', #{content}, '%') AND
+        </if>
+        <if test="tag != null">
+            JSON_CONTAINS(p.tag_list, JSON_QUOTE(#{tag})) AND
+        </if>
+        <if test="filters != null">
+            <foreach item="filter" index="key" collection="filters">
+                <if test="key == 'someFilterKey'">
+                    p.some_column = #{filter} AND
+                </if>
+                <!-- 可以添加更多的过滤条件 -->
+            </foreach>
+        </if>
+        TRUE
+        ORDER BY
+        CASE WHEN #{sortBy.value} = 'likedCount' THEN JSON_EXTRACT(p.interact_info, '$.likedCount') END ${sortOrder.value},
+        CASE WHEN #{sortBy.value} = 'createTime' THEN p.create_time END ${sortOrder.value},
+        p.create_time DESC
+        LIMIT #{pageNo}, #{pageSize}
+    </select>
+
+    <!-- 创建帖子 -->
+    <insert id="createPosts" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO posts (title, content, image_list, tag_list, user_info, interact_info, status, create_time, update_time, deleted, remark, json_map, pv)
+        VALUES (#{title}, #{content}, #{imageList, typeHandler=com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler},
+                #{tagList, typeHandler=com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler},
+                #{userInfo, typeHandler=com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler},
+                #{interactInfo, typeHandler=com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler},
+                #{status}, #{createTime}, #{updateTime}, #{deleted}, #{remark},
+                #{jsonMap, typeHandler=com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler}, #{pv})
+    </insert>
+
+
+    <!-- 更新 interact_info -->
+    <update id="updateInteractInfo">
+        UPDATE posts
+        SET interact_info = #{interactInfo, typeHandler=com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler}
+        WHERE id = #{postId}
+    </update>
+
+
+    <!-- 更新帖子 -->
+    <update id="updatePosts">
+        UPDATE posts
+        SET title = #{title},
+            content = #{content},
+            image_list = #{imageList, typeHandler=com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler},
+            tag_list = #{tagList, typeHandler=com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler},
+            user_info = #{userInfo, typeHandler=com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler},
+            interact_info = #{interactInfo, typeHandler=com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler},
+            status = #{status},
+            update_time = #{updateTime},
+            remark = #{remark},
+            json_map = #{jsonMap, typeHandler=com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler},
+            pv = #{pv}
+        WHERE id = #{id}
+    </update>
+
+    <!-- 根据ID删除帖子 -->
+    <delete id="deletePostsById">
+        DELETE FROM posts WHERE id = #{postsId}
+    </delete>
+
+    <!-- 根据ID批量删除帖子 -->
+    <delete id="batchDeletePosts">
+        DELETE FROM posts WHERE id IN
+        <foreach collection="list" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+
+
+</mapper>

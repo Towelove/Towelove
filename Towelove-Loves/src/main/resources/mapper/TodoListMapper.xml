@@ -10,7 +10,6 @@
         <result property="description" column="description" jdbcType="VARCHAR"/>
         <result property="deadline" column="deadline" jdbcType="DATE"/>
         <result property="status" column="status" jdbcType="TINYINT"/>
-        <result property="completionStatus" column="completion_status" jdbcType="TINYINT"/>
         <result property="createBy" column="create_by" jdbcType="VARCHAR"/>
         <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
         <result property="updateBy" column="update_by" jdbcType="VARCHAR"/>

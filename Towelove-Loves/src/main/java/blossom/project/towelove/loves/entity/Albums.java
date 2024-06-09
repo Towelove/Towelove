@@ -1,12 +1,8 @@
 package blossom.project.towelove.loves.entity;
 
 import java.time.LocalDateTime;
-import java.util.Date;
-
-import java.io.Serializable;
 import java.util.Map;
 
-import blossom.project.towelove.common.domain.dto.BaseEntity;
 import com.baomidou.mybatisplus.annotation.*;
 import com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler;
 import lombok.AllArgsConstructor;

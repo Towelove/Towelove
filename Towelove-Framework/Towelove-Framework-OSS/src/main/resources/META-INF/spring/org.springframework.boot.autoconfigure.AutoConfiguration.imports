@@ -1,11 +1,11 @@
 blossom.project.towelove.framework.oss.config.OSSProperties
 blossom.project.towelove.framework.oss.config.MinioProperties
-blossom.project.towelove.framework.oss.config.AliyunOssProperties
-blossom.project.towelove.framework.oss.config.TencentOssProperties
+#blossom.project.towelove.framework.oss.config.AliyunOssProperties
+#blossom.project.towelove.framework.oss.config.TencentOssProperties
 
 blossom.project.towelove.framework.oss.service.OssService
 
 blossom.project.towelove.framework.oss.strategy.MinioOssStrategy
-blossom.project.towelove.framework.oss.strategy.AliyunOssStrategy
-blossom.project.towelove.framework.oss.strategy.TencentOssStrategy
+#blossom.project.towelove.framework.oss.strategy.AliyunOssStrategy
+#blossom.project.towelove.framework.oss.strategy.TencentOssStrategy
 blossom.project.towelove.framework.oss.strategy.OssStrategyFactory

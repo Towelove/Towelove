@@ -29,5 +29,5 @@ spring:
           data-id: towelove-mysql-dev.yaml
           refresh: true
         shared-configs[3]:
-          data-id: towelove-rocketmq-dev.yaml
+          data-id: towelove-oss-dev.yaml
           refresh: true
