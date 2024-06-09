@@ -83,7 +83,7 @@ public class PostLikesServiceImpl extends ServiceImpl<PostLikesMapper, PostLikes
         if (Objects.isNull(postLikes)) {
             log.error("the album is null");
             throw new EntityNotFoundException("can not find postLikes whick id is: " + updateRequest.getId()
-                    , BaseErrorCode.ENTITY_NOT_FOUNT);
+                    , BaseErrorCode.ENTITY_NOT_FOUND);
         }
         try {
             postLikesMapper.updateById(postLikes);

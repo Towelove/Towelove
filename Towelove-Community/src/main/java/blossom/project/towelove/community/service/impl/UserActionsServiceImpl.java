@@ -83,7 +83,7 @@ public class UserActionsServiceImpl extends ServiceImpl<UserActionsMapper, UserA
         if (Objects.isNull(userActions)) {
             log.error("the album is null");
             throw new EntityNotFoundException("can not find userActions whick id is: " + updateRequest.getId()
-                    , BaseErrorCode.ENTITY_NOT_FOUNT);
+                    , BaseErrorCode.ENTITY_NOT_FOUND);
         }
         try {
             userActionsMapper.updateById(userActions);

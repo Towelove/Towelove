@@ -1,10 +1,8 @@
 package blossom.project.towelove.community.req;
 
-import java.util.Date;
-
-import java.io.Serializable;
 import java.util.Map;
 
+import blossom.project.towelove.community.entity.posts.UserInfo;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -29,9 +27,6 @@ import javax.validation.constraints.NotNull;
 @Builder
 public class PostsCreateRequest  {
 
-    @NotNull
-    private Long userId;
-
     @NotBlank
     private String title;
 
@@ -41,6 +36,8 @@ public class PostsCreateRequest  {
     private String remark;
 
     private Map<String,Object> jsonMap;
+
+    // 前端传递的用户信息
+    @NotNull
+    private UserInfo userInfo;
 }
-
-

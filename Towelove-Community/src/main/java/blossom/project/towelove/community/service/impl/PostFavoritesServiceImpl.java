@@ -84,7 +84,7 @@ public class PostFavoritesServiceImpl extends
         if (Objects.isNull(postFavorites)) {
             log.error("the album is null");
             throw new EntityNotFoundException("can not find postFavorites whick id is: " + updateRequest.getId()
-                    , BaseErrorCode.ENTITY_NOT_FOUNT);
+                    , BaseErrorCode.ENTITY_NOT_FOUND);
         }
         try {
             postFavoritesMapper.updateById(postFavorites);

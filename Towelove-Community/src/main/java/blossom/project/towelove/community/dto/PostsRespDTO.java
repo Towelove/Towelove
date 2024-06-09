@@ -4,9 +4,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 
-import blossom.project.towelove.community.entity.Comments;
-import blossom.project.towelove.community.entity.PostImages;
-import blossom.project.towelove.community.entity.PostTags;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
@@ -58,17 +55,8 @@ public class PostsRespDTO {
 
     private Map<String, Object> jsonMap;
 
-    private Integer likesNum;
-
-    private Integer favoriteNum;
 
     private Integer pv;
 
-    private Integer uv;
 
-    private List<Comments> comments;
-
-    private PostTags postTags;
-
-    private PostImages postImages;
 }

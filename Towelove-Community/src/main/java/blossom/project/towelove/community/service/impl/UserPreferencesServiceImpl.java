@@ -83,7 +83,7 @@ public class UserPreferencesServiceImpl extends ServiceImpl<UserPreferencesMappe
         if (Objects.isNull(userPreferences)) {
             log.error("the album is null");
             throw new EntityNotFoundException("can not find userPreferences whick id is: " + updateRequest.getId()
-                    , BaseErrorCode.ENTITY_NOT_FOUNT);
+                    , BaseErrorCode.ENTITY_NOT_FOUND);
         }
         try {
             userPreferencesMapper.updateById(userPreferences);

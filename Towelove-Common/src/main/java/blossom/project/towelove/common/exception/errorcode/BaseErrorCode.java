@@ -41,7 +41,7 @@ public enum BaseErrorCode implements IErrorCode {
     
     // ========== 一级宏观错误码 系统执行出错 ==========
     SERVICE_ERROR("B000001", "系统执行出错"),
-    ENTITY_NOT_FOUNT("B001404","ID对应实体类为空"),
+    ENTITY_NOT_FOUND("B001404","ID对应实体类为空"),
     // ========== 二级宏观错误码 系统执行超时 ==========
     SERVICE_TIMEOUT_ERROR("B000100", "系统执行超时"),
 

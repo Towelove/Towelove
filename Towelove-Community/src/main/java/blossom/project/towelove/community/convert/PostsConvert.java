@@ -2,7 +2,7 @@ package blossom.project.towelove.community.convert;
 
 
 import blossom.project.towelove.community.dto.PostsRespDTO;
-import blossom.project.towelove.community.entity.Posts;
+import blossom.project.towelove.community.entity.posts.Posts;
 import blossom.project.towelove.community.req.PostsCreateRequest;
 import blossom.project.towelove.community.req.PostsUpdateRequest;
 import org.mapstruct.Mapper;
@@ -25,11 +25,6 @@ import java.util.List;
 public interface PostsConvert {
     PostsConvert INSTANCE = Mappers.getMapper(PostsConvert.class);
 
-    @Mapping(source = "userId", target = "userId")
-    @Mapping(source = "title", target = "title")
-    @Mapping(source = "content", target = "content")
-    @Mapping(source = "remark", target = "remark")
-    @Mapping(source = "jsonMap", target = "jsonMap")
     Posts convert(PostsCreateRequest createRequest);
 
     @Mapping(source = "id", target = "id")

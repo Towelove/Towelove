@@ -3,11 +3,6 @@ package blossom.project.towelove.community.service;
 
 import blossom.project.towelove.common.page.PageResponse;
 import com.baomidou.mybatisplus.extension.service.IService;
-import blossom.project.towelove.community.entity.PostImages;
-import blossom.project.towelove.community.dto.PostImagesRespDTO;
-import blossom.project.towelove.community.req.PostImagesCreateRequest;
-import blossom.project.towelove.community.req.PostImagesPageRequest;
-import blossom.project.towelove.community.req.PostImagesUpdateRequest;
 
 import java.util.List;
 
