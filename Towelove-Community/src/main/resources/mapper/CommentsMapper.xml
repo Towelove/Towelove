@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="blossom.project.towelove.community.mapper.CommentsMapper">
+
+    <!-- 基本结果映射 -->
+    <resultMap id="BaseResultMap" type="blossom.project.towelove.community.entity.Comments">
+        <id column="id" property="id"/>
+        <result column="user_id" property="userId"/>
+        <result column="post_id" property="postId"/>
+        <result property="userInfo" column="user_info"
+                typeHandler="com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler"/>
+        <result column="content" property="content"/>
+        <result column="parent_id" property="parentId"/>
+        <result column="create_time" property="createTime"/>
+        <result column="likes_num" property="likesNum"/>
+        <result property="showTags" column="show_tags"
+                typeHandler="com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler"/>
+    </resultMap>
+
+    <!-- 查询某个帖子的主评论并分页 -->
+    <select id="selectPage" resultMap="BaseResultMap">
+        SELECT *
+        FROM comments
+        WHERE post_id = #{postId}
+          AND parent_id IS NULL
+        ORDER BY create_time
+    </select>
+
+    <!-- 查询某个评论的子评论，限制返回数量 -->
+    <select id="selectSubComments" resultMap="BaseResultMap">
+        SELECT *
+        FROM comments
+        WHERE parent_id = #{parentId}
+        ORDER BY create_time
+            LIMIT #{limit}
+    </select>
+
+    <select id="selectSubCommentsWithLimit" resultMap="BaseResultMap">
+        SELECT *
+        FROM comments
+        WHERE parent_id = #{parentId}
+        ORDER BY create_time
+            LIMIT #{limit}
+        OFFSET #{offset}
+    </select>
+
+    <!-- 插入评论 -->
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO comments (user_id, post_id, user_info, content, parent_id, create_time, likes_num, show_tags)
+        VALUES (#{userId},
+                #{postId},
+                #{userInfo,
+                typeHandler=com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler},
+                #{content},
+                #{parentId},
+                #{createTime},
+                #{likesNum},
+                #{showTags,
+                typeHandler=com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler})
+    </insert>
+
+    <!-- 更新评论 -->
+    <update id="updateById">
+        UPDATE comments
+        SET user_id     = #{userId},
+            post_id     = #{postId},
+            user_info   = #{userInfo,
+            typeHandler=com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler},
+            content     = #{content},
+            parent_id   = #{parentId},
+            create_time = #{createTime},
+            likes_num   = #{likesNum},
+            show_tags   = #{showTags,
+            typeHandler=com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler}
+        WHERE id = #{id}
+    </update>
+
+    <!-- 删除评论 -->
+    <delete id="deleteById">
+        DELETE
+        FROM comments
+        WHERE id = #{id}
+    </delete>
+
+    <!-- 批量删除评论 -->
+    <delete id="deleteBatchIds">
+        DELETE FROM comments WHERE id IN
+        <foreach item="id" collection="list" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+
+</mapper>
