@@ -4,6 +4,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 
+import blossom.project.towelove.community.entity.posts.InteractInfo;
+import blossom.project.towelove.community.entity.posts.UserInfo;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
@@ -35,26 +37,33 @@ public class PostsRespDTO {
 
     private String content;
 
-    private Long userId;
+    // JSON 转换后的用户信息
+    private UserInfo userInfo;
+
+    // JSON 转换后的图片列表
+    private List<String> imageList;
+
+    // JSON 转换后的标签列表
+    private List<String> tagList;
+
+    // JSON 转换后的交互信息
+    private InteractInfo interactInfo;
 
     private Integer status;
 
     @JsonSerialize(using = LocalDateTimeSerializer.class)
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)
-    @JsonFormat( pattern="yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createTime;
 
     @JsonSerialize(using = LocalDateTimeSerializer.class)
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)
-    @JsonFormat( pattern="yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime updateTime;
 
     private Integer deleted;
 
-    private String remark;
-
     private Map<String, Object> jsonMap;
-
 
     private Integer pv;
 

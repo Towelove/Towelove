@@ -36,15 +36,22 @@
 
 
     <!-- 分页查询 -->
+    <!-- 分页查询 -->
     <select id="pageQueryPosts" resultMap="PostsMap">
         SELECT
         p.id,
         p.title,
         p.content,
-        JSON_UNQUOTE(JSON_EXTRACT(p.image_list, '$[0].url')) AS image,
+        p.image_list,
         p.tag_list,
-        JSON_UNQUOTE(JSON_EXTRACT(p.user_info, '$.avatar')) AS avatar,
-        JSON_UNQUOTE(JSON_EXTRACT(p.interact_info, '$.likedCount')) AS liked_count
+        p.user_info,
+        p.interact_info,
+        p.status,
+        p.create_time,
+        p.update_time,
+        p.deleted,
+        p.json_map,
+        p.pv
         FROM posts p
         WHERE
         <if test="title != null">
@@ -61,28 +68,48 @@
         </if>
         <if test="filters != null">
             <foreach item="filter" index="key" collection="filters">
-                <if test="key == 'someFilterKey'">
-                    p.some_column = #{filter} AND
+                <if test="key == 'status'">
+                    p.status = #{filter} AND
+                </if>
+                <if test="key == 'category'">
+                    p.category = #{filter} AND
+                </if>
+                <if test="key == 'author'">
+                    p.author = #{filter} AND
                 </if>
                 <!-- 可以添加更多的过滤条件 -->
             </foreach>
         </if>
         TRUE
         ORDER BY
-        CASE WHEN #{sortBy.value} = 'likedCount' THEN JSON_EXTRACT(p.interact_info, '$.likedCount') END ${sortOrder.value},
-        CASE WHEN #{sortBy.value} = 'createTime' THEN p.create_time END ${sortOrder.value},
-        p.create_time DESC
-        LIMIT #{pageNo}, #{pageSize}
+        <choose>
+            <when test="sortBy == 'likedCount'">
+                JSON_EXTRACT(interact_info, '$.likedCount') ${sortOrder}
+            </when>
+            <when test="sortBy == 'createTime'">
+                create_time ${sortOrder}
+            </when>
+            <otherwise>
+                p.id DESC
+            </otherwise>
+        </choose>
+        LIMIT #{pageNo}, #{pageSize};
     </select>
 
     <!-- 创建帖子 -->
     <insert id="createPosts" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO posts (title, content, image_list, tag_list, user_info, interact_info, status, create_time, update_time, deleted, remark, json_map, pv)
-        VALUES (#{title}, #{content}, #{imageList, typeHandler=com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler},
+        INSERT INTO posts
+            (title, content, image_list, tag_list, user_info, interact_info, status, create_time, update_time, deleted, remark, json_map, pv)
+        VALUES (#{title},
+                #{content},
+                #{imageList, typeHandler=com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler},
                 #{tagList, typeHandler=com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler},
                 #{userInfo, typeHandler=com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler},
                 #{interactInfo, typeHandler=com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler},
-                #{status}, #{createTime}, #{updateTime}, #{deleted}, #{remark},
+                #{status},
+                #{createTime},
+                #{updateTime},
+                #{deleted},
                 #{jsonMap, typeHandler=com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler}, #{pv})
     </insert>
 
@@ -90,7 +117,8 @@
     <!-- 更新 interact_info -->
     <update id="updateInteractInfo">
         UPDATE posts
-        SET interact_info = #{interactInfo, typeHandler=com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler}
+        SET interact_info = #{interactInfo,
+        typeHandler=com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler}
         WHERE id = #{postId}
     </update>
 
@@ -106,7 +134,6 @@
             interact_info = #{interactInfo, typeHandler=com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler},
             status = #{status},
             update_time = #{updateTime},
-            remark = #{remark},
             json_map = #{jsonMap, typeHandler=com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler},
             pv = #{pv}
         WHERE id = #{id}

@@ -48,28 +48,6 @@ public class PostsServiceImpl extends ServiceImpl<PostsMapper, Posts> implements
         return PostsConvert.INSTANCE.convert(posts);
     }
 
-
-    @Override
-    public PageResponse<PostsRespDTO> pageQueryPosts(PostsPageRequest pageRequest) {
-        List<Posts> postsList = postsMapper.pageQueryPosts(
-                pageRequest.getTitle(),
-                pageRequest.getNickName(),
-                pageRequest.getContent(),
-                pageRequest.getTag(),
-                pageRequest.getFilters(),
-                pageRequest.getPageNo().intValue(),
-                pageRequest.getPageSize().intValue(),
-                pageRequest.getSortBy() != null ? pageRequest.getSortBy().getValue() : null,
-                pageRequest.getSortOrder() != null ? pageRequest.getSortOrder().getValue() : null
-        );
-        List<PostsRespDTO> respDTOList = PostsConvert.INSTANCE.convert(postsList);
-        return new PageResponse<>(
-                pageRequest.getPageNo(),
-                pageRequest.getPageSize(),
-                respDTOList
-        );
-    }
-
     @Override
     @Transactional
     public PostsRespDTO createPosts(PostsCreateRequest createRequest) {
@@ -81,6 +59,29 @@ public class PostsServiceImpl extends ServiceImpl<PostsMapper, Posts> implements
         postsMapper.insert(posts);
         return getPostsDetailById(posts.getId());
     }
+
+    @Override
+    public PageResponse<PostsRespDTO> pageQueryPosts(PostsPageRequest pageRequest) {
+        List<Posts> postsList = postsMapper.pageQueryPosts(
+                pageRequest.getTitle(),
+                pageRequest.getNickName(),
+                pageRequest.getContent(),
+                pageRequest.getTag(),
+                pageRequest.getFilters(),
+                pageRequest.getPageNo().intValue()-1,
+                pageRequest.getPageSize().intValue(),
+                pageRequest.getSortBy() != null ? pageRequest.getSortBy() : null,
+                pageRequest.getSortOrder() != null ? pageRequest.getSortOrder() : null
+        );
+        List<PostsRespDTO> respDTOList = PostsConvert.INSTANCE.convert(postsList);
+        return new PageResponse<>(
+                pageRequest.getPageNo(),
+                pageRequest.getPageSize(),
+                respDTOList
+        );
+    }
+
+
 
     @Override
     @Transactional
