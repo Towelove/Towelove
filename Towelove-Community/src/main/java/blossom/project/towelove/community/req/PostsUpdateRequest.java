@@ -3,8 +3,10 @@ package blossom.project.towelove.community.req;
 import java.util.Date;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Map;
 
+import blossom.project.towelove.community.entity.posts.UserInfo;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -28,19 +30,26 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor
 @Builder
 public class PostsUpdateRequest  {
-    
-    @NotNull
+
+    @NotNull(message = "文章ID不能为空")
     private Long id;
 
-    @NotBlank(message = "帖子标题不能为空！！！")
+    @NotBlank(message = "文章标题不能为空")
     private String title;
 
-    @NotBlank(message = "帖子内容不能为空！！！")
+    @NotBlank(message = "文章内容不能为空")
     private String content;
 
-    private String remark;
+    @NotNull(message = "用户信息不能为空")
+    private UserInfo userInfo;
 
-    private Map<String,Object> jsonMap;
+    // 文章图片信息，以List<String>格式存储
+    private List<String> imageList;
+
+    // 文章标签信息，以List<String>格式存储
+    private List<String> tagList;
+
+    private Map<String, Object> jsonMap;
 }
 
 

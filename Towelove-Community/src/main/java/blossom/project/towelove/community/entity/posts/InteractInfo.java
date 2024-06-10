@@ -17,7 +17,6 @@ import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
-@NoArgsConstructor
 @Builder
 public class InteractInfo {
     // 收藏次数
@@ -43,4 +42,14 @@ public class InteractInfo {
 
     // 是否收藏
     private boolean collected;
+
+    // 默认构造函数
+    public InteractInfo() {
+        this.likedCount = 0;
+        this.commentCount = 0;
+        this.collectedCount = 0;
+        this.followed = false;
+        this.relation = "none";
+        this.liked = false;
+    }
 }

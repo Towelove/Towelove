@@ -41,14 +41,20 @@ public class PostsController {
 
     private final PostsService postsService;
 
+    @PostMapping("")
+    public Result<PostsRespDTO> createPosts(@RequestBody @Valid PostsCreateRequest createRequest) {
+        return Result.ok(postsService.createPosts(createRequest));
+    }
+
     @GetMapping("/{postId}")
     public Result<PostsRespDTO> getPostsDetailById(@PathVariable Long postId) {
         PostsRespDTO result = postsService.getPostsDetailById(postId);
         return Result.ok(result);
     }
 
-    @GetMapping("/page")
-    public Result<PageResponse<PostsRespDTO>> pageQueryPosts(@Validated PostsPageRequest requestParam) {
+    @PostMapping("/page")
+    public Result<PageResponse<PostsRespDTO>> pageQueryPosts(@Validated
+                                                             @RequestBody PostsPageRequest requestParam) {
         return Result.ok(postsService.pageQueryPosts(requestParam));
     }
 
@@ -65,11 +71,6 @@ public class PostsController {
     @DeleteMapping("/batch")
     public Result<Boolean> batchDeletePosts(@RequestBody List<Long> ids) {
         return Result.ok(postsService.batchDeletePosts(ids));
-    }
-
-    @PostMapping("")
-    public Result<PostsRespDTO> createPosts(@RequestBody @Valid PostsCreateRequest createRequest) {
-        return Result.ok(postsService.createPosts(createRequest));
     }
 
 

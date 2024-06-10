@@ -7,6 +7,7 @@ import blossom.project.towelove.community.req.PostsCreateRequest;
 import blossom.project.towelove.community.req.PostsUpdateRequest;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.Mappings;
 import org.mapstruct.factory.Mappers;
 
 import java.util.List;
@@ -25,30 +26,47 @@ import java.util.List;
 public interface PostsConvert {
     PostsConvert INSTANCE = Mappers.getMapper(PostsConvert.class);
 
+
+
+    @Mappings({
+            @Mapping(source = "title", target = "title"),
+            @Mapping(source = "content", target = "content"),
+            @Mapping(source = "imageList", target = "imageList"),
+            @Mapping(source = "interactInfo", target = "interactInfo"),
+            @Mapping(source = "tagList", target = "tagList"),
+            @Mapping(source = "userInfo", target = "userInfo"),
+            @Mapping(source = "jsonMap", target = "jsonMap"),
+    })
     Posts convert(PostsCreateRequest createRequest);
 
-    @Mapping(source = "id", target = "id")
-    @Mapping(source = "title", target = "title")
-    @Mapping(source = "content", target = "content")
-    @Mapping(source = "userId", target = "userId")
-    @Mapping(source = "status", target = "status")
-    @Mapping(source = "createTime", target = "createTime")
-    @Mapping(source = "updateTime", target = "updateTime")
-    @Mapping(source = "deleted", target = "deleted")
-    @Mapping(source = "remark", target = "remark")
-    @Mapping(source = "jsonMap", target = "jsonMap")
-    @Mapping(source = "likesNum", target = "likesNum")
-    @Mapping(source = "favoriteNum", target = "favoriteNum")
-    @Mapping(source = "pv", target = "pv")
-    @Mapping(source = "uv", target = "uv")
-    @Mapping(source = "comments", target = "comments")
-    @Mapping(source = "postTags", target = "postTags")
-    @Mapping(source = "postImages", target = "postImages")
+    @Mappings({
+            @Mapping(source = "id", target = "id"),
+            @Mapping(source = "title", target = "title"),
+            @Mapping(source = "content", target = "content"),
+            @Mapping(source = "imageList", target = "imageList"),
+            @Mapping(source = "tagList", target = "tagList"),
+            @Mapping(source = "userInfo", target = "userInfo"),
+            @Mapping(source = "interactInfo", target = "interactInfo"),
+            @Mapping(source = "status", target = "status"),
+            @Mapping(source = "createTime", target = "createTime"),
+            @Mapping(source = "updateTime", target = "updateTime"),
+            @Mapping(source = "deleted", target = "deleted"),
+            @Mapping(source = "jsonMap", target = "jsonMap"),
+            @Mapping(source = "pv", target = "pv")
+    })
     PostsRespDTO convert(Posts posts);
 
     List<PostsRespDTO> convert(List<Posts> records);
 
-
+    @Mappings({
+            @Mapping(source = "id", target = "id"),
+            @Mapping(source = "title", target = "title"),
+            @Mapping(source = "content", target = "content"),
+            @Mapping(source = "imageList", target = "imageList"),
+            @Mapping(source = "tagList", target = "tagList"),
+            @Mapping(source = "jsonMap", target = "jsonMap"),
+            @Mapping(source = "userInfo", target = "userInfo"),
+    })
     Posts convert(PostsUpdateRequest updateRequest);
 }
 

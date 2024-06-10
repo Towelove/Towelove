@@ -1,7 +1,9 @@
 package blossom.project.towelove.community.req;
 
+import java.util.List;
 import java.util.Map;
 
+import blossom.project.towelove.community.entity.posts.InteractInfo;
 import blossom.project.towelove.community.entity.posts.UserInfo;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -27,17 +29,22 @@ import javax.validation.constraints.NotNull;
 @Builder
 public class PostsCreateRequest  {
 
-    @NotBlank
+    @NotBlank(message = "文章标题不能为空")
     private String title;
 
-    @NotBlank
+    @NotBlank(message = "文章内容不能为空")
     private String content;
 
-    private String remark;
-
-    private Map<String,Object> jsonMap;
-
-    // 前端传递的用户信息
-    @NotNull
+    @NotNull(message = "用户信息不能为空")
     private UserInfo userInfo;
+
+    private InteractInfo interactInfo;
+
+    // 文章图片信息，以List<String>格式存储
+    private List<String> imageList;
+
+    // 文章标签信息，以List<String>格式存储
+    private List<String> tagList;
+
+    private Map<String, Object> jsonMap;
 }
