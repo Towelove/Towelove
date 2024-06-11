@@ -3,7 +3,6 @@ package blossom.project.towelove.community.convert;
 import blossom.project.towelove.community.dto.CommentsRespDTO;
 import blossom.project.towelove.community.entity.Comments;
 import blossom.project.towelove.community.req.CommentsCreateRequest;
-import blossom.project.towelove.community.req.CommentsUpdateRequest;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
@@ -34,16 +33,6 @@ public interface CommentsConvert {
     })
     Comments convert(CommentsCreateRequest createRequest);
 
-    @Mappings({
-            @Mapping(source = "id", target = "id"),
-            @Mapping(source = "userId", target = "userId"),
-            @Mapping(source = "postId", target = "postId"),
-            @Mapping(source = "userInfo", target = "userInfo"),
-            @Mapping(source = "content", target = "content"),
-            @Mapping(source = "parentId", target = "parentId"),
-            @Mapping(source = "showTags", target = "showTags")
-    })
-    Comments convert(CommentsUpdateRequest updateRequest);
 
     @Mappings({
             @Mapping(source = "id", target = "id"),

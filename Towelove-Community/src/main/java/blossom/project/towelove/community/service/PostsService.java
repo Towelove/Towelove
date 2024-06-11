@@ -3,7 +3,7 @@ package blossom.project.towelove.community.service;
 
 import blossom.project.towelove.common.page.PageResponse;
 import com.baomidou.mybatisplus.extension.service.IService;
-import blossom.project.towelove.community.entity.posts.Posts;
+import blossom.project.towelove.community.entity.Posts;
 import blossom.project.towelove.community.dto.PostsRespDTO;
 import blossom.project.towelove.community.req.PostsCreateRequest;
 import blossom.project.towelove.community.req.PostsPageRequest;

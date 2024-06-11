@@ -5,14 +5,12 @@ import blossom.project.towelove.common.exception.errorcode.BaseErrorCode;
 import blossom.project.towelove.common.page.PageResponse;
 import blossom.project.towelove.community.convert.PostsConvert;
 import blossom.project.towelove.community.dto.PostsRespDTO;
-import blossom.project.towelove.community.entity.posts.Posts;
+import blossom.project.towelove.community.entity.Posts;
 import blossom.project.towelove.community.mapper.PostsMapper;
 import blossom.project.towelove.community.req.PostsCreateRequest;
 import blossom.project.towelove.community.req.PostsPageRequest;
 import blossom.project.towelove.community.req.PostsUpdateRequest;
 import blossom.project.towelove.community.service.PostsService;
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -20,7 +18,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 /**
  * @author: ZhangBlossom

@@ -1,6 +1,7 @@
 package blossom.project.towelove.community.dto;
 
-import blossom.project.towelove.community.entity.posts.UserInfo;
+import blossom.project.towelove.community.entity.inner.PictureInfo;
+import blossom.project.towelove.community.entity.inner.UserInfo;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -13,7 +14,7 @@ import java.util.List;
  * 评论响应DTO
  * 用于返回评论信息
  *
- * @author: ZhangBlossom
+ * @autor: ZhangBlossom
  * @date: 2024-06-10
  */
 @Data
@@ -51,4 +52,16 @@ public class CommentsRespDTO {
 
     // 子评论列表
     private List<CommentsRespDTO> subComments;
+
+    // 被@的用户
+    private List<UserInfo> atUsers;
+
+    // 图片信息集合
+    private List<PictureInfo> pictureInfos;
+
+    // 当前评论是否有更多的子评论可以展开
+    private Boolean subCommentHasMore;
+
+    // 子评论数量
+    private Integer subCommentCount;
 }

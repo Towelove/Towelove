@@ -4,8 +4,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 
-import blossom.project.towelove.community.entity.posts.InteractInfo;
-import blossom.project.towelove.community.entity.posts.UserInfo;
+import blossom.project.towelove.community.entity.inner.InteractInfo;
+import blossom.project.towelove.community.entity.inner.UserInfo;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;

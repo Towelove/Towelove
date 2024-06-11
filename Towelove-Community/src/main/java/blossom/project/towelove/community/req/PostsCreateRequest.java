@@ -3,8 +3,8 @@ package blossom.project.towelove.community.req;
 import java.util.List;
 import java.util.Map;
 
-import blossom.project.towelove.community.entity.posts.InteractInfo;
-import blossom.project.towelove.community.entity.posts.UserInfo;
+import blossom.project.towelove.community.entity.inner.InteractInfo;
+import blossom.project.towelove.community.entity.inner.UserInfo;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

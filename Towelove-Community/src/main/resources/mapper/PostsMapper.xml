@@ -3,7 +3,7 @@
 <mapper namespace="blossom.project.towelove.community.mapper.PostsMapper">
 
     <!-- 结果集 -->
-    <resultMap id="PostsMap" type="blossom.project.towelove.community.entity.posts.Posts">
+    <resultMap id="PostsMap" type="blossom.project.towelove.community.entity.Posts">
         <id property="id" column="id" jdbcType="BIGINT"/>
         <result property="title" column="title" jdbcType="VARCHAR"/>
         <result property="content" column="content" jdbcType="VARCHAR"/>

@@ -1,6 +1,6 @@
 package blossom.project.towelove.community.mapper;
 
-import blossom.project.towelove.community.entity.posts.Posts;
+import blossom.project.towelove.community.entity.Posts;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;

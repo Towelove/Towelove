@@ -7,7 +7,6 @@ import blossom.project.towelove.community.entity.Comments;
 import blossom.project.towelove.community.dto.CommentsRespDTO;
 import blossom.project.towelove.community.req.CommentsCreateRequest;
 import blossom.project.towelove.community.req.CommentsPageRequest;
-import blossom.project.towelove.community.req.CommentsUpdateRequest;
 
 import java.util.List;
 
@@ -25,6 +24,10 @@ import java.util.List;
 public interface CommentsService extends IService<Comments> {
 
     CommentsRespDTO getCommentsById(Long CommentsId);
+
+    PageResponse<CommentsRespDTO> glanceQueryComments(CommentsPageRequest requestParam);
+
+    PageResponse<CommentsRespDTO> expandComment(Long parentId, int subPageNo, int subPageSize);
     
     PageResponse<CommentsRespDTO> pageQueryComments(CommentsPageRequest requestParam);
 
