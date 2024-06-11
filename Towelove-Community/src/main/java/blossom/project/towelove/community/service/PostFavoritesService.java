@@ -22,21 +22,10 @@ import java.util.List;
  * @description: 
  */
 
-public interface PostFavoritesService extends IService<PostFavorites> {
-    
-    PostFavoritesRespDTO getPostFavoritesById(Long PostFavoritesId);
-    
-    PostFavoritesRespDTO getPostFavoritesDetailById(Long postFavoritesId);
-
-    PageResponse<PostFavoritesRespDTO> pageQueryPostFavorites(PostFavoritesPageRequest requestParam);
-
-    PostFavoritesRespDTO updatePostFavorites(PostFavoritesUpdateRequest updateRequest);
-
-    Boolean deletePostFavoritesById(Long PostFavoritesId);
-
-    Boolean batchDeletePostFavorites(List<Long> ids);
-
-    PostFavoritesRespDTO createPostFavorites(PostFavoritesCreateRequest createRequest);
+public interface PostFavoritesService {
+    void favoritePost(Long postId, Long userId);
+    void unfavoritePost(Long postId, Long userId);
+    boolean isPostFavoritedByUser(Long postId, Long userId);
 }
 
 

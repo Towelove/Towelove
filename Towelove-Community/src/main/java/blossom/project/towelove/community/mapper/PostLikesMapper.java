@@ -3,6 +3,9 @@ package blossom.project.towelove.community.mapper;
 import blossom.project.towelove.community.entity.PostLikes;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 /**
  * @author: ZhangBlossom
@@ -16,7 +19,12 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface PostLikesMapper extends BaseMapper<PostLikes> {
 
+    @Update("UPDATE post_likes SET status = 1, create_time = NOW() WHERE post_id = #{postId} AND user_id = #{userId}")
+    void likePost(@Param("postId") Long postId, @Param("userId") Long userId);
+
+    @Update("UPDATE post_likes SET status = 0, create_time = NOW() WHERE post_id = #{postId} AND user_id = #{userId}")
+    void unlikePost(@Param("postId") Long postId, @Param("userId") Long userId);
+
+    @Select("SELECT COUNT(*) FROM post_likes WHERE post_id = #{postId} AND user_id = #{userId} AND status = 1")
+    int isPostLikedByUser(@Param("postId") Long postId, @Param("userId") Long userId);
 }
-
-
-

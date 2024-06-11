@@ -34,6 +34,8 @@ import blossom.project.towelove.common.page.PageRequest;
 @Builder
 public class PostsPageRequest extends PageRequest {
 
+    @NotNull(message = "userId不能为空")
+    private Long userId;
 
     // 文章标题（可选）
     private String title;
@@ -55,7 +57,5 @@ public class PostsPageRequest extends PageRequest {
 
     // 其他查询条件（可选）
     private Map<String, Object> filters;
-
-
 
 }

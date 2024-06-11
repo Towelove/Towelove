@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import blossom.project.towelove.community.entity.inner.InteractInfo;
+import blossom.project.towelove.community.entity.inner.PictureInfo;
 import blossom.project.towelove.community.entity.inner.UserInfo;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
@@ -41,7 +42,7 @@ public class PostsRespDTO {
     private UserInfo userInfo;
 
     // JSON 转换后的图片列表
-    private List<String> imageList;
+    private List<PictureInfo> imageList;
 
     // JSON 转换后的标签列表
     private List<String> tagList;

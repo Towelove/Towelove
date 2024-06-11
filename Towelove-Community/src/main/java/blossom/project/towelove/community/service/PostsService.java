@@ -24,7 +24,7 @@ import java.util.List;
 
 public interface PostsService extends IService<Posts> {
     
-    PostsRespDTO getPostsDetailById(Long postsId);
+    PostsRespDTO getPostsDetailById(Long postsId, Long userId);
 
     PageResponse<PostsRespDTO> pageQueryPosts(PostsPageRequest requestParam);
 

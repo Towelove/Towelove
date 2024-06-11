@@ -32,82 +32,25 @@ import java.util.Objects;
 @Service
 @Slf4j
 @RequiredArgsConstructor
-public class PostLikesServiceImpl extends ServiceImpl<PostLikesMapper, PostLikes> implements PostLikesService {
+public class PostLikesServiceImpl extends ServiceImpl<PostLikesMapper, PostLikes>
+        implements PostLikesService {
 
     private final PostLikesMapper postLikesMapper;
 
 
     @Override
-    public PostLikesRespDTO createPostLikes(PostLikesCreateRequest createRequest) {
-        PostLikes postLikes = PostLikesConvert.INSTANCE.convert(createRequest);
-        if (Objects.isNull(postLikes)) {
-            log.info("the postLikes is null...");
-            return null;
-        }
-        postLikesMapper.insert(postLikes);
-        PostLikesRespDTO respDTO = PostLikesConvert.INSTANCE.convert(postLikes);
-        return respDTO;
+    public void likePost(Long postId, Long userId) {
+        postLikesMapper.likePost(postId, userId);
     }
 
     @Override
-    public PostLikesRespDTO getPostLikesById(Long PostLikesId) {
-        return null;
+    public void unlikePost(Long postId, Long userId) {
+        postLikesMapper.unlikePost(postId, userId);
     }
 
     @Override
-    public PostLikesRespDTO getPostLikesDetailById(Long postLikesId) {
-        PostLikes postLikes = postLikesMapper.selectById(postLikesId);
-        if (Objects.isNull(postLikes)) {
-            log.info("the postLikes is null...");
-            return null;
-        }
-        PostLikesRespDTO respDTO = PostLikesConvert.INSTANCE.convert(postLikes);
-        return respDTO;
-    }
-
-    @Override
-    public PageResponse<PostLikesRespDTO> pageQueryPostLikes(PostLikesPageRequest pageRequest) {
-        LambdaQueryWrapper<PostLikes> lqw = new LambdaQueryWrapper<>();
-        Page<PostLikes> page = new Page(pageRequest.getPageNo(), pageRequest.getPageSize());
-        Page<PostLikes> postLikesPage = postLikesMapper.selectPage(page, lqw);
-        List<PostLikesRespDTO> respDTOList = null;
-        if (CollectionUtil.isEmpty(postLikesPage.getRecords())) {
-            respDTOList = PostLikesConvert.INSTANCE.convert(postLikesPage.getRecords());
-        }
-        return new PageResponse<>(pageRequest.getPageNo(), pageRequest.getPageSize(), respDTOList);
-    }
-
-    @Override
-    public PostLikesRespDTO updatePostLikes(PostLikesUpdateRequest updateRequest) {
-        PostLikes postLikes = postLikesMapper.selectById(updateRequest.getId());
-        if (Objects.isNull(postLikes)) {
-            log.error("the album is null");
-            throw new EntityNotFoundException("can not find postLikes whick id is: " + updateRequest.getId()
-                    , BaseErrorCode.ENTITY_NOT_FOUND);
-        }
-        try {
-            postLikesMapper.updateById(postLikes);
-            PostLikes resp = postLikesMapper.selectById(postLikes.getId());
-            PostLikesRespDTO respDTO = PostLikesConvert.INSTANCE.convert(resp);
-            return respDTO;
-        } catch (Exception e) {
-            throw e;
-        }
-
-    }
-
-    @Override
-    public Boolean deletePostLikesById(Long postLikesId) {
-        return (postLikesMapper.deleteById(postLikesId)) > 0;
-    }
-
-    @Override
-    public Boolean batchDeletePostLikes(List<Long> ids) {
-        if (CollectionUtil.isEmpty(ids)) {
-            log.info("ids is null...");
-            return true;
-        }
-        return postLikesMapper.deleteBatchIds(ids) > 0;
+    public boolean isPostLikedByUser(Long postId, Long userId) {
+        return postLikesMapper.isPostLikedByUser(postId, userId) > 0;
     }
 
 }
