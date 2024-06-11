@@ -39,78 +39,19 @@ public class PostFavoritesServiceImpl extends
 
 
     @Override
-    public PostFavoritesRespDTO createPostFavorites(PostFavoritesCreateRequest createRequest) {
-        PostFavorites postFavorites = PostFavoritesConvert.INSTANCE.convert(createRequest);
-        if (Objects.isNull(postFavorites)) {
-            log.info("the postFavorites is null...");
-            return null;
-        }
-        postFavoritesMapper.insert(postFavorites);
-        PostFavoritesRespDTO respDTO = PostFavoritesConvert.INSTANCE.convert(postFavorites);
-        return respDTO;
+    public void favoritePost(Long postId, Long userId) {
+        postFavoritesMapper.favoritePost(postId, userId);
     }
 
     @Override
-    public PostFavoritesRespDTO getPostFavoritesById(Long PostFavoritesId) {
-        return null;
+    public void unfavoritePost(Long postId, Long userId) {
+        postFavoritesMapper.unfavoritePost(postId, userId);
     }
 
     @Override
-    public PostFavoritesRespDTO getPostFavoritesDetailById(Long postFavoritesId) {
-        PostFavorites postFavorites = postFavoritesMapper.selectById(postFavoritesId);
-        if (Objects.isNull(postFavorites)) {
-            log.info("the postFavorites is null...");
-            return null;
-        }
-        PostFavoritesRespDTO respDTO = PostFavoritesConvert.INSTANCE.convert(postFavorites);
-        return respDTO;
+    public boolean isPostFavoritedByUser(Long postId, Long userId) {
+        return postFavoritesMapper.isPostFavoritedByUser(postId, userId) > 0;
     }
-
-    @Override
-    public PageResponse<PostFavoritesRespDTO> pageQueryPostFavorites(PostFavoritesPageRequest pageRequest) {
-        LambdaQueryWrapper<PostFavorites> lqw = new LambdaQueryWrapper<>();
-        Page<PostFavorites> page = new Page(pageRequest.getPageNo(), pageRequest.getPageSize());
-        Page<PostFavorites> postFavoritesPage = postFavoritesMapper.selectPage(page, lqw);
-        List<PostFavoritesRespDTO> respDTOList = null;
-        if (CollectionUtil.isEmpty(postFavoritesPage.getRecords())) {
-            respDTOList = PostFavoritesConvert.INSTANCE.convert(postFavoritesPage.getRecords());
-        }
-        return new PageResponse<>(pageRequest.getPageNo(), pageRequest.getPageSize(), respDTOList);
-    }
-
-    @Override
-    public PostFavoritesRespDTO updatePostFavorites(PostFavoritesUpdateRequest updateRequest) {
-        PostFavorites postFavorites = postFavoritesMapper.selectById(updateRequest.getId());
-        if (Objects.isNull(postFavorites)) {
-            log.error("the album is null");
-            throw new EntityNotFoundException("can not find postFavorites whick id is: " + updateRequest.getId()
-                    , BaseErrorCode.ENTITY_NOT_FOUND);
-        }
-        try {
-            postFavoritesMapper.updateById(postFavorites);
-            PostFavorites resp = postFavoritesMapper.selectById(postFavorites.getId());
-            PostFavoritesRespDTO respDTO = PostFavoritesConvert.INSTANCE.convert(resp);
-            return respDTO;
-        } catch (Exception e) {
-            throw e;
-        }
-
-    }
-
-    @Override
-    public Boolean deletePostFavoritesById(Long postFavoritesId) {
-        return (postFavoritesMapper.deleteById(postFavoritesId)) > 0;
-    }
-
-    @Override
-    public Boolean batchDeletePostFavorites(List<Long> ids) {
-        if (CollectionUtil.isEmpty(ids)) {
-            log.info("ids is null...");
-            return true;
-        }
-        return postFavoritesMapper.deleteBatchIds(ids) > 0;
-    }
-
 }
 
 

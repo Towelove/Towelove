@@ -46,9 +46,10 @@ public class PostsController {
         return Result.ok(postsService.createPosts(createRequest));
     }
 
-    @GetMapping("/{postId}")
-    public Result<PostsRespDTO> getPostsDetailById(@PathVariable Long postId) {
-        PostsRespDTO result = postsService.getPostsDetailById(postId);
+    @GetMapping("/{postId}/{userId}")
+    public Result<PostsRespDTO> getPostsDetailById(@PathVariable(value = "postId") Long postId,
+                                                   @PathVariable(value = "userId") Long userId) {
+        PostsRespDTO result = postsService.getPostsDetailById(postId, userId);
         return Result.ok(result);
     }
 

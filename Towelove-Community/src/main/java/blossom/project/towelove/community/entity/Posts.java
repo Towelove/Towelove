@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import blossom.project.towelove.community.entity.inner.InteractInfo;
+import blossom.project.towelove.community.entity.inner.PictureInfo;
 import blossom.project.towelove.community.entity.inner.UserInfo;
 import com.baomidou.mybatisplus.annotation.*;
 import com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler;
@@ -46,7 +47,7 @@ public class Posts {
 
     // 文章图片信息，存储为JSON
     @TableField(value = "image_list", typeHandler = JacksonTypeHandler.class)
-    private List<String> imageList;
+    private List<PictureInfo> imageList;
 
     // 文章标签信息，存储为JSON
     @TableField(value = "tag_list", typeHandler = JacksonTypeHandler.class)

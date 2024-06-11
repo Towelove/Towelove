@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 public class UserInfo {
 
     //用户id
-    private String userId;
+    private Long userId;
 
     //用户昵称
     private String nickname;

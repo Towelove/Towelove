@@ -22,22 +22,10 @@ import java.util.List;
  * @description: 
  */
 
-public interface PostLikesService extends IService<PostLikes> {
-    
-    PostLikesRespDTO getPostLikesById(Long PostLikesId);
-    
-    PostLikesRespDTO getPostLikesDetailById(Long postLikesId);
-
-    PageResponse<PostLikesRespDTO> pageQueryPostLikes(PostLikesPageRequest requestParam);
-
-    PostLikesRespDTO updatePostLikes(PostLikesUpdateRequest updateRequest);
-
-    Boolean deletePostLikesById(Long PostLikesId);
-
-    Boolean batchDeletePostLikes(List<Long> ids);
-
-    PostLikesRespDTO createPostLikes(PostLikesCreateRequest createRequest);
+public interface PostLikesService {
+    void likePost(Long postId, Long userId);
+    void unlikePost(Long postId, Long userId);
+    boolean isPostLikedByUser(Long postId, Long userId);
 }
-
 
 

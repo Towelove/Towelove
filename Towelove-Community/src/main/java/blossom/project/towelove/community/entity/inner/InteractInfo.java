@@ -20,13 +20,13 @@ import lombok.NoArgsConstructor;
 @Builder
 public class InteractInfo {
     // 收藏次数
-    private int collectedCount;
+    private long collectedCount;
 
     // 评论次数
-    private int commentCount;
+    private long commentCount;
 
     // 分享次数
-    private int shareCount;
+    private long shareCount;
 
     // 是否关注
     private boolean followed;
@@ -38,7 +38,7 @@ public class InteractInfo {
     private boolean liked;
 
     // 点赞次数
-    private int likedCount;
+    private long likedCount;
 
     // 是否收藏
     private boolean collected;

@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import blossom.project.towelove.community.entity.inner.InteractInfo;
+import blossom.project.towelove.community.entity.inner.PictureInfo;
 import blossom.project.towelove.community.entity.inner.UserInfo;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -41,7 +42,7 @@ public class PostsCreateRequest  {
     private InteractInfo interactInfo;
 
     // 文章图片信息，以List<String>格式存储
-    private List<String> imageList;
+    private List<PictureInfo> imageList;
 
     // 文章标签信息，以List<String>格式存储
     private List<String> tagList;
