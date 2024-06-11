@@ -5,7 +5,6 @@ import blossom.project.towelove.common.response.Result;
 import blossom.project.towelove.community.dto.CommentsRespDTO;
 import blossom.project.towelove.community.req.CommentsCreateRequest;
 import blossom.project.towelove.community.req.CommentsPageRequest;
-import blossom.project.towelove.community.req.CommentsUpdateRequest;
 import blossom.project.towelove.community.service.CommentsService;
 import blossom.project.towelove.framework.log.annotation.LoveLog;
 import lombok.RequiredArgsConstructor;
@@ -21,10 +20,6 @@ import java.util.List;
  *
  * @autor: ZhangBlossom
  * @date: 2024-06-10
- * @contact: QQ:4602197553
- * @contact: WX:zhangblossom0114
- * @blog: https://blog.csdn.net/Zhangsama1
- * @github: https://github.com/ZhangBlossom
  */
 @LoveLog
 @RestController
@@ -46,6 +41,18 @@ public class CommentsController {
     }
 
     /**
+     * 获取评论详情
+     *
+     * @param commentId 评论ID
+     * @return 评论详情信息
+     */
+    @GetMapping("/{commentId}")
+    public Result<CommentsRespDTO> getCommentDetailById(@PathVariable Long commentId) {
+        CommentsRespDTO result = commentsService.getCommentsById(commentId);
+        return Result.ok(result);
+    }
+
+    /**
      * 分页查询评论
      *
      * @param requestParam 分页查询请求参数
@@ -57,15 +64,29 @@ public class CommentsController {
     }
 
     /**
-     * 获取评论详情
+     * 瞥一眼评论区
+     * 展示五条评论，且每一条评论只展示其下面的一条子评论
      *
-     * @param commentId 评论ID
-     * @return 评论详情信息
+     * @param requestParam
+     * @return
      */
-    @GetMapping("/{commentId}")
-    public Result<CommentsRespDTO> getCommentDetailById(@PathVariable Long commentId) {
-        CommentsRespDTO result = commentsService.getCommentsById(commentId);
-        return Result.ok(result);
+    @PostMapping("/glance")
+    public Result<PageResponse<CommentsRespDTO>> glanceComments(@Validated @RequestBody CommentsPageRequest requestParam) {
+        return Result.ok(commentsService.glanceQueryComments(requestParam));
+    }
+
+
+    /**
+     * 展开子评论
+     *
+     * @return 分页查询结果
+     */
+    @PostMapping("/expand")
+    public Result<PageResponse<CommentsRespDTO>> expandComment(@RequestBody CommentsPageRequest pageRequest) {
+        return Result.ok(commentsService.expandComment(
+                pageRequest.getParentId(),
+                pageRequest.getSubPageNo(),
+                pageRequest.getSubPageSize()));
     }
 
 

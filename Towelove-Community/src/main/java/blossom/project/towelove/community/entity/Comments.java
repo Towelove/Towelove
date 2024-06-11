@@ -1,6 +1,7 @@
 package blossom.project.towelove.community.entity;
 
-import blossom.project.towelove.community.entity.posts.UserInfo;
+import blossom.project.towelove.community.entity.inner.PictureInfo;
+import blossom.project.towelove.community.entity.inner.UserInfo;
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -62,5 +63,23 @@ public class Comments {
     // 子评论列表
     @TableField(exist = false)
     private List<Comments> subComments;
+
+    //被@的用户
+    @TableField(value = "at_users", typeHandler = JacksonTypeHandler.class)
+    private List<UserInfo> atUsers;
+
+    //图片信息集合 回复的评论可以带有图片信息集合
+    @TableField(value = "picture_infos", typeHandler = JacksonTypeHandler.class)
+    private List<PictureInfo> pictureInfos;
+
+    //当前评论是否有更多的子评论可以展开？
+    @TableField(value = "sub_comment_has_more")
+    private Boolean subCommentHasMore;
+
+    //子评论数量
+    @TableField(value = "sub_comment_count")
+    private Integer subCommentCount;
+
+
 }
 

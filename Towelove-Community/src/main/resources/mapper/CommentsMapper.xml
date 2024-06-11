@@ -17,6 +17,12 @@
         <result column="likes_num" property="likesNum"/>
         <result property="showTags" column="show_tags"
                 typeHandler="com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler"/>
+        <result property="atUsers" column="at_users"
+                typeHandler="com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler"/>
+        <result property="pictureInfos" column="picture_infos"
+                typeHandler="com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler"/>
+        <result column="sub_comment_has_more" property="subCommentHasMore"/>
+        <result column="sub_comment_count" property="subCommentCount"/>
     </resultMap>
 
     <!-- 查询某个帖子的主评论并分页 -->
@@ -37,6 +43,7 @@
             LIMIT #{limit}
     </select>
 
+    <!-- 查询某个评论的子评论，限制返回数量 -->
     <select id="selectSubCommentsWithLimit" resultMap="BaseResultMap">
         SELECT *
         FROM comments
@@ -48,32 +55,44 @@
 
     <!-- 插入评论 -->
     <insert id="insert" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO comments (user_id, post_id, user_info, content, parent_id, create_time, likes_num, show_tags)
+        INSERT INTO comments (user_id, post_id, user_info, content, parent_id, create_time, likes_num, show_tags,
+                              at_users, picture_infos, sub_comment_has_more, sub_comment_count)
         VALUES (#{userId},
                 #{postId},
-                #{userInfo,
-                typeHandler=com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler},
+                #{userInfo, typeHandler=com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler},
                 #{content},
                 #{parentId},
                 #{createTime},
                 #{likesNum},
-                #{showTags,
-                typeHandler=com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler})
+                #{showTags, typeHandler=com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler},
+                #{atUsers, typeHandler=com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler},
+                #{pictureInfos, typeHandler=com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler},
+                #{subCommentHasMore},
+                #{subCommentCount})
     </insert>
+
+    <!--计算子评论数量-->
+    <select id="countSubComments" resultType="Integer">
+        SELECT COUNT(*)
+        FROM comments
+        WHERE parent_id = #{parentId}
+    </select>
 
     <!-- 更新评论 -->
     <update id="updateById">
         UPDATE comments
-        SET user_id     = #{userId},
-            post_id     = #{postId},
-            user_info   = #{userInfo,
-            typeHandler=com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler},
-            content     = #{content},
-            parent_id   = #{parentId},
-            create_time = #{createTime},
-            likes_num   = #{likesNum},
-            show_tags   = #{showTags,
-            typeHandler=com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler}
+        SET user_id              = #{userId},
+            post_id              = #{postId},
+            user_info            = #{userInfo, typeHandler=com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler},
+            content              = #{content},
+            parent_id            = #{parentId},
+            create_time          = #{createTime},
+            likes_num            = #{likesNum},
+            show_tags            = #{showTags, typeHandler=com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler},
+            at_users             = #{atUsers, typeHandler=com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler},
+            picture_infos        = #{pictureInfos, typeHandler=com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler},
+            sub_comment_has_more = #{subCommentHasMore},
+            sub_comment_count    = #{subCommentCount}
         WHERE id = #{id}
     </update>
 
@@ -91,6 +110,5 @@
             #{id}
         </foreach>
     </delete>
-
 
 </mapper>

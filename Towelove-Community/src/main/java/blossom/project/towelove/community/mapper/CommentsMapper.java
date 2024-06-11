@@ -32,4 +32,5 @@ public interface CommentsMapper extends BaseMapper<Comments> {
 
     int deleteBatchIds(@Param("list") List<Long> ids);
 
+    int countSubComments(Long parentId);
 }

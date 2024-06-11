@@ -1,6 +1,7 @@
 package blossom.project.towelove.community.req;
 
-import blossom.project.towelove.community.entity.posts.UserInfo;
+import blossom.project.towelove.community.entity.inner.PictureInfo;
+import blossom.project.towelove.community.entity.inner.UserInfo;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -12,9 +13,8 @@ import java.util.List;
 
 /**
  * 评论创建请求
- * 用于创建新的评论
- * 
- * @author: ZhangBlossom
+ *
+ * @autor: ZhangBlossom
  * @date: 2024-06-10
  */
 @Data
@@ -38,4 +38,8 @@ public class CommentsCreateRequest {
     private Long parentId;
 
     private List<String> showTags;
+
+    private List<UserInfo> atUsers;
+
+    private List<PictureInfo> pictureInfos;
 }

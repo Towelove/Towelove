@@ -1,4 +1,4 @@
-package blossom.project.towelove.community.entity.posts;
+package blossom.project.towelove.community.entity.inner;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

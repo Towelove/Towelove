@@ -2,7 +2,7 @@ package blossom.project.towelove.community.convert;
 
 
 import blossom.project.towelove.community.dto.PostsRespDTO;
-import blossom.project.towelove.community.entity.posts.Posts;
+import blossom.project.towelove.community.entity.Posts;
 import blossom.project.towelove.community.req.PostsCreateRequest;
 import blossom.project.towelove.community.req.PostsUpdateRequest;
 import org.mapstruct.Mapper;
