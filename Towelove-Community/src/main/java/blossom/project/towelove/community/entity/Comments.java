@@ -56,6 +56,10 @@ public class Comments {
     @TableField(value = "likes_num")
     private Integer likesNum;
 
+    //是否点赞了
+    @TableField(exist = false)
+    private Boolean liked;
+
     // 评论标签（是否 博主自己的评论、是否置顶等）
     @TableField(value = "show_tags", typeHandler = JacksonTypeHandler.class)
     private List<String> showTags;

@@ -3,6 +3,7 @@ package blossom.project.towelove.community.service.impl;
 import blossom.project.towelove.common.page.PageResponse;
 import blossom.project.towelove.community.convert.CommentsConvert;
 import blossom.project.towelove.community.enums.ShowTags;
+import blossom.project.towelove.community.mapper.CommentLikesMapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -35,6 +36,8 @@ public class CommentsServiceImpl extends
         ServiceImpl<CommentsMapper, Comments> implements CommentsService {
 
     private final CommentsMapper commentsMapper;
+
+    private final CommentLikesMapper commentLikesMapper;
 
     @Override
     public CommentsRespDTO createComments(CommentsCreateRequest createRequest) {
@@ -76,6 +79,9 @@ public class CommentsServiceImpl extends
                     // 将主评论转换为 DTO
                     CommentsRespDTO commentsRespDTO = CommentsConvert.INSTANCE.convert(comment);
 
+                    // 判断当前用户是否点赞了该评论
+                    commentsRespDTO.setLiked(isCommentLikedByUser(comment.getId(), requestParam.getUserId()));  // 设置 liked 字段
+
                     // 将子评论列表转换为 DTO 列表并设置到主评论的 DTO 中
                     commentsRespDTO.setSubComments(subComments.stream()
                             .map(CommentsConvert.INSTANCE::convert)
@@ -108,6 +114,11 @@ public class CommentsServiceImpl extends
         List<CommentsRespDTO> commentsRespDTOList = commentsPage.getRecords().stream()
                 .map(comment -> {
                     CommentsRespDTO commentsRespDTO = CommentsConvert.INSTANCE.convert(comment);
+
+                    //  获取当前用户是否点赞当前评论
+                    // 设置 liked 字段
+                    commentsRespDTO.setLiked(isCommentLikedByUser(comment.getId(), requestParam.getUserId()));
+
                     // 获取主评论的子评论，带分页
                     commentsRespDTO.setSubComments(getSubCommentsWithLimit(comment.getId(), requestParam.getSubPageNo(), requestParam.getSubPageSize()));
                     // 设置子评论计数和是否有更多子评论
@@ -156,10 +167,19 @@ public class CommentsServiceImpl extends
                     // 设置子评论计数和是否有更多子评论
                     commentsRespDTO.setSubCommentCount(Math.max(0, totalSubComments - offset - subPageSize));
                     commentsRespDTO.setSubCommentHasMore(offset + subPageSize < totalSubComments);
+                    // 设置 liked 字段
+                    commentsRespDTO.setLiked(isCommentLikedByUser(comment.getId(),
+                            comment.getUserId()));
+
                     return commentsRespDTO;
                 })
                 .sorted(this::compareComments) // 排序子评论
                 .collect(Collectors.toList());
+    }
+
+    //  判断当前用户是否点赞了当前评论
+    private boolean isCommentLikedByUser(Long commentId, Long userId) {
+        return commentLikesMapper.isLikedByUser(commentId, userId) > 0;
     }
 
     /**
@@ -195,12 +215,6 @@ public class CommentsServiceImpl extends
 
         return 0;
     }
-
-
-
-
-
-
 
     @Override
     public Boolean deleteCommentsById(Long commentsId) {
