@@ -47,6 +47,9 @@ public class CommentsRespDTO {
     // 点赞数量
     private Integer likesNum;
 
+    //当前评论用户是否点赞
+    private Boolean liked;
+
     // 评论标签
     private List<String> showTags;
 

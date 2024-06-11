@@ -16,6 +16,9 @@ import javax.validation.constraints.NotNull;
 @Builder
 public class CommentsPageRequest  extends PageRequest {
 
+    @NotNull(message = "用户ID不能为空")
+    private Long userId;
+
     //文章id
     @NotNull(message = "帖子ID不能为空")
     private Long postId;

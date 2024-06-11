@@ -15,6 +15,7 @@
         <result column="parent_id" property="parentId"/>
         <result column="create_time" property="createTime"/>
         <result column="likes_num" property="likesNum"/>
+        <result column="liked" property="liked"/>
         <result property="showTags" column="show_tags"
                 typeHandler="com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler"/>
         <result property="atUsers" column="at_users"
@@ -96,12 +97,21 @@
         WHERE id = #{id}
     </update>
 
+    <!-- 更新点赞数量 -->
+    <update id="updateLikeCount">
+        UPDATE comments
+        SET likes_num = #{likeCount}
+        WHERE id = #{commentId}
+    </update>
+
     <!-- 删除评论 -->
     <delete id="deleteById">
         DELETE
         FROM comments
         WHERE id = #{id}
     </delete>
+
+
 
     <!-- 批量删除评论 -->
     <delete id="deleteBatchIds">
