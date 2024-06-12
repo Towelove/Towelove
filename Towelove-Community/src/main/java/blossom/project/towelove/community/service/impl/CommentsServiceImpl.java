@@ -2,8 +2,11 @@ package blossom.project.towelove.community.service.impl;
 
 import blossom.project.towelove.common.page.PageResponse;
 import blossom.project.towelove.community.convert.CommentsConvert;
+import blossom.project.towelove.community.entity.UserBehaviors;
+import blossom.project.towelove.community.enums.BehaviorsType;
 import blossom.project.towelove.community.enums.ShowTags;
 import blossom.project.towelove.community.mapper.CommentLikesMapper;
+import blossom.project.towelove.community.mapper.UserBehaviorsMapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -39,11 +42,26 @@ public class CommentsServiceImpl extends
 
     private final CommentLikesMapper commentLikesMapper;
 
+    private final UserBehaviorsMapper userBehaviorsMapper;
+
     @Override
     public CommentsRespDTO createComments(CommentsCreateRequest createRequest) {
         Comments comment = CommentsConvert.INSTANCE.convert(createRequest);
         commentsMapper.insert(comment);
+
+
+        //记录用户行为
+        commentPostBehavior(createRequest.getUserId(),createRequest.getPostId());
         return CommentsConvert.INSTANCE.convert(comment);
+    }
+
+    private void commentPostBehavior(Long userId,Long postId){
+        // 插入用户行为记录
+        UserBehaviors userBehaviors = new UserBehaviors();
+        userBehaviors.setUserId(userId);
+        userBehaviors.setPostId(postId);
+        userBehaviors.setBehaviorType(BehaviorsType.COMMENT.getValue());
+        userBehaviorsMapper.insert(userBehaviors);
     }
 
     @Override
