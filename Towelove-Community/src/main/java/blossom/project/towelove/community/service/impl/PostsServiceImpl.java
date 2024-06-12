@@ -8,10 +8,13 @@ import blossom.project.towelove.community.dto.PostsRespDTO;
 import blossom.project.towelove.community.entity.PostFavorites;
 import blossom.project.towelove.community.entity.PostLikes;
 import blossom.project.towelove.community.entity.Posts;
+import blossom.project.towelove.community.entity.UserBehaviors;
 import blossom.project.towelove.community.entity.inner.InteractInfo;
+import blossom.project.towelove.community.enums.BehaviorsType;
 import blossom.project.towelove.community.mapper.PostsMapper;
 import blossom.project.towelove.community.mapper.PostLikesMapper;
 import blossom.project.towelove.community.mapper.PostFavoritesMapper;
+import blossom.project.towelove.community.mapper.UserBehaviorsMapper;
 import blossom.project.towelove.community.req.PostsCreateRequest;
 import blossom.project.towelove.community.req.PostsPageRequest;
 import blossom.project.towelove.community.req.PostsUpdateRequest;
@@ -37,10 +40,17 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class PostsServiceImpl extends ServiceImpl<PostsMapper, Posts> implements PostsService {
 
-    private final PostsMapper postsMapper;  // 帖子Mapper接口
-    private final PostLikesMapper postLikesMapper;  // 帖子点赞Mapper接口
-    private final PostFavoritesMapper postFavoritesMapper;  // 帖子收藏Mapper接口
+    // 帖子Mapper接口
+    private final PostsMapper postsMapper;
 
+    // 帖子点赞Mapper接口
+    private final PostLikesMapper postLikesMapper;
+
+    // 帖子收藏Mapper接口
+    private final PostFavoritesMapper postFavoritesMapper;
+
+    //  用户行为Mapper接口
+    private final UserBehaviorsMapper userBehaviorsMapper;
     /**
      * 获取帖子详情，根据帖子ID和用户ID获取详细信息
      *
@@ -74,10 +84,23 @@ public class PostsServiceImpl extends ServiceImpl<PostsMapper, Posts> implements
         interactInfo.setLikedCount(likedCount);
         interactInfo.setCollectedCount(collectedCount);
 
+        //记录用户行为
+        viewPost(userId,postsId);
+
         // 转换为 DTO 并返回
         PostsRespDTO respDTO = PostsConvert.INSTANCE.convert(posts);
         return respDTO;
     }
+
+    private void viewPost(Long userId, Long postId) {
+        // 插入用户行为记录
+        UserBehaviors userBehaviors = new UserBehaviors();
+        userBehaviors.setUserId(userId);
+        userBehaviors.setPostId(postId);
+        userBehaviors.setBehaviorType(BehaviorsType.VIEW.getValue());
+        userBehaviorsMapper.insert(userBehaviors);
+    }
+
 
     /**
      * 创建帖子

@@ -11,7 +11,7 @@ package blossom.project.towelove.community.enums;
  * @description:
  */
 
-public enum ActionType {
+public enum BehaviorsType {
 
     //浏览
     VIEW("view"),
@@ -19,12 +19,15 @@ public enum ActionType {
     LIKE("like"),
     //收藏
     FAVORITE("favorite"),
+
+    //分享
+    SHARE("share"),
     //评论
     COMMENT("comment");
 
     private final String value;
 
-    ActionType(String value) {
+    BehaviorsType(String value) {
         this.value = value;
     }
 
@@ -32,8 +35,8 @@ public enum ActionType {
         return value;
     }
 
-    public static ActionType fromValue(String value) {
-        for (ActionType type : values()) {
+    public static BehaviorsType fromValue(String value) {
+        for (BehaviorsType type : values()) {
             if (type.value.equals(value)) {
                 return type;
             }

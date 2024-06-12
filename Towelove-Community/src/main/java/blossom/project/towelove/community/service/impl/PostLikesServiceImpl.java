@@ -3,6 +3,9 @@ import blossom.project.towelove.common.exception.EntityNotFoundException;
 import blossom.project.towelove.common.exception.errorcode.BaseErrorCode;
 import blossom.project.towelove.common.page.PageResponse;
 import blossom.project.towelove.community.convert.PostLikesConvert;
+import blossom.project.towelove.community.entity.UserBehaviors;
+import blossom.project.towelove.community.enums.BehaviorsType;
+import blossom.project.towelove.community.mapper.UserBehaviorsMapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -37,11 +40,29 @@ public class PostLikesServiceImpl extends ServiceImpl<PostLikesMapper, PostLikes
 
     private final PostLikesMapper postLikesMapper;
 
+    private final UserBehaviorsMapper userBehaviorsMapper;
 
     @Override
     public void likePost(Long postId, Long userId) {
-        postLikesMapper.likePost(postId, userId);
+        PostLikes postLikes = new PostLikes();
+        postLikes.setUserId(userId);
+        postLikes.setPostId(postId);
+        postLikes.setStatus(1);
+        postLikesMapper.insert(postLikes);
+
+        likePostBehavior(userId,postId);
     }
+
+
+    private void likePostBehavior(Long userId, Long postId) {
+        // 插入用户行为记录
+        UserBehaviors userBehaviors = new UserBehaviors();
+        userBehaviors.setUserId(userId);
+        userBehaviors.setPostId(postId);
+        userBehaviors.setBehaviorType(BehaviorsType.LIKE.getValue());
+        userBehaviorsMapper.insert(userBehaviors);
+    }
+
 
     @Override
     public void unlikePost(Long postId, Long userId) {

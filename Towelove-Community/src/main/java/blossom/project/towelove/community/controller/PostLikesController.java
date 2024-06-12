@@ -1,6 +1,9 @@
 package blossom.project.towelove.community.controller;
 
 import blossom.project.towelove.common.response.Result;
+import blossom.project.towelove.community.entity.PostLikes;
+import blossom.project.towelove.community.entity.UserBehaviors;
+import blossom.project.towelove.community.mapper.UserBehaviorsMapper;
 import blossom.project.towelove.community.service.PostLikesService;
 import blossom.project.towelove.framework.log.annotation.LoveLog;
 import lombok.RequiredArgsConstructor;
@@ -18,6 +21,7 @@ public class PostLikesController {
 
     private final PostLikesService postLikesService;
 
+
     /**
      * 点赞帖子
      * @param postId 帖子ID
@@ -30,6 +34,7 @@ public class PostLikesController {
         postLikesService.likePost(postId, userId);
         return Result.ok();
     }
+
 
     /**
      * 取消点赞帖子
