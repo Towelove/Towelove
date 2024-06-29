@@ -1,14 +1,7 @@
 package blossom.project.towelove.community.req;
 
-import java.util.Date;
-
-import java.io.Serializable;
 import java.util.Map;
 
-import blossom.project.towelove.community.enums.SortBy;
-import blossom.project.towelove.community.enums.SortOrder;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

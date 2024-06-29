@@ -1,0 +1,16 @@
+# Tomcat
+# remember to update this yml
+server:
+  port: 9210
+  servlet:
+    context-path: /v1/comment
+mybatis-plus:
+  mapper-locations: classpath*:/mapper/**/*.xml
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  type-aliases-package: blossom.project.towelove.user.domain
+spring:
+  profiles:
+    active: @activeProperties@
+  main:
+    allow-bean-definition-overriding: true

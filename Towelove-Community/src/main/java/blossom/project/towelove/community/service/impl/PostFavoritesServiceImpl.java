@@ -1,27 +1,14 @@
 package blossom.project.towelove.community.service.impl;
-import blossom.project.towelove.common.exception.EntityNotFoundException;
-import blossom.project.towelove.common.exception.errorcode.BaseErrorCode;
-import blossom.project.towelove.common.page.PageResponse;
-import blossom.project.towelove.community.convert.PostFavoritesConvert;
 import blossom.project.towelove.community.entity.UserBehaviors;
-import blossom.project.towelove.community.enums.BehaviorsType;
+import blossom.project.towelove.common.enums.BehaviorsType;
 import blossom.project.towelove.community.mapper.UserBehaviorsMapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import lombok.extern.slf4j.Slf4j;
-import cn.hutool.core.collection.CollectionUtil;
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import blossom.project.towelove.community.entity.PostFavorites;
 import blossom.project.towelove.community.mapper.PostFavoritesMapper;
 import blossom.project.towelove.community.service.PostFavoritesService;
-import blossom.project.towelove.community.dto.PostFavoritesRespDTO;
-import blossom.project.towelove.community.req.PostFavoritesCreateRequest;
-import blossom.project.towelove.community.req.PostFavoritesPageRequest;
-import blossom.project.towelove.community.req.PostFavoritesUpdateRequest;
-import java.util.List;
-import java.util.Objects;
 
 /**
  * @author: ZhangBlossom

@@ -1,4 +1,4 @@
- <?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
@@ -9,14 +9,14 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>Towelove-Community</artifactId>
+    <artifactId>Towelove-Comment</artifactId>
 
     <properties>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
     </properties>
 
-    <description>Towelove-Community社区模块</description>
+    <description>Towelove-Comment评论区统一模块</description>
 
     <dependencies>
         <dependency>
@@ -62,6 +62,12 @@
         </dependency>
 
         <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-bootstrap</artifactId>
         </dependency>
@@ -77,9 +83,11 @@
             <artifactId>Towelove-Framework-MySQL</artifactId>
         </dependency>
 
+
+        <!--使用日志记录功能 排除RocketMQ-->
         <dependency>
             <groupId>blossom.project</groupId>
-            <artifactId>Towelove-Client</artifactId>
+            <artifactId>Towelove-Framework-Log</artifactId>
         </dependency>
 
         <dependency>
@@ -87,20 +95,15 @@
             <artifactId>Towelove-Common</artifactId>
         </dependency>
 
-        <!--使用日志记录功能 排除RocketMQ-->
         <dependency>
             <groupId>blossom.project</groupId>
-            <artifactId>Towelove-Framework-Log</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>blossom.project</groupId>
-                    <artifactId>Towelove-Framework-RocketMQ</artifactId>
-                </exclusion>
-            </exclusions>
+            <artifactId>Towelove-Client</artifactId>
         </dependency>
 
-
-
+        <dependency>
+            <groupId>blossom.project</groupId>
+            <artifactId>Towelove-Framework-User</artifactId>
+        </dependency>
 
     </dependencies>
 
@@ -123,7 +126,7 @@
                 </executions>
                 <configuration>
                     <layout>ZIP</layout>
-                    <mainClass>blossom.project.towelove.community.ToweloveCommunityApplication</mainClass>
+                    <mainClass>blossom.project.towelove.user.ToweloveUserApplication</mainClass>
                 </configuration>
             </plugin>
             <plugin>

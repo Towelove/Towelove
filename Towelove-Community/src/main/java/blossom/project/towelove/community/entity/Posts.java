@@ -4,9 +4,9 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 
-import blossom.project.towelove.community.entity.inner.InteractInfo;
-import blossom.project.towelove.community.entity.inner.PictureInfo;
-import blossom.project.towelove.community.entity.inner.UserInfo;
+import blossom.project.towelove.common.entity.inner.InteractInfo;
+import blossom.project.towelove.common.entity.inner.PictureInfo;
+import blossom.project.towelove.common.entity.inner.UserInfo;
 import com.baomidou.mybatisplus.annotation.*;
 import com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
