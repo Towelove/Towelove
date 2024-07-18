@@ -1,7 +1,6 @@
 spring:
   application:
     name: towelove-treehole
-
   profiles:
     active: @activeProperties@
   cloud:
@@ -31,3 +30,11 @@ spring:
         shared-configs[3]:
           data-id: towelove-rocketmq-dev.yaml
           refresh: true
+        shared-configs[4]:
+          data-id: towelove-treeHole-dev.yaml
+          refresh: true
+
+logging:
+  level:
+    com.alibaba.nacos: debug
+    org.springframework.cloud: debug

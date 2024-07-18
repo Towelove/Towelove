@@ -16,6 +16,18 @@
         <maven.compiler.target>${java.version}</maven.compiler.target>
     </properties>
 
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.volcengine</groupId>
+                <artifactId>volcengine-java-sdk-bom</artifactId>
+                <version>0.1.118</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
     <description>Towelove-TreeHole树洞模块</description>
 
     <dependencies>
@@ -105,18 +117,32 @@
             <artifactId>Towelove-Framework-User</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>com.volcengine</groupId>
+            <artifactId>volcengine-java-sdk-vpc</artifactId>
+            <version>0.1.118</version>
+        </dependency>
+        <dependency>
+            <groupId>com.volcengine</groupId>
+            <artifactId>volcengine-java-sdk-ecs</artifactId>
+            <version>0.1.118</version>
+        </dependency>
+        <dependency>
+            <groupId>com.volcengine</groupId>
+            <artifactId>volcengine-java-sdk-ark-runtime</artifactId>
+            <version>LATEST</version>
+        </dependency>
     </dependencies>
 
 
 
     <build>
         <finalName>${project.artifactId}</finalName>
-
-
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>3.3.1</version>
                 <executions>
                     <execution>
                         <goals>
@@ -141,4 +167,5 @@
             </plugin>
         </plugins>
     </build>
+
 </project>
