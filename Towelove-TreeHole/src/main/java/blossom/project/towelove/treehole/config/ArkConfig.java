@@ -1,41 +1,50 @@
 package blossom.project.towelove.treehole.config;
 
-import blossom.project.towelove.treehole.model.enums.ArkEnum;
 import com.volcengine.ark.runtime.service.ArkService;
 import lombok.Data;
+import org.springframework.beans.factory.annotation.Value;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import javax.annotation.PostConstruct;
-
 /**
+ * Ark配置类，用于配置Ark服务的相关参数以及初始化ArkService
+ *
  * @author sujia
  * @date 2024/7/18
  */
 
 @Configuration
 @Data
-@RefreshScope
-@ConfigurationProperties(prefix = "ark")
 public class ArkConfig {
     private Logger logger = LoggerFactory.getLogger(ArkConfig.class);
 
     @Value("${ark.apiKey}")
     private String apiKey;
 
-    @Value("${ark.endpointId}")
-    private String endpointId;
+    @Value("${ark.models.doubao-lite-128k}")
+    private String doubaoLite128kEndpoint;
+
+    @Value("${ark.models.doubao-lite-32k}")
+    private String doubaoLite32kEndpoint;
+
+    @Value("${ark.models.doubao-lite-4k}")
+    private String doubaoLite4kEndpoint;
+
+    @Value("${ark.models.doubao-pro-4k}")
+    private String doubaoPro4kEndpoint;
+
+    @Value("${ark.models.doubao-pro-128k}")
+    private String doubaoPro128kEndpoint;
+
+    @Value("${ark.models.doubao-pro-32k}")
+    private String doubaoPro32kEndpoint;
 
     @Bean
     public ArkService getArkService() {
         logger.info("Initializing ArkService with API Key: {}", apiKey);
-        ArkService arkService = new ArkService(apiKey);
-        ArkEnum.INSTANCE.init(apiKey, endpointId);
-        return arkService;
+        return new ArkService(apiKey);
     }
+
 }
