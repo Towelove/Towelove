@@ -46,7 +46,7 @@ runs:
         DEPLOY_CMD="sudo screen -S $SCREEN_NAME -X stuff \$'sudo ${{ inputs.deploy_script }} ${{ inputs.service_name }} ${{ inputs.service_version }} && exit\n'"
         FINAL_CREATE_CMD="$SSH_CMD \"$CREATE_SCREEN_CMD\""
         FINAL_CMD="$SSH_CMD \"$DEPLOY_CMD\""
-        echo "Executing command: $FINAL_CREATE_CMD"
+        echo "Executing create screen command: $FINAL_CREATE_CMD"
         eval $FINAL_CREATE_CMD
         echo "Executing command: $FINAL_CMD"
         eval $FINAL_CMD

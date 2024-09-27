@@ -116,6 +116,7 @@ main() {
     extract_archive "$full_tmp_path" "$parent_dir"
     set_permissions "$full_path"
     delete_file "$full_tmp_path"
+    delete_file "$parent_dir/$tmp_file"
 
     # 脚本结束执行的提示和分隔线
     log INFO "Script execution ends at $(date '+%Y-%m-%d %H:%M:%S')"
