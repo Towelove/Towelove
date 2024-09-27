@@ -123,6 +123,8 @@ jobs:
     - name: SSH Deploy
       uses: ./.github/actions/ssh-deploy
       with:
+        jump_ssh_host: ${{ secrets.JUMP_SSH_HOST }}
+        jump_ssh_user: ${{ secrets.JUMP_SSH_USER }}
         ssh_host: ${{ secrets.SSH_HOST }}
         ssh_user: ${{ secrets.SSH_USER }}
         ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
