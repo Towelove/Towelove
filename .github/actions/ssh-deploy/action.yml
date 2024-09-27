@@ -1,6 +1,12 @@
 name: 'SSH Deploy'
 description: 'Deploys application using SSH'
 inputs:
+  jump_ssh_host:
+    description: 'Jump SSH Host'
+    required: true
+  jump_ssh_user:
+    description: 'Jump SSH User'
+    required: true
   ssh_host:
     description: 'SSH Host'
     required: true
@@ -29,11 +35,16 @@ runs:
         echo "${{ inputs.ssh_private_key }}" > ~/.ssh/staging.key
         chmod 600 ~/.ssh/staging.key
         cat >>~/.ssh/config <<END
+          Host jump
+            HostName ${{ inputs.jump_ssh_host }}
+            User ${{ inputs.jump_ssh_user }}
+            IdentityFile ~/.ssh/staging.key
           Host staging
-          HostName ${{ inputs.ssh_host}}
-          User ${{ inputs.ssh_user }}
-          IdentityFile ~/.ssh/staging.key
-          StrictHostKeyChecking no
+            HostName ${{ inputs.ssh_host }}
+            User ${{ inputs.ssh_user }}
+            IdentityFile ~/.ssh/staging.key
+            ProxyJump jump
+            StrictHostKeyChecking no
         END
       shell: bash
 
