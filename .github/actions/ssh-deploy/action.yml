@@ -39,6 +39,7 @@ runs:
             HostName ${{ inputs.jump_ssh_host }}
             User ${{ inputs.jump_ssh_user }}
             IdentityFile ~/.ssh/staging.key
+            StrictHostKeyChecking no
           Host staging
             HostName ${{ inputs.ssh_host }}
             User ${{ inputs.ssh_user }}
