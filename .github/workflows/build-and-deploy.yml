@@ -121,13 +121,17 @@ jobs:
         cache-from: type=gha
         cache-to: type=gha,mode=max
     - name: SSH Deploy
-      uses: ./.github/actions/ssh-deploy
+      uses: falling42/ssh-deploy@v0.1.0
       with:
+        use_screen: 'yes'
+        use_jump_host: 'yes'
         jump_ssh_host: ${{ secrets.JUMP_SSH_HOST }}
         jump_ssh_user: ${{ secrets.JUMP_SSH_USER }}
+        jump_ssh_private_key: ${{ secrets.JUMP_SSH_PRIVATE_KEY }}
         ssh_host: ${{ secrets.SSH_HOST }}
         ssh_user: ${{ secrets.SSH_USER }}
         ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
+        execute_remote_script: 'yes'
         deploy_script: '/opt/ops/deploy.sh'
         service_name: ${{ matrix.jarName }}
         service_version: ${{ steps.meta.outputs.version }}
