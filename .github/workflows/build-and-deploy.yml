@@ -121,7 +121,7 @@ jobs:
         cache-from: type=gha
         cache-to: type=gha,mode=max
     - name: SSH Deploy
-      uses: falling42/ssh-deploy@v0.1.14
+      uses: falling42/ssh-deploy@v0.1.15
       with:
         jump_ssh_host: ${{ secrets.JUMP_SSH_HOST }}
         jump_ssh_user: ${{ secrets.JUMP_SSH_USER }}
