@@ -9,8 +9,8 @@ NC='\033[0m' # No Color
 # 定义日志文件路径
 LOG_FILE="/opt/ops/logs/deploy.log"
 # eg: REGISTRY_URL="ghcr.nju.cn/"
-REGISTRY_URL=""
-DEFAULT_IMAGE_VERSION="0.1.0"  # 假设这是你的默认版本号
+REGISTRY_URL="ghcr.hbut.net/"
+DEFAULT_IMAGE_VERSION="latest"  # 假设这是你的默认版本号
 
 # 日志函数
 log() {

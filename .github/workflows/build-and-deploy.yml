@@ -31,17 +31,17 @@ jobs:
       matrix:
         include:
           - service: 'gateway'
-            jarName: 'Towelove-Gateway'
+            fullName: 'Towelove-Gateway'
           - service: 'auth'
-            jarName: 'Towelove-Auth'
+            fullName: 'Towelove-Auth'
           - service: 'user'
-            jarName: 'Towelove-User'
+            fullName: 'Towelove-User'
           - service: 'loves'
-            jarName: 'Towelove-Loves'
+            fullName: 'Towelove-Loves'
           - service: 'msg'
-            jarName: 'Towelove-Msg'
+            fullName: 'Towelove-Msg'
           - service: 'server-center'
-            jarName: 'Towelove-Server-Center'
+            fullName: 'Towelove-Server-Center'
     steps:
     - name: Checkout repository
       uses: actions/checkout@v4  
@@ -89,7 +89,7 @@ jobs:
         </settings>
         EOF
     - name: Build with Maven
-      run: mvn clean  -B package --file pom.xml -DskipTests -P pro --settings ./settings.xml
+      run: mvn clean  -B package --file pom.xml -DskipTests -P pro --settings ./settings.xml -pl ${{ matrix.fullName }} -am
     - name: Copy Artifacts
       run: |
         mkdir staging && cp Towelove-*/target/*.jar staging
@@ -99,24 +99,32 @@ jobs:
       uses: docker/metadata-action@v5.5.1
       with:
         images: |
-          towelove/towelove-${{ matrix.service }}
+          ghcr.io/towelove/towelove-${{ matrix.service }}
         tags: |
           type=raw,value=0.1.0-${{ steps.shortsha.outputs.SHORT_SHA }}
-          type=semver,pattern={{version}}${{ github.event_name == 'workflow_dispatch' && format(',value={0}', github.event.inputs.version) || '' }}
-          type=semver,pattern={{major}}.{{minor}}${{ github.event_name == 'workflow_dispatch' && format(',value={0}', github.event.inputs.version) || '' }}
+          type=raw,value=latest
+#          type=semver,pattern={{version}}${{ github.event_name == 'workflow_dispatch' && format(',value={0}', github.event.inputs.version) || '' }}
+#          type=semver,pattern={{major}}.{{minor}}${{ github.event_name == 'workflow_dispatch' && format(',value={0}', github.event.inputs.version) || '' }}
 # TODO 更新tag规则          
 #type=ref,event=branch
-    - name: Build and push Docker image
-      uses: ./.github/actions/build-and-push-docker
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3.0.0
+    - name: Log in to ghcr.io
+      uses: docker/login-action@v3.0.0
       with:
-        dockerhub_username: ${{ secrets.DOCKERHUB_USERNAME }}
-        dockerhub_token: ${{ secrets.DOCKERHUB_TOKEN }}
+        registry: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }} # nothing to do
+    - name: Build and Push Images
+      uses: docker/build-push-action@v5.1.0
+      with:
         context: .
         file: ./Docker-Build/Dockerfile
-        build-args: SERVICE_NAME=${{ matrix.jarName }}
-        platforms: linux/amd64
-        push: true
         tags: ${{ steps.meta.outputs.tags }}
+        build-args: |
+          SERVICE_NAME=${{ matrix.fullName }}
+        push: true
+        platforms: linux/amd64
         labels: ${{ steps.meta.outputs.labels }}
         cache-from: type=gha
         cache-to: type=gha,mode=max
@@ -133,6 +141,8 @@ jobs:
         use_jump_host: 'yes'
         execute_remote_script: 'yes'
         transfer_files: 'no'
+        copy_script: 'yes'
+        source_script: './Docker-Build/scripts/deploy.sh'
         deploy_script: '/opt/ops/deploy.sh'
-        service_name: ${{ matrix.jarName }}
+        service_name: ${{ matrix.fullName }}
         service_version: ${{ steps.meta.outputs.version }}
